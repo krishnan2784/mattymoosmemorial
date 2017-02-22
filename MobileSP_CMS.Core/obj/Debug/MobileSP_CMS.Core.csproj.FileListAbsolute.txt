@@ -1,0 +1,5 @@
+C:\_projects\MLearning\MLearningCMS.Core\bin\Debug\MobileSP_CMS.Core.dll
+C:\_projects\MLearning\MLearningCMS.Core\bin\Debug\MobileSP_CMS.Core.pdb
+C:\_projects\MLearning\MLearningCMS.Core\obj\Debug\MobileSP_CMS.Core.csprojResolveAssemblyReference.cache
+C:\_projects\MLearning\MLearningCMS.Core\obj\Debug\MobileSP_CMS.Core.dll
+C:\_projects\MLearning\MLearningCMS.Core\obj\Debug\MobileSP_CMS.Core.pdb

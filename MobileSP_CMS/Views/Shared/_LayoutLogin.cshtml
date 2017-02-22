@@ -1,0 +1,34 @@
+﻿@using System.Reflection
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@ViewData["Title"] - MobileSP</title>
+        <base href="/" />
+        <link rel="stylesheet" href="~/dist/vendor.css" asp-append-version="true" />
+        <link rel="stylesheet" href="/css/login.css" asp-append-version="true" />
+    </head>
+<body>
+<div class="login-body">
+    
+    <div class="login-content">
+        @RenderBody()
+    </div>
+
+</div>
+    
+@{
+    string version = string.Empty;
+#if DEBUG
+    version = "<div class=\"cms-version\">Version " + 
+        Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion + 
+        "</div>";
+#endif
+    }
+    
+    @Html.Raw(@version)
+
+@RenderSection("scripts", required: false)
+</body>
+</html>
