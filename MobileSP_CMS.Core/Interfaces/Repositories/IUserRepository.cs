@@ -11,5 +11,6 @@ namespace MobileSP_CMS.Core.Interfaces.Repositories
     {
         Task<IApplicationUser> GetUserAsync(ILogin userDetails);
         Task<IEnumerable<string>> GetUserRoles(IApplicationUser user);
+        Task<IEnumerable<IUser>> GetUsersAsync();
     }
 }
