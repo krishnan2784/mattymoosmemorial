@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MobileSP_CMS.Core.Enumerations;
-using MobileSP_CMS.Core.Models;
+﻿using MobileSP_CMS.Core.Enumerations;
 
-namespace MobileSP_CMS.Core.Interfaces.Models
+namespace MobileSP_CMS.Core.Models.Interfaces
 {
     public interface IBaseFeed : IBaseModel
     {

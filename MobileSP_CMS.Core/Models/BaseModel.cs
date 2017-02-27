@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MobileSP_CMS.Core.Interfaces.Models;
+using MobileSP_CMS.Core.Models.Interfaces;
 
 namespace MobileSP_CMS.Core.Models
 {

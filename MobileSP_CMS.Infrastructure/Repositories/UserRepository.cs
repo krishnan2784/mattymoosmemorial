@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using MobileSP_CMS.Core.Interfaces.Models;
 using MobileSP_CMS.Core.Models;
 using MobileSPCoreService;
 using MobileSP_CMS.Core.Repositories;

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using MobileSP_CMS.Core.Interfaces.Models;
 
 namespace MobileSP_CMS.Core.Models
 {

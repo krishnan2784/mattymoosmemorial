@@ -1,6 +1,6 @@
 ﻿using System;
 using MobileSP_CMS.Core.Enumerations;
-using MobileSP_CMS.Core.Interfaces.Models;
+using MobileSP_CMS.Core.Models.Interfaces;
 
 namespace MobileSP_CMS.Core.Models
 {

@@ -59,6 +59,7 @@
     <Compile Include="Models\TextFeed.cs" />
     <Compile Include="Models\SurveyQuestionAnswer.cs" />
     <Compile Include="Models\VideoFeed.cs" />
+    <Compile Include="Repositories\IFeedRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\UserConfiguration.cs" />
