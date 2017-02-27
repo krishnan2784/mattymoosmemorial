@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using MobileSP_CMS.Core.Interfaces.Models;
-using MobileSP_CMS.Core.Interfaces.Repositories;
 using MobileSP_CMS.Core.Models;
 using MobileSPCoreService;
+using MobileSP_CMS.Core.Repositories;
 
 namespace MobileSP_CMS.Infrastructure.Repositories
 {
@@ -16,7 +16,7 @@ namespace MobileSP_CMS.Infrastructure.Repositories
     {
         private CoreContractClient _proxy;
 
-        public async Task<IApplicationUser> GetUserAsync(ILogin loginDetails)
+        public async Task<ApplicationUser> GetUserAsync(LoginDetails loginDetails)
         {
             var applicationUser = await ValidateUser(loginDetails.UserName, loginDetails.Password);
 
@@ -27,7 +27,7 @@ namespace MobileSP_CMS.Infrastructure.Repositories
             return applicationUser;
         }
 
-        private async Task<IApplicationUser> ValidateUser(string username, string password)
+        private async Task<ApplicationUser> ValidateUser(string username, string password)
         {
             var applicationUser = new ApplicationUser();
             _proxy = new CoreContractClient();
@@ -52,13 +52,13 @@ namespace MobileSP_CMS.Infrastructure.Repositories
             return applicationUser;
         }
 
-        public async Task<IEnumerable<string>> GetUserRoles(IApplicationUser user)
+        public async Task<IEnumerable<string>> GetUserRoles(ApplicationUser user)
         {
             var list = new List<string>();
             return list;
         }
 
-        public async Task<IEnumerable<IUser>> GetUsersAsync()
+        public async Task<IEnumerable<User>> GetUsersAsync()
         {
             var users = new List<User>();
             _proxy = new CoreContractClient();

@@ -7,7 +7,7 @@ using MobileSP_CMS.Core.Interfaces.Models;
 
 namespace MobileSP_CMS.Core.Models
 {
-    public class User : IUser
+    public class User 
     {
         public int Id { get; set; }
 
@@ -31,7 +31,7 @@ namespace MobileSP_CMS.Core.Models
 
         public string UserName { get; set; }
 
-        public List<IUserConfiguration> UserConfigurationList { get; set; }
+        public List<UserConfiguration> UserConfigurationList { get; set; }
         
         public string UserConfigurationJson { get; set; }
     }

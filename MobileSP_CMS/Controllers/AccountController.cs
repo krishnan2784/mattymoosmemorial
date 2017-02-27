@@ -3,8 +3,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyModel;
-using MobileSP_CMS.Core.Interfaces.Repositories;
 using MobileSP_CMS.Core.Models;
+using MobileSP_CMS.Core.Repositories;
 using MobileSP_CMS.Infrastructure.Repositories;
 
 namespace MobileSP_CMS.Controllers
