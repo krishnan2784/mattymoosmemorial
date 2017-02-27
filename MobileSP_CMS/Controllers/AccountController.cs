@@ -2,12 +2,14 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyModel;
+using MobileSP_CMS.Core.Interfaces.Repositories;
 using MobileSP_CMS.Core.Models;
 using MobileSP_CMS.Infrastructure.Repositories;
 
 namespace MobileSP_CMS.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
@@ -28,7 +30,7 @@ namespace MobileSP_CMS.Controllers
         public async Task<IActionResult> Login(LoginDetails loginDetails, string returnUrl = "/home")
         {
             ViewData["ReturnUrl"] = returnUrl;
-            var userRepo = new UserRepository();
+            var userRepo = GetService<IUserRepository>();
             var user = await userRepo.GetUserAsync(loginDetails);
 
             if (user.ValidUser)
