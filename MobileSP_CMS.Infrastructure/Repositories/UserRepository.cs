@@ -57,5 +57,27 @@ namespace MobileSP_CMS.Infrastructure.Repositories
             var list = new List<string>();
             return list;
         }
+
+        public async Task<IEnumerable<IUser>> GetUsersAsync()
+        {
+            var users = new List<User>();
+            _proxy = new CoreContractClient();
+            try
+            {
+                var response = await _proxy.GetUsersAsync(new GetUsersRequest()
+                {
+                    AccessToken = Contstants.CstAccesstoken
+                });
+                
+                var mapper = new AutoMapperGenericsHelper<UserDto, User>();
+                users = mapper.ConvertToDbEntity(response.Users);
+
+                _proxy.Dispose();
+            }
+            catch (Exception ex)
+            {
+            }
+            return users;
+        }
     }
 }

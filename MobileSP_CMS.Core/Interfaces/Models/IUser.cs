@@ -8,6 +8,8 @@ namespace MobileSP_CMS.Core.Interfaces.Models
 {
     public interface IUser
     {
+        int Id { get; set; }
+
          bool IsSelected { get; set; }
 
          string DealershipCode { get; set; }

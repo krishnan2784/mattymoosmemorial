@@ -9,6 +9,8 @@ namespace MobileSP_CMS.Core.Models
 {
     public class User : IUser
     {
+        public int Id { get; set; }
+
         public bool IsSelected { get; set; }
 
         public string DealershipCode { get; set; }

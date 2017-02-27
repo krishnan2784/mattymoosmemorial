@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using MobileSP_CMS.Core.Interfaces.Repositories;
+using MobileSP_CMS.Infrastructure.Repositories;
 
 namespace MobileSP_CMS
 {
@@ -36,6 +38,8 @@ namespace MobileSP_CMS
             services.AddMvc();
 
             services.AddDistributedMemoryCache();
+
+            services.AddTransient<IUserRepository, UserRepository>();
 
             services.AddSession(options =>
             {

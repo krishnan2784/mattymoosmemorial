@@ -1,0 +1,33 @@
+<h1>Account Management</h1>
+
+<p *ngIf="!userAccounts"><em>Loading accounts...</em></p>
+
+<table class='table' *ngIf="userAccounts">
+    <thead>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Username</th>
+        <th>Role</th>
+        <th>Dealer</th>
+        <th>Market</th>
+        <th>Created Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let userAccount of userAccounts | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}">
+        <td>{{ userAccount.firstName }}</td>
+        <td>{{ userAccount.lastName }}</td>
+        <td>{{ userAccount.userName }}</td>
+        <td>{{ userAccount.role }}</td>
+        <td>{{ userAccount.dealer }}</td>
+        <td>{{ userAccount.market }}</td>
+        <td>{{ userAccount.createdDate }}</td>
+    </tr>
+    </tbody>
+</table>
+<pagination-controls (pageChange)="page = $event" id="1"
+                     maxSize="20"
+                     directionLinks="true"
+                     autoHide="true">
+</pagination-controls>
