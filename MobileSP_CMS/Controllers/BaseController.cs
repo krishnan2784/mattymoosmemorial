@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.DotNet.Cli.Utils;
+using MobileSP_CMS.Core.Repositories;
 
 namespace MobileSP_CMS.Controllers
 {
@@ -14,6 +16,13 @@ namespace MobileSP_CMS.Controllers
         public TService GetService<TService>()
         {
             return (TService)HttpContext.RequestServices.GetService(typeof(TService));
+        }
+
+        public TRepository GetRespository<TRepository>() where TRepository : IBaseRepository
+        {
+            var repo = (TRepository)HttpContext.RequestServices.GetService(typeof(TRepository));
+            repo.AuthToken = AuthToken();
+            return repo;
         }
 
         public string AuthToken()

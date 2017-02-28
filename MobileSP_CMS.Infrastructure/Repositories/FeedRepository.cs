@@ -10,34 +10,34 @@ using MobileSP_CMS.Core.Repositories;
 
 namespace MobileSP_CMS.Infrastructure.Repositories
 {
-    public class FeedRepository : IFeedRepository
+    public class FeedRepository : BaseRepository, IFeedRepository
     {
         private MLearningCoreContractClient _proxy;
-
-        public async Task<BaseFeed> GetFeedItemAsync(int feedItemId)
+        
+        public async Task<TFeedType> GetFeedItemAsync<TFeedType>(int feedItemId) where TFeedType : BaseFeed
         {
             _proxy = new MLearningCoreContractClient();
 
             var response = await _proxy.GetFeedsAsync(new GetFeedsRequest()
             {
-                AccessToken = Contstants.CstAccesstoken,
+                AccessToken = AuthToken,
                 Criteria = new FeedCriteriaDto() { Id = feedItemId}
             });
                 
-            var mapper = new AutoMapperGenericsHelper<BaseFeedDto, BaseFeed>();
+            var mapper = new AutoMapperGenericsHelper<BaseFeedDto, TFeedType>();
             return mapper.ConvertToDbEntity(response.Feeds.FirstOrDefault());
         }
         
-        public async Task<IEnumerable<BaseFeed>> GetFeedItemsAsync()
+        public async Task<IEnumerable<TFeedType>> GetFeedItemsAsync<TFeedType>() where TFeedType : BaseFeed
         {
             _proxy = new MLearningCoreContractClient();
 
             var response = await _proxy.GetFeedsAsync(new GetFeedsRequest()
             {
-                AccessToken = Contstants.CstAccesstoken
+                AccessToken = AuthToken
             });
 
-            var mapper = new AutoMapperGenericsHelper<BaseFeedDto, BaseFeed>();
+            var mapper = new AutoMapperGenericsHelper<BaseFeedDto, TFeedType>();
             return mapper.ConvertToDbEntity(response.Feeds);
         }
     }

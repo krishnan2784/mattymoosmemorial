@@ -17,7 +17,7 @@ namespace MobileSP_CMS.Controllers
         [HttpGet("[action]")]
         public async Task<IEnumerable<User>> UserList()
         {
-            var accountRepo = GetService<IUserRepository>();
+            var accountRepo = GetRespository<IUserRepository>();
             var users = await accountRepo.GetUsersAsync();
             return users;
         }

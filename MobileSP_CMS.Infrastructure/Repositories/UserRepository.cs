@@ -11,10 +11,10 @@ using MobileSP_CMS.Core.Repositories;
 
 namespace MobileSP_CMS.Infrastructure.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : BaseRepository, IUserRepository
     {
         private CoreContractClient _proxy;
-
+        
         public async Task<ApplicationUser> GetUserAsync(LoginDetails loginDetails)
         {
             var applicationUser = await ValidateUser(loginDetails.UserName, loginDetails.Password);
@@ -33,14 +33,13 @@ namespace MobileSP_CMS.Infrastructure.Repositories
             try
             {
                 var response = await _proxy.ValidateUserAsync(new ValidateUserRequest {
-                    AccessToken = Contstants.CstAccesstoken,
+                    AccessToken = AuthToken,
                     UserName = username,
                     Password = password
                 });
 
                 applicationUser.SessionGuid = response.SessionGUID;
                 var mapper = new AutoMapperGenericsHelper<UserDto, User>();
-                var user = mapper.ConvertToDbEntity(response.CurrentUser);
                 applicationUser.UserDetails = mapper.ConvertToDbEntity(response.CurrentUser);
 
                 _proxy.Dispose();
@@ -65,7 +64,7 @@ namespace MobileSP_CMS.Infrastructure.Repositories
             {
                 var response = await _proxy.GetUsersAsync(new GetUsersRequest()
                 {
-                    AccessToken = Contstants.CstAccesstoken
+                    AccessToken = AuthToken
                 });
                 
                 var mapper = new AutoMapperGenericsHelper<UserDto, User>();
