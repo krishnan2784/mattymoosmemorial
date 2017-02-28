@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MobileSP_CMS.Core.Models
 {
-    public abstract class QuizFeed : BaseFeed
+    public class QuizFeed : BaseFeed
     {
         public virtual List<QuizQuestion> Questions { get; set; }
         public virtual string QuizDescription { get; set; }

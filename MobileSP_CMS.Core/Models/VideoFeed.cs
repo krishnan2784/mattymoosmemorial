@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MobileSP_CMS.Core.Models
 {
-    public abstract class VideoFeed : BaseFeed
+    public class VideoFeed : BaseFeed
     {
         public virtual MediaInfo MainVideo { get; set; }
         public virtual string VideoDescription { get; set; }

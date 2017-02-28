@@ -40,6 +40,7 @@ namespace MobileSP_CMS
             services.AddDistributedMemoryCache();
 
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IFeedRepository, FeedRepository>();
 
             services.AddSession(options =>
             {
