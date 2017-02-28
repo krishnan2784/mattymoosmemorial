@@ -49,7 +49,7 @@ namespace MobileSP_CMS.Controllers
                 return LocalRedirect(returnUrl);
             }
 
-            return View();
+            return View(loginDetails);
         }
 
         [HttpGet]

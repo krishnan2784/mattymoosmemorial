@@ -7,7 +7,7 @@ namespace MobileSP_CMS.Core.Repositories
 {
     public interface IFeedRepository
     {
-        Task<IBaseFeed> GetFeedItemAsync(int feedItemId);
-        Task<IEnumerable<IBaseFeed>> GetFeedRoles();
+        Task<BaseFeed> GetFeedItemAsync(int feedItemId);
+        Task<IEnumerable<BaseFeed>> GetFeedItemsAsync();
     }
 }
