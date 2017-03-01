@@ -1,17 +1,15 @@
-﻿using System ;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq ;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MobileSP_CMS.Core.Models
+namespace MobileSP_CMS.Core.Models.Interfaces
 {
     public interface IBaseRequest
     {
-        bool? Deleted {get; set;}
-        bool? Enabled {get; set;}
-        bool? Published {get; set;}
-        bool? ValidVersion {get; set;}
-        int? Version {get; set;}
+        string AccessTokenField { get; set; }
+        string CurrentCultureField { get; set; }
+        string CurrentUICultureField { get; set; }
     }
 }

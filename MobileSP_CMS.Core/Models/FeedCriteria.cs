@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MobileSP_CMS.Core.Models
 {
-    public class FeedRequest : ReadRequest, IFeedRequest
+    public class FeedCriteria : ReadCriteria, IFeedCriteria
     {
         public virtual int? Day { get; set; }
         public virtual int? Id { get; set; }

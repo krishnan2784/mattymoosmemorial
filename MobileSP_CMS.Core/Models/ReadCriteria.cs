@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MobileSP_CMS.Core.Models
 {
-    public class ReadRequest : BaseRequest, IReadRequest
+    public class ReadCriteria : BaseCriteria, IReadCriteria
     {
         public virtual string OrderBy {get; set;}
         public virtual int PageNumber {get; set;}

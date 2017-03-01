@@ -13,8 +13,8 @@ namespace MobileSP_CMS.Infrastructure.Repositories
 {
     public class UserRepository : BaseRepository, IUserRepository
     {
-        private CoreContractClient _proxy;
-        
+        private readonly CoreContractClient _proxy = new CoreContractClient();
+
         public async Task<ApplicationUser> GetUserAsync(LoginDetails loginDetails)
         {
             var applicationUser = await ValidateUser(loginDetails.UserName, loginDetails.Password);
@@ -29,11 +29,10 @@ namespace MobileSP_CMS.Infrastructure.Repositories
         private async Task<ApplicationUser> ValidateUser(string username, string password)
         {
             var applicationUser = new ApplicationUser();
-            _proxy = new CoreContractClient();
             try
             {
                 var response = await _proxy.ValidateUserAsync(new ValidateUserRequest {
-                    AccessToken = AuthToken,
+                    AccessToken = BaseRequest.AccessTokenField,
                     UserName = username,
                     Password = password
                 });
@@ -59,12 +58,11 @@ namespace MobileSP_CMS.Infrastructure.Repositories
         public async Task<IEnumerable<User>> GetUsersAsync()
         {
             var users = new List<User>();
-            _proxy = new CoreContractClient();
             try
             {
                 var response = await _proxy.GetUsersAsync(new GetUsersRequest()
                 {
-                    AccessToken = AuthToken
+                    AccessToken = BaseRequest.AccessTokenField
                 });
                 
                 var mapper = new AutoMapperGenericsHelper<UserDto, User>();

@@ -1,10 +1,11 @@
 ﻿using MobileSP_CMS.Core.Models;
+using MobileSP_CMS.Core.Models.Interfaces;
 
 namespace MobileSP_CMS.Core.Repositories
 {
     public interface IBaseRepository
     {
-        string AuthToken { get; set; }
-        IBaseRequest RequestCriteria { get; set; }
+        IBaseRequest BaseRequest { get; set; }
+        IBaseCriteria CriteriaCriteria { get; set; }
     }
 }

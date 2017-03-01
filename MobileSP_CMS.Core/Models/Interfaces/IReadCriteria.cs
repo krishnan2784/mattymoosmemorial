@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace MobileSP_CMS.Core.Models
 {
-    public interface IFeedRequest : IReadRequest
+    public interface IReadCriteria : IBaseCriteria
     {
-        int? Day { get; set; }
-        int? Id { get; set; }
-        int? MarketId { get; set; }
+        string OrderBy {get; set;}
+        int PageNumber {get; set;}
+        int PageSize {get; set;}
     }
 }
