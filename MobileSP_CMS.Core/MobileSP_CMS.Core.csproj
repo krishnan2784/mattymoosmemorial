@@ -45,6 +45,12 @@
     <Compile Include="Enumerations\QuizQuestionTypeEnum.cs" />
     <Compile Include="Enumerations\SurveyQuestionTypeEnum.cs" />
     <Compile Include="Models\BaseFeed.cs" />
+    <Compile Include="Models\FeedRequest.cs" />
+    <Compile Include="Models\Interfaces\IBaseRequest.cs" />
+    <Compile Include="Models\Interfaces\IFeedRequest.cs" />
+    <Compile Include="Models\Interfaces\IReadRequest.cs" />
+    <Compile Include="Models\ReadRequest.cs" />
+    <Compile Include="Models\BaseRequest.cs" />
     <Compile Include="Models\Interfaces\IBaseFeed.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Interfaces\IBaseModel.cs" />
@@ -59,6 +65,7 @@
     <Compile Include="Models\TextFeed.cs" />
     <Compile Include="Models\SurveyQuestionAnswer.cs" />
     <Compile Include="Models\VideoFeed.cs" />
+    <Compile Include="Repositories\IReadingRepository.cs" />
     <Compile Include="Repositories\IBaseRepository.cs" />
     <Compile Include="Repositories\IFeedRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
@@ -77,6 +84,6 @@
   </Target>
   -->
   <PropertyGroup>
-  <NuGetTargetMoniker>.NETStandard,Version=v1.6</NuGetTargetMoniker>
+    <NuGetTargetMoniker>.NETStandard,Version=v1.6</NuGetTargetMoniker>
   </PropertyGroup>
 </Project>

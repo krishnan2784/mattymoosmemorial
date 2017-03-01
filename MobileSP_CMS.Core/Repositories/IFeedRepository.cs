@@ -5,7 +5,7 @@ using MobileSP_CMS.Core.Models.Interfaces;
 
 namespace MobileSP_CMS.Core.Repositories
 {
-    public interface IFeedRepository : IBaseRepository
+    public interface IFeedRepository : IReadingRepository
     {
         Task<TFeedType> GetFeedItemAsync<TFeedType>(int feedItemId) where TFeedType : BaseFeed;
         Task<IEnumerable<TFeedType>> GetFeedItemsAsync<TFeedType>() where TFeedType : BaseFeed;
