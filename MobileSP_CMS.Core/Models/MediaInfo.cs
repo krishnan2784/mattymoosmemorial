@@ -7,7 +7,7 @@ using MobileSP_CMS.Core.Enumerations;
 
 namespace MobileSP_CMS.Core.Models
 {
-    public abstract class MediaInfo : BaseModel
+    public class MediaInfo : BaseModel
     {
         public virtual string Extension { get; set; }
         public virtual int MarketId { get; set; }

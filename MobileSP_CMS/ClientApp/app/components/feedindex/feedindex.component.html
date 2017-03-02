@@ -1,0 +1,38 @@
+<h1>Feed</h1>
+
+<p *ngIf="!feedItems"><em>Loading feed...</em></p>
+
+<table class='table' *ngIf="feedItems">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Feed Type</th>
+        <th>Feed Cat.</th>
+        <th>Points</th>
+        <th>Enabled</th>
+        <th>Published</th>
+        <th>Market Id</th>
+        <th>Created Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let feedItem of feedItems | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}">
+        <td>{{ feedItem.id }}</td>
+        <td>{{ feedItem.title }}</td>
+        <td>{{ feedItem.feedType }}</td>
+        <td>{{ feedItem.feedCategoryEnum }}</td>
+        <td>{{ feedItem.points }}</td>
+        <td>{{ feedItem.enabled }}</td>
+        <td>{{ feedItem.published }}</td>
+        <td>{{ feedItem.marketId }}</td>
+        <td>{{ feedItem.createdAt }}</td>
+    </tr>
+    </tbody>
+</table>
+<pagination-controls (pageChange)="page = $event" id="1"
+                     maxSize="20"
+                     directionLinks="true"
+                     autoHide="true">
+</pagination-controls>
+

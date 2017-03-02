@@ -10,7 +10,7 @@ namespace MobileSP_CMS.Infrastructure.Repositories
     {
         public IBaseRequest BaseRequest { get; set; }
 
-        public IBaseCriteria CriteriaCriteria { get; set; }
+        public IBaseCriteria RequestCriteria { get; set; }
 
         public TRequestBase GetRequest<TRequestBase>(IBaseRequest source) where TRequestBase : MLearningCoreService.RequestBase
         {

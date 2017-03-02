@@ -4,9 +4,9 @@ using MobileSP_CMS.Core.Models.Interfaces;
 
 namespace MobileSP_CMS.Core.Models
 {
-    public abstract class BaseFeed : IBaseFeed
+    public class BaseFeed : IBaseFeed
     {
-        public virtual DateTime CreatedAt { get; set; }
+        public virtual DateTime? CreatedAt { get; set; }
         public virtual DateTime? DeletedAt { get; set; }
         public virtual bool Enabled { get; set; }
         public virtual FeedCategoryEnum FeedCategory { get; set; }
@@ -18,6 +18,6 @@ namespace MobileSP_CMS.Core.Models
         public virtual int Points { get; set; }
         public virtual bool Published { get; set; }
         public virtual string Title { get; set; }
-        public virtual DateTime UpdatedAt { get; set; }
+        public virtual DateTime? UpdatedAt { get; set; }
     }
 }

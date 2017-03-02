@@ -8,8 +8,8 @@ namespace MobileSP_CMS.Core.Models.Interfaces
 {
     public interface IBaseRequest
     {
-        string AccessTokenField { get; set; }
-        string CurrentCultureField { get; set; }
-        string CurrentUICultureField { get; set; }
+        string AccessToken { get; set; }
+        string CurrentCulture { get; set; }
+        string CurrentUICulture { get; set; }
     }
 }

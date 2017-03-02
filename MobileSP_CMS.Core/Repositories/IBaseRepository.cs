@@ -6,6 +6,6 @@ namespace MobileSP_CMS.Core.Repositories
     public interface IBaseRepository
     {
         IBaseRequest BaseRequest { get; set; }
-        IBaseCriteria CriteriaCriteria { get; set; }
+        IBaseCriteria RequestCriteria { get; set; }
     }
 }

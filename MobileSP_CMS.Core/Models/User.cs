@@ -10,6 +10,8 @@ namespace MobileSP_CMS.Core.Models
     {
         public int Id { get; set; }
 
+        public int DefaultMarketId { get; set; }
+
         public bool IsSelected { get; set; }
 
         public string DealershipCode { get; set; }

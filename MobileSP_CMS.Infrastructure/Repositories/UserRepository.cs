@@ -32,7 +32,7 @@ namespace MobileSP_CMS.Infrastructure.Repositories
             try
             {
                 var response = await _proxy.ValidateUserAsync(new ValidateUserRequest {
-                    AccessToken = BaseRequest.AccessTokenField,
+                    AccessToken = BaseRequest.AccessToken,
                     UserName = username,
                     Password = password
                 });
@@ -62,7 +62,7 @@ namespace MobileSP_CMS.Infrastructure.Repositories
             {
                 var response = await _proxy.GetUsersAsync(new GetUsersRequest()
                 {
-                    AccessToken = BaseRequest.AccessTokenField
+                    AccessToken = BaseRequest.AccessToken
                 });
                 
                 var mapper = new AutoMapperGenericsHelper<UserDto, User>();

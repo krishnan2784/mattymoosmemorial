@@ -9,6 +9,7 @@ import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { TestComponent } from './components/test/test.component';
 import { UserAccountManagementComponent } from './components/useraccountmanagement/useraccountmanagement.component';
+import { FeedIndexComponent } from './components/feedindex/feedindex.component';
 
 @NgModule({
     bootstrap: [ AppComponent ],
@@ -19,7 +20,8 @@ import { UserAccountManagementComponent } from './components/useraccountmanageme
         FetchDataComponent,
         HomeComponent,
         TestComponent,
-        UserAccountManagementComponent
+        UserAccountManagementComponent,
+        FeedIndexComponent
     ],
     imports: [
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
@@ -31,6 +33,7 @@ import { UserAccountManagementComponent } from './components/useraccountmanageme
             { path: 'fetch-data', component: FetchDataComponent },
             { path: 'test', component: TestComponent },
             { path: 'useraccountmanagement', component: UserAccountManagementComponent },
+            { path: 'feed', component: FeedIndexComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ]

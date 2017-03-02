@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using MLearningCoreService;
 using MobileSPCoreService;
 using MobileSP_CMS.Core.Models;
 using MobileSP_CMS.Core.Models.Interfaces;
 using MobileSP_CMS.Core.Repositories;
+using MobileSP_CMS.Infrastructure;
 
 namespace MobileSP_CMS.Infrastructure.Repositories
 {
@@ -14,35 +16,39 @@ namespace MobileSP_CMS.Infrastructure.Repositories
     {
         private readonly MLearningCoreContractClient _proxy = new MLearningCoreContractClient();
 
-        public async Task<TFeedType> GetFeedItemAsync<TFeedType>(int feedItemId) where TFeedType : BaseFeed
+        public async Task<TFeedType> GetFeedItemAsync<TFeedType>() where TFeedType : BaseFeed
         {
-            CriteriaCriteria = new FeedCriteria {Id = feedItemId};
             var list = await GetFeedItemsAsync<TFeedType>();
             return list.FirstOrDefault();
         }
 
         public async Task<IEnumerable<TFeedType>> GetFeedItemsAsync<TFeedType>() where TFeedType : BaseFeed
         {
-            var request = GetRequest<GetFeedsRequest>(BaseRequest);
-            request.Criteria = GetCriteria<FeedCriteriaDto>(CriteriaCriteria);
+            try
+            {
+                var request = GetRequest<GetFeedsRequest>(BaseRequest);
 
-            var response = await _proxy.GetFeedsAsync(request);
+                request.Criteria = GetCriteria<FeedCriteriaDto>(RequestCriteria);
 
-            var mapper = new AutoMapperGenericsHelper<BaseFeedDto, TFeedType>();
-            return mapper.ConvertToDbEntity(response.Feeds);
+                var response = await _proxy.GetFeedsAsync(request);
+                
+                return response.Feeds.MapFeed<BaseFeedDto, TFeedType>();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
 
         public async Task<TFeedType> CreateFeedItemAsync<TFeedType>(TFeedType feedItem) where TFeedType : BaseFeed
         {
-            dynamic mapper = new AutoMapperGenericsHelper<TFeedType, BaseFeedDto>();
 
             var request = GetRequest<CreateFeedRequest>(BaseRequest);
-            request.CurrentFeed = mapper.ConvertToDbEntity(feedItem);
+            request.CurrentFeed = feedItem.MapFeedItem<TFeedType, BaseFeedDto>();
 
             var response = await _proxy.CreateFeedAsync(request);
-
-            mapper = new AutoMapperGenericsHelper<BaseFeedDto, TFeedType>();
-            return mapper.ConvertToDbEntity(response.CurrentFeed);
+            
+            return response.CurrentFeed.MapFeedItem<BaseFeedDto, TFeedType>();
         }
 
 

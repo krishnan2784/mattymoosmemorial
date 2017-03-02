@@ -34,7 +34,7 @@ namespace MobileSP_CMS.Controllers
         {
             ViewData["ReturnUrl"] = returnUrl;
             var userRepo = (IUserRepository)HttpContext.RequestServices.GetService(typeof(IUserRepository));
-            userRepo.BaseRequest = new BaseRequest {AccessTokenField = Contstants.CstAccesstoken};
+            userRepo.BaseRequest = new BaseRequest {AccessToken = Contstants.CstAccesstoken};
 
             var user = await userRepo.GetUserAsync(loginDetails);
 
@@ -43,7 +43,8 @@ namespace MobileSP_CMS.Controllers
                 var claims = new List<Claim>
                 {
                     new Claim("sessionguid", user.SessionGuid),
-                    new Claim("name", user.UserDetails.FirstName)
+                    new Claim("name", user.UserDetails.FirstName),
+                    new Claim("currentmarketid", "2") //user.UserDetails.DefaultMarketId.ToString() // not yer returning default market id with user
                 };
 
                 var id = new ClaimsIdentity(claims, "password");
