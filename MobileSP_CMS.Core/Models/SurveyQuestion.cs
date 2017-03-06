@@ -7,7 +7,7 @@ using MobileSP_CMS.Core.Enumerations;
 
 namespace MobileSP_CMS.Core.Models
 {
-    public abstract class SurveyQuestion : BaseModel
+    public class SurveyQuestion : BaseModel
     {
         public virtual List<SurveyQuestionAnswer> Answers { get; set; }
         public virtual int Order { get; set; }

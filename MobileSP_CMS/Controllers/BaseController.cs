@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.DotNet.Cli.Utils;
+using MobileSP_CMS.Core.Models;
 using MobileSP_CMS.Core.Models.Interfaces;
 using MobileSP_CMS.Core.Repositories;
 using MobileSP_CMS.Infrastructure;
@@ -26,7 +27,7 @@ namespace MobileSP_CMS.Controllers
         {
             var repo = (TRepository)HttpContext.RequestServices.GetService(typeof(TRepository));
             repo.BaseRequest = new BaseRequest { AccessToken = AuthToken() };
-
+            repo.RequestCriteria = new BaseCriteria {MarketId = CurrentMarketId()};
             return repo;
         }
 

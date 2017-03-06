@@ -1,4 +1,7 @@
 <h1>Feed</h1>
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#create-feed-modal">
+    Create Feed Item
+</button>
 
 <p *ngIf="!feedItems"><em>Loading feed...</em></p>
 
@@ -36,3 +39,21 @@
                      autoHide="true">
 </pagination-controls>
 
+
+<div class="modal fade" tabindex="-1" role="dialog" id="create-feed-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Create Feed Item</h4>
+            </div>
+            <div class="modal-body">
+                <createfeeditem></createfeeditem>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary save-new-feed">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

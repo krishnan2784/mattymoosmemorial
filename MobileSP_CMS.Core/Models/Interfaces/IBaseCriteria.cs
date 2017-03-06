@@ -8,6 +8,9 @@ namespace MobileSP_CMS.Core.Models
 {
     public interface IBaseCriteria
     {
+
+        int? Id { get; set; }
+        int? MarketId { get; set; }
         bool? Deleted {get; set;}
         bool? Enabled {get; set;}
         bool? Published {get; set;}

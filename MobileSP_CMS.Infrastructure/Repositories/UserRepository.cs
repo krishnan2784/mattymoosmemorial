@@ -40,7 +40,7 @@ namespace MobileSP_CMS.Infrastructure.Repositories
                 applicationUser.SessionGuid = response.SessionGUID;
                 var mapper = new AutoMapperGenericsHelper<UserDto, User>();
                 applicationUser.UserDetails = mapper.ConvertToDbEntity(response.CurrentUser);
-
+                
                 _proxy.Dispose();
             }
             catch (Exception ex)

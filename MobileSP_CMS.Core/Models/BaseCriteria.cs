@@ -8,6 +8,8 @@ namespace MobileSP_CMS.Core.Models
 {
     public class BaseCriteria : IBaseCriteria
     {
+        public virtual int? Id { get; set; }
+        public virtual int? MarketId { get; set; }
         public virtual bool? Deleted {get; set;}
         public virtual bool? Enabled {get; set;}
         public virtual bool? Published {get; set;}

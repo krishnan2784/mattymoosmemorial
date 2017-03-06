@@ -19,10 +19,6 @@ namespace MobileSP_CMS.Controllers
         public async Task<IEnumerable<BaseFeed>> GetFeedItems()
         {
             var feedRepo = GetRespository<IFeedRepository>();
-            feedRepo.RequestCriteria = new FeedCriteria
-            {
-                MarketId = CurrentMarketId()
-            };
             var feedItems = await feedRepo.GetFeedItemsAsync<BaseFeed>();
             return feedItems;
         }

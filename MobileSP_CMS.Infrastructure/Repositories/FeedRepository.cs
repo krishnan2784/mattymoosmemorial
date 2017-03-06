@@ -26,10 +26,10 @@ namespace MobileSP_CMS.Infrastructure.Repositories
         {
             try
             {
-                var request = GetRequest<GetFeedsRequest>(BaseRequest);
-
-                request.Criteria = GetCriteria<FeedCriteriaDto>(RequestCriteria);
-
+                var request = GetRequest(new GetFeedsRequest {
+                    Criteria = GetCriteria(new FeedCriteriaDto())
+                });
+                
                 var response = await _proxy.GetFeedsAsync(request);
                 
                 return response.Feeds.MapFeed<BaseFeedDto, TFeedType>();
@@ -43,7 +43,7 @@ namespace MobileSP_CMS.Infrastructure.Repositories
         public async Task<TFeedType> CreateFeedItemAsync<TFeedType>(TFeedType feedItem) where TFeedType : BaseFeed
         {
 
-            var request = GetRequest<CreateFeedRequest>(BaseRequest);
+            var request = GetRequest(new CreateFeedRequest());
             request.CurrentFeed = feedItem.MapFeedItem<TFeedType, BaseFeedDto>();
 
             var response = await _proxy.CreateFeedAsync(request);
@@ -56,8 +56,10 @@ namespace MobileSP_CMS.Infrastructure.Repositories
         {
             dynamic mapper = new AutoMapperGenericsHelper<TFeedType, BaseFeedDto>();
 
-            var request = GetRequest<UpdateFeedRequest>(BaseRequest);
-            request.CurrentFeed = mapper.ConvertToDbEntity(feedItem);
+            var request = GetRequest(new UpdateFeedRequest()
+            {
+                CurrentFeed = mapper.ConvertToDbEntity(feedItem)
+            });
 
             var response = await _proxy.UpdateFeedAsync(request);
 
@@ -68,7 +70,7 @@ namespace MobileSP_CMS.Infrastructure.Repositories
 
         public async Task<bool> DeleteFeedItemAsync(int feedItemId)
         {
-            var request = GetRequest<DeleteFeedRequest>(BaseRequest);
+            var request = GetRequest(new DeleteFeedRequest());
             request.FeedId = feedItemId;
 
             var response = await _proxy.DeleteFeedAsync(request);

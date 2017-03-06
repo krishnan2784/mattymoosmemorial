@@ -9,7 +9,5 @@ namespace MobileSP_CMS.Core.Models
     public interface IFeedCriteria : IReadCriteria
     {
         int? Day { get; set; }
-        int? Id { get; set; }
-        int? MarketId { get; set; }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
 using MLearningCoreService;
@@ -12,25 +14,76 @@ namespace MobileSP_CMS.Infrastructure
     {
         public TDestination ConvertToDbEntity(TSource model)
         {
-            var config = new MapperConfiguration(cfg => {
-                cfg.CreateMap<TSource, TDestination>().ReverseMap();
-            });
-            var mapper = config.CreateMapper();
-
-            return mapper.Map<TSource, TDestination>(model);
+            return GetStandardMapper().Map<TSource, TDestination>(model);
         }
 
         public List<TDestination> ConvertToDbEntity(List<TSource> model)
         {
+            return GetStandardMapper().Map<List<TSource>, List<TDestination>>(model);
+        }
+
+        public static IMapper GetStandardMapper()
+        {
             var config = new MapperConfiguration(cfg => {
                 cfg.CreateMap<TSource, TDestination>().ReverseMap();
             });
-
-            var mapper = config.CreateMapper();
-
-            return mapper.Map<List<TSource>, List<TDestination>>(model);
+            return config.CreateMapper();
         }
 
+        public TDestination ConvertUnpopulatedFields(TSource sourceModel, TDestination destinationModel)
+        {
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<TSource, TDestination>().IgnorePopulatedDestinationFields(destinationModel).ReverseMap();
+            });
+            var mapper = config.CreateMapper();
+            return mapper.Map(sourceModel, destinationModel);
+        }
+
+        public TDestination ConvertNonNullFields(TSource sourceModel, TDestination destinationModel)
+        {
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<TSource, TDestination>().CopyNonNullFieldsOnly(sourceModel).ReverseMap();
+                cfg.AllowNullDestinationValues = false;
+            });
+            var mapper = config.CreateMapper();
+            
+            return mapper.Map(sourceModel, destinationModel);
+        }
+
+    }
+
+    public static class MappingHelper
+    {
+
+        public static IMappingExpression<TSource, TDestination> IgnorePopulatedDestinationFields<TSource, TDestination>
+            (this IMappingExpression<TSource, TDestination> expression, TDestination destinationModel)
+        {
+            var destinationProperties = typeof(TDestination).GetProperties();
+
+            foreach (var property in destinationProperties)
+            {
+                if (property.GetValue(destinationModel) != null)
+                {
+                    expression.ForMember(property.Name, opt => opt.Ignore());
+                }
+            }
+            return expression;
+        }
+
+        public static IMappingExpression<TSource, TDestination> CopyNonNullFieldsOnly<TSource, TDestination>
+            (this IMappingExpression<TSource, TDestination> expression, TSource sourceModel)
+        {
+            var sourceProperties = typeof(TSource).GetProperties();
+
+            foreach (var sourceProperty in sourceProperties)
+            {
+                if (sourceProperty.GetValue(sourceModel) == null)
+                {
+                    expression.ForMember(sourceProperty.Name, opt => opt.Ignore());
+                }
+            }
+            return expression;
+        }
     }
 
     #region ConcreteModelMapping
@@ -39,7 +92,6 @@ namespace MobileSP_CMS.Infrastructure
 
     public static class FeedMapper
     {
-
         public static IEnumerable<TFeedDestination> MapFeed<TFeedSource,TFeedDestination>(this List<TFeedSource> sourceFeed) 
         {
             var config = new MapperConfiguration(cfg =>
@@ -73,7 +125,6 @@ namespace MobileSP_CMS.Infrastructure
             var mapper = config.CreateMapper();
             return mapper.Map<TFeedItemDestination>(feedItemSource);
         }
-
     }
 
     #endregion

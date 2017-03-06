@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MobileSP_CMS.Core.Models
 {
-    public abstract class SurveyQuestionAnswer : BaseModel
+    public class SurveyQuestionAnswer : BaseModel
     {
         public virtual string Answer { get; set;}
         public virtual bool IsFreeText { get; set; }
