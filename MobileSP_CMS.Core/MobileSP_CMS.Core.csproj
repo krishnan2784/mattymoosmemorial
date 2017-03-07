@@ -39,11 +39,38 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\Models\IApplicationUser.cs" />
-    <Compile Include="Interfaces\Models\ILogin.cs" />
-    <Compile Include="Interfaces\Models\IUser.cs" />
-    <Compile Include="Interfaces\Models\IUserConfiguration.cs" />
-    <Compile Include="Interfaces\Repositories\IUserRepository.cs" />
+    <Compile Include="Enumerations\FeedCategoryEnum.cs" />
+    <Compile Include="Enumerations\FeedTypeEnum.cs" />
+    <Compile Include="Enumerations\MediaTypesEnum.cs" />
+    <Compile Include="Enumerations\QuizQuestionTypeEnum.cs" />
+    <Compile Include="Enumerations\SurveyQuestionTypeEnum.cs" />
+    <Compile Include="Models\BaseFeed.cs" />
+    <Compile Include="Models\FeedCriteria.cs" />
+    <Compile Include="Models\Interfaces\IBaseCriteria.cs" />
+    <Compile Include="Models\BaseRequest.cs" />
+    <Compile Include="Models\Interfaces\IBaseRequest.cs" />
+    <Compile Include="Models\Interfaces\IFeedCriteria.cs" />
+    <Compile Include="Models\Interfaces\IReadCriteria.cs" />
+    <Compile Include="Models\ReadCriteria.cs" />
+    <Compile Include="Models\BaseCriteria.cs" />
+    <Compile Include="Models\Interfaces\IBaseFeed.cs" />
+    <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\Interfaces\IBaseModel.cs" />
+    <Compile Include="Models\CampaignFeed.cs" />
+    <Compile Include="Models\ImageFeed.cs" />
+    <Compile Include="Models\MediaInfo.cs" />
+    <Compile Include="Models\QuizFeed.cs" />
+    <Compile Include="Models\QuizQuestion.cs" />
+    <Compile Include="Models\QuizQuestionAnswer.cs" />
+    <Compile Include="Models\SurveyFeed.cs" />
+    <Compile Include="Models\SurveyQuestion.cs" />
+    <Compile Include="Models\TextFeed.cs" />
+    <Compile Include="Models\SurveyQuestionAnswer.cs" />
+    <Compile Include="Models\VideoFeed.cs" />
+    <Compile Include="Repositories\IReadingRepository.cs" />
+    <Compile Include="Repositories\IBaseRepository.cs" />
+    <Compile Include="Repositories\IFeedRepository.cs" />
+    <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\UserConfiguration.cs" />
     <Compile Include="Models\LoginDetails.cs" />
@@ -58,4 +85,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <NuGetTargetMoniker>.NETStandard,Version=v1.6</NuGetTargetMoniker>
+  </PropertyGroup>
 </Project>

@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace MobileSP_CMS.Core.Models
 {
-    public class LoginDetails 
+    public class TextFeed : BaseFeed
     {
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public bool RememberMe { get; set; }
+        public virtual string BodyText { get; set; }
     }
 }

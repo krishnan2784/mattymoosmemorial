@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MobileSP_CMS.Core.Interfaces.Models;
 
 namespace MobileSP_CMS.Core.Models
 {
-    public class User : IUser
+    public class User 
     {
         public int Id { get; set; }
+
+        public int DefaultMarketId { get; set; }
 
         public bool IsSelected { get; set; }
 
@@ -31,7 +32,7 @@ namespace MobileSP_CMS.Core.Models
 
         public string UserName { get; set; }
 
-        public List<IUserConfiguration> UserConfigurationList { get; set; }
+        public List<UserConfiguration> UserConfigurationList { get; set; }
         
         public string UserConfigurationJson { get; set; }
     }

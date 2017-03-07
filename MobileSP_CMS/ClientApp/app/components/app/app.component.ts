@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {  } from '@types/jquery';
+declare var $: JQueryStatic;
 
 @Component({
     selector: 'app',

@@ -5,18 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using MobileSP_CMS.Core.Interfaces.Models;
-using MobileSP_CMS.Core.Interfaces.Repositories;
 using MobileSP_CMS.Core.Models;
 using MobileSPCoreService;
+using MobileSP_CMS.Core.Repositories;
 
 namespace MobileSP_CMS.Infrastructure.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : BaseRepository, IUserRepository
     {
-        private CoreContractClient _proxy;
+        private readonly CoreContractClient _proxy = new CoreContractClient();
 
-        public async Task<IApplicationUser> GetUserAsync(ILogin loginDetails)
+        public async Task<ApplicationUser> GetUserAsync(LoginDetails loginDetails)
         {
             var applicationUser = await ValidateUser(loginDetails.UserName, loginDetails.Password);
 
@@ -27,23 +26,21 @@ namespace MobileSP_CMS.Infrastructure.Repositories
             return applicationUser;
         }
 
-        private async Task<IApplicationUser> ValidateUser(string username, string password)
+        private async Task<ApplicationUser> ValidateUser(string username, string password)
         {
             var applicationUser = new ApplicationUser();
-            _proxy = new CoreContractClient();
             try
             {
                 var response = await _proxy.ValidateUserAsync(new ValidateUserRequest {
-                    AccessToken = Contstants.CstAccesstoken,
+                    AccessToken = BaseRequest.AccessToken,
                     UserName = username,
                     Password = password
                 });
 
                 applicationUser.SessionGuid = response.SessionGUID;
                 var mapper = new AutoMapperGenericsHelper<UserDto, User>();
-                var user = mapper.ConvertToDbEntity(response.CurrentUser);
                 applicationUser.UserDetails = mapper.ConvertToDbEntity(response.CurrentUser);
-
+                
                 _proxy.Dispose();
             }
             catch (Exception ex)
@@ -52,21 +49,20 @@ namespace MobileSP_CMS.Infrastructure.Repositories
             return applicationUser;
         }
 
-        public async Task<IEnumerable<string>> GetUserRoles(IApplicationUser user)
+        public async Task<IEnumerable<string>> GetUserRoles(ApplicationUser user)
         {
             var list = new List<string>();
             return list;
         }
 
-        public async Task<IEnumerable<IUser>> GetUsersAsync()
+        public async Task<IEnumerable<User>> GetUsersAsync()
         {
             var users = new List<User>();
-            _proxy = new CoreContractClient();
             try
             {
                 var response = await _proxy.GetUsersAsync(new GetUsersRequest()
                 {
-                    AccessToken = Contstants.CstAccesstoken
+                    AccessToken = BaseRequest.AccessToken
                 });
                 
                 var mapper = new AutoMapperGenericsHelper<UserDto, User>();

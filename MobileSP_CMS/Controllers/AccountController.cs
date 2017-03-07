@@ -1,15 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyModel;
-using MobileSP_CMS.Core.Interfaces.Repositories;
 using MobileSP_CMS.Core.Models;
+using MobileSP_CMS.Core.Models.Interfaces;
+using MobileSP_CMS.Core.Repositories;
+using MobileSP_CMS.Infrastructure;
 using MobileSP_CMS.Infrastructure.Repositories;
 
 namespace MobileSP_CMS.Controllers
 {
-    public class AccountController : BaseController
+    public class AccountController : Controller
     {
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
@@ -30,7 +33,9 @@ namespace MobileSP_CMS.Controllers
         public async Task<IActionResult> Login(LoginDetails loginDetails, string returnUrl = "/home")
         {
             ViewData["ReturnUrl"] = returnUrl;
-            var userRepo = GetService<IUserRepository>();
+            var userRepo = (IUserRepository)HttpContext.RequestServices.GetService(typeof(IUserRepository));
+            userRepo.BaseRequest = new BaseRequest {AccessToken = Contstants.CstAccesstoken};
+
             var user = await userRepo.GetUserAsync(loginDetails);
 
             if (user.ValidUser)
@@ -38,7 +43,8 @@ namespace MobileSP_CMS.Controllers
                 var claims = new List<Claim>
                 {
                     new Claim("sessionguid", user.SessionGuid),
-                    new Claim("name", user.UserDetails.FirstName)
+                    new Claim("name", user.UserDetails.FirstName),
+                    new Claim("currentmarketid", "2") //user.UserDetails.DefaultMarketId.ToString() // not yer returning default market id with user
                 };
 
                 var id = new ClaimsIdentity(claims, "password");
@@ -49,7 +55,7 @@ namespace MobileSP_CMS.Controllers
                 return LocalRedirect(returnUrl);
             }
 
-            return View();
+            return View(loginDetails);
         }
 
         [HttpGet]

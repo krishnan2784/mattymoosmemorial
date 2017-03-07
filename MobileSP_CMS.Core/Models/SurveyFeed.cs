@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace MobileSP_CMS.Core.Models
 {
-    public class LoginDetails 
+    public class SurveyFeed : BaseFeed
     {
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public bool RememberMe { get; set; }
+        public virtual List<SurveyQuestion> Questions { get; set; }
+        public virtual string SurveyDescription { get; set; }
     }
 }
