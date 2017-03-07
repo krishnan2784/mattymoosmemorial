@@ -16,8 +16,9 @@ namespace MobileSP_CMS.Infrastructure.Repositories
     {
         private readonly MLearningCoreContractClient _proxy = new MLearningCoreContractClient();
 
-        public async Task<TFeedType> GetFeedItemAsync<TFeedType>() where TFeedType : BaseFeed
+        public async Task<TFeedType> GetFeedItemAsync<TFeedType>(int feedItemId) where TFeedType : BaseFeed
         {
+            RequestCriteria.Id = feedItemId;
             var list = await GetFeedItemsAsync<TFeedType>();
             return list.FirstOrDefault();
         }

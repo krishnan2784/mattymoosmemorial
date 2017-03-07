@@ -12,5 +12,8 @@ export class CreateFeedItemFormComponent {
     constructor() {
         //FormsModule.model = new FeedItem(0, );
         //submitted = false;
+        //$('.save-feed').on('click', function() {
+        //    $('.feed-item-form').submit();
+        //});
     }
 }
