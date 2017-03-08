@@ -13,7 +13,8 @@ import { CounterComponent } from './components/counter/counter.component';
 import { TestComponent } from './components/test/test.component';
 import { UserAccountManagementComponent } from './components/useraccountmanagement/useraccountmanagement.component';
 import { FeedIndexComponent } from './components/feed/feedindex.component';
-import { CreateFeedItemFormComponent } from './components/feed/createfeeditem.component';
+import { LearningIndexComponent } from './components/feed/learning/learningindex.component';
+import { CreateLearningItemFormComponent } from './components/feed/learning/createlearningfeeditem.component';
 
 @NgModule({
     bootstrap: [ AppComponent ],
@@ -27,7 +28,8 @@ import { CreateFeedItemFormComponent } from './components/feed/createfeeditem.co
         TestComponent,
         UserAccountManagementComponent,
         FeedIndexComponent,
-        CreateFeedItemFormComponent
+        LearningIndexComponent,
+        CreateLearningItemFormComponent
     ],
     imports: [
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
@@ -41,6 +43,7 @@ import { CreateFeedItemFormComponent } from './components/feed/createfeeditem.co
             { path: 'test', component: TestComponent },
             { path: 'useraccountmanagement', component: UserAccountManagementComponent },
             { path: 'feed', component: FeedIndexComponent },
+            { path: 'learning', component: LearningIndexComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ]

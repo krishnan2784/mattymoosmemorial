@@ -9,7 +9,7 @@
 export enum FeedCategoryEnum {
     Learning = 0,
     News = 1,
-    Campaign = 2
+    General = 2
 }
 export enum MediaTypes {
     Text = 0,

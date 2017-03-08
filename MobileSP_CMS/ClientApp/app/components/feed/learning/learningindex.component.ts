@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { Http } from '@angular/http';
-import Feedclasses = require("../classes/feedclasses");
+import { CreateLearningItemFormComponent} from './createlearningfeeditem.component.ts'
+import Feedclasses = require("../../classes/feedclasses");
 
 @Component({
     selector: 'feedindex',
-    template: require('./feedindex.component.html')
+    template: require('./learningindex.component.html')
 })
-export class FeedIndexComponent {
-    public feedItems: Feedclasses.BaseFeed[];
+export class LearningIndexComponent {
+    public feedItems: Feedclasses.TextFeed[];
 
     constructor(http: Http) {
         http.get('/api/Feed/GetFeedItems').subscribe(result => {

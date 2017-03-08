@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { Http } from '@angular/http';
 import { FormsModule }   from '@angular/forms';
-import FeedItem = require("../classes/feedclasses");
+import { TextFeed } from '../../classes/feedclasses.ts';
 
 @Component({
     //moduleId: module.id,
-    selector: 'createfeeditem',
-    template: require('./createfeeditem.component.html')
+    selector: 'createlearningfeeditem',
+    template: require('./createlearningfeeditem.component.html')
 })
-export class CreateFeedItemFormComponent {
+export class CreateLearningItemFormComponent {
     constructor() {
-        //FormsModule.model = new FeedItem(0, );
+        var model = new TextFeed({});
         //submitted = false;
         //$('.save-feed').on('click', function() {
         //    $('.feed-item-form').submit();

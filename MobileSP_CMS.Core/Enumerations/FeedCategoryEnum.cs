@@ -10,6 +10,6 @@ namespace MobileSP_CMS.Core.Enumerations
     {
         Learning = 0,
         News = 1,
-        Campaign = 2,
+        General = 2,
     }
 }

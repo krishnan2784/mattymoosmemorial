@@ -241,6 +241,8 @@ namespace MLearningCoreService
         
         private MLearningCoreService.MediaInfoDto MainIconField;
         
+        private System.Nullable<int> MainIconIdField;
+        
         private int MarketIdField;
         
         private int PointsField;
@@ -283,6 +285,19 @@ namespace MLearningCoreService
             set
             {
                 this.MainIconField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> MainIconId
+        {
+            get
+            {
+                return this.MainIconIdField;
+            }
+            set
+            {
+                this.MainIconIdField = value;
             }
         }
         
@@ -900,6 +915,8 @@ namespace MLearningCoreService
         
         private MLearningCoreService.MediaInfoDto MainImageField;
         
+        private System.Nullable<int> MainImageIdField;
+        
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string ImageDescription
         {
@@ -923,6 +940,19 @@ namespace MLearningCoreService
             set
             {
                 this.MainImageField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> MainImageId
+        {
+            get
+            {
+                return this.MainImageIdField;
+            }
+            set
+            {
+                this.MainImageIdField = value;
             }
         }
     }
@@ -957,6 +987,8 @@ namespace MLearningCoreService
         
         private MLearningCoreService.MediaInfoDto MainVideoField;
         
+        private System.Nullable<int> MainVideoIdField;
+        
         private string VideoDescriptionField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
@@ -969,6 +1001,19 @@ namespace MLearningCoreService
             set
             {
                 this.MainVideoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> MainVideoId
+        {
+            get
+            {
+                return this.MainVideoIdField;
+            }
+            set
+            {
+                this.MainVideoIdField = value;
             }
         }
         
@@ -1106,10 +1151,7 @@ namespace MLearningCoreService
         Learning = 0,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        News = 1,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Campaign = 2,
+        General = 1,
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
@@ -1134,6 +1176,9 @@ namespace MLearningCoreService
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         CampaignFeed = 5,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Annoucement = 6,
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
