@@ -1,3 +1,7 @@
+.navbar-header a {
+    text-decoration: none;
+}
+
 li .glyphicon {
     margin-right: 10px;
 }
@@ -68,8 +72,6 @@ li:not(.link-active) a:focus {
 }
 
 
-
-
 .sub-nav li a
 .sub-nav li a:hover,
 .sub-nav li a:focus {
@@ -124,6 +126,8 @@ li:not(.link-active) a:focus {
     font-family: 'Verdana';
     font-weight: 400;
     font-size: 18px;
+    margin-top: 15px;
+    display: inline-block;
 }
 
 .nav-top-menu  { 
@@ -134,9 +138,17 @@ li:not(.link-active) a:focus {
     margin-left: 15px;
 }
 
+.nav-top-menu .link-active .nav-top-menu-item{
+    border: 2px solid #6cc04a;
+}
+
+.nav-top-menu a:not(.link-active):hover .nav-top-menu-item {
+    background-color: #6cc04a;
+    color: #F3F3F3;
+}
 
 .header-content {
-    margin-top: 35px;
+    margin-top: 20px;
 }
 
 .navbar-header {
@@ -161,7 +173,7 @@ li:not(.link-active) a:focus {
 }
 
 .navbar-toggle {
-    margin: 0;
+    margin: 12px;
 }
 
 .navbar-default .navbar-toggle .icon-bar {
@@ -177,16 +189,19 @@ li:not(.link-active) a:focus {
 }
 
 .nav-top-menu-item a:hover, 
-.nav-top-menu-item a:active {
+.nav-top-menu-item a:active 
+.nav-top-menu-item a:focus {
     text-decoration: none;
 }
+
 
 .nav-top-menu-item {
     width: 150px;
     margin-right: 20px;
-    padding: 0 15px;
+    padding: 15px;
     margin: 0;
     display: inline-block;
+    text-align: center;
 }
 
 .nav-border-bottom {
