@@ -1,7 +1,4 @@
 <h1>Feed</h1>
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#create-feed-modal">
-    Create Feed Item
-</button>
 
 <p *ngIf="!feedItems"><em>Loading feed...</em></p>
 
@@ -39,6 +36,9 @@
                      autoHide="true">
 </pagination-controls>
 
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#create-feed-modal">
+    Create Feed Item
+</button>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="create-feed-modal">
     <div class="modal-dialog" role="document">

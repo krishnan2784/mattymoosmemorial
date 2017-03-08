@@ -1,16 +1,31 @@
 <div class='navbar-header'>
-    <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
-        <span class='sr-only'>Toggle navigation</span>
-        <span class='icon-bar'></span>
-        <span class='icon-bar'></span>
-        <span class='icon-bar'></span>
-    </button>
-    <a class='navbar-brand' [routerLink]="['/home']">M-Learning CMS</a>
-    <div class="nav-top-menu">
 
-    </div>
-    <div class="nav-top-menu-item logout-top">
-        <a href="/account/logout"> Logout</a>
+    <a class='navbar-brand' [routerLink]="['/home']"><img src="assets/images/MobileSP-LOGO-Landscape.png" class="header-logo"/></a>
+    <div class="header-content">
+        <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
+            <span class='sr-only'>Toggle navigation</span>
+            <span class='icon-bar'></span>
+            <span class='icon-bar'></span>
+            <span class='icon-bar'></span>
+        </button>
+        <div class="header-text">
+            <img src="assets/images/header-div.png"/>
+            MICROLEARNING CMS
+        </div>
+        <div class="nav-top-menu">
+            <a [routerLink]="['/useraccountmanagement']" [routerLinkActive]="['link-active']" >
+                <div class="nav-top-menu-item">
+                    Accounts
+                </div>
+            </a>
+
+            <div class="nav-top-menu-item logout-link">
+                <a href="/account/logout">
+                    Log out
+                    <img src="assets/images/logout.png" />
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -19,41 +34,63 @@
         <div class='clearfix'></div>
         <div class='navbar-collapse collapse'>
             <ul class='nav navbar-nav'>
-                <li [routerLinkActive]="['link-active']">
+                <li [routerLinkActive]="['link-active']" class="nav-border-bottom">
                     <a [routerLink]="['/home']">
-                        <span class='glyphicon glyphicon-home'></span> Home
+                        DASHBOARD
                     </a>
                 </li>
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/feed']">
-                        <span class='glyphicon glyphicon-th-list'></span> Feed
+                        CATEGORIES
                     </a>
+                    <ul class='nav navbar-nav sub-nav'>
+                        <li [routerLinkActive]="['link-active']">
+                            <a [routerLink]="['/test']">
+                                Learning
+                            </a>
+                        </li>
+                        <li [routerLinkActive]="['link-active']">
+                            <a [routerLink]="['/campaign']">
+                                Campaign
+                            </a>
+                        </li>
+                        <li [routerLinkActive]="['link-active']">
+                            <a [routerLink]="['/news']">
+                                News
+                            </a>
+                        </li>
+                        <li [routerLinkActive]="['link-active']">
+                            <a [routerLink]="['/announcement']">
+                                Announcement
+                            </a>
+                        </li>
+                        <li [routerLinkActive]="['link-active']">
+                            <a [routerLink]="['/quiz']">
+                                Quiz
+                            </a>
+                        </li>
+                        <li [routerLinkActive]="['link-active']">
+                            <a [routerLink]="['/Survey']">
+                                Survey
+                            </a>
+                        </li>
+                    </ul>
                 </li>
-                <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/useraccountmanagement']">
-                        <span class='glyphicon glyphicon-th-list'></span> Account Management
-                    </a>
-                </li>
-                <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/counter']">
-                        <span class='glyphicon glyphicon-education'></span> Counter
-                    </a>
-                </li>
-                <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/fetch-data']">
-                        <span class='glyphicon glyphicon-th-list'></span> Fetch data
-                    </a>
-                </li>
-                <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/test']">
-                        <span class='glyphicon glyphicon-th-list'></span> Test
+                <li [routerLinkActive]="['link-active']" class="nav-border-bottom nav-border-top">
+                    <a [routerLink]="['/media']">
+                        MEDIA
                     </a>
                 </li>
             </ul>
-            <ul class='nav navbar-nav logout-left'>
-                <li [routerLinkActive]="['link-active']">
+            <ul class='nav navbar-nav left-menu-compact'>
+                <li [routerLinkActive]="['link-active']" class="nav-border-bottom">
+                    <a [routerLink]="['/useraccountmanagement']">
+                        Accounts
+                    </a>
+                </li>
+                <li [routerLinkActive]="['link-active']" class="nav-border-bottom logout-left">
                     <a href="/account/logout">
-                        <span class='glyphicon glyphicon-home'></span> Logout
+                        Log out
                     </a>
                 </li>
             </ul>
