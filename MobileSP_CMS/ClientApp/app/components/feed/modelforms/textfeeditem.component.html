@@ -1,0 +1,18 @@
+
+<form [formGroup]="form" novalidate (ngSubmit)="save(form.value, form.valid)">
+    <createfeeditem [group]="form"></createfeeditem>
+    
+    <div>
+        <label>Body Text</label>
+        <input type="text" formControlName="bodyText">
+        <small [hidden]="form.controls.bodyText.valid || (form.controls.bodyText.pristine && !submitted)">
+            Body text is required.
+        </small>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+
+</form>

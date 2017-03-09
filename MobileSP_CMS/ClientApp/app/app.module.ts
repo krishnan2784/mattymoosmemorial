@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { UniversalModule } from 'angular2-universal';
 import { Ng2PaginationModule } from 'ng2-pagination';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './components/app/app.component'
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
@@ -14,7 +14,8 @@ import { TestComponent } from './components/test/test.component';
 import { UserAccountManagementComponent } from './components/useraccountmanagement/useraccountmanagement.component';
 import { FeedIndexComponent } from './components/feed/feedindex.component';
 import { LearningIndexComponent } from './components/feed/learning/learningindex.component';
-import { CreateLearningItemFormComponent } from './components/feed/learning/createlearningfeeditem.component';
+import { CreateFeedItemFormComponent } from './components/feed/createfeeditem.component';
+import { TextFeedItemFormComponent } from './components/feed/modelforms/textfeeditem.component';
 
 @NgModule({
     bootstrap: [ AppComponent ],
@@ -29,12 +30,14 @@ import { CreateLearningItemFormComponent } from './components/feed/learning/crea
         UserAccountManagementComponent,
         FeedIndexComponent,
         LearningIndexComponent,
-        CreateLearningItemFormComponent
+        CreateFeedItemFormComponent,
+        TextFeedItemFormComponent
     ],
     imports: [
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
         Ng2PaginationModule,
         FormsModule,
+        ReactiveFormsModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },

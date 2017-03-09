@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { Http } from '@angular/http';
-import Feedclasses = require("../classes/feedclasses");
+import { IFeedItem } from "../models/interfaces/feedinterfaces";
 
 @Component({
     selector: 'feedindex',
     template: require('./feedindex.component.html')
 })
 export class FeedIndexComponent {
-    public feedItems: Feedclasses.BaseFeed[];
+    public feedItems: IFeedItem[];
 
     constructor(http: Http) {
         http.get('/api/Feed/GetFeedItems').subscribe(result => {

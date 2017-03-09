@@ -2,8 +2,9 @@
 import Baseclasses = require("./baseclasses");
 import Quizclasses = require("./quizclasses");
 import Surveyclasses = require("./surveyclasses");
+import FeedInterfaces = require("./interfaces/feedinterfaces");
 
-export class BaseFeed extends Baseclasses.BaseModel {
+export class BaseFeed extends Baseclasses.BaseModel implements FeedInterfaces.IFeedItem {
     title: string;
     feedType: Enums.FeedTypeEnum;
     feedCategory: Enums.FeedCategoryEnum;
