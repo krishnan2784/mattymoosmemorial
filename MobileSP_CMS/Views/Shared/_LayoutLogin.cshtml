@@ -8,6 +8,7 @@
         <base href="/" />
         <link rel="stylesheet" href="~/dist/vendor.css" asp-append-version="true" />
         <link rel="stylesheet" href="/css/login.css" asp-append-version="true" />
+        <link rel="stylesheet" href="/css/materialize.min.css" asp-append-version="true" />
     </head>
 <body>
 <div class="login-body">
@@ -28,6 +29,10 @@
     }
     
     @Html.Raw(@version)
+    
+    @section scripts{
+        <script type="text/javascript" src="scripts/materialize.min.js"></script>
+    }
 
 @RenderSection("scripts", required: false)
 </body>
