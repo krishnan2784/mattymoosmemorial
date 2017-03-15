@@ -3,6 +3,7 @@ import Baseclasses = require("./baseclasses");
 import Quizclasses = require("./quizclasses");
 import Surveyclasses = require("./surveyclasses");
 import FeedInterfaces = require("./interfaces/feedinterfaces");
+import FeedTypeEnum = Enums.FeedTypeEnum;
 
 export class BaseFeed extends Baseclasses.BaseModel implements FeedInterfaces.IFeedItem {
     title: string;
@@ -28,6 +29,7 @@ export class CampaignFeed extends BaseFeed {
     public feeds: BaseFeed[];
     constructor(options: {} = {}) {
         super(options);
+        this.feedType = FeedTypeEnum.CampaignFeed;
         this.campaignDescription = options['CampaignDescription'] || '';
         this.feeds = options['Feeds'];
     }
@@ -48,6 +50,7 @@ export class QuizFeed extends BaseFeed {
     public quizDescription: string;
     constructor(options: {} = {}) {
         super(options);
+        this.feedType = FeedTypeEnum.Quiz;
         this.questions = options['Questions'] || '';
         this.quizDescription = options['QuizDescription'];
     }
@@ -59,6 +62,7 @@ export class SurveyFeed extends BaseFeed {
     public surveyDescription: string;
     constructor(options: {} = {}) {
         super(options);
+        this.feedType = FeedTypeEnum.Survey;
         this.questions = options['Questions'] || '';
         this.surveyDescription = options['surveyDescription'];
     }
@@ -68,6 +72,7 @@ export class TextFeed extends BaseFeed {
     public bodyText: string;
     constructor(options: {} = {}) {
         super(options);
+        this.feedType = FeedTypeEnum.Text;
         this.bodyText = options['BodyText'] || '';
     }
 }
@@ -77,6 +82,7 @@ export class VideoFeed extends BaseFeed {
     public mainVideo: Baseclasses.MediaInfo;
     constructor(options: {} = {}) {
         super(options);
+        this.feedType = FeedTypeEnum.Video;
         this.videoDescription = options['VideoDescription'] || '';
         this.mainVideo = options['MainVideo'];
     }

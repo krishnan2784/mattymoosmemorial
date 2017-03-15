@@ -14,5 +14,6 @@ namespace MobileSP_CMS.Core.Enumerations
         Quiz = 3,
         Survey = 4,
         CampaignFeed = 5,
+        Annoucement = 6
     }
 }

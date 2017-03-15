@@ -10,12 +10,12 @@ import { FooterComponent } from './components/navmenu/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
-import { TestComponent } from './components/test/test.component';
 import { UserAccountManagementComponent } from './components/useraccountmanagement/useraccountmanagement.component';
-import { FeedIndexComponent } from './components/feed/feedindex.component';
-import { LearningIndexComponent } from './components/feed/learning/learningindex.component';
-import { CreateFeedItemFormComponent } from './components/feed/createfeeditem.component';
 import { TextFeedItemFormComponent } from './components/feed/modelforms/textfeeditem.component';
+import {CreateFeedTypeSelectorComponent} from "./components/feed/createfeedtype.component";
+import { FeedIndexComponent } from "./components/feed/indexes/feedindex.component";
+import {LearningIndexComponent} from "./components/feed/indexes/learningindex.component";
+import {FeedItemForm} from "./components/feed/modelforms/feeditemform.component";
 
 @NgModule({
     bootstrap: [ AppComponent ],
@@ -26,12 +26,16 @@ import { TextFeedItemFormComponent } from './components/feed/modelforms/textfeed
         CounterComponent,
         FetchDataComponent,
         HomeComponent,
-        TestComponent,
         UserAccountManagementComponent,
+
         FeedIndexComponent,
         LearningIndexComponent,
-        CreateFeedItemFormComponent,
+
+        CreateFeedTypeSelectorComponent,
+
+        FeedItemForm,
         TextFeedItemFormComponent
+        
     ],
     imports: [
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
@@ -43,10 +47,11 @@ import { TextFeedItemFormComponent } from './components/feed/modelforms/textfeed
             { path: 'home', component: HomeComponent },
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
-            { path: 'test', component: TestComponent },
             { path: 'useraccountmanagement', component: UserAccountManagementComponent },
             { path: 'feed', component: FeedIndexComponent },
             { path: 'learning', component: LearningIndexComponent },
+            { path: 'createfeeditem', component: CreateFeedTypeSelectorComponent },
+            { path: 'textfeeditem', component: TextFeedItemFormComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ]

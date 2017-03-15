@@ -16,14 +16,14 @@ namespace MobileSP_CMS.Infrastructure.Repositories
     {
         private readonly MLearningCoreContractClient _proxy = new MLearningCoreContractClient();
 
-        public async Task<TFeedType> GetFeedItemAsync<TFeedType>(int feedItemId) where TFeedType : BaseFeed
+        public async Task<TFeedType> GetFeedItemAsync<TFeedType>(int feedItemId) where TFeedType : IBaseFeed
         {
             RequestCriteria.Id = feedItemId;
             var list = await GetFeedItemsAsync<TFeedType>();
-            return list.FirstOrDefault();
+            return list.Any() ? list.FirstOrDefault() : default(TFeedType);
         }
 
-        public async Task<IEnumerable<TFeedType>> GetFeedItemsAsync<TFeedType>() where TFeedType : BaseFeed
+        public async Task<IEnumerable<TFeedType>> GetFeedItemsAsync<TFeedType>() where TFeedType : IBaseFeed
         {
             try
             {
@@ -41,7 +41,7 @@ namespace MobileSP_CMS.Infrastructure.Repositories
             }
         }
 
-        public async Task<TFeedType> CreateFeedItemAsync<TFeedType>(TFeedType feedItem) where TFeedType : BaseFeed
+        public async Task<TFeedType> CreateFeedItemAsync<TFeedType>(TFeedType feedItem) where TFeedType : IBaseFeed
         {
 
             var request = GetRequest(new CreateFeedRequest());
@@ -53,7 +53,7 @@ namespace MobileSP_CMS.Infrastructure.Repositories
         }
 
 
-        public async Task<TFeedType> UpdateFeedItemAsync<TFeedType>(TFeedType feedItem) where TFeedType : BaseFeed
+        public async Task<TFeedType> UpdateFeedItemAsync<TFeedType>(TFeedType feedItem) where TFeedType : IBaseFeed
         {
             dynamic mapper = new AutoMapperGenericsHelper<TFeedType, BaseFeedDto>();
 

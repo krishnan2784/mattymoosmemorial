@@ -4,7 +4,8 @@
     Image = 2,
     Quiz = 3,
     Survey = 4,
-    CampaignFeed = 5
+    CampaignFeed = 5,
+    Annoucement = 6
 }
 export enum FeedCategoryEnum {
     Learning = 0,

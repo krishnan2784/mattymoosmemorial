@@ -10,6 +10,5 @@ namespace MobileSP_CMS.Core.Enumerations
     {
         Learning = 0,
         News = 1,
-        General = 2,
     }
 }

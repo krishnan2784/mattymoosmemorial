@@ -1,8 +1,8 @@
 <h1>
     Learning
-    <button type="button" class="btn btn-primary right btn-lg" data-toggle="modal" data-target="#create-feed-modal">
+    <a [routerLink]="['/createfeeditem']" class="btn btn-primary right btn-lg">
         Create Feed Item
-    </button>
+    </a>
 </h1>
 
 <p *ngIf="!feedItems"><em>Loading feed...</em></p>
@@ -19,19 +19,23 @@
         <th>Published</th>
         <th>Market Id</th>
         <th>Created Date</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let feedItem of feedItems | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}">
         <td>{{ feedItem.id }}</td>
         <td>{{ feedItem.title }}</td>
-        <td>{{ feedItem.feedType }}</td>
-        <td>{{ feedItem.feedCategoryEnum }}</td>
+        <td>{{ feedTypes[feedItem.feedType] }}</td>
+        <td>{{ feedCats[feedItem.feedCategoryEnum] }}</td>
         <td>{{ feedItem.points }}</td>
         <td>{{ feedItem.enabled }}</td>
         <td>{{ feedItem.published }}</td>
         <td>{{ feedItem.marketId }}</td>
         <td>{{ feedItem.createdAt }}</td>
+        <td>
+            <a href="/{{feedTypes[feedItem.feedType] | lowercase}}feeditem?id={{ feedItem.id }}">Edit</a>
+        </td>
     </tr>
     </tbody>
 </table>
@@ -41,7 +45,7 @@
                      autoHide="true">
 </pagination-controls>
 
-<div class="modal fade" tabindex="-1" role="dialog" id="create-feed-modal">
+<!--<div class="modal fade" tabindex="-1" role="dialog" id="create-feed-modal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -49,9 +53,9 @@
                 <h4 class="modal-title">Create Feed Item</h4>
             </div>
             <div class="modal-body">
-                <textfeeditem></textfeeditem>
+                <createfeedtypeselector></createfeedtypeselector>
             </div>
 
         </div>
     </div>
-</div>
+</div>-->

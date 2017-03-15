@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Http } from '@angular/http';
-import { IFeedItem } from "../models/interfaces/feedinterfaces";
+import { IFeedItem } from "../../models/interfaces/feedinterfaces";
 
 @Component({
     selector: 'feedindex',

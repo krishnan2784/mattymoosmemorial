@@ -7,9 +7,9 @@ namespace MobileSP_CMS.Core.Repositories
 {
     public interface IFeedRepository : IReadingRepository
     {
-        Task<TFeedType> GetFeedItemAsync<TFeedType>(int feedItemId) where TFeedType : BaseFeed;
-        Task<IEnumerable<TFeedType>> GetFeedItemsAsync<TFeedType>() where TFeedType : BaseFeed;
-        Task<TFeedType> CreateFeedItemAsync<TFeedType>(TFeedType feedItem) where TFeedType : BaseFeed;
+        Task<TFeedType> GetFeedItemAsync<TFeedType>(int feedItemId) where TFeedType : IBaseFeed;
+        Task<IEnumerable<TFeedType>> GetFeedItemsAsync<TFeedType>() where TFeedType : IBaseFeed;
+        Task<TFeedType> CreateFeedItemAsync<TFeedType>(TFeedType feedItem) where TFeedType : IBaseFeed;
         Task<bool> DeleteFeedItemAsync(int feedItemId);
     }
 }

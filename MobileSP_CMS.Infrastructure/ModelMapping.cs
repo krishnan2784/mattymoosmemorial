@@ -94,22 +94,17 @@ namespace MobileSP_CMS.Infrastructure
     {
         public static IEnumerable<TFeedDestination> MapFeed<TFeedSource,TFeedDestination>(this List<TFeedSource> sourceFeed) 
         {
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<MediaInfoDto, MediaInfo>().ReverseMap();
-                cfg.CreateMap<ImageFeedDto, ImageFeed>().ReverseMap();
-                cfg.CreateMap<TextFeedDto, TextFeed>().ReverseMap();
-                cfg.CreateMap<VideoFeedDto, VideoFeed>().ReverseMap();
-                cfg.CreateMap<QuizFeedDto, QuizFeed>().ReverseMap();
-                cfg.CreateMap<SurveyFeedDto, SurveyFeed>().ReverseMap();
-                cfg.CreateMap<CampaignFeedDto, CampaignFeed>().ReverseMap();
-                cfg.CreateMap<BaseFeedDto, BaseFeed>().ReverseMap();
-            });
-            var mapper = config.CreateMapper();
+            var mapper = FeedMap<TFeedSource, TFeedDestination>();
             return mapper.Map<IList<TFeedDestination>>(sourceFeed);
         }
 
         public static TFeedItemDestination MapFeedItem<TFeedItemSource,TFeedItemDestination>(this TFeedItemSource feedItemSource) 
+        {
+            var mapper = FeedMap<TFeedItemSource, TFeedItemDestination>();
+            return mapper.Map<TFeedItemDestination>(feedItemSource);
+        }
+
+        public static IMapper FeedMap<TSource, TDestination>()
         {
             var config = new MapperConfiguration(cfg =>
             {
@@ -121,9 +116,9 @@ namespace MobileSP_CMS.Infrastructure
                 cfg.CreateMap<SurveyFeedDto, SurveyFeed>().ReverseMap();
                 cfg.CreateMap<CampaignFeedDto, CampaignFeed>().ReverseMap();
                 cfg.CreateMap<BaseFeedDto, BaseFeed>().ReverseMap();
+                cfg.CreateMap<TSource, TDestination>().ReverseMap();
             });
-            var mapper = config.CreateMapper();
-            return mapper.Map<TFeedItemDestination>(feedItemSource);
+            return config.CreateMapper();
         }
     }
 
