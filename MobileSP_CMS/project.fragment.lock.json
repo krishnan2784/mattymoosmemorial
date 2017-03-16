@@ -5,13 +5,14 @@
       "type": "project",
       "framework": ".NETStandard,Version=v1.6",
       "compile": {
-        "bin/Debug/MobileSP_CMS.Core.dll": {}
+        "bin/Debug/.net.dll": {}
       },
       "runtime": {
-        "bin/Debug/MobileSP_CMS.Core.dll": {}
+        "../../../../Users/Matthew.Felton/.nuget/packages/System.Runtime.Serialization.Primitives/4.1.1/ref/netstandard1.3/System.Runtime.Serialization.Primitives.dll": {},
+        "bin/Debug/.net.dll": {}
       },
       "contentFiles": {
-        "bin/Debug/MobileSP_CMS.Core.pdb": {
+        "bin/Debug/.net.pdb": {
           "buildAction": "None",
           "codeLanguage": "any",
           "copyToOutput": true

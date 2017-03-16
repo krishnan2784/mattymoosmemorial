@@ -11,8 +11,8 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using MobileSP_CMS.Core.Repositories;
 using MobileSP_CMS.Infrastructure.Repositories;
+using MobileSP_CMS.Infrastructure.Repositories.Interfaces;
 
 namespace MobileSP_CMS
 {

@@ -1,9 +1,16 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using MobileSP_CMS.Core.Enumerations;
 using MobileSP_CMS.Core.Models.Interfaces;
 
 namespace MobileSP_CMS.Core.Models
 {
+    [KnownTypeAttribute(typeof(ImageFeed))]
+    [KnownTypeAttribute(typeof(TextFeed))]
+    [KnownTypeAttribute(typeof(VideoFeed))]
+    [KnownTypeAttribute(typeof(QuizFeed))]
+    [KnownTypeAttribute(typeof(SurveyFeed))]
+    [KnownTypeAttribute(typeof(CampaignFeed))]
     public class BaseFeed : IBaseFeed
     {
         public virtual DateTime? CreatedAt { get; set; }

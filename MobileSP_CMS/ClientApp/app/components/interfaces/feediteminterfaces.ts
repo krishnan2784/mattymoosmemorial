@@ -6,8 +6,14 @@ import { IFeedItem } from "../models/interfaces/feedinterfaces";
 export interface IFeedItemForm {
     _fb: FormBuilder;
     form: FormGroup;
-    selectedFeedItemId: number;
     model: IFeedItem;
+    selectedFeedItemId: number;
+    updateURL: string;
+    deleteURL: string;
+    getUrl: string;
+
     initialiseForm();
     addFormControls(form: FormGroup);
+    getModel();
+
 }

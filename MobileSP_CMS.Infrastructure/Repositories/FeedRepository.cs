@@ -7,8 +7,8 @@ using MLearningCoreService;
 using MobileSPCoreService;
 using MobileSP_CMS.Core.Models;
 using MobileSP_CMS.Core.Models.Interfaces;
-using MobileSP_CMS.Core.Repositories;
 using MobileSP_CMS.Infrastructure;
+using MobileSP_CMS.Infrastructure.Repositories.Interfaces;
 
 namespace MobileSP_CMS.Infrastructure.Repositories
 {
@@ -16,14 +16,14 @@ namespace MobileSP_CMS.Infrastructure.Repositories
     {
         private readonly MLearningCoreContractClient _proxy = new MLearningCoreContractClient();
 
-        public async Task<TFeedType> GetFeedItemAsync<TFeedType>(int feedItemId) where TFeedType : IBaseFeed
+        public async Task<dynamic> GetFeedItemAsync(int feedItemId)
         {
             RequestCriteria.Id = feedItemId;
-            var list = await GetFeedItemsAsync<TFeedType>();
-            return list.Any() ? list.FirstOrDefault() : default(TFeedType);
+            var list = await GetFeedItemsAsync();
+            return list.Any() ? list.FirstOrDefault() : new BaseFeed();
         }
 
-        public async Task<IEnumerable<TFeedType>> GetFeedItemsAsync<TFeedType>() where TFeedType : IBaseFeed
+        public async Task<IEnumerable<dynamic>> GetFeedItemsAsync() 
         {
             try
             {
@@ -33,7 +33,7 @@ namespace MobileSP_CMS.Infrastructure.Repositories
                 
                 var response = await _proxy.GetFeedsAsync(request);
                 
-                return response.Feeds.MapFeed<BaseFeedDto, TFeedType>();
+                return response.Feeds;
             }
             catch (Exception e)
             {
@@ -41,31 +41,34 @@ namespace MobileSP_CMS.Infrastructure.Repositories
             }
         }
 
-        public async Task<TFeedType> CreateFeedItemAsync<TFeedType>(TFeedType feedItem) where TFeedType : IBaseFeed
+        public async Task<dynamic> CreateFeedItemAsync<TFeedItem, TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed
+            where TDestinationDto : BaseFeedDto
         {
-
-            var request = GetRequest(new CreateFeedRequest());
-            request.CurrentFeed = feedItem.MapFeedItem<TFeedType, BaseFeedDto>();
+            var request = GetRequest(new CreateFeedRequest()
+            {
+                CurrentFeed = feedItem.MapFeedItem<TFeedItem, TDestinationDto>()
+            });
 
             var response = await _proxy.CreateFeedAsync(request);
             
-            return response.CurrentFeed.MapFeedItem<BaseFeedDto, TFeedType>();
+            return response.CurrentFeed.MapFeedItem<BaseFeedDto, dynamic>(); ;
         }
 
 
-        public async Task<TFeedType> UpdateFeedItemAsync<TFeedType>(TFeedType feedItem) where TFeedType : IBaseFeed
+        public async Task<dynamic> UpdateFeedItemAsync<TFeedItem, TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed
+            where TDestinationDto : BaseFeedDto
         {
-            dynamic mapper = new AutoMapperGenericsHelper<TFeedType, BaseFeedDto>();
+            var originalFeedItem = await GetFeedItemAsync(feedItem.Id);
+            feedItem = FeedMapper.ConvertUnpopulatedFieldsToModel(originalFeedItem, feedItem);// mapper.ConvertNonNullFields(originalFeedItem, feedItem); 
 
             var request = GetRequest(new UpdateFeedRequest()
             {
-                CurrentFeed = mapper.ConvertToDbEntity(feedItem)
+                CurrentFeed = feedItem.MapFeedItem<TFeedItem, TDestinationDto>()
             });
 
             var response = await _proxy.UpdateFeedAsync(request);
-
-            mapper = new AutoMapperGenericsHelper<BaseFeedDto, TFeedType>();
-            return mapper.ConvertToDbEntity(response.CurrentBaseFeed);
+            
+            return response.CurrentBaseFeed.MapFeedItem<BaseFeedDto, TFeedItem>(); 
         }
 
 

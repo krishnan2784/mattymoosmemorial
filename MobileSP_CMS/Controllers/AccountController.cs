@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyModel;
 using MobileSP_CMS.Core.Models;
 using MobileSP_CMS.Core.Models.Interfaces;
-using MobileSP_CMS.Core.Repositories;
 using MobileSP_CMS.Infrastructure;
 using MobileSP_CMS.Infrastructure.Repositories;
+using MobileSP_CMS.Infrastructure.Repositories.Interfaces;
 
 namespace MobileSP_CMS.Controllers
 {

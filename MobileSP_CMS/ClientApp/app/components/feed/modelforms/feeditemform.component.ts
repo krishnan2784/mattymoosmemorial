@@ -30,21 +30,21 @@ export class FeedItemForm implements Feediteminterfaces.IFeedItemForm {
     private feedTypes: { name: string; value: number }[] = [];
     private feedCategories: { name: string; value: number }[] = [];
     public selectedFeedTypeEnum: Enums.FeedTypeEnum = Enums.FeedTypeEnum.Text;
+    public updateURL: string;
+    public deleteURL: string;
+    public getUrl: string = '/api/Feed/GetFeedItem?id=';
     feedTypesEnum: typeof Enums.FeedTypeEnum = Enums.FeedTypeEnum;
 
     public id_sub: Subscription;
 
-    constructor(fb: FormBuilder, private http: Http, private route: ActivatedRoute,
+    constructor(fb: FormBuilder, public http: Http, public route: ActivatedRoute,
         private router: Router) {
         
         this.id_sub = route.queryParams.subscribe(
             (queryParam: any) => {
                 this.selectedFeedItemId = queryParam['id'] || this.selectedFeedItemId;
                 if (this.selectedFeedItemId > 0) {
-                    http.get('/api/Feed/Get' + this.feedTypesEnum[this.selectedFeedTypeEnum] + 'FeedItem?id=' + this.selectedFeedItemId).subscribe(result => {
-                        this.model = result.json();
-                        this.updateForm();
-                    });
+                    this.getModel();
                 }
             }
         );
@@ -64,7 +64,7 @@ export class FeedItemForm implements Feediteminterfaces.IFeedItemForm {
 
     public initialiseForm() {
         this.form = this._fb.group({
-            id: ['', []],
+            Id: ['', []],
             title: ['', [<any>Validators.required, <any>Validators.minLength(5)]],
             feedType: ['', [<any>Validators.required]],
             feedCategory: ['', [<any>Validators.required]],
@@ -72,31 +72,25 @@ export class FeedItemForm implements Feediteminterfaces.IFeedItemForm {
             enabled: ['', []],
             published: ['', []],
             marketId: ['', [<any>Validators.required]],
-            createdAt: ['', []],
-            deletedAt: ['', []],
-            updatedAt: ['', []],
-            mainIcon: ['', []],
-            masterId: ['', []]
+            mainIcon: ['', []]
         });
     }
 
     addFormControls() { };
+    getModel() {};
 
     updateForm() {
         (this.form)
-            .setValue(this.model, { onlySelf: true });
+            .patchValue(this.model, { onlySelf: true });
     }
 
-    save(model: IFeedItem, isValid: boolean) {
+    save(feedItem: IFeedItem, isValid: boolean) {
         this.submitted = true;
 
         let headers = new Headers({ 'Content-Type': 'application/json' });
-        let body = JSON.stringify(model);
-        let options = new RequestOptions({ headers: headers, body : body});
-
-        alert(body);
-
-        this.http.post('/api/Feed/Update' + this.feedTypesEnum[this.selectedFeedTypeEnum] + 'FeedItem', body, options).subscribe(
+        let body = JSON.stringify(feedItem);
+        
+        this.http.post(this.updateURL, body, { headers: headers }).subscribe(
             (result) => {
                 alert("Success");
                 this.model = result.json();

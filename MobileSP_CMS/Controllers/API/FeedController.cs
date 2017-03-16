@@ -2,12 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Jil;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MLearningCoreService;
 using MobileSP_CMS.Core.Models;
 using MobileSP_CMS.Core.Models.Interfaces;
-using MobileSP_CMS.Core.Repositories;
 using MobileSP_CMS.Infrastructure.Repositories;
+using MobileSP_CMS.Infrastructure.Repositories.Interfaces;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace MobileSP_CMS.Controllers
 {
@@ -16,49 +20,49 @@ namespace MobileSP_CMS.Controllers
     public class FeedController : BaseController
     {
         [HttpGet("[action]")]
-        public async Task<IEnumerable<IBaseFeed>> GetFeedItems()
+        public async Task<JsonResult> GetFeedItems()
         {
             var feedRepo = GetRespository<IFeedRepository>();
-            var feedItems = await feedRepo.GetFeedItemsAsync<BaseFeed>();
-            return feedItems;
+            var feedItems = await feedRepo.GetFeedItemsAsync();
+            return Json(feedItems);
         }
 
         [HttpGet("[action]")]
-        public async Task<TFeedType> GetFeedItem<TFeedType>(int id) where TFeedType : IBaseFeed
+        public async Task<JsonResult> GetFeedItem(int id) 
         {
             var feedRepo = GetRespository<IFeedRepository>();
-            var feedItem = await feedRepo.GetFeedItemAsync<TFeedType>(id);
-            return feedItem;
-        }
-
-        [HttpGet("[action]")]
-        public async Task<TextFeed> GetTextFeedItem(int id)
-        {
-            return await GetFeedItem<TextFeed>(id);
+            var feedItem = await feedRepo.GetFeedItemAsync(id);
+            return Json(feedItem);
         }
 
         [HttpPost("[action]")]
-        public async Task<TextFeed> UpdateTextFeedItem(TextFeed model)
+        public async Task<JsonResult> CreateFeedItem<TFeedItem, TDestinationDto>(dynamic feedItem) where TFeedItem : BaseFeed
+            where TDestinationDto : BaseFeedDto
         {
-            if (model.Id == 0)
-                return await CreateFeedItem(model);
-            return await UpdateFeedItem(model);
+            var feedRepo = GetRespository<IFeedRepository>();
+            var feedItemResponse = await feedRepo.CreateFeedItemAsync<TFeedItem, TDestinationDto>(feedItem);
+            return Json(feedItemResponse);
+        }
+
+
+
+        [HttpPost("[action]")]
+        public async Task<JsonResult> UpdateFeedItem<TFeedItem,TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed
+            where TDestinationDto : BaseFeedDto
+        {
+            if (feedItem.Id == 0)
+                return await CreateFeedItem<TFeedItem, TDestinationDto>(feedItem);
+
+            var feedRepo = GetRespository<IFeedRepository>();
+            var feedItemResponse = await feedRepo.UpdateFeedItemAsync<TFeedItem, TDestinationDto>(feedItem);
+            return Json(feedItemResponse);
         }
 
         [HttpPost("[action]")]
-        public async Task<TFeedType> CreateFeedItem<TFeedType>(TFeedType model) where TFeedType : IBaseFeed
+        public async Task<JsonResult> UpdateTextFeedItem([FromBody]TextFeed feedItem)
         {
-            var feedRepo = GetRespository<IFeedRepository>();
-            var feedItemResponse = await feedRepo.CreateFeedItemAsync(model);
-            return feedItemResponse;
-        }
-
-        [HttpPost("[action]")]
-        public async Task<TFeedType> UpdateFeedItem<TFeedType>(TFeedType model) where TFeedType : IBaseFeed
-        {
-            var feedRepo = GetRespository<IFeedRepository>();
-            var feedItemResponse = await feedRepo.CreateFeedItemAsync(model);
-            return feedItemResponse;
+            var request = Request;
+            return await UpdateFeedItem<TextFeed,TextFeedDto>(feedItem);
         }
 
     }

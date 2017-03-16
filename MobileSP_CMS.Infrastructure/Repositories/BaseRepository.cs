@@ -2,7 +2,7 @@
 using System.Threading;
 using MobileSP_CMS.Core.Models;
 using MobileSP_CMS.Core.Models.Interfaces;
-using MobileSP_CMS.Core.Repositories;
+using MobileSP_CMS.Infrastructure.Repositories.Interfaces;
 
 namespace MobileSP_CMS.Infrastructure.Repositories
 {

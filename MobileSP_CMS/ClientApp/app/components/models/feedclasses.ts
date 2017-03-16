@@ -15,12 +15,11 @@ export class BaseFeed extends Baseclasses.BaseModel implements FeedInterfaces.IF
 
     constructor(options: {} = {}) {
         super(options);
-        this.title = options['Title'] || '';
-        this.feedType = options['FeedType'];
-        this.feedCategory = options['FeedCategory'];
-        this.points = options['Points'];
-        this.mainIcon = options['MediaInfo'];
-        this.marketId = options['MarketId'];
+        this.title = options['title'] || '';
+        this.feedCategory = options['feedCategory'];
+        this.points = options['points'];
+        this.mainIcon = options['mediaInfo'];
+        this.marketId = options['marketId'];
     }
 }
 
@@ -73,7 +72,7 @@ export class TextFeed extends BaseFeed {
     constructor(options: {} = {}) {
         super(options);
         this.feedType = FeedTypeEnum.Text;
-        this.bodyText = options['BodyText'] || '';
+        this.bodyText = options['bodyText'] || '';
     }
 }
 

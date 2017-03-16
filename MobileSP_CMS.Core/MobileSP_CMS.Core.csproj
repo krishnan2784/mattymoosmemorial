@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MobileSP_CMS.Core</RootNamespace>
-    <AssemblyName>MobileSP_CMS.Core</AssemblyName>
+    <AssemblyName>.net</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -67,15 +67,16 @@
     <Compile Include="Models\TextFeed.cs" />
     <Compile Include="Models\SurveyQuestionAnswer.cs" />
     <Compile Include="Models\VideoFeed.cs" />
-    <Compile Include="Repositories\IReadingRepository.cs" />
-    <Compile Include="Repositories\IBaseRepository.cs" />
-    <Compile Include="Repositories\IFeedRepository.cs" />
-    <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\UserConfiguration.cs" />
     <Compile Include="Models\LoginDetails.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Runtime.Serialization.Primitives">
+      <HintPath>..\..\..\..\Users\Matthew.Felton\.nuget\packages\System.Runtime.Serialization.Primitives\4.1.1\ref\netstandard1.3\System.Runtime.Serialization.Primitives.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

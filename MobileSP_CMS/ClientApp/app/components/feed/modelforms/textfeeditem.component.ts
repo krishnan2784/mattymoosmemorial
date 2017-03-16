@@ -12,8 +12,10 @@ import Enums = require("../../enums");
 })
 export class TextFeedItemFormComponent extends FeedItemForm {
 
+
     constructor(fb: FormBuilder, http: Http, route: ActivatedRoute, router: Router) {
         super(fb, http, route, router);
+        this.updateURL = '/api/Feed/UpdateTextFeedItem';
         if (this.selectedFeedItemId === 0) {
             this.model = new TextFeed();
         }
@@ -27,4 +29,11 @@ export class TextFeedItemFormComponent extends FeedItemForm {
     addFormControls() {
         this.form.addControl('bodyText', new FormControl('', [<any>Validators.required, <any>Validators.minLength(5)]));
     };
+
+    getModel() {
+        this.http.get(this.getUrl + this.selectedFeedItemId).subscribe(result => {
+            this.model = new TextFeed(result.json());
+            this.updateForm();
+        });
+    }
 }

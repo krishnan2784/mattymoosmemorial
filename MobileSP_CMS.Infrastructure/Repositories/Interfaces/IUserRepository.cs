@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using MobileSP_CMS.Core.Models;
 
-namespace MobileSP_CMS.Core.Repositories
+namespace MobileSP_CMS.Infrastructure.Repositories.Interfaces
 {
     public interface IUserRepository : IReadingRepository
     {

@@ -1,7 +1,7 @@
 ﻿using MobileSP_CMS.Core.Models;
 using MobileSP_CMS.Core.Models.Interfaces;
 
-namespace MobileSP_CMS.Core.Repositories
+namespace MobileSP_CMS.Infrastructure.Repositories.Interfaces
 {
     public interface IBaseRepository
     {
