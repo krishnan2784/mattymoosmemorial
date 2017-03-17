@@ -1,7 +1,7 @@
-﻿import Enums = require("../enums");
+﻿import * as Enums from "../enums";
 
 export class BaseModel {
-    Id: number;
+    id: number;
     enabled: boolean;
     published: boolean;
     masterId: string;
@@ -18,7 +18,7 @@ export class BaseModel {
         deletedAt?: Date,
         updatedAt?: Date,
     } = {}) {
-        this.Id = options.id;
+        this.id = options.id;
         this.enabled = options.enabled;
         this.published = options.published;
         this.masterId = options.masterId;

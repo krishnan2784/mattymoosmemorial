@@ -5,9 +5,9 @@
     </a>
 </h1>
 
-<p *ngIf="!feedItems"><em>Loading feed...</em></p>
+<p *ngIf="feedDataService.feedItems.length===0"><em>Loading feed...</em></p>
 
-<table class='table' *ngIf="feedItems">
+<table class='table' *ngIf="feedDataService.feedItems.length>0">
     <thead>
     <tr>
         <th>Id</th>
@@ -23,7 +23,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let feedItem of feedItems | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}">
+    <tr *ngFor="let feedItem of feedDataService.feedItems | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}">
         <td>{{ feedItem.id }}</td>
         <td>{{ feedItem.title }}</td>
         <td>{{ feedTypes[feedItem.feedType] }}</td>

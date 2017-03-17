@@ -1,7 +1,7 @@
-﻿import Enums = require("../../enums");
+﻿import * as Enums from "../../enums";
 
 export interface IFeedItem {
-    Id: number;
+    id: number;
     title: string;
     feedType: Enums.FeedTypeEnum;
     feedCategory: Enums.FeedCategoryEnum;

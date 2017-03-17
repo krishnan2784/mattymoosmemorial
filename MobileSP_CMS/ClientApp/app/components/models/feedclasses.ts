@@ -1,8 +1,8 @@
-﻿import Enums = require("../enums");
-import Baseclasses = require("./baseclasses");
-import Quizclasses = require("./quizclasses");
-import Surveyclasses = require("./surveyclasses");
-import FeedInterfaces = require("./interfaces/feedinterfaces");
+﻿import * as Enums from "../enums";
+import * as Baseclasses from "./baseclasses";
+import * as Quizclasses from "./quizclasses";
+import * as Surveyclasses from "./surveyclasses";
+import * as FeedInterfaces from "./interfaces/feedinterfaces";
 import FeedTypeEnum = Enums.FeedTypeEnum;
 
 export class BaseFeed extends Baseclasses.BaseModel implements FeedInterfaces.IFeedItem {

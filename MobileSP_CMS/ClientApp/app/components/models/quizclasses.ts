@@ -1,5 +1,5 @@
-﻿import Enums = require("../enums");
-import Baseclasses = require("./baseclasses");
+﻿import * as Enums from "../enums";
+import * as Baseclasses from "./baseclasses";
 import BaseModel = Baseclasses.BaseModel;
 
 

@@ -14,13 +14,16 @@ import { UserAccountManagementComponent } from './components/useraccountmanageme
 import { TextFeedItemFormComponent } from './components/feed/modelforms/textfeeditem.component';
 import {CreateFeedTypeSelectorComponent} from "./components/feed/createfeedtype.component";
 import { FeedIndexComponent } from "./components/feed/indexes/feedindex.component";
-import {LearningIndexComponent} from "./components/feed/indexes/learningindex.component";
-import {FeedItemForm} from "./components/feed/modelforms/feeditemform.component";
+import { LearningIndexComponent } from "./components/feed/indexes/learningindex.component";
+import { FeedItemForm } from "./components/feed/modelforms/feeditemform.component";
+import { FeedDataService } from "./components/dataservices/FeedDataService";
 
 @NgModule({
     bootstrap: [ AppComponent ],
     declarations: [
         AppComponent,
+        FeedDataService,
+
         NavMenuComponent,
         FooterComponent,
         CounterComponent,

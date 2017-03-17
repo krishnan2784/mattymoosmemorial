@@ -59,7 +59,7 @@ namespace MobileSP_CMS.Infrastructure.Repositories
             where TDestinationDto : BaseFeedDto
         {
             var originalFeedItem = await GetFeedItemAsync(feedItem.Id);
-            feedItem = FeedMapper.ConvertUnpopulatedFieldsToModel(originalFeedItem, feedItem);// mapper.ConvertNonNullFields(originalFeedItem, feedItem); 
+            feedItem = FeedMapper.ConvertUnpopulatedFieldsToModel(originalFeedItem, feedItem);
 
             var request = GetRequest(new UpdateFeedRequest()
             {

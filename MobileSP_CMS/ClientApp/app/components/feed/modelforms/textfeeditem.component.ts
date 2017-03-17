@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Http } from '@angular/http';
+import {Observable} from 'rxjs/Observable';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { TextFeed } from '../../models/feedclasses.ts';
 import { FeedItemForm } from "./feeditemform.component";
-import Enums = require("../../enums");
+import * as Enums from "../../enums";
 
 @Component({
     selector: 'textfeeditem',
@@ -17,13 +18,8 @@ export class TextFeedItemFormComponent extends FeedItemForm {
         super(fb, http, route, router);
         this.updateURL = '/api/Feed/UpdateTextFeedItem';
         if (this.selectedFeedItemId === 0) {
-            this.model = new TextFeed();
+            this.model = new TextFeed({});
         }
-        this.selectedFeedTypeEnum = Enums.FeedTypeEnum.Text;
-        this.selectedFeedType = {
-            name: this.feedTypesEnum[this.selectedFeedTypeEnum],
-            value: this.selectedFeedTypeEnum
-        };
     } 
 
     addFormControls() {
@@ -31,9 +27,14 @@ export class TextFeedItemFormComponent extends FeedItemForm {
     };
 
     getModel() {
-        this.http.get(this.getUrl + this.selectedFeedItemId).subscribe(result => {
-            this.model = new TextFeed(result.json());
-            this.updateForm();
+        var observable = this.feedDataService.refreshFeeditems();
+        observable.subscribe(() => {
+            this.modelObservable = this.feedDataService.getFeeditem(this.selectedFeedItemId, TextFeed);
+            this.modelObservable.subscribe((data) => {
+                this.model = data;
+                this.updateForm();
+            });
         });
+
     }
 }
