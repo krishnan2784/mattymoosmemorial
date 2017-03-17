@@ -6,6 +6,7 @@ using Jil;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MLearningCoreService;
+using MobileSP_CMS.Core.Enumerations;
 using MobileSP_CMS.Core.Models;
 using MobileSP_CMS.Core.Models.Interfaces;
 using MobileSP_CMS.Infrastructure.Repositories;
@@ -24,6 +25,14 @@ namespace MobileSP_CMS.Controllers
         {
             var feedRepo = GetRespository<IFeedRepository>();
             var feedItems = await feedRepo.GetFeedItemsAsync();
+            return Json(feedItems);
+        }
+
+        [HttpGet("[action]")]
+        public async Task<JsonResult> GetFeedItemsByCat(FeedCategoryEnum selectedCategory)
+        {
+            var feedRepo = GetRespository<IFeedRepository>();
+            var feedItems = await feedRepo.GetFeedItemsAsync(selectedCategory);
             return Json(feedItems);
         }
 
@@ -58,12 +67,15 @@ namespace MobileSP_CMS.Controllers
             return Json(feedItemResponse);
         }
 
+
         [HttpPost("[action]")]
-        public async Task<JsonResult> UpdateTextFeedItem([FromBody]TextFeed feedItem)
-        {
-            var request = Request;
-            return await UpdateFeedItem<TextFeed,TextFeedDto>(feedItem);
-        }
+        public async Task<JsonResult> UpdateTextFeedItem([FromBody]TextFeed feedItem) => await UpdateFeedItem<TextFeed, TextFeedDto>(feedItem);
+
+        [HttpPost("[action]")]
+        public async Task<JsonResult> UpdateImageFeedItem([FromBody]ImageFeed feedItem) => await UpdateFeedItem<ImageFeed, ImageFeedDto>(feedItem);
+
+        [HttpPost("[action]")]
+        public async Task<JsonResult> UpdateVideoFeedItem([FromBody]VideoFeed feedItem) => await UpdateFeedItem<VideoFeed, VideoFeedDto>(feedItem);
 
     }
 }

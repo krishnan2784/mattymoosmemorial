@@ -6,6 +6,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { TextFeed } from '../../models/feedclasses.ts';
 import { FeedItemForm } from "./feeditemform.component";
 import * as Enums from "../../enums";
+import { FeedDataService }  from "../../dataservices/feeddataservice";
 
 @Component({
     selector: 'textfeeditem',
@@ -14,27 +15,23 @@ import * as Enums from "../../enums";
 export class TextFeedItemFormComponent extends FeedItemForm {
 
 
-    constructor(fb: FormBuilder, http: Http, route: ActivatedRoute, router: Router) {
-        super(fb, http, route, router);
-        this.updateURL = '/api/Feed/UpdateTextFeedItem';
-        if (this.selectedFeedItemId === 0) {
-            this.model = new TextFeed({});
-        }
+    constructor(fb: FormBuilder, http: Http, route: ActivatedRoute, router: Router, feedDataService: FeedDataService) {
+        super(fb, http, route, router, feedDataService);
+        this.updateUrl = '/api/Feed/UpdateTextFeedItem';
     } 
 
     addFormControls() {
         this.form.addControl('bodyText', new FormControl('', [<any>Validators.required, <any>Validators.minLength(5)]));
     };
 
-    getModel() {
-        var observable = this.feedDataService.refreshFeeditems();
-        observable.subscribe(() => {
-            this.modelObservable = this.feedDataService.getFeeditem(this.selectedFeedItemId, TextFeed);
-            this.modelObservable.subscribe((data) => {
-                this.model = data;
-                this.updateForm();
-            });
-        });
+    getDbModel() {
+        this.feedDataService.getFeeditem(this.selectedFeedItemId, TextFeed).subscribe((result) => {
+            this.model = result;
+            this.updateForm();
+        });           
+    }
 
+    getNewModel() {
+        this.model = new TextFeed({});
     }
 }

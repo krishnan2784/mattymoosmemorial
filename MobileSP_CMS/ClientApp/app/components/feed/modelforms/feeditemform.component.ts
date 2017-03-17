@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, EventEmitter } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, EventEmitter } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -9,15 +9,14 @@ import { EnumEx } from "../../classes/enumerators";
 import { FeedDataService } from "../../dataservices/FeedDataService";
 import * as Feediteminterfaces from "../../interfaces/feediteminterfaces";
 import * as Enums from "../../enums";
-import * as DataService from "../../dataservices/interfaces/IFeedDataService";
 
 @Component({
     selector: 'feeditemform',
-    template: require('./feeditemform.component.html')
+    template: require('./feeditemform.component.html'),
+    providers: [FeedDataService]
 })
 export class FeedItemForm implements Feediteminterfaces.IFeedItemForm {
-
-    public feedDataService: DataService.IFeedDataService;
+    
     public _fb: FormBuilder;
 
     @Input('group')
@@ -32,28 +31,19 @@ export class FeedItemForm implements Feediteminterfaces.IFeedItemForm {
     public selectedFeedItemId: number = 0;
     public selectedFeedCat: { name: string; value: number };
     public feedCategories: { name: string; value: number }[] = [];
-    public updateURL: string;
-    public deleteURL: string;
-    public getUrl: string = '/api/Feed/GetFeedItem?id=';
+    public updateUrl: string;
+    public id_sub: Subscription;
     feedTypesEnum: typeof Enums.FeedTypeEnum = Enums.FeedTypeEnum;
     
     constructor(fb: FormBuilder, public http: Http, public route: ActivatedRoute,
-        private router: Router) {
-
-        this.feedDataService = new FeedDataService(http);
-
+        private router: Router, public feedDataService: FeedDataService) {
+        
         this._fb = fb;
         this.initialiseForm();
         this.addFormControls();
 
-        route.queryParams.subscribe(
-            (queryParam: any) => {
-                this.selectedFeedItemId = queryParam['id'];
-                if (this.selectedFeedItemId > 0) {
-                    this.getModel();
-                }
-            }
-        );
+        this.selectedFeedItemId = this.route.snapshot.params["id"] | 0;
+        this.getModel();
         
         this.feedCategories = EnumEx.getNamesAndValues(Enums.FeedCategoryEnum);
         this.selectedFeedCat = {
@@ -76,8 +66,14 @@ export class FeedItemForm implements Feediteminterfaces.IFeedItemForm {
         });
     }
 
-    addFormControls() { };
-    getModel() {};
+    getModel() {
+        if (this.selectedFeedItemId > 0) {
+            this.getDbModel();
+        } else {
+            this.getNewModel();
+        }
+    };
+
 
     updateForm() {
         if (this.model)
@@ -91,12 +87,18 @@ export class FeedItemForm implements Feediteminterfaces.IFeedItemForm {
 
         this.submitted = true;
 
-        this.feedDataService.updateFeeditem(feedItem, this.updateURL).subscribe(success => {
-            if (success) {
+        this.feedDataService.updateFeeditem(this.updateUrl, feedItem).subscribe(result => {
+            if (result.success) {
+                this.model = result.model;
                 this.feedUpdated.emit(feedItem);
                 this.router.navigate(["/feed"]);            
             }
         });
 
     }
+
+
+    addFormControls() { };
+    getDbModel() { };
+    getNewModel() { };
 }

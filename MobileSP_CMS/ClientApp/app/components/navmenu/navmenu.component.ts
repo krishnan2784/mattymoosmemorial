@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import * as Enums from "../enums";
 
 @Component({
     selector: 'nav-menu',
@@ -6,4 +7,5 @@ import { Component } from '@angular/core';
     styles: [require('./navmenu.component.css')]
 })
 export class NavMenuComponent {
+    public feedCats = Enums.FeedCategoryEnum;
 }

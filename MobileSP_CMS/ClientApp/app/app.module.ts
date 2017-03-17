@@ -19,10 +19,9 @@ import { FeedItemForm } from "./components/feed/modelforms/feeditemform.componen
 import { FeedDataService } from "./components/dataservices/FeedDataService";
 
 @NgModule({
-    bootstrap: [ AppComponent ],
+    bootstrap: [AppComponent],
     declarations: [
         AppComponent,
-        FeedDataService,
 
         NavMenuComponent,
         FooterComponent,
@@ -51,9 +50,11 @@ import { FeedDataService } from "./components/dataservices/FeedDataService";
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
             { path: 'useraccountmanagement', component: UserAccountManagementComponent },
+            { path: ':feedCat/feed', component: FeedIndexComponent },
             { path: 'feed', component: FeedIndexComponent },
-            { path: 'learning', component: LearningIndexComponent },
             { path: 'createfeeditem', component: CreateFeedTypeSelectorComponent },
+            { path: 'createfeeditem/feedCat', component: CreateFeedTypeSelectorComponent },
+            { path: 'textfeeditem/:id', component: TextFeedItemFormComponent },
             { path: 'textfeeditem', component: TextFeedItemFormComponent },
             { path: '**', redirectTo: 'home' }
         ])

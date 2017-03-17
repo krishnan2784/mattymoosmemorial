@@ -5,9 +5,9 @@
     </a>
 </h1>
 
-<p *ngIf="feedDataService.feedItems.length===0"><em>Loading feed...</em></p>
+<p *ngIf="this.feedItems.length === 0"><em>Loading feed...</em></p>
 
-<table class='table' *ngIf="feedDataService.feedItems.length>0">
+<table class='table' *ngIf="this.feedItems.length > 0">
     <thead>
     <tr>
         <th>Id</th>
@@ -23,7 +23,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let feedItem of feedDataService.feedItems | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}">
+    <tr *ngFor="let feedItem of this.feedItems | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}">
         <td>{{ feedItem.id }}</td>
         <td>{{ feedItem.title }}</td>
         <td>{{ feedTypes[feedItem.feedType] }}</td>
@@ -34,7 +34,7 @@
         <td>{{ feedItem.marketId }}</td>
         <td>{{ feedItem.createdAt }}</td>
         <td>
-            <a href="/{{feedTypes[feedItem.feedType] | lowercase}}feeditem?id={{ feedItem.id }}">Edit</a>
+            <a (click)="onSelect(feedItem)">Edit</a>
         </td>
     </tr>
     </tbody>
@@ -44,18 +44,3 @@
                      directionLinks="true"
                      autoHide="true">
 </pagination-controls>
-
-<!--<div class="modal fade" tabindex="-1" role="dialog" id="create-feed-modal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Create Feed Item</h4>
-            </div>
-            <div class="modal-body">
-                <createfeedtypeselector></createfeedtypeselector>
-            </div>
-
-        </div>
-    </div>
-</div>-->

@@ -9,12 +9,11 @@ export interface IFeedItemForm {
     form: FormGroup;
     model: IFeedItem;
     selectedFeedItemId: number;
-    updateURL: string;
-    deleteURL: string;
-    getUrl: string;
+    updateUrl: string;
 
     initialiseForm();
     addFormControls(form: FormGroup);
     getModel();
-
+    getDbModel();
+    getNewModel();
 }

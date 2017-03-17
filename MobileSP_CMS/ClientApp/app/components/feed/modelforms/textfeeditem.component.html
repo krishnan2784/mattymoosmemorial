@@ -12,7 +12,7 @@
             <label>Body Text</label>
             <input type="text" formControlName="bodyText">
             <small [hidden]="form.controls.bodyText.valid || (form.controls.bodyText.pristine && !submitted)">
-                Body text is required.
+                Body text is required (minimum 5 characters).
             </small>
         </div>
 

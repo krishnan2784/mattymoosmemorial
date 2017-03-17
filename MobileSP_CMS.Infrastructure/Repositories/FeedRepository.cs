@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MLearningCoreService;
 using MobileSPCoreService;
+using MobileSP_CMS.Core.Enumerations;
 using MobileSP_CMS.Core.Models;
 using MobileSP_CMS.Core.Models.Interfaces;
 using MobileSP_CMS.Infrastructure;
@@ -23,22 +24,25 @@ namespace MobileSP_CMS.Infrastructure.Repositories
             return list.Any() ? list.FirstOrDefault() : new BaseFeed();
         }
 
+        public async Task<IEnumerable<dynamic>> GetFeedItemsAsync(FeedCategoryEnum selectedCategory)
+        {
+            var request = GetRequest(new GetFeedsRequest
+            {
+                Criteria = GetCriteria(new FeedCriteriaDto())
+            });
+
+            var response = await _proxy.GetFeedsAsync(request);
+            return response.Feeds.Where(x => x.FeedCategory == (FeedCategoryEnumDto)selectedCategory).ToList();
+        }
+
         public async Task<IEnumerable<dynamic>> GetFeedItemsAsync() 
         {
-            try
-            {
-                var request = GetRequest(new GetFeedsRequest {
-                    Criteria = GetCriteria(new FeedCriteriaDto())
-                });
+            var request = GetRequest(new GetFeedsRequest {
+                Criteria = GetCriteria(new FeedCriteriaDto())
+            });
                 
-                var response = await _proxy.GetFeedsAsync(request);
-                
-                return response.Feeds;
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
+            var response = await _proxy.GetFeedsAsync(request);
+            return response.Feeds;
         }
 
         public async Task<dynamic> CreateFeedItemAsync<TFeedItem, TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed

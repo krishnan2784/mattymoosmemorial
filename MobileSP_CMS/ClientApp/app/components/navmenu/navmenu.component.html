@@ -41,36 +41,36 @@
                 </li>
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/feed']">
-                        CATEGORIES
+                        FEED
                     </a>
                     <ul class='nav navbar-nav sub-nav'>
                         <li [routerLinkActive]="['link-active']">
-                            <a [routerLink]="['/learning']">
+                            <a [routerLink]="['/', feedCats.Learning, 'feed']">
                                 Learning
                             </a>
                         </li>
                         <li [routerLinkActive]="['link-active']">
-                            <a [routerLink]="['/campaign']">
+                            <a [routerLink]="['/', feedCats.Campaign, 'feed']">
                                 Campaign
                             </a>
                         </li>
                         <li [routerLinkActive]="['link-active']">
-                            <a [routerLink]="['/news']">
+                            <a [routerLink]="['/', feedCats.News, 'feed']">
                                 News
                             </a>
                         </li>
                         <li [routerLinkActive]="['link-active']">
-                            <a [routerLink]="['/announcement']">
+                            <a [routerLink]="['/', feedCats.Announcement, 'feed']">
                                 Announcement
                             </a>
                         </li>
                         <li [routerLinkActive]="['link-active']">
-                            <a [routerLink]="['/quiz']">
+                            <a [routerLink]="['/', feedCats.Quiz, 'feed']">
                                 Quiz
                             </a>
                         </li>
                         <li [routerLinkActive]="['link-active']">
-                            <a [routerLink]="['/Survey']">
+                            <a [routerLink]="['/', feedCats.Survey, 'feed']">
                                 Survey
                             </a>
                         </li>
