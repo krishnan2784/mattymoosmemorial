@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { IFeedItem } from "../../models/interfaces/feedinterfaces";
 import { CreateFeedTypeSelectorComponent } from "../createfeedtype.component";
@@ -11,20 +11,40 @@ import { FeedDataService } from "../../dataservices/feeddataservice";
     template: require('./feedindex.component.html'),
     providers: [FeedDataService]
 })
-export class FeedIndexComponent {
-    public feedItems: Feedinterfaces.IFeedItem[] = [];
+export class FeedIndexComponent implements OnInit, OnDestroy {
+    public feedItems: Feedinterfaces.IFeedItem[];
     feedTypes: typeof Enums.FeedTypeEnum = Enums.FeedTypeEnum;
     feedCats: typeof Enums.FeedCategoryEnum = Enums.FeedCategoryEnum;
     public catId : number;
+    public filteredFeed: boolean;
+    public id_sub: any;
 
     constructor(private route: ActivatedRoute,
         private router: Router,
         public feedDataService: FeedDataService) {
-        this.catId = +this.route.snapshot.params["feedCat"];
+
     }
 
     ngOnInit() {
-        if (isNaN(this.catId)) {
+        this.id_sub = this.route.params.subscribe(
+            (params: any) => {
+                this.feedItems = null;
+                this.catId = +params["feedCat"];
+                this.filteredFeed = !isNaN(this.catId);
+                this.getData();
+            }
+        );
+
+    }
+
+    ngOnDestroy() {
+        if (this.id_sub) {
+            this.id_sub.unsubscribe();
+        }
+    }
+
+    getData() {
+        if (!this.filteredFeed) {
             this.feedDataService.getFeeditems().subscribe((result) => {
                 this.feedItems = result;
             });

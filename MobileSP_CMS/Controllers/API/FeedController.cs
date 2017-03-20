@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Jil;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using MLearningCoreService;
 using MobileSP_CMS.Core.Enumerations;
 using MobileSP_CMS.Core.Models;
@@ -20,23 +21,34 @@ namespace MobileSP_CMS.Controllers
     [Route("api/[controller]")]
     public class FeedController : BaseController
     {
+        public FeedController(IMemoryCache memoryCache) : base(memoryCache){}
+
         [HttpGet("[action]")]
+        [ResponseCache(CacheProfileName = "NoCache")]
         public async Task<JsonResult> GetFeedItems()
         {
-            var feedRepo = GetRespository<IFeedRepository>();
-            var feedItems = await feedRepo.GetFeedItemsAsync();
-            return Json(feedItems);
+            var cachedFeed = await _cache.GetOrCreateAsync("FeedCache", entry =>
+            {
+                var feedRepo = GetRespository<IFeedRepository>();
+                return feedRepo.GetFeedItemsAsync();
+            });
+            return Json(cachedFeed);
         }
 
         [HttpGet("[action]")]
+        [ResponseCache(CacheProfileName = "NoCache")]
         public async Task<JsonResult> GetFeedItemsByCat(FeedCategoryEnum selectedCategory)
         {
-            var feedRepo = GetRespository<IFeedRepository>();
-            var feedItems = await feedRepo.GetFeedItemsAsync(selectedCategory);
-            return Json(feedItems);
+            var cachedFeed = await _cache.GetOrCreateAsync("FeedCache_" + selectedCategory, entry =>
+            {
+                var feedRepo = GetRespository<IFeedRepository>();
+                return feedRepo.GetFeedItemsAsync(selectedCategory);
+            });
+            return Json(cachedFeed);
         }
 
         [HttpGet("[action]")]
+        [ResponseCache(CacheProfileName = "NoCache")]
         public async Task<JsonResult> GetFeedItem(int id) 
         {
             var feedRepo = GetRespository<IFeedRepository>();
@@ -53,12 +65,12 @@ namespace MobileSP_CMS.Controllers
             return Json(feedItemResponse);
         }
 
-
-
         [HttpPost("[action]")]
         public async Task<JsonResult> UpdateFeedItem<TFeedItem,TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed
             where TDestinationDto : BaseFeedDto
         {
+            _cache.Remove("FeedCache");
+            _cache.Remove("FeedCache_" + feedItem.FeedCategory);
             if (feedItem.Id == 0)
                 return await CreateFeedItem<TFeedItem, TDestinationDto>(feedItem);
 

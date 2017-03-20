@@ -3,6 +3,8 @@ import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angul
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/publishReplay';
 import { IFeedDataService } from "./interfaces/IfeedDataService";
 import * as Feedinterfaces from "../models/interfaces/feedinterfaces";
 import * as Feedclasses from "../models/feedclasses";
@@ -10,18 +12,27 @@ import * as Enums from "../enums";
 
 @Injectable()
 export class FeedDataService implements IFeedDataService {
+    private feedData: Feedinterfaces.IFeedItem[];
+    private feedObservable: Observable<any>;
 
     constructor(public http: Http, private zone: NgZone) {
     }
 
     public getFeeditems(): Observable<Feedinterfaces.IFeedItem[]> {
-        return Observable.create(observer => {
-            this.http.get('/api/Feed/GetFeedItems').subscribe(result => {
-                let feedItems = result.json();
-                observer.next(feedItems);
-                observer.complete();
+        if (this.feedData) {
+            return Observable.of(this.feedData);
+        }
+        else if (this.feedObservable) {
+            return this.feedObservable;
+        }
+        else {
+            this.feedObservable = this.http.get('/api/Feed/GetFeedItems').map(result => {
+                this.feedObservable = null;
+                this.feedData = result.json();
+                return this.feedData;
             });
-        });
+            return this.feedObservable;
+        }
     }
 
     public getFeeditemsByCat(selectedCat: Enums.FeedCategoryEnum): Observable<Feedinterfaces.IFeedItem[]> {
@@ -71,6 +82,10 @@ export class FeedDataService implements IFeedDataService {
             return true;
         });
         return false;
+    }
+
+    clearCache() {
+        this._feed = null;
     }
 
 }

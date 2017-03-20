@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.DotNet.Cli.Utils;
+using Microsoft.Extensions.Caching.Memory;
 using MobileSP_CMS.Core.Models;
 using MobileSP_CMS.Core.Models.Interfaces;
 using MobileSP_CMS.Infrastructure;
@@ -17,6 +18,12 @@ namespace MobileSP_CMS.Controllers
         private static string _AuthToken { get; set; }
         private static string _UserName { get; set; }
         private static int _CurrentMarketId { get; set; }
+        public IMemoryCache _cache;
+
+        public BaseController(IMemoryCache memoryCache)
+        {
+            _cache = memoryCache;
+        }
 
         public TService GetService<TService>()
         {
