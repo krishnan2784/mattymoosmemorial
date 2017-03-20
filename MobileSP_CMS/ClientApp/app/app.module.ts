@@ -20,9 +20,7 @@ import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { UserAccountManagementComponent } from './components/useraccountmanagement/useraccountmanagement.component';
 import { TextFeedItemFormComponent } from './components/feed/modelforms/textfeeditem.component';
-import {CreateFeedTypeSelectorComponent} from "./components/feed/createfeedtype.component";
 import { FeedIndexComponent } from "./components/feed/indexes/feedindex.component";
-import { LearningIndexComponent } from "./components/feed/indexes/learningindex.component";
 import { FeedItemForm } from "./components/feed/modelforms/feeditemform.component";
 import { FeedDataService } from "./components/dataservices/FeedDataService";
 
@@ -37,11 +35,7 @@ import { FeedDataService } from "./components/dataservices/FeedDataService";
         FetchDataComponent,
         HomeComponent,
         UserAccountManagementComponent,
-
         FeedIndexComponent,
-        LearningIndexComponent,
-
-        CreateFeedTypeSelectorComponent,
 
         FeedItemForm,
         TextFeedItemFormComponent
@@ -60,8 +54,9 @@ import { FeedDataService } from "./components/dataservices/FeedDataService";
             { path: 'useraccountmanagement', component: UserAccountManagementComponent },
             { path: ':feedCat/feed', component: FeedIndexComponent },
             { path: 'feed', component: FeedIndexComponent },
-            { path: 'createfeeditem', component: CreateFeedTypeSelectorComponent },
-            { path: 'createfeeditem/feedCat', component: CreateFeedTypeSelectorComponent },
+            { path: 'feeditem', component: FeedItemForm },
+            { path: 'feeditem/:id', component: FeedItemForm },
+            { path: ':feedCat/feeditem', component: FeedItemForm },
             { path: 'textfeeditem/:id', component: TextFeedItemFormComponent },
             { path: 'textfeeditem', component: TextFeedItemFormComponent },
             { path: '**', redirectTo: 'home' }

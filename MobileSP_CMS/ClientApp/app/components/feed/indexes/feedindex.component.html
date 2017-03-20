@@ -1,13 +1,13 @@
 <h2 *ngIf="!this.filteredFeed">
     Feed
-    <a [routerLink]="['/createfeeditem']" class="btn btn-primary right btn-lg">
+    <a [routerLink]="['/feeditem']" class="btn btn-primary right btn-lg">
         Create Feed Item
     </a>
 </h2>
 
 <h2 *ngIf="this.filteredFeed">
     {{ this.feedCats[this.catId] }} Feed
-    <a [routerLink]="['/createfeeditem', this.catId]" class="btn btn-primary right btn-lg">
+    <a [routerLink]="['/', this.catId, 'feeditem']" class="btn btn-primary right btn-lg">
         Create Feed Item
     </a>
 </h2>

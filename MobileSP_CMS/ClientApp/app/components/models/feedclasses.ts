@@ -17,7 +17,7 @@ export class BaseFeed extends Baseclasses.BaseModel implements FeedInterfaces.IF
         super(options);
         this.title = options['title'] || '';
         this.feedCategory = options['feedCategory'];
-        this.points = options['points'];
+        this.points = options['points'] || '';
         this.mainIcon = options['mediaInfo'];
         this.marketId = options['marketId'];
     }

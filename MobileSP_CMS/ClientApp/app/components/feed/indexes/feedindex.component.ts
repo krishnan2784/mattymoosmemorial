@@ -34,7 +34,6 @@ export class FeedIndexComponent implements OnInit, OnDestroy {
                 this.getData();
             }
         );
-
     }
 
     ngOnDestroy() {
@@ -56,7 +55,6 @@ export class FeedIndexComponent implements OnInit, OnDestroy {
     }
 
     onSelect(feedItem: IFeedItem) {
-        var url = '/' + (this.feedTypes[feedItem.feedType].toString().toLowerCase()) + 'feeditem';
-        this.router.navigate([url, feedItem.id]);
+        this.router.navigate(['/feeditem', feedItem.id]);
     }
 }
