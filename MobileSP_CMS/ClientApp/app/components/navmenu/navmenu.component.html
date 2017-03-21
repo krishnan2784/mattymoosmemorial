@@ -45,8 +45,13 @@
                     </a>
                     <ul class='nav navbar-nav sub-nav'>
                         <li [routerLinkActive]="['link-active']">
-                            <a [routerLink]="['/', feedCats.Learning, 'feed']">
-                                Learning
+                            <a [routerLink]="['/', feedCats.Announcement, 'feed']">
+                                Announcement
+                            </a>
+                        </li>
+                        <li [routerLinkActive]="['link-active']">
+                            <a [routerLink]="['/', feedCats.Article, 'feed']">
+                                Article
                             </a>
                         </li>
                         <li [routerLinkActive]="['link-active']">
@@ -55,23 +60,13 @@
                             </a>
                         </li>
                         <li [routerLinkActive]="['link-active']">
+                            <a [routerLink]="['/', feedCats.Learning, 'feed']">
+                                Learning
+                            </a>
+                        </li>
+                        <li [routerLinkActive]="['link-active']">
                             <a [routerLink]="['/', feedCats.News, 'feed']">
                                 News
-                            </a>
-                        </li>
-                        <li [routerLinkActive]="['link-active']">
-                            <a [routerLink]="['/', feedCats.Announcement, 'feed']">
-                                Announcement
-                            </a>
-                        </li>
-                        <li [routerLinkActive]="['link-active']">
-                            <a [routerLink]="['/', feedCats.Quiz, 'feed']">
-                                Quiz
-                            </a>
-                        </li>
-                        <li [routerLinkActive]="['link-active']">
-                            <a [routerLink]="['/', feedCats.Survey, 'feed']">
-                                Survey
                             </a>
                         </li>
                     </ul>

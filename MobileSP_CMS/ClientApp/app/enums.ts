@@ -4,17 +4,17 @@
     Image = 2,
     Quiz = 3,
     Survey = 4,
-    CampaignFeed = 5,
-    Annoucement = 6
+    VideoLink = 5,
+    ImageLink = 6,
+    PdfLink = 7 
 }
 export enum FeedCategoryEnum {
     Learning = 0,
     News = 1,
     General = 2,
-    Campaign,
-    Announcement,
-    Quiz,
-    Survey
+    Campaign = 3,
+    Announcement = 4,
+    Article = 5
 }
 export enum MediaTypes {
     Text = 0,

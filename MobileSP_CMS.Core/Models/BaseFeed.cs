@@ -16,8 +16,8 @@ namespace MobileSP_CMS.Core.Models
         public virtual DateTime? CreatedAt { get; set; }
         public virtual DateTime? DeletedAt { get; set; }
         public virtual bool Enabled { get; set; }
-        public virtual FeedCategoryEnum? FeedCategory { get; set; }
-        public virtual FeedTypeEnum? FeedType { get; set; }
+        public virtual FeedCategoryEnum FeedCategory { get; set; }
+        public virtual FeedTypeEnum FeedType { get; set; }
         public virtual int Id { get; set; }
         public virtual MediaInfo MainIcon { get; set; }
         public virtual int? MarketId { get; set; }

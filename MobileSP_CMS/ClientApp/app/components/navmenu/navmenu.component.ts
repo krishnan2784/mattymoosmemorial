@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import * as Enums from "../enums";
+import * as Enums from "../../enums";
 
 @Component({
     selector: 'nav-menu',

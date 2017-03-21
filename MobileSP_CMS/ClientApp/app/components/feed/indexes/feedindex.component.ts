@@ -1,10 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { IFeedItem } from "../../models/interfaces/feedinterfaces";
-import { CreateFeedTypeSelectorComponent } from "../createfeedtype.component";
-import * as Enums from "../../enums";
-import Feedinterfaces = require("../../models/interfaces/feedinterfaces");
-import { FeedDataService } from "../../dataservices/feeddataservice";
+import { IFeedItem } from "../../../interfaces/models/IFeedModel";
+import * as Enums from "../../../enums";
+import { FeedDataService } from "../../../dataservices/feeddataservice";
 
 @Component({
     selector: 'feedindex',
@@ -12,7 +10,7 @@ import { FeedDataService } from "../../dataservices/feeddataservice";
     providers: [FeedDataService]
 })
 export class FeedIndexComponent implements OnInit, OnDestroy {
-    public feedItems: Feedinterfaces.IFeedItem[];
+    public feedItems: IFeedItem[];
     feedTypes: typeof Enums.FeedTypeEnum = Enums.FeedTypeEnum;
     feedCats: typeof Enums.FeedCategoryEnum = Enums.FeedCategoryEnum;
     public catId : number;

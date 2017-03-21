@@ -22,7 +22,7 @@ import { UserAccountManagementComponent } from './components/useraccountmanageme
 import { TextFeedItemFormComponent } from './components/feed/modelforms/textfeeditem.component';
 import { FeedIndexComponent } from "./components/feed/indexes/feedindex.component";
 import { FeedItemForm } from "./components/feed/modelforms/feeditemform.component";
-import { FeedDataService } from "./components/dataservices/FeedDataService";
+import { FeedDataService } from "./dataservices/FeedDataService";
 
 @NgModule({
     bootstrap: [AppComponent],

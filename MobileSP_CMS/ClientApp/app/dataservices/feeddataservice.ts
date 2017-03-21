@@ -5,20 +5,20 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/publishReplay';
-import { IFeedDataService } from "./interfaces/IfeedDataService";
-import * as Feedinterfaces from "../models/interfaces/feedinterfaces";
+import { IFeedDataService } from "../interfaces/dataservices/IFeedDataService";
+import { IFeedItem } from "../interfaces/models/IFeedModel";
 import * as Feedclasses from "../models/feedclasses";
 import * as Enums from "../enums";
 
 @Injectable()
 export class FeedDataService implements IFeedDataService {
-    private feedData: Feedinterfaces.IFeedItem[];
+    private feedData: IFeedItem[];
     private feedObservable: Observable<any>;
 
     constructor(public http: Http, private zone: NgZone) {
     }
 
-    public getFeeditems(): Observable<Feedinterfaces.IFeedItem[]> {
+    public getFeeditems(): Observable<IFeedItem[]> {
         if (this.feedData) {
             return Observable.of(this.feedData);
         }
@@ -35,7 +35,7 @@ export class FeedDataService implements IFeedDataService {
         }
     }
 
-    public getFeeditemsByCat(selectedCat: Enums.FeedCategoryEnum): Observable<Feedinterfaces.IFeedItem[]> {
+    public getFeeditemsByCat(selectedCat: Enums.FeedCategoryEnum): Observable<IFeedItem[]> {
         return Observable.create(observer => {
             this.http.get('/api/Feed/GetFeedItemsByCat?selectedCategory=' + selectedCat).subscribe(result => {
                 let feedItems = result.json();
@@ -45,7 +45,7 @@ export class FeedDataService implements IFeedDataService {
         });
     }
 
-    public getFeeditem<TFeedItem extends Feedclasses.BaseFeed>(id: number, feedItemType: { new ({}): TFeedItem; }): Observable<Feedinterfaces.IFeedItem>  {
+    public getFeeditem<TFeedItem extends Feedclasses.BaseFeed>(id: number, feedItemType: { new ({}): TFeedItem; }): Observable<IFeedItem>  {
         return Observable.create(observer => {
             this.http.get('/api/Feed/GetFeedItem?id=' + id).subscribe(result => {
                 let feedItem = new feedItemType(result.json());
@@ -55,7 +55,7 @@ export class FeedDataService implements IFeedDataService {
         });
     }
 
-    public updateFeeditem(updateUrl :string, feedItem: Feedinterfaces.IFeedItem): Observable<{ success: boolean, model: Feedinterfaces.IFeedItem }> {
+    public updateFeeditem(updateUrl: string, feedItem: IFeedModels.IFeedItem): Observable<{ success: boolean, model: IFeedItem }> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let body = JSON.stringify(feedItem);
 
@@ -77,7 +77,7 @@ export class FeedDataService implements IFeedDataService {
         });
     }
 
-    public deleteFeeditem(feedItem: Feedinterfaces.IFeedItem) : boolean {
+    public deleteFeeditem(feedItem: IFeedItem) : boolean {
         this.http.get('/api/Feed/DeleteFeedItem?id=' + feedItem.id).subscribe(result => {
             return true;
         });
@@ -85,7 +85,7 @@ export class FeedDataService implements IFeedDataService {
     }
 
     clearCache() {
-        this._feed = null;
+        this.feedData = null;
     }
 
 }

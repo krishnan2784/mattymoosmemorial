@@ -2,9 +2,8 @@
 import {Observable} from 'rxjs/Observable';
 import { Http } from '@angular/http';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
-import { IFeedItem } from "../models/interfaces/feedinterfaces";
-import Feedinterfaces = require("../models/interfaces/feedinterfaces");
-import Enums = require("../enums");
+import { IFeedItem } from "../models/IFeedModel";
+import Enums = require("../../enums");
 
 export interface IFeedItemForm {
     _fb: FormBuilder;

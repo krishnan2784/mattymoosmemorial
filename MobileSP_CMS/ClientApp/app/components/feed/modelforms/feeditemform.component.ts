@@ -3,12 +3,12 @@ import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angul
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { IFeedItem } from "../../models/interfaces/feedinterfaces";
+import { IFeedItem } from "../../../interfaces/models/IFeedModel";
 import { Subscription } from "rxjs/Rx";
-import { EnumEx } from "../../classes/enumerators";
-import { FeedDataService } from "../../dataservices/FeedDataService";
-import * as Feediteminterfaces from "../../interfaces/feediteminterfaces";
-import * as Enums from "../../enums";
+import { EnumEx } from "../../../classes/enumerators";
+import { FeedDataService } from "../../../dataservices/FeedDataService";
+import * as IFeedItemComponents from "../../../interfaces/components/IFeedItemComponents";
+import * as Enums from "../../../enums";
 import { TextFeedItemFormComponent } from "./textfeeditem.component";
 
 @Component({
@@ -16,11 +16,11 @@ import { TextFeedItemFormComponent } from "./textfeeditem.component";
     template: require('./feeditemform.component.html'),
     providers: [FeedDataService]
 })
-export class FeedItemForm implements Feediteminterfaces.IFeedItemForm {
+export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     public _fb: FormBuilder;
 
     public form: FormGroup;
-    public subForm: Feediteminterfaces.IFeedItemPartialForm;
+    public subForm: IFeedItemComponents.IFeedItemPartialForm;
     public submitted: boolean; 
     
     public feedUpdated: EventEmitter<any> = new EventEmitter<any>();

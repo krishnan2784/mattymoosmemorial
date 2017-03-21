@@ -3,17 +3,17 @@ import { Http } from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { TextFeed } from '../../models/feedclasses.ts';
+import { TextFeed } from '../../../models/feedclasses.ts';
 import { FeedItemForm } from "./feeditemform.component";
-import * as Enums from "../../enums";
-import { FeedDataService }  from "../../dataservices/feeddataservice";
-import Feediteminterfaces = require("../../interfaces/feediteminterfaces");
+import * as Enums from "../../../enums";
+import { FeedDataService }  from "../../../dataservices/feeddataservice";
+import IFeedItemComponents = require("../../../interfaces/components/IFeedItemComponents");
 
 @Component({
     selector: 'textfeeditem',
     template: require('./textfeeditem.component.html')
 })
-export class TextFeedItemFormComponent implements Feediteminterfaces.IFeedItemPartialForm {
+export class TextFeedItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
 
     public feedModelType;
     public updateUrl: string = '/api/Feed/UpdateTextFeedItem';

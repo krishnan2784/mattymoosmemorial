@@ -2,10 +2,10 @@
 import * as Baseclasses from "./baseclasses";
 import * as Quizclasses from "./quizclasses";
 import * as Surveyclasses from "./surveyclasses";
-import * as FeedInterfaces from "./interfaces/feedinterfaces";
+import * as IFeedModels from "../interfaces/models/IFeedModel";
 import FeedTypeEnum = Enums.FeedTypeEnum;
 
-export class BaseFeed extends Baseclasses.BaseModel implements FeedInterfaces.IFeedItem {
+export class BaseFeed extends Baseclasses.BaseModel implements IFeedModels.IFeedItem {
     title: string;
     feedType: Enums.FeedTypeEnum;
     feedCategory: Enums.FeedCategoryEnum;
@@ -28,9 +28,10 @@ export class CampaignFeed extends BaseFeed {
     public feeds: BaseFeed[];
     constructor(options: {} = {}) {
         super(options);
-        this.feedType = FeedTypeEnum.CampaignFeed;
-        this.campaignDescription = options['CampaignDescription'] || '';
-        this.feeds = options['Feeds'];
+        this.feedCategory = Enums.FeedCategoryEnum.Campaign;
+        this.feedType = options['feedType'];
+        this.campaignDescription = options['campaignDescription'] || '';
+        this.feeds = options['feeds'];
     }
 }
 
@@ -39,8 +40,9 @@ export class ImageFeed extends BaseFeed {
     public mainImage: Baseclasses.MediaInfo;
     constructor(options: {} = {}) {
         super(options);
-        this.imageDescription = options['ImageDescription'] || '';
-        this.mainImage = options['MainImage'];
+        this.feedType = FeedTypeEnum.Image;
+        this.imageDescription = options['imageDescription'] || '';
+        this.mainImage = options['mainImage'];
     }
 }
 
@@ -50,8 +52,8 @@ export class QuizFeed extends BaseFeed {
     constructor(options: {} = {}) {
         super(options);
         this.feedType = FeedTypeEnum.Quiz;
-        this.questions = options['Questions'] || '';
-        this.quizDescription = options['QuizDescription'];
+        this.questions = options['questions'] || '';
+        this.quizDescription = options['quizDescription'];
     }
 }
 
@@ -62,7 +64,7 @@ export class SurveyFeed extends BaseFeed {
     constructor(options: {} = {}) {
         super(options);
         this.feedType = FeedTypeEnum.Survey;
-        this.questions = options['Questions'] || '';
+        this.questions = options['questions'] || '';
         this.surveyDescription = options['surveyDescription'];
     }
 }
@@ -82,7 +84,7 @@ export class VideoFeed extends BaseFeed {
     constructor(options: {} = {}) {
         super(options);
         this.feedType = FeedTypeEnum.Video;
-        this.videoDescription = options['VideoDescription'] || '';
-        this.mainVideo = options['MainVideo'];
+        this.videoDescription = options['videoDescription'] || '';
+        this.mainVideo = options['mainVideo'];
     }
 }
