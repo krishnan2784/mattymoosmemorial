@@ -37,18 +37,6 @@ namespace MobileSP_CMS.Controllers
 
         [HttpGet("[action]")]
         [ResponseCache(CacheProfileName = "NoCache")]
-        public async Task<JsonResult> GetFeedItemsByCat(FeedCategoryEnum selectedCategory)
-        {
-            var cachedFeed = await _cache.GetOrCreateAsync("FeedCache_" + selectedCategory, entry =>
-            {
-                var feedRepo = GetRespository<IFeedRepository>();
-                return feedRepo.GetFeedItemsAsync(selectedCategory);
-            });
-            return Json(cachedFeed);
-        }
-
-        [HttpGet("[action]")]
-        [ResponseCache(CacheProfileName = "NoCache")]
         public async Task<JsonResult> GetFeedItem(int id) 
         {
             var feedRepo = GetRespository<IFeedRepository>();
@@ -70,7 +58,6 @@ namespace MobileSP_CMS.Controllers
             where TDestinationDto : BaseFeedDto
         {
             _cache.Remove("FeedCache");
-            _cache.Remove("FeedCache_" + feedItem.FeedCategory);
             if (feedItem.Id == 0)
                 return await CreateFeedItem<TFeedItem, TDestinationDto>(feedItem);
 

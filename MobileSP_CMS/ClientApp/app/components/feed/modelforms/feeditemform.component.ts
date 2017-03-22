@@ -28,7 +28,6 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     public model: IFeedItem;
     public modelObservable: Observable<IFeedItem>;
     
-    public selectedFeedItemId: number;
     public selectedFeedCatId: number = 0;
 
     public feedCategories: { name: string; value: number }[] = [];
@@ -93,12 +92,12 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     };
 
 
-    getDbModel() {
-        this.feedDataService.getFeeditem(this.selectedFeedItemId, this.subForm.feedModelType).subscribe((result) => {
-            this.model = result;
-            this.updateForm();
-        });
-    }
+    //getDbModel() {
+    //    this.feedDataService.getFeeditem(this.selectedFeedItemId, this.subForm.feedModelType).subscribe((result) => {
+    //        this.model = result;
+    //        this.updateForm();
+    //    });
+    //}
 
     getNewModel() {
         this.model = new this.subForm.feedModelType({});
@@ -119,7 +118,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         this.feedDataService.updateFeeditem(this.subForm.updateUrl, feedItem).subscribe(result => {
             if (result.success) {
                 this.model = result.model;
-                this.feedUpdated.emit(feedItem);    
+                this.feedUpdated.emit(result.model);    
             }
         });
     }

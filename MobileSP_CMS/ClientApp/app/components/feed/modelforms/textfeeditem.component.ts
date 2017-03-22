@@ -7,7 +7,7 @@ import { TextFeed } from '../../../models/feedclasses.ts';
 import { FeedItemForm } from "./feeditemform.component";
 import * as Enums from "../../../enums";
 import { FeedDataService }  from "../../../dataservices/feeddataservice";
-import IFeedItemComponents = require("../../../interfaces/components/IFeedItemComponents");
+import * as IFeedItemComponents from "../../../interfaces/components/IFeedItemComponents";
 
 @Component({
     selector: 'textfeeditem',

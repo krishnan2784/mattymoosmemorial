@@ -59,10 +59,16 @@ export class FeedIndexComponent implements OnInit, OnDestroy {
         let inputs = { feedItem: feedItem, feedCat: feedCat, feedUpdated: this.getData() };
 
         var form = FeedItemForm;
-        form.prototype.feedUpdated = new EventEmitter<any>();
-        form.prototype.feedUpdated.subscribe(() => {
-            this.feedItems = null;
-            this.getData();
+        form.prototype.feedUpdated = new EventEmitter<IFeedItem>();
+        form.prototype.feedUpdated.subscribe((feedItemResponse) => {
+            let origFeedItem = this.feedItems.find(x => x.id === feedItemResponse.id);
+            let index = this.feedItems.indexOf(origFeedItem);
+            if (index > -1) {
+                this.feedItems.splice(index, 1, feedItemResponse);
+            } else {
+                this.feedItems.unshift(feedItemResponse);
+            }
+
             this.feedFormData = null;
         });
 

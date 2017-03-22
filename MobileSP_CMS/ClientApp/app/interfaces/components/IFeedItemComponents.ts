@@ -3,13 +3,12 @@ import {Observable} from 'rxjs/Observable';
 import { Http } from '@angular/http';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { IFeedItem } from "../models/IFeedModel";
-import Enums = require("../../enums");
+import { FeedTypeEnum } from "../../enums";
 
 export interface IFeedItemForm {
     _fb: FormBuilder;
     form: FormGroup;
     model: IFeedItem;
-    selectedFeedItemId: number;
     subForm: IFeedItemPartialForm;
 
     initialiseForm();
@@ -19,7 +18,7 @@ export interface IFeedItemForm {
 export interface IFeedItemPartialForm {
     updateUrl: string;
     feedModelType: any;
-    feedType: Enums.FeedTypeEnum;
+    feedType: FeedTypeEnum;
 
     addFormControls(form: FormGroup) : FormGroup;
     removeFormControls(form: FormGroup) : FormGroup;

@@ -23,18 +23,7 @@ namespace MobileSP_CMS.Infrastructure.Repositories
             var list = await GetFeedItemsAsync();
             return list.Any() ? list.FirstOrDefault() : new BaseFeed();
         }
-
-        public async Task<IEnumerable<dynamic>> GetFeedItemsAsync(FeedCategoryEnum selectedCategory)
-        {
-            var request = GetRequest(new GetFeedsRequest
-            {
-                Criteria = GetCriteria(new FeedCriteriaDto())
-            });
-
-            var response = await _proxy.GetFeedsAsync(request);
-            return response.Feeds.Where(x => x.FeedCategory == (FeedCategoryEnumDto)selectedCategory).ToList();
-        }
-
+        
         public async Task<IEnumerable<dynamic>> GetFeedItemsAsync() 
         {
             var request = GetRequest(new GetFeedsRequest {

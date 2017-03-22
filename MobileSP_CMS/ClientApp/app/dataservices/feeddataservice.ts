@@ -28,8 +28,8 @@ export class FeedDataService implements IFeedDataService {
 
     public getFeeditemsByCat(selectedCat: Enums.FeedCategoryEnum): Observable<IFeedItem[]> {
         return Observable.create(observer => {
-            this.http.get('/api/Feed/GetFeedItemsByCat?selectedCategory=' + selectedCat).subscribe(result => {
-                let feedItems = result.json();
+            this.getFeeditems().subscribe((result) => {
+                let feedItems = result.filter(x => x.feedCategory === selectedCat);
                 observer.next(feedItems);
                 observer.complete();
             });
