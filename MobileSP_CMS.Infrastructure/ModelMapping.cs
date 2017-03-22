@@ -158,7 +158,6 @@ namespace MobileSP_CMS.Infrastructure
                 cfg.CreateMap<VideoFeedDto, VideoFeed>().ReverseMap();
                 cfg.CreateMap<QuizFeedDto, QuizFeed>().ReverseMap();
                 cfg.CreateMap<SurveyFeedDto, SurveyFeed>().ReverseMap();
-                cfg.CreateMap<CampaignFeedDto, CampaignFeed>().ReverseMap();
                 cfg.CreateMap<BaseFeedDto, BaseFeed>().ReverseMap();
                 cfg.CreateMap<TSource, TDestination>().ReverseMap();
             });

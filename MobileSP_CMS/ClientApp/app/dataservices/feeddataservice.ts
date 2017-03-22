@@ -12,27 +12,18 @@ import * as Enums from "../enums";
 
 @Injectable()
 export class FeedDataService implements IFeedDataService {
-    private feedData: IFeedItem[];
-    private feedObservable: Observable<any>;
 
     constructor(public http: Http, private zone: NgZone) {
     }
 
     public getFeeditems(): Observable<IFeedItem[]> {
-        if (this.feedData) {
-            return Observable.of(this.feedData);
-        }
-        else if (this.feedObservable) {
-            return this.feedObservable;
-        }
-        else {
-            this.feedObservable = this.http.get('/api/Feed/GetFeedItems').map(result => {
-                this.feedObservable = null;
-                this.feedData = result.json();
-                return this.feedData;
+        return Observable.create(observer => {
+            this.http.get('/api/Feed/GetFeedItems').subscribe(result => {
+                let feedItems = result.json();
+                observer.next(feedItems);
+                observer.complete();
             });
-            return this.feedObservable;
-        }
+        });
     }
 
     public getFeeditemsByCat(selectedCat: Enums.FeedCategoryEnum): Observable<IFeedItem[]> {
@@ -55,7 +46,7 @@ export class FeedDataService implements IFeedDataService {
         });
     }
 
-    public updateFeeditem(updateUrl: string, feedItem: IFeedModels.IFeedItem): Observable<{ success: boolean, model: IFeedItem }> {
+    public updateFeeditem(updateUrl: string, feedItem: IFeedItem): Observable<{ success: boolean, model: IFeedItem }> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let body = JSON.stringify(feedItem);
 
@@ -83,9 +74,4 @@ export class FeedDataService implements IFeedDataService {
         });
         return false;
     }
-
-    clearCache() {
-        this.feedData = null;
-    }
-
 }

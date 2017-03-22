@@ -4,7 +4,9 @@ import * as Feedclasses from "../../models/feedclasses";
 import * as Enums from "../../enums";
 
 export interface IFeedDataService {
-    getFeeditems();
+    getFeeditems(): Observable<IFeedModels.IFeedItem[]>;
+
+    getFeeditemsByCat(selectedCat: Enums.FeedCategoryEnum): Observable<IFeedModels.IFeedItem[]>;
 
     getFeeditem<TFeedItem extends Feedclasses.BaseFeed>(id: number, feedItem: { new ({}): TFeedItem; });
 

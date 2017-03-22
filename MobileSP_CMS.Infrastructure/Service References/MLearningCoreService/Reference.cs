@@ -231,7 +231,6 @@ namespace MLearningCoreService
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.VideoFeedDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.QuizFeedDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.SurveyFeedDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.CampaignFeedDto))]
     public partial class BaseFeedDto : MLearningCoreService.BaseDtoOfint
     {
         
@@ -244,6 +243,8 @@ namespace MLearningCoreService
         private System.Nullable<int> MainIconIdField;
         
         private int MarketIdField;
+        
+        private long PermissionsField;
         
         private int PointsField;
         
@@ -315,6 +316,19 @@ namespace MLearningCoreService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public long Permissions
+        {
+            get
+            {
+                return this.PermissionsField;
+            }
+            set
+            {
+                this.PermissionsField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int Points
         {
             get
@@ -355,7 +369,6 @@ namespace MLearningCoreService
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.VideoFeedDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.QuizFeedDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.SurveyFeedDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.CampaignFeedDto))]
     public partial class BaseDtoOfint : object
     {
         
@@ -1105,43 +1118,6 @@ namespace MLearningCoreService
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CampaignFeedDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
-    public partial class CampaignFeedDto : MLearningCoreService.BaseFeedDto
-    {
-        
-        private string CampaignDescriptionField;
-        
-        private System.Collections.Generic.List<MLearningCoreService.BaseFeedDto> FeedsField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CampaignDescription
-        {
-            get
-            {
-                return this.CampaignDescriptionField;
-            }
-            set
-            {
-                this.CampaignDescriptionField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<MLearningCoreService.BaseFeedDto> Feeds
-        {
-            get
-            {
-                return this.FeedsField;
-            }
-            set
-            {
-                this.FeedsField = value;
-            }
-        }
-    }
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="FeedCategoryEnumDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     public enum FeedCategoryEnumDto : int
@@ -1151,7 +1127,19 @@ namespace MLearningCoreService
         Learning = 0,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        General = 1,
+        News = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        General = 2,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Campaign = 3,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Announcement = 4,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Article = 5,
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
@@ -1175,10 +1163,13 @@ namespace MLearningCoreService
         Survey = 4,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        CampaignFeed = 5,
+        VideoLink = 5,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        Annoucement = 6,
+        ImageLink = 6,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        PdfLink = 7,
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]

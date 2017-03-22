@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { UniversalModule } from 'angular2-universal';
 import { Ng2PaginationModule } from 'ng2-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
@@ -23,6 +24,7 @@ import { TextFeedItemFormComponent } from './components/feed/modelforms/textfeed
 import { FeedIndexComponent } from "./components/feed/indexes/feedindex.component";
 import { FeedItemForm } from "./components/feed/modelforms/feeditemform.component";
 import { FeedDataService } from "./dataservices/FeedDataService";
+import { FeedItemModalComponent } from "./components/modals/feeditemmodal.component";
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -37,6 +39,7 @@ import { FeedDataService } from "./dataservices/FeedDataService";
         UserAccountManagementComponent,
         FeedIndexComponent,
 
+        FeedItemModalComponent,
         FeedItemForm,
         TextFeedItemFormComponent
         
@@ -57,8 +60,6 @@ import { FeedDataService } from "./dataservices/FeedDataService";
             { path: 'feeditem', component: FeedItemForm },
             { path: 'feeditem/:id', component: FeedItemForm },
             { path: ':feedCat/feeditem', component: FeedItemForm },
-            { path: 'textfeeditem/:id', component: TextFeedItemFormComponent },
-            { path: 'textfeeditem', component: TextFeedItemFormComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ]

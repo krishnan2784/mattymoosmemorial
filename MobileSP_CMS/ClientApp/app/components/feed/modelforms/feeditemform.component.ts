@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, EventEmitter } from '@angular/core';
+import { Component, Input, Output, OnDestroy, OnInit, EventEmitter, Injector, ViewChild } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -23,12 +23,12 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     public subForm: IFeedItemComponents.IFeedItemPartialForm;
     public submitted: boolean; 
     
-    public feedUpdated: EventEmitter<any> = new EventEmitter<any>();
+    @Output()
+    public feedUpdated: EventEmitter<any>;
     public model: IFeedItem;
     public modelObservable: Observable<IFeedItem>;
-
-    @Input('id')
-    public selectedFeedItemId: number = 0;
+    
+    public selectedFeedItemId: number;
     public selectedFeedCatId: number = 0;
 
     public feedCategories: { name: string; value: number }[] = [];
@@ -39,15 +39,16 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     public textForm = TextFeedItemFormComponent;
 
     constructor(fb: FormBuilder, public http: Http, public route: ActivatedRoute,
-        private router: Router, public feedDataService: FeedDataService) {
+        private router: Router, public feedDataService: FeedDataService, private injector: Injector) {
         
         this._fb = fb;
         this.subForm = new TextFeedItemFormComponent();
 
         this.setupForm();
 
-        this.selectedFeedItemId = this.route.snapshot.params["id"] | 0;
-        this.selectedFeedCatId = this.route.snapshot.params["feedCat"];
+        this.model = this.injector.get('feedItem');
+        this.selectedFeedCatId = this.injector.get('feedCat');
+
         this.getModel();
         
         this.feedCategories = EnumEx.getNamesAndValues(Enums.FeedCategoryEnum);
@@ -84,8 +85,8 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     }
 
     getModel() {
-        if (this.selectedFeedItemId > 0) {
-            this.getDbModel();
+        if (this.model) {
+            this.updateForm();
         } else {
             this.getNewModel();
         }
@@ -111,8 +112,6 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     }
 
     save(feedItem: IFeedItem, isValid: boolean) {
-        alert(feedItem);
-
         if (!isValid)
             return;
 
@@ -120,8 +119,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         this.feedDataService.updateFeeditem(this.subForm.updateUrl, feedItem).subscribe(result => {
             if (result.success) {
                 this.model = result.model;
-                this.feedUpdated.emit(feedItem);
-                this.router.navigate(["/feed"]);            
+                this.feedUpdated.emit(feedItem);    
             }
         });
     }

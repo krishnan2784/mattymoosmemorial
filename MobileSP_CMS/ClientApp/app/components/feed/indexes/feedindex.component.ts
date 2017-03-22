@@ -1,8 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { IFeedItem } from "../../../interfaces/models/IFeedModel";
 import * as Enums from "../../../enums";
 import { FeedDataService } from "../../../dataservices/feeddataservice";
+import { FeedItemForm } from "../modelforms/feeditemform.component";
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'feedindex',
@@ -10,6 +12,7 @@ import { FeedDataService } from "../../../dataservices/feeddataservice";
     providers: [FeedDataService]
 })
 export class FeedIndexComponent implements OnInit, OnDestroy {
+    feedFormData = null;
     public feedItems: IFeedItem[];
     feedTypes: typeof Enums.FeedTypeEnum = Enums.FeedTypeEnum;
     feedCats: typeof Enums.FeedCategoryEnum = Enums.FeedCategoryEnum;
@@ -51,8 +54,22 @@ export class FeedIndexComponent implements OnInit, OnDestroy {
             });
         }
     }
+    
+    updateFeedItem(feedItem: IFeedItem = null, feedCat: Enums.FeedCategoryEnum = null) {
+        let inputs = { feedItem: feedItem, feedCat: feedCat, feedUpdated: this.getData() };
 
-    onSelect(feedItem: IFeedItem) {
-        this.router.navigate(['/feeditem', feedItem.id]);
+        var form = FeedItemForm;
+        form.prototype.feedUpdated = new EventEmitter<any>();
+        form.prototype.feedUpdated.subscribe(() => {
+            this.feedItems = null;
+            this.getData();
+            this.feedFormData = null;
+        });
+
+        this.feedFormData = {
+            feedFormComponent: form,
+            inputs: inputs
+        };
     }
+    
 }

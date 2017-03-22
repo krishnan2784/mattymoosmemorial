@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { FeedDataService } from "../../dataservices/feeddataservice";
-import {  } from '@types/jquery';
-declare var $: JQueryStatic;
 
 @Component({
     selector: 'app',
