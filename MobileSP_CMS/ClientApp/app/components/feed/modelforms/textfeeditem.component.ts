@@ -3,11 +3,12 @@ import { Http } from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { TextFeed } from '../../../models/feedclasses.ts';
 import { FeedItemForm } from "./feeditemform.component";
-import * as Enums from "../../../enums";
 import { FeedDataService }  from "../../../dataservices/feeddataservice";
 import * as IFeedItemComponents from "../../../interfaces/components/IFeedItemComponents";
+import Enums = require("../../../enums");
+import FeedTypeEnum = Enums.FeedTypeEnum;
+import Feedclasses = require("../../../models/feedclasses");
 
 @Component({
     selector: 'textfeeditem',
@@ -17,10 +18,10 @@ export class TextFeedItemFormComponent implements IFeedItemComponents.IFeedItemP
 
     public feedModelType;
     public updateUrl: string = '/api/Feed/UpdateTextFeedItem';
-    public feedType: Enums.FeedTypeEnum = Enums.FeedTypeEnum.Text;
+    public feedType: Enums.FeedTypeEnum = FeedTypeEnum.Text;
 
     constructor() {
-        this.feedModelType = TextFeed;
+        this.feedModelType = Feedclasses.TextFeed;
     } 
 
     addFormControls(form: FormGroup): FormGroup {

@@ -31,3 +31,8 @@ export enum SurveyQuestionTypeEnum {
     Single = 0,
     Multiple = 1
 }
+export enum AppTypeEnum {
+    FISA = 0,
+    CCESG = 1,
+    MLearning = 2
+}

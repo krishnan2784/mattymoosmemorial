@@ -50,6 +50,7 @@ namespace MobileSP_CMS
 
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IFeedRepository, FeedRepository>();
+            services.AddTransient<IMarketRepository, MarketRepository>();
 
             services.AddSession(options =>
             {

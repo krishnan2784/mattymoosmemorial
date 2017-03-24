@@ -60,7 +60,6 @@ namespace MobileSP_CMS.Infrastructure.Repositories
             });
 
             var response = await _proxy.UpdateFeedAsync(request);
-            
             return response.CurrentBaseFeed.MapFeedItem<BaseFeedDto, TFeedItem>(); 
         }
 

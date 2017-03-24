@@ -17,4 +17,12 @@ namespace MobileSP_CMS.Core.Models
         public virtual bool Published { get; set; }
         public virtual DateTime? UpdatedAt { get; set; }
     }
+
+    public class BaseVersionableEntity : BaseModel
+    {
+        public virtual bool IsPublishedLive { get; set; }
+        public virtual bool ValidVersion { get; set; }
+        public virtual int Version { get; set; }
+    }
+    
 }

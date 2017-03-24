@@ -1,29 +1,22 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Jil;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using MLearningCoreService;
-using MobileSP_CMS.Core.Enumerations;
 using MobileSP_CMS.Core.Models;
-using MobileSP_CMS.Core.Models.Interfaces;
-using MobileSP_CMS.Infrastructure.Repositories;
+using MobileSP_CMS.Helpers.Attributes;
 using MobileSP_CMS.Infrastructure.Repositories.Interfaces;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
 
 namespace MobileSP_CMS.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    public class FeedController : BaseController
+    public class FeedController : MarketController
     {
         public FeedController(IMemoryCache memoryCache) : base(memoryCache){}
 
         [HttpGet("[action]")]
+        [JsonResponseWrapper]
         [ResponseCache(CacheProfileName = "NoCache")]
         public async Task<JsonResult> GetFeedItems()
         {
@@ -36,6 +29,7 @@ namespace MobileSP_CMS.Controllers
         }
 
         [HttpGet("[action]")]
+        [JsonResponseWrapper]
         [ResponseCache(CacheProfileName = "NoCache")]
         public async Task<JsonResult> GetFeedItem(int id) 
         {
@@ -57,7 +51,6 @@ namespace MobileSP_CMS.Controllers
         public async Task<JsonResult> UpdateFeedItem<TFeedItem,TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed
             where TDestinationDto : BaseFeedDto
         {
-            _cache.Remove("FeedCache");
             if (feedItem.Id == 0)
                 return await CreateFeedItem<TFeedItem, TDestinationDto>(feedItem);
 
@@ -68,12 +61,15 @@ namespace MobileSP_CMS.Controllers
 
 
         [HttpPost("[action]")]
+        [JsonResponseWrapper]
         public async Task<JsonResult> UpdateTextFeedItem([FromBody]TextFeed feedItem) => await UpdateFeedItem<TextFeed, TextFeedDto>(feedItem);
 
         [HttpPost("[action]")]
+        [JsonResponseWrapper]
         public async Task<JsonResult> UpdateImageFeedItem([FromBody]ImageFeed feedItem) => await UpdateFeedItem<ImageFeed, ImageFeedDto>(feedItem);
 
         [HttpPost("[action]")]
+        [JsonResponseWrapper]
         public async Task<JsonResult> UpdateVideoFeedItem([FromBody]VideoFeed feedItem) => await UpdateFeedItem<VideoFeed, VideoFeedDto>(feedItem);
 
     }

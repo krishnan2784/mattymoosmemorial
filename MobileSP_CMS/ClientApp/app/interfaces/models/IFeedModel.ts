@@ -1,4 +1,4 @@
-﻿import * as Enums from "../../enums";
+﻿import Enums = require("../../enums");
 
 export interface IFeedItem {
     id: number;

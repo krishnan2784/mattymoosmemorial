@@ -1,16 +1,19 @@
-﻿import * as Enums from "../enums";
-import * as Baseclasses from "./baseclasses";
-import * as Quizclasses from "./quizclasses";
-import * as Surveyclasses from "./surveyclasses";
-import * as IFeedModels from "../interfaces/models/IFeedModel";
+﻿import FeedModel = require("../interfaces/models/IFeedModel");
+import Enums = require("../enums");
+import FeedCategoryEnum = Enums.FeedCategoryEnum;
+import Mediainfoclasses = require("./mediainfoclasses");
+import MediaInfo = Mediainfoclasses.MediaInfo;
 import FeedTypeEnum = Enums.FeedTypeEnum;
+import Quizclasses = require("./quizclasses");
+import Surveyclasses = require("./surveyclasses");
+import Baseclasses = require("./baseclasses");
 
-export class BaseFeed extends Baseclasses.BaseModel implements IFeedModels.IFeedItem {
+export class BaseFeed extends Baseclasses.BaseModel implements FeedModel.IFeedItem {
     title: string;
     feedType: Enums.FeedTypeEnum;
-    feedCategory: Enums.FeedCategoryEnum;
+    feedCategory: FeedCategoryEnum;
     points: number;
-    mainIcon: Baseclasses.MediaInfo;
+    mainIcon: Mediainfoclasses.MediaInfo;
     marketId: string;
 
     constructor(options: {} = {}) {
@@ -28,7 +31,7 @@ export class CampaignFeed extends BaseFeed {
     public feeds: BaseFeed[];
     constructor(options: {} = {}) {
         super(options);
-        this.feedCategory = Enums.FeedCategoryEnum.Campaign;
+        this.feedCategory = FeedCategoryEnum.Campaign;
         this.feedType = options['feedType'];
         this.campaignDescription = options['campaignDescription'] || '';
         this.feeds = options['feeds'];
@@ -37,7 +40,7 @@ export class CampaignFeed extends BaseFeed {
 
 export class ImageFeed extends BaseFeed {
     public imageDescription: string;
-    public mainImage: Baseclasses.MediaInfo;
+    public mainImage: MediaInfo;
     constructor(options: {} = {}) {
         super(options);
         this.feedType = FeedTypeEnum.Image;
@@ -80,7 +83,7 @@ export class TextFeed extends BaseFeed {
 
 export class VideoFeed extends BaseFeed {
     public videoDescription: string;
-    public mainVideo: Baseclasses.MediaInfo;
+    public mainVideo: MediaInfo;
     constructor(options: {} = {}) {
         super(options);
         this.feedType = FeedTypeEnum.Video;

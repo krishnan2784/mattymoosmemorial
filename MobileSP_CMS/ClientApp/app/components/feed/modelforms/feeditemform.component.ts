@@ -3,13 +3,15 @@ import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angul
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { IFeedItem } from "../../../interfaces/models/IFeedModel";
 import { Subscription } from "rxjs/Rx";
 import { EnumEx } from "../../../classes/enumerators";
 import { FeedDataService } from "../../../dataservices/FeedDataService";
 import * as IFeedItemComponents from "../../../interfaces/components/IFeedItemComponents";
-import * as Enums from "../../../enums";
 import { TextFeedItemFormComponent } from "./textfeeditem.component";
+import FeedModel = require("../../../interfaces/models/IFeedModel");
+import FeedItem = FeedModel.IFeedItem;
+import Enums = require("../../../enums");
+import FeedCategoryEnum = Enums.FeedCategoryEnum;
 
 @Component({
     selector: 'feeditemform',
@@ -25,15 +27,14 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     
     @Output()
     public feedUpdated: EventEmitter<any>;
-    public model: IFeedItem;
-    public modelObservable: Observable<IFeedItem>;
+    public model: FeedModel.IFeedItem;
+    public modelObservable: Observable<FeedItem>;
     
     public selectedFeedCatId: number = 0;
 
     public feedCategories: { name: string; value: number }[] = [];
 
     public id_sub: Subscription;
-    feedTypesEnum: typeof Enums.FeedTypeEnum = Enums.FeedTypeEnum;
 
     public textForm = TextFeedItemFormComponent;
 
@@ -50,7 +51,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
 
         this.getModel();
         
-        this.feedCategories = EnumEx.getNamesAndValues(Enums.FeedCategoryEnum);
+        this.feedCategories = EnumEx.getNamesAndValues(FeedCategoryEnum);
     }
 
     public setupForm() {
@@ -110,15 +111,15 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             (this.form).patchValue(this.model, { onlySelf: true });
     }
 
-    save(feedItem: IFeedItem, isValid: boolean) {
+    save(feedItem: FeedItem, isValid: boolean) {
         if (!isValid)
             return;
 
         this.submitted = true;
         this.feedDataService.updateFeeditem(this.subForm.updateUrl, feedItem).subscribe(result => {
             if (result.success) {
-                this.model = result.model;
-                this.feedUpdated.emit(result.model);    
+                this.model = result.content;
+                this.feedUpdated.emit(result.content);    
             }
         });
     }

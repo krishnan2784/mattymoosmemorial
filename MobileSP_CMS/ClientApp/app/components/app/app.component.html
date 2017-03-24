@@ -3,11 +3,25 @@
         <div>
             <nav-menu></nav-menu>
         </div>
-        <div class='col-sm-2'>
+        <div class="body-content">
+            <div class='col-sm-2'>
+            </div>
+            <div class='col-sm-10'>
+                <div *ngIf="pageTitle!=''" class="header-bar">
+                    <h2>
+                        <span class="col-md-8">
+                            {{pageTitle}}
+                        </span>
+                        <span class="col-md-4">
+                            <marketdropdown *ngIf="this.marketDropdownIsVisible"></marketdropdown>
+                        </span>
+                    </h2>
+                    <hr />                    
+                </div>
+                <router-outlet></router-outlet>
+            </div>           
         </div>
-        <div class='col-sm-10 body-content'>
-            <router-outlet></router-outlet>
-        </div>
-    </div>
+        
+</div>
 </div>
 <footer></footer>

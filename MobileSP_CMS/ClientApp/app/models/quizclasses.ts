@@ -1,9 +1,8 @@
-﻿import * as Enums from "../enums";
-import * as Baseclasses from "./baseclasses";
+﻿import Enums = require("../enums");
+import Baseclasses = require("./baseclasses");
 import BaseModel = Baseclasses.BaseModel;
 
-
-export class QuizQuestion extends BaseModel {
+export class QuizQuestion extends Baseclasses.BaseModel {
     public answers: QuizQuestionAnswer[];
     public order: number;
     public question: string;

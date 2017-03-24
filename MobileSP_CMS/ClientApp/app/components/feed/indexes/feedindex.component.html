@@ -1,10 +1,8 @@
 <h2 *ngIf="!this.filteredFeed">
-    Feed
     <button (click)="updateFeedItem()" class="btn btn-primary right btn-lg" data-toggle="modal" data-target="#feedItemModal">Create Feed Item</button>
 </h2>
 
 <h2 *ngIf="this.filteredFeed">
-    {{ this.feedCats[this.catId] }} Feed
     <button (click)="updateFeedItem(0, this.catId)" class="btn btn-primary right btn-lg" data-toggle="modal" data-target="#feedItemModal">Create Feed Item</button>
 </h2>
 

@@ -1,16 +1,15 @@
 ﻿import {Observable} from 'rxjs/Observable';
-import * as IFeedModels from "../models/IFeedModel";
-import * as Feedclasses from "../../models/feedclasses";
-import * as Enums from "../../enums";
+import Enums = require("../../enums");
+import FeedModel = require("../models/IFeedModel");
 
 export interface IFeedDataService {
-    getFeeditems(): Observable<IFeedModels.IFeedItem[]>;
+    getFeeditems(): Observable<FeedModel.IFeedItem[]>;
 
-    getFeeditemsByCat(selectedCat: Enums.FeedCategoryEnum): Observable<IFeedModels.IFeedItem[]>;
+    getFeeditemsByCat(selectedCat: Enums.FeedCategoryEnum): Observable<FeedModel.IFeedItem[]>;
 
-    getFeeditem<TFeedItem extends Feedclasses.BaseFeed>(id: number, feedItem: { new ({}): TFeedItem; });
+    getFeeditem<TFeedItem extends BaseFeed>(id: number, feedItem: { new ({}): TFeedItem; });
 
-    updateFeeditem(updateUrl: string, feedItem: IFeedModels.IFeedItem);
+    updateFeeditem(updateUrl: string, feedItem: FeedModel.IFeedItem);
 
-    deleteFeeditem(feedItem: IFeedModels.IFeedItem);
+    deleteFeeditem(feedItem: FeedModel.IFeedItem);
 }

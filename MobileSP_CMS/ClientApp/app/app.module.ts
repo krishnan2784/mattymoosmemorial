@@ -14,8 +14,15 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/toPromise';
 
 import { AppComponent } from './components/app/app.component'
+import { BaseComponent } from './components/base.component'
+import { MarketDropdown } from './components/app/marketdropdown.component'
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { FooterComponent } from './components/navmenu/footer.component';
+
+import { FeedDataService } from "./dataservices/FeedDataService";
+import { MarketDataService } from "./dataservices/MarketDataService";
+import { UserDataService } from "./dataservices/UserDataService";
+
 import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
@@ -23,16 +30,17 @@ import { UserAccountManagementComponent } from './components/useraccountmanageme
 import { TextFeedItemFormComponent } from './components/feed/modelforms/textfeeditem.component';
 import { FeedIndexComponent } from "./components/feed/indexes/feedindex.component";
 import { FeedItemForm } from "./components/feed/modelforms/feeditemform.component";
-import { FeedDataService } from "./dataservices/FeedDataService";
 import { FeedItemModalComponent } from "./components/modals/feeditemmodal.component";
 
 @NgModule({
     bootstrap: [AppComponent],
     declarations: [
         AppComponent,
-
+        BaseComponent,
         NavMenuComponent,
         FooterComponent,
+        MarketDropdown,
+
         CounterComponent,
         FetchDataComponent,
         HomeComponent,

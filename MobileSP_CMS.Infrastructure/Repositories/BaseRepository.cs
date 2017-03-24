@@ -12,13 +12,18 @@ namespace MobileSP_CMS.Infrastructure.Repositories
 
         public IBaseCriteria RequestCriteria { get; set; }
 
+        public BaseRepository()
+        {
+            BaseRequest = new BaseRequest();
+            RequestCriteria = new BaseCriteria();
+        }
+
         public TRequestBase GetRequest<TRequestBase>(TRequestBase request) where TRequestBase : MLearningCoreService.RequestBase
         {
             var mapper = new AutoMapperGenericsHelper<IBaseRequest, TRequestBase>();
             request = mapper.ConvertUnpopulatedFields(BaseRequest, request);
             return request;
         }
-
        
         public TCriteria GetCriteria<TCriteria>(TCriteria destinationCriteria) where TCriteria : MLearningCoreService.BaseCriteriaDto
         {

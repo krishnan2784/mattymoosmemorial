@@ -21,7 +21,10 @@ namespace MobileSP_CMS.Infrastructure.Repositories
 
             if (applicationUser.ValidUser)
             {
+                BaseRequest.AccessToken = applicationUser.SessionGuid;
                 applicationUser.UserRoles = await GetUserRoles(applicationUser);
+                applicationUser.UserConfigurations = await GetUserConfigurationsByUserId(applicationUser.UserDetails.Id);
+                applicationUser.UserDetails.DefaultMarketId = applicationUser.UserConfigurations.FirstOrDefault(x=>x.IsDefault).MarketId;
             }
             return applicationUser;
         }
@@ -54,6 +57,46 @@ namespace MobileSP_CMS.Infrastructure.Repositories
             var list = new List<string>();
             return list;
         }
+        public async Task<IEnumerable<UserConfiguration>> GetUserConfigurationsByUserId(int userId)
+        {
+            var response = await _proxy.GetUserConfigurationsAsync(new GetUserConfigurationsRequest()
+            {
+                AccessToken = BaseRequest.AccessToken,
+                Criteria = new UserConfigurationCriteriaDto()
+                {
+                    IsLiveMarket = false,
+                    UserId = userId
+                }
+            });
+            var mapper = new AutoMapperGenericsHelper<UserConfigurationDto, UserConfiguration>();
+
+            var list = mapper.ConvertToDbEntity(response.UserConfigurations);
+            return list;
+        }
+
+        public async Task<IEnumerable<UserMarket>> GetUserMarkets(int userId)
+        {
+            var list = new List<UserMarket>();
+
+            var configs = await GetUserConfigurationsByUserId(userId);
+
+            var marketRepo = new MarketRepository();
+            marketRepo.BaseRequest.AccessToken = BaseRequest.AccessToken;
+            var markets = await marketRepo.GetMarketsAsync();
+
+            foreach (var config in configs)
+            {
+                list.Add(new UserMarket()
+                {
+                    Id = config.MarketId,
+                    IsDefault = config.IsDefault,
+                    Name = markets.First(x => x.Id == config.MarketId).Name
+                });
+            }
+
+            return list;
+        }
+
 
         public async Task<IEnumerable<User>> GetUsersAsync()
         {
@@ -75,5 +118,7 @@ namespace MobileSP_CMS.Infrastructure.Repositories
             }
             return users;
         }
+
+
     }
 }

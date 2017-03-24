@@ -17,7 +17,7 @@
 <form [formGroup]="form" novalidate (ngSubmit)="save(form.value, form.valid)" *ngIf="model">
 
     <div class="modal-body">
-        <div *ngIf="this.selectedFeedItemId===0">
+        <div *ngIf="!model.id">
             <div>
                 <h4>
                     Select a feed type

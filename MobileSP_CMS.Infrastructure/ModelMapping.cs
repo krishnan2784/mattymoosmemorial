@@ -127,6 +127,9 @@ namespace MobileSP_CMS.Infrastructure
                     cfg.CreateMap<MediaInfoDto, MediaInfo>()
                             .IgnorePopulatedDestinationFields(destinationModel.MainIcon)
                             .ReverseMap();
+                    cfg.CreateMap<CorporateAppDto, CorporateApp>()
+                            .IgnorePopulatedDestinationFields(destinationModel.CorporateApp)
+                            .ReverseMap();
                 });
                 var mapper = config.CreateMapper();
                 return mapper.Map(sourceModel, destinationModel);
@@ -153,6 +156,7 @@ namespace MobileSP_CMS.Infrastructure
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<MediaInfoDto, MediaInfo>().ReverseMap();
+                cfg.CreateMap<CorporateAppDto, CorporateApp>().ReverseMap();
                 cfg.CreateMap<ImageFeedDto, ImageFeed>().ReverseMap();
                 cfg.CreateMap<TextFeedDto, TextFeed>().ReverseMap();
                 cfg.CreateMap<VideoFeedDto, VideoFeed>().ReverseMap();

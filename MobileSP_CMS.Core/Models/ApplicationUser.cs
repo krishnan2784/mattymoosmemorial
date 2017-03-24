@@ -8,5 +8,6 @@ namespace MobileSP_CMS.Core.Models
         public string SessionGuid { get; set; }
         public User UserDetails { get; set; }
         public IEnumerable<string> UserRoles { get; set; }
+        public IEnumerable<UserConfiguration> UserConfigurations { get; set; }
     }
 }
