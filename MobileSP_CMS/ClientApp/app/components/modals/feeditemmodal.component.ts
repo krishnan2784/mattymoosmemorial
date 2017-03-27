@@ -18,7 +18,7 @@ export class FeedItemModalComponent {
     @ViewChild('feedItemComponentContainer', { read: ViewContainerRef }) dynamicComponentContainer: ViewContainerRef;
     @Input() set feedFormData(data: { feedFormComponent: any, inputs: any }) {
         if (!data) {
-            this.closeModal.nativeElement.click();
+            //this.closeModal.nativeElement.click();
             return;
         }
         

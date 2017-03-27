@@ -19,10 +19,6 @@ import { MarketDropdown } from './components/app/marketdropdown.component'
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { FooterComponent } from './components/navmenu/footer.component';
 
-import { FeedDataService } from "./dataservices/FeedDataService";
-import { MarketDataService } from "./dataservices/MarketDataService";
-import { UserDataService } from "./dataservices/UserDataService";
-
 import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
@@ -50,7 +46,6 @@ import { FeedItemModalComponent } from "./components/modals/feeditemmodal.compon
         FeedItemModalComponent,
         FeedItemForm,
         TextFeedItemFormComponent
-        
     ],
     imports: [
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.

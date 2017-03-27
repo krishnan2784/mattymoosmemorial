@@ -7,6 +7,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/publishReplay';
 import { IFeedDataService } from "../interfaces/dataservices/IfeedDataService";
 import { ResponseHelper } from "./helpers/responsehelper";
+import { RequestHelper } from "./helpers/requesthelper";
+
 import Enums = require("../enums");
 import FeedModel = require("../interfaces/models/IFeedModel");
 import FeedItem = FeedModel.IFeedItem;
@@ -14,19 +16,14 @@ import Feedclasses = require("../models/feedclasses");
 import Apiresponse = require("../models/apiresponse");
 
 @Injectable()
-export class FeedDataService implements IFeedDataService {
+export class FeedDataService extends RequestHelper implements IFeedDataService {
 
-    constructor(public http: Http, private zone: NgZone) {
+    constructor(public http: Http) {
+        super(http);
     }
 
     public getFeeditems(): Observable<FeedModel.IFeedItem[]> {
-        return Observable.create(observer => {
-            this.http.get('/api/Feed/GetFeedItems').subscribe(result => {
-                let response = ResponseHelper.getResponse(result);
-                observer.next(response.content);
-                observer.complete();
-            });
-        });
+        return this.getRequestBase('/api/Feed/GetFeedItems');
     }
 
     public getFeeditemsByCat(selectedCat: Enums.FeedCategoryEnum): Observable<FeedItem[]> {
@@ -39,16 +36,10 @@ export class FeedDataService implements IFeedDataService {
         });
     }
 
-    public getFeeditem<TFeedItem extends Feedclasses.BaseFeed>(id: number, feedItemType: { new ({}): TFeedItem; }): Observable<FeedItem[]>  {
+    public getFeeditem<TFeedItem extends Feedclasses.BaseFeed>(feedId: number, feedItemType: { new ({}): TFeedItem; }): Observable<FeedItem[]>  {
         return Observable.create(observer => {
-            this.http.get('/api/Feed/GetFeedItem?id=' + id).subscribe(result => {
-                let response = ResponseHelper.getResponse(result);
-
-                if (response.success === false) {
-                    alert(response.message);
-                }
-
-                let feedItem = new feedItemType(response.content);
+            this.getRequestBase('/api/Feed/GetFeedItem', [{ key:'id', value:feedId }]).subscribe((result) => {
+                let feedItem = new feedItemType(result.content);
                 observer.next(feedItem);
                 observer.complete();
             });
@@ -56,23 +47,7 @@ export class FeedDataService implements IFeedDataService {
     }
 
     public updateFeeditem(updateUrl: string, feedItem: FeedItem): Observable<Apiresponse.ApiResponse> {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let body = JSON.stringify(feedItem);
-
-        return Observable.create(observer => {
-            this.http.post(updateUrl, body, { headers: headers }).subscribe(
-                (result) => {
-                    let response = ResponseHelper.getResponse(result);
-
-                    if (response.success === false) {
-                        alert(response.message);
-                    }
-
-                    observer.next(response);
-                    observer.complete();
-                }
-            );
-        });
+        return this.postRequestFull('/api/Feed/GetFeedItems', feedItem);
     }
 
     public deleteFeeditem(feedItem: FeedItem) : boolean {

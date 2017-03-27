@@ -12,8 +12,7 @@ import { ShareService } from "../../../dataservices/datashareservice";
 
 @Component({
     selector: 'feedindex',
-    template: require('./feedindex.component.html'),
-    providers: [FeedDataService]
+    template: require('./feedindex.component.html')
 })
 export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestroy {
     feedFormData = null;

@@ -1,5 +1,6 @@
 import 'angular2-universal-polyfills/browser';
 import { enableProdMode } from '@angular/core';
+import './__workaround.browser';
 import { platformUniversalDynamic } from 'angular2-universal';
 import { AppModule } from './app/app.module';
 import 'bootstrap';

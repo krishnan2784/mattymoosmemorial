@@ -4,9 +4,3 @@ C:\_projects\MobileSP\MobileSP_CMS.Infrastructure.Tests\bin\Debug\Microsoft.Visu
 C:\_projects\MobileSP\MobileSP_CMS.Infrastructure.Tests\obj\Debug\MobileSP_CMS.Tests.csprojResolveAssemblyReference.cache
 C:\_projects\MobileSP\MobileSP_CMS.Infrastructure.Tests\obj\Debug\MobileSP_CMS.Tests.dll
 C:\_projects\MobileSP\MobileSP_CMS.Infrastructure.Tests\obj\Debug\MobileSP_CMS.Tests.pdb
-C:\Projects\MLearning\CMS\MobileSP_CMS.Infrastructure.Tests\bin\Debug\MobileSP_CMS.Tests.dll
-C:\Projects\MLearning\CMS\MobileSP_CMS.Infrastructure.Tests\bin\Debug\MobileSP_CMS.Tests.pdb
-C:\Projects\MLearning\CMS\MobileSP_CMS.Infrastructure.Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
-C:\Projects\MLearning\CMS\MobileSP_CMS.Infrastructure.Tests\obj\Debug\MobileSP_CMS.Tests.csprojResolveAssemblyReference.cache
-C:\Projects\MLearning\CMS\MobileSP_CMS.Infrastructure.Tests\obj\Debug\MobileSP_CMS.Tests.dll
-C:\Projects\MLearning\CMS\MobileSP_CMS.Infrastructure.Tests\obj\Debug\MobileSP_CMS.Tests.pdb
