@@ -23,9 +23,7 @@ namespace MobileSP_CMS.Controllers
         private static int _CurrentMarketId { get; set; }
         private static int _UserId { get; set; }
 
-        public BaseController(IMemoryCache memoryCache) :base(memoryCache)
-        {
-        }
+        public BaseController(IMemoryCache memoryCache) :base(memoryCache){}
 
         public TService GetService<TService>()
         {
@@ -51,8 +49,8 @@ namespace MobileSP_CMS.Controllers
 
         public void ClearRepoValues()
         {
-            _AuthToken = null;
-            _UserName = null;
+            _AuthToken = string.Empty;
+            _UserName = string.Empty;
             _CurrentMarketId = 0;
             _UserId = 0;
         }
