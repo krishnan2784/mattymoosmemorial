@@ -104,6 +104,9 @@ namespace MobileSP_CMS
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(name: "logout",template: "account/logout",
+                    defaults: new { controller = "Base", action = "Logout" });
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

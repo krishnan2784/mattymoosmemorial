@@ -14,18 +14,17 @@ using MobileSP_CMS.Infrastructure.Repositories.Interfaces;
 
 namespace MobileSP_CMS.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : CacheController
     {
-        public IMemoryCache _cache;
-
-        public AccountController(IMemoryCache memoryCache)
+        public AccountController(IMemoryCache memoryCache) : base(memoryCache)
         {
-            _cache = memoryCache;
         }
 
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {
+            ClearCache();
+
             ViewData["ReturnUrl"] = returnUrl;
             if (User.Identity.IsAuthenticated)
                 RedirectToAction("Index", "Home");
@@ -33,6 +32,7 @@ namespace MobileSP_CMS.Controllers
 #if DEBUG
             loginDetails.UserName = "admin";
             loginDetails.Password = "12345";
+            loginDetails.RememberMe = true;
 #endif
 
             return View(loginDetails);
@@ -66,14 +66,6 @@ namespace MobileSP_CMS.Controllers
             }
 
             return View(loginDetails);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Logout()
-        {
-            await HttpContext.Authentication.SignOutAsync("MobileSPAuthCookie");
-            _cache.Dispose();
-            return Redirect("/");
         }
     }
 }

@@ -2,34 +2,47 @@
 
 @{ Layout = "_LayoutLogin"; }
 
-<h2 class="header">MobileSP CMS</h2>
+<div class="login-body">
 
-<div class="row">
-    <div class="col-md-10 login-form">
-        <section>
-            <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
-                
-                <div class="form-group">
-                    
-                    <div class="col-md-offset-4 col-md-7">
-                        <label class="control-label">Username</label>
-                        @Html.TextBoxFor(m=>m.UserName, Model.UserName, new {type="text"})
-                    </div>
-                </div>
+    <div class="login-content">
+        <h2 class="header">MobileSP CMS</h2>
 
-                <div class="form-group">
-                    <div class="col-md-offset-4 col-md-7">
-                        <label class="control-label">Password</label>
-                        @Html.TextBoxFor(m=>m.Password, Model.Password, new {type="password"})
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <div class="col-md-offset-4 col-md-7">
-                        <button type="submit" class="waves-effect waves-light btn btn-primary right">Log in</button>
-                    </div>
-                </div>
-            </form>
-         </section>
+        <div class="row">
+            <div class="col-md-10 login-form">
+                <section>
+                    <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
+
+                        <div class="form-group">
+
+                            <div class="col-md-offset-4 col-md-7">
+                                <label class="control-label">Username</label>
+                                @Html.TextBoxFor(m => m.UserName, Model.UserName, new { type = "text" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-4 col-md-7">
+                                <label class="control-label">Password</label>
+                                @Html.TextBoxFor(m => m.Password, Model.Password, new { type = "password" })
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="col-md-offset-4 col-md-7">
+                                @Html.CheckBoxFor(m => m.RememberMe, Model.RememberMe)
+                                <label for="RememberMe">Remember Me</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-4 col-md-7">
+                                <button type="submit" class="waves-effect waves-light btn btn-primary right">Log in</button>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
     </div>
+
 </div>

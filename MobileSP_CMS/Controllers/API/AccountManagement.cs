@@ -23,7 +23,7 @@ namespace MobileSP_CMS.Controllers
         [ResponseCache(CacheProfileName = "NoCache")]
         public async Task<JsonResult> UserList()
         {
-            var cachedUsers = await _cache.GetOrCreateAsync("UserList", entry =>
+            var cachedUsers = await _cache.GetOrCreateAsync(CacheKeys.USERLIST, entry =>
             {
                 var accountRepo = GetRespository<IUserRepository>();
                 return accountRepo.GetUsersAsync();
@@ -36,7 +36,7 @@ namespace MobileSP_CMS.Controllers
         [ResponseCache(CacheProfileName = "NoCache")]
         public async Task<JsonResult> GetUserMarkets()
         {
-            var cachedUsers = await _cache.GetOrCreateAsync("UserMarkets", async entry =>
+            var cachedUsers = await _cache.GetOrCreateAsync(CacheKeys.USERMARKETS, async entry =>
             {
                 var list = new List<UserMarket>();
 

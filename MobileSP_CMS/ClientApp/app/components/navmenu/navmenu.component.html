@@ -12,20 +12,6 @@
             <img src="assets/images/header-div.png"/>
             MICROLEARNING CMS
         </div>
-        <div class="nav-top-menu">
-            <a [routerLink]="['/useraccountmanagement']" [routerLinkActive]="['link-active']" >
-                <div class="nav-top-menu-item">
-                    Accounts
-                </div>
-            </a>
-
-            <div class="nav-top-menu-item logout-link">
-                <a href="/account/logout">
-                    Log out
-                    <img src="assets/images/logout.png" />
-                </a>
-            </div>
-        </div>
     </div>
 </div>
 
@@ -76,14 +62,12 @@
                         MEDIA
                     </a>
                 </li>
-            </ul>
-            <ul class='nav navbar-nav left-menu-compact'>
                 <li [routerLinkActive]="['link-active']" class="nav-border-bottom">
                     <a [routerLink]="['/useraccountmanagement']">
                         Accounts
                     </a>
                 </li>
-                <li [routerLinkActive]="['link-active']" class="nav-border-bottom logout-left">
+                <li class="nav-border-bottom">
                     <a href="/account/logout">
                         Log out
                     </a>

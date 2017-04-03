@@ -20,7 +20,7 @@ namespace MobileSP_CMS.Controllers
         [ResponseCache(CacheProfileName = "NoCache")]
         public async Task<JsonResult> GetFeedItems()
         {
-            var cachedFeed = await _cache.GetOrCreateAsync("FeedCache", entry =>
+            var cachedFeed = await _cache.GetOrCreateAsync(CacheKeys.FEEDITEMS, entry =>
             {
                 var feedRepo = GetRespository<IFeedRepository>();
                 return feedRepo.GetFeedItemsAsync();

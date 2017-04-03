@@ -58,7 +58,7 @@ namespace MobileSP_CMS.Controllers
 
         public void ClearMarketCache()
         {
-            _cache.Remove("FeedCache");
+            _cache.Remove(CacheKeys.FEEDITEMS);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Authentication;
@@ -15,17 +16,15 @@ using MobileSP_CMS.Infrastructure.Repositories.Interfaces;
 namespace MobileSP_CMS.Controllers
 {
     [Authorize]
-    public class BaseController : Controller
+    public class BaseController : CacheController
     {
         private static string _AuthToken { get; set; }
         private static string _UserName { get; set; }
         private static int _CurrentMarketId { get; set; }
         private static int _UserId { get; set; }
-        public IMemoryCache _cache;
 
-        public BaseController(IMemoryCache memoryCache)
+        public BaseController(IMemoryCache memoryCache) :base(memoryCache)
         {
-            _cache = memoryCache;
         }
 
         public TService GetService<TService>()
@@ -39,6 +38,23 @@ namespace MobileSP_CMS.Controllers
             repo.BaseRequest = new BaseRequest { AccessToken = AuthToken };
             repo.RequestCriteria = new BaseCriteria { MarketId = CurrentMarketId };
             return repo;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.Authentication.SignOutAsync("MobileSPAuthCookie");
+            ClearCache();
+            ClearRepoValues();
+            return Redirect("/");
+        }
+
+        public void ClearRepoValues()
+        {
+            _AuthToken = null;
+            _UserName = null;
+            _CurrentMarketId = 0;
+            _UserId = 0;
         }
 
         public string AuthToken
