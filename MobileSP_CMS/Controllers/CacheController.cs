@@ -31,7 +31,6 @@ namespace MobileSP_CMS.Controllers
                 _cache.Remove(key);
             }
         }
-
     }
 
     public static class CacheKeys

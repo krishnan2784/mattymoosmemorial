@@ -1,4 +1,4 @@
-<div *ngIf="userMarkets.length>1">
+<div *ngIf="userMarkets && userMarkets.length>1">
     <select class="form-control" ng-model="currentMarket" (change)="updateCurrentMarket($event.target.value)">
         <option *ngFor="let market of userMarkets" [ngValue]="market.id" value="{{market.id}}">{{market.name}}</option>
     </select>

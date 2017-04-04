@@ -2,11 +2,10 @@
 using System.Threading.Tasks;
 using MLearningCoreService;
 using MobileSP_CMS.Core.Models;
-using MobileSP_CMS.Core.Enumerations;
 
 namespace MobileSP_CMS.Infrastructure.Repositories.Interfaces
 {
-    public interface IFeedRepository : IReadingRepository
+    public interface IFeedRepository : IMLearningBaseRepository
     {
         Task<dynamic> GetFeedItemAsync(int feedItemId);
         Task<IEnumerable<dynamic>> GetFeedItemsAsync();

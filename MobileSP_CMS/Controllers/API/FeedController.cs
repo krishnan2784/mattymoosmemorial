@@ -13,18 +13,19 @@ namespace MobileSP_CMS.Controllers
     [Route("api/[controller]")]
     public class FeedController : MarketController
     {
-        public FeedController(IMemoryCache memoryCache) : base(memoryCache){}
+        private readonly IFeedRepository _feedRepository;
+
+        public FeedController(IMemoryCache memoryCache, IFeedRepository feedRepository, IUserRepository userRepository) : base(memoryCache, userRepository)
+        {
+            _feedRepository = feedRepository;
+        }
 
         [HttpGet("[action]")]
         [JsonResponseWrapper]
         [ResponseCache(CacheProfileName = "NoCache")]
         public async Task<JsonResult> GetFeedItems()
         {
-            var cachedFeed = await _cache.GetOrCreateAsync(CacheKeys.FEEDITEMS, entry =>
-            {
-                var feedRepo = GetRespository<IFeedRepository>();
-                return feedRepo.GetFeedItemsAsync();
-            });
+            var cachedFeed = await _cache.GetOrCreateAsync(CacheKeys.FEEDITEMS, entry => _feedRepository.GetFeedItemsAsync());
             return Json(cachedFeed);
         }
 
@@ -33,8 +34,7 @@ namespace MobileSP_CMS.Controllers
         [ResponseCache(CacheProfileName = "NoCache")]
         public async Task<JsonResult> GetFeedItem(int id) 
         {
-            var feedRepo = GetRespository<IFeedRepository>();
-            var feedItem = await feedRepo.GetFeedItemAsync(id);
+            var feedItem = await _feedRepository.GetFeedItemAsync(id);
             return Json(feedItem);
         }
 
@@ -42,8 +42,7 @@ namespace MobileSP_CMS.Controllers
         public async Task<JsonResult> CreateFeedItem<TFeedItem, TDestinationDto>(dynamic feedItem) where TFeedItem : BaseFeed
             where TDestinationDto : BaseFeedDto
         {
-            var feedRepo = GetRespository<IFeedRepository>();
-            var feedItemResponse = await feedRepo.CreateFeedItemAsync<TFeedItem, TDestinationDto>(feedItem);
+            var feedItemResponse = await _feedRepository.CreateFeedItemAsync<TFeedItem, TDestinationDto>(feedItem);
             return Json(feedItemResponse);
         }
 
@@ -53,9 +52,8 @@ namespace MobileSP_CMS.Controllers
         {
             if (feedItem.Id == 0)
                 return await CreateFeedItem<TFeedItem, TDestinationDto>(feedItem);
-
-            var feedRepo = GetRespository<IFeedRepository>();
-            var feedItemResponse = await feedRepo.UpdateFeedItemAsync<TFeedItem, TDestinationDto>(feedItem);
+            
+            var feedItemResponse = await _feedRepository.UpdateFeedItemAsync<TFeedItem, TDestinationDto>(feedItem);
             return Json(feedItemResponse);
         }
 

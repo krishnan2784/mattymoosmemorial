@@ -25,18 +25,6 @@ namespace MobileSP_CMS.Controllers
 
         public BaseController(IMemoryCache memoryCache) :base(memoryCache){}
 
-        public TService GetService<TService>()
-        {
-            return (TService)HttpContext.RequestServices.GetService(typeof(TService));
-        }
-
-        public TRepository GetRespository<TRepository>() where TRepository : IBaseRepository
-        {
-            var repo = (TRepository)HttpContext.RequestServices.GetService(typeof(TRepository));
-            repo.BaseRequest = new BaseRequest { AccessToken = AuthToken };
-            repo.RequestCriteria = new BaseCriteria { MarketId = CurrentMarketId };
-            return repo;
-        }
 
         [HttpGet]
         public async Task<IActionResult> Logout()

@@ -1,27 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using MLearningCoreService;
-using MobileSPCoreService;
-using MobileSP_CMS.Core.Enumerations;
 using MobileSP_CMS.Core.Models;
 using MobileSP_CMS.Core.Models.Interfaces;
-using MobileSP_CMS.Infrastructure;
 using MobileSP_CMS.Infrastructure.Repositories.Interfaces;
 
 namespace MobileSP_CMS.Infrastructure.Repositories
 {
-    public class FeedRepository : BaseRepository, IFeedRepository
+    public class FeedRepository : MLearningBaseRepository, IFeedRepository
     {
-        private readonly MLearningCoreContractClient _proxy = new MLearningCoreContractClient();
+        private readonly IMLearningCoreContract _proxyClient;
+
+        public FeedRepository(IMLearningCoreContract proxyClient, IBaseRequest baseRequest,
+            IBaseCriteria baseRBaseCriteria)
+            : base(baseRequest, baseRBaseCriteria)
+        {
+            _proxyClient = proxyClient;
+        }
 
         public async Task<dynamic> GetFeedItemAsync(int feedItemId)
         {
-            RequestCriteria.Id = feedItemId;
-            var list = await GetFeedItemsAsync();
-            return list.Any() ? list.FirstOrDefault() : new BaseFeed();
+            var request = GetRequest(new GetFeedsRequest
+            {
+                Criteria = GetCriteria(new FeedCriteriaDto
+                {
+                    Id = feedItemId
+                })
+            });
+
+            var response = await _proxyClient.GetFeedsAsync(request);
+            return response.Feeds.FirstOrDefault();
         }
         
         public async Task<IEnumerable<dynamic>> GetFeedItemsAsync() 
@@ -30,21 +39,21 @@ namespace MobileSP_CMS.Infrastructure.Repositories
                 Criteria = GetCriteria(new FeedCriteriaDto())
             });
                 
-            var response = await _proxy.GetFeedsAsync(request);
+            var response = await _proxyClient.GetFeedsAsync(request);
             return response.Feeds;
         }
 
         public async Task<dynamic> CreateFeedItemAsync<TFeedItem, TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed
             where TDestinationDto : BaseFeedDto
         {
-            var request = GetRequest(new CreateFeedRequest()
+            var request = GetRequest(new CreateFeedRequest
             {
                 CurrentFeed = feedItem.MapFeedItem<TFeedItem, TDestinationDto>()
             });
 
-            var response = await _proxy.CreateFeedAsync(request);
+            var response = await _proxyClient.CreateFeedAsync(request);
             
-            return response.CurrentFeed.MapFeedItem<BaseFeedDto, dynamic>(); ;
+            return response.CurrentFeed.MapFeedItem<BaseFeedDto, dynamic>();
         }
 
 
@@ -59,18 +68,15 @@ namespace MobileSP_CMS.Infrastructure.Repositories
                 CurrentFeed = feedItem.MapFeedItem<TFeedItem, TDestinationDto>()
             });
 
-            var response = await _proxy.UpdateFeedAsync(request);
+            var response = await _proxyClient.UpdateFeedAsync(request);
             return response.CurrentBaseFeed.MapFeedItem<BaseFeedDto, TFeedItem>(); 
         }
 
 
         public async Task<bool> DeleteFeedItemAsync(int feedItemId)
         {
-            var request = GetRequest(new DeleteFeedRequest());
-            request.FeedId = feedItemId;
-
-            var response = await _proxy.DeleteFeedAsync(request);
-
+            var request = GetRequest(new DeleteFeedRequest {FeedId = feedItemId});
+            var response = await _proxyClient.DeleteFeedAsync(request);
             return response.Deleted;
         }
     }

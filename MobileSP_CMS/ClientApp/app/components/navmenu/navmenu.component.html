@@ -1,74 +1,49 @@
-<div class='navbar-header'>
-
-    <a class='navbar-brand' [routerLink]="['/home']"><img src="assets/images/MobileSP-LOGO-Landscape.png" class="header-logo"/></a>
-    <div class="header-content">
-        <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
-            <span class='sr-only'>Toggle navigation</span>
-            <span class='icon-bar'></span>
-            <span class='icon-bar'></span>
-            <span class='icon-bar'></span>
-        </button>
+<div class="nav-container">
+    <div class='navbar-header'>
+        <a class='navbar-brand' [routerLink]="['/home']"><img src="assets/images/MobileSP-LOGO-Landscape.png" class="header-logo" /></a>
+        <div class="header-content">
+            <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
+                <span class='sr-only'>Toggle navigation</span>
+                <span class='icon-bar'></span>
+                <span class='icon-bar'></span>
+                <span class='icon-bar'></span>
+            </button>
+        </div>
     </div>
-</div>
 
-<div class='main-nav'>
-    <div class='navbar navbar-inverse'>
-        <div class='clearfix'></div>
-        <div class='navbar-collapse collapse'>
-            <ul class='nav navbar-nav'>
-                <li [routerLinkActive]="['link-active']" class="nav-border-bottom">
-                    <a [routerLink]="['/home']">
-                        DASHBOARD
-                    </a>
-                </li>
-                <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/feed']">
-                        FEED
-                    </a>
-                    <ul class='nav navbar-nav sub-nav'>
-                        <li [routerLinkActive]="['link-active']">
-                            <a [routerLink]="['/', feedCats.Announcement, 'feed']">
-                                Announcement
-                            </a>
-                        </li>
-                        <li [routerLinkActive]="['link-active']">
-                            <a [routerLink]="['/', feedCats.Article, 'feed']">
-                                Article
-                            </a>
-                        </li>
-                        <li [routerLinkActive]="['link-active']">
-                            <a [routerLink]="['/', feedCats.Campaign, 'feed']">
-                                Campaign
-                            </a>
-                        </li>
-                        <li [routerLinkActive]="['link-active']">
-                            <a [routerLink]="['/', feedCats.Learning, 'feed']">
-                                Learning
-                            </a>
-                        </li>
-                        <li [routerLinkActive]="['link-active']">
-                            <a [routerLink]="['/', feedCats.News, 'feed']">
-                                News
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li [routerLinkActive]="['link-active']" class="nav-border-bottom nav-border-top">
-                    <a [routerLink]="['/media']">
-                        MEDIA
-                    </a>
-                </li>
-                <li [routerLinkActive]="['link-active']" class="nav-border-bottom">
-                    <a [routerLink]="['/useraccountmanagement']">
-                        Accounts
-                    </a>
-                </li>
-                <li class="nav-border-bottom">
-                    <a href="/account/logout">
-                        Log out
-                    </a>
-                </li>
-            </ul>
+    <div class='main-nav'>
+        <div class='navbar navbar-inverse'>
+            <div class='clearfix'></div>
+            <div class='navbar-collapse collapse'>
+                <ul class='nav navbar-nav'>
+                    <li [routerLinkActive]="['link-active']">
+                        <a [routerLink]="['/home']">
+                            Dashboard
+                        </a>
+                    </li>
+                    <li [routerLinkActive]="['link-active']">
+                        <a [routerLink]="['/feed']">
+                            Feed
+                        </a>
+                    </li>
+                    <li [routerLinkActive]="['link-active']">
+                        <a [routerLink]="['/media']">
+                            Media
+                        </a>
+                    </li>
+                    <li [routerLinkActive]="['link-active']">
+                        <a [routerLink]="['/useraccountmanagement']">
+                            Accounts
+                        </a>
+                    </li>
+                    <li class="nav-border-bottom">
+                        <a href="/account/logout">
+                            Log out
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
+

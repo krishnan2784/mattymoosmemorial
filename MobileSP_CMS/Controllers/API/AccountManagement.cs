@@ -16,18 +16,20 @@ namespace MobileSP_CMS.Controllers
     [Route("api/[controller]")]
     public class AccountManagement : MarketController
     {
-        public AccountManagement(IMemoryCache memoryCache) : base(memoryCache){ }
+        private readonly IUserRepository _userRepository;
+        private readonly IMarketRepository _marketRepository;
+        public AccountManagement(IMemoryCache memoryCache, IUserRepository userRepository, IMarketRepository marketRepository) : base(memoryCache, userRepository)
+        {
+            _userRepository = userRepository;
+            _marketRepository = marketRepository;
+        }
 
         [HttpGet("[action]")]
         [JsonResponseWrapper]
         [ResponseCache(CacheProfileName = "NoCache")]
         public async Task<JsonResult> UserList()
         {
-            var cachedUsers = await _cache.GetOrCreateAsync(CacheKeys.USERLIST, entry =>
-            {
-                var accountRepo = GetRespository<IUserRepository>();
-                return accountRepo.GetUsersAsync();
-            });
+            var cachedUsers = await _cache.GetOrCreateAsync(CacheKeys.USERLIST, entry => _userRepository.GetUsersAsync());
             return Json(cachedUsers);
         }
         
@@ -39,12 +41,10 @@ namespace MobileSP_CMS.Controllers
             var cachedUsers = await _cache.GetOrCreateAsync(CacheKeys.USERMARKETS, async entry =>
             {
                 var list = new List<UserMarket>();
-
-                var accountRepo = GetRespository<IUserRepository>();
-                var configs = await accountRepo.GetUserConfigurationsByUserId(UserId);
-
-                var marketRepo = GetRespository<IMarketRepository>();
-                var markets = await marketRepo.GetMarketsAsync();
+                
+                var configs = await _userRepository.GetUserConfigurationsByUserId(UserId);
+                
+                var markets = await _marketRepository.GetMarketsAsync();
 
                 foreach (var config in configs)
                 {

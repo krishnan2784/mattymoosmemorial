@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using MobileSPCoreService;
 using MobileSP_CMS.Core.Models;
+using MobileSP_CMS.Core.Models.Interfaces;
 
 namespace MobileSP_CMS.Infrastructure.Repositories.Interfaces
 {
-    public interface IUserRepository : IReadingRepository
+    public interface IUserRepository : ICoreBaseRepository
     {
-        Task<ApplicationUser> GetUserAsync(LoginDetails userDetails);
-        Task<IEnumerable<string>> GetUserRoles(ApplicationUser user);
-        Task<IEnumerable<User>> GetUsersAsync();
-        Task<IEnumerable<UserConfiguration>> GetUserConfigurationsByUserId(int userId);
+        Task<IApplicationUser> GetUserAsync(ILoginDetails userDetails);
+        Task<IEnumerable<string>> GetUserRoles(IApplicationUser user);
+        Task<IEnumerable<IUser>> GetUsersAsync();
+        Task<IEnumerable<IUserMarket>> GetUserMarkets(IMarketRepository marketRepo, int userId);
+        Task<IEnumerable<IUserConfiguration>> GetUserConfigurationsByUserId(int userId);
     }
 }

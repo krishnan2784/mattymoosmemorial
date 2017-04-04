@@ -29,8 +29,11 @@ export class FeedDataService extends RequestHelper implements IFeedDataService {
     public getFeeditemsByCat(selectedCat: Enums.FeedCategoryEnum): Observable<FeedItem[]> {
         return Observable.create(observer => {
             this.getFeeditems().subscribe((result) => {
-                let response = result.filter(x => x.feedCategory === selectedCat);
-                observer.next(response);
+                if (result.length) {
+                    let response = result.filter(x => x.feedCategory === selectedCat);
+                    observer.next(response);                    
+                }
+
                 observer.complete();
             });
         });

@@ -11,38 +11,70 @@
 
 
 <div *ngIf="this.feedItems">
-    <p *ngIf="this.feedItems.length === 0"><em>No items to display.</em></p>
+    <span [routerLinkActive]="['link-active']">
+        <a [routerLink]="['/feed']">
+            All
+        </a>
+    </span>
+    <span [routerLinkActive]="['link-active']">
+        <a [routerLink]="['/', feedCats.Announcement, 'feed']">
+            Announcement
+        </a>
+    </span>
+    <span [routerLinkActive]="['link-active']">
+        <a [routerLink]="['/', feedCats.Article, 'feed']">
+            Article
+        </a>
+    </span>
+    <span [routerLinkActive]="['link-active']">
+        <a [routerLink]="['/', feedCats.Campaign, 'feed']">
+            Campaign
+        </a>
+    </span>
+    <span [routerLinkActive]="['link-active']">
+        <a [routerLink]="['/', feedCats.Learning, 'feed']">
+            Learning
+        </a>
+    </span>
+    <span [routerLinkActive]="['link-active']">
+        <a [routerLink]="['/', feedCats.News, 'feed']">
+            News
+        </a>
+    </span>
+
+    <p *ngIf="this.feedItems.length === 0"><em>No items to display.</em>
+    </p>
 
     <table class='table' *ngIf="this.feedItems.length > 0">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Feed Type</th>
-                <th>Feed Cat.</th>
-                <th>Points</th>
-                <th>Enabled</th>
-                <th>Published</th>
-                <th>Market Id</th>
-                <th>Created Date</th>
-                <th></th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Feed Type</th>
+            <th>Feed Cat.</th>
+            <th>Points</th>
+            <th>Enabled</th>
+            <th>Published</th>
+            <th>Market Id</th>
+            <th>Created Date</th>
+            <th></th>
+        </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let feedItem of this.feedItems | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}">
-                <td>{{ feedItem.id }}</td>
-                <td>{{ feedItem.title }}</td>
-                <td>{{ feedTypes[feedItem.feedType] }}</td>
-                <td>{{ feedCats[feedItem.feedCategory] }}</td>
-                <td>{{ feedItem.points }}</td>
-                <td>{{ feedItem.enabled }}</td>
-                <td>{{ feedItem.published }}</td>
-                <td>{{ feedItem.marketId }}</td>
-                <td>{{ feedItem.createdAt }}</td>
-                <td>
-                    <button (click)="updateFeedItem(feedItem)" class="btn" data-toggle="modal" data-target="#feedItemModal">Edit</button>
-                </td>
-            </tr>
+        <tr *ngFor="let feedItem of this.feedItems | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}">
+            <td>{{ feedItem.id }}</td>
+            <td>{{ feedItem.title }}</td>
+            <td>{{ feedTypes[feedItem.feedType] }}</td>
+            <td>{{ feedCats[feedItem.feedCategory] }}</td>
+            <td>{{ feedItem.points }}</td>
+            <td>{{ feedItem.enabled }}</td>
+            <td>{{ feedItem.published }}</td>
+            <td>{{ feedItem.marketId }}</td>
+            <td>{{ feedItem.createdAt }}</td>
+            <td>
+                <button (click)="updateFeedItem(feedItem)" class="btn" data-toggle="modal" data-target="#feedItemModal">Edit</button>
+            </td>
+        </tr>
         </tbody>
     </table>
     <pagination-controls (pageChange)="page = $event" id="1"

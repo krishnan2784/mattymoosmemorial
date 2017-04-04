@@ -1,33 +1,31 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.DependencyModel;
 using MobileSP_CMS.Core.Models;
 using MobileSP_CMS.Core.Models.Interfaces;
 using MobileSP_CMS.Infrastructure;
-using MobileSP_CMS.Infrastructure.Repositories;
 using MobileSP_CMS.Infrastructure.Repositories.Interfaces;
 
 namespace MobileSP_CMS.Controllers
 {
     public class AccountController : CacheController
     {
-        public AccountController(IMemoryCache memoryCache) : base(memoryCache)
+        private readonly IUserRepository _userRepository;
+        public AccountController(IMemoryCache memoryCache, IUserRepository userRepository) : base(memoryCache)
         {
+            _userRepository = userRepository;
         }
 
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {
-            ClearCache();
-
             ViewData["ReturnUrl"] = returnUrl;
+
             if (User.Identity.IsAuthenticated)
                 RedirectToAction("Index", "Home");
+
             var loginDetails = new LoginDetails();
 #if DEBUG
             loginDetails.UserName = "admin";
@@ -42,13 +40,13 @@ namespace MobileSP_CMS.Controllers
         public async Task<IActionResult> Login(LoginDetails loginDetails, string returnUrl = "/home")
         {
             ViewData["ReturnUrl"] = returnUrl;
-            var userRepo = (IUserRepository)HttpContext.RequestServices.GetService(typeof(IUserRepository));
-            userRepo.BaseRequest = new BaseRequest {AccessToken = Contstants.CstAccesstoken};
+            _userRepository.SetAuthToken(Contstants.CstAccesstoken);
 
-            var user = await userRepo.GetUserAsync(loginDetails);
+            var user = await _userRepository.GetUserAsync(loginDetails);
 
             if (user.ValidUser)
             {
+                SetupRepositories(user);
                 var claims = new List<Claim>
                 {
                     new Claim("sessionguid", user.SessionGuid),
@@ -66,6 +64,12 @@ namespace MobileSP_CMS.Controllers
             }
 
             return View(loginDetails);
+        }
+
+        public void SetupRepositories(IApplicationUser applicationUser)
+        {
+            _userRepository.SetAuthToken(applicationUser.SessionGuid);
+            _userRepository.SetMarketId(applicationUser.UserDetails.DefaultMarketId);
         }
     }
 }

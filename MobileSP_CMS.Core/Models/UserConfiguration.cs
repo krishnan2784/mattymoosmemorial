@@ -1,6 +1,9 @@
-﻿namespace MobileSP_CMS.Core.Models
+﻿using MobileSP_CMS.Core.Models.Interfaces;
+
+namespace MobileSP_CMS.Core.Models
 {
-    public class UserConfiguration 
+
+    public class UserConfiguration : IUserConfiguration
     {
         public bool IsDefault { get; set; }
 

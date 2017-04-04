@@ -19,21 +19,25 @@ namespace MobileSP_CMS.Controllers
     [Route("api/[controller]")]
     public class MarketController : BaseController
     {
-        public MarketController(IMemoryCache memoryCache) :base(memoryCache){}
+        private readonly IUserRepository _userRepository;
 
+        public MarketController(IMemoryCache memoryCache, IUserRepository userRepository) : base(memoryCache)
+        {
+            _userRepository = userRepository;
+        }
 
         [HttpGet("[action]")]
         [JsonResponseWrapper]
         [ResponseCache(CacheProfileName = "NoCache")]
         public async Task<JsonResult> ChangeMarket(int marketId)
         {
-            var accountRepo = GetRespository<IUserRepository>();
-            var configs = await accountRepo.GetUserConfigurationsByUserId(UserId);
+            var configs = await _userRepository.GetUserConfigurationsByUserId(UserId);
 
             if (configs.FirstOrDefault(x => x.MarketId == marketId).MarketId > 0)
             {
                 ClearMarketCache();
                 CurrentMarketId = marketId;
+                _userRepository.SetMarketId(marketId);
                 return new JsonResult(true);
             }
             return new JsonResult(false);
@@ -42,9 +46,9 @@ namespace MobileSP_CMS.Controllers
         [HttpGet("[action]")]
         [JsonResponseWrapper]
         [ResponseCache(CacheProfileName = "NoCache")]
-        public async Task<JsonResult> GetCurrentMarket()
+        public JsonResult GetCurrentMarket()
         {
-            return new JsonResult(CurrentMarketId);
+            return Json(CurrentMarketId);
         }
 
         public override void OnActionExecuted(ActionExecutedContext context)

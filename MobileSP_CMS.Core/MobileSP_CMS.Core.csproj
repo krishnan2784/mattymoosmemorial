@@ -47,6 +47,11 @@
     <Compile Include="Enumerations\SurveyQuestionTypeEnum.cs" />
     <Compile Include="Models\BaseFeed.cs" />
     <Compile Include="Models\BaseResponse.cs" />
+    <Compile Include="Models\Interfaces\IApplicationUser.cs" />
+    <Compile Include="Models\Interfaces\IUserConfiguration.cs" />
+    <Compile Include="Models\Interfaces\IUser.cs" />
+    <Compile Include="Models\Interfaces\ILoginDetails.cs" />
+    <Compile Include="Models\Interfaces\IUserMarket.cs" />
     <Compile Include="Models\UserMarket.cs" />
     <Compile Include="Models\Market.cs" />
     <Compile Include="Models\FeedCriteria.cs" />
