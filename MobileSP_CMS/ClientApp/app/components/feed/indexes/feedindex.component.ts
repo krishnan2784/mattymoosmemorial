@@ -91,7 +91,7 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
                 let origFeedItem = this.feedItems.find(x => x.id === feedItemResponse.id);
                 let index = this.feedItems.indexOf(origFeedItem);
 
-                if (this.filteredFeed && feedItemResponse.feedCategory == this.catId) {
+                if (!this.filteredFeed || feedItemResponse.feedCategory == this.catId) {
                     if (index > -1) {
                         this.feedItems.splice(index, 1, feedItemResponse);
                     } else {

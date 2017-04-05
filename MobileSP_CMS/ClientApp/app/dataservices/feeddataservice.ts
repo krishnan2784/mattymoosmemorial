@@ -50,7 +50,7 @@ export class FeedDataService extends RequestHelper implements IFeedDataService {
     }
 
     public updateFeeditem(updateUrl: string, feedItem: FeedItem): Observable<Apiresponse.ApiResponse> {
-        return this.postRequestFull('/api/Feed/GetFeedItems', feedItem);
+        return this.postRequestFull(updateUrl, feedItem);
     }
 
     public deleteFeeditem(feedItem: FeedItem) : boolean {
