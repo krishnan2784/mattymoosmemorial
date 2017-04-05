@@ -86,18 +86,20 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
         var form = FeedItemForm;
         form.prototype.feedUpdated = new EventEmitter<IFeedItem>();
         form.prototype.feedUpdated.subscribe((feedItemResponse) => {
-            
-            let origFeedItem = this.feedItems.find(x => x.id === feedItemResponse.id);
-            let index = this.feedItems.indexOf(origFeedItem);
 
-            if (this.filteredFeed && feedItemResponse.feedCategory == this.catId) {
-                if (index > -1) {
-                    this.feedItems.splice(index, 1, feedItemResponse);
-                } else {
-                    this.feedItems.unshift(feedItemResponse);
+            if (feedItemResponse != null) {
+                let origFeedItem = this.feedItems.find(x => x.id === feedItemResponse.id);
+                let index = this.feedItems.indexOf(origFeedItem);
+
+                if (this.filteredFeed && feedItemResponse.feedCategory == this.catId) {
+                    if (index > -1) {
+                        this.feedItems.splice(index, 1, feedItemResponse);
+                    } else {
+                        this.feedItems.unshift(feedItemResponse);
+                    }
+                } else if (index > -1) {
+                    this.feedItems.splice(index, 1);
                 }
-            } else if (index > -1) {
-                this.feedItems.splice(index, 1);
             }
 
             this.feedFormData = null;

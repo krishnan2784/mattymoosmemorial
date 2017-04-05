@@ -123,4 +123,8 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             }
         });
     }
+
+    goBack() {
+        this.feedUpdated.emit(null);    
+    }
 }

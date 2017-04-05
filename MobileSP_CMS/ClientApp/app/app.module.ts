@@ -26,7 +26,7 @@ import { UserAccountManagementComponent } from './components/useraccountmanageme
 import { TextFeedItemFormComponent } from './components/feed/modelforms/textfeeditem.component';
 import { FeedIndexComponent } from "./components/feed/indexes/feedindex.component";
 import { FeedItemForm } from "./components/feed/modelforms/feeditemform.component";
-import { FeedItemModalComponent } from "./components/modals/feeditemmodal.component";
+import { FeedItemContainerComponent } from "./components/feed/modelforms/feeditemcontainer.component";
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -43,7 +43,7 @@ import { FeedItemModalComponent } from "./components/modals/feeditemmodal.compon
         UserAccountManagementComponent,
         FeedIndexComponent,
 
-        FeedItemModalComponent,
+        FeedItemContainerComponent,
         FeedItemForm,
         TextFeedItemFormComponent
     ],

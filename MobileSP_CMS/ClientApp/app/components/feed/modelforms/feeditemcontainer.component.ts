@@ -1,24 +1,19 @@
 ﻿import {Component, Input, ViewContainerRef, ViewChild, ReflectiveInjector, ComponentFactoryResolver } from '@angular/core';
-import { FeedItemForm } from '../feed/modelforms/feeditemform.component';
+import { FeedItemForm } from './feeditemform.component';
 
 
 @Component({
     selector: 'feed-form-component',
     entryComponents: [FeedItemForm], 
-    template: require('./feeditemmodal.component.html'),
-    styles: [require('./feeditemmodal.component.css')],
+    template: require('./feeditemcontainer.component.html'),
+    styles: [require('./feeditemcontainer.component.css')],
 })
-export class FeedItemModalComponent {
+export class FeedItemContainerComponent {
     feedFormComponent = null;
-    
-    @ViewChild('modal') modal; 
-    @ViewChild('closeModal') closeModal; 
-
     
     @ViewChild('feedItemComponentContainer', { read: ViewContainerRef }) dynamicComponentContainer: ViewContainerRef;
     @Input() set feedFormData(data: { feedFormComponent: any, inputs: any }) {
         if (!data) {
-            //this.closeModal.nativeElement.click();
             return;
         }
         

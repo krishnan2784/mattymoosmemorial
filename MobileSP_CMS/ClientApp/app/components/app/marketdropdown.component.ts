@@ -25,14 +25,17 @@ export class MarketDropdown {
 
     setCurrentMarketId() {
         this.marketDataService.getCurrentMarketId().subscribe((result) => {
-            this.currentMarket = this.userMarkets.find(x => x.id === result);
+            if (this.userMarkets!=null) {
+                this.currentMarket = this.userMarkets.find(x => x.id === result);
+            }
         });
     }
 
-    updateCurrentMarket(id: number) {
-        this.marketDataService.updateCurrentMarketUd(id).subscribe((result) => {
+    updateCurrentMarket(newMarket: UserMarket) {
+        this.currentMarket = this.userMarkets.find(x=> x == newMarket);
+        this.marketDataService.updateCurrentMarketUd(this.currentMarket.id).subscribe((result) => {
             if (result) {
-                this.sharedService.updateMarketId(id);
+                this.sharedService.updateMarketId(this.currentMarket.id);
             }
         });
     }
