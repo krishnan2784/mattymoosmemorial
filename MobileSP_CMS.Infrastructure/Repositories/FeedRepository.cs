@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MLearningCoreService;
@@ -43,7 +44,7 @@ namespace MobileSP_CMS.Infrastructure.Repositories
             return response.Feeds;
         }
 
-        public async Task<dynamic> CreateFeedItemAsync<TFeedItem, TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed
+        public async Task<TFeedItem> CreateFeedItemAsync<TFeedItem, TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed
             where TDestinationDto : BaseFeedDto
         {
             var request = GetRequest(new CreateFeedRequest
@@ -52,14 +53,15 @@ namespace MobileSP_CMS.Infrastructure.Repositories
             });
 
             var response = await _proxyClient.CreateFeedAsync(request);
-            
-            return response.CurrentFeed.MapFeedItem<BaseFeedDto, dynamic>();
+            return response.CurrentFeed.MapFeedItem<BaseFeedDto, TFeedItem>();
         }
 
 
-        public async Task<dynamic> UpdateFeedItemAsync<TFeedItem, TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed
+        public async Task<TFeedItem> UpdateFeedItemAsync<TFeedItem, TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed
             where TDestinationDto : BaseFeedDto
         {
+            // set it to null as we don't want this being overriden
+            feedItem.MarketId = null;
             var originalFeedItem = await GetFeedItemAsync(feedItem.Id);
             feedItem = FeedMapper.ConvertUnpopulatedFieldsToModel(originalFeedItem, feedItem);
 

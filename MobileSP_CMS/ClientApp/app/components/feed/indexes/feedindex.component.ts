@@ -61,23 +61,30 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
     setPageTitle() {
         if (!this.filteredFeed) {
             this.updatePageTitle("Feed");
-
         } else {
             this.updatePageTitle(FeedCategoryEnum[this.catId] + " Feed");
-
         }
     }
 
     getData() {
         if (!this.filteredFeed) {
             this.feedDataService.getFeeditems().subscribe((result) => {
-                this.feedItems = result;
+                this.feedItems = this.sortFeed(result);
             });
         } else {
             this.feedDataService.getFeeditemsByCat(this.catId).subscribe((result) => {
-                this.feedItems = result;
+                this.feedItems = this.sortFeed(result);
             });
         }
+    }
+
+    sortFeed(feedItem: IFeedItem[]): IFeedItem[] {
+        // basic ordering by Id descending, will need to replace with a more robust sorting mechanism / index management facility 
+        return feedItem.sort((a, b) => {
+            if (a.id > b.id) return -1;
+            if (a.id < b.id) return 1;
+            return 0;
+        });
     }
     
     updateFeedItem(feedItem: IFeedItem = null, feedCat: FeedCategoryEnum = null) {

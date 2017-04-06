@@ -9,9 +9,9 @@ namespace MobileSP_CMS.Infrastructure.Repositories.Interfaces
     {
         Task<dynamic> GetFeedItemAsync(int feedItemId);
         Task<IEnumerable<dynamic>> GetFeedItemsAsync();
-        Task<dynamic> CreateFeedItemAsync<TFeedItem, TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed
+        Task<TFeedItem> CreateFeedItemAsync<TFeedItem, TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed
             where TDestinationDto : BaseFeedDto;
-        Task<dynamic> UpdateFeedItemAsync<TFeedItem, TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed
+        Task<TFeedItem> UpdateFeedItemAsync<TFeedItem, TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed
             where TDestinationDto : BaseFeedDto;
         Task<bool> DeleteFeedItemAsync(int feedItemId);
     }
