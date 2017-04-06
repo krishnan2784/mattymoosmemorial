@@ -8,26 +8,26 @@
         <base href="/" />
         <link rel="stylesheet" href="~/dist/vendor.css" asp-append-version="true" />
         <link rel="stylesheet" href="/css/login.css" asp-append-version="true" />
+        <link rel="stylesheet" href="/css/materialize.min.css" asp-append-version="true" />
     </head>
 <body>
-<div class="login-body">
-    
-    <div class="login-content">
-        @RenderBody()
-    </div>
 
-</div>
-    
+@RenderBody()
+
 @{
     string version = string.Empty;
-#if DEBUG
-    version = "<div class=\"cms-version\">Version " + 
-        Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion + 
-        "</div>";
-#endif
-    }
-    
-    @Html.Raw(@version)
+    #if DEBUG
+    version = "<div class=\"cms-version\">Version " +
+              Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion +
+              "</div>";
+    #endif
+}
+
+@Html.Raw(@version)
+
+@section scripts{
+    <script type="text/javascript" src="scripts/materialize.min.js"></script>
+}
 
 @RenderSection("scripts", required: false)
 </body>

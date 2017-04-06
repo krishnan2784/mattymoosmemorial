@@ -1,0 +1,10 @@
+@media (max-width: 767px) {
+
+}
+
+    .body-content {
+        padding-top: 100px;
+    }
+    .container-fluid {
+        min-height: calc(100vh - 100px);
+    }

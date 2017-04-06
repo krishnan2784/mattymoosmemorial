@@ -1,29 +1,36 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyModel;
+using Microsoft.Extensions.Caching.Memory;
 using MobileSP_CMS.Core.Models;
 using MobileSP_CMS.Core.Models.Interfaces;
-using MobileSP_CMS.Core.Repositories;
 using MobileSP_CMS.Infrastructure;
-using MobileSP_CMS.Infrastructure.Repositories;
+using MobileSP_CMS.Infrastructure.Repositories.Interfaces;
 
 namespace MobileSP_CMS.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : CacheController
     {
+        private readonly IUserRepository _userRepository;
+        public AccountController(IMemoryCache memoryCache, IUserRepository userRepository) : base(memoryCache)
+        {
+            _userRepository = userRepository;
+        }
+
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
+
             if (User.Identity.IsAuthenticated)
                 RedirectToAction("Index", "Home");
+
             var loginDetails = new LoginDetails();
 #if DEBUG
             loginDetails.UserName = "admin";
             loginDetails.Password = "12345";
+            loginDetails.RememberMe = true;
 #endif
 
             return View(loginDetails);
@@ -33,20 +40,21 @@ namespace MobileSP_CMS.Controllers
         public async Task<IActionResult> Login(LoginDetails loginDetails, string returnUrl = "/home")
         {
             ViewData["ReturnUrl"] = returnUrl;
-            var userRepo = (IUserRepository)HttpContext.RequestServices.GetService(typeof(IUserRepository));
-            userRepo.BaseRequest = new BaseRequest {AccessToken = Contstants.CstAccesstoken};
+            _userRepository.SetAuthToken(Contstants.CstAccesstoken);
 
-            var user = await userRepo.GetUserAsync(loginDetails);
+            var user = await _userRepository.GetUserAsync(loginDetails);
 
             if (user.ValidUser)
             {
+                SetupRepositories(user);
                 var claims = new List<Claim>
                 {
                     new Claim("sessionguid", user.SessionGuid),
-                    new Claim("name", user.UserDetails.FirstName),
-                    new Claim("currentmarketid", "2") //user.UserDetails.DefaultMarketId.ToString() // not yer returning default market id with user
+                    new Claim("userid", user.UserDetails.Id.ToString()),
+                    new Claim("currentmarketid", user.UserDetails.DefaultMarketId.ToString()),
+                    new Claim("name", user.UserDetails.FirstName)
                 };
-
+                
                 var id = new ClaimsIdentity(claims, "password");
                 var p = new ClaimsPrincipal(id);
 
@@ -58,11 +66,10 @@ namespace MobileSP_CMS.Controllers
             return View(loginDetails);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Logout()
+        public void SetupRepositories(IApplicationUser applicationUser)
         {
-            await HttpContext.Authentication.SignOutAsync("MobileSPAuthCookie");
-            return Redirect("/");
+            _userRepository.SetAuthToken(applicationUser.SessionGuid);
+            _userRepository.SetMarketId(applicationUser.UserDetails.DefaultMarketId);
         }
     }
 }

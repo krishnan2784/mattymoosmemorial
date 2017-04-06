@@ -6,13 +6,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using MobileSP_CMS.Core.Repositories;
+using MLearningCoreService;
+using MobileSPCoreService;
+using MobileSP_CMS.Core.Models;
+using MobileSP_CMS.Core.Models.Interfaces;
 using MobileSP_CMS.Infrastructure.Repositories;
+using MobileSP_CMS.Infrastructure.Repositories.Interfaces;
 
 namespace MobileSP_CMS
 {
@@ -34,17 +39,33 @@ namespace MobileSP_CMS
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
-            // Add framework services.
-            services.AddMvc();
+
+            services.AddMvc(options =>
+            {
+                options.CacheProfiles.Add("NoCache",
+                    new CacheProfile()
+                    {
+                        Location = ResponseCacheLocation.None,
+                        NoStore = true
+                    });
+            });
 
             services.AddDistributedMemoryCache();
+            
+            services.AddSingleton<IMLearningCoreContract, MLearningCoreContractClient>();
+            services.AddSingleton<ICoreContract, CoreContractClient>();
 
+            services.AddSingleton<IApplicationUser, ApplicationUser>();
+
+            services.AddSingleton<IBaseRequest, BaseRequest>();
+            services.AddSingleton<IBaseCriteria, BaseCriteria>();
+            
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IMarketRepository, MarketRepository>();
             services.AddTransient<IFeedRepository, FeedRepository>();
-
+            
             services.AddSession(options =>
             {
-                // Set a short timeout for easy testing.
                 options.IdleTimeout = TimeSpan.FromHours(1);
                 options.CookieName = ".MobileSP.Session";
                 options.CookieHttpOnly = true;
@@ -95,6 +116,9 @@ namespace MobileSP_CMS
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(name: "logout",template: "account/logout",
+                    defaults: new { controller = "Base", action = "Logout" });
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

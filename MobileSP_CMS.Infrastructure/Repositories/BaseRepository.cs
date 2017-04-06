@@ -1,30 +1,28 @@
-﻿using System;
-using System.Threading;
-using MobileSP_CMS.Core.Models;
+﻿using MobileSP_CMS.Core.Models;
 using MobileSP_CMS.Core.Models.Interfaces;
-using MobileSP_CMS.Core.Repositories;
+using MobileSP_CMS.Infrastructure.Repositories.Interfaces;
 
 namespace MobileSP_CMS.Infrastructure.Repositories
 {
     public abstract class BaseRepository : IBaseRepository
     {
-        public IBaseRequest BaseRequest { get; set; }
+        protected IBaseRequest BaseRequest;
+        protected IBaseCriteria BaseRequestCriteria;
 
-        public IBaseCriteria RequestCriteria { get; set; }
-
-        public TRequestBase GetRequest<TRequestBase>(TRequestBase request) where TRequestBase : MLearningCoreService.RequestBase
+        protected BaseRepository(IBaseRequest baseRequest, IBaseCriteria baseRBaseCriteria)
         {
-            var mapper = new AutoMapperGenericsHelper<IBaseRequest, TRequestBase>();
-            request = mapper.ConvertUnpopulatedFields(BaseRequest, request);
-            return request;
+            BaseRequest = baseRequest;
+            BaseRequestCriteria = baseRBaseCriteria;
         }
 
-       
-        public TCriteria GetCriteria<TCriteria>(TCriteria destinationCriteria) where TCriteria : MLearningCoreService.BaseCriteriaDto
+        public void SetAuthToken(string authToken)
         {
-            var mapper = new AutoMapperGenericsHelper<IBaseCriteria, TCriteria>();
-            destinationCriteria = mapper.ConvertUnpopulatedFields(RequestCriteria, destinationCriteria);
-            return destinationCriteria;
+            BaseRequest.AccessToken = authToken;
+        }
+
+        public void SetMarketId(int marketId)
+        {
+            BaseRequestCriteria.MarketId = marketId;
         }
     }
 }

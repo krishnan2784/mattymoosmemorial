@@ -1,4 +1,4 @@
-﻿/// <binding BeforeBuild='assets, less, typescript' Clean='clean' ProjectOpened='watch-assets, watch-less, watch-ts' />
+﻿/// <binding BeforeBuild='assets, less, typescript, css, javascript' Clean='clean' ProjectOpened='watch-assets, watch-less, watch-ts' />
 var gulp = require('gulp');
 var less = require('gulp-less');
 var path = require('path');
@@ -13,11 +13,20 @@ gulp.task('assets', function () {
 });
 
 gulp.task('less', function () {
+
     return gulp.src('./css/**/*.less')
       .pipe(less({
           paths: [path.join('./css', 'less', 'includes')]
       }))
       .pipe(gulp.dest('./wwwroot/css'));
+});
+
+gulp.task('css', function () {
+
+    return gulp.src('./css/**/*.css')
+      .pipe(changed('./wwwroot/css'))
+      .pipe(gulp.dest('./wwwroot/css'));
+
 });
 
 gulp.task('typescript', function () {
@@ -28,16 +37,24 @@ gulp.task('typescript', function () {
       .pipe(gulp.dest('./wwwroot/scripts'));
 });
 
+gulp.task('javascript', function () {
+    return gulp.src('./scripts/**/*.js')
+      .pipe(changed('./wwwroot/scripts'))
+      .pipe(gulp.dest('./wwwroot/scripts'));
+});
+
 gulp.task('watch-assets', function () {
     gulp.watch('./assets/**/*', ['assets']);
 });
 
 gulp.task('watch-less', function () {
     gulp.watch('./css/**/*.less', ['less']);
+    gulp.watch('./css/**/*.css', ['css']);
 });
 
 gulp.task('watch-ts', function () {
     gulp.watch('./scripts/**/*.ts', ['typescript']);
+    gulp.watch('./scripts/**/*.js', ['javascript']);
 });
 
 

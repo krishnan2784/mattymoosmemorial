@@ -231,21 +231,60 @@ namespace MLearningCoreService
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.VideoFeedDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.QuizFeedDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.SurveyFeedDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.CampaignFeedDto))]
     public partial class BaseFeedDto : MLearningCoreService.BaseDtoOfint
     {
+        
+        private bool AllowFavouriteField;
+        
+        private MLearningCoreService.CorporateAppDto CorporateAppField;
         
         private MLearningCoreService.FeedCategoryEnumDto FeedCategoryField;
         
         private MLearningCoreService.FeedTypeEnumDto FeedTypeField;
         
+        private string LegalInformationField;
+        
         private MLearningCoreService.MediaInfoDto MainIconField;
         
+        private System.Nullable<int> MainIconIdField;
+        
+        private bool MakeTitleWidgetLinkField;
+        
         private int MarketIdField;
+        
+        private long PermissionsField;
         
         private int PointsField;
         
         private string TitleField;
+        
+        private string WebUrlLinkField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool AllowFavourite
+        {
+            get
+            {
+                return this.AllowFavouriteField;
+            }
+            set
+            {
+                this.AllowFavouriteField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MLearningCoreService.CorporateAppDto CorporateApp
+        {
+            get
+            {
+                return this.CorporateAppField;
+            }
+            set
+            {
+                this.CorporateAppField = value;
+            }
+        }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public MLearningCoreService.FeedCategoryEnumDto FeedCategory
@@ -274,6 +313,19 @@ namespace MLearningCoreService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string LegalInformation
+        {
+            get
+            {
+                return this.LegalInformationField;
+            }
+            set
+            {
+                this.LegalInformationField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public MLearningCoreService.MediaInfoDto MainIcon
         {
             get
@@ -287,6 +339,32 @@ namespace MLearningCoreService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> MainIconId
+        {
+            get
+            {
+                return this.MainIconIdField;
+            }
+            set
+            {
+                this.MainIconIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool MakeTitleWidgetLink
+        {
+            get
+            {
+                return this.MakeTitleWidgetLinkField;
+            }
+            set
+            {
+                this.MakeTitleWidgetLinkField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int MarketId
         {
             get
@@ -296,6 +374,19 @@ namespace MLearningCoreService
             set
             {
                 this.MarketIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long Permissions
+        {
+            get
+            {
+                return this.PermissionsField;
+            }
+            set
+            {
+                this.PermissionsField = value;
             }
         }
         
@@ -324,12 +415,26 @@ namespace MLearningCoreService
                 this.TitleField = value;
             }
         }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string WebUrlLink
+        {
+            get
+            {
+                return this.WebUrlLinkField;
+            }
+            set
+            {
+                this.WebUrlLinkField = value;
+            }
+        }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BaseDtoOfint", Namespace="http://schemas.datacontract.org/2004/07/Phm.Common.Dto")]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.MediaInfoDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.CorporateAppDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.QuizQuestionDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.QuizQuestionAnswerDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.SurveyQuestionDto))]
@@ -340,7 +445,6 @@ namespace MLearningCoreService
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.VideoFeedDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.QuizFeedDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.SurveyFeedDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.CampaignFeedDto))]
     public partial class BaseDtoOfint : object
     {
         
@@ -588,6 +692,43 @@ namespace MLearningCoreService
             set
             {
                 this.SizeField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CorporateAppDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class CorporateAppDto : MLearningCoreService.BaseDtoOfint
+    {
+        
+        private MLearningCoreService.AppTypeEnumDto AppTypeField;
+        
+        private string LinkUrlField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MLearningCoreService.AppTypeEnumDto AppType
+        {
+            get
+            {
+                return this.AppTypeField;
+            }
+            set
+            {
+                this.AppTypeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string LinkUrl
+        {
+            get
+            {
+                return this.LinkUrlField;
+            }
+            set
+            {
+                this.LinkUrlField = value;
             }
         }
     }
@@ -900,6 +1041,8 @@ namespace MLearningCoreService
         
         private MLearningCoreService.MediaInfoDto MainImageField;
         
+        private System.Nullable<int> MainImageIdField;
+        
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string ImageDescription
         {
@@ -923,6 +1066,19 @@ namespace MLearningCoreService
             set
             {
                 this.MainImageField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> MainImageId
+        {
+            get
+            {
+                return this.MainImageIdField;
+            }
+            set
+            {
+                this.MainImageIdField = value;
             }
         }
     }
@@ -957,6 +1113,8 @@ namespace MLearningCoreService
         
         private MLearningCoreService.MediaInfoDto MainVideoField;
         
+        private System.Nullable<int> MainVideoIdField;
+        
         private string VideoDescriptionField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
@@ -969,6 +1127,19 @@ namespace MLearningCoreService
             set
             {
                 this.MainVideoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> MainVideoId
+        {
+            get
+            {
+                return this.MainVideoIdField;
+            }
+            set
+            {
+                this.MainVideoIdField = value;
             }
         }
         
@@ -1060,43 +1231,6 @@ namespace MLearningCoreService
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CampaignFeedDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
-    public partial class CampaignFeedDto : MLearningCoreService.BaseFeedDto
-    {
-        
-        private string CampaignDescriptionField;
-        
-        private System.Collections.Generic.List<MLearningCoreService.BaseFeedDto> FeedsField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CampaignDescription
-        {
-            get
-            {
-                return this.CampaignDescriptionField;
-            }
-            set
-            {
-                this.CampaignDescriptionField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<MLearningCoreService.BaseFeedDto> Feeds
-        {
-            get
-            {
-                return this.FeedsField;
-            }
-            set
-            {
-                this.FeedsField = value;
-            }
-        }
-    }
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="FeedCategoryEnumDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     public enum FeedCategoryEnumDto : int
@@ -1109,7 +1243,16 @@ namespace MLearningCoreService
         News = 1,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        Campaign = 2,
+        General = 2,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Campaign = 3,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Announcement = 4,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Article = 5,
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
@@ -1133,7 +1276,13 @@ namespace MLearningCoreService
         Survey = 4,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        CampaignFeed = 5,
+        VideoLink = 5,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        ImageLink = 6,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        PdfLink = 7,
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
@@ -1155,6 +1304,21 @@ namespace MLearningCoreService
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Icon = 4,
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="AppTypeEnumDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public enum AppTypeEnumDto : int
+    {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        FISA = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        CCESG = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        MLearning = 2,
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]

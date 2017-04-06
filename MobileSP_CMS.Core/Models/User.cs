@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MobileSP_CMS.Core.Models.Interfaces;
 
 namespace MobileSP_CMS.Core.Models
 {
-    public class User 
+    public class User : IUser 
     {
         public int Id { get; set; }
 

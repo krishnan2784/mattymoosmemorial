@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace MobileSP_CMS.Core.Enumerations
 {
-    public enum FeedCategoryEnum : int
+    public enum FeedCategoryEnum
     {
         Learning = 0,
         News = 1,
-        Campaign = 2,
+        General = 2,
+        Campaign = 3,
+        Announcement = 4,
+        Article = 5
     }
 }
