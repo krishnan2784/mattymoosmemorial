@@ -1,4 +1,0 @@
-C:\_projects\MLearning\MLearningCMS.Core\bin\Debug\MLearningCMS.Core.dll
-C:\_projects\MLearning\MLearningCMS.Core\bin\Debug\MLearningCMS.Core.pdb
-C:\_projects\MLearning\MLearningCMS.Core\obj\Debug\MLearningCMS.Core.dll
-C:\_projects\MLearning\MLearningCMS.Core\obj\Debug\MLearningCMS.Core.pdb
