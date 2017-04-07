@@ -1,6 +1,0 @@
-C:\_projects\MLearning\MLearningCMS.Infrastructure.Tests\bin\Debug\MLearningCMS.Infrastructure.Tests.dll
-C:\_projects\MLearning\MLearningCMS.Infrastructure.Tests\bin\Debug\MLearningCMS.Infrastructure.Tests.pdb
-C:\_projects\MLearning\MLearningCMS.Infrastructure.Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
-C:\_projects\MLearning\MLearningCMS.Infrastructure.Tests\obj\Debug\MLearningCMS.Tests.csprojResolveAssemblyReference.cache
-C:\_projects\MLearning\MLearningCMS.Infrastructure.Tests\obj\Debug\MLearningCMS.Infrastructure.Tests.dll
-C:\_projects\MLearning\MLearningCMS.Infrastructure.Tests\obj\Debug\MLearningCMS.Infrastructure.Tests.pdb
