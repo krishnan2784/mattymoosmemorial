@@ -1,2 +1,39 @@
-﻿body {
+﻿.feed-cat-container {
+    text-align: center;
+    padding: 20px 0 0;
+    border: 1px #676767;
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12), 0px 3px 1px -2px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+.feed-cat-container p {
+    text-align: center;
+    padding: 20px;
+
+}
+
+.active-cat {
+    box-shadow: #676767;
+    
+}
+
+.feed-cat-container button {
+    background: transparent;
+    color: #222;
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0), 0px 1px 5px 0px rgba(0, 0, 0, 0.12), 0px 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+
+.feed-cat-img {
+    height: 50px;
+    margin: auto;
+}
+
+.feed-cat-container button.active-type {
+    box-shadow: #676767;
+    background: rgba(80, 80, 80, 0.3);
+    font-weight: 600;
+}
+
+.clear-both {
+    clear: both;
 }

@@ -8,16 +8,44 @@
     
     <div *ngIf="!model.id">
         <div class="col-md-12">
-            <div class="col-md-4">
-                <button (click)="swapForm(this.textForm, feedCats.Learning)" class="btn btn-primary">
-                    Text Feed
-                </button>
+            
+            <div class="col-md-6">
+                <div class="feed-cat-container col-md-10 col-md-offset-1" [class.active-cat]="model.feedCategory == feedCats.Learning">
+                    <img src="assets/images/Icon-Learning-b.png" class="feed-cat-img"/>
+                    <h4>LEARNING</h4>
+                    <p>Create informal, fun learning and competition. Small modules with an optional Quiz to test engagement. Embrace competition with Leaderboards and track user's progress with Reports.</p>
+                    <div>
+                        <button (click)="swapForm(this.textForm, feedCats.Learning)" class="btn btn-primary col-md-4" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Text">
+                            Module
+                        </button>
+                        <button (click)="swapForm(this.quizForm, feedCats.Learning)" class="btn btn-primary col-md-4" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Quiz">
+                            Quiz
+                        </button>
+                        <button (click)="swapForm(this.surveyForm, feedCats.Learning)" class="btn btn-primary col-md-4" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Survey">
+                            Survey
+                        </button>
+                    </div>
+                </div>
+                <div class="clear-both"></div>
             </div>
-            <div class="col-md-4">
-                <a [routerLink]="['/createimagefeeditem']" class="btn btn-primary">
-                    Image Feed
-                </a>
+
+            <div class="col-md-6">
+                <div class="feed-cat-container col-md-10 col-md-offset-1" [class.active-cat]="model.feedCategory == feedCats.Campaign">
+                    <img src="assets/images/Icon-Campaign-b.png" class="feed-cat-img"/>
+                    <h4>CAMPAIGN</h4>
+                    <p>Create informal, fun learning and competition. Small modules with an optional Quiz to test engagement. Embrace competition with Leaderboards and track user's progress with Reports.</p>
+                    <div>
+                        <button (click)="swapForm(this.textForm, feedCats.Campaign)" class="btn btn-primary col-md-6" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Text">
+                            Module
+                        </button>
+                        <button (click)="swapForm(this.surveyForm, feedCats.Campaign)" class="btn btn-primary col-md-6" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Survey">
+                            Survey
+                        </button>
+                    </div>
+                </div>
+                <div class="clear-both"></div>
             </div>
+
             <div class="col-md-4">
                 <a [routerLink]="['/createvideofeeditem']" class="btn btn-primary">
                     Video Feed
