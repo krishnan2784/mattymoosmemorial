@@ -5,3 +5,8 @@ MobileSP_CMS.Infrastructure/obj/Debug/
 MobileSP_CMS/wwwroot/scripts/
 MobileSP_CMS.Core/bin/Debug/
 MobileSP_CMS.Infrastructure/bin/Debug/
+packages/
+tests/MobileSP_CMS.Infrastructure.Tests/obj/
+src/lib/MobileSP_CMS.Core/obj/
+src/lib/MobileSP_CMS.Core/bin/
+src/lib/MobileSP_CMS.Infrastructure/obj/
