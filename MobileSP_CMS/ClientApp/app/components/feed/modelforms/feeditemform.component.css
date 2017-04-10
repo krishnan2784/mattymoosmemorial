@@ -1,9 +1,14 @@
-﻿.feed-cat-container {
+﻿.feed-item-form-container {
+    padding-top: 20px;
+}
+
+.feed-cat-container {
     text-align: center;
     padding: 20px 0 0;
-    border: 1px #676767;
-    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12), 0px 3px 1px -2px rgba(0, 0, 0, 0.2);
+    border: 1px #DBE2EA solid;
     margin-bottom: 20px;
+    min-height: 300px;
+    position: relative;
 }
 
 .feed-cat-container p {
@@ -13,14 +18,35 @@
 }
 
 .active-cat {
-    box-shadow: #676767;
-    
+    border-color: #435363;
+    box-shadow: -2px 4px 14px 4px rgba(0, 0, 0, 0.14), 0 2px 2px 2px rgba(0, 0, 0, 0.12), 0 6px 2px -2px rgba(0, 0, 0, 0.2);
 }
 
 .feed-cat-container button {
     background: transparent;
     color: #222;
-    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0), 0px 1px 5px 0px rgba(0, 0, 0, 0.12), 0px 3px 1px -2px rgba(0, 0, 0, 0.2);
+    font-weight: 600;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0), 
+        0 1px 5px 0 rgba(0, 0, 0, 0.12),
+         0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+
+
+.feed-cat-container button:hover {
+    background: #DBE2EA;
+}
+
+
+.feed-cat-container button.active-type {
+    background: #435363;
+    color: #EEEEEF;
+}
+
+
+.btn-holder {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 .feed-cat-img {
@@ -28,12 +54,25 @@
     margin: auto;
 }
 
-.feed-cat-container button.active-type {
-    box-shadow: #676767;
-    background: rgba(80, 80, 80, 0.3);
-    font-weight: 600;
-}
-
 .clear-both {
     clear: both;
+}
+
+
+
+@media (max-width: 768px) {
+.feed-cat-container button {
+    background: transparent;
+    color: #222;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    width: 100%;
+}
+
+.feed-cat-container button.btn-3 {
+    width:32.8%
+}
+
+.feed-cat-container button.btn-2 {
+    width: 49.5%;
+}
 }

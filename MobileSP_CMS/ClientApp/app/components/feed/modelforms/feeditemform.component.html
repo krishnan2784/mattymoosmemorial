@@ -4,66 +4,92 @@
 </div>
 
 
-<form [formGroup]="form" novalidate (ngSubmit)="save(form.value, form.valid)" *ngIf="model">
+<form [formGroup]="form" novalidate (ngSubmit)="save(form.value, form.valid)" *ngIf="model" class="feed-item-form-container">
     
     <div *ngIf="!model.id">
-        <div class="col-md-12">
-            
-            <div class="col-md-6">
-                <div class="feed-cat-container col-md-10 col-md-offset-1" [class.active-cat]="model.feedCategory == feedCats.Learning">
-                    <img src="assets/images/Icon-Learning-b.png" class="feed-cat-img"/>
-                    <h4>LEARNING</h4>
-                    <p>Create informal, fun learning and competition. Small modules with an optional Quiz to test engagement. Embrace competition with Leaderboards and track user's progress with Reports.</p>
-                    <div>
-                        <button (click)="swapForm(this.textForm, feedCats.Learning)" class="btn btn-primary col-md-4" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Text">
-                            Module
-                        </button>
-                        <button (click)="swapForm(this.quizForm, feedCats.Learning)" class="btn btn-primary col-md-4" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Quiz">
-                            Quiz
-                        </button>
-                        <button (click)="swapForm(this.surveyForm, feedCats.Learning)" class="btn btn-primary col-md-4" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Survey">
-                            Survey
-                        </button>
+        <div class="col-md-8">
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="feed-cat-container" [class.active-cat]="model.feedCategory == feedCats.Learning">
+                        <img src="assets/images/Icon-Learning-b.png" class="feed-cat-img" />
+                        <h5>LEARNING</h5>
+                        <p>Create informal, fun learning and competition. Small modules with an optional Quiz to test engagement. Embrace competition with Leaderboards and track user's progress with Reports.</p>
+                        <div class="btn-holder">
+                            <button (click)="swapForm(this.textForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Text">
+                                Module
+                            </button>
+                            <button (click)="swapForm(this.quizForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Quiz">
+                                Quiz
+                            </button>
+                            <button (click)="swapForm(this.surveyForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Survey">
+                                Survey
+                            </button>
+                        </div>
                     </div>
+                    <div class="clear-both"></div>
                 </div>
-                <div class="clear-both"></div>
+
+                <div class="col-md-6">
+                    <div class="feed-cat-container" [class.active-cat]="model.feedCategory == feedCats.Campaign">
+                        <img src="assets/images/Icon-Campaign-b.png" class="feed-cat-img" />
+                        <h5>CAMPAIGN</h5>
+                        <p>Campaign helps make your marketing strategy stronger. You will be able to add media, and additional links. Even better, get insights by sending a survey.</p>
+                        <div class="btn-holder">
+                            <button (click)="swapForm(this.textForm, feedCats.Campaign)" class="btn btn-primary col-md-6 btn-2" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Text">
+                                Module
+                            </button>
+                            <button (click)="swapForm(this.surveyForm, feedCats.Campaign)" class="btn btn-primary col-md-6 btn-2" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Survey">
+                                Survey
+                            </button>
+                        </div>
+                    </div>
+                    <div class="clear-both"></div>
+                </div>
             </div>
 
-            <div class="col-md-6">
-                <div class="feed-cat-container col-md-10 col-md-offset-1" [class.active-cat]="model.feedCategory == feedCats.Campaign">
-                    <img src="assets/images/Icon-Campaign-b.png" class="feed-cat-img"/>
-                    <h4>CAMPAIGN</h4>
-                    <p>Create informal, fun learning and competition. Small modules with an optional Quiz to test engagement. Embrace competition with Leaderboards and track user's progress with Reports.</p>
-                    <div>
-                        <button (click)="swapForm(this.textForm, feedCats.Campaign)" class="btn btn-primary col-md-6" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Text">
-                            Module
-                        </button>
-                        <button (click)="swapForm(this.surveyForm, feedCats.Campaign)" class="btn btn-primary col-md-6" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Survey">
-                            Survey
-                        </button>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <div class="feed-cat-container" [class.active-cat]="model.feedCategory == feedCats.Announcement">
+                        <img src="assets/images/Icon-Announcement-b.png" class="feed-cat-img" />
+                        <h5>ANNOUNCEMENT</h5>
+                        <p>Announcement allows you to create content including rich media and additional links to websites and our other apps.</p>
+                        <div class="btn-holder">
+                            <button (click)="swapForm(this.textForm, feedCats.Announcement)" class="btn btn-primary col-md-12" [class.active-type]="model.feedCategory == feedCats.Announcement && model.feedType == feedTypes.Text">
+                                Module
+                            </button>
+                        </div>
                     </div>
+                    <div class="clear-both"></div>
                 </div>
-                <div class="clear-both"></div>
-            </div>
-
-            <div class="col-md-4">
-                <a [routerLink]="['/createvideofeeditem']" class="btn btn-primary">
-                    Video Feed
-                </a>
-            </div>
-            <div class="col-md-4">
-                <a [routerLink]="['/createquizfeeditem']" class="btn btn-primary">
-                    Quiz Feed
-                </a>
-            </div>
-            <div class="col-md-4">
-                <a [routerLink]="['/createsurveyfeeditem']" class="btn btn-primary">
-                    Survey Feed
-                </a>
-            </div>
-            <div class="clearfix"></div>
+                <div class="col-md-4">
+                    <div class="feed-cat-container" [class.active-cat]="model.feedCategory == feedCats.News">
+                        <img src="assets/images/Icon-News-b.png" class="feed-cat-img" />
+                        <h5>NEWS</h5>
+                        <p>Keep everyone updated. News gives you the flexibility of using media and additional links.</p>
+                        <div class="btn-holder">
+                            <button (click)="swapForm(this.textForm, feedCats.News)" class="btn btn-primary col-md-12" [class.active-type]="model.feedCategory == feedCats.News && model.feedType == feedTypes.Text">
+                                Module
+                            </button>
+                        </div>
+                    </div>
+                    <div class="clear-both"></div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feed-cat-container" [class.active-cat]="model.feedCategory == feedCats.Article">
+                        <img src="assets/images/Icon-Article-b.png" class="feed-cat-img" />
+                        <h5>ARTICLE</h5>
+                        <p>Article enables you to include and image and PDF link.</p>
+                        <div class="btn-holder">
+                            <button (click)="swapForm(this.textForm, feedCats.Article)" class="btn btn-primary col-md-12" [class.active-type]="model.feedCategory == feedCats.Article && model.feedType == feedTypes.Text">
+                                Module
+                            </button>
+                        </div>
+                    </div>
+                    <div class="clear-both"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>            
         </div>
-        <hr/>
     </div>
     
     <input type="hidden" formControlName="id">
