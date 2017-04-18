@@ -14,12 +14,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MLearningCoreService;
 using MobileSPCoreService;
-using Phm.MobileSp.Cms.Core.Models;
-using Phm.MobileSp.Cms.Core.Models.Interfaces;
-using Phm.MobileSp.Cms.Infrastructure.Repositories;
-using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
+using MobileSP_CMS.Core.Models;
+using MobileSP_CMS.Core.Models.Interfaces;
+using MobileSP_CMS.Infrastructure.Repositories;
+using MobileSP_CMS.Infrastructure.Repositories.Interfaces;
 
-namespace Phm.MobileSp.Cms
+namespace MobileSP_CMS
 {
     public class Startup
     {

@@ -8,12 +8,12 @@ using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.DotNet.Cli.Utils;
 using Microsoft.Extensions.Caching.Memory;
-using Phm.MobileSp.Cms.Core.Models;
-using Phm.MobileSp.Cms.Core.Models.Interfaces;
-using Phm.MobileSp.Cms.Infrastructure;
-using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
+using MobileSP_CMS.Core.Models;
+using MobileSP_CMS.Core.Models.Interfaces;
+using MobileSP_CMS.Infrastructure;
+using MobileSP_CMS.Infrastructure.Repositories.Interfaces;
 
-namespace Phm.MobileSp.Cms.Controllers
+namespace MobileSP_CMS.Controllers
 {
     public class CacheController : Controller
     {

@@ -5,10 +5,10 @@ using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
 using MLearningCoreService;
-using Phm.MobileSp.Cms.Core.Models;
-using Phm.MobileSp.Cms.Core.Models.Interfaces;
+using MobileSP_CMS.Core.Models;
+using MobileSP_CMS.Core.Models.Interfaces;
 
-namespace Phm.MobileSp.Cms.Infrastructure
+namespace MobileSP_CMS.Infrastructure
 {
     public class AutoMapperGenericsHelper<TSource, TDestination>
     {

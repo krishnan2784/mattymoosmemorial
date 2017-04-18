@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 
-namespace Phm.MobileSp.Cms
+namespace MobileSP_CMS
 {
     public class Program
     {

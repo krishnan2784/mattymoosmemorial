@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Phm.MobileSp.Cms.Core.Models.Interfaces;
+using MobileSP_CMS.Core.Models.Interfaces;
 
-namespace Phm.MobileSp.Cms.Core.Models
+namespace MobileSP_CMS.Core.Models
 {
     public abstract class BaseModel : IBaseModel
     {

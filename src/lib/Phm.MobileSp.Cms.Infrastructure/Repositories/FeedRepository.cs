@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MLearningCoreService;
-using Phm.MobileSp.Cms.Core.Models;
-using Phm.MobileSp.Cms.Core.Models.Interfaces;
-using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
+using MobileSP_CMS.Core.Models;
+using MobileSP_CMS.Core.Models.Interfaces;
+using MobileSP_CMS.Infrastructure.Repositories.Interfaces;
 
-namespace Phm.MobileSp.Cms.Infrastructure.Repositories
+namespace MobileSP_CMS.Infrastructure.Repositories
 {
     public class FeedRepository : MLearningBaseRepository, IFeedRepository
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Phm.MobileSp.Cms.Infrastructure
+namespace MobileSP_CMS.Infrastructure
 {
     public class Contstants
     {
