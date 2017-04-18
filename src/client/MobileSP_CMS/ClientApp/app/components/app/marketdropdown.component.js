@@ -36,7 +36,7 @@ var MarketDropdown = (function () {
     MarketDropdown.prototype.updateCurrentMarket = function (newMarket) {
         var _this = this;
         this.currentMarket = this.userMarkets.find(function (x) { return x == newMarket; });
-        this.marketDataService.updateCurrentMarketUd(this.currentMarket.id).subscribe(function (result) {
+        this.marketDataService.updateCurrentMarketId(this.currentMarket.id).subscribe(function (result) {
             if (result) {
                 _this.sharedService.updateMarketId(_this.currentMarket.id);
             }

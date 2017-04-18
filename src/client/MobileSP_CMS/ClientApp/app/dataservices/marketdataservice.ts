@@ -16,7 +16,7 @@ export class MarketDataService implements IMarketDataService {
     constructor(public http: Http, private zone: NgZone) {
     }
 
-    updateCurrentMarketUd(marketId: number): Observable<boolean> {
+    updateCurrentMarketId(marketId: number): Observable<boolean> {
         return Observable.create(observer => {
             this.http.get('/api/Market/ChangeMarket?marketId=' + marketId).subscribe(result => {
                 let response = ResponseHelper.getResponse(result);

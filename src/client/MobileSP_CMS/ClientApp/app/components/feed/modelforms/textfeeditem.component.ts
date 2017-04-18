@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Injector } from '@angular/core';
 import { Http } from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
@@ -20,7 +20,12 @@ export class TextFeedItemFormComponent implements IFeedItemComponents.IFeedItemP
     public updateUrl: string = '/api/Feed/UpdateTextFeedItem';
     public feedType: Enums.FeedTypeEnum = FeedTypeEnum.Text;
 
-    constructor() {
+    public form: FormGroup;
+
+    constructor(private injector: Injector) {
+        if (injector) {
+            this.form = injector.get('form');
+        }
         this.feedModelType = Feedclasses.TextFeed;
     } 
 

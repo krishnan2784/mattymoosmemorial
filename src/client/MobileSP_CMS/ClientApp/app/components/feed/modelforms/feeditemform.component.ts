@@ -12,6 +12,7 @@ import FeedModel = require("../../../interfaces/models/IFeedModel");
 import FeedItem = FeedModel.IFeedItem;
 import Enums = require("../../../enums");
 import FeedCategoryEnum = Enums.FeedCategoryEnum;
+import Feedclasses = require("../../../models/feedclasses");
 
 @Component({
     selector: 'feeditemform',
@@ -23,6 +24,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
 
     public form: FormGroup;
     public subForm: IFeedItemComponents.IFeedItemPartialForm;
+    feedFormData = null;
     public submitted: boolean; 
     
     @Output()
@@ -32,7 +34,8 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     
     public selectedFeedCatId: number = 0;
 
-    public feedCategories: { name: string; value: number }[] = [];
+    feedTypes: typeof Enums.FeedTypeEnum = Enums.FeedTypeEnum;
+    feedCats: typeof FeedCategoryEnum = FeedCategoryEnum;
 
     public id_sub: Subscription;
 
@@ -42,7 +45,6 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         private router: Router, public feedDataService: FeedDataService, private injector: Injector) {
         
         this._fb = fb;
-        this.subForm = new TextFeedItemFormComponent();
 
         this.setupForm();
 
@@ -50,23 +52,28 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         this.selectedFeedCatId = this.injector.get('feedCat');
 
         this.getModel();
-        
-        this.feedCategories = EnumEx.getNamesAndValues(FeedCategoryEnum);
     }
 
     public setupForm() {
         this.initialiseForm();
-        this.form = this.subForm.addFormControls(this.form);
     }
 
-    public swapForm<TFormType extends any>(newFormType: TFormType) {
+    public swapForm<TFormType extends any>(newFormType: TFormType, feedCategory: FeedCategoryEnum) {
         let newForm = new newFormType();
-        if (this.form) {
+
+        if (this.form && this.subForm) {
             this.form = this.subForm.removeFormControls(this.form);
         }
+
+        this.feedFormData = {
+            feedFormComponent: newFormType,
+            inputs: { form: this.form }
+        };
+
         this.subForm = newForm;
         this.form = this.subForm.addFormControls(this.form);
         this.model.feedType = this.subForm.feedType;
+        this.model.feedCategory = feedCategory;
         this.updateForm();
     }
 
@@ -79,36 +86,29 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             points: ['', [<any>Validators.required]],
             enabled: ['', []],
             published: ['', []],
-            marketId: ['', [<any>Validators.required]],
             mainIcon: ['', []]
         });
     }
 
     getModel() {
         if (this.model) {
-            this.updateForm();
+            this.swapForm(this.getFeedType(this.model.feedType), this.model.feedCategory);
         } else {
-            this.getNewModel();
+            this.model = new Feedclasses.BaseFeed();
         }
     };
-
-
-    //getDbModel() {
-    //    this.feedDataService.getFeeditem(this.selectedFeedItemId, this.subForm.feedModelType).subscribe((result) => {
-    //        this.model = result;
-    //        this.updateForm();
-    //    });
-    //}
-
-    getNewModel() {
-        this.model = new this.subForm.feedModelType({});
-        this.model.feedCategory = this.selectedFeedCatId;
-        this.updateForm();
-    }
 
     updateForm() {
         if (this.model)
             (this.form).patchValue(this.model, { onlySelf: true });
+    }
+
+    getFeedType(feedType: Enums.FeedTypeEnum) : any {
+        switch (feedType) {
+            case Enums.FeedTypeEnum.Text:
+                return TextFeedItemFormComponent;
+        default:
+        }
     }
 
     save(feedItem: FeedItem, isValid: boolean) {

@@ -33,7 +33,7 @@ export class MarketDropdown {
 
     updateCurrentMarket(newMarket: UserMarket) {
         this.currentMarket = this.userMarkets.find(x=> x == newMarket);
-        this.marketDataService.updateCurrentMarketUd(this.currentMarket.id).subscribe((result) => {
+        this.marketDataService.updateCurrentMarketId(this.currentMarket.id).subscribe((result) => {
             if (result) {
                 this.sharedService.updateMarketId(this.currentMarket.id);
             }

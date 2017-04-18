@@ -12,11 +12,11 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
-var enumerators_1 = require("../../../classes/enumerators");
 var FeedDataService_1 = require("../../../dataservices/FeedDataService");
 var textfeeditem_component_1 = require("./textfeeditem.component");
 var Enums = require("../../../enums");
 var FeedCategoryEnum = Enums.FeedCategoryEnum;
+var Feedclasses = require("../../../models/feedclasses");
 var FeedItemForm = (function () {
     function FeedItemForm(fb, http, route, router, feedDataService, injector) {
         this.http = http;
@@ -24,29 +24,33 @@ var FeedItemForm = (function () {
         this.router = router;
         this.feedDataService = feedDataService;
         this.injector = injector;
+        this.feedFormData = null;
         this.selectedFeedCatId = 0;
-        this.feedCategories = [];
+        this.feedTypes = Enums.FeedTypeEnum;
+        this.feedCats = FeedCategoryEnum;
         this.textForm = textfeeditem_component_1.TextFeedItemFormComponent;
         this._fb = fb;
-        this.subForm = new textfeeditem_component_1.TextFeedItemFormComponent();
         this.setupForm();
         this.model = this.injector.get('feedItem');
         this.selectedFeedCatId = this.injector.get('feedCat');
         this.getModel();
-        this.feedCategories = enumerators_1.EnumEx.getNamesAndValues(FeedCategoryEnum);
     }
     FeedItemForm.prototype.setupForm = function () {
         this.initialiseForm();
-        this.form = this.subForm.addFormControls(this.form);
     };
-    FeedItemForm.prototype.swapForm = function (newFormType) {
+    FeedItemForm.prototype.swapForm = function (newFormType, feedCategory) {
         var newForm = new newFormType();
-        if (this.form) {
+        if (this.form && this.subForm) {
             this.form = this.subForm.removeFormControls(this.form);
         }
+        this.feedFormData = {
+            feedFormComponent: newFormType,
+            inputs: { form: this.form }
+        };
         this.subForm = newForm;
         this.form = this.subForm.addFormControls(this.form);
         this.model.feedType = this.subForm.feedType;
+        this.model.feedCategory = feedCategory;
         this.updateForm();
     };
     FeedItemForm.prototype.initialiseForm = function () {
@@ -58,33 +62,28 @@ var FeedItemForm = (function () {
             points: ['', [forms_1.Validators.required]],
             enabled: ['', []],
             published: ['', []],
-            marketId: ['', [forms_1.Validators.required]],
             mainIcon: ['', []]
         });
     };
     FeedItemForm.prototype.getModel = function () {
         if (this.model) {
-            this.updateForm();
+            this.swapForm(this.getFeedType(this.model.feedType), this.model.feedCategory);
         }
         else {
-            this.getNewModel();
+            this.model = new Feedclasses.BaseFeed();
         }
     };
     ;
-    //getDbModel() {
-    //    this.feedDataService.getFeeditem(this.selectedFeedItemId, this.subForm.feedModelType).subscribe((result) => {
-    //        this.model = result;
-    //        this.updateForm();
-    //    });
-    //}
-    FeedItemForm.prototype.getNewModel = function () {
-        this.model = new this.subForm.feedModelType({});
-        this.model.feedCategory = this.selectedFeedCatId;
-        this.updateForm();
-    };
     FeedItemForm.prototype.updateForm = function () {
         if (this.model)
             (this.form).patchValue(this.model, { onlySelf: true });
+    };
+    FeedItemForm.prototype.getFeedType = function (feedType) {
+        switch (feedType) {
+            case Enums.FeedTypeEnum.Text:
+                return textfeeditem_component_1.TextFeedItemFormComponent;
+            default:
+        }
     };
     FeedItemForm.prototype.save = function (feedItem, isValid) {
         var _this = this;

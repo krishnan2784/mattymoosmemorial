@@ -7,46 +7,42 @@
 <form [formGroup]="form" novalidate (ngSubmit)="save(form.value, form.valid)" *ngIf="model">
     
     <div *ngIf="!model.id">
-        <div>
-            <h4>
-                Select a feed type
-            </h4>
-        </div>
         <div class="col-md-12">
-            <div class="col-md-2">
-                <button (click)="swapForm(this.textForm)" class="btn btn-primary">
+            <div class="col-md-4">
+                <button (click)="swapForm(this.textForm, feedCats.Learning)" class="btn btn-primary">
                     Text Feed
                 </button>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <a [routerLink]="['/createimagefeeditem']" class="btn btn-primary">
                     Image Feed
                 </a>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <a [routerLink]="['/createvideofeeditem']" class="btn btn-primary">
                     Video Feed
                 </a>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <a [routerLink]="['/createquizfeeditem']" class="btn btn-primary">
                     Quiz Feed
                 </a>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <a [routerLink]="['/createsurveyfeeditem']" class="btn btn-primary">
                     Survey Feed
                 </a>
             </div>
+            <div class="clearfix"></div>
         </div>
         <hr/>
     </div>
-
-
+    
     <input type="hidden" formControlName="id">
     <input type="hidden" formControlName="enabled">
     <input type="hidden" formControlName="published">
     <input type="hidden" formControlName="feedType">
+    <input type="hidden" formControlName="feedCategory">
 
     <div>
         <label>Title</label>
@@ -57,27 +53,14 @@
     </div>
 
     <div>
-        <label>Feed Category</label>
-        <select class="form-control"
-                formControlName="feedCategory">
-            <option *ngFor="let cat of feedCategories" [ngValue]="cat.value">{{cat.name}}</option>
-        </select>
-    </div>
-
-    <div>
         <label>Points Value</label>
         <input type="text" formControlName="points">
     </div>
-
-    <div>
-        <label>Body Text</label>
-        <input type="text" formControlName="bodyText">
-        <small [hidden]="form.controls.bodyText.valid || (form.controls.bodyText.pristine && !submitted)">
-            Body text is required (minimum 5 characters).
-        </small>
+    
+    <div *ngIf="feedFormData">
+        <feed-form-component [feedFormData]="feedFormData"></feed-form-component>
     </div>
     
-
     <button (click)="goBack()" class="btn btn-primary">Cancel</button>
     <button type="submit" class="btn btn-primary">Submit</button>
 

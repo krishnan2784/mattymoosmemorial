@@ -1,10 +1,11 @@
 ﻿import {Component, Input, ViewContainerRef, ViewChild, ReflectiveInjector, ComponentFactoryResolver } from '@angular/core';
 import { FeedItemForm } from './feeditemform.component';
+import { TextFeedItemFormComponent } from './textfeeditem.component';
 
 
 @Component({
     selector: 'feed-form-component',
-    entryComponents: [FeedItemForm], 
+    entryComponents: [FeedItemForm, TextFeedItemFormComponent], 
     template: require('./feeditemcontainer.component.html'),
     styles: [require('./feeditemcontainer.component.css')],
 })

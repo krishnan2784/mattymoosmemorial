@@ -19,7 +19,7 @@ var MarketDataService = (function () {
         this.http = http;
         this.zone = zone;
     }
-    MarketDataService.prototype.updateCurrentMarketUd = function (marketId) {
+    MarketDataService.prototype.updateCurrentMarketId = function (marketId) {
         var _this = this;
         return Observable_1.Observable.create(function (observer) {
             _this.http.get('/api/Market/ChangeMarket?marketId=' + marketId).subscribe(function (result) {

@@ -1,13 +1,14 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using MLearningCoreService;
-using MobileSP_CMS.Core.Models;
-using MobileSP_CMS.Helpers.Attributes;
-using MobileSP_CMS.Infrastructure.Repositories.Interfaces;
+using Phm.MobileSp.Cms.Core.Models;
+using Phm.MobileSp.Cms.Helpers.Attributes;
+using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 
-namespace MobileSP_CMS.Controllers
+namespace Phm.MobileSp.Cms.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
@@ -42,6 +43,7 @@ namespace MobileSP_CMS.Controllers
         public async Task<JsonResult> CreateFeedItem<TFeedItem, TDestinationDto>(dynamic feedItem) where TFeedItem : BaseFeed
             where TDestinationDto : BaseFeedDto
         {
+            feedItem.MarketId = CurrentMarketId;
             var feedItemResponse = await _feedRepository.CreateFeedItemAsync<TFeedItem, TDestinationDto>(feedItem);
             return Json(feedItemResponse);
         }
