@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Phm.MobileSp.Cms.Core.Enumerations
+namespace MobileSP_CMS.Core.Enumerations
 {
     public enum SurveyQuestionTypeEnum : int
     {

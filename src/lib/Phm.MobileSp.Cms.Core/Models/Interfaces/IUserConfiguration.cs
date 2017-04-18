@@ -1,4 +1,4 @@
-﻿namespace Phm.MobileSp.Cms.Core.Models.Interfaces
+﻿namespace MobileSP_CMS.Core.Models.Interfaces
 {
     public interface IUserConfiguration
     {

@@ -17,6 +17,7 @@ import Feedclasses = require("../../../models/feedclasses");
 @Component({
     selector: 'feeditemform',
     template: require('./feeditemform.component.html'),
+    styles: [require('./feeditemform.component.css')],
     providers: [FeedDataService]
 })
 export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {

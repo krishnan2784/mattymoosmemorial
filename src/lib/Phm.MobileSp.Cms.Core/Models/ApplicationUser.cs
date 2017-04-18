@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Phm.MobileSp.Cms.Core.Models.Interfaces;
+using MobileSP_CMS.Core.Models.Interfaces;
 
-namespace Phm.MobileSp.Cms.Core.Models
+namespace MobileSP_CMS.Core.Models
 {
     public class ApplicationUser : IApplicationUser
     {
