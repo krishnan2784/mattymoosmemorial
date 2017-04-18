@@ -1,5 +1,5 @@
 {
-  "title": "MobileSP_CMS",
+  "title": "Phm.MobileSp.Cms",
   "dependencies": {
     "Microsoft.NETCore.App": "1.1.0",
     "Microsoft.AspNetCore.AngularServices": "1.1.0-beta-000002",
@@ -21,7 +21,7 @@
     "Microsoft.AspNetCore.Session": "1.1.0",
     "Microsoft.AspNetCore.StaticFiles": "1.1.0",
     "Microsoft.Extensions.Configuration.CommandLine": "1.1.0",
-    "MobileSP_CMS.Infrastructure": "1.0.0-*",
+    "Phm.MobileSp.Cms.Infrastructure": "1.0.0-*",
     "Newtonsoft.Json": "9.0.1",
     "Jil": "2.15.0",
     "System.Linq": "4.3.0" 
@@ -40,7 +40,7 @@
         "portable-net45+win8"
       ],
       "dependencies": {
-        "MobileSP_CMS.Core": {
+        "Phm.MobileSp.Cms.Core": {
           "target": "project"
         }
 
@@ -84,6 +84,6 @@
   },
 
   "tooling": {
-    "defaultNamespace": "MobileSP_CMS"
+    "defaultNamespace": "Phm.MobileSp.Cms"
   }
 }

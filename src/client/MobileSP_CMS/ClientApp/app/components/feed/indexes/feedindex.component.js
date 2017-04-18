@@ -69,14 +69,24 @@ var FeedIndexComponent = (function (_super) {
         var _this = this;
         if (!this.filteredFeed) {
             this.feedDataService.getFeeditems().subscribe(function (result) {
-                _this.feedItems = result;
+                _this.feedItems = _this.sortFeed(result);
             });
         }
         else {
             this.feedDataService.getFeeditemsByCat(this.catId).subscribe(function (result) {
-                _this.feedItems = result;
+                _this.feedItems = _this.sortFeed(result);
             });
         }
+    };
+    FeedIndexComponent.prototype.sortFeed = function (feedItem) {
+        // basic ordering by Id descending, will need to replace with a more robust sorting mechanism / index management facility 
+        return feedItem.sort(function (a, b) {
+            if (a.id > b.id)
+                return -1;
+            if (a.id < b.id)
+                return 1;
+            return 0;
+        });
     };
     FeedIndexComponent.prototype.updateFeedItem = function (feedItem, feedCat) {
         var _this = this;

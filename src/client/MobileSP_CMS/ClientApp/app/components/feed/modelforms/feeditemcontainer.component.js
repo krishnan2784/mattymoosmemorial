@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var feeditemform_component_1 = require("./feeditemform.component");
+var textfeeditem_component_1 = require("./textfeeditem.component");
 var FeedItemContainerComponent = (function () {
     function FeedItemContainerComponent(resolver) {
         this.resolver = resolver;
@@ -48,7 +49,7 @@ __decorate([
 FeedItemContainerComponent = __decorate([
     core_1.Component({
         selector: 'feed-form-component',
-        entryComponents: [feeditemform_component_1.FeedItemForm],
+        entryComponents: [feeditemform_component_1.FeedItemForm, textfeeditem_component_1.TextFeedItemFormComponent],
         template: require('./feeditemcontainer.component.html'),
         styles: [require('./feeditemcontainer.component.css')],
     }),

@@ -9,11 +9,11 @@ using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Caching.Memory;
-using MobileSP_CMS.Core.Models;
-using MobileSP_CMS.Helpers.Attributes;
-using MobileSP_CMS.Infrastructure.Repositories.Interfaces;
+using Phm.MobileSp.Cms.Core.Models;
+using Phm.MobileSp.Cms.Helpers.Attributes;
+using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 
-namespace MobileSP_CMS.Controllers
+namespace Phm.MobileSp.Cms.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]

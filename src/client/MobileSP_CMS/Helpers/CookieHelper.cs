@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace MobileSP_CMS.Helpers
+namespace Phm.MobileSp.Cms.Helpers
 {
     public static class CookieHelper
     {
