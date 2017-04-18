@@ -1,6 +1,6 @@
-﻿using Phm.MobileSp.Cms.Core.Enumerations;
+﻿using MobileSP_CMS.Core.Enumerations;
 
-namespace Phm.MobileSp.Cms.Core.Models.Interfaces
+namespace MobileSP_CMS.Core.Models.Interfaces
 {
     public interface IBaseFeed : IBaseModel
     {

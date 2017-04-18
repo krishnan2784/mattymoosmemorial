@@ -110,6 +110,7 @@ FeedItemForm = __decorate([
     core_1.Component({
         selector: 'feeditemform',
         template: require('./feeditemform.component.html'),
+        styles: [require('./feeditemform.component.css')],
         providers: [FeedDataService_1.FeedDataService]
     }),
     __metadata("design:paramtypes", [typeof (_b = typeof forms_1.FormBuilder !== "undefined" && forms_1.FormBuilder) === "function" && _b || Object, typeof (_c = typeof http_1.Http !== "undefined" && http_1.Http) === "function" && _c || Object, typeof (_d = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _d || Object, typeof (_e = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _e || Object, FeedDataService_1.FeedDataService, typeof (_f = typeof core_1.Injector !== "undefined" && core_1.Injector) === "function" && _f || Object])

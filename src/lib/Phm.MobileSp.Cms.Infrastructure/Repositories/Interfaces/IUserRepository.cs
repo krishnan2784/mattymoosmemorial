@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Phm.MobileSp.Cms.Core.Models;
-using Phm.MobileSp.Cms.Core.Models.Interfaces;
+using MobileSP_CMS.Core.Models;
+using MobileSP_CMS.Core.Models.Interfaces;
 
-namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
+namespace MobileSP_CMS.Infrastructure.Repositories.Interfaces
 {
     public interface IUserRepository : ICoreBaseRepository
     {

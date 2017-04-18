@@ -1,4 +1,4 @@
-﻿namespace Phm.MobileSp.Cms.Core.Models
+﻿namespace MobileSP_CMS.Core.Models
 {
     public class BaseResponse
     {

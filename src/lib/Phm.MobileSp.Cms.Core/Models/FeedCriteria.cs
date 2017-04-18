@@ -4,7 +4,7 @@ using System.Linq ;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Phm.MobileSp.Cms.Core.Models
+namespace MobileSP_CMS.Core.Models
 {
     public class FeedCriteria : ReadCriteria, IFeedCriteria
     {

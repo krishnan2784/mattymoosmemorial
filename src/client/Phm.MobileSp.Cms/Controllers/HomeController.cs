@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Phm.MobileSp.Cms.Controllers
+namespace MobileSP_CMS.Controllers
 {
     [Authorize]
     public class HomeController : Controller
