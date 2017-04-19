@@ -299,3 +299,4 @@ tests/MobileSP_CMS.Infrastructure.Tests/obj/
 src/lib/MobileSP_CMS.Core/obj/
 src/lib/MobileSP_CMS.Core/bin/
 src/lib/MobileSP_CMS.Infrastructure/obj/
+src/client/Phm.MobileSp.Cms/wwwroot/

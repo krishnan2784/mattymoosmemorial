@@ -1,6 +1,8 @@
 ﻿import {Observable} from 'rxjs/Observable';
 import Enums = require("../../enums");
 import FeedModel = require("../models/IFeedModel");
+import Feedclasses = require("../../models/feedclasses");
+import BaseFeed = Feedclasses.BaseFeed;
 
 export interface IFeedDataService {
     getFeeditems(): Observable<FeedModel.IFeedItem[]>;
