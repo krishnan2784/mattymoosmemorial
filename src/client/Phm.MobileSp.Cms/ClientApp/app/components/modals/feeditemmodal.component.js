@@ -47,7 +47,7 @@ __decorate([
 ], FeedItemModalComponent.prototype, "closeModal", void 0);
 __decorate([
     core_1.ViewChild('feedItemComponentContainer', { read: core_1.ViewContainerRef }),
-    __metadata("design:type", typeof (_a = typeof core_1.ViewContainerRef !== "undefined" && core_1.ViewContainerRef) === "function" && _a || Object)
+    __metadata("design:type", core_1.ViewContainerRef)
 ], FeedItemModalComponent.prototype, "dynamicComponentContainer", void 0);
 __decorate([
     core_1.Input(),
@@ -61,8 +61,7 @@ FeedItemModalComponent = __decorate([
         template: require('./feeditemmodal.component.html'),
         styles: [require('./feeditemmodal.component.css')],
     }),
-    __metadata("design:paramtypes", [typeof (_b = typeof core_1.ComponentFactoryResolver !== "undefined" && core_1.ComponentFactoryResolver) === "function" && _b || Object])
+    __metadata("design:paramtypes", [core_1.ComponentFactoryResolver])
 ], FeedItemModalComponent);
 exports.FeedItemModalComponent = FeedItemModalComponent;
-var _a, _b;
 //# sourceMappingURL=feeditemmodal.component.js.map

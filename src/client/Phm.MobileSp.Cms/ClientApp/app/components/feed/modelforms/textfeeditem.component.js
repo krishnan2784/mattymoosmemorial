@@ -40,8 +40,7 @@ TextFeedItemFormComponent = __decorate([
         selector: 'textfeeditem',
         template: require('./textfeeditem.component.html')
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof core_1.Injector !== "undefined" && core_1.Injector) === "function" && _a || Object])
+    __metadata("design:paramtypes", [core_1.Injector])
 ], TextFeedItemFormComponent);
 exports.TextFeedItemFormComponent = TextFeedItemFormComponent;
-var _a;
 //# sourceMappingURL=textfeeditem.component.js.map

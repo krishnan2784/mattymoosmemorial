@@ -18,6 +18,14 @@ var BaseFeed = (function (_super) {
         _this.points = options['points'] || '';
         _this.mainIcon = options['mediaInfo'];
         _this.marketId = options['marketId'];
+        _this.allowFavourite = options['allowFavourite'];
+        _this.corporateApp = options['corporateApp'];
+        _this.legalInformation = options['legalInformation'];
+        _this.makeTitleWidgetLink = options['makeTitleWidgetLink'];
+        _this.permissions = options['permissions'];
+        _this.readingTime = options['readingTime'];
+        _this.startDate = options['startDate'];
+        _this.endDate = options['endDate'];
         return _this;
     }
     return BaseFeed;

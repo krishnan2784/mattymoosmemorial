@@ -1,4 +1,6 @@
 ﻿import Enums = require("../../enums");
+import Corporateappclasses = require("../../models/corporateappclasses");
+import CorporateApp = Corporateappclasses.CorporateApp;
 
 export interface IFeedItem {
     id: number;
@@ -10,4 +12,13 @@ export interface IFeedItem {
     published: boolean;
     marketId: string;
     createdAt: Date;
+    allowFavourite : boolean;
+    corporateApp: CorporateApp;
+    legalInformation: string;
+    makeTitleWidgetLink: boolean;
+    permissions: number;
+    readingTime: number;
+    startDate: Date;
+    endDate: Date;
+    shortDescription: string;
 }

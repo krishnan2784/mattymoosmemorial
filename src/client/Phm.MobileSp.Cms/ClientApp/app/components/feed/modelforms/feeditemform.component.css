@@ -22,7 +22,7 @@
     box-shadow: -2px 4px 14px 4px rgba(0, 0, 0, 0.14), 0 2px 2px 2px rgba(0, 0, 0, 0.12), 0 6px 2px -2px rgba(0, 0, 0, 0.2);
 }
 
-.feed-cat-container button {
+.feed-cat-container a {
     background: transparent;
     color: #222;
     font-weight: 600;
@@ -32,12 +32,12 @@
 }
 
 
-.feed-cat-container button:hover {
+.feed-cat-container a:hover {
     background: #DBE2EA;
 }
 
 
-.feed-cat-container button.active-type {
+.feed-cat-container a.active-type {
     background: #435363;
     color: #EEEEEF;
 }
@@ -58,6 +58,10 @@
     clear: both;
 }
 
+/*.feed-item-form-container label {
+    font-size: 1.24rem;
+    font-weight: 200;
+}*/
 
 
 @media (max-width: 768px) {

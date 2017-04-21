@@ -6,8 +6,14 @@
 
 <form [formGroup]="form" novalidate (ngSubmit)="save(form.value, form.valid)" *ngIf="model" class="feed-item-form-container">
     
+    <input type="hidden" formControlName="id">
+    <input type="hidden" formControlName="enabled">
+    <input type="hidden" formControlName="published">
+    <input type="hidden" formControlName="feedType">
+    <input type="hidden" formControlName="feedCategory">
+
     <div *ngIf="!model.id">
-        <div class="col-md-8">
+        <div class="col-md-7">
             <div class="col-md-12">
                 <div class="col-md-6">
                     <div class="feed-cat-container" [class.active-cat]="model.feedCategory == feedCats.Learning">
@@ -15,15 +21,15 @@
                         <h5>LEARNING</h5>
                         <p>Create informal, fun learning and competition. Small modules with an optional Quiz to test engagement. Embrace competition with Leaderboards and track user's progress with Reports.</p>
                         <div class="btn-holder">
-                            <button (click)="swapForm(this.textForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Text">
+                            <a (click)="swapForm(this.textForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Text">
                                 Module
-                            </button>
-                            <button (click)="swapForm(this.quizForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Quiz">
+                            </a>
+                            <a (click)="swapForm(this.quizForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Quiz">
                                 Quiz
-                            </button>
-                            <button (click)="swapForm(this.surveyForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Survey">
+                            </a>
+                            <a (click)="swapForm(this.surveyForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Survey">
                                 Survey
-                            </button>
+                            </a>
                         </div>
                     </div>
                     <div class="clear-both"></div>
@@ -35,12 +41,12 @@
                         <h5>CAMPAIGN</h5>
                         <p>Campaign helps make your marketing strategy stronger. You will be able to add media, and additional links. Even better, get insights by sending a survey.</p>
                         <div class="btn-holder">
-                            <button (click)="swapForm(this.textForm, feedCats.Campaign)" class="btn btn-primary col-md-6 btn-2" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Text">
+                            <a (click)="swapForm(this.textForm, feedCats.Campaign)" class="btn btn-primary col-md-6 btn-2" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Text">
                                 Module
-                            </button>
-                            <button (click)="swapForm(this.surveyForm, feedCats.Campaign)" class="btn btn-primary col-md-6 btn-2" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Survey">
+                            </a>
+                            <a (click)="swapForm(this.surveyForm, feedCats.Campaign)" class="btn btn-primary col-md-6 btn-2" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Survey">
                                 Survey
-                            </button>
+                            </a>
                         </div>
                     </div>
                     <div class="clear-both"></div>
@@ -54,9 +60,9 @@
                         <h5>ANNOUNCEMENT</h5>
                         <p>Announcement allows you to create content including rich media and additional links to websites and our other apps.</p>
                         <div class="btn-holder">
-                            <button (click)="swapForm(this.textForm, feedCats.Announcement)" class="btn btn-primary col-md-12" [class.active-type]="model.feedCategory == feedCats.Announcement && model.feedType == feedTypes.Text">
+                            <a (click)="swapForm(this.textForm, feedCats.Announcement)" class="btn btn-primary col-md-12" [class.active-type]="model.feedCategory == feedCats.Announcement && model.feedType == feedTypes.Text">
                                 Module
-                            </button>
+                            </a>
                         </div>
                     </div>
                     <div class="clear-both"></div>
@@ -67,9 +73,9 @@
                         <h5>NEWS</h5>
                         <p>Keep everyone updated. News gives you the flexibility of using media and additional links.</p>
                         <div class="btn-holder">
-                            <button (click)="swapForm(this.textForm, feedCats.News)" class="btn btn-primary col-md-12" [class.active-type]="model.feedCategory == feedCats.News && model.feedType == feedTypes.Text">
+                            <a (click)="swapForm(this.textForm, feedCats.News)" class="btn btn-primary col-md-12" [class.active-type]="model.feedCategory == feedCats.News && model.feedType == feedTypes.Text">
                                 Module
-                            </button>
+                            </a>
                         </div>
                     </div>
                     <div class="clear-both"></div>
@@ -80,9 +86,9 @@
                         <h5>ARTICLE</h5>
                         <p>Article enables you to include and image and PDF link.</p>
                         <div class="btn-holder">
-                            <button (click)="swapForm(this.textForm, feedCats.Article)" class="btn btn-primary col-md-12" [class.active-type]="model.feedCategory == feedCats.Article && model.feedType == feedTypes.Text">
+                            <a (click)="swapForm(this.textForm, feedCats.Article)" class="btn btn-primary col-md-12" [class.active-type]="model.feedCategory == feedCats.Article && model.feedType == feedTypes.Text">
                                 Module
-                            </button>
+                            </a>
                         </div>
                     </div>
                     <div class="clear-both"></div>
@@ -91,32 +97,62 @@
             </div>            
         </div>
     </div>
-    
-    <input type="hidden" formControlName="id">
-    <input type="hidden" formControlName="enabled">
-    <input type="hidden" formControlName="published">
-    <input type="hidden" formControlName="feedType">
-    <input type="hidden" formControlName="feedCategory">
+    <div class="col-md-5">
+        <h5>Options</h5>
+        <hr/>
+        
+        <div class="input-field">
+            <input id="title" type="text" formControlName="title">
+            <label for="title">Title</label>
+            <small [hidden]="form.controls.title.valid || (form.controls.title.pristine && !submitted)">
+                Title is required (minimum 5 characters).
+            </small>
+        </div>
 
-    <div>
-        <label>Title</label>
-        <input type="text" formControlName="title">
-        <small [hidden]="form.controls.title.valid || (form.controls.title.pristine && !submitted)">
-            Title is required (minimum 5 characters).
-        </small>
-    </div>
+        <div class="input-field">
+            <input id="points" type="text" formControlName="points">
+            <label for="points">Reward Points</label>
+            <small [hidden]="form.controls.points.valid || (form.controls.points.pristine && !submitted)">
+                Reward points are requeired.
+            </small>
+        </div>
 
-    <div>
-        <label>Points Value</label>
-        <input type="text" formControlName="points">
+        <div>
+            <label for="allowFavourite">Favourite</label>
+            <div class="switch">
+                <label>                    
+                    <input formControlName="allowFavourite" type="checkbox" [checked]="model.allowFavourite">
+                    <span class="lever"></span>                    
+                </label>
+            </div>
+        </div>
+
+        <div class="input-field">
+            <input id="readingTime" type="text" formControlName="readingTime">
+            <label for="readingTime">Reading Time (mins)</label>
+            <small [hidden]="form.controls.readingTime.valid || (form.controls.readingTime.pristine && !submitted)">
+                Reading time are requeired.
+            </small>
+        </div>
+
+        <div>
+            <label for="startDate">Start Date</label>
+            <input id="startDate" type="date" class="datepicker" formControlName="startDate">
+        </div>
+
+        <div>
+            <label for="endDate">End Date</label>
+            <input id="endDate" type="date" class="datepicker" formControlName="endDate">
+        </div>
+
+        <div *ngIf="feedFormData">
+            <feed-form-component [feedFormData]="feedFormData"></feed-form-component>
+        </div>
+
     </div>
     
-    <div *ngIf="feedFormData">
-        <feed-form-component [feedFormData]="feedFormData"></feed-form-component>
-    </div>
-    
-    <button (click)="goBack()" class="btn btn-primary">Cancel</button>
-    <button type="submit" class="btn btn-primary">Submit</button>
+        <button (click)="goBack()" class="btn btn-primary">Cancel</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
 
 </form>
             

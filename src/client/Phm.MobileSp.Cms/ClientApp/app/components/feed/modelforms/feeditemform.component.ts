@@ -1,10 +1,9 @@
-import { Component, Input, Output, OnDestroy, OnInit, EventEmitter, Injector, ViewChild } from '@angular/core';
-import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Component, Output, EventEmitter, Injector } from '@angular/core';
+import { Http } from '@angular/http';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from "rxjs/Rx";
-import { EnumEx } from "../../../classes/enumerators";
 import { FeedDataService } from "../../../dataservices/FeedDataService";
 import * as IFeedItemComponents from "../../../interfaces/components/IFeedItemComponents";
 import { TextFeedItemFormComponent } from "./textfeeditem.component";
@@ -13,6 +12,8 @@ import FeedItem = FeedModel.IFeedItem;
 import Enums = require("../../../enums");
 import FeedCategoryEnum = Enums.FeedCategoryEnum;
 import Feedclasses = require("../../../models/feedclasses");
+
+declare var $: any;
 
 @Component({
     selector: 'feeditemform',
@@ -53,6 +54,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         this.selectedFeedCatId = this.injector.get('feedCat');
 
         this.getModel();
+
     }
 
     public setupForm() {
@@ -87,8 +89,21 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             points: ['', [<any>Validators.required]],
             enabled: ['', []],
             published: ['', []],
-            mainIcon: ['', []]
+            mainIcon: ['', []],
+            allowFavourite: ['', []],
+            legalInformation: ['', []],
+            makeTitleWidgetLink: ['', []],
+            permissions: ['', []],
+            readingTime: ['', []],
+            startDate: ['', []],
+            endDate: ['', []]
         });
+
+        setTimeout(function(){
+            $('.datepicker').pickadate({
+                selectMonths: true,
+                selectYears: 5
+            })}, 1000);
     }
 
     getModel() {
@@ -113,10 +128,11 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     }
 
     save(feedItem: FeedItem, isValid: boolean) {
+        this.submitted = true;
+
         if (!isValid)
             return;
 
-        this.submitted = true;
         this.feedDataService.updateFeeditem(this.subForm.updateUrl, feedItem).subscribe(result => {
             if (result.success) {
                 this.model = result.content;

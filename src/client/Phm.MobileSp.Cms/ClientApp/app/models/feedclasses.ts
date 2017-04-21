@@ -7,9 +7,20 @@ import FeedTypeEnum = Enums.FeedTypeEnum;
 import Quizclasses = require("./quizclasses");
 import Surveyclasses = require("./surveyclasses");
 import Baseclasses = require("./baseclasses");
+import Corporateappclasses = require("./corporateappclasses");
+import CorporateApp = Corporateappclasses.CorporateApp;
 
 export class BaseFeed extends Baseclasses.BaseModel implements FeedModel.IFeedItem {
+    allowFavourite: boolean;
+    corporateApp: Corporateappclasses.CorporateApp;
+    legalInformation: string;
+    makeTitleWidgetLink: boolean;
+    permissions: number;
+    readingTime: number;
+    startDate: Date;
+    endDate: Date;
     title: string;
+    shortDescription: string;
     feedType: Enums.FeedTypeEnum;
     feedCategory: FeedCategoryEnum;
     points: number;
@@ -19,10 +30,19 @@ export class BaseFeed extends Baseclasses.BaseModel implements FeedModel.IFeedIt
     constructor(options: {} = {}) {
         super(options);
         this.title = options['title'] || '';
+        this.shortDescription = options['shortDescription'] || '';
         this.feedCategory = options['feedCategory'];
         this.points = options['points'] || '';
         this.mainIcon = options['mediaInfo'];
         this.marketId = options['marketId'];
+        this.allowFavourite = options['allowFavourite'];
+        this.corporateApp = options['corporateApp'];
+        this.legalInformation = options['legalInformation'];
+        this.makeTitleWidgetLink = options['makeTitleWidgetLink'];
+        this.permissions = options['permissions'];
+        this.readingTime = options['readingTime'];
+        this.startDate = options['startDate'];
+        this.endDate = options['endDate'];
     }
 }
 

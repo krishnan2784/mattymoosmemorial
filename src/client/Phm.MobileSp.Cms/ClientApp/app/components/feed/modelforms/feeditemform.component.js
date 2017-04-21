@@ -62,8 +62,21 @@ var FeedItemForm = (function () {
             points: ['', [forms_1.Validators.required]],
             enabled: ['', []],
             published: ['', []],
-            mainIcon: ['', []]
+            mainIcon: ['', []],
+            allowFavourite: ['', []],
+            legalInformation: ['', []],
+            makeTitleWidgetLink: ['', []],
+            permissions: ['', []],
+            readingTime: ['', []],
+            startDate: ['', []],
+            endDate: ['', []]
         });
+        setTimeout(function () {
+            $('.datepicker').pickadate({
+                selectMonths: true,
+                selectYears: 5
+            });
+        }, 1000);
     };
     FeedItemForm.prototype.getModel = function () {
         if (this.model) {
@@ -87,9 +100,9 @@ var FeedItemForm = (function () {
     };
     FeedItemForm.prototype.save = function (feedItem, isValid) {
         var _this = this;
+        this.submitted = true;
         if (!isValid)
             return;
-        this.submitted = true;
         this.feedDataService.updateFeeditem(this.subForm.updateUrl, feedItem).subscribe(function (result) {
             if (result.success) {
                 _this.model = result.content;
@@ -104,7 +117,7 @@ var FeedItemForm = (function () {
 }());
 __decorate([
     core_1.Output(),
-    __metadata("design:type", typeof (_a = typeof core_1.EventEmitter !== "undefined" && core_1.EventEmitter) === "function" && _a || Object)
+    __metadata("design:type", core_1.EventEmitter)
 ], FeedItemForm.prototype, "feedUpdated", void 0);
 FeedItemForm = __decorate([
     core_1.Component({
@@ -113,8 +126,8 @@ FeedItemForm = __decorate([
         styles: [require('./feeditemform.component.css')],
         providers: [FeedDataService_1.FeedDataService]
     }),
-    __metadata("design:paramtypes", [typeof (_b = typeof forms_1.FormBuilder !== "undefined" && forms_1.FormBuilder) === "function" && _b || Object, typeof (_c = typeof http_1.Http !== "undefined" && http_1.Http) === "function" && _c || Object, typeof (_d = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _d || Object, typeof (_e = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _e || Object, FeedDataService_1.FeedDataService, typeof (_f = typeof core_1.Injector !== "undefined" && core_1.Injector) === "function" && _f || Object])
+    __metadata("design:paramtypes", [forms_1.FormBuilder, http_1.Http, router_1.ActivatedRoute,
+        router_1.Router, FeedDataService_1.FeedDataService, core_1.Injector])
 ], FeedItemForm);
 exports.FeedItemForm = FeedItemForm;
-var _a, _b, _c, _d, _e, _f;
 //# sourceMappingURL=feeditemform.component.js.map

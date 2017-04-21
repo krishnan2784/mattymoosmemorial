@@ -125,9 +125,10 @@ FeedIndexComponent = __decorate([
         selector: 'feedindex',
         template: require('./feedindex.component.html')
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _a || Object, typeof (_b = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _b || Object, feeddataservice_1.FeedDataService,
+    __metadata("design:paramtypes", [router_1.ActivatedRoute,
+        router_1.Router,
+        feeddataservice_1.FeedDataService,
         datashareservice_1.ShareService])
 ], FeedIndexComponent);
 exports.FeedIndexComponent = FeedIndexComponent;
-var _a, _b;
 //# sourceMappingURL=feedindex.component.js.map
