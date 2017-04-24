@@ -13,7 +13,7 @@
     <input type="hidden" formControlName="feedCategory">
 
     <div *ngIf="!model.id">
-        <div class="col-md-7">
+        <div class="col-md-8">
             <div class="col-md-12">
                 <div class="col-md-6">
                     <div class="feed-cat-container" [class.active-cat]="model.feedCategory == feedCats.Learning">
@@ -97,7 +97,7 @@
             </div>            
         </div>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-4">
         <h5>Options</h5>
         <hr/>
         
@@ -137,19 +137,21 @@
 
         <div>
             <label for="startDate">Start Date</label>
-            <input id="startDate" type="date" class="datepicker" formControlName="startDate">
+            <input id="startDate" type="date" class="datepicker" for="startDate" formControlName="startDate">
         </div>
 
         <div>
             <label for="endDate">End Date</label>
-            <input id="endDate" type="date" class="datepicker" formControlName="endDate">
+            <input id="endDate" type="date" class="datepicker" for="endDate" formControlName="endDate" [value]="model.endDate | date:'yyyy-MM-dd'">
         </div>
 
-        <div *ngIf="feedFormData">
-            <feed-form-component [feedFormData]="feedFormData"></feed-form-component>
-        </div>
+        <!--<p-calendar formControlName="endDate" dateFormat="DD.MM.YYYY"></p-calendar>-->
 
-    </div>
+            <div *ngIf="feedFormData">
+                <feed-form-component [feedFormData]="feedFormData"></feed-form-component>
+            </div>
+
+</div>
     
         <button (click)="goBack()" class="btn btn-primary">Cancel</button>
         <button type="submit" class="btn btn-primary">Submit</button>

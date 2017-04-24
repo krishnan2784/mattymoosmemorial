@@ -58,6 +58,7 @@ AppModule = __decorate([
             ng2_pagination_1.Ng2PaginationModule,
             forms_1.FormsModule,
             forms_1.ReactiveFormsModule,
+            //CalendarModule,
             router_1.RouterModule.forRoot([
                 { path: '', redirectTo: 'home', pathMatch: 'full' },
                 { path: 'home', component: home_component_1.HomeComponent },

@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { UniversalModule } from 'angular2-universal';
 import { Ng2PaginationModule } from 'ng2-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+//import { CalendarModule } from 'primeng/primeng';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
@@ -52,6 +53,7 @@ import { FeedItemContainerComponent } from "./components/feed/modelforms/feedite
         Ng2PaginationModule,
         FormsModule,
         ReactiveFormsModule,
+        //CalendarModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },

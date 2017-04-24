@@ -51,7 +51,7 @@ var FeedItemForm = (function () {
         this.form = this.subForm.addFormControls(this.form);
         this.model.feedType = this.subForm.feedType;
         this.model.feedCategory = feedCategory;
-        this.updateForm();
+        //this.updateForm();
     };
     FeedItemForm.prototype.initialiseForm = function () {
         this.form = this._fb.group({
@@ -74,7 +74,9 @@ var FeedItemForm = (function () {
         setTimeout(function () {
             $('.datepicker').pickadate({
                 selectMonths: true,
-                selectYears: 5
+                selectYears: 5,
+                format: 'dddd, dd mmm, yyyy',
+                formatSubmit: 'yyyy/mm/dd'
             });
         }, 1000);
     };

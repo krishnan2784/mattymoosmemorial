@@ -231,6 +231,7 @@ namespace MLearningCoreService
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.VideoFeedDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.QuizFeedDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.SurveyFeedDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.LinkFeedDto))]
     public partial class BaseFeedDto : MLearningCoreService.BaseDtoOfint
     {
         
@@ -238,9 +239,13 @@ namespace MLearningCoreService
         
         private MLearningCoreService.CorporateAppDto CorporateAppField;
         
+        private System.Nullable<System.DateTime> EndDateField;
+        
         private MLearningCoreService.FeedCategoryEnumDto FeedCategoryField;
         
         private MLearningCoreService.FeedTypeEnumDto FeedTypeField;
+        
+        private bool IsFavouriteField;
         
         private string LegalInformationField;
         
@@ -255,6 +260,12 @@ namespace MLearningCoreService
         private long PermissionsField;
         
         private int PointsField;
+        
+        private int ReadingTimeField;
+        
+        private string ShortDescriptionField;
+        
+        private System.Nullable<System.DateTime> StartDateField;
         
         private string TitleField;
         
@@ -287,6 +298,19 @@ namespace MLearningCoreService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> EndDate
+        {
+            get
+            {
+                return this.EndDateField;
+            }
+            set
+            {
+                this.EndDateField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public MLearningCoreService.FeedCategoryEnumDto FeedCategory
         {
             get
@@ -309,6 +333,19 @@ namespace MLearningCoreService
             set
             {
                 this.FeedTypeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsFavourite
+        {
+            get
+            {
+                return this.IsFavouriteField;
+            }
+            set
+            {
+                this.IsFavouriteField = value;
             }
         }
         
@@ -404,6 +441,45 @@ namespace MLearningCoreService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ReadingTime
+        {
+            get
+            {
+                return this.ReadingTimeField;
+            }
+            set
+            {
+                this.ReadingTimeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ShortDescription
+        {
+            get
+            {
+                return this.ShortDescriptionField;
+            }
+            set
+            {
+                this.ShortDescriptionField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> StartDate
+        {
+            get
+            {
+                return this.StartDateField;
+            }
+            set
+            {
+                this.StartDateField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Title
         {
             get
@@ -445,6 +521,7 @@ namespace MLearningCoreService
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.VideoFeedDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.QuizFeedDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.SurveyFeedDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.LinkFeedDto))]
     public partial class BaseDtoOfint : object
     {
         
@@ -1229,6 +1306,13 @@ namespace MLearningCoreService
                 this.SurveyDescriptionField = value;
             }
         }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="LinkFeedDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class LinkFeedDto : MLearningCoreService.BaseFeedDto
+    {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
