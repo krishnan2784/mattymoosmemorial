@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
-    <AssemblyName>MobileSP_CMS.Infrastructure</AssemblyName>
+    <AssemblyName>Phm.MobileSp.Cms.Infrastructure</AssemblyName>
     <PackageId>MobileSP_CMS.Infrastructure</PackageId>
     <NetStandardImplicitPackageVersion>1.6.1</NetStandardImplicitPackageVersion>
     <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
