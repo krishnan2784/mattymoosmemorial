@@ -88,9 +88,17 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
     }
     
     updateFeedItem(feedItem: IFeedItem = null, feedCat: FeedCategoryEnum = null) {
-        let inputs = { feedItem: feedItem, feedCat: feedCat, feedUpdated: this.getData() };
 
+        let inputs = { feedItem: feedItem, feedCat: feedCat, feedUpdated: this.getData() };
         var form = FeedItemForm;
+
+        if (feedItem) {
+            this.updatePageTitle("Edit Feed Content Form");
+        } else {
+            this.updatePageTitle("New Learning Content Form");
+        }
+        this.updateMarketDropdownVisibility(false);
+
         form.prototype.feedUpdated = new EventEmitter<IFeedItem>();
         form.prototype.feedUpdated.subscribe((feedItemResponse) => {
 
@@ -108,7 +116,8 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
                     this.feedItems.splice(index, 1);
                 }
             }
-
+            this.setPageTitle();
+            this.updateMarketDropdownVisibility(true);
             this.feedFormData = null;
         });
 

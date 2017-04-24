@@ -11,6 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var feeditemform_component_1 = require("./feeditemform.component");
 var textfeeditem_component_1 = require("./textfeeditem.component");
+var Quizfeeditemcomponent = require("./quizfeeditem.component");
+var QuizFeedItemFormComponent = Quizfeeditemcomponent.QuizFeedItemFormComponent;
+var Surveyfeeditemcomponent = require("./surveyfeeditem.component");
+var SurveyFeedItemFormComponent = Surveyfeeditemcomponent.SurveyFeedItemFormComponent;
 var FeedItemContainerComponent = (function () {
     function FeedItemContainerComponent(resolver) {
         this.resolver = resolver;
@@ -49,7 +53,7 @@ __decorate([
 FeedItemContainerComponent = __decorate([
     core_1.Component({
         selector: 'feed-form-component',
-        entryComponents: [feeditemform_component_1.FeedItemForm, textfeeditem_component_1.TextFeedItemFormComponent],
+        entryComponents: [feeditemform_component_1.FeedItemForm, textfeeditem_component_1.TextFeedItemFormComponent, QuizFeedItemFormComponent, SurveyFeedItemFormComponent],
         template: require('./feeditemcontainer.component.html'),
         styles: [require('./feeditemcontainer.component.css')],
     }),

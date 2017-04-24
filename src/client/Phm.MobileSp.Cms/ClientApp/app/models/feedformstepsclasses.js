@@ -1,46 +1,78 @@
 "use strict";
+var Observable_1 = require("rxjs/Observable");
+var Enums = require("../enums");
 var FeedFormSteps = (function () {
     function FeedFormSteps() {
-        this.steps = [];
-        this.steps.push(new FeedFormStep(FeedFormStepType.Category, 0, "Category", true));
-        this.steps.push(new FeedFormStep(FeedFormStepType.Main, 1, "Main", true));
-        this.steps.push(new FeedFormStep(FeedFormStepType.Media, 2, "Media (if required)", true));
-        this.steps.push(new FeedFormStep(FeedFormStepType.QuizQuestions, 2, "Quiz Questions", false));
-        this.steps.push(new FeedFormStep(FeedFormStepType.SurveyQuestions, 2, "Survey Questions", false));
-        this.steps.push(new FeedFormStep(FeedFormStepType.Links, 3, "Links (if required)", true));
-        this.steps.push(new FeedFormStep(FeedFormStepType.QuizAnswers, 2, "Quiz Answers", false));
-        this.steps.push(new FeedFormStep(FeedFormStepType.SurveyAnswers, 2, "Survey Answers", false));
-        this.currentStep = this.steps[0];
+        this.currentStep = null;
+        this.formType = Enums.FeedTypeEnum.Text;
+        this.visibleSteps = [];
+        this.feedStepTypes = FeedFormStepType;
+        this.setupSteps();
     }
+    FeedFormSteps.prototype.ngOnInit = function () {
+    };
+    FeedFormSteps.prototype.setupSteps = function () {
+        var _this = this;
+        this.steps = Observable_1.Observable.create(function (observer) {
+            var steps = [];
+            steps.push(new FeedFormStep(FeedFormStepType.Category, 0, "Category"));
+            steps.push(new FeedFormStep(FeedFormStepType.Main, 1, "Main"));
+            if (_this.formType === Enums.FeedTypeEnum.Quiz) {
+                steps.push(new FeedFormStep(FeedFormStepType.QuizQuestions, 2, "Quiz Questions"));
+                steps.push(new FeedFormStep(FeedFormStepType.QuizScore, 3, "Quiz Results"));
+            }
+            else if (_this.formType === Enums.FeedTypeEnum.Survey) {
+                steps.push(new FeedFormStep(FeedFormStepType.SurveyQuestions, 2, "Survey Questions"));
+                steps.push(new FeedFormStep(FeedFormStepType.SurveyScore, 3, "Survey Results"));
+            }
+            else {
+                steps.push(new FeedFormStep(FeedFormStepType.Media, 2, "Media (if required)"));
+                steps.push(new FeedFormStep(FeedFormStepType.Links, 3, "Links (if required)"));
+            }
+            observer.next(steps);
+        });
+        this.steps.subscribe(function (result) {
+            if (result.length) {
+                _this.visibleSteps = result;
+                _this.currentStep = result[0];
+            }
+        });
+    };
+    FeedFormSteps.prototype.setFormType = function (newFormType) {
+        this.formType = newFormType;
+        this.setupSteps();
+    };
     FeedFormSteps.prototype.isPreviousButtonVisible = function () {
         var _this = this;
-        return this.steps.filter(function (x) { return x.stepPosition > _this.currentStep.stepPosition && x.isVisible; }).length > 0;
+        return this.visibleSteps.filter(function (x) { return x.stepPosition > _this.currentStep.stepPosition; }).length > 0;
     };
     FeedFormSteps.prototype.isNextButtonVisible = function () {
         var _this = this;
-        return this.steps.filter(function (x) { return x.stepPosition < _this.currentStep.stepPosition && x.isVisible; }).length > 0;
+        return this.visibleSteps.filter(function (x) { return x.stepPosition < _this.currentStep.stepPosition; }).length > 0;
+    };
+    FeedFormSteps.prototype.isCurrentStep = function (stepType) {
+        return this.currentStep.type === stepType;
     };
     FeedFormSteps.prototype.navigateToPreviousStep = function () {
         var _this = this;
-        var prevSteps = this.steps.filter(function (x) { return x.stepPosition < _this.currentStep.stepPosition && x.isVisible; });
+        var prevSteps = this.visibleSteps.filter(function (x) { return x.stepPosition < _this.currentStep.stepPosition; });
         this.currentStep = prevSteps[prevSteps.length - 1];
     };
     FeedFormSteps.prototype.navigateToNextStep = function () {
         var _this = this;
-        this.currentStep = this.steps.filter(function (x) { return x.stepPosition > _this.currentStep.stepPosition && x.isVisible; })[0];
+        this.currentStep = this.visibleSteps.filter(function (x) { return x.stepPosition > _this.currentStep.stepPosition; })[0];
     };
-    FeedFormSteps.prototype.naviagetToSelectedStep = function (selectedStep) {
-        this.currentStep = this.steps.find(function (x) { return x.type === selectedStep.type; });
+    FeedFormSteps.prototype.navigateToSelectedStep = function (selectedStep) {
+        this.currentStep = this.visibleSteps.find(function (x) { return x.type === selectedStep.type; });
     };
     return FeedFormSteps;
 }());
 exports.FeedFormSteps = FeedFormSteps;
 var FeedFormStep = (function () {
-    function FeedFormStep(type, stepPosition, name, isVisible) {
+    function FeedFormStep(type, stepPosition, name) {
         this.type = type;
         this.stepPosition = stepPosition;
         this.name = name;
-        this.isVisible = isVisible;
     }
     return FeedFormStep;
 }());
@@ -52,8 +84,8 @@ var FeedFormStepType;
     FeedFormStepType[FeedFormStepType["Media"] = 2] = "Media";
     FeedFormStepType[FeedFormStepType["Links"] = 3] = "Links";
     FeedFormStepType[FeedFormStepType["QuizQuestions"] = 4] = "QuizQuestions";
-    FeedFormStepType[FeedFormStepType["QuizAnswers"] = 5] = "QuizAnswers";
+    FeedFormStepType[FeedFormStepType["QuizScore"] = 5] = "QuizScore";
     FeedFormStepType[FeedFormStepType["SurveyQuestions"] = 6] = "SurveyQuestions";
-    FeedFormStepType[FeedFormStepType["SurveyAnswers"] = 7] = "SurveyAnswers";
+    FeedFormStepType[FeedFormStepType["SurveyScore"] = 7] = "SurveyScore";
 })(FeedFormStepType = exports.FeedFormStepType || (exports.FeedFormStepType = {}));
 //# sourceMappingURL=feedformstepsclasses.js.map

@@ -19,6 +19,10 @@ var FeedCategoryEnum = Enums.FeedCategoryEnum;
 var Feedclasses = require("../../../models/feedclasses");
 var Feedformstepsclasses = require("../../../models/feedformstepsclasses");
 var FeedFormSteps = Feedformstepsclasses.FeedFormSteps;
+var Quizfeeditemcomponent = require("./quizfeeditem.component");
+var QuizFeedItemFormComponent = Quizfeeditemcomponent.QuizFeedItemFormComponent;
+var Surveyfeeditemcomponent = require("./surveyfeeditem.component");
+var SurveyFeedItemFormComponent = Surveyfeeditemcomponent.SurveyFeedItemFormComponent;
 var FeedItemForm = (function () {
     function FeedItemForm(fb, http, route, router, feedDataService, injector) {
         this.http = http;
@@ -31,6 +35,8 @@ var FeedItemForm = (function () {
         this.feedTypes = Enums.FeedTypeEnum;
         this.feedCats = FeedCategoryEnum;
         this.textForm = textfeeditem_component_1.TextFeedItemFormComponent;
+        this.quizForm = QuizFeedItemFormComponent;
+        this.surveyForm = SurveyFeedItemFormComponent;
         this.feedFormSteps = new FeedFormSteps();
         this._fb = fb;
         this.setupForm();
@@ -42,7 +48,7 @@ var FeedItemForm = (function () {
         this.initialiseForm();
     };
     FeedItemForm.prototype.swapForm = function (newFormType, feedCategory) {
-        var newForm = new newFormType();
+        var newForm = (new newFormType());
         if (this.form && this.subForm) {
             this.form = this.subForm.removeFormControls(this.form);
         }
@@ -54,12 +60,14 @@ var FeedItemForm = (function () {
         this.form = this.subForm.addFormControls(this.form);
         this.model.feedType = this.subForm.feedType;
         this.model.feedCategory = feedCategory;
+        this.feedFormSteps.setFormType(newForm.feedType);
         //this.updateForm();
     };
     FeedItemForm.prototype.initialiseForm = function () {
         this.form = this._fb.group({
             id: ['', []],
             title: ['', [forms_1.Validators.required, forms_1.Validators.minLength(5)]],
+            shortDescription: ['', [forms_1.Validators.required, forms_1.Validators.minLength(10)]],
             feedType: ['', [forms_1.Validators.required]],
             feedCategory: ['', [forms_1.Validators.required]],
             points: ['', [forms_1.Validators.required]],

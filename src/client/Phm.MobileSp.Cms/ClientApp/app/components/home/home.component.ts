@@ -8,6 +8,6 @@ import { ShareService } from "../../dataservices/datashareservice";
 })
 export class HomeComponent extends BaseComponent  {
     constructor(sharedService: ShareService) {
-        super(sharedService, '', false);
+        super(sharedService, 'Welcome to MobileSP', false);
     }
 }

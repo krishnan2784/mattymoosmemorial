@@ -33,7 +33,6 @@ export class FeedDataService extends RequestHelper implements IFeedDataService {
                     let response = result.filter(x => x.feedCategory === selectedCat);
                     observer.next(response);                    
                 }
-
                 observer.complete();
             });
         });

@@ -15,6 +15,10 @@ import Feedclasses = require("../../../models/feedclasses");
 import Feedformstepsclasses = require("../../../models/feedformstepsclasses");
 import FeedFormSteps = Feedformstepsclasses.FeedFormSteps;
 import FeedFormStepType = Feedformstepsclasses.FeedFormStepType;
+import Quizfeeditemcomponent = require("./quizfeeditem.component");
+import QuizFeedItemFormComponent = Quizfeeditemcomponent.QuizFeedItemFormComponent;
+import Surveyfeeditemcomponent = require("./surveyfeeditem.component");
+import SurveyFeedItemFormComponent = Surveyfeeditemcomponent.SurveyFeedItemFormComponent;
 declare var $: any;
 
 @Component({
@@ -44,6 +48,8 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     public id_sub: Subscription;
 
     public textForm = TextFeedItemFormComponent;
+    public quizForm = QuizFeedItemFormComponent;
+    public surveyForm = SurveyFeedItemFormComponent;
 
     public feedFormSteps: FeedFormSteps = new FeedFormSteps();
 
@@ -58,7 +64,6 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         this.selectedFeedCatId = this.injector.get('feedCat');
 
         this.getModel();
-
     }
 
     public setupForm() {
@@ -66,7 +71,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     }
 
     public swapForm<TFormType extends any>(newFormType: TFormType, feedCategory: FeedCategoryEnum) {
-        let newForm = new newFormType();
+        let newForm = (new newFormType()) as IFeedItemComponents.IFeedItemPartialForm;
 
         if (this.form && this.subForm) {
             this.form = this.subForm.removeFormControls(this.form);
@@ -81,6 +86,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         this.form = this.subForm.addFormControls(this.form);
         this.model.feedType = this.subForm.feedType;
         this.model.feedCategory = feedCategory;
+        this.feedFormSteps.setFormType(newForm.feedType);
         //this.updateForm();
     }
 
@@ -88,6 +94,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         this.form = this._fb.group({
             id: ['', []],
             title: ['', [<any>Validators.required, <any>Validators.minLength(5)]],
+            shortDescription: ['', [<any>Validators.required, <any>Validators.minLength(10)]],
             feedType: ['', [<any>Validators.required]],
             feedCategory: ['', [<any>Validators.required]],
             points: ['', [<any>Validators.required]],

@@ -30,6 +30,10 @@ var textfeeditem_component_1 = require("./components/feed/modelforms/textfeedite
 var feedindex_component_1 = require("./components/feed/indexes/feedindex.component");
 var feeditemform_component_1 = require("./components/feed/modelforms/feeditemform.component");
 var feeditemcontainer_component_1 = require("./components/feed/modelforms/feeditemcontainer.component");
+var Quizfeeditemcomponent = require("./components/feed/modelforms/quizfeeditem.component");
+var QuizFeedItemFormComponent = Quizfeeditemcomponent.QuizFeedItemFormComponent;
+var Surveyfeeditemcomponent = require("./components/feed/modelforms/surveyfeeditem.component");
+var SurveyFeedItemFormComponent = Surveyfeeditemcomponent.SurveyFeedItemFormComponent;
 var AppModule = (function () {
     function AppModule() {
     }
@@ -51,7 +55,9 @@ AppModule = __decorate([
             feedindex_component_1.FeedIndexComponent,
             feeditemcontainer_component_1.FeedItemContainerComponent,
             feeditemform_component_1.FeedItemForm,
-            textfeeditem_component_1.TextFeedItemFormComponent
+            textfeeditem_component_1.TextFeedItemFormComponent,
+            QuizFeedItemFormComponent,
+            SurveyFeedItemFormComponent
         ],
         imports: [
             angular2_universal_1.UniversalModule,

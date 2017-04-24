@@ -28,6 +28,10 @@ import { TextFeedItemFormComponent } from './components/feed/modelforms/textfeed
 import { FeedIndexComponent } from "./components/feed/indexes/feedindex.component";
 import { FeedItemForm } from "./components/feed/modelforms/feeditemform.component";
 import { FeedItemContainerComponent } from "./components/feed/modelforms/feeditemcontainer.component";
+import Quizfeeditemcomponent = require("./components/feed/modelforms/quizfeeditem.component");
+import QuizFeedItemFormComponent = Quizfeeditemcomponent.QuizFeedItemFormComponent;
+import Surveyfeeditemcomponent = require("./components/feed/modelforms/surveyfeeditem.component");
+import SurveyFeedItemFormComponent = Surveyfeeditemcomponent.SurveyFeedItemFormComponent;
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -46,7 +50,9 @@ import { FeedItemContainerComponent } from "./components/feed/modelforms/feedite
 
         FeedItemContainerComponent,
         FeedItemForm,
-        TextFeedItemFormComponent
+        TextFeedItemFormComponent,
+        QuizFeedItemFormComponent,
+        SurveyFeedItemFormComponent
     ],
     imports: [
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.

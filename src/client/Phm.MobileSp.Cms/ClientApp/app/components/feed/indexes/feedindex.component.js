@@ -94,6 +94,13 @@ var FeedIndexComponent = (function (_super) {
         if (feedCat === void 0) { feedCat = null; }
         var inputs = { feedItem: feedItem, feedCat: feedCat, feedUpdated: this.getData() };
         var form = feeditemform_component_1.FeedItemForm;
+        if (feedItem) {
+            this.updatePageTitle("Edit Feed Content Form");
+        }
+        else {
+            this.updatePageTitle("New Learning Content Form");
+        }
+        this.updateMarketDropdownVisibility(false);
         form.prototype.feedUpdated = new core_1.EventEmitter();
         form.prototype.feedUpdated.subscribe(function (feedItemResponse) {
             if (feedItemResponse != null) {
@@ -111,6 +118,8 @@ var FeedIndexComponent = (function (_super) {
                     _this.feedItems.splice(index, 1);
                 }
             }
+            _this.setPageTitle();
+            _this.updateMarketDropdownVisibility(true);
             _this.feedFormData = null;
         });
         this.feedFormData = {

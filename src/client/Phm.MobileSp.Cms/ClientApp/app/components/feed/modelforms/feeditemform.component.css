@@ -1,5 +1,7 @@
 ﻿.feed-item-form-container {
     padding-top: 20px;
+    margin-bottom: 50px;
+    min-height: 750px;
 }
 
 .feed-cat-container {
@@ -63,6 +65,32 @@
     font-weight: 200;
 }*/
 
+.feed-item-form-buttons {
+    float: right;
+}
+
+.feed-form-navigation {
+    height: 50px;
+    padding: 0 15px;
+    vertical-align: middle;
+}
+
+.feed-form-navigation a {
+    text-decoration: none;
+}
+.feed-form-navigation span {
+    cursor: pointer;
+    display: inline-block;
+    width: 25%;
+    text-align: center;
+}
+
+.active-form-tab {
+    background-color: #4F3A9F;
+    color: #f9f9f9;
+}
+
+.no-pad{ padding: 0;}
 
 @media (max-width: 768px) {
 .feed-cat-container button {
