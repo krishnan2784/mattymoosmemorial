@@ -20,6 +20,7 @@ var TextFeedItemFormComponent = (function () {
         this.feedType = FeedTypeEnum.Text;
         if (injector) {
             this.form = injector.get('form');
+            this.feedFormSteps = injector.get('feedFormSteps');
         }
         this.feedModelType = Feedclasses.TextFeed;
     }

@@ -9,6 +9,8 @@ import * as IFeedItemComponents from "../../../interfaces/components/IFeedItemCo
 import Enums = require("../../../enums");
 import FeedTypeEnum = Enums.FeedTypeEnum;
 import Feedclasses = require("../../../models/feedclasses");
+import Feedformstepsclasses = require("../../../models/feedformstepsclasses");
+import FeedFormSteps = Feedformstepsclasses.FeedFormSteps;
 
 @Component({
     selector: 'textfeeditem',
@@ -21,10 +23,12 @@ export class TextFeedItemFormComponent implements IFeedItemComponents.IFeedItemP
     public feedType: Enums.FeedTypeEnum = FeedTypeEnum.Text;
 
     public form: FormGroup;
+    public feedFormSteps: FeedFormSteps;
 
     constructor(private injector: Injector) {
         if (injector) {
             this.form = injector.get('form');
+            this.feedFormSteps = injector.get('feedFormSteps');
         }
         this.feedModelType = Feedclasses.TextFeed;
     } 

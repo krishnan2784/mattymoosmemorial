@@ -17,6 +17,8 @@ var textfeeditem_component_1 = require("./textfeeditem.component");
 var Enums = require("../../../enums");
 var FeedCategoryEnum = Enums.FeedCategoryEnum;
 var Feedclasses = require("../../../models/feedclasses");
+var Feedformstepsclasses = require("../../../models/feedformstepsclasses");
+var FeedFormSteps = Feedformstepsclasses.FeedFormSteps;
 var FeedItemForm = (function () {
     function FeedItemForm(fb, http, route, router, feedDataService, injector) {
         this.http = http;
@@ -29,6 +31,7 @@ var FeedItemForm = (function () {
         this.feedTypes = Enums.FeedTypeEnum;
         this.feedCats = FeedCategoryEnum;
         this.textForm = textfeeditem_component_1.TextFeedItemFormComponent;
+        this.feedFormSteps = new FeedFormSteps();
         this._fb = fb;
         this.setupForm();
         this.model = this.injector.get('feedItem');
@@ -45,7 +48,7 @@ var FeedItemForm = (function () {
         }
         this.feedFormData = {
             feedFormComponent: newFormType,
-            inputs: { form: this.form }
+            inputs: { form: this.form, feedFormSteps: this.feedFormSteps }
         };
         this.subForm = newForm;
         this.form = this.subForm.addFormControls(this.form);

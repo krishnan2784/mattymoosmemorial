@@ -70,4 +70,10 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="ClientApp\app\models\feedformstepsclasses.js">
+      <DependentUpon>feedformstepsclasses.ts</DependentUpon>
+    </None>
+  </ItemGroup>
+
 </Project>

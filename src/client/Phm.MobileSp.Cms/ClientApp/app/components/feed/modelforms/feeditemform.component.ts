@@ -12,7 +12,9 @@ import FeedItem = FeedModel.IFeedItem;
 import Enums = require("../../../enums");
 import FeedCategoryEnum = Enums.FeedCategoryEnum;
 import Feedclasses = require("../../../models/feedclasses");
-
+import Feedformstepsclasses = require("../../../models/feedformstepsclasses");
+import FeedFormSteps = Feedformstepsclasses.FeedFormSteps;
+import FeedFormStepType = Feedformstepsclasses.FeedFormStepType;
 declare var $: any;
 
 @Component({
@@ -43,6 +45,8 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
 
     public textForm = TextFeedItemFormComponent;
 
+    public feedFormSteps: FeedFormSteps = new FeedFormSteps();
+
     constructor(fb: FormBuilder, public http: Http, public route: ActivatedRoute,
         private router: Router, public feedDataService: FeedDataService, private injector: Injector) {
         
@@ -70,7 +74,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
 
         this.feedFormData = {
             feedFormComponent: newFormType,
-            inputs: { form: this.form }
+            inputs: { form: this.form, feedFormSteps: this.feedFormSteps }
         };
 
         this.subForm = newForm;
