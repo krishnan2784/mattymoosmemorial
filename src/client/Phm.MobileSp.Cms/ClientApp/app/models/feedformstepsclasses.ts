@@ -1,6 +1,7 @@
 ﻿import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import Enums = require("../enums");
+declare var Materialize: any;
 
 export class FeedFormSteps implements OnInit {
     private currentStep: FeedFormStep=null;
@@ -72,6 +73,9 @@ export class FeedFormSteps implements OnInit {
 
     public navigateToSelectedStep(selectedStep: FeedFormStep) {
         this.currentStep = this.visibleSteps.find(x => x.type === selectedStep.type);
+        setTimeout(function() {
+            Materialize.updateTextFields();
+        }, 1);     
     }
 }
 

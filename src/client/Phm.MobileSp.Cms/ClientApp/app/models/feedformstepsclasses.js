@@ -64,6 +64,9 @@ var FeedFormSteps = (function () {
     };
     FeedFormSteps.prototype.navigateToSelectedStep = function (selectedStep) {
         this.currentStep = this.visibleSteps.find(function (x) { return x.type === selectedStep.type; });
+        setTimeout(function () {
+            Materialize.updateTextFields();
+        }, 1);
     };
     return FeedFormSteps;
 }());

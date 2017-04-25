@@ -14,7 +14,8 @@ import FeedFormSteps = Feedformstepsclasses.FeedFormSteps;
 
 @Component({
     selector: 'quizfeeditem',
-    template: require('./quizfeeditem.component.html')
+    template: require('./quizfeeditem.component.html'),
+    styles: [require('./quizfeeditem.component.css')],
 })
 export class QuizFeedItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
 

@@ -20,6 +20,7 @@ import QuizFeedItemFormComponent = Quizfeeditemcomponent.QuizFeedItemFormCompone
 import Surveyfeeditemcomponent = require("./surveyfeeditem.component");
 import SurveyFeedItemFormComponent = Surveyfeeditemcomponent.SurveyFeedItemFormComponent;
 declare var $: any;
+declare var Materialize: any;
 
 @Component({
     selector: 'feeditemform',
@@ -87,7 +88,8 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         this.model.feedType = this.subForm.feedType;
         this.model.feedCategory = feedCategory;
         this.feedFormSteps.setFormType(newForm.feedType);
-        //this.updateForm();
+        this.updateForm();
+     
     }
 
     public initialiseForm() {
@@ -97,7 +99,9 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             shortDescription: ['', [<any>Validators.required, <any>Validators.minLength(10)]],
             feedType: ['', [<any>Validators.required]],
             feedCategory: ['', [<any>Validators.required]],
-            points: ['', [<any>Validators.required]],
+            points: ['', [Validators.required]
+                // , Validators.pattern('^[0-9]*$]') // causing errors when more than one character is entered
+                ],
             enabled: ['', []],
             published: ['', []],
             mainIcon: ['', []],
@@ -105,7 +109,9 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             legalInformation: ['', []],
             makeTitleWidgetLink: ['', []],
             permissions: ['', []],
-            readingTime: ['', []],
+            readingTime: ['', [<any>Validators.required
+                //, <any>Validators.pattern('^[0-9]*$')
+            ]],
             startDate: ['', []],
             endDate: ['', []]
         });
@@ -128,15 +134,25 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     };
 
     updateForm() {
-        if (this.model)
+        if (this.model && this.model.id > 0) {
             (this.form).patchValue(this.model, { onlySelf: true });
+            setTimeout(function () {
+                Materialize.updateTextFields();
+            }, 10);  
+        } else {
+            this.form.controls['feedType'].patchValue(this.model.feedType, { onlySelf: true });
+            this.form.controls['feedCategory'].patchValue(this.model.feedCategory, { onlySelf: true });
+        }
     }
 
     getFeedType(feedType: Enums.FeedTypeEnum) : any {
         switch (feedType) {
-            case Enums.FeedTypeEnum.Text:
+            case Enums.FeedTypeEnum.Quiz:
+                return QuizFeedItemFormComponent;
+            case Enums.FeedTypeEnum.Survey:
+                return SurveyFeedItemFormComponent;
+            default:
                 return TextFeedItemFormComponent;
-        default:
         }
     }
 

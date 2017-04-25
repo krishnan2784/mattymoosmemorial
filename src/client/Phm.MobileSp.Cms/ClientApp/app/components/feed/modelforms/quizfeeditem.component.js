@@ -36,7 +36,8 @@ var QuizFeedItemFormComponent = (function () {
 QuizFeedItemFormComponent = __decorate([
     core_1.Component({
         selector: 'quizfeeditem',
-        template: require('./quizfeeditem.component.html')
+        template: require('./quizfeeditem.component.html'),
+        styles: [require('./quizfeeditem.component.css')],
     }),
     __metadata("design:paramtypes", [core_1.Injector])
 ], QuizFeedItemFormComponent);
