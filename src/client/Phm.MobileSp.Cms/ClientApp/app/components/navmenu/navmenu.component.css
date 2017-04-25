@@ -8,7 +8,6 @@ li .glyphicon {
 
 .nav-container {
     min-width: 180px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.349019607843137);
 }
 
 .navbar-nav li a {
@@ -139,11 +138,10 @@ li:not(.link-active) a:focus,
 
 
 @media (min-width: 768px) {
-     .nav-container {
-         min-height: calc(100vh - 100px);
-         margin-left: -30px;
-         background-color: #333333;
-     }
+    .nav-container {
+        min-height: calc(100vh - 100px);
+        background-color: #333333;
+    }
 
     .main-nav, .navbar-brand {
         height: 100%;

@@ -94,6 +94,13 @@ var FeedIndexComponent = (function (_super) {
         if (feedCat === void 0) { feedCat = null; }
         var inputs = { feedItem: feedItem, feedCat: feedCat, feedUpdated: this.getData() };
         var form = feeditemform_component_1.FeedItemForm;
+        if (feedItem) {
+            this.updatePageTitle("Edit Feed Content Form");
+        }
+        else {
+            this.updatePageTitle("New Learning Content Form");
+        }
+        this.updateMarketDropdownVisibility(false);
         form.prototype.feedUpdated = new core_1.EventEmitter();
         form.prototype.feedUpdated.subscribe(function (feedItemResponse) {
             if (feedItemResponse != null) {
@@ -111,6 +118,8 @@ var FeedIndexComponent = (function (_super) {
                     _this.feedItems.splice(index, 1);
                 }
             }
+            _this.setPageTitle();
+            _this.updateMarketDropdownVisibility(true);
             _this.feedFormData = null;
         });
         this.feedFormData = {
@@ -125,9 +134,10 @@ FeedIndexComponent = __decorate([
         selector: 'feedindex',
         template: require('./feedindex.component.html')
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _a || Object, typeof (_b = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _b || Object, feeddataservice_1.FeedDataService,
+    __metadata("design:paramtypes", [router_1.ActivatedRoute,
+        router_1.Router,
+        feeddataservice_1.FeedDataService,
         datashareservice_1.ShareService])
 ], FeedIndexComponent);
 exports.FeedIndexComponent = FeedIndexComponent;
-var _a, _b;
 //# sourceMappingURL=feedindex.component.js.map

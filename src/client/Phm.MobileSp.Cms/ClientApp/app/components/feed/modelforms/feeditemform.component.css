@@ -1,5 +1,7 @@
 ﻿.feed-item-form-container {
     padding-top: 20px;
+    margin-bottom: 50px;
+    min-height: 750px;
 }
 
 .feed-cat-container {
@@ -22,7 +24,7 @@
     box-shadow: -2px 4px 14px 4px rgba(0, 0, 0, 0.14), 0 2px 2px 2px rgba(0, 0, 0, 0.12), 0 6px 2px -2px rgba(0, 0, 0, 0.2);
 }
 
-.feed-cat-container button {
+.feed-cat-container a {
     background: transparent;
     color: #222;
     font-weight: 600;
@@ -32,12 +34,12 @@
 }
 
 
-.feed-cat-container button:hover {
+.feed-cat-container a:hover {
     background: #DBE2EA;
 }
 
 
-.feed-cat-container button.active-type {
+.feed-cat-container a.active-type {
     background: #435363;
     color: #EEEEEF;
 }
@@ -58,7 +60,37 @@
     clear: both;
 }
 
+/*.feed-item-form-container label {
+    font-size: 1.24rem;
+    font-weight: 200;
+}*/
 
+.feed-item-form-buttons {
+    float: right;
+}
+
+.feed-form-navigation {
+    height: 50px;
+    padding: 0 15px;
+    vertical-align: middle;
+}
+
+.feed-form-navigation a {
+    text-decoration: none;
+}
+.feed-form-navigation span {
+    cursor: pointer;
+    display: inline-block;
+    width: 25%;
+    text-align: center;
+}
+
+.active-form-tab {
+    background-color: #4F3A9F;
+    color: #f9f9f9;
+}
+
+.no-pad{ padding: 0;}
 
 @media (max-width: 768px) {
 .feed-cat-container button {

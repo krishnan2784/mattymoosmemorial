@@ -72,7 +72,7 @@
                     <td>{{ feedItem.enabled }}</td>
                     <td>{{ feedItem.published }}</td>
                     <td>{{ feedItem.marketId }}</td>
-                    <td>{{ feedItem.createdAt }}</td>
+                    <td>{{ feedItem.createdAt | date:'yyyy-MM-dd hh' }}</td>
                     <td>
                         <button (click)="updateFeedItem(feedItem)" class="btn">Edit</button>
                     </td>

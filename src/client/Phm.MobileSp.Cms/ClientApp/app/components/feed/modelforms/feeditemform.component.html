@@ -4,26 +4,47 @@
 </div>
 
 
+
+
 <form [formGroup]="form" novalidate (ngSubmit)="save(form.value, form.valid)" *ngIf="model" class="feed-item-form-container">
     
-    <div *ngIf="!model.id">
-        <div class="col-md-8">
-            <div class="col-md-12">
+    <input type="hidden" formControlName="id">
+    <input type="hidden" formControlName="enabled">
+    <input type="hidden" formControlName="published">
+    <input type="hidden" formControlName="feedType">
+    <input type="hidden" formControlName="feedCategory">
+    
+    <div class="feed-item-form-buttons">
+        <a (click)="goBack()" class="btn btn-primary">Cancel</a>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+    <div class="clear-both"></div>
+    <div class="feed-form-navigation col-md-8">
+        <span *ngFor="let step of this.feedFormSteps.visibleSteps">
+            <a (click)="this.feedFormSteps.navigateToSelectedStep(step)" [class.active-form-tab]="this.feedFormSteps.currentStep == step">{{step.name}}</a>
+        </span> 
+        <div class="clear-both"></div>
+    </div>
+    <div class="clear-both"></div>
+
+    <div *ngIf="!model.id && feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Category)">
+        <div class="col-md-8 no-pad">
+            <div class="col-md-12 no-pad">
                 <div class="col-md-6">
                     <div class="feed-cat-container" [class.active-cat]="model.feedCategory == feedCats.Learning">
                         <img src="assets/images/Icon-Learning-b.png" class="feed-cat-img" />
                         <h5>LEARNING</h5>
                         <p>Create informal, fun learning and competition. Small modules with an optional Quiz to test engagement. Embrace competition with Leaderboards and track user's progress with Reports.</p>
                         <div class="btn-holder">
-                            <button (click)="swapForm(this.textForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Text">
+                            <a (click)="swapForm(this.textForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Text">
                                 Module
-                            </button>
-                            <button (click)="swapForm(this.quizForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Quiz">
+                            </a>
+                            <a (click)="swapForm(this.quizForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Quiz">
                                 Quiz
-                            </button>
-                            <button (click)="swapForm(this.surveyForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Survey">
+                            </a>
+                            <a (click)="swapForm(this.surveyForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Survey">
                                 Survey
-                            </button>
+                            </a>
                         </div>
                     </div>
                     <div class="clear-both"></div>
@@ -35,28 +56,28 @@
                         <h5>CAMPAIGN</h5>
                         <p>Campaign helps make your marketing strategy stronger. You will be able to add media, and additional links. Even better, get insights by sending a survey.</p>
                         <div class="btn-holder">
-                            <button (click)="swapForm(this.textForm, feedCats.Campaign)" class="btn btn-primary col-md-6 btn-2" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Text">
+                            <a (click)="swapForm(this.textForm, feedCats.Campaign)" class="btn btn-primary col-md-6 btn-2" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Text">
                                 Module
-                            </button>
-                            <button (click)="swapForm(this.surveyForm, feedCats.Campaign)" class="btn btn-primary col-md-6 btn-2" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Survey">
+                            </a>
+                            <a (click)="swapForm(this.surveyForm, feedCats.Campaign)" class="btn btn-primary col-md-6 btn-2" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Survey">
                                 Survey
-                            </button>
+                            </a>
                         </div>
                     </div>
                     <div class="clear-both"></div>
                 </div>
             </div>
 
-            <div class="col-md-12">
+            <div class="col-md-12 no-pad">
                 <div class="col-md-4">
                     <div class="feed-cat-container" [class.active-cat]="model.feedCategory == feedCats.Announcement">
                         <img src="assets/images/Icon-Announcement-b.png" class="feed-cat-img" />
                         <h5>ANNOUNCEMENT</h5>
                         <p>Announcement allows you to create content including rich media and additional links to websites and our other apps.</p>
                         <div class="btn-holder">
-                            <button (click)="swapForm(this.textForm, feedCats.Announcement)" class="btn btn-primary col-md-12" [class.active-type]="model.feedCategory == feedCats.Announcement && model.feedType == feedTypes.Text">
+                            <a (click)="swapForm(this.textForm, feedCats.Announcement)" class="btn btn-primary col-md-12" [class.active-type]="model.feedCategory == feedCats.Announcement && model.feedType == feedTypes.Text">
                                 Module
-                            </button>
+                            </a>
                         </div>
                     </div>
                     <div class="clear-both"></div>
@@ -67,9 +88,9 @@
                         <h5>NEWS</h5>
                         <p>Keep everyone updated. News gives you the flexibility of using media and additional links.</p>
                         <div class="btn-holder">
-                            <button (click)="swapForm(this.textForm, feedCats.News)" class="btn btn-primary col-md-12" [class.active-type]="model.feedCategory == feedCats.News && model.feedType == feedTypes.Text">
+                            <a (click)="swapForm(this.textForm, feedCats.News)" class="btn btn-primary col-md-12" [class.active-type]="model.feedCategory == feedCats.News && model.feedType == feedTypes.Text">
                                 Module
-                            </button>
+                            </a>
                         </div>
                     </div>
                     <div class="clear-both"></div>
@@ -80,9 +101,9 @@
                         <h5>ARTICLE</h5>
                         <p>Article enables you to include and image and PDF link.</p>
                         <div class="btn-holder">
-                            <button (click)="swapForm(this.textForm, feedCats.Article)" class="btn btn-primary col-md-12" [class.active-type]="model.feedCategory == feedCats.Article && model.feedType == feedTypes.Text">
+                            <a (click)="swapForm(this.textForm, feedCats.Article)" class="btn btn-primary col-md-12" [class.active-type]="model.feedCategory == feedCats.Article && model.feedType == feedTypes.Text">
                                 Module
-                            </button>
+                            </a>
                         </div>
                     </div>
                     <div class="clear-both"></div>
@@ -92,31 +113,83 @@
         </div>
     </div>
     
-    <input type="hidden" formControlName="id">
-    <input type="hidden" formControlName="enabled">
-    <input type="hidden" formControlName="published">
-    <input type="hidden" formControlName="feedType">
-    <input type="hidden" formControlName="feedCategory">
+    <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Main)"  class="col-md-8">
+        
+        <div class="input-field">
+            <input id="title" type="text" formControlName="title">
+            <label for="title">Title</label>
+            <small [hidden]="form.controls.title.valid || (form.controls.title.pristine && !submitted)">
+                Title is required (minimum 5 characters).
+            </small>
+        </div>
+        
+        <div class="input-field">
+            <label>Short Description</label>
+            <input type="text" formControlName="shortDescription">
+            <small [hidden]="form.controls.shortDescription.valid || (form.controls.shortDescription.pristine && !submitted)">
+                Short description is required.
+            </small>
+        </div>
 
-    <div>
-        <label>Title</label>
-        <input type="text" formControlName="title">
-        <small [hidden]="form.controls.title.valid || (form.controls.title.pristine && !submitted)">
-            Title is required (minimum 5 characters).
-        </small>
+        <div *ngIf="model.feedType == feedTypes.Text"  class="input-field">
+            <label>Body Text</label>
+            <input type="text" formControlName="bodyText">
+            <small [hidden]="form.controls.bodyText.valid || (form.controls.bodyText.pristine && !submitted)">
+                Body text is required (minimum 5 characters).
+            </small> 
+        </div>
+        
     </div>
 
-    <div>
-        <label>Points Value</label>
-        <input type="text" formControlName="points">
+    <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Category) || 
+         feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Main)" class="col-md-4">
+        <h5>Options</h5>
+        <hr/>
+        
+        <div class="input-field">
+            <input id="points" type="text" formControlName="points">
+            <label for="points">Reward Points</label>
+            <small [hidden]="form.controls.points.valid || (form.controls.points.pristine && !submitted)">
+                Reward points are requeired.
+            </small>
+        </div>
+
+        <div>
+            <label for="allowFavourite">Favourite</label>
+            <div class="switch">
+                <label>                    
+                    <input formControlName="allowFavourite" type="checkbox" [checked]="model.allowFavourite">
+                    <span class="lever"></span>                    
+                </label>
+            </div>
+        </div>
+
+        <div class="input-field">
+            <input id="readingTime" type="text" formControlName="readingTime">
+            <label for="readingTime">Reading Time (mins)</label>
+            <small [hidden]="form.controls.readingTime.valid || (form.controls.readingTime.pristine && !submitted)">
+                Reading time are requeired.
+            </small>
+        </div>
+
+        <div>
+            <label for="startDate">Start Date</label>
+            <input id="startDate" type="date" class="datepicker" for="startDate" formControlName="startDate">
+        </div>
+
+        <div>
+            <label for="endDate">End Date</label>
+            <input id="endDate" type="date" class="datepicker" for="endDate" formControlName="endDate" [value]="model.endDate | date:'yyyy-MM-dd'">
+        </div>
+
+        <!--<p-calendar formControlName="endDate" dateFormat="DD.MM.YYYY"></p-calendar>-->
+        
     </div>
-    
+
     <div *ngIf="feedFormData">
         <feed-form-component [feedFormData]="feedFormData"></feed-form-component>
     </div>
-    
-    <button (click)="goBack()" class="btn btn-primary">Cancel</button>
-    <button type="submit" class="btn btn-primary">Submit</button>
-
+   
+    <div class="clear-both"></div>
 </form>
             

@@ -24,8 +24,7 @@ FetchDataComponent = __decorate([
         selector: 'fetchdata',
         template: require('./fetchdata.component.html')
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof http_1.Http !== "undefined" && http_1.Http) === "function" && _a || Object])
+    __metadata("design:paramtypes", [http_1.Http])
 ], FetchDataComponent);
 exports.FetchDataComponent = FetchDataComponent;
-var _a;
 //# sourceMappingURL=fetchdata.component.js.map

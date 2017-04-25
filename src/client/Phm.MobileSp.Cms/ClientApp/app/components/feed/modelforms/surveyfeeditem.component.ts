@@ -13,14 +13,14 @@ import Feedformstepsclasses = require("../../../models/feedformstepsclasses");
 import FeedFormSteps = Feedformstepsclasses.FeedFormSteps;
 
 @Component({
-    selector: 'textfeeditem',
-    template: require('./textfeeditem.component.html')
+    selector: 'surveyfeeditem',
+    template: require('./surveyfeeditem.component.html')
 })
-export class TextFeedItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
+export class SurveyFeedItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
 
     public feedModelType;
-    public updateUrl: string = '/api/Feed/UpdateTextFeedItem';
-    public feedType: Enums.FeedTypeEnum = FeedTypeEnum.Text;
+    public updateUrl: string = '/api/Feed/UpdateSurveyFeedItem';
+    public feedType: Enums.FeedTypeEnum = FeedTypeEnum.Survey;
 
     public form: FormGroup;
     public feedFormSteps: FeedFormSteps;
@@ -30,16 +30,14 @@ export class TextFeedItemFormComponent implements IFeedItemComponents.IFeedItemP
             this.form = injector.get('form');
             this.feedFormSteps = injector.get('feedFormSteps');
         }
-        this.feedModelType = Feedclasses.TextFeed;
+        this.feedModelType = Feedclasses.SurveyFeed;
     } 
 
     addFormControls(form: FormGroup): FormGroup {
-        form.addControl('bodyText', new FormControl('', [<any>Validators.required, <any>Validators.minLength(5)]));
         return form;
     };
 
     removeFormControls(form: FormGroup): FormGroup {
-        form.removeControl('bodyText');
         return form;
     };
     

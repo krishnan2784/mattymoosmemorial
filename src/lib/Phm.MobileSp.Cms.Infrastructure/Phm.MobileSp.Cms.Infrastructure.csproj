@@ -33,4 +33,8 @@
     <ProjectReference Include="..\Phm.MobileSp.Cms.Core\Phm.MobileSp.Cms.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
+  </ItemGroup>
+
 </Project>

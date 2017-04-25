@@ -9,39 +9,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var forms_1 = require("@angular/forms");
 var Enums = require("../../../enums");
 var FeedTypeEnum = Enums.FeedTypeEnum;
 var Feedclasses = require("../../../models/feedclasses");
-var TextFeedItemFormComponent = (function () {
-    function TextFeedItemFormComponent(injector) {
+var SurveyFeedItemFormComponent = (function () {
+    function SurveyFeedItemFormComponent(injector) {
         this.injector = injector;
-        this.updateUrl = '/api/Feed/UpdateTextFeedItem';
-        this.feedType = FeedTypeEnum.Text;
+        this.updateUrl = '/api/Feed/UpdateSurveyFeedItem';
+        this.feedType = FeedTypeEnum.Survey;
         if (injector) {
             this.form = injector.get('form');
             this.feedFormSteps = injector.get('feedFormSteps');
         }
-        this.feedModelType = Feedclasses.TextFeed;
+        this.feedModelType = Feedclasses.SurveyFeed;
     }
-    TextFeedItemFormComponent.prototype.addFormControls = function (form) {
-        form.addControl('bodyText', new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
+    SurveyFeedItemFormComponent.prototype.addFormControls = function (form) {
         return form;
     };
     ;
-    TextFeedItemFormComponent.prototype.removeFormControls = function (form) {
-        form.removeControl('bodyText');
+    SurveyFeedItemFormComponent.prototype.removeFormControls = function (form) {
         return form;
     };
     ;
-    return TextFeedItemFormComponent;
+    return SurveyFeedItemFormComponent;
 }());
-TextFeedItemFormComponent = __decorate([
+SurveyFeedItemFormComponent = __decorate([
     core_1.Component({
-        selector: 'textfeeditem',
-        template: require('./textfeeditem.component.html')
+        selector: 'surveyfeeditem',
+        template: require('./surveyfeeditem.component.html')
     }),
     __metadata("design:paramtypes", [core_1.Injector])
-], TextFeedItemFormComponent);
-exports.TextFeedItemFormComponent = TextFeedItemFormComponent;
-//# sourceMappingURL=textfeeditem.component.js.map
+], SurveyFeedItemFormComponent);
+exports.SurveyFeedItemFormComponent = SurveyFeedItemFormComponent;
+//# sourceMappingURL=surveyfeeditem.component.js.map

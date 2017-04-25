@@ -8,14 +8,13 @@
         <link rel="stylesheet" href="~/dist/vendor.css" asp-append-version="true" />
         <link rel="stylesheet" href="/css/materialize.min.css" asp-append-version="true" />
         <link rel="stylesheet" href="/css/site.css" asp-append-version="true" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     </head>
-    <body>
-        @RenderBody()
-        
-    @section scripts{
-        <script type="text/javascript" src="scripts/materialize.min.js"></script>
-    }
+<body>
+@RenderBody()
 
-    @RenderSection("scripts", required: false)
-    </body>
+@RenderSection("scripts", required: false)
+<script type="text/javascript" src="scripts/materialize.min.js"></script>
+
+</body>
 </html>

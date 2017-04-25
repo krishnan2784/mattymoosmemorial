@@ -1,10 +1,9 @@
-import { Component, Input, Output, OnDestroy, OnInit, EventEmitter, Injector, ViewChild } from '@angular/core';
-import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Component, Output, EventEmitter, Injector } from '@angular/core';
+import { Http } from '@angular/http';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from "rxjs/Rx";
-import { EnumEx } from "../../../classes/enumerators";
 import { FeedDataService } from "../../../dataservices/FeedDataService";
 import * as IFeedItemComponents from "../../../interfaces/components/IFeedItemComponents";
 import { TextFeedItemFormComponent } from "./textfeeditem.component";
@@ -13,6 +12,14 @@ import FeedItem = FeedModel.IFeedItem;
 import Enums = require("../../../enums");
 import FeedCategoryEnum = Enums.FeedCategoryEnum;
 import Feedclasses = require("../../../models/feedclasses");
+import Feedformstepsclasses = require("../../../models/feedformstepsclasses");
+import FeedFormSteps = Feedformstepsclasses.FeedFormSteps;
+import FeedFormStepType = Feedformstepsclasses.FeedFormStepType;
+import Quizfeeditemcomponent = require("./quizfeeditem.component");
+import QuizFeedItemFormComponent = Quizfeeditemcomponent.QuizFeedItemFormComponent;
+import Surveyfeeditemcomponent = require("./surveyfeeditem.component");
+import SurveyFeedItemFormComponent = Surveyfeeditemcomponent.SurveyFeedItemFormComponent;
+declare var $: any;
 
 @Component({
     selector: 'feeditemform',
@@ -41,6 +48,10 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     public id_sub: Subscription;
 
     public textForm = TextFeedItemFormComponent;
+    public quizForm = QuizFeedItemFormComponent;
+    public surveyForm = SurveyFeedItemFormComponent;
+
+    public feedFormSteps: FeedFormSteps = new FeedFormSteps();
 
     constructor(fb: FormBuilder, public http: Http, public route: ActivatedRoute,
         private router: Router, public feedDataService: FeedDataService, private injector: Injector) {
@@ -60,7 +71,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     }
 
     public swapForm<TFormType extends any>(newFormType: TFormType, feedCategory: FeedCategoryEnum) {
-        let newForm = new newFormType();
+        let newForm = (new newFormType()) as IFeedItemComponents.IFeedItemPartialForm;
 
         if (this.form && this.subForm) {
             this.form = this.subForm.removeFormControls(this.form);
@@ -68,27 +79,44 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
 
         this.feedFormData = {
             feedFormComponent: newFormType,
-            inputs: { form: this.form }
+            inputs: { form: this.form, feedFormSteps: this.feedFormSteps }
         };
 
         this.subForm = newForm;
         this.form = this.subForm.addFormControls(this.form);
         this.model.feedType = this.subForm.feedType;
         this.model.feedCategory = feedCategory;
-        this.updateForm();
+        this.feedFormSteps.setFormType(newForm.feedType);
+        //this.updateForm();
     }
 
     public initialiseForm() {
         this.form = this._fb.group({
             id: ['', []],
             title: ['', [<any>Validators.required, <any>Validators.minLength(5)]],
+            shortDescription: ['', [<any>Validators.required, <any>Validators.minLength(10)]],
             feedType: ['', [<any>Validators.required]],
             feedCategory: ['', [<any>Validators.required]],
             points: ['', [<any>Validators.required]],
             enabled: ['', []],
             published: ['', []],
-            mainIcon: ['', []]
+            mainIcon: ['', []],
+            allowFavourite: ['', []],
+            legalInformation: ['', []],
+            makeTitleWidgetLink: ['', []],
+            permissions: ['', []],
+            readingTime: ['', []],
+            startDate: ['', []],
+            endDate: ['', []]
         });
+
+        setTimeout(function(){
+            $('.datepicker').pickadate({
+                selectMonths: true,
+                selectYears: 5,
+                format: 'dddd, dd mmm, yyyy',
+                formatSubmit: 'yyyy/mm/dd'
+            })}, 1000);
     }
 
     getModel() {
@@ -113,10 +141,11 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     }
 
     save(feedItem: FeedItem, isValid: boolean) {
+        this.submitted = true;
+
         if (!isValid)
             return;
 
-        this.submitted = true;
         this.feedDataService.updateFeeditem(this.subForm.updateUrl, feedItem).subscribe(result => {
             if (result.success) {
                 this.model = result.content;

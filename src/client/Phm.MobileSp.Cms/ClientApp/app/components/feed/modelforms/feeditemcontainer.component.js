@@ -11,6 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var feeditemform_component_1 = require("./feeditemform.component");
 var textfeeditem_component_1 = require("./textfeeditem.component");
+var Quizfeeditemcomponent = require("./quizfeeditem.component");
+var QuizFeedItemFormComponent = Quizfeeditemcomponent.QuizFeedItemFormComponent;
+var Surveyfeeditemcomponent = require("./surveyfeeditem.component");
+var SurveyFeedItemFormComponent = Surveyfeeditemcomponent.SurveyFeedItemFormComponent;
 var FeedItemContainerComponent = (function () {
     function FeedItemContainerComponent(resolver) {
         this.resolver = resolver;
@@ -39,7 +43,7 @@ var FeedItemContainerComponent = (function () {
 }());
 __decorate([
     core_1.ViewChild('feedItemComponentContainer', { read: core_1.ViewContainerRef }),
-    __metadata("design:type", typeof (_a = typeof core_1.ViewContainerRef !== "undefined" && core_1.ViewContainerRef) === "function" && _a || Object)
+    __metadata("design:type", core_1.ViewContainerRef)
 ], FeedItemContainerComponent.prototype, "dynamicComponentContainer", void 0);
 __decorate([
     core_1.Input(),
@@ -49,12 +53,11 @@ __decorate([
 FeedItemContainerComponent = __decorate([
     core_1.Component({
         selector: 'feed-form-component',
-        entryComponents: [feeditemform_component_1.FeedItemForm, textfeeditem_component_1.TextFeedItemFormComponent],
+        entryComponents: [feeditemform_component_1.FeedItemForm, textfeeditem_component_1.TextFeedItemFormComponent, QuizFeedItemFormComponent, SurveyFeedItemFormComponent],
         template: require('./feeditemcontainer.component.html'),
         styles: [require('./feeditemcontainer.component.css')],
     }),
-    __metadata("design:paramtypes", [typeof (_b = typeof core_1.ComponentFactoryResolver !== "undefined" && core_1.ComponentFactoryResolver) === "function" && _b || Object])
+    __metadata("design:paramtypes", [core_1.ComponentFactoryResolver])
 ], FeedItemContainerComponent);
 exports.FeedItemContainerComponent = FeedItemContainerComponent;
-var _a, _b;
 //# sourceMappingURL=feeditemcontainer.component.js.map

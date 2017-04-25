@@ -20,11 +20,14 @@ namespace MobileSP_CMS.Core.Models
         public virtual int? MarketId { get; set; }
         public virtual int? Points { get; set; }
         public virtual string Title { get; set; }
+        public virtual string ShortDescription { get; set; }
         public virtual bool AllowFavourite { get; set; }
         public virtual CorporateApp CorporateApp { get; set; }
         public virtual string LegalInformation { get; set; }
         public virtual bool MakeTitleWidgetLink { get; set; }
         public virtual long Permissions { get; set; }
-        
+        public virtual int ReadingTime { get; set; }
+        public virtual DateTime StartDate { get; set; }
+        public virtual DateTime EndDate { get; set; }
     }
 }

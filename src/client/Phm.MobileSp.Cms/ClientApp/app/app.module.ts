@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { UniversalModule } from 'angular2-universal';
 import { Ng2PaginationModule } from 'ng2-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+//import { CalendarModule } from 'primeng/primeng';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
@@ -27,6 +28,10 @@ import { TextFeedItemFormComponent } from './components/feed/modelforms/textfeed
 import { FeedIndexComponent } from "./components/feed/indexes/feedindex.component";
 import { FeedItemForm } from "./components/feed/modelforms/feeditemform.component";
 import { FeedItemContainerComponent } from "./components/feed/modelforms/feeditemcontainer.component";
+import Quizfeeditemcomponent = require("./components/feed/modelforms/quizfeeditem.component");
+import QuizFeedItemFormComponent = Quizfeeditemcomponent.QuizFeedItemFormComponent;
+import Surveyfeeditemcomponent = require("./components/feed/modelforms/surveyfeeditem.component");
+import SurveyFeedItemFormComponent = Surveyfeeditemcomponent.SurveyFeedItemFormComponent;
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -45,13 +50,16 @@ import { FeedItemContainerComponent } from "./components/feed/modelforms/feedite
 
         FeedItemContainerComponent,
         FeedItemForm,
-        TextFeedItemFormComponent
+        TextFeedItemFormComponent,
+        QuizFeedItemFormComponent,
+        SurveyFeedItemFormComponent
     ],
     imports: [
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
         Ng2PaginationModule,
         FormsModule,
         ReactiveFormsModule,
+        //CalendarModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
