@@ -1240,9 +1240,41 @@ namespace MLearningCoreService
     public partial class QuizFeedDto : MLearningCoreService.BaseFeedDto
     {
         
+        private string FailMessageField;
+        
+        private string OnBoardingMessageField;
+        
         private System.Collections.Generic.List<MLearningCoreService.QuizQuestionDto> QuestionsField;
         
         private string QuizDescriptionField;
+        
+        private string SuccessMessageField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FailMessage
+        {
+            get
+            {
+                return this.FailMessageField;
+            }
+            set
+            {
+                this.FailMessageField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string OnBoardingMessage
+        {
+            get
+            {
+                return this.OnBoardingMessageField;
+            }
+            set
+            {
+                this.OnBoardingMessageField = value;
+            }
+        }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Collections.Generic.List<MLearningCoreService.QuizQuestionDto> Questions
@@ -1267,6 +1299,19 @@ namespace MLearningCoreService
             set
             {
                 this.QuizDescriptionField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SuccessMessage
+        {
+            get
+            {
+                return this.SuccessMessageField;
+            }
+            set
+            {
+                this.SuccessMessageField = value;
             }
         }
     }

@@ -72,11 +72,17 @@ export class ImageFeed extends BaseFeed {
 export class QuizFeed extends BaseFeed {
     public questions: Quizclasses.QuizQuestion[];
     public quizDescription: string;
+    public onBoardingMessage: string;
+    public successMessage: string;
+    public failMessage: string;
     constructor(options: {} = {}) {
         super(options);
         this.feedType = FeedTypeEnum.Quiz;
         this.questions = options['questions'] || '';
         this.quizDescription = options['quizDescription'];
+        this.onBoardingMessage = options['onBoardingMessage'];
+        this.successMessage = options['successMessage'];
+        this.failMessage = options['failMessage'];
     }
 }
 

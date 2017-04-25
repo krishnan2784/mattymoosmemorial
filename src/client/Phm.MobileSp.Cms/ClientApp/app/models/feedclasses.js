@@ -67,6 +67,9 @@ var QuizFeed = (function (_super) {
         _this.feedType = FeedTypeEnum.Quiz;
         _this.questions = options['questions'] || '';
         _this.quizDescription = options['quizDescription'];
+        _this.onBoardingMessage = options['onBoardingMessage'];
+        _this.successMessage = options['successMessage'];
+        _this.failMessage = options['failMessage'];
         return _this;
     }
     return QuizFeed;
