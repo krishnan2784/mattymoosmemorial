@@ -11,26 +11,17 @@ import FeedTypeEnum = Enums.FeedTypeEnum;
 import Feedclasses = require("../../../models/feedclasses");
 import Feedformstepsclasses = require("../../../models/feedformstepsclasses");
 import FeedFormSteps = Feedformstepsclasses.FeedFormSteps;
+import FeedModel = require("../../../interfaces/models/IFeedModel");
+import { BasePartialItemFormComponent } from "./basepartialfeeditem.component";
 
 @Component({
     selector: 'textfeeditem',
     template: require('./textfeeditem.component.html')
 })
-export class TextFeedItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
+export class TextFeedItemFormComponent extends BasePartialItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
 
-    public feedModelType;
-    public updateUrl: string = '/api/Feed/UpdateTextFeedItem';
-    public feedType: Enums.FeedTypeEnum = FeedTypeEnum.Text;
-
-    public form: FormGroup;
-    public feedFormSteps: FeedFormSteps;
-
-    constructor(private injector: Injector) {
-        if (injector) {
-            this.form = injector.get('form');
-            this.feedFormSteps = injector.get('feedFormSteps');
-        }
-        this.feedModelType = Feedclasses.TextFeed;
+    constructor(injector: Injector) {
+        super(injector, Feedclasses.TextFeed, '/api/Feed/UpdateTextFeedItem', FeedTypeEnum.Text);
     } 
 
     addFormControls(form: FormGroup): FormGroup {

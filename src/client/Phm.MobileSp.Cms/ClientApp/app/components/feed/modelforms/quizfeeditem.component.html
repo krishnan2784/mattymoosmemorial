@@ -1,7 +1,55 @@
 <div [formGroup]="form">
     <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.QuizQuestions)">
-        Quiz Questions
+        <div *ngIf="!model.questions">
+            <question [form]="this.form" [feedType]="this.feedType" [index]="0" [model]="this.model"></question>
+        </div>
 
+        <!--<div *ngIf="model.questions" *ngFor="let question of this.model.questions">
+            <question [model]="question" [feedType]="feedType"></question>
+        </div>-->
+
+        <!--<div class="input-field">
+        <input id="questions-0-question" type="text" formControlName="questions[0].question">
+        <label for="questions-0-question">Question</label>
+    </div>
+
+    <div class="answer-container">
+        <div class="answer-header">Answer type</div>
+        <p>
+            <input name="answer-type" type="radio" id="answer-type-1" formControlName="questions[0].questionType" value="answerType.Single"/>
+            <label for="answer-type-1">Single choice</label>
+        </p>
+        <p>
+            <input name="answer-type" type="radio" id="answer-type-2" formControlName="questions[0].questionType" value="answerType.Multiple"/>
+            <label for="answer-type-2">Multiple choice</label>
+        </p>
+    </div>
+
+    <div class="answer-container" *ngFor="let number of [0,1]">
+        <div class="answer-header">Answer (required)</div>
+        <p>
+            <input type="checkbox" id="questions-0-answer-{{number}}-isCorrect" formControlName="questions[0].answer[{{number}}].isCorrect"/>
+            <label for="questions-0-answer-{{number}}-isCorrect">Correct</label>
+        </p>
+
+        <div class="input-field">
+            <input id="questions-0-answer-{{number}}-answer" type="text" formControlName="questions[0].answer[{{number}}].answer">
+            <label for="questions-0-answer-{{number}}-answer">Enter here</label>
+        </div>
+        <a (click)="" [disabled]="!form.controls.questions[0].answers.length > 2">Should be disabled</a>
+    </div>-->
+
+        <!--<div *ngIf="model.questions">
+            
+            <input type="hidden" formControlName="id">
+            <div class="input-field">
+                <input id="title" type="text" formControlName="title">
+                <label for="title">Enter Title</label>
+                <small [class.active-warning]="!form.controls.title.valid && submitted">
+                    Title is required (minimum 5 characters).
+                </small>
+            </div>
+        </div>-->
     </div>
 
     <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.QuizScore)">

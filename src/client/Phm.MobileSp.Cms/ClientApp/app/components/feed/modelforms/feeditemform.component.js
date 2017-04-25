@@ -54,7 +54,7 @@ var FeedItemForm = (function () {
         }
         this.feedFormData = {
             feedFormComponent: newFormType,
-            inputs: { form: this.form, feedFormSteps: this.feedFormSteps }
+            inputs: { form: this.form, feedFormSteps: this.feedFormSteps, model: this.model }
         };
         this.subForm = newForm;
         this.form = this.subForm.addFormControls(this.form);

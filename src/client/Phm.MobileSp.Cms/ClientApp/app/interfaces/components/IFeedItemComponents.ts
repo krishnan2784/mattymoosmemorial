@@ -19,6 +19,7 @@ export interface IFeedItemPartialForm {
     updateUrl: string;
     feedModelType: any;
     feedType: Enums.FeedTypeEnum;
+    model: FeedModel.IFeedItem;
 
     addFormControls(form: FormGroup) : FormGroup;
     removeFormControls(form: FormGroup) : FormGroup;

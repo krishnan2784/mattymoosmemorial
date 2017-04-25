@@ -80,7 +80,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
 
         this.feedFormData = {
             feedFormComponent: newFormType,
-            inputs: { form: this.form, feedFormSteps: this.feedFormSteps }
+            inputs: { form: this.form, feedFormSteps: this.feedFormSteps, model: this.model }
         };
 
         this.subForm = newForm;

@@ -1,4 +1,9 @@
 "use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -9,30 +14,46 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
 var Enums = require("../../../enums");
 var FeedTypeEnum = Enums.FeedTypeEnum;
 var Feedclasses = require("../../../models/feedclasses");
-var QuizFeedItemFormComponent = (function () {
+var basepartialfeeditem_component_1 = require("./basepartialfeeditem.component");
+var QuizFeedItemFormComponent = (function (_super) {
+    __extends(QuizFeedItemFormComponent, _super);
     function QuizFeedItemFormComponent(injector) {
-        this.injector = injector;
-        this.updateUrl = '/api/Feed/UpdateQuizFeedItem';
-        this.feedType = FeedTypeEnum.Quiz;
-        if (injector) {
-            this.form = injector.get('form');
-            this.feedFormSteps = injector.get('feedFormSteps');
-        }
-        this.feedModelType = Feedclasses.QuizFeed;
+        var _this = _super.call(this, injector, Feedclasses.QuizFeed, '/api/Feed/UpdateQuizFeedItem', FeedTypeEnum.Quiz) || this;
+        _this.answerType = Enums.QuizQuestionTypeEnum;
+        return _this;
     }
     QuizFeedItemFormComponent.prototype.addFormControls = function (form) {
+        var fb = new forms_1.FormBuilder;
+        form.addControl('questions', fb.array([
+            fb.group({
+                id: ['', []],
+                order: ['', []],
+                question: ['', []],
+                questionType: ['', []],
+                'answers': fb.array([
+                    fb.group({
+                        id: ['', []],
+                        answer: ['', []],
+                        isCorrect: ['', []],
+                        order: ['', []]
+                    })
+                ])
+            })
+        ]));
         return form;
     };
     ;
     QuizFeedItemFormComponent.prototype.removeFormControls = function (form) {
+        form.removeControl('questions');
         return form;
     };
     ;
     return QuizFeedItemFormComponent;
-}());
+}(basepartialfeeditem_component_1.BasePartialItemFormComponent));
 QuizFeedItemFormComponent = __decorate([
     core_1.Component({
         selector: 'quizfeeditem',

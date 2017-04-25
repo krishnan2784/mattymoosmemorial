@@ -11,26 +11,17 @@ import FeedTypeEnum = Enums.FeedTypeEnum;
 import Feedclasses = require("../../../models/feedclasses");
 import Feedformstepsclasses = require("../../../models/feedformstepsclasses");
 import FeedFormSteps = Feedformstepsclasses.FeedFormSteps;
+import FeedModel = require("../../../interfaces/models/IFeedModel");
+import { BasePartialItemFormComponent } from "./basepartialfeeditem.component";
 
 @Component({
     selector: 'surveyfeeditem',
     template: require('./surveyfeeditem.component.html')
 })
-export class SurveyFeedItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
+export class SurveyFeedItemFormComponent extends BasePartialItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
 
-    public feedModelType;
-    public updateUrl: string = '/api/Feed/UpdateSurveyFeedItem';
-    public feedType: Enums.FeedTypeEnum = FeedTypeEnum.Survey;
-
-    public form: FormGroup;
-    public feedFormSteps: FeedFormSteps;
-
-    constructor(private injector: Injector) {
-        if (injector) {
-            this.form = injector.get('form');
-            this.feedFormSteps = injector.get('feedFormSteps');
-        }
-        this.feedModelType = Feedclasses.SurveyFeed;
+    constructor(injector: Injector) {
+        super(injector, Feedclasses.SurveyFeed, '/api/Feed/UpdateSurveyFeedItem', FeedTypeEnum.Survey);
     } 
 
     addFormControls(form: FormGroup): FormGroup {

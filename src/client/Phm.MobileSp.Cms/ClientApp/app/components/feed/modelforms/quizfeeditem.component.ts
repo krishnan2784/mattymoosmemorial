@@ -11,34 +11,47 @@ import FeedTypeEnum = Enums.FeedTypeEnum;
 import Feedclasses = require("../../../models/feedclasses");
 import Feedformstepsclasses = require("../../../models/feedformstepsclasses");
 import FeedFormSteps = Feedformstepsclasses.FeedFormSteps;
+import FeedModel = require("../../../interfaces/models/IFeedModel");
+import { BasePartialItemFormComponent } from "./basepartialfeeditem.component";
 
 @Component({
     selector: 'quizfeeditem',
     template: require('./quizfeeditem.component.html'),
     styles: [require('./quizfeeditem.component.css')],
 })
-export class QuizFeedItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
+export class QuizFeedItemFormComponent extends BasePartialItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
 
-    public feedModelType;
-    public updateUrl: string = '/api/Feed/UpdateQuizFeedItem';
-    public feedType: Enums.FeedTypeEnum = FeedTypeEnum.Quiz;
+    answerType: typeof Enums.QuizQuestionTypeEnum = Enums.QuizQuestionTypeEnum;
 
-    public form: FormGroup;
-    public feedFormSteps: FeedFormSteps;
-
-    constructor(private injector: Injector) {
-        if (injector) {
-            this.form = injector.get('form');
-            this.feedFormSteps = injector.get('feedFormSteps');
-        }
-        this.feedModelType = Feedclasses.QuizFeed;
+    constructor(injector: Injector) {
+        super(injector, Feedclasses.QuizFeed, '/api/Feed/UpdateQuizFeedItem', FeedTypeEnum.Quiz);
     } 
 
     addFormControls(form: FormGroup): FormGroup {
+        var fb = new FormBuilder;
+        form.addControl('questions',
+            fb.array([
+                fb.group({
+                    id: ['', []],
+                    order: ['', []],
+                    question: ['', []],
+                    questionType: ['', []],
+                    'answers': fb.array([
+                        fb.group({
+                            id: ['', []],
+                            answer: ['', []],
+                            isCorrect: ['', []],
+                            order: ['', []]
+                        })
+                    ])
+                })                
+            ])
+        );
         return form;
     };
 
     removeFormControls(form: FormGroup): FormGroup {
+        form.removeControl('questions');
         return form;
     };
     
