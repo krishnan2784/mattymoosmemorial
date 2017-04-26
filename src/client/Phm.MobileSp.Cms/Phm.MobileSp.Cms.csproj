@@ -48,7 +48,7 @@
   </Target>
 
   <Target Name="MyPostCompileTarget" AfterTargets="Publish">
-    <Exec Command="dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" />
+    
   </Target>
   
   <ItemGroup>
