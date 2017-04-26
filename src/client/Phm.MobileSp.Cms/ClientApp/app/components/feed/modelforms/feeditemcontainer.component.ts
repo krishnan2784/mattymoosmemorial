@@ -1,11 +1,14 @@
 ﻿import {Component, Input, ViewContainerRef, ViewChild, ReflectiveInjector, ComponentFactoryResolver } from '@angular/core';
 import { FeedItemForm } from './feeditemform.component';
 import { TextFeedItemFormComponent } from './textfeeditem.component';
-
+import Quizfeeditemcomponent = require("./quizfeeditem.component");
+import QuizFeedItemFormComponent = Quizfeeditemcomponent.QuizFeedItemFormComponent;
+import Surveyfeeditemcomponent = require("./surveyfeeditem.component");
+import SurveyFeedItemFormComponent = Surveyfeeditemcomponent.SurveyFeedItemFormComponent;
 
 @Component({
     selector: 'feed-form-component',
-    entryComponents: [FeedItemForm, TextFeedItemFormComponent], 
+    entryComponents: [FeedItemForm, TextFeedItemFormComponent, QuizFeedItemFormComponent, SurveyFeedItemFormComponent],
     template: require('./feeditemcontainer.component.html'),
     styles: [require('./feeditemcontainer.component.css')],
 })

@@ -1,0 +1,11 @@
+<div [formGroup]="form">
+    <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.SurveyQuestions)">
+        Survey Questions
+
+    </div>
+
+    <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.SurveyScore)">
+        Survey Results
+
+    </div>
+</div>

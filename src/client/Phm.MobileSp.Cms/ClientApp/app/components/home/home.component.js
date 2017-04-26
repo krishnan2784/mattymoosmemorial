@@ -19,7 +19,7 @@ var datashareservice_1 = require("../../dataservices/datashareservice");
 var HomeComponent = (function (_super) {
     __extends(HomeComponent, _super);
     function HomeComponent(sharedService) {
-        return _super.call(this, sharedService, '', false) || this;
+        return _super.call(this, sharedService, 'Welcome to MobileSP', false) || this;
     }
     return HomeComponent;
 }(base_component_1.BaseComponent));

@@ -1,10 +1,10 @@
 <div class='container-fluid'>
 
         <div class="body-content">
-            <div class='col-sm-2'>
+            <div class='col-sm-2 content-col nav-col'>
                 <nav-menu></nav-menu>
             </div>
-            <div class='col-sm-10'>
+            <div class='col-sm-10 content-col'>
                 <div *ngIf="pageTitle!=''" class="header-bar">
                     <h2>
                         <span class="col-md-8">
@@ -20,7 +20,9 @@
                 <div class="router-content">
                     <router-outlet></router-outlet>
                 </div>
-            </div>           
+            </div>
+            <div class="clearfix"></div>
+            
         </div>
 </div>
 <footer></footer>

@@ -14,10 +14,19 @@ var BaseFeed = (function (_super) {
         if (options === void 0) { options = {}; }
         var _this = _super.call(this, options) || this;
         _this.title = options['title'] || '';
+        _this.shortDescription = options['shortDescription'] || '';
         _this.feedCategory = options['feedCategory'];
         _this.points = options['points'] || '';
         _this.mainIcon = options['mediaInfo'];
         _this.marketId = options['marketId'];
+        _this.allowFavourite = options['allowFavourite'];
+        _this.corporateApp = options['corporateApp'];
+        _this.legalInformation = options['legalInformation'];
+        _this.makeTitleWidgetLink = options['makeTitleWidgetLink'];
+        _this.permissions = options['permissions'];
+        _this.readingTime = options['readingTime'];
+        _this.startDate = options['startDate'];
+        _this.endDate = options['endDate'];
         return _this;
     }
     return BaseFeed;
@@ -58,6 +67,9 @@ var QuizFeed = (function (_super) {
         _this.feedType = FeedTypeEnum.Quiz;
         _this.questions = options['questions'] || '';
         _this.quizDescription = options['quizDescription'];
+        _this.onBoardingMessage = options['onBoardingMessage'];
+        _this.successMessage = options['successMessage'];
+        _this.failMessage = options['failMessage'];
         return _this;
     }
     return QuizFeed;

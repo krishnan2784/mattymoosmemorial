@@ -43,8 +43,7 @@ var UserDataService = (function () {
 }());
 UserDataService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [typeof (_a = typeof http_1.Http !== "undefined" && http_1.Http) === "function" && _a || Object, typeof (_b = typeof core_1.NgZone !== "undefined" && core_1.NgZone) === "function" && _b || Object])
+    __metadata("design:paramtypes", [http_1.Http, core_1.NgZone])
 ], UserDataService);
 exports.UserDataService = UserDataService;
-var _a, _b;
 //# sourceMappingURL=userdataservice.js.map
