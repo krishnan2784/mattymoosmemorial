@@ -72,5 +72,12 @@ namespace MobileSP_CMS.Controllers
         [JsonResponseWrapper]
         public async Task<JsonResult> UpdateVideoFeedItem([FromBody]VideoFeed feedItem) => await UpdateFeedItem<VideoFeed, VideoFeedDto>(feedItem);
 
+        [HttpPost("[action]")]
+        [JsonResponseWrapper]
+        public async Task<JsonResult> UpdateQuizFeedItem([FromBody]QuizFeed feedItem) => await UpdateFeedItem<QuizFeed, QuizFeedDto>(feedItem);
+        [HttpPost("[action]")]
+        [JsonResponseWrapper]
+        public async Task<JsonResult> UpdateSurveyFeedItem([FromBody]SurveyFeed feedItem) => await UpdateFeedItem<SurveyFeed, SurveyFeedDto>(feedItem);
+
     }
 }

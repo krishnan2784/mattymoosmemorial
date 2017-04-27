@@ -1,6 +1,8 @@
 ﻿import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import Enums = require("../enums");
+
+declare var $: any;
 declare var Materialize: any;
 
 export class FeedFormSteps implements OnInit {
@@ -75,6 +77,12 @@ export class FeedFormSteps implements OnInit {
         this.currentStep = this.visibleSteps.find(x => x.type === selectedStep.type);
         setTimeout(function() {
             Materialize.updateTextFields();
+            $('.datepicker').pickadate({
+                selectMonths: true,
+                selectYears: 5,
+                format: 'dddd, dd mmm, yyyy',
+                formatSubmit: 'yyyy/mm/dd'
+            });
         }, 1);     
     }
 }

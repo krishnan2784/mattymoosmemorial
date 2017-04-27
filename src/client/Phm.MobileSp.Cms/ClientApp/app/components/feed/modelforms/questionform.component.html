@@ -1,32 +1,47 @@
-<div [formGroup]="form">
+<div [formGroup]="form" *ngIf="this.model">
+    <input type="hidden" formControlName="id">
+    <input type="hidden" formControlName="order">
+    
     <div class="input-field">
-        <input id="questions-{{model.order}}-question" type="text" formControlName="questions[{{model.order}}].question">
-        <label htmlFor="questions-{{model.order}}-question">Question</label>
+        <input id="questions-{{index}}-question" type="text" formControlName="question">
+        <label htmlFor="questions-{{index}}-question">Question</label>
     </div>
 
     <div class="answer-container">
         <div class="answer-header">Answer type</div>
         <p>
-            <input name="answer-type" type="radio" id="answer-type-1" formControlName="questions[{{model.order}}].questionType" value="answerType.Single"/>
-            <label for="answer-type-1">Single choice</label>
+            <input type="radio" id="answer-type-1" formControlName="questionType" value="answerType.Single"/>
+            <label>Single choice</label>
         </p>
         <p>
-            <input name="answer-type" type="radio" id="answer-type-2" formControlName="questions[{{model.order}}].questionType" value="answerType.Multiple"/>
-            <label for="answer-type-2">Multiple choice</label>
+            <input type="radio" id="answer-type-2" formControlName="questionType" value="answerType.Multiple"/>
+            <label>Multiple choice</label>
         </p>
     </div>
 
-    <div class="answer-container" *ngFor="let answer of this.model.answers">
-        <div class="answer-header">Answer (required)</div>
-        <p>
-            <input type="checkbox" id="questions-{{model.order}}-answer-{{answer.order}}-isCorrect" formControlName="questions[{{model.order}}].answer[{{answer.order}}].isCorrect"/>
-            <label htmlFor="questions-{{model.order}}-answer-{{answer.order}}-isCorrect">Correct</label>
-        </p>
+    <div formArrayName="answers">
+        <div class="answer-container" *ngFor="let answer of form.controls.answers.controls; let i=index">
+            
+            <div class="answer-header">
+                Answer <span *ngIf="form.controls.answers.controls.length < 2">(required)</span>
+            </div>
 
-        <div class="input-field">
-            <input type="text" id="questions-{{model.order}}-answer-{{answer.order}}-answer" formControlName="questions[{{model.order}}].answer[{{answer.order}}].answer">
-            <label htmlFor="questions-{{model.order}}-answer-{{answer.order}}-answer">Enter here</label>
+            <div [formGroupName]="i">
+                <input type="hidden" formControlName="id">
+                <input type="hidden" formControlName="order">
+                <p>
+                    <input type="checkbox" id="questions-{{index}}-answer-{{i}}-isCorrect" formControlName="isCorrect"/>
+                    <label htmlFor="questions-{{index}}-answer-{{i}}-isCorrect">Correct</label>
+                </p>
+
+                <div class="input-field">
+                    <input type="text" id="questions-{{index}}-answer-{{i}}-answer" formControlName="answer">
+                    <label htmlFor="questions-{{index}}-answer-{{i}}-answer">Enter here</label>
+                </div>
+            </div>
+
+            <a (click)="removeAnswer(i)" *ngIf="form.controls.answers.controls.length > 2" class="btn">Delete Answer</a>
         </div>
-        <!--<a (click)="alert('hi')" [disabled]="!form.controls.questions[model.order].controls.answers.length > 2">Should be disabled</a>-->
     </div>
+    <a (click)="addAnswer()" *ngIf="form.controls.answers.controls.length < 5" class="btn">Add Answer</a>
 </div>

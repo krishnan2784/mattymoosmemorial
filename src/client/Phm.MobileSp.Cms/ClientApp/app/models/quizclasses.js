@@ -11,11 +11,16 @@ var QuizQuestion = (function (_super) {
     function QuizQuestion(options) {
         if (options === void 0) { options = {}; }
         var _this = _super.call(this, options) || this;
-        _this.answers = options['Answers'] || '';
-        _this.order = options['Order'];
-        _this.question = options['Question'];
+        _this.answers = options['Answers'];
+        _this.order = options['Order'] || 0;
+        _this.question = options['Question'] || '';
         _this.questionType = options['QuestionType'];
         _this.quizFeedId = options['QuizFeedId'];
+        if (!_this.answers) {
+            _this.answers = [];
+            _this.answers.push(new QuizQuestionAnswer());
+            _this.answers.push(new QuizQuestionAnswer());
+        }
         return _this;
     }
     return QuizQuestion;

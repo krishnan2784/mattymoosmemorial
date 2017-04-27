@@ -78,7 +78,7 @@
     <None Update="ClientApp\app\components\feed\modelforms\surveyfeeditem.component.ts">
       <DependentUpon>surveyfeeditem.component.html</DependentUpon>
     </None>
-    <None Update="ClientApp\app\models\feedformstepsclasses.js">
+    <None Update="ClientApp\app\classes\feedformstepsclasses.js">
       <DependentUpon>feedformstepsclasses.ts</DependentUpon>
     </None>
   </ItemGroup>

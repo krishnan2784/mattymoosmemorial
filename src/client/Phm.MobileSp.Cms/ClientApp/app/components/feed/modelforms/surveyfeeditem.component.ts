@@ -9,7 +9,7 @@ import * as IFeedItemComponents from "../../../interfaces/components/IFeedItemCo
 import Enums = require("../../../enums");
 import FeedTypeEnum = Enums.FeedTypeEnum;
 import Feedclasses = require("../../../models/feedclasses");
-import Feedformstepsclasses = require("../../../models/feedformstepsclasses");
+import Feedformstepsclasses = require("../../../classes/feedformstepsclasses");
 import FeedFormSteps = Feedformstepsclasses.FeedFormSteps;
 import FeedModel = require("../../../interfaces/models/IFeedModel");
 import { BasePartialItemFormComponent } from "./basepartialfeeditem.component";

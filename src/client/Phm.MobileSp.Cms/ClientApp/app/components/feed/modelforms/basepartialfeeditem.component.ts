@@ -2,7 +2,7 @@ import { Component, Injector } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import * as IFeedItemComponents from "../../../interfaces/components/IFeedItemComponents";
 import Enums = require("../../../enums");
-import Feedformstepsclasses = require("../../../models/feedformstepsclasses");
+import Feedformstepsclasses = require("../../../classes/feedformstepsclasses");
 import FeedFormSteps = Feedformstepsclasses.FeedFormSteps;
 import FeedModel = require("../../../interfaces/models/IFeedModel");
 

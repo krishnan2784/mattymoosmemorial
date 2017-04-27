@@ -11,11 +11,16 @@ export class QuizQuestion extends Baseclasses.BaseModel {
 
     constructor(options: {} = {}) {
         super(options);
-        this.answers = options['Answers'] || '';
-        this.order = options['Order'];
-        this.question = options['Question'];
+        this.answers = options['Answers'];
+        this.order = options['Order'] || 0;
+        this.question = options['Question'] || '';
         this.questionType = options['QuestionType'];
         this.quizFeedId = options['QuizFeedId'];
+        if (!this.answers) {
+            this.answers = [];
+            this.answers.push(new QuizQuestionAnswer());
+            this.answers.push(new QuizQuestionAnswer());
+        }
     }
 }
 

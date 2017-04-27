@@ -78,11 +78,15 @@ export class QuizFeed extends BaseFeed {
     constructor(options: {} = {}) {
         super(options);
         this.feedType = FeedTypeEnum.Quiz;
-        this.questions = options['questions'] || '';
+        this.questions = options['questions'];
         this.quizDescription = options['quizDescription'];
         this.onBoardingMessage = options['onBoardingMessage'];
         this.successMessage = options['successMessage'];
         this.failMessage = options['failMessage'];
+        if (!this.questions) {
+            this.questions = [];
+            this.questions.push(new Quizclasses.QuizQuestion());
+        }
     }
 }
 

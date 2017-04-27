@@ -5,3 +5,22 @@
 .answer-header {
     background-color: #DEE2EB;
 }
+
+.question-menu  { text-align: center;}
+
+.question-menu-item {
+    text-decoration: none;
+    font-size: 1.6em;
+    color: #000;
+    padding: 0 15px;
+    font-weight: 400;
+}
+
+.question-menu-item.active {
+    font-weight: 800;
+}
+
+
+.question-menu-item:not(.active) {
+    cursor: pointer;
+}

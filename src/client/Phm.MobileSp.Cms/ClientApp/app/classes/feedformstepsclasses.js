@@ -66,6 +66,12 @@ var FeedFormSteps = (function () {
         this.currentStep = this.visibleSteps.find(function (x) { return x.type === selectedStep.type; });
         setTimeout(function () {
             Materialize.updateTextFields();
+            $('.datepicker').pickadate({
+                selectMonths: true,
+                selectYears: 5,
+                format: 'dddd, dd mmm, yyyy',
+                formatSubmit: 'yyyy/mm/dd'
+            });
         }, 1);
     };
     return FeedFormSteps;

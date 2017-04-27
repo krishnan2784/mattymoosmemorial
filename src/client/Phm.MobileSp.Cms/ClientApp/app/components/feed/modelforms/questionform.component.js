@@ -12,33 +12,22 @@ var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var Enums = require("../../../enums");
 var FeedTypeEnum = Enums.FeedTypeEnum;
-var quizclasses_1 = require("../../../models/quizclasses");
-var quizclasses_2 = require("../../../models/quizclasses");
-var surveyclasses_1 = require("../../../models/surveyclasses");
-var surveyclasses_2 = require("../../../models/surveyclasses");
 var QuestionFormComponent = (function () {
     function QuestionFormComponent() {
-        if (!this.model || this.model.id === 0) {
-            switch (this.feedType) {
-                case Enums.FeedTypeEnum.Quiz:
-                    this.model = new quizclasses_1.QuizQuestion({
-                        'Order': this.index,
-                        'Answers': {
-                            0: new quizclasses_2.QuizQuestionAnswer({ 'Order': 0 }),
-                            1: new quizclasses_2.QuizQuestionAnswer({ 'Order': 1 })
-                        }
-                    });
-                case Enums.FeedTypeEnum.Survey:
-                    this.model = new surveyclasses_1.SurveyQuestion({
-                        'Order': this.index,
-                        'Answers': {
-                            0: new surveyclasses_2.SurveyQuestionAnswer({ 'Order': 0 }),
-                            1: new surveyclasses_2.SurveyQuestionAnswer({ 'Order': 1 })
-                        }
-                    });
-            }
-        }
     }
+    QuestionFormComponent.prototype.addAnswer = function () {
+        var control = this.form.controls['answers'];
+        control.push(new forms_1.FormGroup({
+            id: new forms_1.FormControl('', []),
+            answer: new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(5)]),
+            isCorrect: new forms_1.FormControl('', []),
+            order: new forms_1.FormControl('', [])
+        }));
+    };
+    QuestionFormComponent.prototype.removeAnswer = function (index) {
+        var control = this.form.controls['answers'];
+        control.removeAt(index);
+    };
     return QuestionFormComponent;
 }());
 __decorate([

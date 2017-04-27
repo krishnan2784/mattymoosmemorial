@@ -7,6 +7,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 var Enums = require("../enums");
 var FeedCategoryEnum = Enums.FeedCategoryEnum;
 var FeedTypeEnum = Enums.FeedTypeEnum;
+var Quizclasses = require("./quizclasses");
 var Baseclasses = require("./baseclasses");
 var BaseFeed = (function (_super) {
     __extends(BaseFeed, _super);
@@ -65,11 +66,15 @@ var QuizFeed = (function (_super) {
         if (options === void 0) { options = {}; }
         var _this = _super.call(this, options) || this;
         _this.feedType = FeedTypeEnum.Quiz;
-        _this.questions = options['questions'] || '';
+        _this.questions = options['questions'];
         _this.quizDescription = options['quizDescription'];
         _this.onBoardingMessage = options['onBoardingMessage'];
         _this.successMessage = options['successMessage'];
         _this.failMessage = options['failMessage'];
+        if (!_this.questions) {
+            _this.questions = [];
+            _this.questions.push(new Quizclasses.QuizQuestion());
+        }
         return _this;
     }
     return QuizFeed;
