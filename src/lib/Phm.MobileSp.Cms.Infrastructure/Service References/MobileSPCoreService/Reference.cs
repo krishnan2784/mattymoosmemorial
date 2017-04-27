@@ -33325,7 +33325,13 @@ namespace MobileSPCoreService
         {
             if ((endpointConfiguration == EndpointConfiguration.CoreServiceEndpoint))
             {
+#if AzureStaging
+
+                return new System.ServiceModel.EndpointAddress("http://mobilespapi-staging.azurewebsites.net/CoreService.svc");
+#else
                 return new System.ServiceModel.EndpointAddress("http://ccesg20.phm.co.uk/mobile/CoreService.svc");
+#endif
+
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }

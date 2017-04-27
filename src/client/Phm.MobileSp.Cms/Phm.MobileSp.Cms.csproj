@@ -16,6 +16,8 @@
     <StartupObject />
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='AzureStaging|AnyCPU'" />
+
   <ItemGroup>
     <None Update="ClientApp\dist\**\*;node_modules\**\*;Views\**\*;wwwroot\**\*">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
