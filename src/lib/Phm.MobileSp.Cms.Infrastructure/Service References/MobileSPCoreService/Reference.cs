@@ -33325,11 +33325,12 @@ namespace MobileSPCoreService
         {
             if ((endpointConfiguration == EndpointConfiguration.CoreServiceEndpoint))
             {
-#if AzureStaging
+#if DEBUG
 
-                return new System.ServiceModel.EndpointAddress("http://mobilespapi-staging.azurewebsites.net/CoreService.svc");
+               return new System.ServiceModel.EndpointAddress("http://ccesg20.phm.co.uk/mobile/CoreService.svc");
 #else
-                return new System.ServiceModel.EndpointAddress("http://ccesg20.phm.co.uk/mobile/CoreService.svc");
+                //
+                return new System.ServiceModel.EndpointAddress("http://mobilespapi-staging.azurewebsites.net/CoreService.svc");
 #endif
 
             }

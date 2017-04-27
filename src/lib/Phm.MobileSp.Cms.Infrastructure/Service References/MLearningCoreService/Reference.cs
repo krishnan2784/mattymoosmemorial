@@ -1862,11 +1862,12 @@ namespace MLearningCoreService
         {
             if ((endpointConfiguration == EndpointConfiguration.MLearningCoreServiceEndpoint))
             {
-#if AzureStaging
+#if DEBUG
 
-                return new System.ServiceModel.EndpointAddress("http://mobilespapi-staging.azurewebsites.net/MLearningCoreService.svc");
+               return new System.ServiceModel.EndpointAddress("http://ccesg20.phm.co.uk/mobile/MLearningCoreService.svc");
 #else
-                return new System.ServiceModel.EndpointAddress("http://ccesg20.phm.co.uk/mobile/MLearningCoreService.svc");
+                //
+                return new System.ServiceModel.EndpointAddress("http://mobilespapi-staging.azurewebsites.net/MLearningCoreService.svc");
 #endif
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
