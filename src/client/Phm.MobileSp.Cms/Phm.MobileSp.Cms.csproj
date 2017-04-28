@@ -15,7 +15,8 @@
     <OutputTypeEx>exe</OutputTypeEx>
     <StartupObject />
     <ApplicationInsightsResourceId>/subscriptions/6456fd80-00f6-443a-9e89-aa29282dcfa4/resourcegroups/phm-staging/providers/microsoft.insights/components/mobilesp-staging</ApplicationInsightsResourceId>
-    <ApplicationInsightsAnnotationResourceId>/subscriptions/6456fd80-00f6-443a-9e89-aa29282dcfa4/resourcegroups/phm-staging/providers/microsoft.insights/components/mobilesp-staging</ApplicationInsightsAnnotationResourceId>
+    <ApplicationInsightsAnnotationResourceId>/subscriptions/6456fd80-00f6-443a-9e89-aa29282dcfa4/resourceGroups/phm-staging/providers/microsoft.insights/components/mobilesp-staging</ApplicationInsightsAnnotationResourceId>
+    <UserSecretsId>60cc7f5b-60a1-49dd-8447-1510642117c8</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='AzureStaging|AnyCPU'" />
