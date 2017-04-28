@@ -14,6 +14,8 @@
     <ApplicationIcon />
     <OutputTypeEx>exe</OutputTypeEx>
     <StartupObject />
+    <ApplicationInsightsResourceId>/subscriptions/6456fd80-00f6-443a-9e89-aa29282dcfa4/resourcegroups/phm-staging/providers/microsoft.insights/components/mobilesp-staging</ApplicationInsightsResourceId>
+    <ApplicationInsightsAnnotationResourceId>/subscriptions/6456fd80-00f6-443a-9e89-aa29282dcfa4/resourcegroups/phm-staging/providers/microsoft.insights/components/mobilesp-staging</ApplicationInsightsAnnotationResourceId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='AzureStaging|AnyCPU'" />
@@ -26,6 +28,7 @@
 
   <ItemGroup>
     <PackageReference Include="jquery.TypeScript.DefinitelyTyped" Version="3.1.2" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.AngularServices" Version="1.1.0-beta-000002" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="1.1.1" />
@@ -77,6 +80,10 @@
     <None Update="ClientApp\app\models\feedformstepsclasses.js">
       <DependentUpon>feedformstepsclasses.ts</DependentUpon>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
 </Project>
