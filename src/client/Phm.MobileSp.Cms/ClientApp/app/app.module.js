@@ -10,6 +10,8 @@ var router_1 = require("@angular/router");
 var angular2_universal_1 = require("angular2-universal");
 var ng2_pagination_1 = require("ng2-pagination");
 var forms_1 = require("@angular/forms");
+//import { CalendarModule } from 'primeng/primeng';
+var datevalueaccessor_1 = require("./classes/datevalueaccessor");
 require("rxjs/add/observable/throw");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/debounceTime");
@@ -47,6 +49,7 @@ AppModule = __decorate([
             navmenu_component_1.NavMenuComponent,
             footer_component_1.FooterComponent,
             marketdropdown_component_1.MarketDropdown,
+            datevalueaccessor_1.DateValueAccessor,
             counter_component_1.CounterComponent,
             fetchdata_component_1.FetchDataComponent,
             home_component_1.HomeComponent,

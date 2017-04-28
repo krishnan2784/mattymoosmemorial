@@ -17,17 +17,17 @@ var BaseFeed = (function (_super) {
         _this.title = options['title'] || '';
         _this.shortDescription = options['shortDescription'] || '';
         _this.feedCategory = options['feedCategory'];
-        _this.points = options['points'] || '';
+        _this.points = options['points'] || 0;
         _this.mainIcon = options['mediaInfo'];
         _this.marketId = options['marketId'];
-        _this.allowFavourite = options['allowFavourite'];
+        _this.allowFavourite = options['allowFavourite'] || true;
         _this.corporateApp = options['corporateApp'];
         _this.legalInformation = options['legalInformation'];
         _this.makeTitleWidgetLink = options['makeTitleWidgetLink'];
         _this.permissions = options['permissions'];
-        _this.readingTime = options['readingTime'];
-        _this.startDate = options['startDate'];
-        _this.endDate = options['endDate'];
+        _this.readingTime = options['readingTime'] || 0;
+        _this.startDate = options['startDate'] || Date.now();
+        _this.endDate = options['endDate'] || Date.now() + 14;
         return _this;
     }
     return BaseFeed;

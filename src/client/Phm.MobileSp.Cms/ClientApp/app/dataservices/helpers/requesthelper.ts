@@ -57,7 +57,7 @@ export class RequestHelper {
     }
 
     public postRequestFull(url: string, object: any): Observable<ApiResponse> {
-        let headers = new Headers({ 'Content-Type': 'application/json; charset=utf-8' });
+        let headers = new Headers({ 'Content-Type': 'application/json' });
         let body = JSON.stringify(object);
 
         return Observable.create(observer => {

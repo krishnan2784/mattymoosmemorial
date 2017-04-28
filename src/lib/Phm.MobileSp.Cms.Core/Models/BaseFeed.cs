@@ -24,10 +24,10 @@ namespace MobileSP_CMS.Core.Models
         public virtual bool AllowFavourite { get; set; }
         public virtual CorporateApp CorporateApp { get; set; }
         public virtual string LegalInformation { get; set; }
-        public virtual bool MakeTitleWidgetLink { get; set; }
-        public virtual long Permissions { get; set; }
-        public virtual int ReadingTime { get; set; }
-        public virtual DateTime StartDate { get; set; }
-        public virtual DateTime EndDate { get; set; }
+        public virtual bool? MakeTitleWidgetLink { get; set; }
+        public virtual long? Permissions { get; set; }
+        public virtual int? ReadingTime { get; set; }
+        public virtual DateTime? StartDate { get; set; }
+        public virtual DateTime? EndDate { get; set; }
     }
 }

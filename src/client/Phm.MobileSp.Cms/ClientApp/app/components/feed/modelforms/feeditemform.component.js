@@ -70,8 +70,7 @@ var FeedItemForm = (function () {
             shortDescription: ['', [forms_1.Validators.required, forms_1.Validators.minLength(10)]],
             feedType: ['', [forms_1.Validators.required]],
             feedCategory: ['', [forms_1.Validators.required]],
-            points: ['', [forms_1.Validators.required]
-            ],
+            points: ['', []],
             enabled: ['', []],
             published: ['', []],
             mainIcon: ['', []],
@@ -79,8 +78,7 @@ var FeedItemForm = (function () {
             legalInformation: ['', []],
             makeTitleWidgetLink: ['', []],
             permissions: ['', []],
-            readingTime: ['', [forms_1.Validators.required
-                ]],
+            readingTime: ['', []],
             startDate: ['', []],
             endDate: ['', []]
         });
@@ -129,6 +127,7 @@ var FeedItemForm = (function () {
         this.submitted = true;
         if (!isValid)
             return;
+        feedItem = new this.subForm.feedModelType(feedItem);
         this.feedDataService.updateFeeditem(this.subForm.updateUrl, feedItem).subscribe(function (result) {
             if (result.success) {
                 _this.model = result.content;

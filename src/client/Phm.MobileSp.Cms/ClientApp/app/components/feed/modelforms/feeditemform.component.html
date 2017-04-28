@@ -173,15 +173,20 @@
             </small>
         </div>
 
-        <div class="input-field">
-            <label for="startDate">Start Date</label>
-            <input id="startDate" type="date" class="datepicker" for="startDate" formControlName="startDate">
+        <div>
+            <label>Start Date</label>
+            <input type="date" formControlName="startDate">
+        </div>
+        
+        <div>
+            <label>End Date</label>
+            <input type="date" formControlName="endDate">
         </div>
 
-        <div class="input-field">
+        <!--<div class="input-field">
             <label for="endDate">End Date</label>
-            <input id="endDate" type="date" class="datepicker" for="endDate" formControlName="endDate" [value]="model.endDate | date:'yyyy-MM-dd'">
-        </div>
+            <input id="endDate" type="date" class="datepicker" for="endDate" formControlName="endDate" useValueAsDate>
+        </div>-->
 
         <!--<p-calendar formControlName="endDate" dateFormat="DD.MM.YYYY"></p-calendar>-->
         

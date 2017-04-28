@@ -4,6 +4,7 @@ import { UniversalModule } from 'angular2-universal';
 import { Ng2PaginationModule } from 'ng2-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 //import { CalendarModule } from 'primeng/primeng';
+import { DateValueAccessor } from './classes/datevalueaccessor';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
@@ -42,6 +43,7 @@ import { QuestionFormComponent } from "./components/feed/modelforms/questionform
         NavMenuComponent,
         FooterComponent,
         MarketDropdown,
+        DateValueAccessor,
 
         CounterComponent,
         FetchDataComponent,

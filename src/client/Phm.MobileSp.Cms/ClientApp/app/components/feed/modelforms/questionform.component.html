@@ -23,7 +23,7 @@
         <div class="answer-container" *ngFor="let answer of form.controls.answers.controls; let i=index">
             
             <div class="answer-header">
-                Answer <span *ngIf="form.controls.answers.controls.length < 2">(required)</span>
+                Answer <span *ngIf="form.controls.answers.controls.length < 3">(required)</span>
             </div>
 
             <div [formGroupName]="i">
@@ -40,8 +40,8 @@
                 </div>
             </div>
 
-            <a (click)="removeAnswer(i)" *ngIf="form.controls.answers.controls.length > 2" class="btn">Delete Answer</a>
+            <a (click)="removeAnswer(i)" [class.disabled]="form.controls.answers.controls.length < 3" class="btn">Delete Answer</a>
         </div>
     </div>
-    <a (click)="addAnswer()" *ngIf="form.controls.answers.controls.length < 5" class="btn">Add Answer</a>
+    <a (click)="addAnswer()" [class.disabled]="form.controls.answers.controls.length > 4" class="btn">Add Answer</a>
 </div>

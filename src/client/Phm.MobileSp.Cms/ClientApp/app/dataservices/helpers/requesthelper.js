@@ -50,7 +50,7 @@ var RequestHelper = (function () {
     };
     RequestHelper.prototype.postRequestFull = function (url, object) {
         var _this = this;
-        var headers = new http_1.Headers({ 'Content-Type': 'application/json; charset=utf-8' });
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         var body = JSON.stringify(object);
         return Observable_1.Observable.create(function (observer) {
             _this.http.post(url, body, { headers: headers }).subscribe(function (result) {

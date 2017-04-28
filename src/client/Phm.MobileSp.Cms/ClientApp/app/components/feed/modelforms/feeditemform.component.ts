@@ -99,9 +99,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             shortDescription: ['', [<any>Validators.required, <any>Validators.minLength(10)]],
             feedType: ['', [<any>Validators.required]],
             feedCategory: ['', [<any>Validators.required]],
-            points: ['', [Validators.required]
-                // , Validators.pattern('^[0-9]*$]') // causing errors when more than one character is entered
-                ],
+            points: ['', []],
             enabled: ['', []],
             published: ['', []],
             mainIcon: ['', []],
@@ -109,9 +107,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             legalInformation: ['', []],
             makeTitleWidgetLink: ['', []],
             permissions: ['', []],
-            readingTime: ['', [<any>Validators.required
-                //, <any>Validators.pattern('^[0-9]*$')
-            ]],
+            readingTime: ['', []],
             startDate: ['', []],
             endDate: ['', []]
         });
@@ -161,6 +157,8 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
 
         if (!isValid)
             return;
+
+        feedItem = new this.subForm.feedModelType(feedItem);
 
         this.feedDataService.updateFeeditem(this.subForm.updateUrl, feedItem).subscribe(result => {
             if (result.success) {

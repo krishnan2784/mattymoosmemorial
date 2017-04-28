@@ -6,7 +6,9 @@ using Microsoft.Extensions.Caching.Memory;
 using MLearningCoreService;
 using MobileSP_CMS.Core.Models;
 using MobileSP_CMS.Helpers.Attributes;
+using MobileSP_CMS.Infrastructure;
 using MobileSP_CMS.Infrastructure.Repositories.Interfaces;
+using Newtonsoft.Json;
 
 namespace MobileSP_CMS.Controllers
 {
@@ -62,7 +64,21 @@ namespace MobileSP_CMS.Controllers
 
         [HttpPost("[action]")]
         [JsonResponseWrapper]
-        public async Task<JsonResult> UpdateTextFeedItem([FromBody]TextFeed feedItem) => await UpdateFeedItem<TextFeed, TextFeedDto>(feedItem);
+        public async Task<JsonResult> UpdateTextFeedItem([FromBody] dynamic feedItem)
+        {
+            try
+            {
+                var fo = JsonConvert.DeserializeObject(feedItem);
+                var fee = FeedMapper.MapFeedItem<dynamic, TextFeed>(fo);
+                return await UpdateFeedItem<TextFeed, TextFeedDto>(fee);
+
+            }
+            catch (Exception e)
+            {
+                
+            }
+            return null;
+        }
 
         [HttpPost("[action]")]
         [JsonResponseWrapper]
