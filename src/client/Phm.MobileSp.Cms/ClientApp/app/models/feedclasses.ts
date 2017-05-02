@@ -41,8 +41,8 @@ export class BaseFeed extends Baseclasses.BaseModel implements FeedModel.IFeedIt
         this.makeTitleWidgetLink = options['makeTitleWidgetLink'];
         this.permissions = options['permissions'];
         this.readingTime = options['readingTime'] || 0;
-        this.startDate = options['startDate'] || Date.now();
-        this.endDate = options['endDate'] || Date.now() + 14;
+        this.startDate = options['startDate']; // || Date.now();
+        this.endDate = options['endDate']; // || Date.now() + 14;
     }
 }
 
@@ -70,7 +70,7 @@ export class ImageFeed extends BaseFeed {
 }
 
 export class QuizFeed extends BaseFeed {
-    public questions: Quizclasses.QuizQuestion[];
+    public questions: Quizclasses.QuizQuestion[]; 
     public quizDescription: string;
     public onBoardingMessage: string;
     public successMessage: string;
@@ -79,10 +79,10 @@ export class QuizFeed extends BaseFeed {
         super(options);
         this.feedType = FeedTypeEnum.Quiz;
         this.questions = options['questions'];
-        this.quizDescription = options['quizDescription'];
-        this.onBoardingMessage = options['onBoardingMessage'];
-        this.successMessage = options['successMessage'];
-        this.failMessage = options['failMessage'];
+        this.quizDescription = options['quizDescription'] || '';
+        this.onBoardingMessage = options['onBoardingMessage'] || '';
+        this.successMessage = options['successMessage'] || '';
+        this.failMessage = options['failMessage'] || '';
         if (!this.questions) {
             this.questions = [];
             this.questions.push(new Quizclasses.QuizQuestion());

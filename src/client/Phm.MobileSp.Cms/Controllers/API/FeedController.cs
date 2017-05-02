@@ -61,24 +61,11 @@ namespace MobileSP_CMS.Controllers
             return Json(feedItemResponse);
         }
 
-
+        
         [HttpPost("[action]")]
         [JsonResponseWrapper]
-        public async Task<JsonResult> UpdateTextFeedItem([FromBody] dynamic feedItem)
-        {
-            try
-            {
-                var fo = JsonConvert.DeserializeObject(feedItem);
-                var fee = FeedMapper.MapFeedItem<dynamic, TextFeed>(fo);
-                return await UpdateFeedItem<TextFeed, TextFeedDto>(fee);
+        public async Task<JsonResult> UpdateTextFeedItem([FromBody]TextFeed feedItem) => await UpdateFeedItem<TextFeed, TextFeedDto>(feedItem);
 
-            }
-            catch (Exception e)
-            {
-                
-            }
-            return null;
-        }
 
         [HttpPost("[action]")]
         [JsonResponseWrapper]
@@ -92,8 +79,26 @@ namespace MobileSP_CMS.Controllers
         [JsonResponseWrapper]
         public async Task<JsonResult> UpdateQuizFeedItem([FromBody]QuizFeed feedItem) => await UpdateFeedItem<QuizFeed, QuizFeedDto>(feedItem);
         [HttpPost("[action]")]
+
         [JsonResponseWrapper]
         public async Task<JsonResult> UpdateSurveyFeedItem([FromBody]SurveyFeed feedItem) => await UpdateFeedItem<SurveyFeed, SurveyFeedDto>(feedItem);
+
+        //[JsonResponseWrapper]
+        //public async Task<JsonResult> UpdateTextFeedItem([FromBody] dynamic feedItem)
+        //{
+        //    try
+        //    {
+        //        var fo = JsonConvert.DeserializeObject(feedItem);
+        //        var fee = FeedMapper.MapFeedItem<dynamic, TextFeed>(fo);
+        //        return await UpdateFeedItem<TextFeed, TextFeedDto>(fee);
+
+        //    }
+        //    catch (Exception e)
+        //    {
+
+        //    }
+        //    return null;
+        //}
 
     }
 }

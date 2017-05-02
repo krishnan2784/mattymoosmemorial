@@ -31,9 +31,13 @@ export class QuizFeedItemFormComponent extends BasePartialItemFormComponent impl
 
     addFormControls(form: FormGroup): FormGroup {
         var formArray = new FormArray([]);
-        (new Feedclasses.QuizFeed(this.model).questions).forEach(x=> formArray.push(this.initQuestion(x)));
+        var qfiModel = new Feedclasses.QuizFeed(this.model);
+        qfiModel.questions.forEach(x=> formArray.push(this.initQuestion(x)));
         form.addControl('questions', formArray);
-        
+        form.addControl('onBoardingMessage', new FormControl(qfiModel.onBoardingMessage, [<any>Validators.required, <any>Validators.minLength(5)]));
+        form.addControl('successMessage', new FormControl(qfiModel.successMessage, [<any>Validators.required, <any>Validators.minLength(5)]));
+        form.addControl('failMessage', new FormControl(qfiModel.failMessage, [<any>Validators.required, <any>Validators.minLength(5)]));       
+       
         return form;
     };
 
@@ -47,20 +51,28 @@ export class QuizFeedItemFormComponent extends BasePartialItemFormComponent impl
         question.answers.forEach(x => formArray.push(this.initAnswer(x)));
 
         return new FormGroup({
-            id: new FormControl({value: question.id}, []),
-            order: new FormControl({ value: question.order }, []),
-            question: new FormControl(question.question, [<any>Validators.required, <any>Validators.minLength(5)]),
-            questionType: new FormControl({ value: question.questionType }, [<any>Validators.required]),
+            id: new FormControl(question.id, []),
+            quizFeedId: new FormControl(question.quizFeedId, []),
+            masterId: new FormControl(question.masterId, []),
+            order: new FormControl(question.order, []),
+            enabled: new FormControl(question.enabled, []),
+            published: new FormControl(question.published, []),
+            question: new FormControl(question.question, [<any>Validators.required]),
+            questionType: new FormControl(question.questionType, [<any>Validators.required]),
             answers: formArray
         });
     }
 
     initAnswer(answer: QuizClasses.QuizQuestionAnswer) {
         return new FormGroup({
-            id: new FormControl({ value: answer.id }, []),
-            answer: new FormControl({ value: answer.answer }, [<any>Validators.required, <any>Validators.minLength(5)]),
-            isCorrect: new FormControl({ value: answer.isCorrect }, []),
-            order: new FormControl(answer.order, [])
+            id: new FormControl(answer.id, []),
+            quizQuestionId: new FormControl(answer.quizQuestionId, []),
+            masterId: new FormControl(answer.masterId, []),
+            order: new FormControl(answer.order, []),
+            enabled: new FormControl(answer.enabled, []),
+            published: new FormControl(answer.published, []),
+            answer: new FormControl(answer.answer, [<any>Validators.required]),
+            isCorrect: new FormControl( answer.isCorrect, [])
         });
     }
 

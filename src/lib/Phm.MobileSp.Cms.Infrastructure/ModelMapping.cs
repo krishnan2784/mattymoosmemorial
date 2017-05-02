@@ -73,7 +73,7 @@ namespace MobileSP_CMS.Infrastructure
             
             foreach (var property in destinationProperties)
             {
-                if (property.GetValue(destinationModel) != null)
+                if (property.GetValue(destinationModel) != null && (!property.PropertyType.GetTypeInfo().IsClass || (property.PropertyType != typeof(string) && property.PropertyType != typeof(Guid))))
                 {
                     expression.ForMember(property.Name, opt => opt.Ignore());
                 }
@@ -121,16 +121,47 @@ namespace MobileSP_CMS.Infrastructure
             {
                 var config = new MapperConfiguration(cfg =>
                 {
-                    cfg.CreateMap<TFeedItemSource, TFeedItemDestination>()
-                        .IgnorePopulatedDestinationFields(destinationModel)
-                        .ReverseMap();
                     cfg.CreateMap<MediaInfoDto, MediaInfo>()
                             .IgnorePopulatedDestinationFields(destinationModel.MainIcon)
                             .ReverseMap();
                     cfg.CreateMap<CorporateAppDto, CorporateApp>()
                             .IgnorePopulatedDestinationFields(destinationModel.CorporateApp)
                             .ReverseMap();
+
+
+                    var quizFeedItem = destinationModel as QuizFeed;
+                    var surveyFeedItem = destinationModel as SurveyFeed;
+                    if (quizFeedItem != null)
+                    {
+                        foreach (var question in quizFeedItem.Questions){
+                            cfg.CreateMap<QuizQuestionDto, QuizQuestion>()
+                                .IgnorePopulatedDestinationFields(question)
+                                .ReverseMap();
+
+                            question.Answers.ForEach(x => cfg.CreateMap<QuizQuestionAnswerDto, QuizQuestionAnswer>()
+                                .IgnorePopulatedDestinationFields(x)
+                                .ReverseMap());
+                        }
+                    } else if (surveyFeedItem != null){
+                        foreach (var question in surveyFeedItem.Questions)
+                        {
+                            cfg.CreateMap<SurveyQuestionDto, SurveyQuestion>()
+                                .IgnorePopulatedDestinationFields(question)
+                                .ReverseMap();
+
+                            question.Answers.ForEach(x => cfg.CreateMap<SurveyQuestionAnswerDto, SurveyQuestionAnswer>()
+                                .IgnorePopulatedDestinationFields(x)
+                                .ReverseMap());
+                        }
+                    } else
+                    {
+                        
+                    }                 
+                    cfg.CreateMap<TFeedItemSource, TFeedItemDestination>()
+                            .IgnorePopulatedDestinationFields(destinationModel)
+                            .ReverseMap();
                 });
+
                 var mapper = config.CreateMapper();
                 return mapper.Map(sourceModel, destinationModel);
             }
@@ -161,7 +192,11 @@ namespace MobileSP_CMS.Infrastructure
                 cfg.CreateMap<TextFeedDto, TextFeed>().ReverseMap();
                 cfg.CreateMap<VideoFeedDto, VideoFeed>().ReverseMap();
                 cfg.CreateMap<QuizFeedDto, QuizFeed>().ReverseMap();
+                cfg.CreateMap<QuizQuestionDto, QuizQuestion>().ReverseMap();
+                cfg.CreateMap<QuizQuestionAnswerDto, QuizQuestionAnswer>().ReverseMap();
                 cfg.CreateMap<SurveyFeedDto, SurveyFeed>().ReverseMap();
+                cfg.CreateMap<SurveyQuestionDto, SurveyQuestion>().ReverseMap();
+                cfg.CreateMap<SurveyQuestionAnswerDto, SurveyQuestionAnswer>().ReverseMap();
                 cfg.CreateMap<BaseFeedDto, BaseFeed>().ReverseMap();
                 cfg.CreateMap<TSource, TDestination>().ReverseMap();
             });

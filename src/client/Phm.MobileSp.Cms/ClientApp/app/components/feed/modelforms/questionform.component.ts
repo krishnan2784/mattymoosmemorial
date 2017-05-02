@@ -32,9 +32,13 @@ export class QuestionFormComponent {
         const control = <FormArray>this.form.controls['answers'];
         control.push(new FormGroup({
             id: new FormControl('', []),
-            answer: new FormControl('', [<any>Validators.required, <any>Validators.minLength(5)]),
-            isCorrect: new FormControl('', []),
-            order: new FormControl('', [])
+            quizQuestionId: new FormControl('', []),
+            masterId: new FormControl('', []),
+            order: new FormControl('', []),
+            enabled: new FormControl(true, []),
+            published: new FormControl(false, []),
+            answer: new FormControl('', [<any>Validators.required]),
+            isCorrect: new FormControl('', [])
         }));
     }
 

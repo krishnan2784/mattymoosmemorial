@@ -19,9 +19,13 @@ var QuestionFormComponent = (function () {
         var control = this.form.controls['answers'];
         control.push(new forms_1.FormGroup({
             id: new forms_1.FormControl('', []),
+            quizQuestionId: new forms_1.FormControl('', []),
+            masterId: new forms_1.FormControl('', []),
+            order: new forms_1.FormControl('', []),
+            enabled: new forms_1.FormControl(true, []),
+            published: new forms_1.FormControl(false, []),
             answer: new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(5)]),
-            isCorrect: new forms_1.FormControl('', []),
-            order: new forms_1.FormControl('', [])
+            isCorrect: new forms_1.FormControl('', [])
         }));
     };
     QuestionFormComponent.prototype.removeAnswer = function (index) {

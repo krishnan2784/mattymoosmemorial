@@ -26,8 +26,8 @@ var BaseFeed = (function (_super) {
         _this.makeTitleWidgetLink = options['makeTitleWidgetLink'];
         _this.permissions = options['permissions'];
         _this.readingTime = options['readingTime'] || 0;
-        _this.startDate = options['startDate'] || Date.now();
-        _this.endDate = options['endDate'] || Date.now() + 14;
+        _this.startDate = options['startDate']; // || Date.now();
+        _this.endDate = options['endDate']; // || Date.now() + 14;
         return _this;
     }
     return BaseFeed;
@@ -67,10 +67,10 @@ var QuizFeed = (function (_super) {
         var _this = _super.call(this, options) || this;
         _this.feedType = FeedTypeEnum.Quiz;
         _this.questions = options['questions'];
-        _this.quizDescription = options['quizDescription'];
-        _this.onBoardingMessage = options['onBoardingMessage'];
-        _this.successMessage = options['successMessage'];
-        _this.failMessage = options['failMessage'];
+        _this.quizDescription = options['quizDescription'] || '';
+        _this.onBoardingMessage = options['onBoardingMessage'] || '';
+        _this.successMessage = options['successMessage'] || '';
+        _this.failMessage = options['failMessage'] || '';
         if (!_this.questions) {
             _this.questions = [];
             _this.questions.push(new Quizclasses.QuizQuestion());

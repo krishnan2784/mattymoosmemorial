@@ -31,8 +31,12 @@ var QuizFeedItemFormComponent = (function (_super) {
     QuizFeedItemFormComponent.prototype.addFormControls = function (form) {
         var _this = this;
         var formArray = new forms_1.FormArray([]);
-        (new Feedclasses.QuizFeed(this.model).questions).forEach(function (x) { return formArray.push(_this.initQuestion(x)); });
+        var qfiModel = new Feedclasses.QuizFeed(this.model);
+        qfiModel.questions.forEach(function (x) { return formArray.push(_this.initQuestion(x)); });
         form.addControl('questions', formArray);
+        form.addControl('onBoardingMessage', new forms_1.FormControl(qfiModel.onBoardingMessage, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
+        form.addControl('successMessage', new forms_1.FormControl(qfiModel.successMessage, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
+        form.addControl('failMessage', new forms_1.FormControl(qfiModel.failMessage, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
         return form;
     };
     ;
@@ -47,19 +51,27 @@ var QuizFeedItemFormComponent = (function (_super) {
         var formArray = new forms_1.FormArray([]);
         question.answers.forEach(function (x) { return formArray.push(_this.initAnswer(x)); });
         return new forms_1.FormGroup({
-            id: new forms_1.FormControl({ value: question.id }, []),
-            order: new forms_1.FormControl({ value: question.order }, []),
+            id: new forms_1.FormControl(question.id, []),
+            quizFeedId: new forms_1.FormControl(question.quizFeedId, []),
+            masterId: new forms_1.FormControl(question.masterId, []),
+            order: new forms_1.FormControl(question.order, []),
+            enabled: new forms_1.FormControl(question.enabled, []),
+            published: new forms_1.FormControl(question.published, []),
             question: new forms_1.FormControl(question.question, [forms_1.Validators.required, forms_1.Validators.minLength(5)]),
-            questionType: new forms_1.FormControl({ value: question.questionType }, [forms_1.Validators.required]),
+            questionType: new forms_1.FormControl(question.questionType, [forms_1.Validators.required]),
             answers: formArray
         });
     };
     QuizFeedItemFormComponent.prototype.initAnswer = function (answer) {
         return new forms_1.FormGroup({
-            id: new forms_1.FormControl({ value: answer.id }, []),
-            answer: new forms_1.FormControl({ value: answer.answer }, [forms_1.Validators.required, forms_1.Validators.minLength(5)]),
-            isCorrect: new forms_1.FormControl({ value: answer.isCorrect }, []),
-            order: new forms_1.FormControl(answer.order, [])
+            id: new forms_1.FormControl(answer.id, []),
+            quizQuestionId: new forms_1.FormControl(answer.quizQuestionId, []),
+            masterId: new forms_1.FormControl(answer.masterId, []),
+            order: new forms_1.FormControl(answer.order, []),
+            enabled: new forms_1.FormControl(answer.enabled, []),
+            published: new forms_1.FormControl(answer.published, []),
+            answer: new forms_1.FormControl(answer.answer, [forms_1.Validators.required, forms_1.Validators.minLength(5)]),
+            isCorrect: new forms_1.FormControl(answer.isCorrect, [])
         });
     };
     QuizFeedItemFormComponent.prototype.addQuestion = function (question) {

@@ -1,7 +1,11 @@
 <div [formGroup]="form" *ngIf="this.model">
     <input type="hidden" formControlName="id">
+    <input type="hidden" formControlName="quizFeedId">
+    <input type="hidden" formControlName="masterId">
     <input type="hidden" formControlName="order">
-    
+    <input type="hidden" formControlName="enabled">
+    <input type="hidden" formControlName="published">
+
     <div class="input-field">
         <input id="questions-{{index}}-question" type="text" formControlName="question">
         <label htmlFor="questions-{{index}}-question">Question</label>
@@ -28,7 +32,11 @@
 
             <div [formGroupName]="i">
                 <input type="hidden" formControlName="id">
+                <input type="hidden" formControlName="quizQuestionId">
+                <input type="hidden" formControlName="masterId">
                 <input type="hidden" formControlName="order">
+                <input type="hidden" formControlName="enabled">
+                <input type="hidden" formControlName="published">
                 <p>
                     <input type="checkbox" id="questions-{{index}}-answer-{{i}}-isCorrect" formControlName="isCorrect"/>
                     <label htmlFor="questions-{{index}}-answer-{{i}}-isCorrect">Correct</label>

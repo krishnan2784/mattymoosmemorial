@@ -20,7 +20,28 @@
     
 
     <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.QuizScore)">
-        Quiz Results
+        <div class="input-field">
+            <input id="onBoardingMessage" type="text" formControlName="onBoardingMessage">
+            <label for="onBoardingMessage">Welcome message</label>
+            <small [class.active-warning]="!form.controls.onBoardingMessage.valid && submitted">
+                e.g: Welcome to the Quiz
+            </small>
+        </div>
 
+        <div class="input-field">
+            <input id="successMessage" type="text" formControlName="successMessage">
+            <label for="successMessage">Congratulate your learners with an engaging message</label>
+            <small [class.active-warning]="!form.controls.successMessage.valid && submitted">
+                e.g: Congratulations! Your skills are improving
+            </small>
+        </div>
+
+        <div class="input-field">
+            <input id="failMessage" type="text" formControlName="failMessage">
+            <label for="failMessage">Let your learners know what with wrong with a positive message</label>
+            <small [class.active-warning]="!form.controls.failMessage.valid && submitted">
+                e.g: oooh Unlucky! You will get it next time!
+            </small>
+        </div>
     </div>
 </div>
