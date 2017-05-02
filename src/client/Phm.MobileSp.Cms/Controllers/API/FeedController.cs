@@ -29,8 +29,10 @@ namespace Phm.MobileSp.Cms.Controllers.API
             var cachedFeed = await _cache.GetOrCreateAsync(CacheKeys.FEEDITEMS, entry => _feedRepository.GetFeedItemsAsync());
             return Json(cachedFeed);
         }
+		//    <Exec Command="node node_modules/webpack/bin/webpack.js --config \\src\\client\\Phm.MobileSp.Cms\\webpack.config.vendor.js --env.prod" />
+		//    <Exec Command="node node_modules/webpack/bin/webpack.js --env.prod" />
 
-        [HttpGet("[action]")]
+		[HttpGet("[action]")]
         [JsonResponseWrapper]
         [ResponseCache(CacheProfileName = "NoCache")]
         public async Task<JsonResult> GetFeedItem(int id) 

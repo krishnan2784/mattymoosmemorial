@@ -118,8 +118,46 @@ namespace Phm.MobileSp.Cms
 			}
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                //app.UseExceptionHandler("/Home/Error");
+                app.UseErrorHandler(errorApp =>
 
+ {
+
+    // Normally you'd use MVC or similar to render a nice page.
+
+    errorApp.Run(async context =>
+
+   {
+
+         context.Response.StatusCode = 500;
+
+         context.Response.ContentType = "text/html";
+
+         await context.Response.WriteAsync("<html><body>\r\n");
+
+         await context.Response.WriteAsync("We're sorry, we encountered an un-expected issue with your application.<br>\r\n");
+
+ 
+
+         var error = context.GetFeature<IErrorHandlerFeature>();
+
+         if (error != null)
+
+         {
+
+            // This error would not normally be exposed to the client
+
+            await context.Response.WriteAsync("<br>Error1: " + HtmlEncoder.Default.HtmlEncode(error.Error.Message) + "<br>\r\n");
+
+         }
+
+         await context.Response.WriteAsync("<br><a href=\"/\">Home</a><br>\r\n");
+
+         await context.Response.WriteAsync("</body></html>\r\n");
+
+         await context.Response.WriteAsync(new string(' ', 512)); // Padding for IE
+
+    
             }
 
             app.UseStaticFiles();
