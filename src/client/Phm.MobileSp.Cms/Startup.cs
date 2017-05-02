@@ -16,6 +16,7 @@ using MLearningCoreService;
 using MobileSPCoreService;
 using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Core.Models.Interfaces;
+using Phm.MobileSp.Cms.Helpers.Attributes;
 using Phm.MobileSp.Cms.Infrastructure.Repositories;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 
@@ -43,7 +44,7 @@ namespace Phm.MobileSp.Cms
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
-            services.AddApplicationInsightsTelemetry(Configuration);
+
             services.AddMvc(options =>
             {
                 options.CacheProfiles.Add("NoCache",
@@ -52,7 +53,10 @@ namespace Phm.MobileSp.Cms
                         Location = ResponseCacheLocation.None,
                         NoStore = true
                     });
-            });
+
+                    options.Filters.Add(new AiHandleErrorAttribute());
+                   });
+            services.AddScoped<AiHandleErrorAttribute>();
 
             services.AddDistributedMemoryCache();
             
@@ -74,6 +78,7 @@ namespace Phm.MobileSp.Cms
                 options.CookieName = ".MobileSP.Session";
                 options.CookieHttpOnly = true;
             });
+            services.AddApplicationInsightsTelemetry(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -114,6 +119,7 @@ namespace Phm.MobileSp.Cms
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+
             }
 
             app.UseStaticFiles();
