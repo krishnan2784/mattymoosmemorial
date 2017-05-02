@@ -10,7 +10,7 @@ using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 namespace Phm.MobileSp.Cms.Controllers.API
 {
     [Authorize]
-    [Roußte("api/[controller]")]
+    [Route("api/[controller]")]
     [AiHandleError]
     public class FeedController : MarketController
     {
