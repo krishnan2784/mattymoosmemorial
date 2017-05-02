@@ -22,7 +22,7 @@ namespace MobileSP_CMS
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
-                .UseStartup<Startup>()
+                .UseStartup<Phm.MobileSp.Cms.Startup>()
                 .Build();
 
             host.Run();
