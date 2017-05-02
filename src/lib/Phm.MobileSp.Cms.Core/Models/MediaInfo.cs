@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MobileSP_CMS.Core.Enumerations;
+﻿using Phm.MobileSp.Cms.Core.Enumerations;
 
-namespace MobileSP_CMS.Core.Models
+namespace Phm.MobileSp.Cms.Core.Models
 {
     public class MediaInfo : BaseModel
     {

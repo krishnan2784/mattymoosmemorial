@@ -1,7 +1,7 @@
 ﻿using System;
-using MobileSP_CMS.Core.Enumerations;
+using Phm.MobileSp.Cms.Core.Enumerations;
 
-namespace MobileSP_CMS.Core.Models.Interfaces
+namespace Phm.MobileSp.Cms.Core.Models.Interfaces
 {
     public interface IBaseFeed : IBaseModel
     {

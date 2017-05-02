@@ -9,12 +9,9 @@
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
   </PropertyGroup>
-<<<<<<< HEAD
+
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='AzureStaging|AnyCPU'" />
-
-=======
->>>>>>> a69f8e5... Add Application Insights integration and rename file from JsonWrapper to JsonWrraperAttribute
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="6.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="1.1.1" />

@@ -3,14 +3,13 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
-using MobileSP_CMS.Core.Models;
-using MobileSP_CMS.Core.Models.Interfaces;
-using MobileSP_CMS.Infrastructure;
-using MobileSP_CMS.Infrastructure.Repositories.Interfaces;
-using Phm.MobileSp.Cms.Controllers;
+using Phm.MobileSp.Cms.Core.Models;
+using Phm.MobileSp.Cms.Core.Models.Interfaces;
 using Phm.MobileSp.Cms.Helpers.Attributes;
+using Phm.MobileSp.Cms.Infrastructure;
+using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 
-namespace MobileSP_CMS.Controllers
+namespace Phm.MobileSp.Cms.Controllers
 {
     [AiHandleError]
     public class AccountController : CacheController
@@ -43,7 +42,7 @@ namespace MobileSP_CMS.Controllers
         public async Task<IActionResult> Login(LoginDetails loginDetails, string returnUrl = "/home")
         {
             ViewData["ReturnUrl"] = returnUrl;
-            _userRepository.SetAuthToken(Contstants.CstAccesstoken);
+            _userRepository.SetAuthToken(Constants.CstAccesstoken);
 
             var user = await _userRepository.GetUserAsync(loginDetails);
 

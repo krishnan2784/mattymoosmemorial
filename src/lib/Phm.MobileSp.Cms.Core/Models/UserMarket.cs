@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MobileSP_CMS.Core.Models.Interfaces;
+﻿using Phm.MobileSp.Cms.Core.Models.Interfaces;
 
-namespace MobileSP_CMS.Core.Models
+namespace Phm.MobileSp.Cms.Core.Models
 {
     public class UserMarket : IUserMarket
     {

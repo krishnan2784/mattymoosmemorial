@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using AutoMapper;
 using MLearningCoreService;
-using MobileSP_CMS.Core.Models;
-using MobileSP_CMS.Core.Models.Interfaces;
+using Phm.MobileSp.Cms.Core.Models;
 
-namespace MobileSP_CMS.Infrastructure
+namespace Phm.MobileSp.Cms.Infrastructure
 {
     public class AutoMapperGenericsHelper<TSource, TDestination>
     {

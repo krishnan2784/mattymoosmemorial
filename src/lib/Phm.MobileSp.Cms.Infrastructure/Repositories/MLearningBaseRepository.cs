@@ -1,8 +1,8 @@
-﻿using MobileSP_CMS.Core.Models;
-using MobileSP_CMS.Core.Models.Interfaces;
-using MobileSP_CMS.Infrastructure.Repositories.Interfaces;
+﻿using Phm.MobileSp.Cms.Core.Models.Interfaces;
+using Phm.MobileSp.Cms.Infrastructure;
+using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 
-namespace MobileSP_CMS.Infrastructure.Repositories
+namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 {
     public abstract class MLearningBaseRepository : BaseRepository, IMLearningBaseRepository
     {

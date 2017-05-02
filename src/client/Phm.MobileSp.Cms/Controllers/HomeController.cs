@@ -1,9 +1,8 @@
-using System;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Phm.MobileSp.Cms.Helpers.Attributes;
 
-namespace MobileSP_CMS.Controllers
+namespace Phm.MobileSp.Cms.Controllers
 {
     [Authorize]
     [AiHandleError]

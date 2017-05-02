@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace MobileSP_CMS.Infrastructure
+﻿namespace Phm.MobileSp.Cms.Infrastructure
 {
-    public class Contstants
+    public class Constants
     {
         public static readonly string CstAccesstoken = "dummy";
     }

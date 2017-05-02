@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Runtime.Serialization;
-using MobileSP_CMS.Core.Enumerations;
-using MobileSP_CMS.Core.Models.Interfaces;
+using Phm.MobileSp.Cms.Core.Enumerations;
+using Phm.MobileSp.Cms.Core.Models.Interfaces;
 
-namespace MobileSP_CMS.Core.Models
+namespace Phm.MobileSp.Cms.Core.Models
 {
-    [KnownTypeAttribute(typeof(ImageFeed))]
-    [KnownTypeAttribute(typeof(TextFeed))]
-    [KnownTypeAttribute(typeof(VideoFeed))]
-    [KnownTypeAttribute(typeof(QuizFeed))]
-    [KnownTypeAttribute(typeof(SurveyFeed))]
-    [KnownTypeAttribute(typeof(CampaignFeed))]
+    [KnownType(typeof(ImageFeed))]
+    [KnownType(typeof(TextFeed))]
+    [KnownType(typeof(VideoFeed))]
+    [KnownType(typeof(QuizFeed))]
+    [KnownType(typeof(SurveyFeed))]
+    [KnownType(typeof(CampaignFeed))]
     public class BaseFeed : BaseModel, IBaseFeed
     {
         public virtual FeedCategoryEnum FeedCategory { get; set; }

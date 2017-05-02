@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -14,12 +14,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MLearningCoreService;
 using MobileSPCoreService;
-using MobileSP_CMS.Core.Models;
-using MobileSP_CMS.Core.Models.Interfaces;
-using MobileSP_CMS.Infrastructure.Repositories;
-using MobileSP_CMS.Infrastructure.Repositories.Interfaces;
+using Phm.MobileSp.Cms.Core.Models;
+using Phm.MobileSp.Cms.Core.Models.Interfaces;
+using Phm.MobileSp.Cms.Infrastructure.Repositories;
+using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 
-namespace MobileSP_CMS
+namespace Phm.MobileSp.Cms
 {
     public class Startup
     {
@@ -30,6 +30,10 @@ namespace MobileSP_CMS
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
+            if (env.IsDevelopment())
+            {
+                builder.AddApplicationInsightsSettings(developerMode: true);
+            }
             Configuration = builder.Build();
         }
 
@@ -94,7 +98,7 @@ namespace MobileSP_CMS
             {
                 if (context.Principal.Identity.IsAuthenticated)
                 {
-                    context.Principal.Identities.First().AddClaim(new Claim("now", DateTime.Now.ToString()));
+                    context.Principal.Identities.First().AddClaim(new Claim("now", DateTime.Now.ToString(CultureInfo.InvariantCulture)));
                 }
 
                 return Task.FromResult(context.Principal);
@@ -106,10 +110,6 @@ namespace MobileSP_CMS
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions {
                     HotModuleReplacement = true
                 });
-				
-					builder.AddApplicationInsightsSettings(developerMode: true);
-			
-
 			}
             else
             {

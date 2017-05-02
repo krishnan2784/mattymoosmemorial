@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MobileSP_CMS.Core.Models.Interfaces;
+using Phm.MobileSp.Cms.Core.Models.Interfaces;
 
-namespace MobileSP_CMS.Core.Models
+namespace Phm.MobileSp.Cms.Core.Models
 {
     public abstract class BaseModel : IBaseModel
     {
@@ -17,12 +13,4 @@ namespace MobileSP_CMS.Core.Models
         public virtual bool Published { get; set; }
         public virtual DateTime? UpdatedAt { get; set; }
     }
-
-    public class BaseVersionableEntity : BaseModel
-    {
-        public virtual bool IsPublishedLive { get; set; }
-        public virtual bool ValidVersion { get; set; }
-        public virtual int Version { get; set; }
-    }
-    
 }

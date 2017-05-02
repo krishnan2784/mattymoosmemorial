@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using MobileSP_CMS.Core.Models;
+using Phm.MobileSp.Cms.Core.Models;
 
 namespace Phm.MobileSp.Cms.Helpers.Attributes
 {

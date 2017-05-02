@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using MobileSP_CMS.Core.Models;
+using Phm.MobileSp.Cms.Core.Models;
 
-namespace MobileSP_CMS.Infrastructure.Repositories.Interfaces
+namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
 {
     public interface IMarketRepository : ICoreBaseRepository
     {

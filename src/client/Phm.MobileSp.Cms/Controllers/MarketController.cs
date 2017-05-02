@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Caching.Memory;
-using MobileSP_CMS.Infrastructure.Repositories.Interfaces;
 using Phm.MobileSp.Cms.Helpers.Attributes;
+using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 
 namespace Phm.MobileSp.Cms.Controllers
 {

@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Phm.MobileSp.Cms.Core.Models.Interfaces;
 
-namespace MobileSP_CMS.Core.Models.Interfaces
+namespace Phm.MobileSp.Cms.Core.Models
 {
     public class BaseRequest : IBaseRequest
     {
         public virtual string AccessToken{ get; set; }
         public virtual string CurrentCulture { get; set; }
-        public virtual string CurrentUICulture { get; set; }
+        public virtual string CurrentUiCulture { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MobileSP_CMS.Core.Models.Interfaces
+namespace Phm.MobileSp.Cms.Core.Models.Interfaces
 {
     public interface IBaseModel
     {
