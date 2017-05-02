@@ -7,9 +7,12 @@ using MobileSP_CMS.Core.Models;
 using MobileSP_CMS.Core.Models.Interfaces;
 using MobileSP_CMS.Infrastructure;
 using MobileSP_CMS.Infrastructure.Repositories.Interfaces;
+using Phm.MobileSp.Cms.Controllers;
+using Phm.MobileSp.Cms.Helpers.Attributes;
 
 namespace MobileSP_CMS.Controllers
 {
+    [AiHandleError]
     public class AccountController : CacheController
     {
         private readonly IUserRepository _userRepository;

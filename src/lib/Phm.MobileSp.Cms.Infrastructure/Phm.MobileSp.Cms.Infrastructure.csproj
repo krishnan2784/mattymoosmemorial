@@ -1,5 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
     <AssemblyName>Phm.MobileSp.Cms.Infrastructure</AssemblyName>
@@ -10,9 +9,12 @@
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
   </PropertyGroup>
+<<<<<<< HEAD
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='AzureStaging|AnyCPU'" />
 
+=======
+>>>>>>> a69f8e5... Add Application Insights integration and rename file from JsonWrapper to JsonWrraperAttribute
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="6.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="1.1.1" />
@@ -21,8 +23,8 @@
     <PackageReference Include="System.Linq" Version="4.3.0" />
     <PackageReference Include="System.Linq.Parallel" Version="4.3.0" />
     <PackageReference Include="System.Linq.Queryable" Version="4.3.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.3.0" />
   </ItemGroup>
-
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
     <PackageReference Include="System.ServiceModel.Duplex" Version="4.3.0" />
     <PackageReference Include="System.ServiceModel.Http" Version="4.3.0" />
@@ -30,13 +32,17 @@
     <PackageReference Include="System.ServiceModel.Security" Version="4.3.0" />
     <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Phm.MobileSp.Cms.Core\Phm.MobileSp.Cms.Core.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />
   </ItemGroup>
-
+  <ItemGroup>
+    <Folder Include="Logging" />
+    <Folder Include="Logging\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Logging\AiExceptionLogger.cs" />
+  </ItemGroup>
 </Project>

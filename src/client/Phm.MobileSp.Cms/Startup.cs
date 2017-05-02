@@ -39,7 +39,7 @@ namespace MobileSP_CMS
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
-
+            services.AddApplicationInsightsTelemetry(Configuration);
             services.AddMvc(options =>
             {
                 options.CacheProfiles.Add("NoCache",
@@ -106,7 +106,11 @@ namespace MobileSP_CMS
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions {
                     HotModuleReplacement = true
                 });
-            }
+				
+					builder.AddApplicationInsightsSettings(developerMode: true);
+			
+
+			}
             else
             {
                 app.UseExceptionHandler("/Home/Error");

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,14 +5,15 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using MobileSP_CMS.Core.Models;
-using MobileSP_CMS.Helpers.Attributes;
-using MobileSP_CMS.Infrastructure.Repositories;
 using MobileSP_CMS.Infrastructure.Repositories.Interfaces;
+using Phm.MobileSp.Cms.Controllers;
+using Phm.MobileSp.Cms.Helpers.Attributes;
 
 namespace MobileSP_CMS.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
+    [AiHandleError]
     public class AccountManagement : MarketController
     {
         private readonly IUserRepository _userRepository;

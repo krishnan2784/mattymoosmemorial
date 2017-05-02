@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using MobileSP_CMS.Core.Models;
 
-namespace MobileSP_CMS.Helpers.Attributes
+namespace Phm.MobileSp.Cms.Helpers.Attributes
 {
     public class JsonResponseWrapperAttribute : ActionFilterAttribute
     {
