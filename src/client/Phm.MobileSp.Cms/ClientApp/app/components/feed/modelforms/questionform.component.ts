@@ -24,21 +24,22 @@ export class QuestionFormComponent {
 
     @Input('index')
     public index: number;
-    
+    answerType: typeof Enums.QuizQuestionTypeEnum = Enums.QuizQuestionTypeEnum;
+
     constructor() {
     } 
     
     addAnswer() {
         const control = <FormArray>this.form.controls['answers'];
         control.push(new FormGroup({
-            id: new FormControl('', []),
-            quizQuestionId: new FormControl('', []),
+            id: new FormControl(0, []),
+            quizQuestionId: new FormControl(0, []),
             masterId: new FormControl('', []),
-            order: new FormControl('', []),
+            order: new FormControl(0, []),
             enabled: new FormControl(true, []),
             published: new FormControl(false, []),
             answer: new FormControl('', [<any>Validators.required]),
-            isCorrect: new FormControl('', [])
+            isCorrect: new FormControl(false, [])
         }));
     }
 

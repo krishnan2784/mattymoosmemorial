@@ -57,7 +57,7 @@ var QuizFeedItemFormComponent = (function (_super) {
             order: new forms_1.FormControl(question.order, []),
             enabled: new forms_1.FormControl(question.enabled, []),
             published: new forms_1.FormControl(question.published, []),
-            question: new forms_1.FormControl(question.question, [forms_1.Validators.required, forms_1.Validators.minLength(5)]),
+            question: new forms_1.FormControl(question.question, [forms_1.Validators.required]),
             questionType: new forms_1.FormControl(question.questionType, [forms_1.Validators.required]),
             answers: formArray
         });
@@ -70,7 +70,7 @@ var QuizFeedItemFormComponent = (function (_super) {
             order: new forms_1.FormControl(answer.order, []),
             enabled: new forms_1.FormControl(answer.enabled, []),
             published: new forms_1.FormControl(answer.published, []),
-            answer: new forms_1.FormControl(answer.answer, [forms_1.Validators.required, forms_1.Validators.minLength(5)]),
+            answer: new forms_1.FormControl(answer.answer, [forms_1.Validators.required]),
             isCorrect: new forms_1.FormControl(answer.isCorrect, [])
         });
     };

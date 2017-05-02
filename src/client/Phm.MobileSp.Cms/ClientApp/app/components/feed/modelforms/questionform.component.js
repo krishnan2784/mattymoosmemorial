@@ -14,18 +14,19 @@ var Enums = require("../../../enums");
 var FeedTypeEnum = Enums.FeedTypeEnum;
 var QuestionFormComponent = (function () {
     function QuestionFormComponent() {
+        this.answerType = Enums.QuizQuestionTypeEnum;
     }
     QuestionFormComponent.prototype.addAnswer = function () {
         var control = this.form.controls['answers'];
         control.push(new forms_1.FormGroup({
-            id: new forms_1.FormControl('', []),
-            quizQuestionId: new forms_1.FormControl('', []),
+            id: new forms_1.FormControl(0, []),
+            quizQuestionId: new forms_1.FormControl(0, []),
             masterId: new forms_1.FormControl('', []),
-            order: new forms_1.FormControl('', []),
+            order: new forms_1.FormControl(0, []),
             enabled: new forms_1.FormControl(true, []),
             published: new forms_1.FormControl(false, []),
-            answer: new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(5)]),
-            isCorrect: new forms_1.FormControl('', [])
+            answer: new forms_1.FormControl('', [forms_1.Validators.required]),
+            isCorrect: new forms_1.FormControl(false, [])
         }));
     };
     QuestionFormComponent.prototype.removeAnswer = function (index) {

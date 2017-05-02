@@ -14,12 +14,12 @@
     <div class="answer-container">
         <div class="answer-header">Answer type</div>
         <p>
-            <input type="radio" id="answer-type-1" formControlName="questionType" value="answerType.Single"/>
-            <label>Single choice</label>
+            <input type="radio" id="answer-type-1" name="questionType" formControlName="questionType" [value]="answerType.Single" [checked]="form.controls['questionType'].value === answerType.Single"/>
+            <label for="answer-type-1">Single choice</label>
         </p>
         <p>
-            <input type="radio" id="answer-type-2" formControlName="questionType" value="answerType.Multiple"/>
-            <label>Multiple choice</label>
+            <input type="radio" id="answer-type-2" name="questionType" formControlName="questionType" [value]="answerType.Multiple" [checked]="form.controls['questionType'].value === answerType.Multiple"/>
+            <label for="answer-type-2">Multiple choice</label>
         </p>
     </div>
 
