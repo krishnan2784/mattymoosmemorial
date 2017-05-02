@@ -14,7 +14,7 @@ var Enums = require("../../../enums");
 var FeedTypeEnum = Enums.FeedTypeEnum;
 var QuestionFormComponent = (function () {
     function QuestionFormComponent() {
-        this.answerType = Enums.QuizQuestionTypeEnum;
+        this.questionType = Enums.QuizQuestionTypeEnum;
     }
     QuestionFormComponent.prototype.addAnswer = function () {
         var control = this.form.controls['answers'];
@@ -32,6 +32,16 @@ var QuestionFormComponent = (function () {
     QuestionFormComponent.prototype.removeAnswer = function (index) {
         var control = this.form.controls['answers'];
         control.removeAt(index);
+    };
+    QuestionFormComponent.prototype.clearCorrect = function () {
+        //var questionType = <FormArray>this.form.controls['questionType'];
+        var answers = this.form.controls['answers'];
+        answers.controls.forEach(function (control) {
+            var dynamic = control;
+            if (dynamic.controls['isCorrect']) {
+                dynamic.controls['isCorrect'].patchValue(false, { onlySelf: true });
+            }
+        });
     };
     return QuestionFormComponent;
 }());

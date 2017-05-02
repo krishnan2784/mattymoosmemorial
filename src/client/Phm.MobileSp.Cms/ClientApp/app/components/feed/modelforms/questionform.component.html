@@ -14,11 +14,11 @@
     <div class="answer-container">
         <div class="answer-header">Answer type</div>
         <p>
-            <input type="radio" id="answer-type-1" name="questionType" formControlName="questionType" [value]="answerType.Single" [checked]="form.controls['questionType'].value === answerType.Single"/>
+            <input type="radio" id="answer-type-1" name="questionType" formControlName="questionType" [value]="questionType.Single" [checked]="form.controls['questionType'].value === questionType.Single" (click)="clearCorrect()"/>
             <label for="answer-type-1">Single choice</label>
         </p>
         <p>
-            <input type="radio" id="answer-type-2" name="questionType" formControlName="questionType" [value]="answerType.Multiple" [checked]="form.controls['questionType'].value === answerType.Multiple"/>
+            <input type="radio" id="answer-type-2" name="questionType" formControlName="questionType" [value]="questionType.Multiple" [checked]="form.controls['questionType'].value === questionType.Multiple"/>
             <label for="answer-type-2">Multiple choice</label>
         </p>
     </div>
@@ -37,9 +37,14 @@
                 <input type="hidden" formControlName="order">
                 <input type="hidden" formControlName="enabled">
                 <input type="hidden" formControlName="published">
-                <p>
-                    <input type="checkbox" id="questions-{{index}}-answer-{{i}}-isCorrect" formControlName="isCorrect"/>
+                <p *ngIf="form.controls['questionType'].value === questionType.Multiple">
+                    <input type="checkbox" id="questions-{{index}}-answer-{{i}}-isCorrect" formControlName="isCorrect" />
                     <label htmlFor="questions-{{index}}-answer-{{i}}-isCorrect">Correct</label>
+                </p>
+
+                <p *ngIf="form.controls['questionType'].value === questionType.Single">
+                    <input type="radio" id="iscorrect-{{i}}" name="isCorrect" formControlName="isCorrect" [value]="isCorrect===true" [checked]="isCorrect===true" />
+                    <label htmlFor="iscorrect-{{i}}">Correct</label>
                 </p>
 
                 <div class="input-field">

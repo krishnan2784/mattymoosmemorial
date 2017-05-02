@@ -24,7 +24,7 @@ export class QuestionFormComponent {
 
     @Input('index')
     public index: number;
-    answerType: typeof Enums.QuizQuestionTypeEnum = Enums.QuizQuestionTypeEnum;
+    questionType: typeof Enums.QuizQuestionTypeEnum = Enums.QuizQuestionTypeEnum;
 
     constructor() {
     } 
@@ -46,5 +46,16 @@ export class QuestionFormComponent {
     removeAnswer(index: number) {
         const control = <FormArray>this.form.controls['answers'];
         control.removeAt(index);
+    }
+
+    clearCorrect() {
+        //var questionType = <FormArray>this.form.controls['questionType'];
+        var answers = <FormArray>this.form.controls['answers'];
+        answers.controls.forEach((control) => {
+            var dynamic: any = control;
+            if (dynamic.controls['isCorrect']) {
+                dynamic.controls['isCorrect'].patchValue(false, { onlySelf: true });
+            }
+        });
     }
 }
