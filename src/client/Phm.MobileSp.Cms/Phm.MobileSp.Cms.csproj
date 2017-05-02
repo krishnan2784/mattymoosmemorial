@@ -50,17 +50,6 @@
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="System.Net.Http" Version="4.3.1" />
   </ItemGroup>
-  <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
-    <Exec Command="cd src" />
-    <Exec Command="cd client" />
-    <Exec Command="cd Phm.MobileSp.Cms" />
-    <Exec Command="npm install" />
-    <Exec Command="node node_modules/webpack/bin/webpack.js --config \\src\\client\\Phm.MobileSp.Cms\\webpack.config.vendor.js --env.prod" />
-    <Exec Command="node node_modules/webpack/bin/webpack.js --env.prod" />
-  </Target>
-  <Target Name="MyPostCompileTarget" AfterTargets="Publish">
-    <Exec Command="dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" />
-  </Target>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="1.0.0" />
   </ItemGroup>
