@@ -24,14 +24,12 @@ var TextFeedItemFormComponent = (function (_super) {
     function TextFeedItemFormComponent(injector) {
         return _super.call(this, injector, Feedclasses.TextFeed, '/api/Feed/UpdateTextFeedItem', FeedTypeEnum.Text) || this;
     }
-    TextFeedItemFormComponent.prototype.addFormControls = function (form) {
-        form.addControl('bodyText', new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
-        return form;
+    TextFeedItemFormComponent.prototype.addFormControls = function () {
+        this.form.addControl('bodyText', new forms_1.FormControl(this.model.bodyText, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
     };
     ;
-    TextFeedItemFormComponent.prototype.removeFormControls = function (form) {
-        form.removeControl('bodyText');
-        return form;
+    TextFeedItemFormComponent.prototype.removeFormControls = function () {
+        this.form.removeControl('bodyText');
     };
     ;
     return TextFeedItemFormComponent;

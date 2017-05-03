@@ -33,15 +33,27 @@ var QuestionFormComponent = (function () {
         var control = this.form.controls['answers'];
         control.removeAt(index);
     };
-    QuestionFormComponent.prototype.clearCorrect = function () {
-        //var questionType = <FormArray>this.form.controls['questionType'];
+    QuestionFormComponent.prototype.clearCorrect = function (index) {
+        if (index === void 0) { index = null; }
+        var dynamicIndex;
+        var updateValue = true;
         var answers = this.form.controls['answers'];
+        if (index != null) {
+            var questionType = this.form.controls['questionType'].value;
+            if (questionType === Enums.QuizQuestionTypeEnum.Multiple)
+                return;
+            dynamicIndex = answers.controls[index];
+            updateValue = dynamicIndex.controls["isCorrect"].value;
+        }
         answers.controls.forEach(function (control) {
             var dynamic = control;
             if (dynamic.controls['isCorrect']) {
                 dynamic.controls['isCorrect'].patchValue(false, { onlySelf: true });
             }
         });
+        if (index != null) {
+            dynamicIndex.controls["isCorrect"].patchValue(updateValue, { onlySelf: true });
+        }
     };
     return QuestionFormComponent;
 }());

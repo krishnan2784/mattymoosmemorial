@@ -50,14 +50,13 @@ var FeedItemForm = (function () {
     FeedItemForm.prototype.swapForm = function (newFormType, feedCategory) {
         var newForm = (new newFormType());
         if (this.form && this.subForm) {
-            this.form = this.subForm.removeFormControls(this.form);
+            this.subForm = null;
         }
         this.feedFormData = {
             feedFormComponent: newFormType,
             inputs: { form: this.form, feedFormSteps: this.feedFormSteps, model: this.model }
         };
         this.subForm = newForm;
-        this.form = this.subForm.addFormControls(this.form);
         this.model.feedType = this.subForm.feedType;
         this.model.feedCategory = feedCategory;
         this.feedFormSteps.setFormType(newForm.feedType);

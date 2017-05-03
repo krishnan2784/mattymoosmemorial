@@ -27,7 +27,7 @@
     </div>
     <div class="clear-both"></div>
 
-    <div *ngIf="!model.id && feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Category)">
+    <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Category)">
         <div class="col-md-8 no-pad">
             <div class="col-md-12 no-pad">
                 <div class="col-md-6">
@@ -36,13 +36,13 @@
                         <h5>LEARNING</h5>
                         <p>Create informal, fun learning and competition. Small modules with an optional Quiz to test engagement. Embrace competition with Leaderboards and track user's progress with Reports.</p>
                         <div class="btn-holder">
-                            <a (click)="swapForm(this.textForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Text">
+                            <a (click)="swapForm(this.textForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3 waves-effect waves-light" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Text" [class.disabled]="model.id>0">
                                 Module
                             </a>
-                            <a (click)="swapForm(this.quizForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Quiz">
+                            <a (click)="swapForm(this.quizForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3 waves-effect waves-light" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Quiz" [class.disabled]="model.id>0">
                                 Quiz
                             </a>
-                            <a (click)="swapForm(this.surveyForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Survey">
+                            <a (click)="swapForm(this.surveyForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3 waves-effect waves-light" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Survey" [class.disabled]="model.id>0">
                                 Survey
                             </a>
                         </div>
@@ -56,10 +56,10 @@
                         <h5>CAMPAIGN</h5>
                         <p>Campaign helps make your marketing strategy stronger. You will be able to add media, and additional links. Even better, get insights by sending a survey.</p>
                         <div class="btn-holder">
-                            <a (click)="swapForm(this.textForm, feedCats.Campaign)" class="btn btn-primary col-md-6 btn-2" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Text">
+                            <a (click)="swapForm(this.textForm, feedCats.Campaign)" class="btn btn-primary col-md-6 btn-2 waves-effect waves-light" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Text" [class.disabled]="model.id>0">
                                 Module
                             </a>
-                            <a (click)="swapForm(this.surveyForm, feedCats.Campaign)" class="btn btn-primary col-md-6 btn-2" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Survey">
+                            <a (click)="swapForm(this.surveyForm, feedCats.Campaign)" class="btn btn-primary col-md-6 btn-2 waves-effect waves-light" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Survey" [class.disabled]="model.id>0">
                                 Survey
                             </a>
                         </div>
@@ -75,7 +75,7 @@
                         <h5>ANNOUNCEMENT</h5>
                         <p>Announcement allows you to create content including rich media and additional links to websites and our other apps.</p>
                         <div class="btn-holder">
-                            <a (click)="swapForm(this.textForm, feedCats.Announcement)" class="btn btn-primary col-md-12" [class.active-type]="model.feedCategory == feedCats.Announcement && model.feedType == feedTypes.Text">
+                            <a (click)="swapForm(this.textForm, feedCats.Announcement)" class="btn btn-primary col-md-12 waves-effect waves-light" [class.active-type]="model.feedCategory == feedCats.Announcement && model.feedType == feedTypes.Text" [class.disabled]="model.id>0">
                                 Module
                             </a>
                         </div>
@@ -88,7 +88,7 @@
                         <h5>NEWS</h5>
                         <p>Keep everyone updated. News gives you the flexibility of using media and additional links.</p>
                         <div class="btn-holder">
-                            <a (click)="swapForm(this.textForm, feedCats.News)" class="btn btn-primary col-md-12" [class.active-type]="model.feedCategory == feedCats.News && model.feedType == feedTypes.Text">
+                            <a (click)="swapForm(this.textForm, feedCats.News)" class="btn btn-primary col-md-12 waves-effect waves-light" [class.active-type]="model.feedCategory == feedCats.News && model.feedType == feedTypes.Text" [class.disabled]="model.id>0">
                                 Module
                             </a>
                         </div>
@@ -101,7 +101,7 @@
                         <h5>ARTICLE</h5>
                         <p>Article enables you to include and image and PDF link.</p>
                         <div class="btn-holder">
-                            <a (click)="swapForm(this.textForm, feedCats.Article)" class="btn btn-primary col-md-12" [class.active-type]="model.feedCategory == feedCats.Article && model.feedType == feedTypes.Text">
+                            <a (click)="swapForm(this.textForm, feedCats.Article)" class="btn btn-primary col-md-12 waves-effect waves-light" [class.active-type]="model.feedCategory == feedCats.Article && model.feedType == feedTypes.Text" [class.disabled]="model.id>0">
                                 Module
                             </a>
                         </div>

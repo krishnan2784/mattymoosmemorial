@@ -1,19 +1,16 @@
-﻿.answer-container {
-    border: 1px #DEE2EB solid;
+﻿.question-menu {
+     text-align: center;
 }
-
-.answer-header {
-    background-color: #DEE2EB;
-}
-
-.question-menu  { text-align: center;}
 
 .question-menu-item {
     text-decoration: none;
     font-size: 1.6em;
     color: #000;
-    padding: 0 15px;
+    padding: 0 5px;
     font-weight: 200;
+    position: relative;
+    margin: 0 10px;
+    min-width: 30px;
 }
 
 .question-menu-item.active {
@@ -23,4 +20,19 @@
 
 .question-menu-item:not(.active) {
     cursor: pointer;
+}
+
+.question-menu-item .material-icons {
+    position: absolute;
+    bottom: 3px;
+    right: 0;
+}
+
+.prev-question {
+    left: 0;
+    right: initial;
+}
+
+.remove-question-container {
+    margin: 0 50px;
 }

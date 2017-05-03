@@ -19,17 +19,15 @@ import { BasePartialItemFormComponent } from "./basepartialfeeditem.component";
     template: require('./surveyfeeditem.component.html')
 })
 export class SurveyFeedItemFormComponent extends BasePartialItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
-
+    model: Feedclasses.SurveyFeed;
     constructor(injector: Injector) {
         super(injector, Feedclasses.SurveyFeed, '/api/Feed/UpdateSurveyFeedItem', FeedTypeEnum.Survey);
     } 
 
-    addFormControls(form: FormGroup): FormGroup {
-        return form;
+    addFormControls() {
     };
 
-    removeFormControls(form: FormGroup): FormGroup {
-        return form;
+    removeFormControls() {
     };
     
 }

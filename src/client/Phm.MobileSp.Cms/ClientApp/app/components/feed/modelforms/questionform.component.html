@@ -6,55 +6,51 @@
     <input type="hidden" formControlName="enabled">
     <input type="hidden" formControlName="published">
 
-    <div class="input-field">
+    <div class="input-field col-md-10 question-question-container">
         <input id="questions-{{index}}-question" type="text" formControlName="question">
         <label htmlFor="questions-{{index}}-question">Question</label>
     </div>
+    
+    <div class="question-answer-container col-md-10">
+        <div class="answer-container">
+            <div class="answer-header">Answer type</div>
+            <p class="answer-body">
+                <input type="radio" class="with-gap black" id="answer-type-1" name="questionType" formControlName="questionType" [value]="questionType.Single" [checked]="form.controls['questionType'].value === questionType.Single" (click)="clearCorrect()" />
+                <label for="answer-type-1">Single choice</label>
 
-    <div class="answer-container">
-        <div class="answer-header">Answer type</div>
-        <p>
-            <input type="radio" id="answer-type-1" name="questionType" formControlName="questionType" [value]="questionType.Single" [checked]="form.controls['questionType'].value === questionType.Single" (click)="clearCorrect()"/>
-            <label for="answer-type-1">Single choice</label>
-        </p>
-        <p>
-            <input type="radio" id="answer-type-2" name="questionType" formControlName="questionType" [value]="questionType.Multiple" [checked]="form.controls['questionType'].value === questionType.Multiple"/>
-            <label for="answer-type-2">Multiple choice</label>
-        </p>
-    </div>
+                <input type="radio" class="with-gap" id="answer-type-2" name="questionType" formControlName="questionType" [value]="questionType.Multiple" [checked]="form.controls['questionType'].value === questionType.Multiple" (click)="clearCorrect()" />
+                <label for="answer-type-2">Multiple choice</label>
+            </p>
+        </div>
 
-    <div formArrayName="answers">
-        <div class="answer-container" *ngFor="let answer of form.controls.answers.controls; let i=index">
-            
-            <div class="answer-header">
-                Answer <span *ngIf="form.controls.answers.controls.length < 3">(required)</span>
-            </div>
+        <div formArrayName="answers">
+            <div class="answer-container" *ngFor="let answer of form.controls.answers.controls; let i=index">
 
-            <div [formGroupName]="i">
-                <input type="hidden" formControlName="id">
-                <input type="hidden" formControlName="quizQuestionId">
-                <input type="hidden" formControlName="masterId">
-                <input type="hidden" formControlName="order">
-                <input type="hidden" formControlName="enabled">
-                <input type="hidden" formControlName="published">
-                <p *ngIf="form.controls['questionType'].value === questionType.Multiple">
-                    <input type="checkbox" id="questions-{{index}}-answer-{{i}}-isCorrect" formControlName="isCorrect" />
-                    <label htmlFor="questions-{{index}}-answer-{{i}}-isCorrect">Correct</label>
-                </p>
+                <div class="answer-header">
+                    Answer <span *ngIf="form.controls.answers.controls.length < 3">(required)</span>
+                </div>
 
-                <p *ngIf="form.controls['questionType'].value === questionType.Single">
-                    <input type="radio" id="iscorrect-{{i}}" name="isCorrect" formControlName="isCorrect" [value]="isCorrect===true" [checked]="isCorrect===true" />
-                    <label htmlFor="iscorrect-{{i}}">Correct</label>
-                </p>
+                <div [formGroupName]="i" class="answer-body">
+                    <input type="hidden" formControlName="id">
+                    <input type="hidden" formControlName="quizQuestionId">
+                    <input type="hidden" formControlName="masterId">
+                    <input type="hidden" formControlName="order">
+                    <input type="hidden" formControlName="enabled">
+                    <input type="hidden" formControlName="published">
+                    <div class="iscorrect-container col-md-3">
+                        <input type="checkbox" class="filled-in" id="questions-{{index}}-answer-{{i}}-isCorrect" formControlName="isCorrect" (click)="clearCorrect(i)" />
+                        <label htmlFor="questions-{{index}}-answer-{{i}}-isCorrect">Correct</label>
+                    </div>
 
-                <div class="input-field">
-                    <input type="text" id="questions-{{index}}-answer-{{i}}-answer" formControlName="answer">
-                    <label htmlFor="questions-{{index}}-answer-{{i}}-answer">Enter here</label>
+                    <div class="answer-answer-container input-field col-md-9">
+                        <input type="text" id="questions-{{index}}-answer-{{i}}-answer" formControlName="answer">
+                        <label htmlFor="questions-{{index}}-answer-{{i}}-answer">Enter here</label>
+                    </div>
+                    <a (click)="removeAnswer(i)" [class.disabled]="form.controls.answers.controls.length < 3" class="btn">Delete Answer</a>
                 </div>
             </div>
-
-            <a (click)="removeAnswer(i)" [class.disabled]="form.controls.answers.controls.length < 3" class="btn">Delete Answer</a>
         </div>
+        <a (click)="addAnswer()" [class.disabled]="form.controls.answers.controls.length > 4" class="btn btn-add-answer">Add Answer</a> 
     </div>
-    <a (click)="addAnswer()" [class.disabled]="form.controls.answers.controls.length > 4" class="btn">Add Answer</a>
+    <div class="clearfix"></div>
 </div>

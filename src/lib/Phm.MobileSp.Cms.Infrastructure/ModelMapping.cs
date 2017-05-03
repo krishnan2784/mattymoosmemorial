@@ -73,7 +73,7 @@ namespace MobileSP_CMS.Infrastructure
             
             foreach (var property in destinationProperties)
             {
-                if (property.GetValue(destinationModel) != null && (!property.PropertyType.GetTypeInfo().IsClass || (property.PropertyType != typeof(string) && property.PropertyType != typeof(Guid))))
+                if (property.GetValue(destinationModel) != null || (property.PropertyType.GetTypeInfo().IsClass && (property.PropertyType != typeof(string) && property.PropertyType != typeof(Guid))))
                 {
                     expression.ForMember(property.Name, opt => opt.Ignore());
                 }

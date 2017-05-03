@@ -19,19 +19,18 @@ import { BasePartialItemFormComponent } from "./basepartialfeeditem.component";
     template: require('./textfeeditem.component.html')
 })
 export class TextFeedItemFormComponent extends BasePartialItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
+    model: Feedclasses.TextFeed;
 
     constructor(injector: Injector) {
         super(injector, Feedclasses.TextFeed, '/api/Feed/UpdateTextFeedItem', FeedTypeEnum.Text);
     } 
 
-    addFormControls(form: FormGroup): FormGroup {
-        form.addControl('bodyText', new FormControl('', [<any>Validators.required, <any>Validators.minLength(5)]));
-        return form;
+    addFormControls() {
+        this.form.addControl('bodyText', new FormControl(this.model.bodyText, [<any>Validators.required, <any>Validators.minLength(5)]));
     };
 
-    removeFormControls(form: FormGroup): FormGroup {
-        form.removeControl('bodyText');
-        return form;
+    removeFormControls() {
+        this.form.removeControl('bodyText');
     };
     
 }

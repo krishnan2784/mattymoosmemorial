@@ -1,18 +1,22 @@
 <div [formGroup]="form">
     <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.QuizQuestions)">
-        <div class="question-menu">
-            <a *ngIf="currentQuestion>0" (click)="displayQuestion(currentQuestion-1)" class="question-menu-item">Previous</a>
+        <div class="question-menu col-md-10">
+            <a [class.invisible]="currentQuestion<=0" (click)="displayQuestion(currentQuestion-1)" class="question-menu-item prev-question"><i class="material-icons">keyboard_arrow_left</i></a>
             <a *ngFor="let question of form.controls.questions.controls; let i=index" [class.active]="currentQuestion===i" (click)="displayQuestion(i)" class="question-menu-item">{{i+1}}</a>
-            <a *ngIf="currentQuestion < (form.controls.questions.controls.length-1)" (click)="displayQuestion(currentQuestion+1)" class="question-menu-item">Next</a>
+            <a [class.invisible]="currentQuestion >= (form.controls.questions.controls.length-1)" (click)="displayQuestion(currentQuestion+1)" class="question-menu-item"><i class="material-icons">keyboard_arrow_right</i></a>
 
-            <a (click)="addQuestion()" class="question-menu-item" *ngIf="form.controls.questions.controls.length < 20">Add</a>          
+            <a (click)="addQuestion()" class="question-menu-item" *ngIf="form.controls.questions.controls.length < 20"><i class="material-icons">add</i></a>      
+            <div class="clearfix"></div>
         </div>
 
         <div formArrayName="questions">
             <div *ngFor="let question of form.controls.questions.controls; let i=index">
                 <div *ngIf="currentQuestion===i">
                     <question [form]="form.controls.questions.controls[i]" [feedType]="feedType" [index]="i" [model]="question"></question>
-                    <a (click)="removeQuestion(i)" *ngIf="form.controls.questions.controls.length > 1" class="btn">Delete Question</a>                    
+                    <div class="col-md-10 remove-question-container">
+                        <hr />
+                        <a (click)="removeQuestion(i)" [class.disabled]="form.controls.questions.controls.length <= 1" class="btn">Delete Question</a>                           
+                    </div>
                 </div>
             </div>
         </div>

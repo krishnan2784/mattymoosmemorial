@@ -1,4 +1,4 @@
-import { Component, Injector } from '@angular/core';
+import { Component, Injector, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import * as IFeedItemComponents from "../../../interfaces/components/IFeedItemComponents";
 import Enums = require("../../../enums");
@@ -10,7 +10,7 @@ import FeedModel = require("../../../interfaces/models/IFeedModel");
     selector: 'textfeeditem',
     template: require('./textfeeditem.component.html')
 })
-export class BasePartialItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
+export class BasePartialItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm, OnInit, OnDestroy {
     public form: FormGroup;
     public feedFormSteps: FeedFormSteps;
     public model: FeedModel.IFeedItem;
@@ -24,12 +24,20 @@ export class BasePartialItemFormComponent implements IFeedItemComponents.IFeedIt
         }
     } 
 
-    addFormControls(form: FormGroup): FormGroup {
-        return form;
+
+    ngOnInit(): void {
+        this.model = new this.feedModelType(this.model);
+        this.addFormControls();
+    }
+
+    ngOnDestroy(): void {
+        this.removeFormControls();
+    }
+
+    addFormControls() {
     };
 
-    removeFormControls(form: FormGroup): FormGroup {
-        return form;
+    removeFormControls() {
     };
     
 }

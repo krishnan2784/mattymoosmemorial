@@ -23,12 +23,10 @@ var SurveyFeedItemFormComponent = (function (_super) {
     function SurveyFeedItemFormComponent(injector) {
         return _super.call(this, injector, Feedclasses.SurveyFeed, '/api/Feed/UpdateSurveyFeedItem', FeedTypeEnum.Survey) || this;
     }
-    SurveyFeedItemFormComponent.prototype.addFormControls = function (form) {
-        return form;
+    SurveyFeedItemFormComponent.prototype.addFormControls = function () {
     };
     ;
-    SurveyFeedItemFormComponent.prototype.removeFormControls = function (form) {
-        return form;
+    SurveyFeedItemFormComponent.prototype.removeFormControls = function () {
     };
     ;
     return SurveyFeedItemFormComponent;

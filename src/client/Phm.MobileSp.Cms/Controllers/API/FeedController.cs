@@ -84,13 +84,11 @@ namespace MobileSP_CMS.Controllers
         public async Task<JsonResult> UpdateSurveyFeedItem([FromBody]SurveyFeed feedItem) => await UpdateFeedItem<SurveyFeed, SurveyFeedDto>(feedItem);
 
         //[JsonResponseWrapper]
-        //public async Task<JsonResult> UpdateTextFeedItem([FromBody] dynamic feedItem)
+        //public async Task<JsonResult> UpdateTextFeedItem([FromBody] JToken feedItem)
         //{
         //    try
         //    {
-        //        var fo = JsonConvert.DeserializeObject(feedItem);
-        //        var fee = FeedMapper.MapFeedItem<dynamic, TextFeed>(fo);
-        //        return await UpdateFeedItem<TextFeed, TextFeedDto>(fee);
+        //        return await UpdateFeedItem<TextFeed, TextFeedDto>(feedItem.ToObject<TextFeed>());
 
         //    }
         //    catch (Exception e)

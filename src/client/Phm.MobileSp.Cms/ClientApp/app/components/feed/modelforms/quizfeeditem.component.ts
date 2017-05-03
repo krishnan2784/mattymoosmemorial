@@ -1,4 +1,4 @@
-import { Component, Input, Injector } from '@angular/core';
+import { Component, Input, Injector, OnInit, OnDestroy } from '@angular/core';
 import { Http } from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import { FormGroup, FormControl, FormBuilder, FormArray, Validators } from '@angular/forms'
@@ -23,27 +23,25 @@ declare var Materialize: any;
     styles: [require('./quizfeeditem.component.css')],
 })
 export class QuizFeedItemFormComponent extends BasePartialItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
+    model: Feedclasses.QuizFeed;
+
     answerType: typeof Enums.QuizQuestionTypeEnum = Enums.QuizQuestionTypeEnum;
     public currentQuestion:number = 0;
     constructor(injector: Injector) {
         super(injector, Feedclasses.QuizFeed, '/api/Feed/UpdateQuizFeedItem', FeedTypeEnum.Quiz);
-    } 
+    }
 
-    addFormControls(form: FormGroup): FormGroup {
+    addFormControls() {
         var formArray = new FormArray([]);
-        var qfiModel = new Feedclasses.QuizFeed(this.model);
-        qfiModel.questions.forEach(x=> formArray.push(this.initQuestion(x)));
-        form.addControl('questions', formArray);
-        form.addControl('onBoardingMessage', new FormControl(qfiModel.onBoardingMessage, [<any>Validators.required, <any>Validators.minLength(5)]));
-        form.addControl('successMessage', new FormControl(qfiModel.successMessage, [<any>Validators.required, <any>Validators.minLength(5)]));
-        form.addControl('failMessage', new FormControl(qfiModel.failMessage, [<any>Validators.required, <any>Validators.minLength(5)]));       
-       
-        return form;
+        this.model.questions.forEach(x=> formArray.push(this.initQuestion(x)));
+        this.form.addControl('questions', formArray);
+        this.form.addControl('onBoardingMessage', new FormControl(this.model.onBoardingMessage, [<any>Validators.required, <any>Validators.minLength(5)]));
+        this.form.addControl('successMessage', new FormControl(this.model.successMessage, [<any>Validators.required, <any>Validators.minLength(5)]));
+        this.form.addControl('failMessage', new FormControl(this.model.failMessage, [<any>Validators.required, <any>Validators.minLength(5)]));       
     };
 
-    removeFormControls(form: FormGroup): FormGroup {
-        form.removeControl('questions');
-        return form;
+    removeFormControls() {
+        this.form.removeControl('questions');
     };
 
     initQuestion(question: QuizClasses.QuizQuestion = new QuizClasses.QuizQuestion()) {

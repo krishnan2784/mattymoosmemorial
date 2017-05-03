@@ -48,14 +48,27 @@ export class QuestionFormComponent {
         control.removeAt(index);
     }
 
-    clearCorrect() {
-        //var questionType = <FormArray>this.form.controls['questionType'];
+    clearCorrect(index: number = null) {
+        var dynamicIndex: any;
+        var updateValue = true;
         var answers = <FormArray>this.form.controls['answers'];
+
+        if (index!=null) {
+            var questionType = this.form.controls['questionType'].value;
+            if (questionType === Enums.QuizQuestionTypeEnum.Multiple)
+                return;  
+
+            dynamicIndex = answers.controls[index];
+            updateValue = dynamicIndex.controls["isCorrect"].value;
+        }
         answers.controls.forEach((control) => {
             var dynamic: any = control;
             if (dynamic.controls['isCorrect']) {
                 dynamic.controls['isCorrect'].patchValue(false, { onlySelf: true });
             }
         });
+        if (index!=null) {
+            dynamicIndex.controls["isCorrect"].patchValue(updateValue, { onlySelf: true });
+        }
     }
 }

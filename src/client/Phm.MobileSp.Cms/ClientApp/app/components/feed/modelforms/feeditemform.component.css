@@ -40,8 +40,9 @@
 
 
 .feed-cat-container a.active-type {
-    background: #435363;
-    color: #EEEEEF;
+    background-color: #435363!important;
+    color: #EEEEEF!important;
+    opacity: 1 !important;
 }
 
 

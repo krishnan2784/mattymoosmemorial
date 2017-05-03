@@ -28,21 +28,18 @@ var QuizFeedItemFormComponent = (function (_super) {
         _this.currentQuestion = 0;
         return _this;
     }
-    QuizFeedItemFormComponent.prototype.addFormControls = function (form) {
+    QuizFeedItemFormComponent.prototype.addFormControls = function () {
         var _this = this;
         var formArray = new forms_1.FormArray([]);
-        var qfiModel = new Feedclasses.QuizFeed(this.model);
-        qfiModel.questions.forEach(function (x) { return formArray.push(_this.initQuestion(x)); });
-        form.addControl('questions', formArray);
-        form.addControl('onBoardingMessage', new forms_1.FormControl(qfiModel.onBoardingMessage, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
-        form.addControl('successMessage', new forms_1.FormControl(qfiModel.successMessage, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
-        form.addControl('failMessage', new forms_1.FormControl(qfiModel.failMessage, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
-        return form;
+        this.model.questions.forEach(function (x) { return formArray.push(_this.initQuestion(x)); });
+        this.form.addControl('questions', formArray);
+        this.form.addControl('onBoardingMessage', new forms_1.FormControl(this.model.onBoardingMessage, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
+        this.form.addControl('successMessage', new forms_1.FormControl(this.model.successMessage, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
+        this.form.addControl('failMessage', new forms_1.FormControl(this.model.failMessage, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
     };
     ;
-    QuizFeedItemFormComponent.prototype.removeFormControls = function (form) {
-        form.removeControl('questions');
-        return form;
+    QuizFeedItemFormComponent.prototype.removeFormControls = function () {
+        this.form.removeControl('questions');
     };
     ;
     QuizFeedItemFormComponent.prototype.initQuestion = function (question) {

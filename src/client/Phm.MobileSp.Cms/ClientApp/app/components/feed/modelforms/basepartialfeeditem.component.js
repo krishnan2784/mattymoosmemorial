@@ -22,12 +22,17 @@ var BasePartialItemFormComponent = (function () {
             this.feedFormSteps = injector.get('feedFormSteps');
         }
     }
-    BasePartialItemFormComponent.prototype.addFormControls = function (form) {
-        return form;
+    BasePartialItemFormComponent.prototype.ngOnInit = function () {
+        this.model = new this.feedModelType(this.model);
+        this.addFormControls();
+    };
+    BasePartialItemFormComponent.prototype.ngOnDestroy = function () {
+        this.removeFormControls();
+    };
+    BasePartialItemFormComponent.prototype.addFormControls = function () {
     };
     ;
-    BasePartialItemFormComponent.prototype.removeFormControls = function (form) {
-        return form;
+    BasePartialItemFormComponent.prototype.removeFormControls = function () {
     };
     ;
     return BasePartialItemFormComponent;
