@@ -120,6 +120,7 @@ namespace Phm.MobileSp.Cms
             {
                 //app.UseExceptionHandler("/Home/Error");
 				app.UseDeveloperExceptionPage();
+                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions { ConfigFile = "webpack.config.js", HotModuleReplacement = true });
             }
 
             app.UseStaticFiles();
