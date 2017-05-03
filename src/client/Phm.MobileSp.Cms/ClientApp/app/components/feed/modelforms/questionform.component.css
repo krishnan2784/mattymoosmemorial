@@ -7,8 +7,8 @@
     margin: 10px 15px;
 }
 
-.answer-container input[type=radio] {
-    margin-right: 10px;
+.question-type-sector {
+    margin-right: 100px;
 }
 
 .answer-header {

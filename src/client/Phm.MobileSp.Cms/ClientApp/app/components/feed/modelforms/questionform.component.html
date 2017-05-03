@@ -15,11 +15,15 @@
         <div class="answer-container">
             <div class="answer-header">Answer type</div>
             <p class="answer-body">
-                <input type="radio" class="with-gap black" id="answer-type-1" name="questionType" formControlName="questionType" [value]="questionType.Single" [checked]="form.controls['questionType'].value === questionType.Single" (click)="clearCorrect()" />
-                <label for="answer-type-1">Single choice</label>
+                <span class="question-type-sector">
+                    <input type="radio" class="with-gap black" id="answer-type-1" name="questionType" formControlName="questionType" [value]="questionType.Single" [checked]="form.controls['questionType'].value === questionType.Single" (click)="clearCorrect()" />
+                    <label for="answer-type-1">Single choice</label>
+                </span>
+                <span class="question-type-sector">
+                    <input type="radio" class="with-gap" id="answer-type-2" name="questionType" formControlName="questionType" [value]="questionType.Multiple" [checked]="form.controls['questionType'].value === questionType.Multiple" (click)="clearCorrect()" />
+                    <label for="answer-type-2">Multiple choice</label>
+                </span>
 
-                <input type="radio" class="with-gap" id="answer-type-2" name="questionType" formControlName="questionType" [value]="questionType.Multiple" [checked]="form.controls['questionType'].value === questionType.Multiple" (click)="clearCorrect()" />
-                <label for="answer-type-2">Multiple choice</label>
             </p>
         </div>
 
