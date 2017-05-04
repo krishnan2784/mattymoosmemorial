@@ -1,0 +1,37 @@
+﻿.answer-container {
+    border: 1px #DEE2EB solid;
+    margin: 5px 50px;
+}
+
+.answer-body .btn {
+    margin: 10px 15px;
+}
+
+.question-type-sector {
+    margin-right: 100px;
+}
+
+.answer-header {
+    background-color: #DEE2EB;
+    padding: 5px 10px;
+}
+
+.answer-body {
+    padding:5px;
+}
+
+.iscorrect-container {
+    margin-top: 30px;
+}
+
+.question-question-container {
+    margin-left: 15px;
+}
+
+.question-question-container, .answer-answer-container {
+    padding-left: 0;
+}
+
+.btn-add-answer {
+    margin: 10px 0 10px 50px;
+}

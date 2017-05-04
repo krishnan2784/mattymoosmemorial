@@ -1,4 +1,9 @@
 "use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -13,29 +18,22 @@ var forms_1 = require("@angular/forms");
 var Enums = require("../../../enums");
 var FeedTypeEnum = Enums.FeedTypeEnum;
 var Feedclasses = require("../../../models/feedclasses");
-var TextFeedItemFormComponent = (function () {
+var basepartialfeeditem_component_1 = require("./basepartialfeeditem.component");
+var TextFeedItemFormComponent = (function (_super) {
+    __extends(TextFeedItemFormComponent, _super);
     function TextFeedItemFormComponent(injector) {
-        this.injector = injector;
-        this.updateUrl = '/api/Feed/UpdateTextFeedItem';
-        this.feedType = FeedTypeEnum.Text;
-        if (injector) {
-            this.form = injector.get('form');
-            this.feedFormSteps = injector.get('feedFormSteps');
-        }
-        this.feedModelType = Feedclasses.TextFeed;
+        return _super.call(this, injector, Feedclasses.TextFeed, '/api/Feed/UpdateTextFeedItem', FeedTypeEnum.Text) || this;
     }
-    TextFeedItemFormComponent.prototype.addFormControls = function (form) {
-        form.addControl('bodyText', new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
-        return form;
+    TextFeedItemFormComponent.prototype.addFormControls = function () {
+        this.form.addControl('bodyText', new forms_1.FormControl(this.model.bodyText, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
     };
     ;
-    TextFeedItemFormComponent.prototype.removeFormControls = function (form) {
-        form.removeControl('bodyText');
-        return form;
+    TextFeedItemFormComponent.prototype.removeFormControls = function () {
+        this.form.removeControl('bodyText');
     };
     ;
     return TextFeedItemFormComponent;
-}());
+}(basepartialfeeditem_component_1.BasePartialItemFormComponent));
 TextFeedItemFormComponent = __decorate([
     core_1.Component({
         selector: 'textfeeditem',

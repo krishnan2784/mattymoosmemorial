@@ -12,7 +12,7 @@ import FeedItem = FeedModel.IFeedItem;
 import Enums = require("../../../enums");
 import FeedCategoryEnum = Enums.FeedCategoryEnum;
 import Feedclasses = require("../../../models/feedclasses");
-import Feedformstepsclasses = require("../../../models/feedformstepsclasses");
+import Feedformstepsclasses = require("../../../classes/feedformstepsclasses");
 import FeedFormSteps = Feedformstepsclasses.FeedFormSteps;
 import FeedFormStepType = Feedformstepsclasses.FeedFormStepType;
 import Quizfeeditemcomponent = require("./quizfeeditem.component");
@@ -20,6 +20,7 @@ import QuizFeedItemFormComponent = Quizfeeditemcomponent.QuizFeedItemFormCompone
 import Surveyfeeditemcomponent = require("./surveyfeeditem.component");
 import SurveyFeedItemFormComponent = Surveyfeeditemcomponent.SurveyFeedItemFormComponent;
 declare var $: any;
+declare var Materialize: any;
 
 @Component({
     selector: 'feeditemform',
@@ -74,20 +75,20 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         let newForm = (new newFormType()) as IFeedItemComponents.IFeedItemPartialForm;
 
         if (this.form && this.subForm) {
-            this.form = this.subForm.removeFormControls(this.form);
+            this.subForm = null;
         }
 
         this.feedFormData = {
             feedFormComponent: newFormType,
-            inputs: { form: this.form, feedFormSteps: this.feedFormSteps }
+            inputs: { form: this.form, feedFormSteps: this.feedFormSteps, model: this.model }
         };
 
         this.subForm = newForm;
-        this.form = this.subForm.addFormControls(this.form);
         this.model.feedType = this.subForm.feedType;
         this.model.feedCategory = feedCategory;
         this.feedFormSteps.setFormType(newForm.feedType);
-        //this.updateForm();
+        this.updateForm();
+     
     }
 
     public initialiseForm() {
@@ -97,7 +98,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             shortDescription: ['', [<any>Validators.required, <any>Validators.minLength(10)]],
             feedType: ['', [<any>Validators.required]],
             feedCategory: ['', [<any>Validators.required]],
-            points: ['', [<any>Validators.required]],
+            points: ['', []],
             enabled: ['', []],
             published: ['', []],
             mainIcon: ['', []],
@@ -128,15 +129,25 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     };
 
     updateForm() {
-        if (this.model)
+        if (this.model && this.model.id > 0) {
             (this.form).patchValue(this.model, { onlySelf: true });
+            setTimeout(function () {
+                Materialize.updateTextFields();
+            }, 10);  
+        } else {
+            this.form.controls['feedType'].patchValue(this.model.feedType, { onlySelf: true });
+            this.form.controls['feedCategory'].patchValue(this.model.feedCategory, { onlySelf: true });
+        }
     }
 
     getFeedType(feedType: Enums.FeedTypeEnum) : any {
         switch (feedType) {
-            case Enums.FeedTypeEnum.Text:
+            case Enums.FeedTypeEnum.Quiz:
+                return QuizFeedItemFormComponent;
+            case Enums.FeedTypeEnum.Survey:
+                return SurveyFeedItemFormComponent;
+            default:
                 return TextFeedItemFormComponent;
-        default:
         }
     }
 
@@ -145,6 +156,8 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
 
         if (!isValid)
             return;
+
+        feedItem = new this.subForm.feedModelType(feedItem);
 
         this.feedDataService.updateFeeditem(this.subForm.updateUrl, feedItem).subscribe(result => {
             if (result.success) {

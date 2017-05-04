@@ -16,7 +16,7 @@
     
     <div class="feed-item-form-buttons">
         <a (click)="goBack()" class="btn btn-primary">Cancel</a>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Submit</button>
     </div>
     <div class="clear-both"></div>
     <div class="feed-form-navigation col-md-8">
@@ -27,7 +27,7 @@
     </div>
     <div class="clear-both"></div>
 
-    <div *ngIf="!model.id && feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Category)">
+    <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Category)">
         <div class="col-md-8 no-pad">
             <div class="col-md-12 no-pad">
                 <div class="col-md-6">
@@ -36,13 +36,13 @@
                         <h5>LEARNING</h5>
                         <p>Create informal, fun learning and competition. Small modules with an optional Quiz to test engagement. Embrace competition with Leaderboards and track user's progress with Reports.</p>
                         <div class="btn-holder">
-                            <a (click)="swapForm(this.textForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Text">
+                            <a (click)="swapForm(this.textForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3 waves-effect waves-light" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Text" [class.disabled]="model.id>0">
                                 Module
                             </a>
-                            <a (click)="swapForm(this.quizForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Quiz">
+                            <a (click)="swapForm(this.quizForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3 waves-effect waves-light" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Quiz" [class.disabled]="model.id>0">
                                 Quiz
                             </a>
-                            <a (click)="swapForm(this.surveyForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Survey">
+                            <a (click)="swapForm(this.surveyForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3 waves-effect waves-light" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Survey" [class.disabled]="model.id>0">
                                 Survey
                             </a>
                         </div>
@@ -56,10 +56,10 @@
                         <h5>CAMPAIGN</h5>
                         <p>Campaign helps make your marketing strategy stronger. You will be able to add media, and additional links. Even better, get insights by sending a survey.</p>
                         <div class="btn-holder">
-                            <a (click)="swapForm(this.textForm, feedCats.Campaign)" class="btn btn-primary col-md-6 btn-2" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Text">
+                            <a (click)="swapForm(this.textForm, feedCats.Campaign)" class="btn btn-primary col-md-6 btn-2 waves-effect waves-light" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Text" [class.disabled]="model.id>0">
                                 Module
                             </a>
-                            <a (click)="swapForm(this.surveyForm, feedCats.Campaign)" class="btn btn-primary col-md-6 btn-2" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Survey">
+                            <a (click)="swapForm(this.surveyForm, feedCats.Campaign)" class="btn btn-primary col-md-6 btn-2 waves-effect waves-light" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Survey" [class.disabled]="model.id>0">
                                 Survey
                             </a>
                         </div>
@@ -75,7 +75,7 @@
                         <h5>ANNOUNCEMENT</h5>
                         <p>Announcement allows you to create content including rich media and additional links to websites and our other apps.</p>
                         <div class="btn-holder">
-                            <a (click)="swapForm(this.textForm, feedCats.Announcement)" class="btn btn-primary col-md-12" [class.active-type]="model.feedCategory == feedCats.Announcement && model.feedType == feedTypes.Text">
+                            <a (click)="swapForm(this.textForm, feedCats.Announcement)" class="btn btn-primary col-md-12 waves-effect waves-light" [class.active-type]="model.feedCategory == feedCats.Announcement && model.feedType == feedTypes.Text" [class.disabled]="model.id>0">
                                 Module
                             </a>
                         </div>
@@ -88,7 +88,7 @@
                         <h5>NEWS</h5>
                         <p>Keep everyone updated. News gives you the flexibility of using media and additional links.</p>
                         <div class="btn-holder">
-                            <a (click)="swapForm(this.textForm, feedCats.News)" class="btn btn-primary col-md-12" [class.active-type]="model.feedCategory == feedCats.News && model.feedType == feedTypes.Text">
+                            <a (click)="swapForm(this.textForm, feedCats.News)" class="btn btn-primary col-md-12 waves-effect waves-light" [class.active-type]="model.feedCategory == feedCats.News && model.feedType == feedTypes.Text" [class.disabled]="model.id>0">
                                 Module
                             </a>
                         </div>
@@ -101,7 +101,7 @@
                         <h5>ARTICLE</h5>
                         <p>Article enables you to include and image and PDF link.</p>
                         <div class="btn-holder">
-                            <a (click)="swapForm(this.textForm, feedCats.Article)" class="btn btn-primary col-md-12" [class.active-type]="model.feedCategory == feedCats.Article && model.feedType == feedTypes.Text">
+                            <a (click)="swapForm(this.textForm, feedCats.Article)" class="btn btn-primary col-md-12 waves-effect waves-light" [class.active-type]="model.feedCategory == feedCats.Article && model.feedType == feedTypes.Text" [class.disabled]="model.id>0">
                                 Module
                             </a>
                         </div>
@@ -117,8 +117,8 @@
         
         <div class="input-field">
             <input id="title" type="text" formControlName="title">
-            <label for="title">Title</label>
-            <small [hidden]="form.controls.title.valid || (form.controls.title.pristine && !submitted)">
+            <label for="title">Enter Title</label>
+            <small [class.active-warning]="!form.controls.title.valid && submitted">
                 Title is required (minimum 5 characters).
             </small>
         </div>
@@ -126,7 +126,7 @@
         <div class="input-field">
             <label>Short Description</label>
             <input type="text" formControlName="shortDescription">
-            <small [hidden]="form.controls.shortDescription.valid || (form.controls.shortDescription.pristine && !submitted)">
+            <small [class.active-warning]="!form.controls.shortDescription.valid && submitted">
                 Short description is required.
             </small>
         </div>
@@ -134,7 +134,7 @@
         <div *ngIf="model.feedType == feedTypes.Text"  class="input-field">
             <label>Body Text</label>
             <input type="text" formControlName="bodyText">
-            <small [hidden]="form.controls.bodyText.valid || (form.controls.bodyText.pristine && !submitted)">
+            <small [class.active-warning]="!form.controls.bodyText.valid && submitted">
                 Body text is required (minimum 5 characters).
             </small> 
         </div>
@@ -149,38 +149,44 @@
         <div class="input-field">
             <input id="points" type="text" formControlName="points">
             <label for="points">Reward Points</label>
-            <small [hidden]="form.controls.points.valid || (form.controls.points.pristine && !submitted)">
-                Reward points are requeired.
+            <small [class.active-warning]="!form.controls.points.valid && submitted">
+                Reward points are requiered.
             </small>
         </div>
 
-        <div>
-            <label for="allowFavourite">Favourite</label>
+        <div class="input-field">
+            <label for="allowFavourite">Allow Favourite</label>
             <div class="switch">
                 <label>                    
                     <input formControlName="allowFavourite" type="checkbox" [checked]="model.allowFavourite">
                     <span class="lever"></span>                    
                 </label>
+                <div class="clearboth"></div>
             </div>
         </div>
 
         <div class="input-field">
             <input id="readingTime" type="text" formControlName="readingTime">
             <label for="readingTime">Reading Time (mins)</label>
-            <small [hidden]="form.controls.readingTime.valid || (form.controls.readingTime.pristine && !submitted)">
-                Reading time are requeired.
+            <small [class.active-warning]="!form.controls.readingTime.valid && submitted">
+                (Estimated time is mandatory)
             </small>
         </div>
 
         <div>
-            <label for="startDate">Start Date</label>
-            <input id="startDate" type="date" class="datepicker" for="startDate" formControlName="startDate">
+            <label>Start Date</label>
+            <input type="date" formControlName="startDate">
+        </div>
+        
+        <div>
+            <label>End Date</label>
+            <input type="date" formControlName="endDate">
         </div>
 
-        <div>
+        <!--<div class="input-field">
             <label for="endDate">End Date</label>
-            <input id="endDate" type="date" class="datepicker" for="endDate" formControlName="endDate" [value]="model.endDate | date:'yyyy-MM-dd'">
-        </div>
+            <input id="endDate" type="date" class="datepicker" for="endDate" formControlName="endDate" useValueAsDate>
+        </div>-->
 
         <!--<p-calendar formControlName="endDate" dateFormat="DD.MM.YYYY"></p-calendar>-->
         

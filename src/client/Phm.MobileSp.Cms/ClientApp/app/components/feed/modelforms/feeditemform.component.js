@@ -17,7 +17,7 @@ var textfeeditem_component_1 = require("./textfeeditem.component");
 var Enums = require("../../../enums");
 var FeedCategoryEnum = Enums.FeedCategoryEnum;
 var Feedclasses = require("../../../models/feedclasses");
-var Feedformstepsclasses = require("../../../models/feedformstepsclasses");
+var Feedformstepsclasses = require("../../../classes/feedformstepsclasses");
 var FeedFormSteps = Feedformstepsclasses.FeedFormSteps;
 var Quizfeeditemcomponent = require("./quizfeeditem.component");
 var QuizFeedItemFormComponent = Quizfeeditemcomponent.QuizFeedItemFormComponent;
@@ -50,18 +50,17 @@ var FeedItemForm = (function () {
     FeedItemForm.prototype.swapForm = function (newFormType, feedCategory) {
         var newForm = (new newFormType());
         if (this.form && this.subForm) {
-            this.form = this.subForm.removeFormControls(this.form);
+            this.subForm = null;
         }
         this.feedFormData = {
             feedFormComponent: newFormType,
-            inputs: { form: this.form, feedFormSteps: this.feedFormSteps }
+            inputs: { form: this.form, feedFormSteps: this.feedFormSteps, model: this.model }
         };
         this.subForm = newForm;
-        this.form = this.subForm.addFormControls(this.form);
         this.model.feedType = this.subForm.feedType;
         this.model.feedCategory = feedCategory;
         this.feedFormSteps.setFormType(newForm.feedType);
-        //this.updateForm();
+        this.updateForm();
     };
     FeedItemForm.prototype.initialiseForm = function () {
         this.form = this._fb.group({
@@ -70,7 +69,7 @@ var FeedItemForm = (function () {
             shortDescription: ['', [forms_1.Validators.required, forms_1.Validators.minLength(10)]],
             feedType: ['', [forms_1.Validators.required]],
             feedCategory: ['', [forms_1.Validators.required]],
-            points: ['', [forms_1.Validators.required]],
+            points: ['', []],
             enabled: ['', []],
             published: ['', []],
             mainIcon: ['', []],
@@ -101,14 +100,25 @@ var FeedItemForm = (function () {
     };
     ;
     FeedItemForm.prototype.updateForm = function () {
-        if (this.model)
+        if (this.model && this.model.id > 0) {
             (this.form).patchValue(this.model, { onlySelf: true });
+            setTimeout(function () {
+                Materialize.updateTextFields();
+            }, 10);
+        }
+        else {
+            this.form.controls['feedType'].patchValue(this.model.feedType, { onlySelf: true });
+            this.form.controls['feedCategory'].patchValue(this.model.feedCategory, { onlySelf: true });
+        }
     };
     FeedItemForm.prototype.getFeedType = function (feedType) {
         switch (feedType) {
-            case Enums.FeedTypeEnum.Text:
-                return textfeeditem_component_1.TextFeedItemFormComponent;
+            case Enums.FeedTypeEnum.Quiz:
+                return QuizFeedItemFormComponent;
+            case Enums.FeedTypeEnum.Survey:
+                return SurveyFeedItemFormComponent;
             default:
+                return textfeeditem_component_1.TextFeedItemFormComponent;
         }
     };
     FeedItemForm.prototype.save = function (feedItem, isValid) {
@@ -116,6 +126,7 @@ var FeedItemForm = (function () {
         this.submitted = true;
         if (!isValid)
             return;
+        feedItem = new this.subForm.feedModelType(feedItem);
         this.feedDataService.updateFeeditem(this.subForm.updateUrl, feedItem).subscribe(function (result) {
             if (result.success) {
                 _this.model = result.content;

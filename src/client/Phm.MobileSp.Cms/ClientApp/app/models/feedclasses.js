@@ -7,6 +7,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 var Enums = require("../enums");
 var FeedCategoryEnum = Enums.FeedCategoryEnum;
 var FeedTypeEnum = Enums.FeedTypeEnum;
+var Quizclasses = require("./quizclasses");
 var Baseclasses = require("./baseclasses");
 var BaseFeed = (function (_super) {
     __extends(BaseFeed, _super);
@@ -16,17 +17,17 @@ var BaseFeed = (function (_super) {
         _this.title = options['title'] || '';
         _this.shortDescription = options['shortDescription'] || '';
         _this.feedCategory = options['feedCategory'];
-        _this.points = options['points'] || '';
+        _this.points = options['points'] || 0;
         _this.mainIcon = options['mediaInfo'];
         _this.marketId = options['marketId'];
-        _this.allowFavourite = options['allowFavourite'];
+        _this.allowFavourite = options['allowFavourite'] || true;
         _this.corporateApp = options['corporateApp'];
         _this.legalInformation = options['legalInformation'];
         _this.makeTitleWidgetLink = options['makeTitleWidgetLink'];
         _this.permissions = options['permissions'];
-        _this.readingTime = options['readingTime'];
-        _this.startDate = options['startDate'];
-        _this.endDate = options['endDate'];
+        _this.readingTime = options['readingTime'] || 0;
+        _this.startDate = options['startDate']; // || Date.now();
+        _this.endDate = options['endDate']; // || Date.now() + 14;
         return _this;
     }
     return BaseFeed;
@@ -65,11 +66,15 @@ var QuizFeed = (function (_super) {
         if (options === void 0) { options = {}; }
         var _this = _super.call(this, options) || this;
         _this.feedType = FeedTypeEnum.Quiz;
-        _this.questions = options['questions'] || '';
-        _this.quizDescription = options['quizDescription'];
-        _this.onBoardingMessage = options['onBoardingMessage'];
-        _this.successMessage = options['successMessage'];
-        _this.failMessage = options['failMessage'];
+        _this.questions = options['questions'];
+        _this.quizDescription = options['quizDescription'] || '';
+        _this.onBoardingMessage = options['onBoardingMessage'] || '';
+        _this.successMessage = options['successMessage'] || '';
+        _this.failMessage = options['failMessage'] || '';
+        if (!_this.questions) {
+            _this.questions = [];
+            _this.questions.push(new Quizclasses.QuizQuestion());
+        }
         return _this;
     }
     return QuizFeed;

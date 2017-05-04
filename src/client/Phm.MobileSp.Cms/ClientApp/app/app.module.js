@@ -10,6 +10,8 @@ var router_1 = require("@angular/router");
 var angular2_universal_1 = require("angular2-universal");
 var ng2_pagination_1 = require("ng2-pagination");
 var forms_1 = require("@angular/forms");
+//import { CalendarModule } from 'primeng/primeng';
+var datevalueaccessor_1 = require("./classes/datevalueaccessor");
 require("rxjs/add/observable/throw");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/debounceTime");
@@ -30,10 +32,9 @@ var textfeeditem_component_1 = require("./components/feed/modelforms/textfeedite
 var feedindex_component_1 = require("./components/feed/indexes/feedindex.component");
 var feeditemform_component_1 = require("./components/feed/modelforms/feeditemform.component");
 var feeditemcontainer_component_1 = require("./components/feed/modelforms/feeditemcontainer.component");
-var Quizfeeditemcomponent = require("./components/feed/modelforms/quizfeeditem.component");
-var QuizFeedItemFormComponent = Quizfeeditemcomponent.QuizFeedItemFormComponent;
-var Surveyfeeditemcomponent = require("./components/feed/modelforms/surveyfeeditem.component");
-var SurveyFeedItemFormComponent = Surveyfeeditemcomponent.SurveyFeedItemFormComponent;
+var quizfeeditem_component_1 = require("./components/feed/modelforms/quizfeeditem.component");
+var surveyfeeditem_component_1 = require("./components/feed/modelforms/surveyfeeditem.component");
+var questionform_component_1 = require("./components/feed/modelforms/questionform.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -48,6 +49,7 @@ AppModule = __decorate([
             navmenu_component_1.NavMenuComponent,
             footer_component_1.FooterComponent,
             marketdropdown_component_1.MarketDropdown,
+            datevalueaccessor_1.DateValueAccessor,
             counter_component_1.CounterComponent,
             fetchdata_component_1.FetchDataComponent,
             home_component_1.HomeComponent,
@@ -56,8 +58,9 @@ AppModule = __decorate([
             feeditemcontainer_component_1.FeedItemContainerComponent,
             feeditemform_component_1.FeedItemForm,
             textfeeditem_component_1.TextFeedItemFormComponent,
-            QuizFeedItemFormComponent,
-            SurveyFeedItemFormComponent
+            quizfeeditem_component_1.QuizFeedItemFormComponent,
+            surveyfeeditem_component_1.SurveyFeedItemFormComponent,
+            questionform_component_1.QuestionFormComponent
         ],
         imports: [
             angular2_universal_1.UniversalModule,

@@ -32,17 +32,17 @@ export class BaseFeed extends Baseclasses.BaseModel implements FeedModel.IFeedIt
         this.title = options['title'] || '';
         this.shortDescription = options['shortDescription'] || '';
         this.feedCategory = options['feedCategory'];
-        this.points = options['points'] || '';
+        this.points = options['points'] || 0;
         this.mainIcon = options['mediaInfo'];
         this.marketId = options['marketId'];
-        this.allowFavourite = options['allowFavourite'];
+        this.allowFavourite = options['allowFavourite'] || true;
         this.corporateApp = options['corporateApp'];
         this.legalInformation = options['legalInformation'];
         this.makeTitleWidgetLink = options['makeTitleWidgetLink'];
         this.permissions = options['permissions'];
-        this.readingTime = options['readingTime'];
-        this.startDate = options['startDate'];
-        this.endDate = options['endDate'];
+        this.readingTime = options['readingTime'] || 0;
+        this.startDate = options['startDate']; // || Date.now();
+        this.endDate = options['endDate']; // || Date.now() + 14;
     }
 }
 
@@ -70,7 +70,7 @@ export class ImageFeed extends BaseFeed {
 }
 
 export class QuizFeed extends BaseFeed {
-    public questions: Quizclasses.QuizQuestion[];
+    public questions: Quizclasses.QuizQuestion[]; 
     public quizDescription: string;
     public onBoardingMessage: string;
     public successMessage: string;
@@ -78,11 +78,15 @@ export class QuizFeed extends BaseFeed {
     constructor(options: {} = {}) {
         super(options);
         this.feedType = FeedTypeEnum.Quiz;
-        this.questions = options['questions'] || '';
-        this.quizDescription = options['quizDescription'];
-        this.onBoardingMessage = options['onBoardingMessage'];
-        this.successMessage = options['successMessage'];
-        this.failMessage = options['failMessage'];
+        this.questions = options['questions'];
+        this.quizDescription = options['quizDescription'] || '';
+        this.onBoardingMessage = options['onBoardingMessage'] || '';
+        this.successMessage = options['successMessage'] || '';
+        this.failMessage = options['failMessage'] || '';
+        if (!this.questions) {
+            this.questions = [];
+            this.questions.push(new Quizclasses.QuizQuestion());
+        }
     }
 }
 

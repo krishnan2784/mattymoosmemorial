@@ -14,10 +14,10 @@ namespace Phm.MobileSp.Cms.Core.Models.Interfaces
          bool AllowFavourite { get; set; }
          CorporateApp CorporateApp { get; set; }
          string LegalInformation { get; set; }
-         bool MakeTitleWidgetLink { get; set; }
-         long Permissions { get; set; }
-         int ReadingTime { get; set; }
-         DateTime StartDate { get; set; }
-         DateTime EndDate { get; set; }
+         bool? MakeTitleWidgetLink { get; set; }
+         long? Permissions { get; set; }
+         int? ReadingTime { get; set; }
+         DateTime? StartDate { get; set; }
+         DateTime? EndDate { get; set; }
     }
 }

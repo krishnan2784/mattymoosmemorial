@@ -37,7 +37,8 @@ var UserAccountManagementComponent = (function (_super) {
 UserAccountManagementComponent = __decorate([
     core_1.Component({
         selector: 'useraccountmanagement',
-        template: require('./useraccountmanagement.component.html')
+        template: require('./useraccountmanagement.component.html'),
+        styles: [require('./useraccountmanagement.component.css')]
     }),
     __metadata("design:paramtypes", [datashareservice_1.ShareService, userdataservice_1.UserDataService])
 ], UserAccountManagementComponent);

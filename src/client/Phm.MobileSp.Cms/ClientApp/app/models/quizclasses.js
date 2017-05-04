@@ -4,6 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
+var Enums = require("../enums");
 var Baseclasses = require("./baseclasses");
 var BaseModel = Baseclasses.BaseModel;
 var QuizQuestion = (function (_super) {
@@ -11,11 +12,16 @@ var QuizQuestion = (function (_super) {
     function QuizQuestion(options) {
         if (options === void 0) { options = {}; }
         var _this = _super.call(this, options) || this;
-        _this.answers = options['Answers'] || '';
-        _this.order = options['Order'];
-        _this.question = options['Question'];
-        _this.questionType = options['QuestionType'];
-        _this.quizFeedId = options['QuizFeedId'];
+        _this.answers = options['Answers'];
+        _this.order = options['Order'] || 0;
+        _this.question = options['Question'] || '';
+        _this.questionType = options['QuestionType'] || Enums.QuizQuestionTypeEnum.Single;
+        _this.quizFeedId = options['QuizFeedId'] || 0;
+        if (!_this.answers) {
+            _this.answers = [];
+            _this.answers.push(new QuizQuestionAnswer());
+            _this.answers.push(new QuizQuestionAnswer());
+        }
         return _this;
     }
     return QuizQuestion;
@@ -27,9 +33,9 @@ var QuizQuestionAnswer = (function (_super) {
         if (options === void 0) { options = {}; }
         var _this = _super.call(this, options) || this;
         _this.answer = options['Answer'] || '';
-        _this.isCorrect = options['IsCorrect'];
-        _this.order = options['Order'];
-        _this.quizQuestionId = options['QuizQuestionId'];
+        _this.isCorrect = options['IsCorrect'] || false;
+        _this.order = options['Order'] || 0;
+        _this.quizQuestionId = options['QuizQuestionId'] || 0;
         return _this;
     }
     return QuizQuestionAnswer;

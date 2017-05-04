@@ -3,9 +3,17 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using MLearningCoreService;
+<<<<<<< HEAD
 using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Helpers.Attributes;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
+=======
+using MobileSP_CMS.Core.Models;
+using MobileSP_CMS.Helpers.Attributes;
+using MobileSP_CMS.Infrastructure;
+using MobileSP_CMS.Infrastructure.Repositories.Interfaces;
+using Newtonsoft.Json;
+>>>>>>> feature/MLEAR-211_-_Create_quiz_feed_item_form
 
 namespace Phm.MobileSp.Cms.Controllers.API
 {
@@ -61,10 +69,11 @@ namespace Phm.MobileSp.Cms.Controllers.API
             return Json(feedItemResponse);
         }
 
-
+        
         [HttpPost("[action]")]
         [JsonResponseWrapper]
         public async Task<JsonResult> UpdateTextFeedItem([FromBody]TextFeed feedItem) => await UpdateFeedItem<TextFeed, TextFeedDto>(feedItem);
+
 
         [HttpPost("[action]")]
         [JsonResponseWrapper]
@@ -73,6 +82,29 @@ namespace Phm.MobileSp.Cms.Controllers.API
         [HttpPost("[action]")]
         [JsonResponseWrapper]
         public async Task<JsonResult> UpdateVideoFeedItem([FromBody]VideoFeed feedItem) => await UpdateFeedItem<VideoFeed, VideoFeedDto>(feedItem);
+
+        [HttpPost("[action]")]
+        [JsonResponseWrapper]
+        public async Task<JsonResult> UpdateQuizFeedItem([FromBody]QuizFeed feedItem) => await UpdateFeedItem<QuizFeed, QuizFeedDto>(feedItem);
+        [HttpPost("[action]")]
+
+        [JsonResponseWrapper]
+        public async Task<JsonResult> UpdateSurveyFeedItem([FromBody]SurveyFeed feedItem) => await UpdateFeedItem<SurveyFeed, SurveyFeedDto>(feedItem);
+
+        //[JsonResponseWrapper]
+        //public async Task<JsonResult> UpdateTextFeedItem([FromBody] JToken feedItem)
+        //{
+        //    try
+        //    {
+        //        return await UpdateFeedItem<TextFeed, TextFeedDto>(feedItem.ToObject<TextFeed>());
+
+        //    }
+        //    catch (Exception e)
+        //    {
+
+        //    }
+        //    return null;
+        //}
 
     }
 }
