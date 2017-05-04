@@ -173,20 +173,25 @@
             </small>
         </div>
 
-        <div>
+        <!--<div>
             <label>Start Date</label>
             <input type="date" formControlName="startDate">
-        </div>
+        </div>-->
         
-        <div>
+        <!--<div>
             <label>End Date</label>
             <input type="date" formControlName="endDate">
+        </div>-->
+
+        <div>
+            <label>Start Date</label>
+            <input id="startDate" type="date" class="datepicker" for="startDate" formControlName="startDate" useValueAsDate>
         </div>
 
-        <!--<div class="input-field">
-            <label for="endDate">End Date</label>
+        <div>
+            <label>End Date</label>
             <input id="endDate" type="date" class="datepicker" for="endDate" formControlName="endDate" useValueAsDate>
-        </div>-->
+        </div>
 
         <!--<p-calendar formControlName="endDate" dateFormat="DD.MM.YYYY"></p-calendar>-->
         

@@ -3,17 +3,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using MLearningCoreService;
-<<<<<<< HEAD
 using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Helpers.Attributes;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
-=======
-using MobileSP_CMS.Core.Models;
-using MobileSP_CMS.Helpers.Attributes;
-using MobileSP_CMS.Infrastructure;
-using MobileSP_CMS.Infrastructure.Repositories.Interfaces;
+using Phm.MobileSp.Cms.Infrastructure;
 using Newtonsoft.Json;
->>>>>>> feature/MLEAR-211_-_Create_quiz_feed_item_form
 
 namespace Phm.MobileSp.Cms.Controllers.API
 {
