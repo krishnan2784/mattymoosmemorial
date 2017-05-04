@@ -1,6 +1,7 @@
 <div [formGroup]="form" *ngIf="this.model">
     <input type="hidden" formControlName="id">
-    <input type="hidden" formControlName="quizFeedId">
+    <input type="hidden" formControlName="quizFeedId" *ngIf="feedType===feedTypeEnum.Quiz">
+    <input type="hidden" formControlName="surveyFeedId" *ngIf="feedType===feedTypeEnum.Survey">
     <input type="hidden" formControlName="masterId">
     <input type="hidden" formControlName="order">
     <input type="hidden" formControlName="enabled">
@@ -16,11 +17,11 @@
             <div class="answer-header">Answer type</div>
             <p class="answer-body">
                 <span class="question-type-sector">
-                    <input type="radio" class="with-gap black" id="answer-type-1" name="questionType" formControlName="questionType" [value]="questionType.Single" [checked]="form.controls['questionType'].value === questionType.Single" (click)="clearCorrect()" />
+                    <input type="radio" class="with-gap black" id="answer-type-1" name="questionType" formControlName="questionType" [value]="questionType.Single" [checked]="form.controls['questionType'].value === questionType.Single" (click)="clearFormCheckboxes()" />
                     <label for="answer-type-1">Single choice</label>
                 </span>
                 <span class="question-type-sector">
-                    <input type="radio" class="with-gap" id="answer-type-2" name="questionType" formControlName="questionType" [value]="questionType.Multiple" [checked]="form.controls['questionType'].value === questionType.Multiple" (click)="clearCorrect()" />
+                    <input type="radio" class="with-gap" id="answer-type-2" name="questionType" formControlName="questionType" [value]="questionType.Multiple" [checked]="form.controls['questionType'].value === questionType.Multiple" (click)="clearFormCheckboxes()" />
                     <label for="answer-type-2">Multiple choice</label>
                 </span>
 
@@ -36,25 +37,31 @@
 
                 <div [formGroupName]="i" class="answer-body">
                     <input type="hidden" formControlName="id">
-                    <input type="hidden" formControlName="quizQuestionId">
+                    <input type="hidden" formControlName="quizQuestionId" *ngIf="feedType===feedTypeEnum.Quiz">
+                    <input type="hidden" formControlName="surveyQuestionId" *ngIf="feedType===feedTypeEnum.Survey">
                     <input type="hidden" formControlName="masterId">
                     <input type="hidden" formControlName="order">
                     <input type="hidden" formControlName="enabled">
                     <input type="hidden" formControlName="published">
-                    <div class="iscorrect-container col-md-3">
-                        <input type="checkbox" class="filled-in" id="questions-{{index}}-answer-{{i}}-isCorrect" formControlName="isCorrect" (click)="clearCorrect(i)" />
+
+                    <div class="checkbox-container col-md-3" *ngIf="feedType===feedTypeEnum.Quiz">
+                        <input type="checkbox" class="filled-in" id="questions-{{index}}-answer-{{i}}-isCorrect" formControlName="isCorrect" (click)="clearFormCheckboxes(i)" />
                         <label htmlFor="questions-{{index}}-answer-{{i}}-isCorrect">Correct</label>
                     </div>
-
+                    <div class="checkbox-container col-md-3" *ngIf="feedType===feedTypeEnum.Survey">
+                        <input type="checkbox" class="filled-in" id="questions-{{index}}-answer-{{i}}-isFreeText" formControlName="isFreeText" (click)="clearFormCheckboxes()" />
+                        <label htmlFor="questions-{{index}}-answer-{{i}}-isFreeText">Free text</label>
+                    </div>
+                    
                     <div class="answer-answer-container input-field col-md-9">
                         <input type="text" id="questions-{{index}}-answer-{{i}}-answer" formControlName="answer">
                         <label htmlFor="questions-{{index}}-answer-{{i}}-answer">Enter here</label>
                     </div>
-                    <a (click)="removeAnswer(i)" [class.disabled]="form.controls.answers.controls.length < 3" class="btn">Delete Answer</a>
+                    <a (click)="this.removeAnswer.emit(i)" [class.disabled]="form.controls.answers.controls.length < 3" class="btn">Delete Answer</a>
                 </div>
             </div>
         </div>
-        <a (click)="addAnswer()" [class.disabled]="form.controls.answers.controls.length > 4" class="btn btn-add-answer">Add Answer</a> 
+        <a (click)="this.addAnswer.emit()" [class.disabled]="form.controls.answers.controls.length > 4" class="btn btn-add-answer">Add Answer</a> 
     </div>
     <div class="clearfix"></div>
 </div>

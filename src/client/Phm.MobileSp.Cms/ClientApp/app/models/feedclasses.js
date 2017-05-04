@@ -8,6 +8,7 @@ var Enums = require("../enums");
 var FeedCategoryEnum = Enums.FeedCategoryEnum;
 var FeedTypeEnum = Enums.FeedTypeEnum;
 var Quizclasses = require("./quizclasses");
+var Surveyclasses = require("./surveyclasses");
 var Baseclasses = require("./baseclasses");
 var BaseFeed = (function (_super) {
     __extends(BaseFeed, _super);
@@ -87,7 +88,12 @@ var SurveyFeed = (function (_super) {
         var _this = _super.call(this, options) || this;
         _this.feedType = FeedTypeEnum.Survey;
         _this.questions = options['questions'] || '';
-        _this.surveyDescription = options['surveyDescription'];
+        _this.surveyDescription = options['surveyDescription'] || '';
+        _this.completionMessage = options['completionMessage'] || '';
+        if (!_this.questions) {
+            _this.questions = [];
+            _this.questions.push(new Surveyclasses.SurveyQuestion());
+        }
         return _this;
     }
     return SurveyFeed;

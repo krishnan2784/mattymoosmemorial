@@ -69,12 +69,6 @@
     <None Update="ClientApp\app\components\feed\modelforms\questionform.component.ts">
       <DependentUpon>questionform.component.html</DependentUpon>
     </None>
-    <None Update="ClientApp\app\components\feed\modelforms\surveyfeeditem.component.js">
-      <DependentUpon>surveyfeeditem.component.ts</DependentUpon>
-    </None>
-    <None Update="ClientApp\app\components\feed\modelforms\surveyfeeditem.component.ts">
-      <DependentUpon>surveyfeeditem.component.html</DependentUpon>
-    </None>
     <None Update="ClientApp\app\classes\feedformstepsclasses.js">
       <DependentUpon>feedformstepsclasses.ts</DependentUpon>
     </None>

@@ -14,27 +14,51 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
 var Enums = require("../../../enums");
 var FeedTypeEnum = Enums.FeedTypeEnum;
 var Feedclasses = require("../../../models/feedclasses");
-var basepartialfeeditem_component_1 = require("./basepartialfeeditem.component");
+var SurveyClasses = require("../../../models/surveyclasses");
+var Basequestionfeeditemcomponent = require("./basequestionfeeditem.component");
+var BaseQuestionFeedItemFormComponent = Basequestionfeeditemcomponent.BaseQuestionFeedItemFormComponent;
 var SurveyFeedItemFormComponent = (function (_super) {
     __extends(SurveyFeedItemFormComponent, _super);
     function SurveyFeedItemFormComponent(injector) {
-        return _super.call(this, injector, Feedclasses.SurveyFeed, '/api/Feed/UpdateSurveyFeedItem', FeedTypeEnum.Survey) || this;
+        return _super.call(this, injector, Feedclasses.SurveyFeed, '/api/Feed/UpdateSurveyFeedItem', FeedTypeEnum.Survey, Enums.SurveyQuestionTypeEnum) || this;
     }
     SurveyFeedItemFormComponent.prototype.addFormControls = function () {
+        var _this = this;
+        var formArray = new forms_1.FormArray([]);
+        this.model.questions.forEach(function (x) { return formArray.push(_this.initQuestion(x)); });
+        this.form.addControl('questions', formArray);
+        this.form.addControl('surveyDescription', new forms_1.FormControl(this.model.surveyDescription, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
+        this.form.addControl('completionMessage', new forms_1.FormControl(this.model.surveyDescription, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
     };
     ;
     SurveyFeedItemFormComponent.prototype.removeFormControls = function () {
+        this.form.removeControl('questions');
     };
     ;
+    SurveyFeedItemFormComponent.prototype.initQuestion = function (question) {
+        if (question === void 0) { question = new SurveyClasses.SurveyQuestion(); }
+        var fg = this.baseQuestionForm(question);
+        fg.addControl('surveyFeedId', new forms_1.FormControl(question.surveyFeedId, []));
+        return fg;
+    };
+    SurveyFeedItemFormComponent.prototype.initAnswer = function (answer) {
+        if (answer === void 0) { answer = new SurveyClasses.SurveyQuestionAnswer(); }
+        var fg = this.baseAnswerForm(answer);
+        fg.addControl('surveyQuestionId', new forms_1.FormControl(answer.surveyQuestionId, []));
+        fg.addControl('isFreeText', new forms_1.FormControl(answer.isFreeText, []));
+        return fg;
+    };
     return SurveyFeedItemFormComponent;
-}(basepartialfeeditem_component_1.BasePartialItemFormComponent));
+}(BaseQuestionFeedItemFormComponent));
 SurveyFeedItemFormComponent = __decorate([
     core_1.Component({
         selector: 'surveyfeeditem',
-        template: require('./surveyfeeditem.component.html')
+        template: require('./basequestionfeeditem.component.html'),
+        styles: [require('./basequestionfeeditem.component.css')]
     }),
     __metadata("design:paramtypes", [core_1.Injector])
 ], SurveyFeedItemFormComponent);

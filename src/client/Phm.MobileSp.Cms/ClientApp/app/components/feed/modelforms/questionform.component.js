@@ -14,45 +14,33 @@ var Enums = require("../../../enums");
 var FeedTypeEnum = Enums.FeedTypeEnum;
 var QuestionFormComponent = (function () {
     function QuestionFormComponent() {
-        this.questionType = Enums.QuizQuestionTypeEnum;
+        this.feedTypeEnum = FeedTypeEnum;
+        this.addAnswer = new core_1.EventEmitter();
+        this.removeAnswer = new core_1.EventEmitter();
     }
-    QuestionFormComponent.prototype.addAnswer = function () {
-        var control = this.form.controls['answers'];
-        control.push(new forms_1.FormGroup({
-            id: new forms_1.FormControl(0, []),
-            quizQuestionId: new forms_1.FormControl(0, []),
-            masterId: new forms_1.FormControl('', []),
-            order: new forms_1.FormControl(0, []),
-            enabled: new forms_1.FormControl(true, []),
-            published: new forms_1.FormControl(false, []),
-            answer: new forms_1.FormControl('', [forms_1.Validators.required]),
-            isCorrect: new forms_1.FormControl(false, [])
-        }));
-    };
-    QuestionFormComponent.prototype.removeAnswer = function (index) {
-        var control = this.form.controls['answers'];
-        control.removeAt(index);
-    };
-    QuestionFormComponent.prototype.clearCorrect = function (index) {
+    QuestionFormComponent.prototype.clearFormCheckboxes = function (index) {
         if (index === void 0) { index = null; }
         var dynamicIndex;
         var updateValue = true;
         var answers = this.form.controls['answers'];
+        var controlName = "isCorrect";
+        if (this.feedType === FeedTypeEnum.Survey)
+            controlName = "isFreeText";
         if (index != null) {
             var questionType = this.form.controls['questionType'].value;
-            if (questionType === Enums.QuizQuestionTypeEnum.Multiple)
+            if (questionType === this.questionType.Multiple)
                 return;
             dynamicIndex = answers.controls[index];
-            updateValue = dynamicIndex.controls["isCorrect"].value;
+            updateValue = dynamicIndex.controls[controlName].value;
         }
         answers.controls.forEach(function (control) {
             var dynamic = control;
-            if (dynamic.controls['isCorrect']) {
-                dynamic.controls['isCorrect'].patchValue(false, { onlySelf: true });
+            if (dynamic.controls[controlName]) {
+                dynamic.controls[controlName].patchValue(false, { onlySelf: true });
             }
         });
         if (index != null) {
-            dynamicIndex.controls["isCorrect"].patchValue(updateValue, { onlySelf: true });
+            dynamicIndex.controls[controlName].patchValue(updateValue, { onlySelf: true });
         }
     };
     return QuestionFormComponent;
@@ -73,13 +61,24 @@ __decorate([
     core_1.Input('index'),
     __metadata("design:type", Number)
 ], QuestionFormComponent.prototype, "index", void 0);
+__decorate([
+    core_1.Input('questionType'),
+    __metadata("design:type", Object)
+], QuestionFormComponent.prototype, "questionType", void 0);
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", core_1.EventEmitter)
+], QuestionFormComponent.prototype, "addAnswer", void 0);
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", core_1.EventEmitter)
+], QuestionFormComponent.prototype, "removeAnswer", void 0);
 QuestionFormComponent = __decorate([
     core_1.Component({
         selector: 'question',
         template: require('./questionform.component.html'),
         styles: [require('./questionform.component.css')]
-    }),
-    __metadata("design:paramtypes", [])
+    })
 ], QuestionFormComponent);
 exports.QuestionFormComponent = QuestionFormComponent;
 //# sourceMappingURL=questionform.component.js.map

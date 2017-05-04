@@ -7,8 +7,6 @@ import FeedFormSteps = Feedformstepsclasses.FeedFormSteps;
 import FeedModel = require("../../../interfaces/models/IFeedModel");
 
 @Component({
-    selector: 'textfeeditem',
-    template: require('./textfeeditem.component.html')
 })
 export class BasePartialItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm, OnInit, OnDestroy {
     public form: FormGroup;

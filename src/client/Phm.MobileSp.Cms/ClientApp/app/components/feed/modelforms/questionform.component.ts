@@ -1,11 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms'
 import Enums = require("../../../enums");
 import FeedTypeEnum = Enums.FeedTypeEnum;
-import { QuizQuestion } from "../../../models/quizclasses";
-import { QuizQuestionAnswer } from "../../../models/quizclasses";
-import { SurveyQuestion } from "../../../models/surveyclasses";
-import { SurveyQuestionAnswer } from "../../../models/surveyclasses";
 
 @Component({
     selector: 'question',
@@ -24,51 +20,42 @@ export class QuestionFormComponent {
 
     @Input('index')
     public index: number;
-    questionType: typeof Enums.QuizQuestionTypeEnum = Enums.QuizQuestionTypeEnum;
 
-    constructor() {
-    } 
+    @Input('questionType')
+    questionType: any;
+
+    feedTypeEnum: typeof FeedTypeEnum = FeedTypeEnum;
+
+    @Output()
+    addAnswer: EventEmitter<any> = new EventEmitter();
+    @Output()
+    removeAnswer: EventEmitter<number> = new EventEmitter<number>();
     
-    addAnswer() {
-        const control = <FormArray>this.form.controls['answers'];
-        control.push(new FormGroup({
-            id: new FormControl(0, []),
-            quizQuestionId: new FormControl(0, []),
-            masterId: new FormControl('', []),
-            order: new FormControl(0, []),
-            enabled: new FormControl(true, []),
-            published: new FormControl(false, []),
-            answer: new FormControl('', [<any>Validators.required]),
-            isCorrect: new FormControl(false, [])
-        }));
-    }
-
-    removeAnswer(index: number) {
-        const control = <FormArray>this.form.controls['answers'];
-        control.removeAt(index);
-    }
-
-    clearCorrect(index: number = null) {
+    clearFormCheckboxes(index: number = null) {
         var dynamicIndex: any;
         var updateValue = true;
         var answers = <FormArray>this.form.controls['answers'];
 
+        var controlName = "isCorrect";
+        if (this.feedType === FeedTypeEnum.Survey)
+            controlName = "isFreeText";
+
         if (index!=null) {
             var questionType = this.form.controls['questionType'].value;
-            if (questionType === Enums.QuizQuestionTypeEnum.Multiple)
+            if (questionType === this.questionType.Multiple)
                 return;  
 
             dynamicIndex = answers.controls[index];
-            updateValue = dynamicIndex.controls["isCorrect"].value;
+            updateValue = dynamicIndex.controls[controlName].value;
         }
         answers.controls.forEach((control) => {
             var dynamic: any = control;
-            if (dynamic.controls['isCorrect']) {
-                dynamic.controls['isCorrect'].patchValue(false, { onlySelf: true });
+            if (dynamic.controls[controlName]) {
+                dynamic.controls[controlName].patchValue(false, { onlySelf: true });
             }
         });
         if (index!=null) {
-            dynamicIndex.controls["isCorrect"].patchValue(updateValue, { onlySelf: true });
+            dynamicIndex.controls[controlName].patchValue(updateValue, { onlySelf: true });
         }
     }
 }
