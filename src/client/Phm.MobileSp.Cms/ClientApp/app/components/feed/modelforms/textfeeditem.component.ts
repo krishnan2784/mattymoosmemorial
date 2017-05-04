@@ -9,38 +9,28 @@ import * as IFeedItemComponents from "../../../interfaces/components/IFeedItemCo
 import Enums = require("../../../enums");
 import FeedTypeEnum = Enums.FeedTypeEnum;
 import Feedclasses = require("../../../models/feedclasses");
-import Feedformstepsclasses = require("../../../models/feedformstepsclasses");
+import Feedformstepsclasses = require("../../../classes/feedformstepsclasses");
 import FeedFormSteps = Feedformstepsclasses.FeedFormSteps;
+import FeedModel = require("../../../interfaces/models/IFeedModel");
+import { BasePartialItemFormComponent } from "./basepartialfeeditem.component";
 
 @Component({
     selector: 'textfeeditem',
     template: require('./textfeeditem.component.html')
 })
-export class TextFeedItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
+export class TextFeedItemFormComponent extends BasePartialItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
+    model: Feedclasses.TextFeed;
 
-    public feedModelType;
-    public updateUrl: string = '/api/Feed/UpdateTextFeedItem';
-    public feedType: Enums.FeedTypeEnum = FeedTypeEnum.Text;
-
-    public form: FormGroup;
-    public feedFormSteps: FeedFormSteps;
-
-    constructor(private injector: Injector) {
-        if (injector) {
-            this.form = injector.get('form');
-            this.feedFormSteps = injector.get('feedFormSteps');
-        }
-        this.feedModelType = Feedclasses.TextFeed;
+    constructor(injector: Injector) {
+        super(injector, Feedclasses.TextFeed, '/api/Feed/UpdateTextFeedItem', FeedTypeEnum.Text);
     } 
 
-    addFormControls(form: FormGroup): FormGroup {
-        form.addControl('bodyText', new FormControl('', [<any>Validators.required, <any>Validators.minLength(5)]));
-        return form;
+    addFormControls() {
+        this.form.addControl('bodyText', new FormControl(this.model.bodyText, [<any>Validators.required, <any>Validators.minLength(5)]));
     };
 
-    removeFormControls(form: FormGroup): FormGroup {
-        form.removeControl('bodyText');
-        return form;
+    removeFormControls() {
+        this.form.removeControl('bodyText');
     };
     
 }

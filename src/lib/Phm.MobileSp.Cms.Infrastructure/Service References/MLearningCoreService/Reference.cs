@@ -1864,7 +1864,7 @@ namespace MLearningCoreService
             {
 #if DEBUG
 
-               return new System.ServiceModel.EndpointAddress("http://ccesg20.phm.co.uk/mobile/MLearningCoreService.svc");
+               return new System.ServiceModel.EndpointAddress("http://192.168.100.69:3000/mobile/MLearningCoreService.svc");
 #else
                 //
                 return new System.ServiceModel.EndpointAddress("http://mobilespapi-staging.azurewebsites.net/MLearningCoreService.svc");

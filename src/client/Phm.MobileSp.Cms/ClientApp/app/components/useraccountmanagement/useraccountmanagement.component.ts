@@ -7,7 +7,8 @@ import { UserDataService } from "../../dataservices/userdataservice";
 
 @Component({
     selector: 'useraccountmanagement',
-    template: require('./useraccountmanagement.component.html')
+    template: require('./useraccountmanagement.component.html'),
+    styles: [require('./useraccountmanagement.component.css')]
 })
 export class UserAccountManagementComponent extends BaseComponent {
     public userAccounts: UserAccount.IUserAccount[];
@@ -20,7 +21,7 @@ export class UserAccountManagementComponent extends BaseComponent {
     getData() {
         this.userDataService.getUsers().subscribe((result) => {
             this.userAccounts = result;
-        })
+        });
     }
 }
 

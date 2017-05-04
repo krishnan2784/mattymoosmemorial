@@ -33327,7 +33327,7 @@ namespace MobileSPCoreService
             {
 #if DEBUG
 
-               return new System.ServiceModel.EndpointAddress("http://ccesg20.phm.co.uk/mobile/CoreService.svc");
+               return new System.ServiceModel.EndpointAddress("http://192.168.100.69:3000/mobile/CoreService.svc");
 #else
                 //
                 return new System.ServiceModel.EndpointAddress("http://mobilespapi-staging.azurewebsites.net/CoreService.svc");

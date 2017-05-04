@@ -11,11 +11,16 @@ export class QuizQuestion extends Baseclasses.BaseModel {
 
     constructor(options: {} = {}) {
         super(options);
-        this.answers = options['Answers'] || '';
-        this.order = options['Order'];
-        this.question = options['Question'];
-        this.questionType = options['QuestionType'];
-        this.quizFeedId = options['QuizFeedId'];
+        this.answers = options['Answers'];
+        this.order = options['Order'] || 0;
+        this.question = options['Question'] || '';
+        this.questionType = options['QuestionType'] || Enums.QuizQuestionTypeEnum.Single;
+        this.quizFeedId = options['QuizFeedId'] || 0;
+        if (!this.answers) {
+            this.answers = [];
+            this.answers.push(new QuizQuestionAnswer());
+            this.answers.push(new QuizQuestionAnswer());
+        }
     }
 }
 
@@ -28,8 +33,8 @@ export class QuizQuestionAnswer extends BaseModel {
     constructor(options: {} = {}) {
         super(options);
         this.answer = options['Answer'] || '';
-        this.isCorrect = options['IsCorrect'];
-        this.order = options['Order'];
-        this.quizQuestionId = options['QuizQuestionId'];
+        this.isCorrect = options['IsCorrect'] || false;
+        this.order = options['Order'] || 0;
+        this.quizQuestionId = options['QuizQuestionId'] || 0;
     }
 }

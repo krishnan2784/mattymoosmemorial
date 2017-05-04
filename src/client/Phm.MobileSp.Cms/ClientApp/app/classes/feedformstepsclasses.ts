@@ -2,6 +2,9 @@
 import { Observable } from 'rxjs/Observable';
 import Enums = require("../enums");
 
+declare var $: any;
+declare var Materialize: any;
+
 export class FeedFormSteps implements OnInit {
     private currentStep: FeedFormStep=null;
     private formType: Enums.FeedTypeEnum = Enums.FeedTypeEnum.Text;
@@ -72,6 +75,15 @@ export class FeedFormSteps implements OnInit {
 
     public navigateToSelectedStep(selectedStep: FeedFormStep) {
         this.currentStep = this.visibleSteps.find(x => x.type === selectedStep.type);
+        setTimeout(function() {
+            Materialize.updateTextFields();
+            $('.datepicker').pickadate({
+                selectMonths: true,
+                selectYears: 5,
+                format: 'dddd, dd mmm, yyyy',
+                formatSubmit: 'yyyy/mm/dd'
+            });
+        }, 1);     
     }
 }
 
