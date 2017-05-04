@@ -44,7 +44,7 @@ namespace Phm.MobileSp.Cms
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
-
+            services.AddNodeServices();
             services.AddMvc(options =>
             {
                 options.CacheProfiles.Add("NoCache",
