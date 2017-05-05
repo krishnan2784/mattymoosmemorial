@@ -26,8 +26,8 @@ var BaseQuestionFeedItemFormComponent = (function (_super) {
         return _this;
     }
     BaseQuestionFeedItemFormComponent.prototype.currQuestion = function () {
-        var answers = this.form.controls['questions'];
-        return answers.controls[this.currentQuestion];
+        var questions = this.form.controls['questions'];
+        return questions.controls[this.currentQuestion];
     };
     BaseQuestionFeedItemFormComponent.prototype.baseQuestionForm = function (question) {
         var _this = this;

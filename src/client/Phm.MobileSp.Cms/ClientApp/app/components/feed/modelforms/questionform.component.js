@@ -28,7 +28,7 @@ var QuestionFormComponent = (function () {
             controlName = "isFreeText";
         if (index != null) {
             var questionType = this.form.controls['questionType'].value;
-            if (questionType === this.questionType.Multiple)
+            if (questionType === this.questionType.Multiple && this.feedType !== FeedTypeEnum.Survey)
                 return;
             dynamicIndex = answers.controls[index];
             updateValue = dynamicIndex.controls[controlName].value;

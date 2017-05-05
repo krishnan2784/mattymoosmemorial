@@ -19,8 +19,8 @@ export class BaseQuestionFeedItemFormComponent extends BasePartialItemFormCompon
     }
 
     currQuestion(): any {
-        var answers = <FormArray>this.form.controls['questions'];
-        return answers.controls[this.currentQuestion];
+        var questions = <FormArray>this.form.controls['questions'];
+        return questions.controls[this.currentQuestion];
     }
 
     baseQuestionForm(question: any): FormGroup {

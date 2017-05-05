@@ -32,7 +32,7 @@ var SurveyFeedItemFormComponent = (function (_super) {
         this.model.questions.forEach(function (x) { return formArray.push(_this.initQuestion(x)); });
         this.form.addControl('questions', formArray);
         this.form.addControl('surveyDescription', new forms_1.FormControl(this.model.surveyDescription, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
-        this.form.addControl('completionMessage', new forms_1.FormControl(this.model.surveyDescription, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
+        this.form.addControl('completionMessage', new forms_1.FormControl(this.model.completionMessage, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
     };
     ;
     SurveyFeedItemFormComponent.prototype.removeFormControls = function () {

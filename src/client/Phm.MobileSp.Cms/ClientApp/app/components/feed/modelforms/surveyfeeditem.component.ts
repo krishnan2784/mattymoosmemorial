@@ -24,7 +24,7 @@ export class SurveyFeedItemFormComponent extends BaseQuestionFeedItemFormCompone
         this.model.questions.forEach(x => formArray.push(this.initQuestion(x)));
         this.form.addControl('questions', formArray);
         this.form.addControl('surveyDescription', new FormControl(this.model.surveyDescription, [<any>Validators.required, <any>Validators.minLength(5)]));
-        this.form.addControl('completionMessage', new FormControl(this.model.surveyDescription, [<any>Validators.required, <any>Validators.minLength(5)]));
+        this.form.addControl('completionMessage', new FormControl(this.model.completionMessage, [<any>Validators.required, <any>Validators.minLength(5)]));
     };
     
     removeFormControls() {
