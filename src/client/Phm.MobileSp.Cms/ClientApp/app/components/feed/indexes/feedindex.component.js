@@ -37,7 +37,8 @@ var FeedIndexComponent = (function (_super) {
     }
     FeedIndexComponent.prototype.setupSubscriptions = function () {
         var _this = this;
-        this.sharedService.marketIdUpdated.subscribe(function (marketId) {
+        this.sharedService.marketUpdated.subscribe(function (market) {
+            _this.currentMarket = market;
             _this.feedItems = null;
             _this.getData();
         });
@@ -49,7 +50,8 @@ var FeedIndexComponent = (function (_super) {
             _this.catId = +params["feedCat"];
             _this.filteredFeed = !isNaN(_this.catId);
             _this.setPageTitle();
-            _this.getData();
+            if (_this.currentMarket != null)
+                _this.getData();
         });
     };
     FeedIndexComponent.prototype.ngOnDestroy = function () {
@@ -132,7 +134,8 @@ var FeedIndexComponent = (function (_super) {
 FeedIndexComponent = __decorate([
     core_1.Component({
         selector: 'feedindex',
-        template: require('./feedindex.component.html')
+        template: require('./feedindex.component.html'),
+        styles: [require('./feedindex.component.css')]
     }),
     __metadata("design:paramtypes", [router_1.ActivatedRoute,
         router_1.Router,

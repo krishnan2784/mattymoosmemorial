@@ -5,6 +5,8 @@
         int Id { get; set; }
         string Name { get; set; }
         bool IsDefault { get; set; }
+        bool IsMaster { get; set; }
+
     }
-    
+
 }
