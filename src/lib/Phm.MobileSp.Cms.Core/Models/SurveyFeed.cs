@@ -6,5 +6,7 @@ namespace Phm.MobileSp.Cms.Core.Models
     {
         public virtual List<SurveyQuestion> Questions { get; set; }
         public virtual string SurveyDescription { get; set; }
+        public virtual string CompletionMessage { get; set; }
     }
+    
 }
