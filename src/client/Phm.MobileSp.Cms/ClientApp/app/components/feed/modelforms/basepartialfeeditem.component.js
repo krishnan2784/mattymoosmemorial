@@ -38,10 +38,7 @@ var BasePartialItemFormComponent = (function () {
     return BasePartialItemFormComponent;
 }());
 BasePartialItemFormComponent = __decorate([
-    core_1.Component({
-        selector: 'textfeeditem',
-        template: require('./textfeeditem.component.html')
-    }),
+    core_1.Component({}),
     __metadata("design:paramtypes", [core_1.Injector, Object, String, Number])
 ], BasePartialItemFormComponent);
 exports.BasePartialItemFormComponent = BasePartialItemFormComponent;

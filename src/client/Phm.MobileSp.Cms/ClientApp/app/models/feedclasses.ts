@@ -94,11 +94,17 @@ export class QuizFeed extends BaseFeed {
 export class SurveyFeed extends BaseFeed {
     public questions: Surveyclasses.SurveyQuestion[];
     public surveyDescription: string;
+    public completionMessage: string;
     constructor(options: {} = {}) {
         super(options);
         this.feedType = FeedTypeEnum.Survey;
         this.questions = options['questions'] || '';
-        this.surveyDescription = options['surveyDescription'];
+        this.surveyDescription = options['surveyDescription'] || '';
+        this.completionMessage = options['completionMessage'] || '';
+        if (!this.questions) {
+            this.questions = [];
+            this.questions.push(new Surveyclasses.SurveyQuestion());
+        }
     }
 }
 

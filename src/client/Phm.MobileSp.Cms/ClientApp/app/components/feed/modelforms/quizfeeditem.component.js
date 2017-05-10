@@ -19,13 +19,13 @@ var Enums = require("../../../enums");
 var FeedTypeEnum = Enums.FeedTypeEnum;
 var Feedclasses = require("../../../models/feedclasses");
 var QuizClasses = require("../../../models/quizclasses");
-var basepartialfeeditem_component_1 = require("./basepartialfeeditem.component");
+var Basequestionfeeditemcomponent = require("./basequestionfeeditem.component");
+var BaseQuestionFeedItemFormComponent = Basequestionfeeditemcomponent.BaseQuestionFeedItemFormComponent;
 var QuizFeedItemFormComponent = (function (_super) {
     __extends(QuizFeedItemFormComponent, _super);
     function QuizFeedItemFormComponent(injector) {
-        var _this = _super.call(this, injector, Feedclasses.QuizFeed, '/api/Feed/UpdateQuizFeedItem', FeedTypeEnum.Quiz) || this;
-        _this.answerType = Enums.QuizQuestionTypeEnum;
-        _this.currentQuestion = 0;
+        var _this = _super.call(this, injector, Feedclasses.QuizFeed, '/api/Feed/UpdateQuizFeedItem', FeedTypeEnum.Quiz, Enums.QuizQuestionTypeEnum) || this;
+        _this.questionType = Enums.QuizQuestionTypeEnum;
         return _this;
     }
     QuizFeedItemFormComponent.prototype.addFormControls = function () {
@@ -43,62 +43,25 @@ var QuizFeedItemFormComponent = (function (_super) {
     };
     ;
     QuizFeedItemFormComponent.prototype.initQuestion = function (question) {
-        var _this = this;
         if (question === void 0) { question = new QuizClasses.QuizQuestion(); }
-        var formArray = new forms_1.FormArray([]);
-        question.answers.forEach(function (x) { return formArray.push(_this.initAnswer(x)); });
-        return new forms_1.FormGroup({
-            id: new forms_1.FormControl(question.id, []),
-            quizFeedId: new forms_1.FormControl(question.quizFeedId, []),
-            masterId: new forms_1.FormControl(question.masterId, []),
-            order: new forms_1.FormControl(question.order, []),
-            enabled: new forms_1.FormControl(question.enabled, []),
-            published: new forms_1.FormControl(question.published, []),
-            question: new forms_1.FormControl(question.question, [forms_1.Validators.required]),
-            questionType: new forms_1.FormControl(question.questionType, [forms_1.Validators.required]),
-            answers: formArray
-        });
+        var fg = this.baseQuestionForm(question);
+        fg.addControl('quizFeedId', new forms_1.FormControl(question.quizFeedId, []));
+        return fg;
     };
     QuizFeedItemFormComponent.prototype.initAnswer = function (answer) {
-        return new forms_1.FormGroup({
-            id: new forms_1.FormControl(answer.id, []),
-            quizQuestionId: new forms_1.FormControl(answer.quizQuestionId, []),
-            masterId: new forms_1.FormControl(answer.masterId, []),
-            order: new forms_1.FormControl(answer.order, []),
-            enabled: new forms_1.FormControl(answer.enabled, []),
-            published: new forms_1.FormControl(answer.published, []),
-            answer: new forms_1.FormControl(answer.answer, [forms_1.Validators.required]),
-            isCorrect: new forms_1.FormControl(answer.isCorrect, [])
-        });
-    };
-    QuizFeedItemFormComponent.prototype.addQuestion = function (question) {
-        if (question === void 0) { question = new QuizClasses.QuizQuestion(); }
-        var control = this.form.controls['questions'];
-        control.push(this.initQuestion(question));
-        this.displayQuestion(control.length - 1);
-    };
-    QuizFeedItemFormComponent.prototype.removeQuestion = function (index) {
-        var questions = this.form.controls['questions'];
-        if (this.currentQuestion > 0)
-            this.displayQuestion(this.currentQuestion - 1);
-        questions.removeAt(index);
-    };
-    QuizFeedItemFormComponent.prototype.displayQuestion = function (index) {
-        var questions = this.form.controls['questions'];
-        if (index < 0 || index > (questions.length - 1))
-            return;
-        this.currentQuestion = index;
-        setTimeout(function () {
-            Materialize.updateTextFields();
-        }, 10);
+        if (answer === void 0) { answer = new QuizClasses.QuizQuestionAnswer(); }
+        var fg = this.baseAnswerForm(answer);
+        fg.addControl('quizQuestionId', new forms_1.FormControl(answer.quizQuestionId, []));
+        fg.addControl('isCorrect', new forms_1.FormControl(answer.isCorrect, []));
+        return fg;
     };
     return QuizFeedItemFormComponent;
-}(basepartialfeeditem_component_1.BasePartialItemFormComponent));
+}(BaseQuestionFeedItemFormComponent));
 QuizFeedItemFormComponent = __decorate([
     core_1.Component({
         selector: 'quizfeeditem',
-        template: require('./quizfeeditem.component.html'),
-        styles: [require('./quizfeeditem.component.css')],
+        template: require('./basequestionfeeditem.component.html'),
+        styles: [require('./basequestionfeeditem.component.css')]
     }),
     __metadata("design:paramtypes", [core_1.Injector])
 ], QuizFeedItemFormComponent);
