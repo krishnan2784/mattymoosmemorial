@@ -50,8 +50,7 @@ var FeedIndexComponent = (function (_super) {
             _this.catId = +params["feedCat"];
             _this.filteredFeed = !isNaN(_this.catId);
             _this.setPageTitle();
-            if (_this.currentMarket != null)
-                _this.getData();
+            _this.getData();
         });
     };
     FeedIndexComponent.prototype.ngOnDestroy = function () {

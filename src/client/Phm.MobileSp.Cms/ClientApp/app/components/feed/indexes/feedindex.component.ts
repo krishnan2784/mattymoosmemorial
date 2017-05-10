@@ -51,8 +51,7 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
                 this.catId = +params["feedCat"];
                 this.filteredFeed = !isNaN(this.catId);
                 this.setPageTitle();
-                if (this.currentMarket != null)
-                    this.getData();
+                this.getData();
             }
         );
     }
