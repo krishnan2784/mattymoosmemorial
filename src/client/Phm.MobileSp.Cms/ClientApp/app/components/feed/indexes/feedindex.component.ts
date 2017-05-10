@@ -9,10 +9,13 @@ import FeedTypeEnum = Enums.FeedTypeEnum;
 import FeedCategoryEnum = Enums.FeedCategoryEnum;
 import { BaseComponent} from "../../base.component";
 import { ShareService } from "../../../dataservices/datashareservice";
+import Userclasses = require("../../../models/userclasses");
+import UserMarket = Userclasses.UserMarket;
 
 @Component({
     selector: 'feedindex',
-    template: require('./feedindex.component.html')
+    template: require('./feedindex.component.html'),
+    styles: [require('./feedindex.component.css')]
 })
 export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestroy {
     feedFormData = null;
@@ -22,6 +25,7 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
     public catId : number;
     public filteredFeed: boolean;
     public id_sub: any;
+    public currentMarket: UserMarket;
 
     constructor(private route: ActivatedRoute,
         private router: Router,
@@ -29,12 +33,12 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
         sharedService: ShareService) {
 
         super(sharedService, '', true);
-
         this.setupSubscriptions();
     }
 
     setupSubscriptions() {
-        this.sharedService.marketIdUpdated.subscribe((marketId) => {
+        this.sharedService.marketUpdated.subscribe((market) => {
+            this.currentMarket = market;
             this.feedItems = null;
             this.getData();
         });
@@ -47,7 +51,8 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
                 this.catId = +params["feedCat"];
                 this.filteredFeed = !isNaN(this.catId);
                 this.setPageTitle();
-                this.getData();
+                if (this.currentMarket != null)
+                    this.getData();
             }
         );
     }

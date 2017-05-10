@@ -39,21 +39,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
         {
             var cachedUsers = await _cache.GetOrCreateAsync(CacheKeys.USERMARKETS, async entry =>
             {
-                var list = new List<UserMarket>();
-                
-                var configs = await _userRepository.GetUserConfigurationsByUserId(UserId);
-                
-                var markets = await _marketRepository.GetMarketsAsync();
-
-                foreach (var config in configs)
-                {
-                    list.Add(new UserMarket()
-                    {
-                        Id = config.MarketId,
-                        IsDefault = config.IsDefault,
-                        Name = markets.First(x => x.Id == config.MarketId).Name
-                    });
-                }
+                var list = await _userRepository.GetUserMarkets(_marketRepository, UserId);
                 return list;
             });
             return Json(cachedUsers);
