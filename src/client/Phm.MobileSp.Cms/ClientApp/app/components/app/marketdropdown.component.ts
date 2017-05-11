@@ -28,7 +28,7 @@ export class MarketDropdown {
         this.marketDataService.getCurrentMarketId().subscribe((result) => {
             if (this.userMarkets!=null) {
                 this.currentMarket = this.userMarkets.find(x => x.id === result);
-                this.sharedService.updateMarketId(this.currentMarket);
+                this.sharedService.updateMarket(this.currentMarket);
             }
         });
     }
@@ -37,7 +37,7 @@ export class MarketDropdown {
         this.currentMarket = this.userMarkets.find(x=> x == newMarket);
         this.marketDataService.updateCurrentMarketId(this.currentMarket.id).subscribe((result) => {
             if (result) {
-                this.sharedService.updateMarketId(this.currentMarket);
+                this.sharedService.updateMarket(this.currentMarket);
             }
         });
     }

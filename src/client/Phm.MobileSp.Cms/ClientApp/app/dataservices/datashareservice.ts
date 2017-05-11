@@ -23,11 +23,13 @@ export class ShareService {
         this.marketDropdownVisibilitypeUpdate.next(isMarketDropdownVisible);
     }
 
-    private marketIdUpdate = new Subject<UserMarket>();
-    marketUpdated = this.marketIdUpdate.asObservable();
+    private marketUpdate = new Subject<UserMarket>();
+    marketUpdated = this.marketUpdate.asObservable();
 
-    public updateMarketId(market: UserMarket) {
+    public updateMarket(market: UserMarket) {
+        if (this.currentMarket && this.currentMarket.id === market.id)
+            return;
         this.currentMarket = market;
-        this.marketIdUpdate.next(market);
+        this.marketUpdate.next(market);
     }
 }

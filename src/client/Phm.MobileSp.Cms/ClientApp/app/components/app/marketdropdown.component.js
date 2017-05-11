@@ -30,7 +30,7 @@ var MarketDropdown = (function () {
         this.marketDataService.getCurrentMarketId().subscribe(function (result) {
             if (_this.userMarkets != null) {
                 _this.currentMarket = _this.userMarkets.find(function (x) { return x.id === result; });
-                _this.sharedService.updateMarketId(_this.currentMarket);
+                _this.sharedService.updateMarket(_this.currentMarket);
             }
         });
     };
@@ -39,7 +39,7 @@ var MarketDropdown = (function () {
         this.currentMarket = this.userMarkets.find(function (x) { return x == newMarket; });
         this.marketDataService.updateCurrentMarketId(this.currentMarket.id).subscribe(function (result) {
             if (result) {
-                _this.sharedService.updateMarketId(_this.currentMarket);
+                _this.sharedService.updateMarket(_this.currentMarket);
             }
         });
     };

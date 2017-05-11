@@ -4,11 +4,7 @@
         <i class="material-icons">add</i>
     </a>
 
-    <p *ngIf="!this.feedItems">
-        <em>Loading feed...</em>
-    </p>
-
-    <div *ngIf="this.feedItems">
+    <div>
         <div class="col-md-12">
             <div class="col-md-8 feed-index-type-container">
                 <span [routerLinkActive]="['link-active']">
@@ -40,83 +36,96 @@
                     <a [routerLink]="['/', feedCats.News, 'feed']" class="feed-cat-index">
                         News
                     </a>
-                </span>
+                </span>             
                 <div class="clearfix"></div>
             </div>
-        </div>
-
-        <div class="col-md-12" *ngIf="this.feedItems.length === 0">
-            <hr/>
-            <em>No items to display.</em>
-        </div>
-
-        <div class='feed-index col-md-12' *ngIf="this.feedItems.length > 0">
             <div class="col-md-12">
-                <hr class="col-md-11 col-md-offset-1"/>
+                <hr class="col-md-11 col-md-offset-1" />
             </div>
-            <div *ngFor="let feedItem of this.feedItems | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}" class="col-md-12 index-feed-item">
-                <div class="col-md-1">
-                    <img src="assets/images/Icon-{{feedCats[feedItem.feedCategory]}}-b.png" class="feed-cat-img"/>
+        </div>
+        
+        <div class="col-md-12" *ngIf="!this.feedItems">
+            <div class="col-md-12">
+                <div class="col-md-11 col-md-offset-1">
+                    <em>Loading feed...</em>
                 </div>
-                <div class="col-md-11 no-pad">
-                    <div class="col-md-8 no-pad">
-                        <div class="col-md-12 feed-item-title">
-                            <h5>
-                                {{ feedItem.title }}
-                            </h5>
-                        </div>
-                        <div class="col-md-12 feed-item-markets">
-                            <div *ngIf="feedItem.markets">
-                                {{ feedItem.title }}
-                            </div>
-                        </div>
-                        <div class="col-md-12 feed-item-dates">
-                            <div *ngIf="feedItem.postedAt" class="col-md-4 no-pad date-posted">
-                                Date posted: {{ feedItem.postedAt | date:'short' }}
-                            </div>
+            </div>
+        </div>
+        
+        <div *ngIf="this.feedItems">
+            <div class="col-md-12" *ngIf="this.feedItems.length === 0">
+                <div class="col-md-11 col-md-offset-1">
+                    <em>No items to display.</em>
+                </div>
+            </div>
 
-                            <div *ngIf="feedItem.updatedAt && feedItem.updatedAt!==feedItem.createdAt" class="col-md-4 no-pad">
-                                Date modified: {{ feedItem.updatedAt | date:'short' }}
-                            </div>
-
-                            <div class="col-md-4 no-pad">
-                                Date created: {{ feedItem.createdAt | date:'short' }}
-                            </div>
-                        </div>
+            <div class='feed-index col-md-12' *ngIf="this.feedItems.length > 0">
+                <div *ngFor="let feedItem of this.feedItems | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}" class="col-md-12 index-feed-item">
+                    <div class="col-md-1">
+                        <img src="assets/images/Icon-{{feedCats[feedItem.feedCategory]}}-b.png" class="feed-cat-img" />
                     </div>
-                    <div class="col-md-4 feed-index-controls">
-                        <a (click)="updateFeedItem(feedItem)" class="feed-control col-md-2">
-                            <i class="material-icons">edit</i>
-                            <p>Edit</p>
-                        </a>
-                        <a (click)="updateFeedItem(feedItem)" class="feed-control col-md-2">
-                            <i class="material-icons">delete</i>
-                            <p>Delete</p>
-                        </a>
-                        <a (click)="updateFeedItem(feedItem)" class="feed-control col-md-2">
-                            <i class="material-icons">smartphone</i>
-                            <p>Preview</p>
-                        </a>
-                        <a (click)="updateFeedItem(feedItem)" class="feed-control col-md-2" *ngIf="currentMarket && currentMarket.isMaster">
-                            <i class="material-icons">content_copy</i>
-                            <p>Copy</p>
-                        </a>
-                        <a (click)="updateFeedItem(feedItem)" class="feed-control col-md-2" *ngIf="!feedItem.postedAt && !(currentMarket && currentMarket.isMaster)">
-                            <i class="material-icons">launch</i>
-                            <p>Publish</p>
-                        </a>
+                    <div class="col-md-11 no-pad">
+                        <div class="col-md-8 no-pad">
+                            <div class="col-md-12 feed-item-title">
+                                <h5>
+                                    {{ feedItem.title }}
+                                </h5>
+                            </div>
+                            <div class="col-md-12 feed-item-markets">
+                                <div *ngIf="feedItem.markets">
+                                    {{ feedItem.title }}
+                                </div>
+                            </div>
+                            <div class="col-md-12 feed-item-dates">
+                                <div *ngIf="feedItem.postedAt" class="col-md-4 no-pad date-posted">
+                                    Date posted: {{ feedItem.postedAt | date:'short' }}
+                                </div>
+
+                                <div *ngIf="feedItem.updatedAt && feedItem.updatedAt!==feedItem.createdAt" class="col-md-4 no-pad">
+                                    Date modified: {{ feedItem.updatedAt | date:'short' }}
+                                </div>
+
+                                <div class="col-md-4 no-pad">
+                                    Date created: {{ feedItem.createdAt | date:'short' }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 feed-index-controls">
+                            <a (click)="updateFeedItem(feedItem)" class="feed-control col-md-2">
+                                <i class="material-icons">edit</i>
+                                <p>Edit</p>
+                            </a>
+                            <a (click)="updateFeedItem(feedItem)" class="feed-control col-md-2">
+                                <i class="material-icons">delete</i>
+                                <p>Delete</p>
+                            </a>
+                            <a (click)="updateFeedItem(feedItem)" class="feed-control col-md-2">
+                                <i class="material-icons">smartphone</i>
+                                <p>Preview</p>
+                            </a>
+                            <a (click)="updateFeedItem(feedItem)" class="feed-control col-md-2" *ngIf="currentMarket && currentMarket.isMaster">
+                                <i class="material-icons">content_copy</i>
+                                <p>Copy</p>
+                            </a>
+                            <a (click)="updateFeedItem(feedItem)" class="feed-control col-md-2" *ngIf="!feedItem.postedAt && !(currentMarket && currentMarket.isMaster)">
+                                <i class="material-icons">launch</i>
+                                <p>Publish</p>
+                            </a>
+                        </div>
+                        <div class="clearfix"></div>
+                        <hr />
                     </div>
                     <div class="clearfix"></div>
-                    <hr/>
                 </div>
-                <div class="clearfix"></div>
             </div>
+            <pagination-controls (pageChange)="page = $event" id="1"
+                                 maxSize="20"
+                                 directionLinks="true"
+                                 autoHide="true">
+            </pagination-controls>
         </div>
-        <pagination-controls (pageChange)="page = $event" id="1"
-                             maxSize="20"
-                             directionLinks="true"
-                             autoHide="true">
-        </pagination-controls>
+        
+
     </div>
 </div>
 
