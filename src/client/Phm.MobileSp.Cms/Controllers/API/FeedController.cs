@@ -100,7 +100,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
 
         [HttpPost("[action]")]
         [JsonResponseWrapper]
-        public async Task<JsonResult> CopyFeedItemToMarket(int feedItemId, List<int> marketIds)
+        public async Task<JsonResult> CopyFeedItemToMarket([FromBody]int feedItemId, [FromBody]List<int> marketIds)
         {
             var feedItemResponse = await _feedRepository.CopyFeedItemToMarketAsync(feedItemId, marketIds);
             return Json(feedItemResponse);
