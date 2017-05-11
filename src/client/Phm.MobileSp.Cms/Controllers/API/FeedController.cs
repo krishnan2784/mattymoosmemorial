@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -96,6 +97,14 @@ namespace Phm.MobileSp.Cms.Controllers.API
         //    }
         //    return null;
         //}
+
+        [HttpPost("[action]")]
+        [JsonResponseWrapper]
+        public async Task<JsonResult> CopyFeedItemToMarket(int feedItemId, List<int> marketIds)
+        {
+            var feedItemResponse = await _feedRepository.CopyFeedItemToMarketAsync(feedItemId, marketIds);
+            return Json(feedItemResponse);
+        }
 
     }
 }

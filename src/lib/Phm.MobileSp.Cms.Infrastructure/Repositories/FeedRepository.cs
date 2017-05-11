@@ -83,16 +83,17 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             return response.Deleted;
         }
 
-        public async Task<bool> CopyFeedItemToMarketAsync(int feedItemId)
+        public async Task<bool> CopyFeedItemToMarketAsync(int feedItemId, List<int> marketIds)
         {
 
             var request = new MobileSPCoreService.CopyFeedToMarketRequest
             {
                 BaseFeedId = feedItemId,
-                AccessToken = BaseRequest.AccessToken
+                AccessToken = BaseRequest.AccessToken,
+                MarketIds = marketIds
             };
             var response = await _proxyCoreClient.CopyFeedToMarketAsync(request);
-            return response.BaseFeeds!=null;
+            return response.BaseFeeds?.Count == marketIds.Count;
         }
     }
 }

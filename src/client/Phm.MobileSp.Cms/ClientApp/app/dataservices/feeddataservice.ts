@@ -55,5 +55,9 @@ export class FeedDataService extends RequestHelper implements IFeedDataService {
         });
         return false;
     }
+
+    public copyFeedItemToMarket(feedItem: FeedItem, marketIds: number[]): Observable<Apiresponse.ApiResponse> {
+        return this.postRequestFull('/api/Feed/CopyFeedItemToMarket', { feedItemId : feedItem.id, marketIds});
+    }
     
 }
