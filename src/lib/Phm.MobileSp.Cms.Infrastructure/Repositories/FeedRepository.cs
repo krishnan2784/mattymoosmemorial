@@ -11,12 +11,14 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
     public class FeedRepository : MLearningBaseRepository, IFeedRepository
     {
         private readonly IMLearningCoreContract _proxyClient;
+        private readonly MobileSPCoreService.ICoreContract _proxyCoreClient;
 
-        public FeedRepository(IMLearningCoreContract proxyClient, IBaseRequest baseRequest,
+        public FeedRepository(IMLearningCoreContract proxyClient, MobileSPCoreService.ICoreContract proxyCoreClient, IBaseRequest baseRequest,
             IBaseCriteria baseRBaseCriteria)
             : base(baseRequest, baseRBaseCriteria)
         {
             _proxyClient = proxyClient;
+            _proxyCoreClient = proxyCoreClient;
         }
 
         public async Task<dynamic> GetFeedItemAsync(int feedItemId)
@@ -76,9 +78,21 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 
         public async Task<bool> DeleteFeedItemAsync(int feedItemId)
         {
-            var request = GetRequest(new DeleteFeedRequest {FeedId = feedItemId});
+            var request = GetRequest(new DeleteFeedRequest { FeedId = feedItemId });
             var response = await _proxyClient.DeleteFeedAsync(request);
             return response.Deleted;
+        }
+
+        public async Task<bool> CopyFeedItemToMarketAsync(int feedItemId)
+        {
+
+            var request = new MobileSPCoreService.CopyFeedToMarketRequest
+            {
+                BaseFeedId = feedItemId,
+                AccessToken = BaseRequest.AccessToken
+            };
+            var response = await _proxyCoreClient.CopyFeedToMarketAsync(request);
+            return response.BaseFeeds!=null;
         }
     }
 }
