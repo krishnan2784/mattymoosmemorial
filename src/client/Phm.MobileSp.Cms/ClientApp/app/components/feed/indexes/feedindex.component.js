@@ -22,6 +22,8 @@ var FeedTypeEnum = Enums.FeedTypeEnum;
 var FeedCategoryEnum = Enums.FeedCategoryEnum;
 var base_component_1 = require("../../base.component");
 var datashareservice_1 = require("../../../dataservices/datashareservice");
+var Copytomarketcomponent = require("../modals/copytomarket.component");
+var FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
 var FeedIndexComponent = (function (_super) {
     __extends(FeedIndexComponent, _super);
     function FeedIndexComponent(route, router, feedDataService, sharedService) {
@@ -30,6 +32,7 @@ var FeedIndexComponent = (function (_super) {
         _this.router = router;
         _this.feedDataService = feedDataService;
         _this.feedFormData = null;
+        _this.modalData = null;
         _this.feedTypes = FeedTypeEnum;
         _this.feedCats = FeedCategoryEnum;
         _this.setupSubscriptions();
@@ -41,6 +44,9 @@ var FeedIndexComponent = (function (_super) {
             _this.currentMarket = market;
             _this.feedItems = null;
             _this.getData();
+        });
+        this.sharedService.feedItemUpdated.subscribe(function (feedItem) {
+            _this.updateFeedItem(feedItem);
         });
     };
     FeedIndexComponent.prototype.ngOnInit = function () {
@@ -89,7 +95,25 @@ var FeedIndexComponent = (function (_super) {
             return 0;
         });
     };
-    FeedIndexComponent.prototype.updateFeedItem = function (feedItem, feedCat) {
+    FeedIndexComponent.prototype.updateFeedItem = function (feedItem) {
+        if (feedItem === void 0) { feedItem = null; }
+        if (feedItem != null) {
+            var origFeedItem = this.feedItems.find(function (x) { return x.id === feedItem.id; });
+            var index = this.feedItems.indexOf(origFeedItem);
+            if (!this.filteredFeed || feedItem.feedCategory == this.catId) {
+                if (index > -1) {
+                    this.feedItems.splice(index, 1, feedItem);
+                }
+                else {
+                    this.feedItems.unshift(feedItem);
+                }
+            }
+            else if (index > -1) {
+                this.feedItems.splice(index, 1);
+            }
+        }
+    };
+    FeedIndexComponent.prototype.editFeedItem = function (feedItem, feedCat) {
         var _this = this;
         if (feedItem === void 0) { feedItem = null; }
         if (feedCat === void 0) { feedCat = null; }
@@ -104,27 +128,21 @@ var FeedIndexComponent = (function (_super) {
         this.updateMarketDropdownVisibility(false);
         form.prototype.feedUpdated = new core_1.EventEmitter();
         form.prototype.feedUpdated.subscribe(function (feedItemResponse) {
-            if (feedItemResponse != null) {
-                var origFeedItem = _this.feedItems.find(function (x) { return x.id === feedItemResponse.id; });
-                var index = _this.feedItems.indexOf(origFeedItem);
-                if (!_this.filteredFeed || feedItemResponse.feedCategory == _this.catId) {
-                    if (index > -1) {
-                        _this.feedItems.splice(index, 1, feedItemResponse);
-                    }
-                    else {
-                        _this.feedItems.unshift(feedItemResponse);
-                    }
-                }
-                else if (index > -1) {
-                    _this.feedItems.splice(index, 1);
-                }
-            }
             _this.setPageTitle();
             _this.updateMarketDropdownVisibility(true);
             _this.feedFormData = null;
         });
         this.feedFormData = {
             feedFormComponent: form,
+            inputs: inputs
+        };
+    };
+    FeedIndexComponent.prototype.copyFeedItemToMarket = function (feedItem) {
+        var inputs = { feedItem: feedItem };
+        this.updateMarketDropdownVisibility(false);
+        var modelData = FeedItemCopyToMarket;
+        this.modalData = {
+            modalContent: modelData,
             inputs: inputs
         };
     };

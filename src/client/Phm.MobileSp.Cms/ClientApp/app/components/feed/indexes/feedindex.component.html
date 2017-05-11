@@ -1,6 +1,6 @@
 <div *ngIf="!feedFormData">
     
-    <a (click)="updateFeedItem()" class="btn-floating btn-large waves-effect waves-light btn-add-feed-item">
+    <a (click)="editFeedItem()" class="btn-floating btn-large waves-effect waves-light btn-add-feed-item">
         <i class="material-icons">add</i>
     </a>
 
@@ -91,23 +91,23 @@
                             </div>
                         </div>
                         <div class="col-md-4 feed-index-controls">
-                            <a (click)="updateFeedItem(feedItem)" class="feed-control col-md-2">
+                            <a (click)="editFeedItem(feedItem)" class="feed-control col-md-2">
                                 <i class="material-icons">edit</i>
                                 <p>Edit</p>
                             </a>
-                            <a (click)="updateFeedItem(feedItem)" class="feed-control col-md-2">
+                            <a (click)="editFeedItem(feedItem)" class="feed-control col-md-2">
                                 <i class="material-icons">delete</i>
                                 <p>Delete</p>
                             </a>
-                            <a (click)="updateFeedItem(feedItem)" class="feed-control col-md-2">
+                            <a (click)="editFeedItem(feedItem)" class="feed-control col-md-2">
                                 <i class="material-icons">smartphone</i>
                                 <p>Preview</p>
                             </a>
-                            <a (click)="updateFeedItem(feedItem)" class="feed-control col-md-2" *ngIf="currentMarket && currentMarket.isMaster">
+                            <a (click)="copyFeedItemToMarket(feedItem)" class="feed-control col-md-2" *ngIf="currentMarket && currentMarket.isMaster" data-toggle="modal" data-target="#feeditem-copytomarket">
                                 <i class="material-icons">content_copy</i>
                                 <p>Copy</p>
                             </a>
-                            <a (click)="updateFeedItem(feedItem)" class="feed-control col-md-2" *ngIf="!feedItem.postedAt && !(currentMarket && currentMarket.isMaster)">
+                            <a (click)="editFeedItem(feedItem)" class="feed-control col-md-2" *ngIf="!feedItem.postedAt && !(currentMarket && currentMarket.isMaster)">
                                 <i class="material-icons">launch</i>
                                 <p>Publish</p>
                             </a>
@@ -132,3 +132,5 @@
 <div *ngIf="feedFormData">
     <feed-form-component [feedFormData]="feedFormData"></feed-form-component>
 </div>
+
+<base-modal [modalData]="modalData" [modalId]="'feeditem-copytomarket'" [modalTitle]="'Copy to market'" (modelClosed)="updateFeedItem($event)"></base-modal>

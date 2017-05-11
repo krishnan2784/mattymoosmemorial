@@ -33,7 +33,10 @@ import { FeedItemContainerComponent } from "./components/feed/modelforms/feedite
 import { QuizFeedItemFormComponent } from "./components/feed/modelforms/quizfeeditem.component";
 import { SurveyFeedItemFormComponent } from "./components/feed/modelforms/surveyfeeditem.component";
 import { QuestionFormComponent } from "./components/feed/modelforms/questionform.component";
-
+import Basemodalcomponent = require("./components/modals/basemodal.component");
+import BaseModalComponent = Basemodalcomponent.BaseModalComponent;
+import Copytomarketcomponent = require("./components/feed/modals/copytomarket.component");
+import FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -45,18 +48,24 @@ import { QuestionFormComponent } from "./components/feed/modelforms/questionform
         MarketDropdown,
         DateValueAccessor,
 
+        // main naviation items
         CounterComponent,
         FetchDataComponent,
         HomeComponent,
         UserAccountManagementComponent,
         FeedIndexComponent,
 
+        // feed item forms
         FeedItemContainerComponent,
         FeedItemForm,
         TextFeedItemFormComponent,
         QuizFeedItemFormComponent,
         SurveyFeedItemFormComponent,
-        QuestionFormComponent
+        QuestionFormComponent,
+        BaseModalComponent,
+
+        //modals
+        FeedItemCopyToMarket
     ],
     imports: [
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.

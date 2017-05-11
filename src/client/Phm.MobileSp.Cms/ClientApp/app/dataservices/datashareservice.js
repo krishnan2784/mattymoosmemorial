@@ -19,6 +19,8 @@ var ShareService = (function () {
         this.marketDropdownVisibilitypeUpdated = this.marketDropdownVisibilitypeUpdate.asObservable();
         this.marketUpdate = new Subject_1.Subject();
         this.marketUpdated = this.marketUpdate.asObservable();
+        this.feedItemUpdate = new Subject_1.Subject();
+        this.feedItemUpdated = this.feedItemUpdate.asObservable();
     }
     ShareService.prototype.updatePageTitle = function (pageTitle) {
         this.pageTitleUpdate.next(pageTitle);
@@ -31,6 +33,9 @@ var ShareService = (function () {
             return;
         this.currentMarket = market;
         this.marketUpdate.next(market);
+    };
+    ShareService.prototype.updateFeedItem = function (feedItem) {
+        this.feedItemUpdate.next(feedItem);
     };
     return ShareService;
 }());

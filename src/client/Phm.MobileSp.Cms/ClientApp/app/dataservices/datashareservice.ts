@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import Userclasses = require("../models/userclasses");
 import UserMarket = Userclasses.UserMarket;
+import FeedModel = require("../interfaces/models/IFeedModel");
+import IFeedItem = FeedModel.IFeedItem;
 
 @Injectable()
 export class ShareService {
@@ -31,5 +33,12 @@ export class ShareService {
             return;
         this.currentMarket = market;
         this.marketUpdate.next(market);
+    }
+
+    private feedItemUpdate = new Subject<IFeedItem>();
+    feedItemUpdated = this.feedItemUpdate.asObservable();
+
+    public updateFeedItem(feedItem: IFeedItem) {
+        this.feedItemUpdate.next(feedItem);
     }
 }
