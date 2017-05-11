@@ -12,12 +12,12 @@
 }
 
 .index-feed-item {
-    padding: 10px 10px 0;
+    padding: 0 10px;
 }
 
 .feed-index .feed-cat-img {
     height: 48px;
-    margin: 15px 0 0;
+    margin: 25px 0 0;
 }
 
 .feed-index-controls {
@@ -84,4 +84,5 @@
 .feed-index-type-container {
     display: flex;
     justify-content: space-between;
+    padding-bottom: 20px;
 }

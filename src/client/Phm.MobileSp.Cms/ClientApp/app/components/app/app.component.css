@@ -3,7 +3,7 @@
     padding: 0;
 }
 .header-bar {
-    height: 108px;
+    height: 128px;
     background-color: #EEE;
     margin: -27px -15px 27px -12px;
     position: relative;
@@ -11,10 +11,13 @@
     -moz-box-shadow: 1px 2px 2px 0 #999;
     box-shadow: 1px 2px 2px 0 #999;
 }
-.header-bar h2 {
+.header-bar .header-bar-content {
     position: absolute;
     bottom: -10px;
     width: 100%;
+}
+.header-bar .header-bar-content  h4 {
+     margin-top: 0;
 }
 .marketdropdown {
     display: inline-flex;
