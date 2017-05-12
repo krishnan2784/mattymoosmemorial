@@ -157,10 +157,12 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
     }
 
     deleteFeeditem(feedItem: IFeedItem) {
-        this.feedDataService.deleteFeeditem(feedItem.id).subscribe((result) => {
-            if (result)
-                this.updateFeedItem(feedItem, true);
-        });
+        if (confirm("Are you sure to delete " + feedItem.title + '?')) {
+            this.feedDataService.deleteFeeditem(feedItem.id).subscribe((result) => {
+                if (result)
+                    this.updateFeedItem(feedItem, true);
+            });
+        }
     }
     
 }

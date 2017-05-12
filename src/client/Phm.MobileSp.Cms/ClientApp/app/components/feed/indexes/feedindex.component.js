@@ -149,10 +149,12 @@ var FeedIndexComponent = (function (_super) {
     };
     FeedIndexComponent.prototype.deleteFeeditem = function (feedItem) {
         var _this = this;
-        this.feedDataService.deleteFeeditem(feedItem.id).subscribe(function (result) {
-            if (result)
-                _this.updateFeedItem(feedItem, true);
-        });
+        if (confirm("Are you sure to delete " + feedItem.title + '?')) {
+            this.feedDataService.deleteFeeditem(feedItem.id).subscribe(function (result) {
+                if (result)
+                    _this.updateFeedItem(feedItem, true);
+            });
+        }
     };
     return FeedIndexComponent;
 }(base_component_1.BaseComponent));
