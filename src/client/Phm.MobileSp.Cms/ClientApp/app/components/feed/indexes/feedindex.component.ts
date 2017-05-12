@@ -152,8 +152,6 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
             modalContent: modelData,
             inputs: inputs
         };
-
-
     }
 
     deleteFeeditem(feedItem: IFeedItem) {
