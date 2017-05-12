@@ -41,18 +41,16 @@ namespace Phm.MobileSp.Cms
                 .UseStartup<Phm.MobileSp.Cms.Startup>()
                 .UseApplicationInsights();
 
-            var regionName = Environment.GetEnvironmentVariable("REGION_NAME");
-            if (regionName != null)
-            {
+            //var regionName = Environment.GetEnvironmentVariable("REGION_NAME");
+            //if (regionName != null)
+            //{
                 hostBuilder.UseAzureAppServices();
-            }
+            //}
 
             var host = hostBuilder.Build();
 
             host.Run();
 
-
-            host.Run();
         }
     }
 }

@@ -95,12 +95,13 @@ var FeedIndexComponent = (function (_super) {
             return 0;
         });
     };
-    FeedIndexComponent.prototype.updateFeedItem = function (feedItem) {
+    FeedIndexComponent.prototype.updateFeedItem = function (feedItem, remove) {
         if (feedItem === void 0) { feedItem = null; }
+        if (remove === void 0) { remove = false; }
         if (feedItem != null) {
             var origFeedItem = this.feedItems.find(function (x) { return x.id === feedItem.id; });
             var index = this.feedItems.indexOf(origFeedItem);
-            if (!this.filteredFeed || feedItem.feedCategory == this.catId) {
+            if (!remove && (!this.filteredFeed || feedItem.feedCategory == this.catId)) {
                 if (index > -1) {
                     this.feedItems.splice(index, 1, feedItem);
                 }
@@ -145,6 +146,15 @@ var FeedIndexComponent = (function (_super) {
             modalContent: modelData,
             inputs: inputs
         };
+    };
+    FeedIndexComponent.prototype.deleteFeeditem = function (feedItem) {
+        var _this = this;
+        if (confirm("Are you sure to delete " + feedItem.title + '?')) {
+            this.feedDataService.deleteFeeditem(feedItem.id).subscribe(function (result) {
+                if (result)
+                    _this.updateFeedItem(feedItem, true);
+            });
+        }
     };
     return FeedIndexComponent;
 }(base_component_1.BaseComponent));

@@ -8,6 +8,7 @@ import 'rxjs/add/operator/publishReplay';
 import { ResponseHelper } from "./responsehelper";
 import { ApiResponse } from "../../models/apiresponse"
 
+declare var Materialize: any;
 
 export class RequestHelper {
 
@@ -34,12 +35,6 @@ export class RequestHelper {
             this.http.get(url + parameters).subscribe(result => {
                 let response = ResponseHelper.getResponse(result);
 
-                //if (response.success) {
-                //    this.notifier.success('Success', response.message);
-                //} else {
-                //    this.notifier.error('Error', response.message);
-                //}
-
                 observer.next(response);
                 observer.complete();
             });
@@ -65,11 +60,11 @@ export class RequestHelper {
                 (result) => {
                     let response = ResponseHelper.getResponse(result);
 
-                    //if (response.success) {
-                    //    this.notifier.success(response.message);
-                    //} else {
-                    //    this.notifier.error(response.message);
-                    //}
+                    if (response.success) {
+                        Materialize.toast(response.message, 5000, 'green');
+                    } else {
+                        Materialize.toast(response.message, 5000, 'red');
+                    }
 
                     observer.next(response);
                     observer.complete();

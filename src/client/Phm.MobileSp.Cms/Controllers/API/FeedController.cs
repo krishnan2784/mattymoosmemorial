@@ -47,7 +47,8 @@ namespace Phm.MobileSp.Cms.Controllers.API
         {
             feedItem.MarketId = CurrentMarketId;
             var feedItemResponse = await _feedRepository.CreateFeedItemAsync<TFeedItem, TDestinationDto>(feedItem);
-            return Json(feedItemResponse);
+            var success = feedItemResponse != null;
+            return Json(new BaseResponse(success, success ? "Feed item successfuly created" : "Failed to create feed item", feedItemResponse));
         }
 
         [HttpPost("[action]")]
@@ -58,7 +59,8 @@ namespace Phm.MobileSp.Cms.Controllers.API
                 return await CreateFeedItem<TFeedItem, TDestinationDto>(feedItem);
             
             var feedItemResponse = await _feedRepository.UpdateFeedItemAsync<TFeedItem, TDestinationDto>(feedItem);
-            return Json(feedItemResponse);
+            var success = feedItemResponse != null;
+            return Json(new BaseResponse(success, success ? "Feed item successfuly updated" : "Failed to update feed item", feedItemResponse));
         }
 
         
@@ -103,7 +105,15 @@ namespace Phm.MobileSp.Cms.Controllers.API
         public async Task<JsonResult> CopyFeedItemToMarket([FromBody]int feedItemId, [FromBody]List<int> marketIds)
         {
             var feedItemResponse = await _feedRepository.CopyFeedItemToMarketAsync(feedItemId, marketIds);
-            return Json(feedItemResponse);
+            return Json(new BaseResponse(feedItemResponse, feedItemResponse ? "Feed item successfuly copied" : "Failed to copy feed item", feedItemResponse));
+        }
+
+        [HttpPost("[action]")]
+        [JsonResponseWrapper]
+        public async Task<JsonResult> DeleteFeedItem([FromBody]int feedItemId)
+        {
+            var feedItemResponse = await _feedRepository.DeleteFeedItemAsync(feedItemId);
+            return Json(new BaseResponse(feedItemResponse, feedItemResponse ? "Feed item successfuly deleted" : "Failed to delete feed item", feedItemResponse));
         }
 
     }

@@ -29,11 +29,6 @@ var RequestHelper = (function () {
             }
             _this.http.get(url + parameters).subscribe(function (result) {
                 var response = responsehelper_1.ResponseHelper.getResponse(result);
-                //if (response.success) {
-                //    this.notifier.success('Success', response.message);
-                //} else {
-                //    this.notifier.error('Error', response.message);
-                //}
                 observer.next(response);
                 observer.complete();
             });
@@ -55,11 +50,12 @@ var RequestHelper = (function () {
         return Observable_1.Observable.create(function (observer) {
             _this.http.post(url, body, { headers: headers }).subscribe(function (result) {
                 var response = responsehelper_1.ResponseHelper.getResponse(result);
-                //if (response.success) {
-                //    this.notifier.success(response.message);
-                //} else {
-                //    this.notifier.error(response.message);
-                //}
+                if (response.success) {
+                    Materialize.toast(response.message, 5000, 'green');
+                }
+                else {
+                    Materialize.toast(response.message, 5000, 'red');
+                }
                 observer.next(response);
                 observer.complete();
             });
