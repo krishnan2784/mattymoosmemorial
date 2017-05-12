@@ -9,19 +9,30 @@ import FeedTypeEnum = Enums.FeedTypeEnum;
 import FeedCategoryEnum = Enums.FeedCategoryEnum;
 import { BaseComponent} from "../../base.component";
 import { ShareService } from "../../../dataservices/datashareservice";
+import Userclasses = require("../../../models/userclasses");
+import UserMarket = Userclasses.UserMarket;
+import Copytomarketcomponent = require("../modals/copytomarket.component");
+import FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
+
+declare var $: any;
+declare var Materialize: any;
 
 @Component({
     selector: 'feedindex',
-    template: require('./feedindex.component.html')
+    template: require('./feedindex.component.html'),
+    styles: [require('./feedindex.component.css')]
 })
 export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestroy {
     feedFormData = null;
+    modalData = null;
+
     public feedItems: IFeedItem[];
     feedTypes: typeof Enums.FeedTypeEnum = FeedTypeEnum;
     feedCats: typeof FeedCategoryEnum = FeedCategoryEnum;
     public catId : number;
     public filteredFeed: boolean;
     public id_sub: any;
+    public currentMarket: UserMarket;
 
     constructor(private route: ActivatedRoute,
         private router: Router,
@@ -29,14 +40,17 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
         sharedService: ShareService) {
 
         super(sharedService, '', true);
-
         this.setupSubscriptions();
     }
 
     setupSubscriptions() {
-        this.sharedService.marketIdUpdated.subscribe((marketId) => {
+        this.sharedService.marketUpdated.subscribe((market) => {
+            this.currentMarket = market;
             this.feedItems = null;
             this.getData();
+        });
+        this.sharedService.feedItemUpdated.subscribe((feedItem) => {
+            this.updateFeedItem(feedItem);
         });
     }
 
@@ -86,8 +100,25 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
             return 0;
         });
     }
-    
-    updateFeedItem(feedItem: IFeedItem = null, feedCat: FeedCategoryEnum = null) {
+
+    updateFeedItem(feedItem: IFeedItem = null) {
+        if (feedItem != null) {
+            let origFeedItem = this.feedItems.find(x => x.id === feedItem.id);
+            let index = this.feedItems.indexOf(origFeedItem);
+
+            if (!this.filteredFeed || feedItem.feedCategory == this.catId) {
+                if (index > -1) {
+                    this.feedItems.splice(index, 1, feedItem);
+                } else {
+                    this.feedItems.unshift(feedItem);
+                }
+            } else if (index > -1) {
+                this.feedItems.splice(index, 1);
+            }
+        }
+    }
+
+    editFeedItem(feedItem: IFeedItem = null, feedCat: FeedCategoryEnum = null) {
 
         let inputs = { feedItem: feedItem, feedCat: feedCat, feedUpdated: this.getData() };
         var form = FeedItemForm;
@@ -101,21 +132,6 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
 
         form.prototype.feedUpdated = new EventEmitter<IFeedItem>();
         form.prototype.feedUpdated.subscribe((feedItemResponse) => {
-
-            if (feedItemResponse != null) {
-                let origFeedItem = this.feedItems.find(x => x.id === feedItemResponse.id);
-                let index = this.feedItems.indexOf(origFeedItem);
-
-                if (!this.filteredFeed || feedItemResponse.feedCategory == this.catId) {
-                    if (index > -1) {
-                        this.feedItems.splice(index, 1, feedItemResponse);
-                    } else {
-                        this.feedItems.unshift(feedItemResponse);
-                    }
-                } else if (index > -1) {
-                    this.feedItems.splice(index, 1);
-                }
-            }
             this.setPageTitle();
             this.updateMarketDropdownVisibility(true);
             this.feedFormData = null;
@@ -125,6 +141,19 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
             feedFormComponent: form,
             inputs: inputs
         };
+    }
+
+    copyFeedItemToMarket(feedItem: IFeedItem) {
+        let inputs = { feedItem: feedItem};
+        this.updateMarketDropdownVisibility(false);
+        var modelData = FeedItemCopyToMarket;
+
+        this.modalData = {
+            modalContent: modelData,
+            inputs: inputs
+        };
+            
+
     }
     
 }

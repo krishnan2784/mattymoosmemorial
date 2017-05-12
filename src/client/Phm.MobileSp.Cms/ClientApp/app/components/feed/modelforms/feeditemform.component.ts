@@ -19,6 +19,8 @@ import Quizfeeditemcomponent = require("./quizfeeditem.component");
 import QuizFeedItemFormComponent = Quizfeeditemcomponent.QuizFeedItemFormComponent;
 import Surveyfeeditemcomponent = require("./surveyfeeditem.component");
 import SurveyFeedItemFormComponent = Surveyfeeditemcomponent.SurveyFeedItemFormComponent;
+import Datashareservice = require("../../../dataservices/datashareservice");
+import ShareService = Datashareservice.ShareService;
 declare var $: any;
 declare var Materialize: any;
 
@@ -55,7 +57,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     public feedFormSteps: FeedFormSteps = new FeedFormSteps();
 
     constructor(fb: FormBuilder, public http: Http, public route: ActivatedRoute,
-        private router: Router, public feedDataService: FeedDataService, private injector: Injector) {
+        private router: Router, public feedDataService: FeedDataService, private injector: Injector, public sharedService: ShareService) {
         
         this._fb = fb;
 
@@ -162,6 +164,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         this.feedDataService.updateFeeditem(this.subForm.updateUrl, feedItem).subscribe(result => {
             if (result.success) {
                 this.model = result.content;
+                this.sharedService.updateFeedItem(result.content);
                 this.feedUpdated.emit(result.content);    
             }
         });

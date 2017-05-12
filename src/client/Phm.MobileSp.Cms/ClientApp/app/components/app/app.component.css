@@ -1,9 +1,26 @@
 .container-fluid {
     min-height: calc(100vh - 125px);
-    padding-left: 0;
+    padding: 0;
 }
 .header-bar {
-    height: 100px;
+    height: 128px;
+    background-color: #EEE;
+    margin: -27px -15px 27px -12px;
+    position: relative;
+    -webkit-box-shadow: 1px 2px 2px 0 #999;
+    -moz-box-shadow: 1px 2px 2px 0 #999;
+    box-shadow: 1px 2px 2px 0 #999;
+}
+.header-bar .header-bar-content {
+    position: absolute;
+    bottom: -10px;
+    width: 100%;
+}
+.header-bar .header-bar-content  h4 {
+     margin-top: 0;
+}
+.marketdropdown {
+    display: inline-flex;
 }
 .router-content {
     padding: 0 15px;
@@ -23,7 +40,7 @@
 @media(min-width: 768px) {
     .nav-col {
         background-color: #333;
-        box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.349019);
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.349019);
     }
 }
 

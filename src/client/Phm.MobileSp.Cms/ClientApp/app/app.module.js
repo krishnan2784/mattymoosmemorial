@@ -35,6 +35,10 @@ var feeditemcontainer_component_1 = require("./components/feed/modelforms/feedit
 var quizfeeditem_component_1 = require("./components/feed/modelforms/quizfeeditem.component");
 var surveyfeeditem_component_1 = require("./components/feed/modelforms/surveyfeeditem.component");
 var questionform_component_1 = require("./components/feed/modelforms/questionform.component");
+var Basemodalcomponent = require("./components/modals/basemodal.component");
+var BaseModalComponent = Basemodalcomponent.BaseModalComponent;
+var Copytomarketcomponent = require("./components/feed/modals/copytomarket.component");
+var FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
 var AppModule = (function () {
     function AppModule() {
     }
@@ -50,17 +54,22 @@ AppModule = __decorate([
             footer_component_1.FooterComponent,
             marketdropdown_component_1.MarketDropdown,
             datevalueaccessor_1.DateValueAccessor,
+            // main naviation items
             counter_component_1.CounterComponent,
             fetchdata_component_1.FetchDataComponent,
             home_component_1.HomeComponent,
             useraccountmanagement_component_1.UserAccountManagementComponent,
             feedindex_component_1.FeedIndexComponent,
+            // feed item forms
             feeditemcontainer_component_1.FeedItemContainerComponent,
             feeditemform_component_1.FeedItemForm,
             textfeeditem_component_1.TextFeedItemFormComponent,
             quizfeeditem_component_1.QuizFeedItemFormComponent,
             surveyfeeditem_component_1.SurveyFeedItemFormComponent,
-            questionform_component_1.QuestionFormComponent
+            questionform_component_1.QuestionFormComponent,
+            BaseModalComponent,
+            //modals
+            FeedItemCopyToMarket
         ],
         imports: [
             angular2_universal_1.UniversalModule,

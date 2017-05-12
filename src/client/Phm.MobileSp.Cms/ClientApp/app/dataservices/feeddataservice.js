@@ -60,6 +60,9 @@ var FeedDataService = (function (_super) {
         });
         return false;
     };
+    FeedDataService.prototype.copyFeedItemToMarket = function (feedItem, marketIds) {
+        return this.postRequestFull('/api/Feed/CopyFeedItemToMarket', { feedItemId: feedItem.id, marketIds: marketIds });
+    };
     return FeedDataService;
 }(requesthelper_1.RequestHelper));
 FeedDataService = __decorate([

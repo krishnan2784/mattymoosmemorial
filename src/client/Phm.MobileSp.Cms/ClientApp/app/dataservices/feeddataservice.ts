@@ -1,12 +1,9 @@
-﻿import { Component, Input, Injectable, NgZone } from '@angular/core';
-import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
-import { Router, ActivatedRoute, Params } from '@angular/router';
+﻿import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/publishReplay';
 import { IFeedDataService } from "../interfaces/dataservices/IfeedDataService";
-import { ResponseHelper } from "./helpers/responsehelper";
 import { RequestHelper } from "./helpers/requesthelper";
 
 import Enums = require("../enums");
@@ -57,6 +54,10 @@ export class FeedDataService extends RequestHelper implements IFeedDataService {
             return true;
         });
         return false;
+    }
+
+    public copyFeedItemToMarket(feedItem: FeedItem, marketIds: number[]): Observable<Apiresponse.ApiResponse> {
+        return this.postRequestFull('/api/Feed/CopyFeedItemToMarket', { feedItemId : feedItem.id, marketIds});
     }
     
 }

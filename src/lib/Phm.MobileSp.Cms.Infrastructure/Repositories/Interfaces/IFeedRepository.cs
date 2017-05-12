@@ -14,5 +14,6 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
         Task<TFeedItem> UpdateFeedItemAsync<TFeedItem, TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed
             where TDestinationDto : BaseFeedDto;
         Task<bool> DeleteFeedItemAsync(int feedItemId);
+        Task<bool> CopyFeedItemToMarketAsync(int feedItemId, List<int> marketIds);
     }
 }

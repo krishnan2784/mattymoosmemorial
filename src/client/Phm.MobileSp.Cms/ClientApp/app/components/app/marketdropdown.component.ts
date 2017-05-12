@@ -1,10 +1,11 @@
-import { Component, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Injectable } from '@angular/core';
 import { MarketDataService } from "../../dataservices/marketdataservice";
 import Userclasses = require("../../models/userclasses");
 import UserMarket = Userclasses.UserMarket;
 import { ShareService } from "../../dataservices/datashareservice";
 import { UserDataService } from "../../dataservices/userdataservice";
 
+@Injectable()
 @Component({
     selector: 'marketdropdown',
     template: require('./marketdropdown.component.html'),
@@ -27,6 +28,7 @@ export class MarketDropdown {
         this.marketDataService.getCurrentMarketId().subscribe((result) => {
             if (this.userMarkets!=null) {
                 this.currentMarket = this.userMarkets.find(x => x.id === result);
+                this.sharedService.updateMarket(this.currentMarket);
             }
         });
     }
@@ -35,7 +37,7 @@ export class MarketDropdown {
         this.currentMarket = this.userMarkets.find(x=> x == newMarket);
         this.marketDataService.updateCurrentMarketId(this.currentMarket.id).subscribe((result) => {
             if (result) {
-                this.sharedService.updateMarketId(this.currentMarket.id);
+                this.sharedService.updateMarket(this.currentMarket);
             }
         });
     }
