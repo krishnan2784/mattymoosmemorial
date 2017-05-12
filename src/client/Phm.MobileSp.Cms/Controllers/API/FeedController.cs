@@ -106,5 +106,13 @@ namespace Phm.MobileSp.Cms.Controllers.API
             return Json(feedItemResponse);
         }
 
+        [HttpPost("[action]")]
+        [JsonResponseWrapper]
+        public async Task<JsonResult> DeleteFeedItem([FromBody]int feedItemId)
+        {
+            var feedItemResponse = await _feedRepository.DeleteFeedItemAsync(feedItemId);
+            return Json(feedItemResponse);
+        }
+
     }
 }

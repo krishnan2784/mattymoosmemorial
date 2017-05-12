@@ -101,12 +101,12 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
         });
     }
 
-    updateFeedItem(feedItem: IFeedItem = null) {
+    updateFeedItem(feedItem: IFeedItem = null, remove: boolean = false) {
         if (feedItem != null) {
             let origFeedItem = this.feedItems.find(x => x.id === feedItem.id);
             let index = this.feedItems.indexOf(origFeedItem);
 
-            if (!this.filteredFeed || feedItem.feedCategory == this.catId) {
+            if (!remove && (!this.filteredFeed || feedItem.feedCategory == this.catId)) {
                 if (index > -1) {
                     this.feedItems.splice(index, 1, feedItem);
                 } else {
@@ -144,7 +144,7 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
     }
 
     copyFeedItemToMarket(feedItem: IFeedItem) {
-        let inputs = { feedItem: feedItem};
+        let inputs = { feedItem: feedItem };
         this.updateMarketDropdownVisibility(false);
         var modelData = FeedItemCopyToMarket;
 
@@ -152,8 +152,15 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
             modalContent: modelData,
             inputs: inputs
         };
-            
 
+
+    }
+
+    deleteFeeditem(feedItem: IFeedItem) {
+        this.feedDataService.deleteFeeditem(feedItem.id).subscribe((result) => {
+            if (result)
+                this.updateFeedItem(feedItem, true);
+        });
     }
     
 }
