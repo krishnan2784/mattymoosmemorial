@@ -91,26 +91,46 @@
                             </div>
                         </div>
                         <div class="col-md-4 feed-index-controls">
-                            <a (click)="editFeedItem(feedItem)" class="feed-control col-md-2">
-                                <i class="material-icons">edit</i>
-                                <p>Edit</p>
-                            </a>
-                            <a (click)="editFeedItem(feedItem)" class="feed-control col-md-2">
-                                <i class="material-icons">delete</i>
-                                <p>Delete</p>
-                            </a>
-                            <a (click)="editFeedItem(feedItem)" class="feed-control col-md-2">
-                                <i class="material-icons">smartphone</i>
-                                <p>Preview</p>
-                            </a>
-                            <a (click)="copyFeedItemToMarket(feedItem)" class="feed-control col-md-2" *ngIf="currentMarket && currentMarket.isMaster" data-toggle="modal" data-target="#feeditem-copytomarket">
-                                <i class="material-icons">content_copy</i>
-                                <p>Copy</p>
-                            </a>
-                            <a (click)="editFeedItem(feedItem)" class="feed-control col-md-2" *ngIf="!feedItem.postedAt && !(currentMarket && currentMarket.isMaster)">
-                                <i class="material-icons">launch</i>
-                                <p>Publish</p>
-                            </a>
+                            <div class="feed-control col-md-3">
+                                <div>
+                                    <a (click)="editFeedItem(feedItem)">
+                                        <i class="material-icons">edit</i>
+                                        <p>Edit</p>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="feed-control col-md-3">
+                                <div>
+                                    <a (click)="editFeedItem(feedItem)">
+                                        <i class="material-icons">delete</i>
+                                        <p>Delete</p>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="feed-control col-md-3">
+                                <div>
+                                    <a (click)="editFeedItem(feedItem)">
+                                        <i class="material-icons">smartphone</i>
+                                        <p>Preview</p>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="feed-control col-md-3" *ngIf="currentMarket && currentMarket.isMaster">
+                                <div>
+                                    <a (click)="copyFeedItemToMarket(feedItem)" data-toggle="modal" data-target="#feeditem-copytomarket">
+                                        <i class="material-icons">content_copy</i>
+                                        <p>Copy</p>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="feed-control col-md-3" *ngIf="!feedItem.postedAt && !(currentMarket && currentMarket.isMaster)">
+                                <div>
+                                    <a (click)="editFeedItem(feedItem)">
+                                        <i class="material-icons">launch</i>
+                                        <p>Publish</p>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                         <div class="clearfix"></div>
                         <hr />
