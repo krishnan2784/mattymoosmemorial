@@ -3,9 +3,9 @@
     padding: 0;
 }
 .header-bar {
-    height: 128px;
+    height: 100px;
     background-color: #EEE;
-    margin: -27px -15px 27px -12px;
+    margin: 0 -15px 27px -12px;
     position: relative;
     -webkit-box-shadow: 1px 2px 2px 0 #999;
     -moz-box-shadow: 1px 2px 2px 0 #999;
@@ -16,11 +16,13 @@
     bottom: -10px;
     width: 100%;
 }
-.header-bar .header-bar-content  h4 {
-     margin-top: 0;
+.header-bar .header-bar-content .page-title {
+    margin-top: 0;
+    color: #4F3A9F;
 }
 .marketdropdown {
     display: inline-flex;
+    margin: -10px;
 }
 .router-content {
     padding: 0 15px;
@@ -39,7 +41,7 @@
 
 @media(min-width: 768px) {
     .nav-col {
-        background-color: #333;
+        background-color: #405362;
         box-shadow: 2px 0 5px rgba(0, 0, 0, 0.349019);
     }
 }
