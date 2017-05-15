@@ -27,7 +27,7 @@ namespace Phm.MobileSp.Cms.Controllers
             await HttpContext.Authentication.SignOutAsync("MobileSPAuthCookie");
             ClearCache();
             ClearRepoValues();
-            return Redirect("/");
+            return Redirect("/Logout");
         }
 
         public void ClearRepoValues()

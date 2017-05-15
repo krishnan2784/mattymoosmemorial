@@ -127,8 +127,12 @@ namespace Phm.MobileSp.Cms
 
             app.UseMvc(routes =>
             {
-                routes.MapRoute(name: "logout",template: "account/logout",
+                routes.MapRoute(name: "logout", template: "account/logout",
                     defaults: new { controller = "Base", action = "Logout" });
+
+
+                routes.MapRoute(name: "logout-page", template: "logout",
+                    defaults: new { controller = "Account", action = "Logout" });
 
                 routes.MapRoute(
                     name: "default",
