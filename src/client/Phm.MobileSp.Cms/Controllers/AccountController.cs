@@ -73,5 +73,11 @@ namespace Phm.MobileSp.Cms.Controllers
             _userRepository.SetAuthToken(applicationUser.SessionGuid);
             _userRepository.SetMarketId(applicationUser.UserDetails.DefaultMarketId);
         }
+
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            return View();
+        }
     }
 }
