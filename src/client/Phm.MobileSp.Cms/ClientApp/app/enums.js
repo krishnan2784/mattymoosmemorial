@@ -18,6 +18,7 @@ var FeedCategoryEnum;
     FeedCategoryEnum[FeedCategoryEnum["Campaign"] = 3] = "Campaign";
     FeedCategoryEnum[FeedCategoryEnum["Announcement"] = 4] = "Announcement";
     FeedCategoryEnum[FeedCategoryEnum["Article"] = 5] = "Article";
+    FeedCategoryEnum[FeedCategoryEnum["Observation"] = 6] = "Observation";
 })(FeedCategoryEnum = exports.FeedCategoryEnum || (exports.FeedCategoryEnum = {}));
 var MediaTypes;
 (function (MediaTypes) {
