@@ -22,7 +22,6 @@
 
 .feed-index-controls {
     margin-top: 30px;
-    cursor: pointer;
 }
 
 .feed-index-controls i, .feed-index-controls p {
@@ -31,6 +30,11 @@
 
 .feed-control {
     text-align: center;
+}
+
+.feed-control a:hover, .feed-control div:hover {    
+    cursor: pointer;
+    text-decoration: none;
 }
 
 .feed-control p, .feed-control p:hover, .feed-control p:active,
