@@ -36,15 +36,17 @@ export class UserMarket  {
     id: number;
     name: string;
     isDefault: boolean;
-
+    isMaster: boolean;
     constructor(options: {
         id?: number,
         name?: string,
-        isDefault?: boolean} = {}) {
+        isDefault?: boolean,
+        isMaster?: boolean} = {}) {
 
-        this.id = options.id;
-        this.name = options.name;
-        this.isDefault = options.isDefault;
+        this.id = options.id || 0;
+        this.name = options.name || '';
+        this.isDefault = options.isDefault || false;
+        this.isMaster = options.isMaster || false;
     }
 }
 

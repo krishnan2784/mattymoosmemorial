@@ -1,9 +1,16 @@
 ﻿import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
+import Userclasses = require("../models/userclasses");
+import UserMarket = Userclasses.UserMarket;
+import FeedModel = require("../interfaces/models/IFeedModel");
+import IFeedItem = FeedModel.IFeedItem;
 
 @Injectable()
 export class ShareService {
+    public currentMarket: UserMarket = new UserMarket;
+    public currentMarketId: number = this.currentMarket.id;
+
     private pageTitleUpdate = new Subject<string>();
     pageTitleUpdated = this.pageTitleUpdate.asObservable();
 
@@ -18,10 +25,20 @@ export class ShareService {
         this.marketDropdownVisibilitypeUpdate.next(isMarketDropdownVisible);
     }
 
-    private marketIdUpdate = new Subject<number>();
-    marketIdUpdated = this.marketIdUpdate.asObservable();
+    private marketUpdate = new Subject<UserMarket>();
+    marketUpdated = this.marketUpdate.asObservable();
 
-    public updateMarketId(marketId: number) {
-        this.marketIdUpdate.next(marketId);
+    public updateMarket(market: UserMarket) {
+        if (this.currentMarket && this.currentMarket.id === market.id)
+            return;
+        this.currentMarket = market;
+        this.marketUpdate.next(market);
+    }
+
+    private feedItemUpdate = new Subject<IFeedItem>();
+    feedItemUpdated = this.feedItemUpdate.asObservable();
+
+    public updateFeedItem(feedItem: IFeedItem) {
+        this.feedItemUpdate.next(feedItem);
     }
 }

@@ -22,6 +22,8 @@ var FeedTypeEnum = Enums.FeedTypeEnum;
 var FeedCategoryEnum = Enums.FeedCategoryEnum;
 var base_component_1 = require("../../base.component");
 var datashareservice_1 = require("../../../dataservices/datashareservice");
+var Copytomarketcomponent = require("../modals/copytomarket.component");
+var FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
 var FeedIndexComponent = (function (_super) {
     __extends(FeedIndexComponent, _super);
     function FeedIndexComponent(route, router, feedDataService, sharedService) {
@@ -30,6 +32,7 @@ var FeedIndexComponent = (function (_super) {
         _this.router = router;
         _this.feedDataService = feedDataService;
         _this.feedFormData = null;
+        _this.modalData = null;
         _this.feedTypes = FeedTypeEnum;
         _this.feedCats = FeedCategoryEnum;
         _this.setupSubscriptions();
@@ -37,9 +40,13 @@ var FeedIndexComponent = (function (_super) {
     }
     FeedIndexComponent.prototype.setupSubscriptions = function () {
         var _this = this;
-        this.sharedService.marketIdUpdated.subscribe(function (marketId) {
+        this.sharedService.marketUpdated.subscribe(function (market) {
+            _this.currentMarket = market;
             _this.feedItems = null;
             _this.getData();
+        });
+        this.sharedService.feedItemUpdated.subscribe(function (feedItem) {
+            _this.updateFeedItem(feedItem);
         });
     };
     FeedIndexComponent.prototype.ngOnInit = function () {
@@ -88,7 +95,26 @@ var FeedIndexComponent = (function (_super) {
             return 0;
         });
     };
-    FeedIndexComponent.prototype.updateFeedItem = function (feedItem, feedCat) {
+    FeedIndexComponent.prototype.updateFeedItem = function (feedItem, remove) {
+        if (feedItem === void 0) { feedItem = null; }
+        if (remove === void 0) { remove = false; }
+        if (feedItem != null) {
+            var origFeedItem = this.feedItems.find(function (x) { return x.id === feedItem.id; });
+            var index = this.feedItems.indexOf(origFeedItem);
+            if (!remove && (!this.filteredFeed || feedItem.feedCategory == this.catId)) {
+                if (index > -1) {
+                    this.feedItems.splice(index, 1, feedItem);
+                }
+                else {
+                    this.feedItems.unshift(feedItem);
+                }
+            }
+            else if (index > -1) {
+                this.feedItems.splice(index, 1);
+            }
+        }
+    };
+    FeedIndexComponent.prototype.editFeedItem = function (feedItem, feedCat) {
         var _this = this;
         if (feedItem === void 0) { feedItem = null; }
         if (feedCat === void 0) { feedCat = null; }
@@ -103,21 +129,6 @@ var FeedIndexComponent = (function (_super) {
         this.updateMarketDropdownVisibility(false);
         form.prototype.feedUpdated = new core_1.EventEmitter();
         form.prototype.feedUpdated.subscribe(function (feedItemResponse) {
-            if (feedItemResponse != null) {
-                var origFeedItem = _this.feedItems.find(function (x) { return x.id === feedItemResponse.id; });
-                var index = _this.feedItems.indexOf(origFeedItem);
-                if (!_this.filteredFeed || feedItemResponse.feedCategory == _this.catId) {
-                    if (index > -1) {
-                        _this.feedItems.splice(index, 1, feedItemResponse);
-                    }
-                    else {
-                        _this.feedItems.unshift(feedItemResponse);
-                    }
-                }
-                else if (index > -1) {
-                    _this.feedItems.splice(index, 1);
-                }
-            }
             _this.setPageTitle();
             _this.updateMarketDropdownVisibility(true);
             _this.feedFormData = null;
@@ -127,12 +138,31 @@ var FeedIndexComponent = (function (_super) {
             inputs: inputs
         };
     };
+    FeedIndexComponent.prototype.copyFeedItemToMarket = function (feedItem) {
+        var inputs = { feedItem: feedItem };
+        this.updateMarketDropdownVisibility(false);
+        var modelData = FeedItemCopyToMarket;
+        this.modalData = {
+            modalContent: modelData,
+            inputs: inputs
+        };
+    };
+    FeedIndexComponent.prototype.deleteFeeditem = function (feedItem) {
+        var _this = this;
+        if (confirm("Are you sure to delete " + feedItem.title + '?')) {
+            this.feedDataService.deleteFeeditem(feedItem.id).subscribe(function (result) {
+                if (result)
+                    _this.updateFeedItem(feedItem, true);
+            });
+        }
+    };
     return FeedIndexComponent;
 }(base_component_1.BaseComponent));
 FeedIndexComponent = __decorate([
     core_1.Component({
         selector: 'feedindex',
-        template: require('./feedindex.component.html')
+        template: require('./feedindex.component.html'),
+        styles: [require('./feedindex.component.css')]
     }),
     __metadata("design:paramtypes", [router_1.ActivatedRoute,
         router_1.Router,

@@ -90,11 +90,13 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 
             foreach (var config in configs)
             {
+                var market = markets.First(x => x.Id == config.MarketId);
                 list.Add(new UserMarket()
                 {
                     Id = config.MarketId,
                     IsDefault = config.IsDefault,
-                    Name = markets.First(x => x.Id == config.MarketId).Name
+                    Name = market.Name,
+                    IsMaster = market.IsMaster,
                 });
             }
 

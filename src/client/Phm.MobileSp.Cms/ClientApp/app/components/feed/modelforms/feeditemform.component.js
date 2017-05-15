@@ -23,13 +23,16 @@ var Quizfeeditemcomponent = require("./quizfeeditem.component");
 var QuizFeedItemFormComponent = Quizfeeditemcomponent.QuizFeedItemFormComponent;
 var Surveyfeeditemcomponent = require("./surveyfeeditem.component");
 var SurveyFeedItemFormComponent = Surveyfeeditemcomponent.SurveyFeedItemFormComponent;
+var Datashareservice = require("../../../dataservices/datashareservice");
+var ShareService = Datashareservice.ShareService;
 var FeedItemForm = (function () {
-    function FeedItemForm(fb, http, route, router, feedDataService, injector) {
+    function FeedItemForm(fb, http, route, router, feedDataService, injector, sharedService) {
         this.http = http;
         this.route = route;
         this.router = router;
         this.feedDataService = feedDataService;
         this.injector = injector;
+        this.sharedService = sharedService;
         this.feedFormData = null;
         this.selectedFeedCatId = 0;
         this.feedTypes = Enums.FeedTypeEnum;
@@ -130,6 +133,7 @@ var FeedItemForm = (function () {
         this.feedDataService.updateFeeditem(this.subForm.updateUrl, feedItem).subscribe(function (result) {
             if (result.success) {
                 _this.model = result.content;
+                _this.sharedService.updateFeedItem(result.content);
                 _this.feedUpdated.emit(result.content);
             }
         });
@@ -151,7 +155,7 @@ FeedItemForm = __decorate([
         providers: [FeedDataService_1.FeedDataService]
     }),
     __metadata("design:paramtypes", [forms_1.FormBuilder, http_1.Http, router_1.ActivatedRoute,
-        router_1.Router, FeedDataService_1.FeedDataService, core_1.Injector])
+        router_1.Router, FeedDataService_1.FeedDataService, core_1.Injector, ShareService])
 ], FeedItemForm);
 exports.FeedItemForm = FeedItemForm;
 //# sourceMappingURL=feeditemform.component.js.map

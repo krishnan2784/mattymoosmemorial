@@ -7,14 +7,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require("@angular/core");
 var Subject_1 = require("rxjs/Subject");
+var Userclasses = require("../models/userclasses");
+var UserMarket = Userclasses.UserMarket;
 var ShareService = (function () {
     function ShareService() {
+        this.currentMarket = new UserMarket;
+        this.currentMarketId = this.currentMarket.id;
         this.pageTitleUpdate = new Subject_1.Subject();
         this.pageTitleUpdated = this.pageTitleUpdate.asObservable();
         this.marketDropdownVisibilitypeUpdate = new Subject_1.Subject();
         this.marketDropdownVisibilitypeUpdated = this.marketDropdownVisibilitypeUpdate.asObservable();
-        this.marketIdUpdate = new Subject_1.Subject();
-        this.marketIdUpdated = this.marketIdUpdate.asObservable();
+        this.marketUpdate = new Subject_1.Subject();
+        this.marketUpdated = this.marketUpdate.asObservable();
+        this.feedItemUpdate = new Subject_1.Subject();
+        this.feedItemUpdated = this.feedItemUpdate.asObservable();
     }
     ShareService.prototype.updatePageTitle = function (pageTitle) {
         this.pageTitleUpdate.next(pageTitle);
@@ -22,8 +28,14 @@ var ShareService = (function () {
     ShareService.prototype.updateMarketDropdownVisibility = function (isMarketDropdownVisible) {
         this.marketDropdownVisibilitypeUpdate.next(isMarketDropdownVisible);
     };
-    ShareService.prototype.updateMarketId = function (marketId) {
-        this.marketIdUpdate.next(marketId);
+    ShareService.prototype.updateMarket = function (market) {
+        if (this.currentMarket && this.currentMarket.id === market.id)
+            return;
+        this.currentMarket = market;
+        this.marketUpdate.next(market);
+    };
+    ShareService.prototype.updateFeedItem = function (feedItem) {
+        this.feedItemUpdate.next(feedItem);
     };
     return ShareService;
 }());

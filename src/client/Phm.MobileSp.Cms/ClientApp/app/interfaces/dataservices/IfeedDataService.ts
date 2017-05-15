@@ -12,6 +12,9 @@ export interface IFeedDataService {
     getFeeditem<TFeedItem extends BaseFeed>(id: number, feedItem: { new ({}): TFeedItem; });
 
     updateFeeditem(updateUrl: string, feedItem: FeedModel.IFeedItem);
+    
+    deleteFeeditem(feedItemId: number): Observable<boolean>;
 
-    deleteFeeditem(feedItem: FeedModel.IFeedItem);
+    copyFeedItemToMarket(feedItem: FeedModel.IFeedItem, marketIds: number[]);
+
 }

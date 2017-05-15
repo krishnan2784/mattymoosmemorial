@@ -54,11 +54,11 @@ var FeedDataService = (function (_super) {
     FeedDataService.prototype.updateFeeditem = function (updateUrl, feedItem) {
         return this.postRequestFull(updateUrl, feedItem);
     };
-    FeedDataService.prototype.deleteFeeditem = function (feedItem) {
-        this.http.get('/api/Feed/DeleteFeedItem?id=' + feedItem.id).subscribe(function (result) {
-            return true;
-        });
-        return false;
+    FeedDataService.prototype.deleteFeeditem = function (feedItemId) {
+        return this.postRequestBase('/api/Feed/DeleteFeedItem', feedItemId);
+    };
+    FeedDataService.prototype.copyFeedItemToMarket = function (feedItem, marketIds) {
+        return this.postRequestFull('/api/Feed/CopyFeedItemToMarket', { feedItemId: feedItem.id, marketIds: marketIds });
     };
     return FeedDataService;
 }(requesthelper_1.RequestHelper));

@@ -181,6 +181,8 @@ namespace MLearningCoreService
         
         private System.Nullable<int> IdField;
         
+        private System.Nullable<bool> IsFavouriteField;
+        
         private System.Nullable<int> MarketIdField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
@@ -206,6 +208,19 @@ namespace MLearningCoreService
             set
             {
                 this.IdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsFavourite
+        {
+            get
+            {
+                return this.IsFavouriteField;
+            }
+            set
+            {
+                this.IsFavouriteField = value;
             }
         }
         
@@ -637,6 +652,8 @@ namespace MLearningCoreService
     public partial class MediaInfoDto : MLearningCoreService.BaseDtoOfint
     {
         
+        private string AzureUrlField;
+        
         private string ExtensionField;
         
         private int MarketIdField;
@@ -654,6 +671,19 @@ namespace MLearningCoreService
         private string Preview1PathField;
         
         private long SizeField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AzureUrl
+        {
+            get
+            {
+                return this.AzureUrlField;
+            }
+            set
+            {
+                this.AzureUrlField = value;
+            }
+        }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string Extension
@@ -1862,13 +1892,7 @@ namespace MLearningCoreService
         {
             if ((endpointConfiguration == EndpointConfiguration.MLearningCoreServiceEndpoint))
             {
-#if DEBUG
-
-               return new System.ServiceModel.EndpointAddress("http://192.168.100.69:3000/mobile/MLearningCoreService.svc");
-#else
-                //
-                return new System.ServiceModel.EndpointAddress("http://mobilespapi-staging.azurewebsites.net/MLearningCoreService.svc");
-#endif
+                return new System.ServiceModel.EndpointAddress("http://ccesg20.phm.co.uk/mobile/MLearningCoreService.svc");
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }
