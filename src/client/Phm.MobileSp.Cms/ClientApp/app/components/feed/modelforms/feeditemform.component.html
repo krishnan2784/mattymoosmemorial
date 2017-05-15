@@ -27,8 +27,8 @@
     </div>
     <div class="clear-both"></div>
 
-    <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Category)">
-        <div class="col-md-8 no-pad">
+    <div class="col-md-8 no-pad" *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Category)">
+        <div>
             <div class="col-md-12 no-pad">
                 <div class="col-md-6">
                     <div class="feed-cat-container" [class.active-cat]="model.feedCategory == feedCats.Learning">
@@ -109,7 +109,33 @@
                     <div class="clear-both"></div>
                 </div>
                 <div class="clearfix"></div>
-            </div>            
+            </div>     
+        </div>
+        <div>
+            <div class="col-md-12 no-pad">
+                <div class="featured-cat-header">
+                    <h5>Featured Category</h5>
+                </div>
+                <div>
+                    <p class="observation-text">
+                        The following category has specific privileges, and is connected to Reports and Analytics.<br/>
+                        This feed item will only be seen by Sales Managers to report to back to their NSC.
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <div class="feed-cat-container" [class.active-cat]="model.feedCategory == feedCats.Observation">
+                        <img src="assets/images/Icon-Observation-b.png" class="feed-cat-img"/>
+                        <h5>OBSERVATION</h5>
+                        <p>Observations are surveys allowing Sales Managers to report the progress of their staff to the NSC.</p>
+                        <div class="btn-holder">
+                            <a (click)="swapForm(this.surveyForm, feedCats.Observation)" class="btn btn-primary col-md-12 waves-effect waves-light" [class.active-type]="model.feedCategory == feedCats.Observation && model.feedType == feedTypes.Survey" [class.disabled]="model.id>0">
+                                Survey
+                            </a>
+                        </div>
+                    </div>
+                    <div class="clear-both"></div>
+                </div>
+            </div>
         </div>
     </div>
     

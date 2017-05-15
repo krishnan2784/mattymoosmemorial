@@ -7,6 +7,7 @@
         General = 2,
         Campaign = 3,
         Announcement = 4,
-        Article = 5
+        Article = 5,
+        Observation = 6
     }
 }
