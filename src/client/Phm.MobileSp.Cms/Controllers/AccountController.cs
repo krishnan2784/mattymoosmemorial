@@ -11,6 +11,13 @@ using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 
 namespace Phm.MobileSp.Cms.Controllers
 {
+    using System.Linq;
+
+    using Microsoft.ApplicationInsights;
+    using Microsoft.AspNetCore.Http.Authentication;
+
+    using Newtonsoft.Json;
+
     [AiHandleError]
     public class AccountController : CacheController
     {
@@ -41,31 +48,52 @@ namespace Phm.MobileSp.Cms.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginDetails loginDetails, string returnUrl = "/home")
         {
-            ViewData["ReturnUrl"] = returnUrl;
-            _userRepository.SetAuthToken(Constants.CstAccesstoken);
-
-            var user = await _userRepository.GetUserAsync(loginDetails);
-
-            if (user.ValidUser)
+            var tracking = new TelemetryClient();
+            ClaimsPrincipal claimsPrinciple;
+            try
             {
+                ViewData["ReturnUrl"] = returnUrl;
+                _userRepository.SetAuthToken(Constants.CstAccesstoken);
+
+                var user = await _userRepository.GetUserAsync(loginDetails);
+
+                if (!user.ValidUser)
+                {
+                    return View(loginDetails);
+                }
+
                 SetupRepositories(user);
                 var claims = new List<Claim>
+                                 {
+                                     new Claim("sessionguid", user.SessionGuid),
+                                     new Claim("userid", user.UserDetails.Id.ToString()),
+                                     new Claim("currentmarketid", user.UserDetails.DefaultMarketId.ToString()),
+                                     new Claim("name", user.UserDetails.FirstName)
+                                 };
+                tracking.TrackEvent(
+                    "AddClaims",
+                    new Dictionary<string, string>() { { "claims", JsonConvert.SerializeObject(claims) } });
+                try
                 {
-                    new Claim("sessionguid", user.SessionGuid),
-                    new Claim("userid", user.UserDetails.Id.ToString()),
-                    new Claim("currentmarketid", user.UserDetails.DefaultMarketId.ToString()),
-                    new Claim("name", user.UserDetails.FirstName)
-                };
-                
-                var id = new ClaimsIdentity(claims, "password");
-                var p = new ClaimsPrincipal(id);
+                    var id = new ClaimsIdentity(claims, "password", "MobileSP", user.UserRoles.FirstOrDefault());
+                    claimsPrinciple = new ClaimsPrincipal(id);
+                }
+                catch (System.Exception ex)
+                {
+                    tracking.TrackException(ex);
+                    throw;
+                }
 
-                await HttpContext.Authentication.SignInAsync("MobileSPAuthCookie", p);
+                await HttpContext.Authentication.SignInAsync("MobileSPAuthCookie", claimsPrinciple);
 
                 return LocalRedirect(returnUrl);
             }
+            catch (System.Exception ex)
+            {
 
-            return View(loginDetails);
+
+                throw;
+            }
         }
 
         public void SetupRepositories(IApplicationUser applicationUser)
