@@ -27,6 +27,7 @@ namespace Phm.MobileSp.Cms.Controllers
             _userRepository = userRepository;
         }
 
+        [AiHandleError]
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {
@@ -45,6 +46,7 @@ namespace Phm.MobileSp.Cms.Controllers
             return View(loginDetails);
         }
 
+        [AiHandleError]
         [HttpPost]
         public async Task<IActionResult> Login(LoginDetails loginDetails, string returnUrl = "/home")
         {
@@ -96,12 +98,13 @@ namespace Phm.MobileSp.Cms.Controllers
             }
         }
 
-        public void SetupRepositories(IApplicationUser applicationUser)
+        private void SetupRepositories(IApplicationUser applicationUser)
         {
             _userRepository.SetAuthToken(applicationUser.SessionGuid);
             _userRepository.SetMarketId(applicationUser.UserDetails.DefaultMarketId);
         }
 
+        [AiHandleError]
         [HttpGet]
         public IActionResult Logout()
         {
