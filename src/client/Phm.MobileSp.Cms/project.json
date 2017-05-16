@@ -71,6 +71,7 @@
       "Views",
       "web.config",
       "wwwroot"
+        ,"webpack.config.js"
     ]
   },
 
