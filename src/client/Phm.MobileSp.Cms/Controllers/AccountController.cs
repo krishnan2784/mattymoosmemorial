@@ -1,5 +1,6 @@
 ﻿namespace Phm.MobileSp.Cms.Controllers
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Security.Claims;
@@ -50,12 +51,12 @@
                 RedirectToAction("Index", "Home");
 
             var loginDetails = new LoginDetails();
-#if DEBUG
+//#if DEBUG
             loginDetails.UserName = "admin";
             loginDetails.Password = "12345";
             loginDetails.RememberMe = true;
-#endif
-
+//#endif
+                Console.WriteLine(JsonConvert.SerializeObject(loginDetails));
             return View(loginDetails);
         }
 
@@ -65,13 +66,14 @@
         {
             var tracking = new TelemetryClient();
             ClaimsPrincipal claimsPrinciple;
-            this.ViewData["ReturnUrl"] = returnUrl;
-            this.userRepository.SetAuthToken(Constants.CstAccesstoken);
+            ViewData["ReturnUrl"] = returnUrl;
+            userRepository.SetAuthToken(Constants.CstAccesstoken);
 
             var user = await userRepository.GetUserAsync(loginDetails);
-
+            
             if (!user.ValidUser)
             {
+                
                 return View(loginDetails);
             }
 
@@ -81,21 +83,23 @@
                                  new Claim("sessionguid", user.SessionGuid),
                                  new Claim("userid", user.UserDetails.Id.ToString()),
                                  new Claim("currentmarketid", user.UserDetails.DefaultMarketId.ToString()),
-                                 new Claim("name", user.UserDetails.FirstName)
+
+                                 new Claim("name", user.UserDetails.Email)
                              };
-           tracking.TrackTrace("Claims Issue", new Dictionary<string, string> { { "claims", JsonConvert.SerializeObject(claims)} });
+           
             
 
             try
             {
                 var id = new ClaimsIdentity(claims, "password");
-                tracking.TrackTrace("ClaimsId", SeverityLevel.Information, new Dictionary<string, string> { { "ClaimsId", JsonConvert.SerializeObject(id) } });
+                //tracking.TrackTrace("ClaimsId", SeverityLevel.Information, new Dictionary<string, string> { { "ClaimsId", JsonConvert.SerializeObject(id) } });
                 claimsPrinciple = new ClaimsPrincipal(id);
-                tracking.TrackTrace("ClaimsPrinciple", SeverityLevel.Information, new Dictionary<string, string> { { "ClaimsPrinciple", JsonConvert.SerializeObject(claimsPrinciple) } });
+                //tracking.TrackTrace("ClaimsPrinciple", SeverityLevel.Information, new Dictionary<string, string> { { "ClaimsPrinciple", JsonConvert.SerializeObject(claimsPrinciple) } });
             }
             catch (System.Exception ex)
             {
                 tracking.TrackException(ex);
+                Console.WriteLine(ex);
                 return View(loginDetails);
             }
 
