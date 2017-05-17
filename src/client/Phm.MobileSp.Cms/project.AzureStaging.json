@@ -1,5 +1,5 @@
 {
-  "title": "MobileSP_CMS",
+  "title": "Phm.MobileSp.Staging",
   "dependencies": {
     "Microsoft.NETCore.App": "1.1.0",
     "Microsoft.AspNetCore.AngularServices": "1.1.0-beta-000002",
@@ -85,6 +85,6 @@
   },
 
   "tooling": {
-    "defaultNamespace": "MobileSP_CMS"
+    "defaultNamespace": "Phm.MobileSp"
   }
 }
