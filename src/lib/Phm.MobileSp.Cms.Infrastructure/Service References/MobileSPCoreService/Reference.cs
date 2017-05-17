@@ -34457,11 +34457,11 @@ namespace MobileSPCoreService
         {
             if ((endpointConfiguration == EndpointConfiguration.CoreServiceEndpoint))
             {
-#if DEBUG
-                return new System.ServiceModel.EndpointAddress("http://192.168.100.69:3000/mobile/CoreService.svc");
-#else
+//#if DEBUG
+ //               return new System.ServiceModel.EndpointAddress("http://192.168.100.69:3000/mobile/CoreService.svc");
+//#else
                 return new System.ServiceModel.EndpointAddress("http://mobilespapi-staging.azurewebsites.net/CoreService.svc");
-#endif
+//#endif
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }

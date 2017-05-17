@@ -51,11 +51,11 @@
                 RedirectToAction("Index", "Home");
 
             var loginDetails = new LoginDetails();
-//#if DEBUG
+#if DEBUG
             loginDetails.UserName = "admin";
             loginDetails.Password = "12345";
             loginDetails.RememberMe = true;
-//#endif
+#endif
                 Console.WriteLine(JsonConvert.SerializeObject(loginDetails));
             return View(loginDetails);
         }
