@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var UserAccount = (function () {
     function UserAccount(options) {
         if (options === void 0) { options = {}; }

@@ -4,7 +4,7 @@ import { UniversalModule } from 'angular2-universal';
 import { Ng2PaginationModule } from 'ng2-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 //import { CalendarModule } from 'primeng/primeng';
-import { DateValueAccessor } from './classes/datevalueaccessor';
+//import { DateValueAccessor } from './classes/datevalueaccessor';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
@@ -46,7 +46,7 @@ import FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
         NavMenuComponent,
         FooterComponent,
         MarketDropdown,
-        DateValueAccessor,
+        //DateValueAccessor,
 
         // main naviation items
         CounterComponent,

@@ -5,13 +5,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var angular2_universal_1 = require("angular2-universal");
 var ng2_pagination_1 = require("ng2-pagination");
 var forms_1 = require("@angular/forms");
-//import { CalendarModule } from 'primeng/primeng';
-var datevalueaccessor_1 = require("./classes/datevalueaccessor");
 require("rxjs/add/observable/throw");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/debounceTime");
@@ -53,7 +52,7 @@ AppModule = __decorate([
             navmenu_component_1.NavMenuComponent,
             footer_component_1.FooterComponent,
             marketdropdown_component_1.MarketDropdown,
-            datevalueaccessor_1.DateValueAccessor,
+            //DateValueAccessor,
             // main naviation items
             counter_component_1.CounterComponent,
             fetchdata_component_1.FetchDataComponent,

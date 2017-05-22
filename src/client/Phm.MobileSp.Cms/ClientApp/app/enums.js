@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var FeedTypeEnum;
 (function (FeedTypeEnum) {
     FeedTypeEnum[FeedTypeEnum["Text"] = 0] = "Text";
