@@ -7,9 +7,7 @@ namespace Phm.MobileSp.Cms.Core.Models.Interfaces
          int Id { get; set; }
 
          int DefaultMarketId { get; set; }
-
-         bool IsSelected { get; set; }
-
+        
          string DealershipCode { get; set; }
 
          string DealershipName { get; set; }

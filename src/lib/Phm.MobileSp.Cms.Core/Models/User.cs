@@ -3,14 +3,10 @@ using Phm.MobileSp.Cms.Core.Models.Interfaces;
 
 namespace Phm.MobileSp.Cms.Core.Models
 {
-    public class User : IUser 
+    public class User : BaseModel, IUser
     {
-        public int Id { get; set; }
-
         public int DefaultMarketId { get; set; }
-
-        public bool IsSelected { get; set; }
-
+        
         public string DealershipCode { get; set; }
 
         public string DealershipName { get; set; }

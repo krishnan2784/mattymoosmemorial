@@ -150,10 +150,17 @@ namespace Phm.MobileSp.Cms.Infrastructure
                                 .IgnorePopulatedDestinationFields(x)
                                 .ReverseMap());
                         }
-                    } else
-                    {
-                        
-                    }                 
+                        if (surveyFeedItem is ObservationFeed)
+                        {
+                            var users = ((ObservationFeed)surveyFeedItem).UserObservations;
+                            foreach (var user in users)
+                            {
+                                cfg.CreateMap<UserObservationDto, UserObservation>()
+                                    .IgnorePopulatedDestinationFields(user)
+                                    .ReverseMap();
+                            }
+                        }
+                    }              
                     cfg.CreateMap<TFeedItemSource, TFeedItemDestination>()
                             .IgnorePopulatedDestinationFields(destinationModel)
                             .ReverseMap();
@@ -194,6 +201,8 @@ namespace Phm.MobileSp.Cms.Infrastructure
                 cfg.CreateMap<SurveyFeedDto, SurveyFeed>().ReverseMap();
                 cfg.CreateMap<SurveyQuestionDto, SurveyQuestion>().ReverseMap();
                 cfg.CreateMap<SurveyQuestionAnswerDto, SurveyQuestionAnswer>().ReverseMap();
+                cfg.CreateMap<ObservationFeed, ObservationFeedDto>().ReverseMap();
+                cfg.CreateMap<UserObservation, UserObservationDto>().ReverseMap();
                 cfg.CreateMap<BaseFeedDto, BaseFeed>().ReverseMap();
                 cfg.CreateMap<TSource, TDestination>().ReverseMap();
             });

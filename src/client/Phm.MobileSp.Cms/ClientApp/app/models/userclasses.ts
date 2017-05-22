@@ -1,4 +1,6 @@
 ﻿import Account = require("../interfaces/models/IUserAccount");
+import Baseclasses = require("./baseclasses");
+import BaseModel = Baseclasses.BaseModel;
 
 export class UserAccount implements Account.IUserAccount {
     id: number;
@@ -32,7 +34,7 @@ export class UserAccount implements Account.IUserAccount {
     }
 }
 
-export class UserMarket  {
+export class UserMarket {
     id: number;
     name: string;
     isDefault: boolean;
@@ -41,12 +43,39 @@ export class UserMarket  {
         id?: number,
         name?: string,
         isDefault?: boolean,
-        isMaster?: boolean} = {}) {
+        isMaster?: boolean
+    } = {}) {
 
         this.id = options.id || 0;
         this.name = options.name || '';
         this.isDefault = options.isDefault || false;
         this.isMaster = options.isMaster || false;
+    }
+}
+
+
+export class User extends BaseModel {
+    dealershipCode: string;
+    dealershipName: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    userName: string;
+    secEntityId: number;
+    sessionExpireMinutes: number;
+    isBuiltIn: boolean;
+
+    constructor(options: {} = {}) {
+        super(options);
+        this.dealershipCode = options['dealershipCode'] || '';
+        this.dealershipName = options['dealershipName'] || '';
+        this.email = options['email'] || '';
+        this.firstName = options['firstName'] || '';
+        this.lastName = options['lastName'] || '';
+        this.userName = options['userName'] || '';
+        this.secEntityId = options['secEntityId'] || 0;
+        this.sessionExpireMinutes = options['sessionExpireMinutes'] || 20;
+        this.isBuiltIn = options['isBuiltIn'] || false;
     }
 }
 

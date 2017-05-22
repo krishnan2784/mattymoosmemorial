@@ -16,6 +16,8 @@ var FeedTypeEnum = Enums.FeedTypeEnum;
 var Quizclasses = require("./quizclasses");
 var Surveyclasses = require("./surveyclasses");
 var Baseclasses = require("./baseclasses");
+var Observationclasses = require("./observationclasses");
+var UserObservation = Observationclasses.UserObservation;
 var BaseFeed = (function (_super) {
     __extends(BaseFeed, _super);
     function BaseFeed(options) {
@@ -105,6 +107,22 @@ var SurveyFeed = (function (_super) {
     return SurveyFeed;
 }(BaseFeed));
 exports.SurveyFeed = SurveyFeed;
+var ObservationFeed = (function (_super) {
+    __extends(ObservationFeed, _super);
+    function ObservationFeed(options) {
+        if (options === void 0) { options = {}; }
+        var _this = _super.call(this, options) || this;
+        _this.feedType = FeedTypeEnum.Observation;
+        _this.userObservations = options['userObservation'] || '';
+        if (!_this.userObservations) {
+            _this.userObservations = [];
+            _this.userObservations.push(new UserObservation());
+        }
+        return _this;
+    }
+    return ObservationFeed;
+}(SurveyFeed));
+exports.ObservationFeed = ObservationFeed;
 var TextFeed = (function (_super) {
     __extends(TextFeed, _super);
     function TextFeed(options) {
