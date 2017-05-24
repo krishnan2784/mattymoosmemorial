@@ -26,6 +26,8 @@ var Surveyfeeditemcomponent = require("./surveyfeeditem.component");
 var SurveyFeedItemFormComponent = Surveyfeeditemcomponent.SurveyFeedItemFormComponent;
 var Datashareservice = require("../../../dataservices/datashareservice");
 var ShareService = Datashareservice.ShareService;
+var Observationfeeditemcomponent = require("./observationfeeditem.component");
+var ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationFeedItemFormComponent;
 var FeedItemForm = (function () {
     function FeedItemForm(fb, http, route, router, feedDataService, injector, sharedService) {
         this.http = http;
@@ -41,6 +43,7 @@ var FeedItemForm = (function () {
         this.textForm = textfeeditem_component_1.TextFeedItemFormComponent;
         this.quizForm = QuizFeedItemFormComponent;
         this.surveyForm = SurveyFeedItemFormComponent;
+        this.observationForm = ObservationFeedItemFormComponent;
         this.feedFormSteps = new FeedFormSteps();
         this._fb = fb;
         this.setupForm();
@@ -121,6 +124,8 @@ var FeedItemForm = (function () {
                 return QuizFeedItemFormComponent;
             case Enums.FeedTypeEnum.Survey:
                 return SurveyFeedItemFormComponent;
+            case Enums.FeedTypeEnum.Observation:
+                return ObservationFeedItemFormComponent;
             default:
                 return textfeeditem_component_1.TextFeedItemFormComponent;
         }

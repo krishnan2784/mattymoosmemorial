@@ -2,7 +2,7 @@
 
 namespace Phm.MobileSp.Cms.Core.Models.Interfaces
 {
-    public interface IUser 
+    public interface IMLearningUser 
     {
          int Id { get; set; }
 

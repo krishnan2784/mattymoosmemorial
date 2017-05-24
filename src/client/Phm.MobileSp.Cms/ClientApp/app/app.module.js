@@ -33,6 +33,7 @@ var feeditemform_component_1 = require("./components/feed/modelforms/feeditemfor
 var feeditemcontainer_component_1 = require("./components/feed/modelforms/feeditemcontainer.component");
 var quizfeeditem_component_1 = require("./components/feed/modelforms/quizfeeditem.component");
 var surveyfeeditem_component_1 = require("./components/feed/modelforms/surveyfeeditem.component");
+var observationfeeditem_component_1 = require("./components/feed/modelforms/observationfeeditem.component");
 var questionform_component_1 = require("./components/feed/modelforms/questionform.component");
 var Basemodalcomponent = require("./components/modals/basemodal.component");
 var BaseModalComponent = Basemodalcomponent.BaseModalComponent;
@@ -65,6 +66,7 @@ AppModule = __decorate([
             textfeeditem_component_1.TextFeedItemFormComponent,
             quizfeeditem_component_1.QuizFeedItemFormComponent,
             surveyfeeditem_component_1.SurveyFeedItemFormComponent,
+            observationfeeditem_component_1.ObservationFeedItemFormComponent,
             questionform_component_1.QuestionFormComponent,
             BaseModalComponent,
             //modals

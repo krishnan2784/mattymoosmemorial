@@ -46,7 +46,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
                 var response = await _proxyClient.ValidateUserAsync(request);
 
                 applicationUser.SessionGuid = response.SessionGUID;
-                var mapper = new AutoMapperGenericsHelper<UserDto, User>();
+                var mapper = new AutoMapperGenericsHelper<UserDto, MLearningUser>();
                 applicationUser.UserDetails = mapper.ConvertToDbEntity(response.CurrentUser);
             }
             catch (Exception ex)
@@ -104,16 +104,16 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
         }
 
 
-        public async Task<IEnumerable<IUser>> GetUsersAsync()
+        public async Task<IEnumerable<IMLearningUser>> GetUsersAsync()
         {
-            var users = new List<User>();
+            var users = new List<MLearningUser>();
             try
             {
                 var request = GetRequest(new GetUsersRequest());
 
                 var response = await _proxyClient.GetUsersAsync(request);
                 
-                var mapper = new AutoMapperGenericsHelper<UserDto, User>();
+                var mapper = new AutoMapperGenericsHelper<UserDto, MLearningUser>();
                 users = mapper.ConvertToDbEntity(response.Users);
             }
             catch (Exception ex)

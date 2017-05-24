@@ -27,52 +27,66 @@ var Feedclasses = require("../../../models/feedclasses");
 var SurveyClasses = require("../../../models/surveyclasses");
 var Basequestionfeeditemcomponent = require("./basequestionfeeditem.component");
 var BaseQuestionFeedItemFormComponent = Basequestionfeeditemcomponent.BaseQuestionFeedItemFormComponent;
-var SurveyFeedItemFormComponent = (function (_super) {
-    __extends(SurveyFeedItemFormComponent, _super);
-    function SurveyFeedItemFormComponent(injector) {
-        return _super.call(this, injector, Feedclasses.SurveyFeed, '/api/Feed/UpdateSurveyFeedItem', FeedTypeEnum.Survey, Enums.SurveyQuestionTypeEnum) || this;
+var Observationclasses = require("../../../models/observationclasses");
+var UserObservation = Observationclasses.UserObservation;
+var ObservationFeedItemFormComponent = (function (_super) {
+    __extends(ObservationFeedItemFormComponent, _super);
+    function ObservationFeedItemFormComponent(injector) {
+        return _super.call(this, injector, Feedclasses.ObservationFeed, '/api/Feed/UpdateObservationFeedItem', FeedTypeEnum.Observation, Enums.SurveyQuestionTypeEnum) || this;
     }
-    //constructor(injector: Injector, feedModelType: any = Feedclasses.SurveyFeed, updateUrl: string = '/api/Feed/UpdateSurveyFeedItem',
-    //    feedType: Enums.FeedTypeEnum = FeedTypeEnum.Survey, questionTypeEnum: any = Enums.SurveyQuestionTypeEnum) {
-    //    super(injector, feedModelType, updateUrl, feedType, questionTypeEnum);
-    //}
-    SurveyFeedItemFormComponent.prototype.addFormControls = function () {
+    ObservationFeedItemFormComponent.prototype.addFormControls = function () {
         var _this = this;
         var formArray = new forms_1.FormArray([]);
         this.model.questions.forEach(function (x) { return formArray.push(_this.initQuestion(x)); });
         this.form.addControl('questions', formArray);
+        var userFormArray = new forms_1.FormArray([]);
+        this.model.userObservations.forEach(function (x) { return userFormArray.push(_this.initUserObservation(x)); });
+        this.form.addControl('userObservations', userFormArray);
         this.form.addControl('surveyDescription', new forms_1.FormControl(this.model.surveyDescription, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
         this.form.addControl('completionMessage', new forms_1.FormControl(this.model.completionMessage, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
     };
     ;
-    SurveyFeedItemFormComponent.prototype.removeFormControls = function () {
+    ObservationFeedItemFormComponent.prototype.removeFormControls = function () {
         this.form.removeControl('questions');
+        this.form.removeControl('userObservations');
         this.form.removeControl('surveyDescription');
         this.form.removeControl('completionMessage');
     };
     ;
-    SurveyFeedItemFormComponent.prototype.initQuestion = function (question) {
+    ObservationFeedItemFormComponent.prototype.initUserObservation = function (userObservation) {
+        if (userObservation === void 0) { userObservation = new UserObservation(); }
+        var fg = new forms_1.FormGroup({
+            feedId: new forms_1.FormControl(userObservation.feedId, []),
+            userId: new forms_1.FormControl(userObservation.userId, []),
+            user: new forms_1.FormGroup({
+                id: new forms_1.FormControl(userObservation.user.id, []),
+                userName: new forms_1.FormControl(userObservation.user.userName, [])
+            })
+        });
+        return fg;
+    };
+    ObservationFeedItemFormComponent.prototype.initQuestion = function (question) {
         if (question === void 0) { question = new SurveyClasses.SurveyQuestion(); }
         var fg = this.baseQuestionForm(question);
         fg.addControl('surveyFeedId', new forms_1.FormControl(question.surveyFeedId, []));
         return fg;
     };
-    SurveyFeedItemFormComponent.prototype.initAnswer = function (answer) {
+    ObservationFeedItemFormComponent.prototype.initAnswer = function (answer) {
         if (answer === void 0) { answer = new SurveyClasses.SurveyQuestionAnswer(); }
         var fg = this.baseAnswerForm(answer);
         fg.addControl('surveyQuestionId', new forms_1.FormControl(answer.surveyQuestionId, []));
         fg.addControl('isFreeText', new forms_1.FormControl(answer.isFreeText, []));
         return fg;
     };
-    return SurveyFeedItemFormComponent;
+    return ObservationFeedItemFormComponent;
 }(BaseQuestionFeedItemFormComponent));
-SurveyFeedItemFormComponent = __decorate([
+ObservationFeedItemFormComponent = __decorate([
     core_1.Component({
-        selector: 'surveyfeeditem',
+        selector: 'observationfeeditem',
         template: require('./basequestionfeeditem.component.html'),
         styles: [require('./basequestionfeeditem.component.css')]
     }),
     __metadata("design:paramtypes", [core_1.Injector])
-], SurveyFeedItemFormComponent);
-exports.SurveyFeedItemFormComponent = SurveyFeedItemFormComponent;
-//# sourceMappingURL=surveyfeeditem.component.js.map
+], ObservationFeedItemFormComponent);
+exports.ObservationFeedItemFormComponent = ObservationFeedItemFormComponent;
+//# sourceMappingURL=observationfeeditem.component.js.map

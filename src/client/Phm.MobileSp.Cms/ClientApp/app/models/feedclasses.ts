@@ -100,7 +100,7 @@ export class SurveyFeed extends BaseFeed {
     constructor(options: {} = {}) {
         super(options);
         this.feedType = FeedTypeEnum.Survey;
-        this.questions = options['questions'] || '';
+        this.questions = options['questions'];
         this.surveyDescription = options['surveyDescription'] || '';
         this.completionMessage = options['completionMessage'] || '';
         if (!this.questions) {
@@ -115,11 +115,7 @@ export class ObservationFeed extends SurveyFeed {
     constructor(options: {} = {}) {
         super(options);
         this.feedType = FeedTypeEnum.Observation;
-        this.userObservations = options['userObservation'] || '';
-        if (!this.userObservations) {
-            this.userObservations = [];
-            this.userObservations.push(new UserObservation());
-        }
+        this.userObservations = options['userObservation'] || [];
     }
 }
 

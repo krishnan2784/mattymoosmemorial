@@ -32,6 +32,7 @@ import { FeedItemContainerComponent } from "./components/feed/modelforms/feedite
 
 import { QuizFeedItemFormComponent } from "./components/feed/modelforms/quizfeeditem.component";
 import { SurveyFeedItemFormComponent } from "./components/feed/modelforms/surveyfeeditem.component";
+import { ObservationFeedItemFormComponent } from "./components/feed/modelforms/observationfeeditem.component";
 import { QuestionFormComponent } from "./components/feed/modelforms/questionform.component";
 import Basemodalcomponent = require("./components/modals/basemodal.component");
 import BaseModalComponent = Basemodalcomponent.BaseModalComponent;
@@ -61,6 +62,7 @@ import FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
         TextFeedItemFormComponent,
         QuizFeedItemFormComponent,
         SurveyFeedItemFormComponent,
+        ObservationFeedItemFormComponent,
         QuestionFormComponent,
         BaseModalComponent,
 

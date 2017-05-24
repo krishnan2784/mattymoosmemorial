@@ -203,6 +203,7 @@ namespace Phm.MobileSp.Cms.Infrastructure
                 cfg.CreateMap<SurveyQuestionAnswerDto, SurveyQuestionAnswer>().ReverseMap();
                 cfg.CreateMap<ObservationFeed, ObservationFeedDto>().ReverseMap();
                 cfg.CreateMap<UserObservation, UserObservationDto>().ReverseMap();
+                cfg.CreateMap<User, UserDto>().ReverseMap();
                 cfg.CreateMap<BaseFeedDto, BaseFeed>().ReverseMap();
                 cfg.CreateMap<TSource, TDestination>().ReverseMap();
             });
