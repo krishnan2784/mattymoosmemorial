@@ -2,6 +2,7 @@
  * THIS IS TEMPORARY TO PATCH 2.1.1+ Core bugs
  */
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /* tslint:disable */
 var __compiler__ = require('@angular/compiler');
 var core_1 = require("@angular/core");

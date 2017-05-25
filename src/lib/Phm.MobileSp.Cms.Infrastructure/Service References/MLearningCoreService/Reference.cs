@@ -9,7 +9,6 @@
 
 namespace MLearningCoreService
 {
-    using System.Diagnostics;
     using System.Runtime.Serialization;
     
     
@@ -247,6 +246,7 @@ namespace MLearningCoreService
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.VideoFeedDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.QuizFeedDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.SurveyFeedDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.ObservationFeedDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.LinkFeedDto))]
     public partial class BaseFeedDto : MLearningCoreService.BaseDtoOfint
     {
@@ -526,6 +526,7 @@ namespace MLearningCoreService
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BaseDtoOfint", Namespace="http://schemas.datacontract.org/2004/07/Phm.Common.Dto")]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.MediaInfoDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.UserDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.CorporateAppDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.QuizQuestionDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.QuizQuestionAnswerDto))]
@@ -537,6 +538,7 @@ namespace MLearningCoreService
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.VideoFeedDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.QuizFeedDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.SurveyFeedDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.ObservationFeedDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.LinkFeedDto))]
     public partial class BaseDtoOfint : object
     {
@@ -800,6 +802,148 @@ namespace MLearningCoreService
             set
             {
                 this.SizeField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UserDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
+    public partial class UserDto : MLearningCoreService.BaseDtoOfint
+    {
+        
+        private string DealershipCodeField;
+        
+        private string DealershipNameField;
+        
+        private string EmailField;
+        
+        private string FirstNameField;
+        
+        private bool IsBuiltInField;
+        
+        private string LastNameField;
+        
+        private System.Nullable<int> SecEntityIdField;
+        
+        private int SessionExpireMinutesField;
+        
+        private string UserNameField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DealershipCode
+        {
+            get
+            {
+                return this.DealershipCodeField;
+            }
+            set
+            {
+                this.DealershipCodeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DealershipName
+        {
+            get
+            {
+                return this.DealershipNameField;
+            }
+            set
+            {
+                this.DealershipNameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Email
+        {
+            get
+            {
+                return this.EmailField;
+            }
+            set
+            {
+                this.EmailField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FirstName
+        {
+            get
+            {
+                return this.FirstNameField;
+            }
+            set
+            {
+                this.FirstNameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsBuiltIn
+        {
+            get
+            {
+                return this.IsBuiltInField;
+            }
+            set
+            {
+                this.IsBuiltInField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string LastName
+        {
+            get
+            {
+                return this.LastNameField;
+            }
+            set
+            {
+                this.LastNameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> SecEntityId
+        {
+            get
+            {
+                return this.SecEntityIdField;
+            }
+            set
+            {
+                this.SecEntityIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int SessionExpireMinutes
+        {
+            get
+            {
+                return this.SessionExpireMinutesField;
+            }
+            set
+            {
+                this.SessionExpireMinutesField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UserName
+        {
+            get
+            {
+                return this.UserNameField;
+            }
+            set
+            {
+                this.UserNameField = value;
             }
         }
     }
@@ -1350,6 +1494,7 @@ namespace MLearningCoreService
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="SurveyFeedDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.ObservationFeedDto))]
     public partial class SurveyFeedDto : MLearningCoreService.BaseFeedDto
     {
         
@@ -1380,6 +1525,28 @@ namespace MLearningCoreService
             set
             {
                 this.SurveyDescriptionField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ObservationFeedDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class ObservationFeedDto : MLearningCoreService.SurveyFeedDto
+    {
+        
+        private System.Collections.Generic.List<MLearningCoreService.UserObservationDto> UserObservationsField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<MLearningCoreService.UserObservationDto> UserObservations
+        {
+            get
+            {
+                return this.UserObservationsField;
+            }
+            set
+            {
+                this.UserObservationsField = value;
             }
         }
     }
@@ -1443,6 +1610,9 @@ namespace MLearningCoreService
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         PdfLink = 7,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Observation = 8,
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
@@ -1503,6 +1673,58 @@ namespace MLearningCoreService
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Multiple = 1,
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UserObservationDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class UserObservationDto : object
+    {
+        
+        private int FeedIdField;
+        
+        private MLearningCoreService.UserDto UserField;
+        
+        private int UserIdField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int FeedId
+        {
+            get
+            {
+                return this.FeedIdField;
+            }
+            set
+            {
+                this.FeedIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MLearningCoreService.UserDto User
+        {
+            get
+            {
+                return this.UserField;
+            }
+            set
+            {
+                this.UserField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int UserId
+        {
+            get
+            {
+                return this.UserIdField;
+            }
+            set
+            {
+                this.UserIdField = value;
+            }
+        }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -1893,11 +2115,7 @@ namespace MLearningCoreService
         {
             if ((endpointConfiguration == EndpointConfiguration.MLearningCoreServiceEndpoint))
             {
-//#if DEBUG
- //               return new System.ServiceModel.EndpointAddress("http://ccesg20.phm.co.uk/mobile/MLearningCoreService.svc");
-//#else
-                return new System.ServiceModel.EndpointAddress("http://mobilespapi-staging.azurewebsites.net/MLearningCoreService.svc");
-//#endif
+                return new System.ServiceModel.EndpointAddress("http://mobilespapi.phm.co.uk/MLearningCoreService.svc");
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }

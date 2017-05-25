@@ -8,7 +8,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
     {
         Task<IApplicationUser> GetUserAsync(ILoginDetails userDetails);
         Task<IEnumerable<string>> GetUserRoles(IApplicationUser user);
-        Task<IEnumerable<IUser>> GetUsersAsync();
+        Task<IEnumerable<IMLearningUser>> GetUsersAsync();
         Task<IEnumerable<IUserMarket>> GetUserMarkets(IMarketRepository marketRepo, int userId);
         Task<IEnumerable<IUserConfiguration>> GetUserConfigurationsByUserId(int userId);
     }

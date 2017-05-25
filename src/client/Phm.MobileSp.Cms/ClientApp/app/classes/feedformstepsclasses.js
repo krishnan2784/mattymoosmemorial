@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var Observable_1 = require("rxjs/Observable");
 var Enums = require("../enums");
 var FeedFormSteps = (function () {
@@ -21,7 +22,7 @@ var FeedFormSteps = (function () {
                 steps.push(new FeedFormStep(FeedFormStepType.QuizQuestions, 2, "Quiz Questions"));
                 steps.push(new FeedFormStep(FeedFormStepType.QuizScore, 3, "Quiz Results"));
             }
-            else if (_this.formType === Enums.FeedTypeEnum.Survey) {
+            else if (_this.formType === Enums.FeedTypeEnum.Survey || _this.formType === Enums.FeedTypeEnum.Observation) {
                 steps.push(new FeedFormStep(FeedFormStepType.SurveyQuestions, 2, "Survey Questions"));
                 steps.push(new FeedFormStep(FeedFormStepType.SurveyScore, 3, "Survey Results"));
             }

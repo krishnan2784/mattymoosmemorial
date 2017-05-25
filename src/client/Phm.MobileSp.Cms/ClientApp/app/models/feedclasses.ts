@@ -9,6 +9,8 @@ import Surveyclasses = require("./surveyclasses");
 import Baseclasses = require("./baseclasses");
 import Corporateappclasses = require("./corporateappclasses");
 import CorporateApp = Corporateappclasses.CorporateApp;
+import Observationclasses = require("./observationclasses");
+import UserObservation = Observationclasses.UserObservation;
 
 export class BaseFeed extends Baseclasses.BaseModel implements FeedModel.IFeedItem {
     allowFavourite: boolean;
@@ -98,13 +100,22 @@ export class SurveyFeed extends BaseFeed {
     constructor(options: {} = {}) {
         super(options);
         this.feedType = FeedTypeEnum.Survey;
-        this.questions = options['questions'] || '';
+        this.questions = options['questions'];
         this.surveyDescription = options['surveyDescription'] || '';
         this.completionMessage = options['completionMessage'] || '';
         if (!this.questions) {
             this.questions = [];
             this.questions.push(new Surveyclasses.SurveyQuestion());
         }
+    }
+}
+
+export class ObservationFeed extends SurveyFeed {
+    public userObservations: UserObservation[];
+    constructor(options: {} = {}) {
+        super(options);
+        this.feedType = FeedTypeEnum.Observation;
+        this.userObservations = options['userObservation'] || [];
     }
 }
 

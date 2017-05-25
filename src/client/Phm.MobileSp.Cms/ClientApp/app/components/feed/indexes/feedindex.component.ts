@@ -145,7 +145,6 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
 
     copyFeedItemToMarket(feedItem: IFeedItem) {
         let inputs = { feedItem: feedItem };
-        this.updateMarketDropdownVisibility(false);
         var modelData = FeedItemCopyToMarket;
 
         this.modalData = {

@@ -7867,6 +7867,7 @@ namespace MobileSPCoreService
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.SurveyFeedDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.SurveyQuestionDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.SurveyQuestionAnswerDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ObservationFeedDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.LinkFeedDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.UserDto))]
     public partial class BaseDtoOfint : object
@@ -15575,6 +15576,7 @@ namespace MobileSPCoreService
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.VideoFeedDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.QuizFeedDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.SurveyFeedDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ObservationFeedDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.LinkFeedDto))]
     public partial class BaseFeedDto : MobileSPCoreService.BaseDtoOfint
     {
@@ -16247,6 +16249,7 @@ namespace MobileSPCoreService
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="SurveyFeedDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ObservationFeedDto))]
     public partial class SurveyFeedDto : MobileSPCoreService.BaseFeedDto
     {
         
@@ -16426,6 +16429,28 @@ namespace MobileSPCoreService
             set
             {
                 this.SurveyQuestionIdField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ObservationFeedDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class ObservationFeedDto : MobileSPCoreService.SurveyFeedDto
+    {
+        
+        private System.Collections.Generic.List<MobileSPCoreService.UserObservationDto> UserObservationsField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<MobileSPCoreService.UserObservationDto> UserObservations
+        {
+            get
+            {
+                return this.UserObservationsField;
+            }
+            set
+            {
+                this.UserObservationsField = value;
             }
         }
     }
@@ -17727,6 +17752,9 @@ namespace MobileSPCoreService
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         PdfLink = 7,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Observation = 8,
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
@@ -17766,6 +17794,58 @@ namespace MobileSPCoreService
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Multiple = 1,
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UserObservationDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class UserObservationDto : object
+    {
+        
+        private int FeedIdField;
+        
+        private MobileSPCoreService.UserDto UserField;
+        
+        private int UserIdField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int FeedId
+        {
+            get
+            {
+                return this.FeedIdField;
+            }
+            set
+            {
+                this.FeedIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MobileSPCoreService.UserDto User
+        {
+            get
+            {
+                return this.UserField;
+            }
+            set
+            {
+                this.UserField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int UserId
+        {
+            get
+            {
+                return this.UserIdField;
+            }
+            set
+            {
+                this.UserIdField = value;
+            }
+        }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -34457,11 +34537,7 @@ namespace MobileSPCoreService
         {
             if ((endpointConfiguration == EndpointConfiguration.CoreServiceEndpoint))
             {
-//#if DEBUG
- //               return new System.ServiceModel.EndpointAddress("http://192.168.100.69:3000/mobile/CoreService.svc");
-//#else
-                return new System.ServiceModel.EndpointAddress("http://mobilespapi-staging.azurewebsites.net/CoreService.svc");
-//#endif
+                return new System.ServiceModel.EndpointAddress("http://mobilespapi.phm.co.uk/CoreService.svc");
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }

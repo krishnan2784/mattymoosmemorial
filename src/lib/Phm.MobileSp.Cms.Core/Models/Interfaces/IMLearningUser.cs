@@ -2,14 +2,12 @@
 
 namespace Phm.MobileSp.Cms.Core.Models.Interfaces
 {
-    public interface IUser 
+    public interface IMLearningUser 
     {
          int Id { get; set; }
 
          int DefaultMarketId { get; set; }
-
-         bool IsSelected { get; set; }
-
+        
          string DealershipCode { get; set; }
 
          string DealershipName { get; set; }

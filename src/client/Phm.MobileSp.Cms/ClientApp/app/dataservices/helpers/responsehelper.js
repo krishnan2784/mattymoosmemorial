@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var Apiresponse = require("../../models/apiresponse");
 var ApiResponse = Apiresponse.ApiResponse;
 var ResponseHelper = (function () {

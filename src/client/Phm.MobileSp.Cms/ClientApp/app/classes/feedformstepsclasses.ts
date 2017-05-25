@@ -29,7 +29,7 @@ export class FeedFormSteps implements OnInit {
             if (this.formType === Enums.FeedTypeEnum.Quiz) {
                 steps.push(new FeedFormStep(FeedFormStepType.QuizQuestions, 2, "Quiz Questions"));
                 steps.push(new FeedFormStep(FeedFormStepType.QuizScore, 3, "Quiz Results"));
-            } else if (this.formType === Enums.FeedTypeEnum.Survey) {
+            } else if (this.formType === Enums.FeedTypeEnum.Survey || this.formType === Enums.FeedTypeEnum.Observation) {
                 steps.push(new FeedFormStep(FeedFormStepType.SurveyQuestions, 2, "Survey Questions"));
                 steps.push(new FeedFormStep(FeedFormStepType.SurveyScore, 3, "Survey Results"));
             } else {

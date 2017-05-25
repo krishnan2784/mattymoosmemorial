@@ -80,10 +80,14 @@ namespace Phm.MobileSp.Cms.Controllers.API
         [HttpPost("[action]")]
         [JsonResponseWrapper]
         public async Task<JsonResult> UpdateQuizFeedItem([FromBody]QuizFeed feedItem) => await UpdateFeedItem<QuizFeed, QuizFeedDto>(feedItem);
-        [HttpPost("[action]")]
 
+        [HttpPost("[action]")]
         [JsonResponseWrapper]
         public async Task<JsonResult> UpdateSurveyFeedItem([FromBody]SurveyFeed feedItem) => await UpdateFeedItem<SurveyFeed, SurveyFeedDto>(feedItem);
+
+        [HttpPost("[action]")]
+        [JsonResponseWrapper]
+        public async Task<JsonResult> UpdateObservationFeedItem([FromBody]ObservationFeed feedItem) => await UpdateFeedItem<ObservationFeed, ObservationFeedDto>(feedItem);
 
         //[JsonResponseWrapper]
         //public async Task<JsonResult> UpdateTextFeedItem([FromBody] JToken feedItem)
