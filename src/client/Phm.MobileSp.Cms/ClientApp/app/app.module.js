@@ -39,6 +39,8 @@ var Basemodalcomponent = require("./components/modals/basemodal.component");
 var BaseModalComponent = Basemodalcomponent.BaseModalComponent;
 var Copytomarketcomponent = require("./components/feed/modals/copytomarket.component");
 var FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
+var Feedreportindexcomponent = require("./components/reports/indexes/feedreportindex.component");
+var FeedReportIndexComponent = Feedreportindexcomponent.FeedReportIndexComponent;
 var AppModule = (function () {
     function AppModule() {
     }
@@ -69,6 +71,8 @@ AppModule = __decorate([
             observationfeeditem_component_1.ObservationFeedItemFormComponent,
             questionform_component_1.QuestionFormComponent,
             BaseModalComponent,
+            // reporting
+            FeedReportIndexComponent,
             //modals
             FeedItemCopyToMarket
         ],
@@ -89,6 +93,7 @@ AppModule = __decorate([
                 { path: 'feeditem', component: feeditemform_component_1.FeedItemForm },
                 { path: 'feeditem/:id', component: feeditemform_component_1.FeedItemForm },
                 { path: ':feedCat/feeditem', component: feeditemform_component_1.FeedItemForm },
+                { path: 'reports/:feedType', component: FeedReportIndexComponent },
                 { path: '**', redirectTo: 'home' }
             ])
         ]

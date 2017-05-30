@@ -38,6 +38,8 @@ import Basemodalcomponent = require("./components/modals/basemodal.component");
 import BaseModalComponent = Basemodalcomponent.BaseModalComponent;
 import Copytomarketcomponent = require("./components/feed/modals/copytomarket.component");
 import FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
+import Feedreportindexcomponent = require("./components/reports/indexes/feedreportindex.component");
+import FeedReportIndexComponent = Feedreportindexcomponent.FeedReportIndexComponent;
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -66,6 +68,9 @@ import FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
         QuestionFormComponent,
         BaseModalComponent,
 
+        // reporting
+        FeedReportIndexComponent,
+
         //modals
         FeedItemCopyToMarket
     ],
@@ -86,6 +91,7 @@ import FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
             { path: 'feeditem', component: FeedItemForm },
             { path: 'feeditem/:id', component: FeedItemForm },
             { path: ':feedCat/feeditem', component: FeedItemForm },
+            { path: 'reports/:feedType', component: FeedReportIndexComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ]
