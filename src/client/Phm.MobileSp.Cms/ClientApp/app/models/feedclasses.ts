@@ -21,6 +21,7 @@ export class BaseFeed extends Baseclasses.BaseModel implements FeedModel.IFeedIt
     readingTime: number;
     startDate: Date;
     endDate: Date;
+    publishedLiveAt: Date;
     title: string;
     shortDescription: string;
     feedType: Enums.FeedTypeEnum;
@@ -45,6 +46,7 @@ export class BaseFeed extends Baseclasses.BaseModel implements FeedModel.IFeedIt
         this.readingTime = options['readingTime'] || 0;
         this.startDate = options['startDate']; // || Date.now();
         this.endDate = options['endDate']; // || Date.now() + 14;
+        this.publishedLiveAt = options['publishedLiveAt']; 
     }
 }
 

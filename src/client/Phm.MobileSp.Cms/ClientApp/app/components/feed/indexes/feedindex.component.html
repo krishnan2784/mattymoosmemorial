@@ -78,8 +78,8 @@
                                 </div>
                             </div>
                             <div class="col-md-12 feed-item-dates">
-                                <div *ngIf="feedItem.postedAt" class="col-md-4 no-pad date-posted">
-                                    Date posted: {{ feedItem.postedAt | date:'short' }}
+                                <div *ngIf="feedItem.publishedLiveAt" class="col-md-4 no-pad date-posted">
+                                    Date posted: {{ feedItem.publishedLiveAt | date:'short' }}
                                 </div>
 
                                 <div *ngIf="feedItem.updatedAt && feedItem.updatedAt!==feedItem.createdAt" class="col-md-4 no-pad">
