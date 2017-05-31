@@ -13,11 +13,12 @@ namespace MLearningCoreService
     
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="RequestBase", Namespace="http://www.phm.co.uk/types/common/")]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.CreateFeedRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.UpdateFeedRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.DeleteFeedRequest))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.UpdateObserverionUsersResponseRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.GetFeedsRequest))]
     public partial class RequestBase : object
     {
@@ -69,7 +70,7 @@ namespace MLearningCoreService
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="CreateFeedRequest", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     public partial class CreateFeedRequest : MLearningCoreService.RequestBase
     {
@@ -91,7 +92,7 @@ namespace MLearningCoreService
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="UpdateFeedRequest", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     public partial class UpdateFeedRequest : MLearningCoreService.RequestBase
     {
@@ -113,7 +114,7 @@ namespace MLearningCoreService
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="DeleteFeedRequest", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     public partial class DeleteFeedRequest : MLearningCoreService.RequestBase
     {
@@ -150,7 +151,44 @@ namespace MLearningCoreService
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UpdateObserverionUsersResponseRequest", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class UpdateObserverionUsersResponseRequest : MLearningCoreService.RequestBase
+    {
+        
+        private int ObservationFeedIdField;
+        
+        private System.Collections.Generic.List<MLearningCoreService.UserObservationDto> UserObservationsField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ObservationFeedId
+        {
+            get
+            {
+                return this.ObservationFeedIdField;
+            }
+            set
+            {
+                this.ObservationFeedIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<MLearningCoreService.UserObservationDto> UserObservations
+        {
+            get
+            {
+                return this.UserObservationsField;
+            }
+            set
+            {
+                this.UserObservationsField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="GetFeedsRequest", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     public partial class GetFeedsRequest : MLearningCoreService.RequestBase
     {
@@ -172,16 +210,22 @@ namespace MLearningCoreService
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="FeedCriteriaDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     public partial class FeedCriteriaDto : MLearningCoreService.BaseCriteriaDto
     {
         
         private System.Nullable<System.DateTime> DayField;
         
+        private System.Collections.Generic.List<MLearningCoreService.FeedCategoryEnumDto> FeedCategoriesField;
+        
+        private System.Collections.Generic.List<MLearningCoreService.FeedTypeEnumDto> FeedTypesField;
+        
         private System.Nullable<int> IdField;
         
         private System.Nullable<bool> IsFavouriteField;
+        
+        private System.Nullable<System.DateTime> LastUpdateField;
         
         private System.Nullable<int> MarketIdField;
         
@@ -195,6 +239,32 @@ namespace MLearningCoreService
             set
             {
                 this.DayField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<MLearningCoreService.FeedCategoryEnumDto> FeedCategories
+        {
+            get
+            {
+                return this.FeedCategoriesField;
+            }
+            set
+            {
+                this.FeedCategoriesField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<MLearningCoreService.FeedTypeEnumDto> FeedTypes
+        {
+            get
+            {
+                return this.FeedTypesField;
+            }
+            set
+            {
+                this.FeedTypesField = value;
             }
         }
         
@@ -225,6 +295,19 @@ namespace MLearningCoreService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> LastUpdate
+        {
+            get
+            {
+                return this.LastUpdateField;
+            }
+            set
+            {
+                this.LastUpdateField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Nullable<int> MarketId
         {
             get
@@ -239,7 +322,7 @@ namespace MLearningCoreService
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BaseFeedDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.ImageFeedDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.TextFeedDto))]
@@ -276,6 +359,8 @@ namespace MLearningCoreService
         private long PermissionsField;
         
         private int PointsField;
+        
+        private System.Nullable<System.DateTime> PublishedLiveAtField;
         
         private int ReadingTimeField;
         
@@ -457,6 +542,19 @@ namespace MLearningCoreService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> PublishedLiveAt
+        {
+            get
+            {
+                return this.PublishedLiveAtField;
+            }
+            set
+            {
+                this.PublishedLiveAtField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int ReadingTime
         {
             get
@@ -523,7 +621,7 @@ namespace MLearningCoreService
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BaseDtoOfint", Namespace="http://schemas.datacontract.org/2004/07/Phm.Common.Dto")]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.MediaInfoDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.UserDto))]
@@ -650,7 +748,7 @@ namespace MLearningCoreService
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="MediaInfoDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
     public partial class MediaInfoDto : MLearningCoreService.BaseDtoOfint
     {
@@ -807,7 +905,7 @@ namespace MLearningCoreService
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="UserDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
     public partial class UserDto : MLearningCoreService.BaseDtoOfint
     {
@@ -949,7 +1047,7 @@ namespace MLearningCoreService
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="CorporateAppDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     public partial class CorporateAppDto : MLearningCoreService.BaseDtoOfint
     {
@@ -986,7 +1084,7 @@ namespace MLearningCoreService
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="QuizQuestionDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     public partial class QuizQuestionDto : MLearningCoreService.BaseDtoOfint
     {
@@ -1068,7 +1166,7 @@ namespace MLearningCoreService
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="QuizQuestionAnswerDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     public partial class QuizQuestionAnswerDto : MLearningCoreService.BaseDtoOfint
     {
@@ -1135,7 +1233,7 @@ namespace MLearningCoreService
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="SurveyQuestionDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     public partial class SurveyQuestionDto : MLearningCoreService.BaseDtoOfint
     {
@@ -1217,7 +1315,7 @@ namespace MLearningCoreService
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="SurveyQuestionAnswerDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     public partial class SurveyQuestionAnswerDto : MLearningCoreService.BaseDtoOfint
     {
@@ -1284,7 +1382,7 @@ namespace MLearningCoreService
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="ImageFeedDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     public partial class ImageFeedDto : MLearningCoreService.BaseFeedDto
     {
@@ -1336,7 +1434,7 @@ namespace MLearningCoreService
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="TextFeedDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     public partial class TextFeedDto : MLearningCoreService.BaseFeedDto
     {
@@ -1358,7 +1456,7 @@ namespace MLearningCoreService
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="VideoFeedDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     public partial class VideoFeedDto : MLearningCoreService.BaseFeedDto
     {
@@ -1410,7 +1508,7 @@ namespace MLearningCoreService
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="QuizFeedDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     public partial class QuizFeedDto : MLearningCoreService.BaseFeedDto
     {
@@ -1492,7 +1590,7 @@ namespace MLearningCoreService
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="SurveyFeedDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.ObservationFeedDto))]
     public partial class SurveyFeedDto : MLearningCoreService.BaseFeedDto
@@ -1530,7 +1628,7 @@ namespace MLearningCoreService
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="ObservationFeedDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     public partial class ObservationFeedDto : MLearningCoreService.SurveyFeedDto
     {
@@ -1552,13 +1650,13 @@ namespace MLearningCoreService
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="LinkFeedDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     public partial class LinkFeedDto : MLearningCoreService.BaseFeedDto
     {
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="FeedCategoryEnumDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     public enum FeedCategoryEnumDto : int
     {
@@ -1580,9 +1678,12 @@ namespace MLearningCoreService
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Article = 5,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Observation = 6,
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="FeedTypeEnumDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     public enum FeedTypeEnumDto : int
     {
@@ -1615,7 +1716,7 @@ namespace MLearningCoreService
         Observation = 8,
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="MediaTypesDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
     public enum MediaTypesDto : int
     {
@@ -1636,7 +1737,7 @@ namespace MLearningCoreService
         Icon = 4,
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="AppTypeEnumDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     public enum AppTypeEnumDto : int
     {
@@ -1651,7 +1752,7 @@ namespace MLearningCoreService
         MLearning = 2,
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="QuizQuestionTypeEnumDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     public enum QuizQuestionTypeEnumDto : int
     {
@@ -1663,7 +1764,7 @@ namespace MLearningCoreService
         Multiple = 1,
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="SurveyQuestionTypeEnumDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     public enum SurveyQuestionTypeEnumDto : int
     {
@@ -1676,27 +1777,27 @@ namespace MLearningCoreService
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="UserObservationDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     public partial class UserObservationDto : object
     {
         
-        private int FeedIdField;
+        private int ObservationFeedIdField;
         
         private MLearningCoreService.UserDto UserField;
         
         private int UserIdField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int FeedId
+        public int ObservationFeedId
         {
             get
             {
-                return this.FeedIdField;
+                return this.ObservationFeedIdField;
             }
             set
             {
-                this.FeedIdField = value;
+                this.ObservationFeedIdField = value;
             }
         }
         
@@ -1728,7 +1829,7 @@ namespace MLearningCoreService
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BaseCriteriaDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Common.Dto")]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.FeedCriteriaDto))]
     public partial class BaseCriteriaDto : object
@@ -1856,7 +1957,7 @@ namespace MLearningCoreService
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="GetFeedsResponse", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     public partial class GetFeedsResponse : object
     {
@@ -1878,7 +1979,7 @@ namespace MLearningCoreService
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BaseError", Namespace="http://www.phm.co.uk/types/common/")]
     public partial class BaseError : object
     {
@@ -1930,7 +2031,7 @@ namespace MLearningCoreService
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="CreateFeedResponse", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     public partial class CreateFeedResponse : object
     {
@@ -1952,7 +2053,7 @@ namespace MLearningCoreService
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="UpdateFeedResponse", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     public partial class UpdateFeedResponse : object
     {
@@ -1974,7 +2075,7 @@ namespace MLearningCoreService
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="DeleteFeedResponse", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     public partial class DeleteFeedResponse : object
     {
@@ -1995,7 +2096,44 @@ namespace MLearningCoreService
         }
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UpdateObserverionUsersResponse", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class UpdateObserverionUsersResponse : object
+    {
+        
+        private string MessageField;
+        
+        private bool UpdatedField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Message
+        {
+            get
+            {
+                return this.MessageField;
+            }
+            set
+            {
+                this.MessageField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Updated
+        {
+            get
+            {
+                return this.UpdatedField;
+            }
+            set
+            {
+                this.UpdatedField = value;
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MLearningCoreService.IMLearningCoreContract")]
     public interface IMLearningCoreContract
     {
@@ -2015,15 +2153,19 @@ namespace MLearningCoreService
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMLearningCoreContract/DeleteFeed", ReplyAction="http://tempuri.org/IMLearningCoreContract/DeleteFeedResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(MLearningCoreService.BaseError), Action="http://tempuri.org/IMLearningCoreContract/DeleteFeedBaseErrorFault", Name="BaseError", Namespace="http://www.phm.co.uk/types/common/")]
         System.Threading.Tasks.Task<MLearningCoreService.DeleteFeedResponse> DeleteFeedAsync(MLearningCoreService.DeleteFeedRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMLearningCoreContract/UpdateObserverionUsers", ReplyAction="http://tempuri.org/IMLearningCoreContract/UpdateObserverionUsersResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(MLearningCoreService.BaseError), Action="http://tempuri.org/IMLearningCoreContract/UpdateObserverionUsersBaseErrorFault", Name="BaseError", Namespace="http://www.phm.co.uk/types/common/")]
+        System.Threading.Tasks.Task<MLearningCoreService.UpdateObserverionUsersResponse> UpdateObserverionUsersAsync(MLearningCoreService.UpdateObserverionUsersResponseRequest request);
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     public interface IMLearningCoreContractChannel : MLearningCoreService.IMLearningCoreContract, System.ServiceModel.IClientChannel
     {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.4.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     public partial class MLearningCoreContractClient : System.ServiceModel.ClientBase<MLearningCoreService.IMLearningCoreContract>, MLearningCoreService.IMLearningCoreContract
     {
         
@@ -2085,6 +2227,11 @@ namespace MLearningCoreService
         public System.Threading.Tasks.Task<MLearningCoreService.DeleteFeedResponse> DeleteFeedAsync(MLearningCoreService.DeleteFeedRequest request)
         {
             return base.Channel.DeleteFeedAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<MLearningCoreService.UpdateObserverionUsersResponse> UpdateObserverionUsersAsync(MLearningCoreService.UpdateObserverionUsersResponseRequest request)
+        {
+            return base.Channel.UpdateObserverionUsersAsync(request);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()

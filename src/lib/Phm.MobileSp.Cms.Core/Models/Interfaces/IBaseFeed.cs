@@ -19,5 +19,6 @@ namespace Phm.MobileSp.Cms.Core.Models.Interfaces
          int? ReadingTime { get; set; }
          DateTime? StartDate { get; set; }
          DateTime? EndDate { get; set; }
+         DateTime? PublishedLiveAt { get; set; }
     }
 }

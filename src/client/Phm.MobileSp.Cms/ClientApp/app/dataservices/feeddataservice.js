@@ -47,6 +47,18 @@ var FeedDataService = (function (_super) {
             });
         });
     };
+    FeedDataService.prototype.getFeeditemsByType = function (selectedType) {
+        var _this = this;
+        return Observable_1.Observable.create(function (observer) {
+            _this.getFeeditems().subscribe(function (result) {
+                if (result.length) {
+                    var response = result.filter(function (x) { return x.feedType === selectedType; });
+                    observer.next(response);
+                }
+                observer.complete();
+            });
+        });
+    };
     FeedDataService.prototype.getFeeditem = function (feedId, feedItemType) {
         var _this = this;
         return Observable_1.Observable.create(function (observer) {

@@ -9,6 +9,8 @@ export interface IFeedDataService {
 
     getFeeditemsByCat(selectedCat: Enums.FeedCategoryEnum): Observable<FeedModel.IFeedItem[]>;
 
+    getFeeditemsByType(selectedCat: Enums.FeedTypeEnum): Observable<FeedModel.IFeedItem[]>;
+
     getFeeditem<TFeedItem extends BaseFeed>(id: number, feedItem: { new ({}): TFeedItem; });
 
     updateFeeditem(updateUrl: string, feedItem: FeedModel.IFeedItem);

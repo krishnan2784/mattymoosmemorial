@@ -35,6 +35,7 @@ var BaseFeed = (function (_super) {
         _this.readingTime = options['readingTime'] || 0;
         _this.startDate = options['startDate']; // || Date.now();
         _this.endDate = options['endDate']; // || Date.now() + 14;
+        _this.publishedLiveAt = options['publishedLiveAt'];
         return _this;
     }
     return BaseFeed;
