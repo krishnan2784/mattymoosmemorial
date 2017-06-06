@@ -6,7 +6,8 @@
     Survey = 4,
     VideoLink = 5,
     ImageLink = 6,
-    PdfLink = 7 
+    PdfLink = 7,
+    Observation = 8
 }
 export enum FeedCategoryEnum {
     Learning = 0,
@@ -14,8 +15,7 @@ export enum FeedCategoryEnum {
     General = 2,
     Campaign = 3,
     Announcement = 4,
-    Article = 5,
-    Observation = 6
+    Article = 5
 }
 export enum MediaTypes {
     Text = 0,

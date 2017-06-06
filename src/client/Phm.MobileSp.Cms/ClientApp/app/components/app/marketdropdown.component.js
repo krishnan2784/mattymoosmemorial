@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var marketdataservice_1 = require("../../dataservices/marketdataservice");
 var datashareservice_1 = require("../../dataservices/datashareservice");
@@ -36,9 +37,9 @@ var MarketDropdown = (function () {
     };
     MarketDropdown.prototype.updateCurrentMarket = function (newMarket) {
         var _this = this;
-        this.currentMarket = this.userMarkets.find(function (x) { return x == newMarket; });
         this.marketDataService.updateCurrentMarketId(this.currentMarket.id).subscribe(function (result) {
             if (result) {
+                _this.currentMarket = _this.userMarkets.find(function (x) { return x.id === newMarket.id; });
                 _this.sharedService.updateMarket(_this.currentMarket);
             }
         });

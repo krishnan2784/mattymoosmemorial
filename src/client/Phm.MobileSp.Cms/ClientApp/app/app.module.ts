@@ -4,7 +4,7 @@ import { UniversalModule } from 'angular2-universal';
 import { Ng2PaginationModule } from 'ng2-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 //import { CalendarModule } from 'primeng/primeng';
-import { DateValueAccessor } from './classes/datevalueaccessor';
+//import { DateValueAccessor } from './classes/datevalueaccessor';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
@@ -32,11 +32,14 @@ import { FeedItemContainerComponent } from "./components/feed/modelforms/feedite
 
 import { QuizFeedItemFormComponent } from "./components/feed/modelforms/quizfeeditem.component";
 import { SurveyFeedItemFormComponent } from "./components/feed/modelforms/surveyfeeditem.component";
+import { ObservationFeedItemFormComponent } from "./components/feed/modelforms/observationfeeditem.component";
 import { QuestionFormComponent } from "./components/feed/modelforms/questionform.component";
 import Basemodalcomponent = require("./components/modals/basemodal.component");
 import BaseModalComponent = Basemodalcomponent.BaseModalComponent;
 import Copytomarketcomponent = require("./components/feed/modals/copytomarket.component");
 import FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
+import Feedreportindexcomponent = require("./components/reports/indexes/feedreportindex.component");
+import FeedReportIndexComponent = Feedreportindexcomponent.FeedReportIndexComponent;
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -46,7 +49,7 @@ import FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
         NavMenuComponent,
         FooterComponent,
         MarketDropdown,
-        DateValueAccessor,
+        //DateValueAccessor,
 
         // main naviation items
         CounterComponent,
@@ -61,8 +64,12 @@ import FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
         TextFeedItemFormComponent,
         QuizFeedItemFormComponent,
         SurveyFeedItemFormComponent,
+        ObservationFeedItemFormComponent,
         QuestionFormComponent,
         BaseModalComponent,
+
+        // reporting
+        FeedReportIndexComponent,
 
         //modals
         FeedItemCopyToMarket
@@ -84,6 +91,7 @@ import FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
             { path: 'feeditem', component: FeedItemForm },
             { path: 'feeditem/:id', component: FeedItemForm },
             { path: ':feedCat/feeditem', component: FeedItemForm },
+            { path: 'reports/:feedType', component: FeedReportIndexComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ]

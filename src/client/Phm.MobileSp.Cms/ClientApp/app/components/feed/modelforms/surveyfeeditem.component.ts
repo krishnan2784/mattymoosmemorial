@@ -18,7 +18,12 @@ export class SurveyFeedItemFormComponent extends BaseQuestionFeedItemFormCompone
     constructor(injector: Injector) {
         super(injector, Feedclasses.SurveyFeed, '/api/Feed/UpdateSurveyFeedItem', FeedTypeEnum.Survey, Enums.SurveyQuestionTypeEnum);
     }
-    
+
+    //constructor(injector: Injector, feedModelType: any = Feedclasses.SurveyFeed, updateUrl: string = '/api/Feed/UpdateSurveyFeedItem',
+    //    feedType: Enums.FeedTypeEnum = FeedTypeEnum.Survey, questionTypeEnum: any = Enums.SurveyQuestionTypeEnum) {
+    //    super(injector, feedModelType, updateUrl, feedType, questionTypeEnum);
+    //}
+
     addFormControls() {
         var formArray = new FormArray([]);
         this.model.questions.forEach(x => formArray.push(this.initQuestion(x)));
@@ -29,6 +34,8 @@ export class SurveyFeedItemFormComponent extends BaseQuestionFeedItemFormCompone
     
     removeFormControls() {
         this.form.removeControl('questions');
+        this.form.removeControl('surveyDescription');
+        this.form.removeControl('completionMessage');
     };
 
     initQuestion(question: SurveyClasses.SurveyQuestion = new SurveyClasses.SurveyQuestion()) {

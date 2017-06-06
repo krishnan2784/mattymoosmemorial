@@ -21,6 +21,8 @@ import Surveyfeeditemcomponent = require("./surveyfeeditem.component");
 import SurveyFeedItemFormComponent = Surveyfeeditemcomponent.SurveyFeedItemFormComponent;
 import Datashareservice = require("../../../dataservices/datashareservice");
 import ShareService = Datashareservice.ShareService;
+import Observationfeeditemcomponent = require("./observationfeeditem.component");
+import ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationFeedItemFormComponent;
 declare var $: any;
 declare var Materialize: any;
 
@@ -53,6 +55,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     public textForm = TextFeedItemFormComponent;
     public quizForm = QuizFeedItemFormComponent;
     public surveyForm = SurveyFeedItemFormComponent;
+    public observationForm = ObservationFeedItemFormComponent;
 
     public feedFormSteps: FeedFormSteps = new FeedFormSteps();
 
@@ -148,6 +151,8 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
                 return QuizFeedItemFormComponent;
             case Enums.FeedTypeEnum.Survey:
                 return SurveyFeedItemFormComponent;
+            case Enums.FeedTypeEnum.Observation:
+                return ObservationFeedItemFormComponent;
             default:
                 return TextFeedItemFormComponent;
         }

@@ -29,5 +29,7 @@ namespace Phm.MobileSp.Cms.Core.Models
         public virtual int? ReadingTime { get; set; }
         public virtual DateTime? StartDate { get; set; }
         public virtual DateTime? EndDate { get; set; }
+        public virtual DateTime? PublishedLiveAt { get; set; }
+
     }
 }

@@ -9,6 +9,7 @@
         Survey = 4,
         VideoLink = 5,
         ImageLink = 6,
-        PdfLink = 7
+        PdfLink = 7,
+        Observation = 8
     }
 }

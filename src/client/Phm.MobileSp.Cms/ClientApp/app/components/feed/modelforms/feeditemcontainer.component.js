@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var feeditemform_component_1 = require("./feeditemform.component");
 var textfeeditem_component_1 = require("./textfeeditem.component");
@@ -15,6 +16,8 @@ var Quizfeeditemcomponent = require("./quizfeeditem.component");
 var QuizFeedItemFormComponent = Quizfeeditemcomponent.QuizFeedItemFormComponent;
 var Surveyfeeditemcomponent = require("./surveyfeeditem.component");
 var SurveyFeedItemFormComponent = Surveyfeeditemcomponent.SurveyFeedItemFormComponent;
+var Observationfeeditemcomponent = require("./observationfeeditem.component");
+var ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationFeedItemFormComponent;
 var FeedItemContainerComponent = (function () {
     function FeedItemContainerComponent(resolver) {
         this.resolver = resolver;
@@ -53,7 +56,7 @@ __decorate([
 FeedItemContainerComponent = __decorate([
     core_1.Component({
         selector: 'feed-form-component',
-        entryComponents: [feeditemform_component_1.FeedItemForm, textfeeditem_component_1.TextFeedItemFormComponent, QuizFeedItemFormComponent, SurveyFeedItemFormComponent],
+        entryComponents: [feeditemform_component_1.FeedItemForm, textfeeditem_component_1.TextFeedItemFormComponent, QuizFeedItemFormComponent, SurveyFeedItemFormComponent, ObservationFeedItemFormComponent],
         template: require('./feeditemcontainer.component.html'),
         styles: [require('./feeditemcontainer.component.css')],
     }),

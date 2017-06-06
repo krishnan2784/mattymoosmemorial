@@ -37,12 +37,12 @@ export class QuestionFormComponent {
         var answers = <FormArray>this.form.controls['answers'];
 
         var controlName = "isCorrect";
-        if (this.feedType === FeedTypeEnum.Survey)
+        if (this.feedType === FeedTypeEnum.Survey || this.feedType === FeedTypeEnum.Observation)
             controlName = "isFreeText";
 
         if (index!=null) {
             var questionType = this.form.controls['questionType'].value;
-            if (questionType === this.questionType.Multiple && this.feedType !== FeedTypeEnum.Survey)
+            if (questionType === this.questionType.Multiple && this.feedType !== FeedTypeEnum.Survey && this.feedType !== FeedTypeEnum.Observation)
                 return;  
 
             dynamicIndex = answers.controls[index];

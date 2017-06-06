@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var FeedTypeEnum;
 (function (FeedTypeEnum) {
     FeedTypeEnum[FeedTypeEnum["Text"] = 0] = "Text";
@@ -9,6 +10,7 @@ var FeedTypeEnum;
     FeedTypeEnum[FeedTypeEnum["VideoLink"] = 5] = "VideoLink";
     FeedTypeEnum[FeedTypeEnum["ImageLink"] = 6] = "ImageLink";
     FeedTypeEnum[FeedTypeEnum["PdfLink"] = 7] = "PdfLink";
+    FeedTypeEnum[FeedTypeEnum["Observation"] = 8] = "Observation";
 })(FeedTypeEnum = exports.FeedTypeEnum || (exports.FeedTypeEnum = {}));
 var FeedCategoryEnum;
 (function (FeedCategoryEnum) {
@@ -18,7 +20,6 @@ var FeedCategoryEnum;
     FeedCategoryEnum[FeedCategoryEnum["Campaign"] = 3] = "Campaign";
     FeedCategoryEnum[FeedCategoryEnum["Announcement"] = 4] = "Announcement";
     FeedCategoryEnum[FeedCategoryEnum["Article"] = 5] = "Article";
-    FeedCategoryEnum[FeedCategoryEnum["Observation"] = 6] = "Observation";
 })(FeedCategoryEnum = exports.FeedCategoryEnum || (exports.FeedCategoryEnum = {}));
 var MediaTypes;
 (function (MediaTypes) {

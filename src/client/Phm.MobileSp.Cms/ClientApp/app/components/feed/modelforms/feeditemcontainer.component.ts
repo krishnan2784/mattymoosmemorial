@@ -5,10 +5,12 @@ import Quizfeeditemcomponent = require("./quizfeeditem.component");
 import QuizFeedItemFormComponent = Quizfeeditemcomponent.QuizFeedItemFormComponent;
 import Surveyfeeditemcomponent = require("./surveyfeeditem.component");
 import SurveyFeedItemFormComponent = Surveyfeeditemcomponent.SurveyFeedItemFormComponent;
+import Observationfeeditemcomponent = require("./observationfeeditem.component");
+import ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationFeedItemFormComponent;
 
 @Component({
     selector: 'feed-form-component',
-    entryComponents: [FeedItemForm, TextFeedItemFormComponent, QuizFeedItemFormComponent, SurveyFeedItemFormComponent],
+    entryComponents: [FeedItemForm, TextFeedItemFormComponent, QuizFeedItemFormComponent, SurveyFeedItemFormComponent, ObservationFeedItemFormComponent],
     template: require('./feeditemcontainer.component.html'),
     styles: [require('./feeditemcontainer.component.css')],
 })

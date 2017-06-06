@@ -1,9 +1,15 @@
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
 var Enums = require("../enums");
 var FeedCategoryEnum = Enums.FeedCategoryEnum;
 var FeedTypeEnum = Enums.FeedTypeEnum;
@@ -29,6 +35,7 @@ var BaseFeed = (function (_super) {
         _this.readingTime = options['readingTime'] || 0;
         _this.startDate = options['startDate']; // || Date.now();
         _this.endDate = options['endDate']; // || Date.now() + 14;
+        _this.publishedLiveAt = options['publishedLiveAt'];
         return _this;
     }
     return BaseFeed;
@@ -87,7 +94,7 @@ var SurveyFeed = (function (_super) {
         if (options === void 0) { options = {}; }
         var _this = _super.call(this, options) || this;
         _this.feedType = FeedTypeEnum.Survey;
-        _this.questions = options['questions'] || '';
+        _this.questions = options['questions'];
         _this.surveyDescription = options['surveyDescription'] || '';
         _this.completionMessage = options['completionMessage'] || '';
         if (!_this.questions) {
@@ -99,6 +106,18 @@ var SurveyFeed = (function (_super) {
     return SurveyFeed;
 }(BaseFeed));
 exports.SurveyFeed = SurveyFeed;
+var ObservationFeed = (function (_super) {
+    __extends(ObservationFeed, _super);
+    function ObservationFeed(options) {
+        if (options === void 0) { options = {}; }
+        var _this = _super.call(this, options) || this;
+        _this.feedType = FeedTypeEnum.Observation;
+        _this.userObservations = options['userObservation'] || [];
+        return _this;
+    }
+    return ObservationFeed;
+}(SurveyFeed));
+exports.ObservationFeed = ObservationFeed;
 var TextFeed = (function (_super) {
     __extends(TextFeed, _super);
     function TextFeed(options) {
