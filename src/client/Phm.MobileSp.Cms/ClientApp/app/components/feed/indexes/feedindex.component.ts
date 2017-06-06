@@ -13,7 +13,7 @@ import Userclasses = require("../../../models/userclasses");
 import UserMarket = Userclasses.UserMarket;
 import Copytomarketcomponent = require("../modals/copytomarket.component");
 import FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
-
+import CopiedElementTypeEnum = Enums.CopiedElementTypeEnum;
 declare var $: any;
 declare var Materialize: any;
 
@@ -144,7 +144,7 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
     }
 
     copyFeedItemToMarket(feedItem: IFeedItem) {
-        let inputs = { feedItem: feedItem };
+        let inputs = { model: feedItem, title: '', contentType: CopiedElementTypeEnum.Feed, copyToMarketService: this.feedDataService };
         var modelData = FeedItemCopyToMarket;
 
         this.modalData = {

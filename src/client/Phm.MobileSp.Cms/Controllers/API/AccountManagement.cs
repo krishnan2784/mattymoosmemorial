@@ -17,7 +17,8 @@ namespace Phm.MobileSp.Cms.Controllers.API
     {
         private readonly IUserRepository _userRepository;
         private readonly IMarketRepository _marketRepository;
-        public AccountManagement(IMemoryCache memoryCache, IUserRepository userRepository, IMarketRepository marketRepository) : base(memoryCache, userRepository)
+        public AccountManagement(IMemoryCache memoryCache, IUserRepository userRepository, IMarketRepository marketRepository) 
+            : base(memoryCache, userRepository, marketRepository)
         {
             _userRepository = userRepository;
             _marketRepository = marketRepository;

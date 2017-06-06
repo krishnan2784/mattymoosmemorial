@@ -1,9 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Caching.Memory;
+using Phm.MobileSp.Cms.Core.Enumerations;
 using Phm.MobileSp.Cms.Helpers.Attributes;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 
@@ -15,10 +17,12 @@ namespace Phm.MobileSp.Cms.Controllers
     public class MarketController : BaseController
     {
         private readonly IUserRepository _userRepository;
+        private readonly IMarketRepository _marketRepository;
 
-        public MarketController(IMemoryCache memoryCache, IUserRepository userRepository) : base(memoryCache)
+        public MarketController(IMemoryCache memoryCache, IUserRepository userRepository, IMarketRepository marketRepository) : base(memoryCache)
         {
             _userRepository = userRepository;
+            _marketRepository = marketRepository;
         }
 
         [HttpGet("[action]")]
@@ -44,6 +48,15 @@ namespace Phm.MobileSp.Cms.Controllers
         public JsonResult GetCurrentMarket()
         {
             return Json(CurrentMarketId);
+        }
+
+        [HttpGet("[action]")]
+        [JsonResponseWrapper]
+        [ResponseCache(CacheProfileName = "NoCache")]
+        public async Task<JsonResult> GetMarketsByMasterId(CopiedElementTypeEnum contentType, Guid masterId)
+        {
+            var markets = await _marketRepository.GetMarketsByMasterIdAsync(contentType, masterId);
+            return Json(markets);
         }
 
         public override void OnActionExecuted(ActionExecutedContext context)

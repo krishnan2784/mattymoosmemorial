@@ -17,6 +17,4 @@ export interface IFeedDataService {
     
     deleteFeeditem(feedItemId: number): Observable<boolean>;
 
-    copyFeedItemToMarket(feedItem: FeedModel.IFeedItem, marketIds: number[]);
-
 }

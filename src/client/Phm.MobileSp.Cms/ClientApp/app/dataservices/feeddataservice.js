@@ -75,8 +75,8 @@ var FeedDataService = (function (_super) {
     FeedDataService.prototype.deleteFeeditem = function (feedItemId) {
         return this.postRequestBase('/api/Feed/DeleteFeedItem', feedItemId);
     };
-    FeedDataService.prototype.copyFeedItemToMarket = function (feedItem, marketIds) {
-        return this.postRequestFull('/api/Feed/CopyFeedItemToMarket', { feedItemId: feedItem.id, marketIds: marketIds });
+    FeedDataService.prototype.copyFeedItemToMarket = function (id, marketIds) {
+        return this.postRequestFull('/api/Feed/CopyFeedItemToMarket', { id: id, marketIds: marketIds });
     };
     return FeedDataService;
 }(requesthelper_1.RequestHelper));

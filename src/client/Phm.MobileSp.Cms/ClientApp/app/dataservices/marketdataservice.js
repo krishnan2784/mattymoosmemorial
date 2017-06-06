@@ -1,4 +1,14 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -15,10 +25,14 @@ var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/publishReplay");
 var responsehelper_1 = require("./helpers/responsehelper");
-var MarketDataService = (function () {
-    function MarketDataService(http, zone) {
-        this.http = http;
-        this.zone = zone;
+var Requesthelper = require("./helpers/requesthelper");
+var RequestHelper = Requesthelper.RequestHelper;
+var MarketDataService = (function (_super) {
+    __extends(MarketDataService, _super);
+    function MarketDataService(http) {
+        var _this = _super.call(this, http) || this;
+        _this.http = http;
+        return _this;
     }
     MarketDataService.prototype.updateCurrentMarketId = function (marketId) {
         var _this = this;
@@ -40,11 +54,21 @@ var MarketDataService = (function () {
             });
         });
     };
+    MarketDataService.prototype.getMarketsByMasterId = function (contentType, masterId) {
+        var _this = this;
+        return Observable_1.Observable.create(function (observer) {
+            _this.getRequestBase('/api/Market/GetMarketsByMasterId', [{ key: 'contentType', value: contentType },
+                { key: 'masterId', value: masterId }]).subscribe(function (result) {
+                observer.next(result.content);
+                observer.complete();
+            });
+        });
+    };
     return MarketDataService;
-}());
+}(RequestHelper));
 MarketDataService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http, core_1.NgZone])
+    __metadata("design:paramtypes", [http_1.Http])
 ], MarketDataService);
 exports.MarketDataService = MarketDataService;
 //# sourceMappingURL=marketdataservice.js.map

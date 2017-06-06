@@ -18,7 +18,8 @@ namespace Phm.MobileSp.Cms.Controllers.API
     {
         private readonly IFeedRepository _feedRepository;
 
-        public FeedController(IMemoryCache memoryCache, IFeedRepository feedRepository, IUserRepository userRepository) : base(memoryCache, userRepository)
+        public FeedController(IMemoryCache memoryCache, IFeedRepository feedRepository, IUserRepository userRepository, IMarketRepository marketRepository) 
+            : base(memoryCache, userRepository, marketRepository)
         {
             _feedRepository = feedRepository;
         }
@@ -106,9 +107,9 @@ namespace Phm.MobileSp.Cms.Controllers.API
 
         [HttpPost("[action]")]
         [JsonResponseWrapper]
-        public async Task<JsonResult> CopyFeedItemToMarket([FromBody]int feedItemId, [FromBody]List<int> marketIds)
+        public async Task<JsonResult> CopyFeedItemToMarket([FromBody]int id, [FromBody]List<int> marketIds)
         {
-            var feedItemResponse = await _feedRepository.CopyFeedItemToMarketAsync(feedItemId, marketIds);
+            var feedItemResponse = await _feedRepository.CopyFeedItemToMarketAsync(id, marketIds);
             return Json(new BaseResponse(feedItemResponse, feedItemResponse ? "Feed item successfuly copied" : "Failed to copy feed item", feedItemResponse));
         }
 

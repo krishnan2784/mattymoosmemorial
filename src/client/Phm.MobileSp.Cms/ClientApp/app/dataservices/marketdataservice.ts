@@ -7,13 +7,18 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/publishReplay';
 import { IMarketDataService } from "../interfaces/dataservices/IMarketDataService";
 import { ResponseHelper } from "./helpers/responsehelper";
-import Userclasses = require("../models/userclasses");
-import { ApiResponse } from "../models/apiresponse";
+import Marketclasses = require("../models/marketclasses");
+import Market = Marketclasses.Market;
+import Enums = require("../enums");
+import CopiedElementTypeEnum = Enums.CopiedElementTypeEnum;
+import Requesthelper = require("./helpers/requesthelper");
+import RequestHelper = Requesthelper.RequestHelper;
 
 @Injectable()
-export class MarketDataService implements IMarketDataService {
+export class MarketDataService extends RequestHelper implements IMarketDataService {
 
-    constructor(public http: Http, private zone: NgZone) {
+    constructor(public http: Http) {
+        super(http);
     }
 
     updateCurrentMarketId(marketId: number): Observable<boolean> {
@@ -36,4 +41,14 @@ export class MarketDataService implements IMarketDataService {
         });
     }
 
+    getMarketsByMasterId(contentType: CopiedElementTypeEnum, masterId : string): Observable<Market[]> {
+        return Observable.create(observer => {
+            this.getRequestBase('/api/Market/GetMarketsByMasterId', [{ key: 'contentType', value: contentType },
+            { key: 'masterId', value: masterId }]).subscribe((result) => {
+                observer.next(result.content);
+                observer.complete();
+            });
+        });
+    }
+    
 }

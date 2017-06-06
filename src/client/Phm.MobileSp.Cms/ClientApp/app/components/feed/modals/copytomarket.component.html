@@ -3,33 +3,7 @@
     <div class="form-group">
         <div class="col-md-5">
             <select class="form-control" multiple="multiple" #inOtherMarkets>
-                <option value="2">Britain</option>
-                <option value="3">Austria</option>
-                <option value="4">Belgium - Flemish</option>
-                <option value="5">Belgium - French</option>
-                <option value="6">Czech Republic</option>
-                <option value="7">Denmark</option>
-                <option value="8">Finland</option>
-                <option value="9">France</option>
-                <option value="10">Germany</option>
-                <option value="11">Greece</option>
-                <option value="12">Hungary</option>
-                <option value="13">Ireland</option>
-                <option value="14">Italy</option>
-                <option value="15">Netherlands</option>
-                <option value="16">Norway</option>
-                <option value="17">Poland</option>
-                <option value="18">Portugal</option>
-                <option value="19">Romania</option>
-                <option value="20">Russia</option>
-                <option value="21">Spain</option>
-                <option value="22">Sweden</option>
-                <option value="23">Switzerland - French</option>
-                <option value="24">Switzerland - German</option>
-                <option value="25">Switzerland - Italian</option>
-                <option value="26">Turkey</option>
-                <option value="52">Demo2 Market</option>
-                <option value="54">Britain CV</option>
+                <option *ngFor="let userMarket of this.userMarkets" value="userMarket.id">{{userMarket.name}}</option>
             </select>
         </div>
         <div class="col-md-1">
@@ -40,33 +14,7 @@
         </div>
         <div class="col-md-5">
             <select class="form-control" multiple="multiple" #OtherMarkets>
-                <option value="2">Britain</option>
-                <option value="3">Austria</option>
-                <option value="4">Belgium - Flemish</option>
-                <option value="5">Belgium - French</option>
-                <option value="6">Czech Republic</option>
-                <option value="7">Denmark</option>
-                <option value="8">Finland</option>
-                <option value="9">France</option>
-                <option value="10">Germany</option>
-                <option value="11">Greece</option>
-                <option value="12">Hungary</option>
-                <option value="13">Ireland</option>
-                <option value="14">Italy</option>
-                <option value="15">Netherlands</option>
-                <option value="16">Norway</option>
-                <option value="17">Poland</option>
-                <option value="18">Portugal</option>
-                <option value="19">Romania</option>
-                <option value="20">Russia</option>
-                <option value="21">Spain</option>
-                <option value="22">Sweden</option>
-                <option value="23">Switzerland - French</option>
-                <option value="24">Switzerland - German</option>
-                <option value="25">Switzerland - Italian</option>
-                <option value="26">Turkey</option>
-                <option value="52">Demo2 Market</option>
-                <option value="54">Britain CV</option>
+                <option *ngFor="let currentMarket of this.currentMarkets" value="currentMarkets.id" disabled>{{currentMarket.name}}</option>
             </select>
         </div>
         <div class="clearfix"></div>

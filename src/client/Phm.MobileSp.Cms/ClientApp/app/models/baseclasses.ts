@@ -25,3 +25,16 @@
         this.updatedAt = options.updatedAt;
     }
 }
+
+export class BaseVersionableEntity extends BaseModel {
+    isPublishedLive: boolean;
+    validVersion: boolean;
+    version: number;
+
+    constructor(options: {} = {}) {
+        super(options);
+        this.isPublishedLive = options['isPublishedLive'] || false;
+        this.validVersion = options['validVersion'] || false;
+        this.version = options['version'] || 0;
+    }
+}

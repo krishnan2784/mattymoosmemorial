@@ -20,25 +20,46 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var FeedDataService_1 = require("../../../dataservices/FeedDataService");
 var Basemodalcontentcomponent = require("../../modals/basemodalcontent.component");
 var BaseModalContent = Basemodalcontentcomponent.BaseModalContent;
 var Datashareservice = require("../../../dataservices/datashareservice");
 var ShareService = Datashareservice.ShareService;
+var Marketdataservice = require("../../../dataservices/marketdataservice");
+var MarketDataService = Marketdataservice.MarketDataService;
+var Userdataservice = require("../../../dataservices/userdataservice");
+var UserDataService = Userdataservice.UserDataService;
 var FeedItemCopyToMarket = (function (_super) {
     __extends(FeedItemCopyToMarket, _super);
-    function FeedItemCopyToMarket(injector, feedDataService, sharedService) {
+    function FeedItemCopyToMarket(injector, sharedService, marketService, userDataService) {
         var _this = _super.call(this) || this;
         _this.injector = injector;
-        _this.feedDataService = feedDataService;
         _this.sharedService = sharedService;
+        _this.marketService = marketService;
+        _this.userDataService = userDataService;
         if (injector) {
-            _this.model = injector.get('feedItem');
+            _this.title = injector.get('title');
+            _this.model = injector.get('model');
+            _this.contentType = injector.get('contentType');
+            _this.copyToMarketService = injector.get('copyToMarketService');
         }
         return _this;
     }
+    FeedItemCopyToMarket.prototype.ngOnInit = function () {
+        this.setupMarkets();
+    };
+    FeedItemCopyToMarket.prototype.setupMarkets = function () {
+        var _this = this;
+        this.marketService.getMarketsByMasterId(this.contentType, this.model.masterId).subscribe(function (result) {
+            _this.currentMarkets = result;
+            _this.userDataService.getUserMarkets().subscribe(function (result) {
+                if (_this.currentMarkets && _this.currentMarkets.length > 0)
+                    result = result.filter(function (x) { return _this.currentMarkets.filter(function (y) { return y.id === x.id; }).length === 0; });
+                _this.userMarkets = result;
+            });
+        });
+    };
     FeedItemCopyToMarket.prototype.saveChanges = function () {
-        this.sharedService.updateFeedItem(this.model);
+        //this.sharedService.updateFeedItem(this.model);
     };
     return FeedItemCopyToMarket;
 }(BaseModalContent));
@@ -46,10 +67,10 @@ FeedItemCopyToMarket = __decorate([
     core_1.Component({
         selector: 'feeditem-copytomarket',
         template: require('./copytomarket.component.html'),
-        styles: [require('./copytomarket.component.css')],
-        providers: [FeedDataService_1.FeedDataService]
+        styles: [require('./copytomarket.component.css')]
     }),
-    __metadata("design:paramtypes", [core_1.Injector, FeedDataService_1.FeedDataService, ShareService])
+    __metadata("design:paramtypes", [core_1.Injector, ShareService,
+        MarketDataService, UserDataService])
 ], FeedItemCopyToMarket);
 exports.FeedItemCopyToMarket = FeedItemCopyToMarket;
 //# sourceMappingURL=copytomarket.component.js.map

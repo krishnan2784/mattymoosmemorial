@@ -11,9 +11,11 @@ import FeedModel = require("../interfaces/models/IFeedModel");
 import FeedItem = FeedModel.IFeedItem;
 import Feedclasses = require("../models/feedclasses");
 import Apiresponse = require("../models/apiresponse");
+import CopyToMarketService = require("../interfaces/dataservices/ICopyToMarketService");
+import ICopyToMarketService = CopyToMarketService.ICopyToMarketService;
 
 @Injectable()
-export class FeedDataService extends RequestHelper implements IFeedDataService {
+export class FeedDataService extends RequestHelper implements IFeedDataService, ICopyToMarketService {
 
     constructor(public http: Http) {
         super(http);
@@ -65,8 +67,8 @@ export class FeedDataService extends RequestHelper implements IFeedDataService {
         return this.postRequestBase('/api/Feed/DeleteFeedItem',  feedItemId);
     }
 
-    public copyFeedItemToMarket(feedItem: FeedItem, marketIds: number[]): Observable<Apiresponse.ApiResponse> {
-        return this.postRequestFull('/api/Feed/CopyFeedItemToMarket', { feedItemId : feedItem.id, marketIds});
+    public copyFeedItemToMarket(id: number, marketIds: number[]): Observable<Apiresponse.ApiResponse> {
+        return this.postRequestFull('/api/Feed/CopyFeedItemToMarket', { id : id, marketIds});
     }
     
 }
