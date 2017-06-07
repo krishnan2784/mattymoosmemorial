@@ -53,6 +53,15 @@ export class UserMarket {
     }
 }
 
+export class ContentMarket extends UserMarket {
+    isCopied: boolean;
+    constructor(options: {
+    } = {}) {
+        super(options);
+        this.isCopied = options['isCopied'] || false;
+    }
+}
+
 
 export class User extends BaseModel {
     dealershipCode: string;

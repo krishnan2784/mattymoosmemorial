@@ -20,6 +20,7 @@ import Enums = require("../../../enums");
 import CopiedElementTypeEnum = Enums.CopiedElementTypeEnum;
 import Userdataservice = require("../../../dataservices/userdataservice");
 import UserDataService = Userdataservice.UserDataService;
+import ContentMarket = Userclasses.ContentMarket;
 declare var $: any;
 declare var Materialize: any;
 
@@ -36,11 +37,11 @@ export class FeedItemCopyToMarket extends BaseModalContent implements OnInit, IM
 
     copyToMarketService: ICopyToMarketService;
 
-    userMarkets: UserMarket[] = [];
-    currentMarkets: UserMarket[] = [];
+    userMarkets: ContentMarket[] = [];
+    currentMarkets: ContentMarket[] = [];
 
-    selectedUserMarket: UserMarket;
-    selectedMarket: UserMarket;
+    selectedUserMarket: ContentMarket;
+    selectedMarket: ContentMarket;
 
     constructor(private injector: Injector, private sharedService: ShareService,
         private marketService: MarketDataService, private userDataService: UserDataService) {
@@ -60,33 +61,41 @@ export class FeedItemCopyToMarket extends BaseModalContent implements OnInit, IM
     setupMarkets() {
         this.marketService.getMarketsByMasterId(this.contentType, this.model.masterId).subscribe((result) => {
             if (result && result.length > 0) {
-                this.currentMarkets = this.filterMarkets(result.map((x) => { return new UserMarket(x); }));
+                this.currentMarkets = this.filterMarkets(result.map((x) => { return new ContentMarket(x); }));
+                this.marketMarketsAsCopied();
             }
             this.userDataService.getUserMarkets().subscribe((result) => {
                 if (result && result.length > 0) {
                     if (this.currentMarkets && this.currentMarkets.length > 0)
                         result = result.filter(x => this.currentMarkets.filter(y => y.id === x.id).length === 0);
-                    this.userMarkets = this.filterMarkets(result);
+                    this.userMarkets = this.filterMarkets(result.map((x) => { return new ContentMarket(x); }));
                 }
             });
         });
     }
 
-    filterMarkets(markets: UserMarket[]): UserMarket[] {
+    filterMarkets(markets: ContentMarket[]): ContentMarket[] {
         // we will need to filter Global and Pan EU out when viewing the Pan EU market
         // and filter out Global when viewing the global market
         // we could add a market level integer to the market (e.g. 0 = global, 1 = regional, 2 = market)
-        // or we could add an isGlobal flag. For now I will just remove all master markets from the list.
-        // (you wont be able to copy from global to Pan EU)
+        // or we could add an isGlobal flag
         if (this.sharedService.currentMarket.isMaster) {
-            markets = markets.filter(x => !x.isMaster);
+           // markets = markets.filter(x => !x.isMaster);
         }
         return markets;
     }
 
+    marketMarketsAsCopied() {
+        for (let x of this.currentMarkets.filter(x=>!x.isCopied)) {
+            let origItem = this.currentMarkets.find(y => y.id === x.id);
+            let index = this.currentMarkets.indexOf(origItem);
+            this.currentMarkets[index].isCopied = true;
+        }
+    }
+
     copyToMarket() {
-        if (this.selectedUserMarket[0]) {
-            this.currentMarkets.unshift(this.selectedUserMarket[0]);
+        if (this.selectedUserMarket[0] && this.currentMarkets.filter(x => x.id === this.selectedUserMarket[0].id).length === 0) {
+            this.currentMarkets.push(new ContentMarket(this.selectedUserMarket[0]));
             let origItem = this.userMarkets.find(x => x.id === this.selectedUserMarket[0].id);
             let index = this.userMarkets.indexOf(origItem);
             this.userMarkets.splice(index, 1);
@@ -94,8 +103,9 @@ export class FeedItemCopyToMarket extends BaseModalContent implements OnInit, IM
     }
 
     removeFromMarket() {
-        if (this.selectedMarket[0]) {
-            this.userMarkets.unshift(this.selectedMarket[0]);
+        if (this.selectedMarket[0] && !this.selectedMarket[0].isCopied &&
+            this.userMarkets.filter(x => x.id === this.selectedMarket[0].id).length === 0) {
+            this.userMarkets.push(new ContentMarket(this.selectedMarket[0]));
             let origItem = this.currentMarkets.find(x => x.id === this.selectedMarket[0].id);
             let index = this.currentMarkets.indexOf(origItem);
             this.currentMarkets.splice(index, 1);
@@ -107,6 +117,7 @@ export class FeedItemCopyToMarket extends BaseModalContent implements OnInit, IM
         this.copyToMarketService.copyItemToMarket(this.model.id, marketIds).subscribe((result) => {
             if (result.success) {
                 this.closeModal();
+                this.marketMarketsAsCopied();
             }
         });
     }

@@ -6,19 +6,19 @@
                 <option *ngFor="let userMarket of this.userMarkets" [ngValue]="userMarket">{{userMarket.name}}</option>
             </select>
         </div>
-        <div class="col-md-1">
+        <div class="col-md-2 button-col">
             <br><br>
-            <a (click)="copyToMarket()">
-                <i class="material-icons">keyboard_arrow_right</i>
+            <a (click)="copyToMarket()" class="btn">
+                <i class="material-icons">arrow_forward</i>
             </a>
             <br><br>
-            <a (click)="removeFromMarket()">
-                <i class="material-icons">keyboard_arrow_left</i>
+            <a (click)="removeFromMarket()" class="btn">
+                <i class="material-icons">arrow_back</i>
             </a>
         </div>
         <div class="col-md-5">
             <select class="form-control" multiple="multiple" [(ngModel)]="selectedMarket">
-                <option *ngFor="let currentMarket of this.currentMarkets" [ngValue]="currentMarket">{{currentMarket.name}}</option>
+                <option *ngFor="let currentMarket of this.currentMarkets" [ngValue]="currentMarket" [attr.disabled]="currentMarket.isCopied ? 'disabled' : null">{{currentMarket.name}}</option>
             </select>
         </div>
         <div class="clearfix"></div>

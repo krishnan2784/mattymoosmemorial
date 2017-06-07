@@ -38,6 +38,17 @@ var UserMarket = (function () {
     return UserMarket;
 }());
 exports.UserMarket = UserMarket;
+var ContentMarket = (function (_super) {
+    __extends(ContentMarket, _super);
+    function ContentMarket(options) {
+        if (options === void 0) { options = {}; }
+        var _this = _super.call(this, options) || this;
+        _this.isCopied = options['isCopied'] || false;
+        return _this;
+    }
+    return ContentMarket;
+}(UserMarket));
+exports.ContentMarket = ContentMarket;
 var User = (function (_super) {
     __extends(User, _super);
     function User(options) {

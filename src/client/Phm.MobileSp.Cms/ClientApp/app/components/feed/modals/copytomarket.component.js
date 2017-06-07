@@ -27,9 +27,9 @@ var ShareService = Datashareservice.ShareService;
 var Marketdataservice = require("../../../dataservices/marketdataservice");
 var MarketDataService = Marketdataservice.MarketDataService;
 var Userclasses = require("../../../models/userclasses");
-var UserMarket = Userclasses.UserMarket;
 var Userdataservice = require("../../../dataservices/userdataservice");
 var UserDataService = Userdataservice.UserDataService;
+var ContentMarket = Userclasses.ContentMarket;
 var FeedItemCopyToMarket = (function (_super) {
     __extends(FeedItemCopyToMarket, _super);
     function FeedItemCopyToMarket(injector, sharedService, marketService, userDataService) {
@@ -55,13 +55,14 @@ var FeedItemCopyToMarket = (function (_super) {
         var _this = this;
         this.marketService.getMarketsByMasterId(this.contentType, this.model.masterId).subscribe(function (result) {
             if (result && result.length > 0) {
-                _this.currentMarkets = _this.filterMarkets(result.map(function (x) { return new UserMarket(x); }));
+                _this.currentMarkets = _this.filterMarkets(result.map(function (x) { return new ContentMarket(x); }));
+                _this.marketMarketsAsCopied();
             }
             _this.userDataService.getUserMarkets().subscribe(function (result) {
                 if (result && result.length > 0) {
                     if (_this.currentMarkets && _this.currentMarkets.length > 0)
                         result = result.filter(function (x) { return _this.currentMarkets.filter(function (y) { return y.id === x.id; }).length === 0; });
-                    _this.userMarkets = _this.filterMarkets(result);
+                    _this.userMarkets = _this.filterMarkets(result.map(function (x) { return new ContentMarket(x); }));
                 }
             });
         });
@@ -70,17 +71,28 @@ var FeedItemCopyToMarket = (function (_super) {
         // we will need to filter Global and Pan EU out when viewing the Pan EU market
         // and filter out Global when viewing the global market
         // we could add a market level integer to the market (e.g. 0 = global, 1 = regional, 2 = market)
-        // or we could add an isGlobal flag. For now I will just remove all master markets from the list.
-        // (you wont be able to copy from global to Pan EU)
+        // or we could add an isGlobal flag
         if (this.sharedService.currentMarket.isMaster) {
-            markets = markets.filter(function (x) { return !x.isMaster; });
+            // markets = markets.filter(x => !x.isMaster);
         }
         return markets;
     };
+    FeedItemCopyToMarket.prototype.marketMarketsAsCopied = function () {
+        var _loop_1 = function (x) {
+            var origItem = this_1.currentMarkets.find(function (y) { return y.id === x.id; });
+            var index = this_1.currentMarkets.indexOf(origItem);
+            this_1.currentMarkets[index].isCopied = true;
+        };
+        var this_1 = this;
+        for (var _i = 0, _a = this.currentMarkets.filter(function (x) { return !x.isCopied; }); _i < _a.length; _i++) {
+            var x = _a[_i];
+            _loop_1(x);
+        }
+    };
     FeedItemCopyToMarket.prototype.copyToMarket = function () {
         var _this = this;
-        if (this.selectedUserMarket[0]) {
-            this.currentMarkets.unshift(this.selectedUserMarket[0]);
+        if (this.selectedUserMarket[0] && this.currentMarkets.filter(function (x) { return x.id === _this.selectedUserMarket[0].id; }).length === 0) {
+            this.currentMarkets.push(new ContentMarket(this.selectedUserMarket[0]));
             var origItem = this.userMarkets.find(function (x) { return x.id === _this.selectedUserMarket[0].id; });
             var index = this.userMarkets.indexOf(origItem);
             this.userMarkets.splice(index, 1);
@@ -88,8 +100,9 @@ var FeedItemCopyToMarket = (function (_super) {
     };
     FeedItemCopyToMarket.prototype.removeFromMarket = function () {
         var _this = this;
-        if (this.selectedMarket[0]) {
-            this.userMarkets.unshift(this.selectedMarket[0]);
+        if (this.selectedMarket[0] && !this.selectedMarket[0].isCopied &&
+            this.userMarkets.filter(function (x) { return x.id === _this.selectedMarket[0].id; }).length === 0) {
+            this.userMarkets.push(new ContentMarket(this.selectedMarket[0]));
             var origItem = this.currentMarkets.find(function (x) { return x.id === _this.selectedMarket[0].id; });
             var index = this.currentMarkets.indexOf(origItem);
             this.currentMarkets.splice(index, 1);
@@ -101,6 +114,7 @@ var FeedItemCopyToMarket = (function (_super) {
         this.copyToMarketService.copyItemToMarket(this.model.id, marketIds).subscribe(function (result) {
             if (result.success) {
                 _this.closeModal();
+                _this.marketMarketsAsCopied();
             }
         });
     };

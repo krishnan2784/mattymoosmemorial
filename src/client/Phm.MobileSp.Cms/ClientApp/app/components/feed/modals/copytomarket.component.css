@@ -2,4 +2,16 @@
     height: 400px;
 }
 
-option, a { cursor: pointer;}
+option:not([disabled]), a { cursor: pointer;}
+
+option[disabled] {
+    background-color: rgba(200, 200, 200, 0.2);
+}
+
+.btn {
+     padding: 0 15px;
+}
+
+.button-col {
+    text-align: center;
+}
