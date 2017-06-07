@@ -1,3 +1,3 @@
 ﻿export interface ICopyToMarketService {
-    copyFeedItemToMarket(id: number, marketIds: number[]);
+    copyItemToMarket(id: number, marketIds: number[]);
 }

@@ -43,9 +43,9 @@ export class MarketDataService extends RequestHelper implements IMarketDataServi
 
     getMarketsByMasterId(contentType: CopiedElementTypeEnum, masterId : string): Observable<Market[]> {
         return Observable.create(observer => {
-            this.getRequestBase('/api/Market/GetMarketsByMasterId', [{ key: 'contentType', value: contentType },
-            { key: 'masterId', value: masterId }]).subscribe((result) => {
-                observer.next(result.content);
+            this.getRequestBase('/api/Market/GetMarketsByMasterId?contentType=' + contentType
+                + '&masterId=' + masterId).subscribe((result) => {
+                observer.next(result);
                 observer.complete();
             });
         });

@@ -107,7 +107,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
 
         [HttpPost("[action]")]
         [JsonResponseWrapper]
-        public async Task<JsonResult> CopyFeedItemToMarket([FromBody]int id, [FromBody]List<int> marketIds)
+        public async Task<JsonResult> CopyFeedItemToMarket(int id, List<int> marketIds)
         {
             var feedItemResponse = await _feedRepository.CopyFeedItemToMarketAsync(id, marketIds);
             return Json(new BaseResponse(feedItemResponse, feedItemResponse ? "Feed item successfuly copied" : "Failed to copy feed item", feedItemResponse));

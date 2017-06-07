@@ -66,9 +66,7 @@ export class FeedDataService extends RequestHelper implements IFeedDataService, 
     public deleteFeeditem(feedItemId: number): Observable<boolean> {
         return this.postRequestBase('/api/Feed/DeleteFeedItem',  feedItemId);
     }
-
-    public copyFeedItemToMarket(id: number, marketIds: number[]): Observable<Apiresponse.ApiResponse> {
-        return this.postRequestFull('/api/Feed/CopyFeedItemToMarket', { id : id, marketIds});
+    public copyItemToMarket(id: number, marketIds: number[]): Observable<Apiresponse.ApiResponse> {
+        return this.copyToMarket('/api/Feed/CopyFeedItemToMarket', id, marketIds);
     }
-    
 }

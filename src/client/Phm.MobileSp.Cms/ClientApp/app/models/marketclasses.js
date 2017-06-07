@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Baseclasses = require("./baseclasses");
-var BaseVersionableEntity = Baseclasses.BaseVersionableEntity;
+var BaseModel = Baseclasses.BaseModel;
 var Market = (function (_super) {
     __extends(Market, _super);
     function Market(options) {
@@ -27,6 +27,6 @@ var Market = (function (_super) {
         return _this;
     }
     return Market;
-}(BaseVersionableEntity));
+}(BaseModel));
 exports.Market = Market;
 //# sourceMappingURL=marketclasses.js.map

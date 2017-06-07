@@ -26,6 +26,8 @@ var Datashareservice = require("../../../dataservices/datashareservice");
 var ShareService = Datashareservice.ShareService;
 var Marketdataservice = require("../../../dataservices/marketdataservice");
 var MarketDataService = Marketdataservice.MarketDataService;
+var Userclasses = require("../../../models/userclasses");
+var UserMarket = Userclasses.UserMarket;
 var Userdataservice = require("../../../dataservices/userdataservice");
 var UserDataService = Userdataservice.UserDataService;
 var FeedItemCopyToMarket = (function (_super) {
@@ -36,6 +38,8 @@ var FeedItemCopyToMarket = (function (_super) {
         _this.sharedService = sharedService;
         _this.marketService = marketService;
         _this.userDataService = userDataService;
+        _this.userMarkets = [];
+        _this.currentMarkets = [];
         if (injector) {
             _this.title = injector.get('title');
             _this.model = injector.get('model');
@@ -50,16 +54,55 @@ var FeedItemCopyToMarket = (function (_super) {
     FeedItemCopyToMarket.prototype.setupMarkets = function () {
         var _this = this;
         this.marketService.getMarketsByMasterId(this.contentType, this.model.masterId).subscribe(function (result) {
-            _this.currentMarkets = result;
+            if (result && result.length > 0) {
+                _this.currentMarkets = _this.filterMarkets(result.map(function (x) { return new UserMarket(x); }));
+            }
             _this.userDataService.getUserMarkets().subscribe(function (result) {
-                if (_this.currentMarkets && _this.currentMarkets.length > 0)
-                    result = result.filter(function (x) { return _this.currentMarkets.filter(function (y) { return y.id === x.id; }).length === 0; });
-                _this.userMarkets = result;
+                if (result && result.length > 0) {
+                    if (_this.currentMarkets && _this.currentMarkets.length > 0)
+                        result = result.filter(function (x) { return _this.currentMarkets.filter(function (y) { return y.id === x.id; }).length === 0; });
+                    _this.userMarkets = _this.filterMarkets(result);
+                }
             });
         });
     };
+    FeedItemCopyToMarket.prototype.filterMarkets = function (markets) {
+        // we will need to filter Global and Pan EU out when viewing the Pan EU market
+        // and filter out Global when viewing the global market
+        // we could add a market level integer to the market (e.g. 0 = global, 1 = regional, 2 = market)
+        // or we could add an isGlobal flag. For now I will just remove all master markets from the list.
+        // (you wont be able to copy from global to Pan EU)
+        if (this.sharedService.currentMarket.isMaster) {
+            markets = markets.filter(function (x) { return !x.isMaster; });
+        }
+        return markets;
+    };
+    FeedItemCopyToMarket.prototype.copyToMarket = function () {
+        var _this = this;
+        if (this.selectedUserMarket[0]) {
+            this.currentMarkets.unshift(this.selectedUserMarket[0]);
+            var origItem = this.userMarkets.find(function (x) { return x.id === _this.selectedUserMarket[0].id; });
+            var index = this.userMarkets.indexOf(origItem);
+            this.userMarkets.splice(index, 1);
+        }
+    };
+    FeedItemCopyToMarket.prototype.removeFromMarket = function () {
+        var _this = this;
+        if (this.selectedMarket[0]) {
+            this.userMarkets.unshift(this.selectedMarket[0]);
+            var origItem = this.currentMarkets.find(function (x) { return x.id === _this.selectedMarket[0].id; });
+            var index = this.currentMarkets.indexOf(origItem);
+            this.currentMarkets.splice(index, 1);
+        }
+    };
     FeedItemCopyToMarket.prototype.saveChanges = function () {
-        //this.sharedService.updateFeedItem(this.model);
+        var _this = this;
+        var marketIds = this.currentMarkets.map(function (x) { return x.id; });
+        this.copyToMarketService.copyItemToMarket(this.model.id, marketIds).subscribe(function (result) {
+            if (result.success) {
+                _this.closeModal();
+            }
+        });
     };
     return FeedItemCopyToMarket;
 }(BaseModalContent));

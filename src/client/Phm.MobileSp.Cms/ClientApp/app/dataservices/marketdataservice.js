@@ -57,9 +57,9 @@ var MarketDataService = (function (_super) {
     MarketDataService.prototype.getMarketsByMasterId = function (contentType, masterId) {
         var _this = this;
         return Observable_1.Observable.create(function (observer) {
-            _this.getRequestBase('/api/Market/GetMarketsByMasterId', [{ key: 'contentType', value: contentType },
-                { key: 'masterId', value: masterId }]).subscribe(function (result) {
-                observer.next(result.content);
+            _this.getRequestBase('/api/Market/GetMarketsByMasterId?contentType=' + contentType
+                + '&masterId=' + masterId).subscribe(function (result) {
+                observer.next(result);
                 observer.complete();
             });
         });

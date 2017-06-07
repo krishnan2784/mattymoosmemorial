@@ -9,6 +9,13 @@
             Message = message;
             Content = content;
         }
+        public BaseResponse(dynamic content)
+        {
+            Success = true;
+            Message = "";
+            Content = content;
+        }
+
         public virtual bool Success{ get; set; }
         public virtual string Message { get; set; }
         public virtual dynamic Content { get; set; }

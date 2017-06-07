@@ -36,8 +36,11 @@ export class FeedItemCopyToMarket extends BaseModalContent implements OnInit, IM
 
     copyToMarketService: ICopyToMarketService;
 
-    userMarkets: UserMarket[];
-    currentMarkets: Market[];
+    userMarkets: UserMarket[] = [];
+    currentMarkets: UserMarket[] = [];
+
+    selectedUserMarket: UserMarket;
+    selectedMarket: UserMarket;
 
     constructor(private injector: Injector, private sharedService: ShareService,
         private marketService: MarketDataService, private userDataService: UserDataService) {
@@ -56,16 +59,55 @@ export class FeedItemCopyToMarket extends BaseModalContent implements OnInit, IM
 
     setupMarkets() {
         this.marketService.getMarketsByMasterId(this.contentType, this.model.masterId).subscribe((result) => {
-            this.currentMarkets = result;
+            if (result && result.length > 0) {
+                this.currentMarkets = this.filterMarkets(result.map((x) => { return new UserMarket(x); }));
+            }
             this.userDataService.getUserMarkets().subscribe((result) => {
-                if (this.currentMarkets && this.currentMarkets.length > 0)
-                    result = result.filter(x => this.currentMarkets.filter(y => y.id === x.id).length === 0);
-                this.userMarkets = result;
+                if (result && result.length > 0) {
+                    if (this.currentMarkets && this.currentMarkets.length > 0)
+                        result = result.filter(x => this.currentMarkets.filter(y => y.id === x.id).length === 0);
+                    this.userMarkets = this.filterMarkets(result);
+                }
             });
         });
     }
 
+    filterMarkets(markets: UserMarket[]): UserMarket[] {
+        // we will need to filter Global and Pan EU out when viewing the Pan EU market
+        // and filter out Global when viewing the global market
+        // we could add a market level integer to the market (e.g. 0 = global, 1 = regional, 2 = market)
+        // or we could add an isGlobal flag. For now I will just remove all master markets from the list.
+        // (you wont be able to copy from global to Pan EU)
+        if (this.sharedService.currentMarket.isMaster) {
+            markets = markets.filter(x => !x.isMaster);
+        }
+        return markets;
+    }
+
+    copyToMarket() {
+        if (this.selectedUserMarket[0]) {
+            this.currentMarkets.unshift(this.selectedUserMarket[0]);
+            let origItem = this.userMarkets.find(x => x.id === this.selectedUserMarket[0].id);
+            let index = this.userMarkets.indexOf(origItem);
+            this.userMarkets.splice(index, 1);
+        }
+    }
+
+    removeFromMarket() {
+        if (this.selectedMarket[0]) {
+            this.userMarkets.unshift(this.selectedMarket[0]);
+            let origItem = this.currentMarkets.find(x => x.id === this.selectedMarket[0].id);
+            let index = this.currentMarkets.indexOf(origItem);
+            this.currentMarkets.splice(index, 1);
+        }
+    }
+
     saveChanges() {
-        //this.sharedService.updateFeedItem(this.model);
+        var marketIds = this.currentMarkets.map((x) => { return x.id; });
+        this.copyToMarketService.copyItemToMarket(this.model.id, marketIds).subscribe((result) => {
+            if (result.success) {
+                this.closeModal();
+            }
+        });
     }
 }

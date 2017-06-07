@@ -1,3 +1,5 @@
 ﻿select {
     height: 400px;
 }
+
+option, a { cursor: pointer;}

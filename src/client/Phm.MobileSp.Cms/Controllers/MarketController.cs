@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Caching.Memory;
 using Phm.MobileSp.Cms.Core.Enumerations;
+using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Helpers.Attributes;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 
@@ -53,10 +55,11 @@ namespace Phm.MobileSp.Cms.Controllers
         [HttpGet("[action]")]
         [JsonResponseWrapper]
         [ResponseCache(CacheProfileName = "NoCache")]
-        public async Task<JsonResult> GetMarketsByMasterId(CopiedElementTypeEnum contentType, Guid masterId)
+        public async Task<JsonResult> GetMarketsByMasterId(CopiedElementTypeEnum contentType, string masterId)
         {
-            var markets = await _marketRepository.GetMarketsByMasterIdAsync(contentType, masterId);
-            return Json(markets);
+            Guid master = new Guid(masterId);
+            var markets = await _marketRepository.GetMarketsByMasterIdAsync(contentType, master);
+            return Json(new BaseResponse(markets));
         }
 
         public override void OnActionExecuted(ActionExecutedContext context)

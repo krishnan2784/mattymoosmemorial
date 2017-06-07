@@ -2,19 +2,23 @@
     
     <div class="form-group">
         <div class="col-md-5">
-            <select class="form-control" multiple="multiple" #inOtherMarkets>
-                <option *ngFor="let userMarket of this.userMarkets" value="userMarket.id">{{userMarket.name}}</option>
+            <select class="form-control" multiple="multiple" [(ngModel)]="selectedUserMarket">
+                <option *ngFor="let userMarket of this.userMarkets" [ngValue]="userMarket">{{userMarket.name}}</option>
             </select>
         </div>
         <div class="col-md-1">
             <br><br>
-            <i class="material-icons">keyboard_arrow_right</i>
+            <a (click)="copyToMarket()">
+                <i class="material-icons">keyboard_arrow_right</i>
+            </a>
             <br><br>
-            <i class="material-icons">keyboard_arrow_left</i>
+            <a (click)="removeFromMarket()">
+                <i class="material-icons">keyboard_arrow_left</i>
+            </a>
         </div>
         <div class="col-md-5">
-            <select class="form-control" multiple="multiple" #OtherMarkets>
-                <option *ngFor="let currentMarket of this.currentMarkets" value="currentMarkets.id" disabled>{{currentMarket.name}}</option>
+            <select class="form-control" multiple="multiple" [(ngModel)]="selectedMarket">
+                <option *ngFor="let currentMarket of this.currentMarkets" [ngValue]="currentMarket">{{currentMarket.name}}</option>
             </select>
         </div>
         <div class="clearfix"></div>
@@ -23,7 +27,7 @@
 
 <div class="modal-footer">
     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    <button type="button" class="btn btn-primary">Save changes</button>
+    <a class="btn btn-primary" (click)="saveChanges()">Save changes</a>
 </div>
 
 

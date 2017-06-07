@@ -3,7 +3,7 @@ import Baseclasses = require("./baseclasses");
 import BaseModel = Baseclasses.BaseModel;
 import BaseVersionableEntity = Baseclasses.BaseVersionableEntity;
 
-export class Market extends BaseVersionableEntity {
+export class Market extends BaseModel {
     brandId: number;
     code: string;
     defaultLanguageId: number;
@@ -13,7 +13,6 @@ export class Market extends BaseVersionableEntity {
     useMetricSystem: boolean;
     constructor(options: {} = {}) {
         super(options);
-
         this.brandId = options['brandId'] || '';
         this.code = options['dealershipCode'] || '';
         this.defaultLanguageId = options['defaultLanguageId'] || '';
