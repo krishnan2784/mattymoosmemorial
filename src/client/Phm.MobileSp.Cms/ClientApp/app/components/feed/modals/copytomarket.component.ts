@@ -1,5 +1,4 @@
 import { Component, Output, EventEmitter, Injector, Input, OnInit } from '@angular/core';
-import { FeedDataService } from "../../../dataservices/FeedDataService";
 import ModalContent = require("../../../interfaces/components/IModalContent");
 import IModalContent = ModalContent.IModalContent;
 import Basemodalcontentcomponent = require("../../modals/basemodalcontent.component");
@@ -8,10 +7,7 @@ import Datashareservice = require("../../../dataservices/datashareservice");
 import ShareService = Datashareservice.ShareService;
 import Marketdataservice = require("../../../dataservices/marketdataservice");
 import MarketDataService = Marketdataservice.MarketDataService;
-import Marketclasses = require("../../../models/marketclasses");
-import Market = Marketclasses.Market;
 import Userclasses = require("../../../models/userclasses");
-import UserMarket = Userclasses.UserMarket;
 import CopyToMarketService = require("../../../interfaces/dataservices/ICopyToMarketService");
 import ICopyToMarketService = CopyToMarketService.ICopyToMarketService;
 import Baseclasses = require("../../../models/baseclasses");
@@ -21,8 +17,6 @@ import CopiedElementTypeEnum = Enums.CopiedElementTypeEnum;
 import Userdataservice = require("../../../dataservices/userdataservice");
 import UserDataService = Userdataservice.UserDataService;
 import ContentMarket = Userclasses.ContentMarket;
-declare var $: any;
-declare var Materialize: any;
 
 @Component({
     selector: 'feeditem-copytomarket',
@@ -43,6 +37,8 @@ export class FeedItemCopyToMarket extends BaseModalContent implements OnInit, IM
     selectedUserMarket: ContentMarket;
     selectedMarket: ContentMarket;
 
+    unsavedChanges: boolean = false;
+
     constructor(private injector: Injector, private sharedService: ShareService,
         private marketService: MarketDataService, private userDataService: UserDataService) {
         super();
@@ -62,7 +58,7 @@ export class FeedItemCopyToMarket extends BaseModalContent implements OnInit, IM
         this.marketService.getMarketsByMasterId(this.contentType, this.model.masterId).subscribe((result) => {
             if (result && result.length > 0) {
                 this.currentMarkets = this.filterMarkets(result.map((x) => { return new ContentMarket(x); }));
-                this.marketMarketsAsCopied();
+                this.markMarketsAsCopied();
             }
             this.userDataService.getUserMarkets().subscribe((result) => {
                 if (result && result.length > 0) {
@@ -85,12 +81,13 @@ export class FeedItemCopyToMarket extends BaseModalContent implements OnInit, IM
         return markets;
     }
 
-    marketMarketsAsCopied() {
-        for (let x of this.currentMarkets.filter(x=>!x.isCopied)) {
+    markMarketsAsCopied() {
+        for (let x of this.currentMarkets) {
             let origItem = this.currentMarkets.find(y => y.id === x.id);
             let index = this.currentMarkets.indexOf(origItem);
             this.currentMarkets[index].isCopied = true;
         }
+        this.checkForChanges();
     }
 
     copyToMarket() {
@@ -99,6 +96,7 @@ export class FeedItemCopyToMarket extends BaseModalContent implements OnInit, IM
             let origItem = this.userMarkets.find(x => x.id === this.selectedUserMarket[0].id);
             let index = this.userMarkets.indexOf(origItem);
             this.userMarkets.splice(index, 1);
+            this.checkForChanges();
         }
     }
 
@@ -109,15 +107,18 @@ export class FeedItemCopyToMarket extends BaseModalContent implements OnInit, IM
             let origItem = this.currentMarkets.find(x => x.id === this.selectedMarket[0].id);
             let index = this.currentMarkets.indexOf(origItem);
             this.currentMarkets.splice(index, 1);
+            this.checkForChanges();
         }
     }
+
+    checkForChanges() {this.unsavedChanges = this.currentMarkets.filter(x => !x.isCopied).length > 0;}
 
     saveChanges() {
         var marketIds = this.currentMarkets.map((x) => { return x.id; });
         this.copyToMarketService.copyItemToMarket(this.model.id, marketIds).subscribe((result) => {
             if (result.success) {
                 this.closeModal();
-                this.marketMarketsAsCopied();
+                this.markMarketsAsCopied();
             }
         });
     }

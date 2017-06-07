@@ -8,8 +8,10 @@ option[disabled] {
     background-color: rgba(200, 200, 200, 0.2);
 }
 
-.btn {
+.button-col .btn {
      padding: 0 15px;
+    background-color: #EDEDED;
+    color: #000;
 }
 
 .button-col {

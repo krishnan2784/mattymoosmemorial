@@ -40,6 +40,7 @@ var FeedItemCopyToMarket = (function (_super) {
         _this.userDataService = userDataService;
         _this.userMarkets = [];
         _this.currentMarkets = [];
+        _this.unsavedChanges = false;
         if (injector) {
             _this.title = injector.get('title');
             _this.model = injector.get('model');
@@ -56,7 +57,7 @@ var FeedItemCopyToMarket = (function (_super) {
         this.marketService.getMarketsByMasterId(this.contentType, this.model.masterId).subscribe(function (result) {
             if (result && result.length > 0) {
                 _this.currentMarkets = _this.filterMarkets(result.map(function (x) { return new ContentMarket(x); }));
-                _this.marketMarketsAsCopied();
+                _this.markMarketsAsCopied();
             }
             _this.userDataService.getUserMarkets().subscribe(function (result) {
                 if (result && result.length > 0) {
@@ -77,17 +78,18 @@ var FeedItemCopyToMarket = (function (_super) {
         }
         return markets;
     };
-    FeedItemCopyToMarket.prototype.marketMarketsAsCopied = function () {
+    FeedItemCopyToMarket.prototype.markMarketsAsCopied = function () {
         var _loop_1 = function (x) {
             var origItem = this_1.currentMarkets.find(function (y) { return y.id === x.id; });
             var index = this_1.currentMarkets.indexOf(origItem);
             this_1.currentMarkets[index].isCopied = true;
         };
         var this_1 = this;
-        for (var _i = 0, _a = this.currentMarkets.filter(function (x) { return !x.isCopied; }); _i < _a.length; _i++) {
+        for (var _i = 0, _a = this.currentMarkets; _i < _a.length; _i++) {
             var x = _a[_i];
             _loop_1(x);
         }
+        this.checkForChanges();
     };
     FeedItemCopyToMarket.prototype.copyToMarket = function () {
         var _this = this;
@@ -96,6 +98,7 @@ var FeedItemCopyToMarket = (function (_super) {
             var origItem = this.userMarkets.find(function (x) { return x.id === _this.selectedUserMarket[0].id; });
             var index = this.userMarkets.indexOf(origItem);
             this.userMarkets.splice(index, 1);
+            this.checkForChanges();
         }
     };
     FeedItemCopyToMarket.prototype.removeFromMarket = function () {
@@ -106,15 +109,17 @@ var FeedItemCopyToMarket = (function (_super) {
             var origItem = this.currentMarkets.find(function (x) { return x.id === _this.selectedMarket[0].id; });
             var index = this.currentMarkets.indexOf(origItem);
             this.currentMarkets.splice(index, 1);
+            this.checkForChanges();
         }
     };
+    FeedItemCopyToMarket.prototype.checkForChanges = function () { this.unsavedChanges = this.currentMarkets.filter(function (x) { return !x.isCopied; }).length > 0; };
     FeedItemCopyToMarket.prototype.saveChanges = function () {
         var _this = this;
         var marketIds = this.currentMarkets.map(function (x) { return x.id; });
         this.copyToMarketService.copyItemToMarket(this.model.id, marketIds).subscribe(function (result) {
             if (result.success) {
                 _this.closeModal();
-                _this.marketMarketsAsCopied();
+                _this.markMarketsAsCopied();
             }
         });
     };
