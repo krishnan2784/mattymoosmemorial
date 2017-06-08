@@ -30,6 +30,7 @@ var base_component_1 = require("../../base.component");
 var datashareservice_1 = require("../../../dataservices/datashareservice");
 var Copytomarketcomponent = require("../modals/copytomarket.component");
 var FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
+var CopiedElementTypeEnum = Enums.CopiedElementTypeEnum;
 var FeedIndexComponent = (function (_super) {
     __extends(FeedIndexComponent, _super);
     function FeedIndexComponent(route, router, feedDataService, sharedService) {
@@ -145,7 +146,7 @@ var FeedIndexComponent = (function (_super) {
         };
     };
     FeedIndexComponent.prototype.copyFeedItemToMarket = function (feedItem) {
-        var inputs = { feedItem: feedItem };
+        var inputs = { model: feedItem, title: '', contentType: CopiedElementTypeEnum.Feed, copyToMarketService: this.feedDataService };
         var modelData = FeedItemCopyToMarket;
         this.modalData = {
             modalContent: modelData,

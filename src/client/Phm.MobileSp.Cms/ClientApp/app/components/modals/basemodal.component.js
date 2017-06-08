@@ -51,7 +51,11 @@ __decorate([
 __decorate([
     core_1.Input(),
     __metadata("design:type", String)
-], BaseModalComponent.prototype, "modalTitle", void 0);
+], BaseModalComponent.prototype, "modalHeader", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", String)
+], BaseModalComponent.prototype, "modalDescription", void 0);
 __decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)

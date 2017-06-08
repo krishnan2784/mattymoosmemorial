@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MobileSPCoreService;
+using Phm.MobileSp.Cms.Core.Enumerations;
 using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Core.Models.Interfaces;
 using Phm.MobileSp.Cms.Infrastructure;
@@ -42,7 +43,29 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             {
                 return null;
             }
+        }
 
+        public async Task<IEnumerable<Market>> GetMarketsByMasterIdAsync(CopiedElementTypeEnum contentType, Guid masterId)
+        {
+            try
+            {
+                var request = GetRequest(new GetMarketsByMasterIdRequest()
+                {
+                    ContentType = (CopiedElementTypeEnumDto)contentType,
+                    MasterId = masterId
+                });
+
+                var response = await _proxyClient.GetMarketsByMasterIdAsync(request);
+
+                var mapper = new AutoMapperGenericsHelper<MarketDto, Market>();
+                var markets = mapper.ConvertToDbEntity(response.Markets);
+
+                return markets;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
     }
 }

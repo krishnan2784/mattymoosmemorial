@@ -18,8 +18,9 @@ export class BaseModalComponent {
     @Input()
     public modalId: string;
     @Input()
-    public modalTitle: string;
-
+    public modalHeader: string;
+    @Input()
+    public modalDescription: string;
     @Output()
     public modalClosed: EventEmitter<any>;
 
