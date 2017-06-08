@@ -10,5 +10,6 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
     {
         Task<IEnumerable<Market>> GetMarketsAsync();
         Task<IEnumerable<Market>> GetMarketsByMasterIdAsync(CopiedElementTypeEnum contentType, Guid masterId);
+        Task<BaseResponse> PublishContentToLive(CopiedElementTypeEnum contentType, int id);
     }
 }

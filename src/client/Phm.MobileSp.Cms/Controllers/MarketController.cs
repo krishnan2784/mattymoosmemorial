@@ -62,6 +62,16 @@ namespace Phm.MobileSp.Cms.Controllers
             return Json(new BaseResponse(markets));
         }
 
+
+        [HttpPost("[action]")]
+        [JsonResponseWrapper]
+        [ResponseCache(CacheProfileName = "NoCache")]
+        public async Task<JsonResult> PublishContentToLive(CopiedElementTypeEnum contentType, int contentId)
+        {
+            var result = await _marketRepository.PublishContentToLive(contentType, contentId);
+            return Json(result);
+        }
+
         public override void OnActionExecuted(ActionExecutedContext context)
         {
             base.OnActionExecuted(context);

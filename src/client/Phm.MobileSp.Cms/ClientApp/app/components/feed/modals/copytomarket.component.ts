@@ -8,8 +8,8 @@ import ShareService = Datashareservice.ShareService;
 import Marketdataservice = require("../../../dataservices/marketdataservice");
 import MarketDataService = Marketdataservice.MarketDataService;
 import Userclasses = require("../../../models/userclasses");
-import CopyToMarketService = require("../../../interfaces/dataservices/ICopyToMarketService");
-import ICopyToMarketService = CopyToMarketService.ICopyToMarketService;
+import MarketContentService = require("../../../interfaces/dataservices/IMarketContentService");
+import IMarketContentService = MarketContentService.IMarketContentService;
 import Baseclasses = require("../../../models/baseclasses");
 import BaseModel = Baseclasses.BaseModel;
 import Enums = require("../../../enums");
@@ -29,7 +29,7 @@ export class FeedItemCopyToMarket extends BaseModalContent implements OnInit, IM
     model: BaseModel;
     contentType: CopiedElementTypeEnum;
 
-    copyToMarketService: ICopyToMarketService;
+    marketContentService: IMarketContentService;
 
     userMarkets: ContentMarket[] = [];
     currentMarkets: ContentMarket[] = [];
@@ -46,7 +46,7 @@ export class FeedItemCopyToMarket extends BaseModalContent implements OnInit, IM
             this.title = injector.get('title');
             this.model = injector.get('model');
             this.contentType = injector.get('contentType');
-            this.copyToMarketService = injector.get('copyToMarketService');
+            this.marketContentService = injector.get('marketContentService');
         }
     } 
 
@@ -78,6 +78,7 @@ export class FeedItemCopyToMarket extends BaseModalContent implements OnInit, IM
         if (this.sharedService.currentMarket.isMaster) {
            // markets = markets.filter(x => !x.isMaster);
         }
+        markets = markets.filter(x => x.id !== this.sharedService.currentMarket.id);
         return markets;
     }
 
@@ -115,7 +116,7 @@ export class FeedItemCopyToMarket extends BaseModalContent implements OnInit, IM
 
     saveChanges() {
         var marketIds = this.currentMarkets.map((x) => { return x.id; });
-        this.copyToMarketService.copyItemToMarket(this.model.id, marketIds).subscribe((result) => {
+        this.marketContentService.copyItemToMarket(this.model.id, marketIds).subscribe((result) => {
             if (result.success) {
                 this.closeModal();
                 this.markMarketsAsCopied();

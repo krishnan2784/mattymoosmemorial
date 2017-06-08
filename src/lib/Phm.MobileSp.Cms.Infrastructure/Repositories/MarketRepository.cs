@@ -67,5 +67,25 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
                 return null;
             }
         }
+
+        public async Task<BaseResponse> PublishContentToLive(CopiedElementTypeEnum contentType, int id)
+        {
+            try
+            {
+                var request = GetRequest(new PublishContentsRequest
+                {
+                    ContentType = (CopiedElementTypeEnumDto)contentType,
+                    ParentId = id
+                });
+
+                var response = await _proxyClient.PublishContentsAsync(request);
+                return new BaseResponse(response.Published, 
+                    response.Published ? "Item published to live" : "Item could not be published to live", response.Published);
+            }
+            catch (Exception e)
+            {
+                return new BaseResponse(false, e.Message, false);
+            }
+        }
     }
 }

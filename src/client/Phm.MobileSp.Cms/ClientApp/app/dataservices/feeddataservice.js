@@ -25,6 +25,8 @@ var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/publishReplay");
 var requesthelper_1 = require("./helpers/requesthelper");
+var Enums = require("../enums");
+var CopiedElementTypeEnum = Enums.CopiedElementTypeEnum;
 var FeedDataService = (function (_super) {
     __extends(FeedDataService, _super);
     function FeedDataService(http) {
@@ -59,12 +61,11 @@ var FeedDataService = (function (_super) {
             });
         });
     };
-    FeedDataService.prototype.getFeeditem = function (feedId, feedItemType) {
+    FeedDataService.prototype.getFeeditem = function (feedId) {
         var _this = this;
         return Observable_1.Observable.create(function (observer) {
-            _this.getRequestBase('/api/Feed/GetFeedItem', [{ key: 'id', value: feedId }]).subscribe(function (result) {
-                var feedItem = new feedItemType(result.content);
-                observer.next(feedItem);
+            _this.getRequestBase('/api/Feed/GetFeedItem?id=' + feedId).subscribe(function (result) {
+                observer.next(result);
                 observer.complete();
             });
         });
@@ -77,6 +78,9 @@ var FeedDataService = (function (_super) {
     };
     FeedDataService.prototype.copyItemToMarket = function (id, marketIds) {
         return this.copyToMarket('/api/Feed/CopyFeedItemToMarket', id, marketIds);
+    };
+    FeedDataService.prototype.publishContentToLive = function (contentId) {
+        return this.publishToLive(CopiedElementTypeEnum.Feed, contentId);
     };
     return FeedDataService;
 }(requesthelper_1.RequestHelper));

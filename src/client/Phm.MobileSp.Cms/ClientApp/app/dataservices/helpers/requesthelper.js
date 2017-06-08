@@ -86,6 +86,23 @@ var RequestHelper = (function () {
             });
         });
     };
+    RequestHelper.prototype.publishToLive = function (contentType, contentId) {
+        var _this = this;
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        return Observable_1.Observable.create(function (observer) {
+            _this.http.post('/api/Market/PublishContentToLive?contentType=' + contentType + '&contentId=' + contentId, null, headers).subscribe(function (result) {
+                var response = responsehelper_1.ResponseHelper.getResponse(result);
+                if (response.success) {
+                    Materialize.toast(response.message, 5000, 'green');
+                }
+                else {
+                    Materialize.toast(response.message, 5000, 'red');
+                }
+                observer.next(response);
+                observer.complete();
+            });
+        });
+    };
     RequestHelper.getResponse = function (response) {
         response = new apiresponse_1.ApiResponse(response.json());
         return response;
