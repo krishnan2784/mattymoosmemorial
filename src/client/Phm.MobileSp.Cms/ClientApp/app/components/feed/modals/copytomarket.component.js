@@ -45,7 +45,7 @@ var FeedItemCopyToMarket = (function (_super) {
             _this.title = injector.get('title');
             _this.model = injector.get('model');
             _this.contentType = injector.get('contentType');
-            _this.copyToMarketService = injector.get('copyToMarketService');
+            _this.marketContentService = injector.get('marketContentService');
         }
         return _this;
     }
@@ -69,6 +69,7 @@ var FeedItemCopyToMarket = (function (_super) {
         });
     };
     FeedItemCopyToMarket.prototype.filterMarkets = function (markets) {
+        var _this = this;
         // we will need to filter Global and Pan EU out when viewing the Pan EU market
         // and filter out Global when viewing the global market
         // we could add a market level integer to the market (e.g. 0 = global, 1 = regional, 2 = market)
@@ -76,6 +77,7 @@ var FeedItemCopyToMarket = (function (_super) {
         if (this.sharedService.currentMarket.isMaster) {
             // markets = markets.filter(x => !x.isMaster);
         }
+        markets = markets.filter(function (x) { return x.id !== _this.sharedService.currentMarket.id; });
         return markets;
     };
     FeedItemCopyToMarket.prototype.markMarketsAsCopied = function () {
@@ -116,7 +118,7 @@ var FeedItemCopyToMarket = (function (_super) {
     FeedItemCopyToMarket.prototype.saveChanges = function () {
         var _this = this;
         var marketIds = this.currentMarkets.map(function (x) { return x.id; });
-        this.copyToMarketService.copyItemToMarket(this.model.id, marketIds).subscribe(function (result) {
+        this.marketContentService.copyItemToMarket(this.model.id, marketIds).subscribe(function (result) {
             if (result.success) {
                 _this.closeModal();
                 _this.markMarketsAsCopied();

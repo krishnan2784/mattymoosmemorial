@@ -146,7 +146,7 @@ var FeedIndexComponent = (function (_super) {
         };
     };
     FeedIndexComponent.prototype.copyFeedItemToMarket = function (feedItem) {
-        var inputs = { model: feedItem, title: '', contentType: CopiedElementTypeEnum.Feed, copyToMarketService: this.feedDataService };
+        var inputs = { model: feedItem, title: '', contentType: CopiedElementTypeEnum.Feed, marketContentService: this.feedDataService };
         var modelData = FeedItemCopyToMarket;
         this.modalData = {
             modalContent: modelData,
@@ -159,6 +159,19 @@ var FeedIndexComponent = (function (_super) {
             this.feedDataService.deleteFeeditem(feedItem.id).subscribe(function (result) {
                 if (result)
                     _this.updateFeedItem(feedItem, true);
+            });
+        }
+    };
+    FeedIndexComponent.prototype.publishFeedItemTolive = function (feedItem) {
+        var _this = this;
+        if (confirm("Are you sure to publish " + feedItem.title + '?')) {
+            this.feedDataService.publishContentToLive(feedItem.id).subscribe(function (result) {
+                if (result) {
+                    _this.feedDataService.getFeeditem(feedItem.id).subscribe(function (result) {
+                        if (result)
+                            _this.updateFeedItem(result, false);
+                    });
+                }
             });
         }
     };

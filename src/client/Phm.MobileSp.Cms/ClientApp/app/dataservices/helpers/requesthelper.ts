@@ -7,7 +7,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/publishReplay';
 import { ResponseHelper } from "./responsehelper";
 import { ApiResponse } from "../../models/apiresponse"
-
+import Enums = require("../../enums");
+import CopiedElementTypeEnum = Enums.CopiedElementTypeEnum;
 declare var Materialize: any;
 
 export class RequestHelper {
@@ -83,6 +84,24 @@ export class RequestHelper {
         }
         return Observable.create(observer => {
             this.http.post(url + '?id=' + id + marketQueryString, null, headers).subscribe(
+                (result) => {
+                    let response = ResponseHelper.getResponse(result);
+                    if (response.success) {
+                        Materialize.toast(response.message, 5000, 'green');
+                    } else {
+                        Materialize.toast(response.message, 5000, 'red');
+                    }
+                    observer.next(response);
+                    observer.complete();
+                }
+            );
+        });
+    }
+
+    protected publishToLive(contentType: CopiedElementTypeEnum, contentId: number) {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        return Observable.create(observer => {
+            this.http.post('/api/Market/PublishContentToLive?contentType=' + contentType + '&contentId=' + contentId, null, headers).subscribe(
                 (result) => {
                     let response = ResponseHelper.getResponse(result);
                     if (response.success) {

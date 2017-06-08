@@ -144,7 +144,7 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
     }
 
     copyFeedItemToMarket(feedItem: IFeedItem) {
-        let inputs = { model: feedItem, title: '', contentType: CopiedElementTypeEnum.Feed, copyToMarketService: this.feedDataService };
+        let inputs = { model: feedItem, title: '', contentType: CopiedElementTypeEnum.Feed, marketContentService: this.feedDataService };
         var modelData = FeedItemCopyToMarket;
 
         this.modalData = {
@@ -158,6 +158,20 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
             this.feedDataService.deleteFeeditem(feedItem.id).subscribe((result) => {
                 if (result)
                     this.updateFeedItem(feedItem, true);
+            });
+        }
+    }
+
+
+    publishFeedItemTolive(feedItem: IFeedItem) {
+        if (confirm("Are you sure to publish " + feedItem.title + '?')) {
+            this.feedDataService.publishContentToLive(feedItem.id).subscribe((result) => {
+                if (result) {
+                    this.feedDataService.getFeeditem(feedItem.id).subscribe((result) => {
+                        if (result)
+                            this.updateFeedItem(result, false);
+                    });
+                }
             });
         }
     }

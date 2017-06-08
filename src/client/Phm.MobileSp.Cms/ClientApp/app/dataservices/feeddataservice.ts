@@ -11,11 +11,12 @@ import FeedModel = require("../interfaces/models/IFeedModel");
 import FeedItem = FeedModel.IFeedItem;
 import Feedclasses = require("../models/feedclasses");
 import Apiresponse = require("../models/apiresponse");
-import CopyToMarketService = require("../interfaces/dataservices/ICopyToMarketService");
-import ICopyToMarketService = CopyToMarketService.ICopyToMarketService;
+import MarketContentService = require("../interfaces/dataservices/IMarketContentService");
+import IMarketContentService = MarketContentService.IMarketContentService;
+import CopiedElementTypeEnum = Enums.CopiedElementTypeEnum;
 
 @Injectable()
-export class FeedDataService extends RequestHelper implements IFeedDataService, ICopyToMarketService {
+export class FeedDataService extends RequestHelper implements IFeedDataService, IMarketContentService {
 
     constructor(public http: Http) {
         super(http);
@@ -49,11 +50,10 @@ export class FeedDataService extends RequestHelper implements IFeedDataService, 
         });
     }
 
-    public getFeeditem<TFeedItem extends Feedclasses.BaseFeed>(feedId: number, feedItemType: { new ({}): TFeedItem; }): Observable<FeedItem[]>  {
+    public getFeeditem(feedId: number): Observable<FeedModel.IFeedItem>  {
         return Observable.create(observer => {
-            this.getRequestBase('/api/Feed/GetFeedItem', [{ key:'id', value:feedId }]).subscribe((result) => {
-                let feedItem = new feedItemType(result.content);
-                observer.next(feedItem);
+            this.getRequestBase('/api/Feed/GetFeedItem?id=' + feedId).subscribe((result) => {
+                observer.next(result);
                 observer.complete();
             });
         });
@@ -68,5 +68,9 @@ export class FeedDataService extends RequestHelper implements IFeedDataService, 
     }
     public copyItemToMarket(id: number, marketIds: number[]): Observable<Apiresponse.ApiResponse> {
         return this.copyToMarket('/api/Feed/CopyFeedItemToMarket', id, marketIds);
+    }
+
+    public publishContentToLive(contentId: number) {
+        return this.publishToLive(CopiedElementTypeEnum.Feed, contentId);
     }
 }
