@@ -21,7 +21,7 @@ var SurveyQuestion = (function (_super) {
         _this.answers = options['Answers'];
         _this.order = options['Order'] || 0;
         _this.question = options['Question'] || '';
-        _this.surveyQuestionTypeEnum = options['SurveyQuestionTypeEnum'] || Enums.SurveyQuestionTypeEnum.Single;
+        _this.questionType = options['questionType'] || Enums.SurveyQuestionTypeEnum.Single;
         _this.surveyFeedId = options['SurveyFeedId'] || 0;
         if (!_this.answers) {
             _this.answers = [];
