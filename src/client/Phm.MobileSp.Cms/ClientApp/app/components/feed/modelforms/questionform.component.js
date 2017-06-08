@@ -24,15 +24,15 @@ var QuestionFormComponent = (function () {
         var dynamicIndex;
         var updateValue = true;
         var answers = this.form.controls['answers'];
-        var controlName = "isCorrect";
-        if (this.feedType === FeedTypeEnum.Survey || this.feedType === FeedTypeEnum.Observation)
-            controlName = "isFreeText";
+        var controlName = "isFreeText";
+        if (this.feedType === FeedTypeEnum.Quiz)
+            controlName = "isCorrect";
         if (index != null) {
             var questionType = this.form.controls['questionType'].value;
-            if (questionType === this.questionType.Multiple && this.feedType !== FeedTypeEnum.Survey && this.feedType !== FeedTypeEnum.Observation)
+            if (questionType === this.questionType.Multiple && this.feedType === FeedTypeEnum.Quiz)
                 return;
             dynamicIndex = answers.controls[index];
-            updateValue = dynamicIndex.controls[controlName].value;
+            updateValue = !dynamicIndex.controls[controlName].value;
         }
         answers.controls.forEach(function (control) {
             var dynamic = control;

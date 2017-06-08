@@ -6,7 +6,7 @@ export class SurveyQuestion extends Baseclasses.BaseModel {
     public answers: SurveyQuestionAnswer[];
     public order: number;
     public question: string;
-    public surveyQuestionTypeEnum: Enums.SurveyQuestionTypeEnum;
+    public questionType: Enums.SurveyQuestionTypeEnum;
     public surveyFeedId: number;
 
     constructor(options: {} = {}) {
@@ -14,7 +14,7 @@ export class SurveyQuestion extends Baseclasses.BaseModel {
         this.answers = options['Answers'];
         this.order = options['Order'] || 0;
         this.question = options['Question'] || '';
-        this.surveyQuestionTypeEnum = options['SurveyQuestionTypeEnum'] || Enums.SurveyQuestionTypeEnum.Single;
+        this.questionType = options['questionType'] || Enums.SurveyQuestionTypeEnum.Single;
         this.surveyFeedId = options['SurveyFeedId'] || 0;
         if (!this.answers) {
             this.answers = [];
