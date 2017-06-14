@@ -73,4 +73,8 @@ export class FeedDataService extends RequestHelper implements IFeedDataService, 
     public publishContentToLive(contentId: number) {
         return this.publishToLive(CopiedElementTypeEnum.Feed, contentId);
     }
+
+    public getFeedItemReport(feedItemId: number): Observable<any> {
+        return this.getRequestFull('/api/Feed/GetFeedItemReport?id=' + feedItemId);
+    }
 }

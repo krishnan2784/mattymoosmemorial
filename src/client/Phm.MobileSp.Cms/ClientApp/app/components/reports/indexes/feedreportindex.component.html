@@ -1,4 +1,4 @@
-<div *ngIf="!feedFormData">
+<div *ngIf="!selectedItem">
     <div>
         <div class="col-md-12">
             <div class="col-md-8 feed-index-type-container">
@@ -79,4 +79,6 @@
     </div>
 </div>
 
- <!--<feed-item-report [feedItemDetails]="feedItemDetails"></feed-item-report>-->
+<div *ngIf="selectedItem">
+    <feeditemreport [model]="selectedItem"></feeditemreport>
+</div>

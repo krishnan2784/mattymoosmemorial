@@ -34,7 +34,6 @@ var FeedReportIndexComponent = (function (_super) {
         _this.route = route;
         _this.router = router;
         _this.feedDataService = feedDataService;
-        _this.feedItemDetails = null;
         _this.feedTypes = FeedTypeEnum;
         _this.feedCats = FeedCategoryEnum;
         _this.setupSubscriptions();
@@ -80,14 +79,9 @@ var FeedReportIndexComponent = (function (_super) {
             return 0;
         });
     };
-    FeedReportIndexComponent.prototype.viewFeedItemDetails = function (feedItem, feedCat) {
+    FeedReportIndexComponent.prototype.viewFeedItemDetails = function (feedItem) {
         if (feedItem === void 0) { feedItem = null; }
-        if (feedCat === void 0) { feedCat = null; }
-        var inputs = { feedItem: feedItem };
-        this.updatePageTitle("Quiz Analytics Reports");
-        this.feedItemDetails = {
-            inputs: inputs
-        };
+        this.selectedItem = feedItem;
     };
     return FeedReportIndexComponent;
 }(base_component_1.BaseComponent));

@@ -82,6 +82,9 @@ var FeedDataService = (function (_super) {
     FeedDataService.prototype.publishContentToLive = function (contentId) {
         return this.publishToLive(CopiedElementTypeEnum.Feed, contentId);
     };
+    FeedDataService.prototype.getFeedItemReport = function (feedItemId) {
+        return this.getRequestFull('/api/Feed/GetFeedItemReport?id=' + feedItemId);
+    };
     return FeedDataService;
 }(requesthelper_1.RequestHelper));
 FeedDataService = __decorate([

@@ -11,6 +11,8 @@ var router_1 = require("@angular/router");
 var angular2_universal_1 = require("angular2-universal");
 var ng2_pagination_1 = require("ng2-pagination");
 var forms_1 = require("@angular/forms");
+//import { CalendarModule } from 'primeng/primeng';
+//import { DateValueAccessor } from './classes/datevalueaccessor';
 require("rxjs/add/observable/throw");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/debounceTime");
@@ -39,8 +41,10 @@ var Basemodalcomponent = require("./components/modals/basemodal.component");
 var BaseModalComponent = Basemodalcomponent.BaseModalComponent;
 var Copytomarketcomponent = require("./components/feed/modals/copytomarket.component");
 var FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
-var Feedreportindexcomponent = require("./components/reports/indexes/feedreportindex.component");
-var FeedReportIndexComponent = Feedreportindexcomponent.FeedReportIndexComponent;
+var feedreportindex_component_1 = require("./components/reports/indexes/feedreportindex.component");
+var feeditemreport_component_1 = require("./components/reports/feeditemreport.component");
+var Barchartcomponent = require("./components/charts/barchart.component");
+var BarChart = Barchartcomponent.BarChart;
 var AppModule = (function () {
     function AppModule() {
     }
@@ -72,7 +76,10 @@ AppModule = __decorate([
             questionform_component_1.QuestionFormComponent,
             BaseModalComponent,
             // reporting
-            FeedReportIndexComponent,
+            feedreportindex_component_1.FeedReportIndexComponent,
+            feeditemreport_component_1.FeedItemReport,
+            // charts
+            BarChart,
             //modals
             FeedItemCopyToMarket
         ],
@@ -93,7 +100,7 @@ AppModule = __decorate([
                 { path: 'feeditem', component: feeditemform_component_1.FeedItemForm },
                 { path: 'feeditem/:id', component: feeditemform_component_1.FeedItemForm },
                 { path: ':feedCat/feeditem', component: feeditemform_component_1.FeedItemForm },
-                { path: 'reports/:feedType', component: FeedReportIndexComponent },
+                { path: 'reports/:feedType', component: feedreportindex_component_1.FeedReportIndexComponent },
                 { path: '**', redirectTo: 'home' }
             ])
         ]

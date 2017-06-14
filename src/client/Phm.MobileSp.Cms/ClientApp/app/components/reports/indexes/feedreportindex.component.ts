@@ -19,14 +19,14 @@ declare var Materialize: any;
     styles: [require('./feedreportindex.component.css')]
 })
 export class FeedReportIndexComponent extends BaseComponent implements OnInit, OnDestroy {
-    feedItemDetails = null;
-
     public feedItems: IFeedItem[];
     feedTypes: typeof Enums.FeedTypeEnum = FeedTypeEnum;
     feedCats: typeof FeedCategoryEnum = FeedCategoryEnum;
     public feedTypeId : number;
     public id_sub: any;
     public currentMarket: UserMarket;
+
+    public selectedItem : IFeedItem;
 
     constructor(private route: ActivatedRoute,
         private router: Router,
@@ -80,14 +80,7 @@ export class FeedReportIndexComponent extends BaseComponent implements OnInit, O
         });
     }
     
-    viewFeedItemDetails(feedItem: IFeedItem = null, feedCat: FeedCategoryEnum = null) {
-
-        let inputs = { feedItem: feedItem };
-        this.updatePageTitle("Quiz Analytics Reports");
-
-        this.feedItemDetails = {
-            inputs: inputs
-        };
+    viewFeedItemDetails(feedItem: IFeedItem = null) {
+        this.selectedItem = feedItem;
     }
-    
 }

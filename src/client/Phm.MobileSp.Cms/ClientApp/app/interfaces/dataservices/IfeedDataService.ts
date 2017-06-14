@@ -17,4 +17,5 @@ export interface IFeedDataService {
     
     deleteFeeditem(feedItemId: number): Observable<boolean>;
 
+    getFeedItemReport(feedItemId: number): Observable<any>;
 }
