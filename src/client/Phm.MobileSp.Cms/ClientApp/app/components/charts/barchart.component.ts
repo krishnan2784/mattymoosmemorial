@@ -1,7 +1,10 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import Chartclasses = require("../../models/chartclasses");
 import BarChartData = Chartclasses.BarChartData;
-declare var d3: any;
+import * as d3 from 'd3-selection';
+import * as d3Scale from "d3-scale";
+import * as d3Array from "d3-array";
+import * as d3Axis from "d3-axis";
 
 @Component({
     selector: 'barchart',
@@ -11,89 +14,89 @@ declare var d3: any;
 export class BarChart implements OnInit {
 
     @Input()
-    private chartData: BarChartData;
-    
-    @ViewChild('barChart')
-    barChartElement;
+    public chartData: BarChartData = new BarChartData({
+        xLegend: "Allocated time / Submitted by day",
+        yLegend: "Number of learners"
+    });
 
+    public tooltip;
+
+    private width: number;
+    private height: number;
+
+    private x: any;
+    private y: any;
+    private svg: any;
+    private g: any;
 
     constructor() {
-
     }
 
     ngOnInit() {
-        this.initChart();
+        this.initTip();
+        this.initSvg();
+        this.initAxis();
+        this.drawAxis();
+        this.drawBars();
     }
 
-    private initChart() {
-        let chartData = this.chartData;
-        let barData = chartData.chartData;
-        var vis = d3.select(this.barChartElement.nativeElement),
-            width = chartData.width,
-            height = chartData.height,
-            margins = {
-                top: chartData.margins.top,
-                right: chartData.margins.right,
-                bottom: chartData.margins.bottom,
-                left: chartData.margins.left
-            },
-            xRange = d3.scale.ordinal().rangeRoundBands([margins.left, width - margins.right], 0.1)
-                .domain(barData.map((d) => {
-                return d.x;
-            })),
-
-
-            yRange = d3.scale.linear().range([height - margins.top, margins.bottom]).domain([0,
-                d3.max(barData, (d) => {
-                    return d.y;
-                })
-            ]),
-
-            xAxis = d3.svg.axis()
-                .scale(xRange)
-                .tickSize(5)
-                .tickSubdivide(true),
-
-            yAxis = d3.svg.axis()
-                .scale(yRange)
-                .tickSize(5)
-                .orient("left")
-                .tickSubdivide(true);
-
-
-        vis.append('svg:g')
-            .attr('class', 'x axis')
-            .attr('transform', 'translate(0,' + (height - margins.bottom) + ')')
-            .call(xAxis);
-
-        vis.append('svg:g')
-            .attr('class', 'y axis')
-            .attr('transform', 'translate(' + (margins.left) + ',0)')
-            .call(yAxis);
-
-        vis.selectAll('rect')
-            .data(barData)
-            .enter()
-            .append('rect')
-            .attr('x', (d) => {
-                return xRange(d.x);
-            })
-            .attr('y', (d) => {
-                return yRange(d.y);
-            })
-            .attr('width', xRange.rangeBand())
-            .attr('height', (d) => {
-                return ((height - margins.bottom) - yRange(d.y));
-            })
-            .attr('fill', 'grey')
-            .on('mouseover', function (d) {
-                d3.select(this)
-                    .attr('fill', 'blue');
-            })
-            .on('mouseout', function (d) {
-                d3.select(this)
-                    .attr('fill', 'grey');
-            });
+    private initTip() {
+        this.tooltip = d3.select("body").append("div").attr("class", "toolTip");
     }
 
+    private initSvg() {
+        this.svg = d3.select("svg");
+        this.width = +this.chartData.width - this.chartData.margin.left - this.chartData.margin.right;
+        this.height = +this.chartData.height - this.chartData.margin.top - this.chartData.margin.bottom;
+
+        this.g = this.svg.append("g")
+            .attr("transform", "translate(" + this.chartData.margin.left + "," + this.chartData.margin.top + ")");
+    }
+
+    private initAxis() {
+        this.x = d3Scale.scaleBand().rangeRound([0, this.width]).padding(0.8);
+        this.y = d3Scale.scaleLinear().rangeRound([this.height, 0]);
+        this.x.domain(this.chartData.chartData.map((d) => d.x));
+        this.y.domain([0, d3Array.max(this.chartData.chartData, (d) => d.y)]);
+    }
+
+    private drawAxis() {
+        this.g.append("g")
+            .attr("class", "axis axis--x")
+            .attr("transform", "translate(0," + this.height + ")")
+            .call(d3Axis.axisBottom(this.x));
+        //this.g.append("g")
+        //    .attr("class", "axis axis--y")
+        //    .call(d3Axis.axisLeft(this.y).ticks(10, "%"));
+    }
+
+    private drawBars() {
+        this.g.selectAll(".bar")
+            .data(this.chartData.chartData)
+            .enter().append("rect")
+            .attr("class", "bar")
+            .attr("fill", '#9F378E')
+            .attr("x", (d) => this.x(d.x))
+            .attr("y", (d) => this.y(d.y))
+            .attr("width", this.x.bandwidth())
+            .attr("height", (d) => this.height - this.y(d.y))
+            .on("mousemove", (d) => {
+                this.tooltip
+                    .style("left", d3.event.pageX - 20 + "px")
+                    .style("top", d3.event.pageY - 20 + "px")
+                    .style("display", "inline-block")
+                    .html(d.y);
+            })
+            .on("mouseout", (d) => { this.tooltip.style("display", "none"); });
+        this.g.selectAll(".bar")
+            .data(this.chartData.chartData)
+            .enter().append("rect")
+            .attr("class", "base-bar")
+            .attr("fill", '#DFDFDF')
+            .attr("x", (d) => this.x(d.x))
+            .attr("y", () => this.chartData.height)
+            .attr("width", this.x.bandwidth())
+            .attr("height", () => this.chartData.height);
+    }
+    
 }

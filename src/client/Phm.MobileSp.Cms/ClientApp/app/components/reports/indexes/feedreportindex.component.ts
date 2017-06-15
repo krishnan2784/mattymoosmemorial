@@ -9,7 +9,8 @@ import { BaseComponent} from "../../base.component";
 import { ShareService } from "../../../dataservices/datashareservice";
 import Userclasses = require("../../../models/userclasses");
 import UserMarket = Userclasses.UserMarket;
-
+import Feeditemreportcomponent = require("../feeditemreport.component");
+import FeedItemReport = Feeditemreportcomponent.FeedItemReport;
 declare var $: any;
 declare var Materialize: any;
 
@@ -26,7 +27,7 @@ export class FeedReportIndexComponent extends BaseComponent implements OnInit, O
     public id_sub: any;
     public currentMarket: UserMarket;
 
-    public selectedItem : IFeedItem;
+    public selectedItem : any = null;
 
     constructor(private route: ActivatedRoute,
         private router: Router,
@@ -81,6 +82,17 @@ export class FeedReportIndexComponent extends BaseComponent implements OnInit, O
     }
     
     viewFeedItemDetails(feedItem: IFeedItem = null) {
-        this.selectedItem = feedItem;
+        let inputs = { model: feedItem, pageTitle: '' };
+        var report = FeedItemReport;
+        report.prototype.onBackEvent = new EventEmitter();
+        report.prototype.onBackEvent.subscribe(() => {
+            this.setPageTitle();
+            this.updateMarketDropdownVisibility(true);
+            this.selectedItem = null;
+        });
+        this.selectedItem = {
+            reportContent: FeedItemReport,
+            inputs: inputs
+        };
     }
 }

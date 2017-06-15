@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, Input, Output, ViewChild, EventEmitter, Injector } from '@angular/core';
 import Baseclasses = require("../../models/baseclasses");
 import BaseModel = Baseclasses.BaseModel;
 import Basecomponent = require("../base.component");
@@ -23,56 +23,62 @@ declare var  Materialize: any;
     styles: [require('./feeditemreport.component.css')]
 })
 export class FeedItemReport extends BaseComponent implements OnInit {
-    @Input()
-    private model: IFeedItem;
+    @Output()
+    public onBackEvent: EventEmitter<any>;
 
-    @Input()
-    private pageTitle: string;
-    private feedCatString: string;
+    public model: IFeedItem;
+    public pageTitle: string;
+    public feedTypeString: string;
+    public feedTypes = Enums.FeedTypeEnum;
 
     public reportData: any;
 
-    public averageTimeData: BarChartData;
+    public averageTimeData: BarChartData = new BarChartData();
 
-    constructor(sharedService: ShareService, public feedDataService: FeedDataService) { 
+    constructor(sharedService: ShareService, public feedDataService: FeedDataService,
+        private injector: Injector) { 
         super(sharedService, '', false);
+        this.model = this.injector.get('model');
+        this.pageTitle = this.injector.get('pageTitle');
     }
 
     ngOnInit() {
-        if (!this.pageTitle)
-            this.pageTitle = this.model.feedType.toString() + ' Analytics Reports';
+        if (!this.pageTitle || this.pageTitle === '')
+            this.pageTitle = Enums.FeedTypeEnum[this.model.feedType] + ' Analytics Reports';
         this.updatePageTitle(this.pageTitle);
-        this.feedCatString = this.model.feedCategory.toString();
+
+        this.feedTypeString = Enums.FeedTypeEnum[this.model.feedType];
 
         this.getData();
     }
 
     private getData() {
         this.feedDataService.getFeedItemReport(this.model.id).subscribe((result) => {
-            this.reportData = result.content;
-            this.updateReport();
-            //if (result.success) {
-            //    this.reportData = result.content;
-            //    this.updateReport();
-            //} else {
-            //    Materialize.toast(result.message, 5000, 'red');
-            //    this.goBack();
-            //}
+            if (result.success) {
+                this.reportData = result.content;
+                this.updateReport();
+            } else {
+                Materialize.toast(result.message, 5000, 'red');
+                this.goBack();
+            }
         });
     }
 
     updateReport() {
-        this.averageTimeData = new BarChartData();
-
         //if (this.reportData) {
         //    this.averageTimeData = new BarChartData();
         //}
-
+        var barData = new BarChartData({
+            xLegend: "Allocated time / Submitted by day",
+            yLegend: "Number of learners"
+        });
+        this.averageTimeData = barData;
     }
 
     private goBack() {
         this.pageTitle = null;
         this.model = null;
         this.averageTimeData = null;
+        this.onBackEvent.emit();
     }
 }

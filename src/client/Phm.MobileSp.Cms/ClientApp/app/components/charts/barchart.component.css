@@ -1,18 +1,21 @@
-﻿body {
+﻿.bar {
+    fill: #9F378E;
 }
 
-.item-title {
-    padding-left: 15px;
+.base-bar {
+    fill: #DFDFDF;
 }
 
-.feed-cat-img {
-    width: 15px;
+.bar:hover {
+    fill: brown;
 }
 
-.stat-title {
-     background-color: #eee;
+.axis-title {
+    fill: none;
+    stroke: black;
+    stroke-width: 0.5px;
 }
 
-.stat-block {
-    border: 1px solid #eee;
+.x-legend {
+    text-align: center;
 }

@@ -27,6 +27,8 @@ var FeedTypeEnum = Enums.FeedTypeEnum;
 var FeedCategoryEnum = Enums.FeedCategoryEnum;
 var base_component_1 = require("../../base.component");
 var datashareservice_1 = require("../../../dataservices/datashareservice");
+var Feeditemreportcomponent = require("../feeditemreport.component");
+var FeedItemReport = Feeditemreportcomponent.FeedItemReport;
 var FeedReportIndexComponent = (function (_super) {
     __extends(FeedReportIndexComponent, _super);
     function FeedReportIndexComponent(route, router, feedDataService, sharedService) {
@@ -36,6 +38,7 @@ var FeedReportIndexComponent = (function (_super) {
         _this.feedDataService = feedDataService;
         _this.feedTypes = FeedTypeEnum;
         _this.feedCats = FeedCategoryEnum;
+        _this.selectedItem = null;
         _this.setupSubscriptions();
         return _this;
     }
@@ -80,8 +83,20 @@ var FeedReportIndexComponent = (function (_super) {
         });
     };
     FeedReportIndexComponent.prototype.viewFeedItemDetails = function (feedItem) {
+        var _this = this;
         if (feedItem === void 0) { feedItem = null; }
-        this.selectedItem = feedItem;
+        var inputs = { model: feedItem, pageTitle: '' };
+        var report = FeedItemReport;
+        report.prototype.onBackEvent = new core_1.EventEmitter();
+        report.prototype.onBackEvent.subscribe(function () {
+            _this.setPageTitle();
+            _this.updateMarketDropdownVisibility(true);
+            _this.selectedItem = null;
+        });
+        this.selectedItem = {
+            reportContent: FeedItemReport,
+            inputs: inputs
+        };
     };
     return FeedReportIndexComponent;
 }(base_component_1.BaseComponent));

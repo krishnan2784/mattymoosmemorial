@@ -42,6 +42,8 @@ import { FeedReportIndexComponent } from "./components/reports/indexes/feedrepor
 import { FeedItemReport } from "./components/reports/feeditemreport.component";
 import Barchartcomponent = require("./components/charts/barchart.component");
 import BarChart = Barchartcomponent.BarChart;
+import Basefeeditemreportcomponent = require("./components/reports/basefeeditemreport.component");
+import FeedItemReportContainerComponent = Basefeeditemreportcomponent.FeedItemReportContainerComponent;
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -72,8 +74,9 @@ import BarChart = Barchartcomponent.BarChart;
 
         // reporting
         FeedReportIndexComponent,
+        FeedItemReportContainerComponent,
         FeedItemReport,
-
+         
         // charts
         BarChart,
 

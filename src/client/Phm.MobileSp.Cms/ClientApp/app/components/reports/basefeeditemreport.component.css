@@ -1,0 +1,30 @@
+﻿#feedItemModal {
+    width: 100vw;
+}
+
+#feedItemModal .modal-dialog {
+    width:80%;
+    height:80%;
+}
+
+#feedItemModal .modal-content {
+    width:100%;
+}
+
+.modal{
+    background-color:transparent;
+    box-shadow:none;
+}
+
+.modal-content {
+    border-radius:0;
+}
+
+.modal .modal-footer {
+
+}
+
+.modal .modal-footer .btn {
+    margin-left:10px;
+    float: right;
+}

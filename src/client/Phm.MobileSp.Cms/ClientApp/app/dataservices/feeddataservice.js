@@ -83,7 +83,7 @@ var FeedDataService = (function (_super) {
         return this.publishToLive(CopiedElementTypeEnum.Feed, contentId);
     };
     FeedDataService.prototype.getFeedItemReport = function (feedItemId) {
-        return this.getRequestFull('/api/Feed/GetFeedItemReport?id=' + feedItemId);
+        return this.getRequestFull('/api/Feed/GetFeedItemSummary?feedItemId=' + feedItemId);
     };
     return FeedDataService;
 }(requesthelper_1.RequestHelper));

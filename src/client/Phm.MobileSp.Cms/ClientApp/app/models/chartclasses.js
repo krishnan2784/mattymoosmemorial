@@ -14,9 +14,9 @@ var BaseChart = (function () {
     function BaseChart(options) {
         if (options === void 0) { options = {}; }
         this.title = options['title'] = '';
-        this.width = options['width'] || 1000;
-        this.height = options['height'] || 500;
-        this.margins = options['margins'] || {
+        this.width = options['width'] || 300;
+        this.height = options['height'] || 200;
+        this.margin = options['margin'] || {
             top: 20,
             right: 20,
             bottom: 20,
@@ -31,25 +31,25 @@ var BarChartData = (function (_super) {
     function BarChartData(options) {
         if (options === void 0) { options = {}; }
         var _this = _super.call(this, options) || this;
-        _this.xLegend = options['xLegend'] = '';
-        _this.yLegend = options['yLegend'] = '';
+        _this.xLegend = options['xLegend'] || 'Allocated time / Submitted by day';
+        _this.yLegend = options['yLegend'] || 'Number of learners';
         _this.chartData = options['chartData'] || [{
                 x: 1,
                 y: 5
             }, {
-                x: 20,
+                x: 2,
                 y: 20
             }, {
-                x: 40,
+                x: 3,
                 y: 10
             }, {
-                x: 60,
+                x: 4,
                 y: 40
             }, {
-                x: 80,
+                x: 5,
                 y: 5
             }, {
-                x: 100,
+                x: 6,
                 y: 60
             }];
         return _this;

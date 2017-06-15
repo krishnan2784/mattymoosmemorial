@@ -83,6 +83,21 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             return response.Deleted;
         }
 
+        public async Task<List<FeedItemSummary>> GetFeedItemSummary(int feedItemId)
+        {
+            var request = GetRequest(new GetQuizFeedSummariesRequest
+            {
+                Criteria = GetCriteria(new QuizFeedSummaryCriteriaDto()
+                {
+                    QuizFeedId = feedItemId
+                })
+            });
+            var response = await _proxyClient.GetQuizFeedSummariesAsync(request);
+            var mapper = new AutoMapperGenericsHelper<QuizSummaryDto, FeedItemSummary>();
+            var summary = mapper.ConvertToDbEntity(response.QuizSummaries);
+            return summary;
+        }
+        
         public async Task<bool> CopyFeedItemToMarketAsync(int feedItemId, List<int> marketIds)
         {
 

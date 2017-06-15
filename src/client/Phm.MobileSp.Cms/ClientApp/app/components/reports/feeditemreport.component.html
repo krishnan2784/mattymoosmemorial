@@ -1,23 +1,27 @@
-<div class="col-md-12">
-    <img src="assets/images/Icon-{{feedCatString}}-b.png" class="feed-cat-img" *ngIf="model.feedType!=feedTypes.Observation" />
-    <img src="assets/images/Icon-Observation-b.png" class="feed-cat-img" *ngIf="model.feedType==feedTypes.Observation" />
-                   
-    <span class="item-title">{{model.title}}</span>
-</div>
-<div>
-    <p>{{feedCatString}} stats</p>
+<div *ngIf="model">
+    <div class="col-md-12">
+        <img src="assets/images/Icon-{{feedTypeString}}-b.png" class="feed-cat-img" *ngIf="model.feedType!=feedTypes.Observation" />
+        <img src="assets/images/Icon-Observation-b.png" class="feed-cat-img" *ngIf="model.feedType==feedTypes.Observation" />
+
+        <span class="item-title">{{model.title}}</span>
+    </div>
     <div>
-        <div class="col-md-6 stat-block">
-            <div class="stat-title">
+        <p>{{feedTypeString}} stats</p>
+        <div>
+            <div class="col-md-6 stat-block">
+                <div class="stat-title">
+                </div>
             </div>
-        </div>
-        <div class="col-md-3 stat-block">
-            <div class="stat-title">Average Score</div>
-            <div #averageScore></div>
-        </div>
-        <div class="col-md-3 stat-block">
-            <div class="stat-title">Average Time</div>
-            <barchart *ngIf="averageTimeData" [chartData]="averageTimeData"></barchart>
+            <div class="col-md-3 stat-block">
+                <div class="stat-title">Average Score</div>
+                <div #averageScore></div>
+            </div>
+            <div class="col-md-3 stat-block">
+                <div class="stat-title">Average Time</div>
+                <div *ngIf="averageTimeData">
+                    <barchart [chartData]="averageTimeData"></barchart>
+                </div>
+            </div>
         </div>
     </div>
 </div>

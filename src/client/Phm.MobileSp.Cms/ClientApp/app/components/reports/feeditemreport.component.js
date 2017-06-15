@@ -24,66 +24,73 @@ var Basecomponent = require("../base.component");
 var BaseComponent = Basecomponent.BaseComponent;
 var Datashareservice = require("../../dataservices/datashareservice");
 var ShareService = Datashareservice.ShareService;
+var Enums = require("../../enums");
 var Feeddataservice = require("../../dataservices/feeddataservice");
 var FeedDataService = Feeddataservice.FeedDataService;
 var Chartclasses = require("../../models/chartclasses");
 var BarChartData = Chartclasses.BarChartData;
 var FeedItemReport = (function (_super) {
     __extends(FeedItemReport, _super);
-    function FeedItemReport(sharedService, feedDataService) {
+    function FeedItemReport(sharedService, feedDataService, injector) {
         var _this = _super.call(this, sharedService, '', false) || this;
         _this.feedDataService = feedDataService;
+        _this.injector = injector;
+        _this.feedTypes = Enums.FeedTypeEnum;
+        _this.averageTimeData = new BarChartData();
+        _this.model = _this.injector.get('model');
+        _this.pageTitle = _this.injector.get('pageTitle');
         return _this;
     }
     FeedItemReport.prototype.ngOnInit = function () {
-        if (!this.pageTitle)
-            this.pageTitle = this.model.feedType.toString() + ' Analytics Reports';
+        if (!this.pageTitle || this.pageTitle === '')
+            this.pageTitle = Enums.FeedTypeEnum[this.model.feedType] + ' Analytics Reports';
         this.updatePageTitle(this.pageTitle);
-        this.feedCatString = this.model.feedCategory.toString();
+        this.feedTypeString = Enums.FeedTypeEnum[this.model.feedType];
         this.getData();
     };
     FeedItemReport.prototype.getData = function () {
         var _this = this;
         this.feedDataService.getFeedItemReport(this.model.id).subscribe(function (result) {
-            _this.reportData = result.content;
-            _this.updateReport();
-            //if (result.success) {
-            //    this.reportData = result.content;
-            //    this.updateReport();
-            //} else {
-            //    Materialize.toast(result.message, 5000, 'red');
-            //    this.goBack();
-            //}
+            if (result.success) {
+                _this.reportData = result.content;
+                _this.updateReport();
+            }
+            else {
+                Materialize.toast(result.message, 5000, 'red');
+                _this.goBack();
+            }
         });
     };
     FeedItemReport.prototype.updateReport = function () {
-        this.averageTimeData = new BarChartData();
         //if (this.reportData) {
         //    this.averageTimeData = new BarChartData();
         //}
+        var barData = new BarChartData({
+            xLegend: "Allocated time / Submitted by day",
+            yLegend: "Number of learners"
+        });
+        this.averageTimeData = barData;
     };
     FeedItemReport.prototype.goBack = function () {
         this.pageTitle = null;
         this.model = null;
         this.averageTimeData = null;
+        this.onBackEvent.emit();
     };
     return FeedItemReport;
 }(BaseComponent));
 __decorate([
-    core_1.Input(),
-    __metadata("design:type", Object)
-], FeedItemReport.prototype, "model", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], FeedItemReport.prototype, "pageTitle", void 0);
+    core_1.Output(),
+    __metadata("design:type", core_1.EventEmitter)
+], FeedItemReport.prototype, "onBackEvent", void 0);
 FeedItemReport = __decorate([
     core_1.Component({
         selector: 'feeditemreport',
         template: require('./feeditemreport.component.html'),
         styles: [require('./feeditemreport.component.css')]
     }),
-    __metadata("design:paramtypes", [ShareService, FeedDataService])
+    __metadata("design:paramtypes", [ShareService, FeedDataService,
+        core_1.Injector])
 ], FeedItemReport);
 exports.FeedItemReport = FeedItemReport;
 //# sourceMappingURL=feeditemreport.component.js.map

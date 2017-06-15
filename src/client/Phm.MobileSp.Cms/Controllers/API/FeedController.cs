@@ -121,5 +121,15 @@ namespace Phm.MobileSp.Cms.Controllers.API
             return Json(new BaseResponse(feedItemResponse, feedItemResponse ? "Feed item successfuly deleted" : "Failed to delete feed item", feedItemResponse));
         }
 
+        [HttpGet("[action]")]
+        [JsonResponseWrapper]
+        public async Task<JsonResult> GetFeedItemSummary(int feedItemId)
+        {
+            var feedItemResponse = await _feedRepository.GetFeedItemSummary(feedItemId);
+            var success = feedItemResponse != null;
+            success = true;
+            return Json(new BaseResponse(success, success ? "" : "Failed to get a report for this feed item", feedItemResponse));
+        }
+        
     }
 }

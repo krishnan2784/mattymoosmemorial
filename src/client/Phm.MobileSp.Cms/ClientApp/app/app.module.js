@@ -45,6 +45,8 @@ var feedreportindex_component_1 = require("./components/reports/indexes/feedrepo
 var feeditemreport_component_1 = require("./components/reports/feeditemreport.component");
 var Barchartcomponent = require("./components/charts/barchart.component");
 var BarChart = Barchartcomponent.BarChart;
+var Basefeeditemreportcomponent = require("./components/reports/basefeeditemreport.component");
+var FeedItemReportContainerComponent = Basefeeditemreportcomponent.FeedItemReportContainerComponent;
 var AppModule = (function () {
     function AppModule() {
     }
@@ -77,6 +79,7 @@ AppModule = __decorate([
             BaseModalComponent,
             // reporting
             feedreportindex_component_1.FeedReportIndexComponent,
+            FeedItemReportContainerComponent,
             feeditemreport_component_1.FeedItemReport,
             // charts
             BarChart,
