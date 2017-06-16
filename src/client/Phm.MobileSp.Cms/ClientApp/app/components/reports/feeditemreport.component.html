@@ -1,27 +1,56 @@
 <div *ngIf="model">
-    <div class="col-md-12">
+    <div class="report-title">
         <img src="assets/images/Icon-{{feedTypeString}}-b.png" class="feed-cat-img" *ngIf="model.feedType!=feedTypes.Observation" />
         <img src="assets/images/Icon-Observation-b.png" class="feed-cat-img" *ngIf="model.feedType==feedTypes.Observation" />
 
         <span class="item-title">{{model.title}}</span>
     </div>
-    <div>
+    <div class="report-subtitle">
         <p>{{feedTypeString}} stats</p>
-        <div>
-            <div class="col-md-6 stat-block">
+    </div>
+    <div>
+        <div class="col-md-6 stat-container">
+            <div class="header-border"></div>
+            <div class="stat-block">
                 <div class="stat-title">
+                    <div class="col-md-4 total-learners">
+                        <h5>
+                            {{totalLearners}}
+                        </h5>
+                        <p>Total learners</p>
+                        <div class="clearboth"></div>
+                    </div>
+                    <img src="assets/images/Icon-Learning-b.png" class="right"/>
+                </div>
+                <div class="stat-body" *ngIf="averageTimeData">
                 </div>
             </div>
-            <div class="col-md-3 stat-block">
-                <div class="stat-title">Average Score</div>
-                <div #averageScore></div>
+        </div>
+        <div class="col-md-3 stat-container">
+            <div class="header-border"></div>
+            <div class="stat-block">
+                <div class="stat-title">
+                    <h5>
+                        Average Score
+                    </h5>
+                </div>
+                <div class="stat-body" *ngIf="averageTimeData">
+                </div>
             </div>
-            <div class="col-md-3 stat-block">
-                <div class="stat-title">Average Time</div>
-                <div *ngIf="averageTimeData">
+        </div>
+        <div class="col-md-3 stat-container">
+            <div class="header-border"></div>
+            <div class="stat-block">
+                <div class="stat-title">
+                    <h5>
+                        Average Time
+                    </h5>
+                </div>
+                <div class="stat-body" *ngIf="averageTimeData">
                     <barchart [chartData]="averageTimeData"></barchart>
                 </div>
             </div>
         </div>
+        <div class="clearfix"></div>
     </div>
 </div>

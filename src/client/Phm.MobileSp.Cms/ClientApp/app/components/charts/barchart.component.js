@@ -12,77 +12,77 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var Chartclasses = require("../../models/chartclasses");
 var BarChartData = Chartclasses.BarChartData;
-var d3 = require("d3-selection");
-var d3Scale = require("d3-scale");
-var d3Array = require("d3-array");
-var d3Axis = require("d3-axis");
 var BarChart = (function () {
+    //public tooltip;
+    //private width: number;
+    //private height: number;
+    //private x: any;
+    //private y: any;
+    //private svg: any;
+    //private g: any;
     function BarChart() {
-        this.chartData = new BarChartData({
-            xLegend: "Allocated time / Submitted by day",
-            yLegend: "Number of learners"
-        });
+        this.chartData = new BarChartData({});
     }
     BarChart.prototype.ngOnInit = function () {
-        this.initTip();
-        this.initSvg();
-        this.initAxis();
-        this.drawAxis();
-        this.drawBars();
-    };
-    BarChart.prototype.initTip = function () {
-        this.tooltip = d3.select("body").append("div").attr("class", "toolTip");
-    };
-    BarChart.prototype.initSvg = function () {
-        this.svg = d3.select("svg");
-        this.width = +this.chartData.width - this.chartData.margin.left - this.chartData.margin.right;
-        this.height = +this.chartData.height - this.chartData.margin.top - this.chartData.margin.bottom;
-        this.g = this.svg.append("g")
-            .attr("transform", "translate(" + this.chartData.margin.left + "," + this.chartData.margin.top + ")");
-    };
-    BarChart.prototype.initAxis = function () {
-        this.x = d3Scale.scaleBand().rangeRound([0, this.width]).padding(0.8);
-        this.y = d3Scale.scaleLinear().rangeRound([this.height, 0]);
-        this.x.domain(this.chartData.chartData.map(function (d) { return d.x; }));
-        this.y.domain([0, d3Array.max(this.chartData.chartData, function (d) { return d.y; })]);
-    };
-    BarChart.prototype.drawAxis = function () {
-        this.g.append("g")
-            .attr("class", "axis axis--x")
-            .attr("transform", "translate(0," + this.height + ")")
-            .call(d3Axis.axisBottom(this.x));
-        //this.g.append("g")
-        //    .attr("class", "axis axis--y")
-        //    .call(d3Axis.axisLeft(this.y).ticks(10, "%"));
-    };
-    BarChart.prototype.drawBars = function () {
         var _this = this;
-        this.g.selectAll(".bar")
-            .data(this.chartData.chartData)
-            .enter().append("rect")
-            .attr("class", "bar")
-            .attr("fill", '#9F378E')
-            .attr("x", function (d) { return _this.x(d.x); })
-            .attr("y", function (d) { return _this.y(d.y); })
-            .attr("width", this.x.bandwidth())
-            .attr("height", function (d) { return _this.height - _this.y(d.y); })
-            .on("mousemove", function (d) {
-            _this.tooltip
-                .style("left", d3.event.pageX - 20 + "px")
-                .style("top", d3.event.pageY - 20 + "px")
-                .style("display", "inline-block")
-                .html(d.y);
-        })
-            .on("mouseout", function (d) { _this.tooltip.style("display", "none"); });
-        this.g.selectAll(".bar")
-            .data(this.chartData.chartData)
-            .enter().append("rect")
-            .attr("class", "base-bar")
-            .attr("fill", '#DFDFDF')
-            .attr("x", function (d) { return _this.x(d.x); })
-            .attr("y", function () { return _this.chartData.height; })
-            .attr("width", this.x.bandwidth())
-            .attr("height", function () { return _this.chartData.height; });
+        var columns = this.chartData.chartData.map(function (d) {
+            return [d.name].concat(d.data.map(function (data) { return data.y.toString(); }));
+        });
+        var groups = [];
+        //if (this.chartData.chartData.length === 1) {
+        //    var max = 0;
+        //    this.chartData.chartData[0].data.forEach((x) => {
+        //        if (x.y > max)
+        //            max = x.y;
+        //    });
+        //    var maxString = max.toString();
+        //    columns.unshift(['baseData'].concat(this.chartData.chartData[0].data.map(() => { return maxString; })));
+        //    groups.unshift(['baseData', this.chartData.chartData[0].name]);
+        //}
+        this.chart = c3.generate({
+            bindto: '#chart',
+            size: {
+                height: this.chartData.height,
+                width: this.chartData.width
+            },
+            padding: {
+                top: this.chartData.margin.top,
+                bottom: this.chartData.margin.bottom,
+                left: this.chartData.margin.left,
+                right: this.chartData.margin.right
+            },
+            data: {
+                columns: columns,
+                type: 'bar',
+                color: function (color, d) {
+                    var name = '';
+                    if (d.id) {
+                        name = d.id;
+                    }
+                    else
+                        name = d;
+                    if (name === 'baseData')
+                        return '#DFDFDF';
+                    if (_this.chartData &&
+                        _this.chartData.chartData &&
+                        _this.chartData.chartData.filter(function (x) { return x.name === name; }).length > 0) {
+                        if (_this.chartData.chartData.filter(function (x) { return x.name === name; })[0].colour !== '')
+                            return _this.chartData.chartData.filter(function (x) { return x.name === name; })[0].colour;
+                    }
+                    return color;
+                }, groups: groups
+            },
+            bar: {
+                width: {
+                    ratio: 0.5
+                }
+            },
+            tooltip: {
+                format: {
+                    title: function (d) { return _this.chartData.xLegend + ': ' + d; }
+                }
+            }
+        });
     };
     return BarChart;
 }());

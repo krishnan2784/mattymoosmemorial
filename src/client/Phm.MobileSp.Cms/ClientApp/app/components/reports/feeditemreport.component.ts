@@ -33,6 +33,8 @@ export class FeedItemReport extends BaseComponent implements OnInit {
 
     public reportData: any;
 
+    public totalLearners: number = 100;
+
     public averageTimeData: BarChartData = new BarChartData();
 
     constructor(sharedService: ShareService, public feedDataService: FeedDataService,

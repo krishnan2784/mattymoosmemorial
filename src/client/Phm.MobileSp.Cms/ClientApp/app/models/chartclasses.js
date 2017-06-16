@@ -20,7 +20,7 @@ var BaseChart = (function () {
             top: 20,
             right: 20,
             bottom: 20,
-            left: 50
+            left: 20
         };
     }
     return BaseChart;
@@ -31,27 +31,34 @@ var BarChartData = (function (_super) {
     function BarChartData(options) {
         if (options === void 0) { options = {}; }
         var _this = _super.call(this, options) || this;
-        _this.xLegend = options['xLegend'] || 'Allocated time / Submitted by day';
+        _this.xLegend = options['xLegend'] || 'Submitted on day';
         _this.yLegend = options['yLegend'] || 'Number of learners';
-        _this.chartData = options['chartData'] || [{
-                x: 1,
-                y: 5
-            }, {
-                x: 2,
-                y: 20
-            }, {
-                x: 3,
-                y: 10
-            }, {
-                x: 4,
-                y: 40
-            }, {
-                x: 5,
-                y: 5
-            }, {
-                x: 6,
-                y: 60
-            }];
+        _this.chartData = options['chartData'] ||
+            [{
+                    name: 'Submissions',
+                    colour: '#9F378E',
+                    data: [
+                        {
+                            x: 1,
+                            y: 5
+                        }, {
+                            x: 2,
+                            y: 20
+                        }, {
+                            x: 3,
+                            y: 10
+                        }, {
+                            x: 4,
+                            y: 40
+                        }, {
+                            x: 5,
+                            y: 5
+                        }, {
+                            x: 6,
+                            y: 60
+                        }
+                    ]
+                }];
         return _this;
     }
     return BarChartData;

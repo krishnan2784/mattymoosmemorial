@@ -6,6 +6,8 @@ import * as d3Scale from "d3-scale";
 import * as d3Array from "d3-array";
 import * as d3Axis from "d3-axis";
 
+declare var c3;
+
 @Component({
     selector: 'barchart',
     template: require('./barchart.component.html'),
@@ -14,89 +16,136 @@ import * as d3Axis from "d3-axis";
 export class BarChart implements OnInit {
 
     @Input()
-    public chartData: BarChartData = new BarChartData({
-        xLegend: "Allocated time / Submitted by day",
-        yLegend: "Number of learners"
-    });
+    public chartData: BarChartData = new BarChartData({});
 
-    public tooltip;
+    private chart;
 
-    private width: number;
-    private height: number;
+    //public tooltip;
+    //private width: number;
+    //private height: number;
 
-    private x: any;
-    private y: any;
-    private svg: any;
-    private g: any;
+    //private x: any;
+    //private y: any;
+    //private svg: any;
+    //private g: any;
 
     constructor() {
     }
 
     ngOnInit() {
-        this.initTip();
-        this.initSvg();
-        this.initAxis();
-        this.drawAxis();
-        this.drawBars();
+        var columns = this.chartData.chartData.map((d) => {
+            return [d.name].concat(d.data.map((data) => { return data.y.toString() }));
+        });
+        var groups = [];
+        //if (this.chartData.chartData.length === 1) {
+        //    var max = 0;
+        //    this.chartData.chartData[0].data.forEach((x) => {
+        //        if (x.y > max)
+        //            max = x.y;
+        //    });
+        //    var maxString = max.toString();
+        //    columns.unshift(['baseData'].concat(this.chartData.chartData[0].data.map(() => { return maxString; })));
+        //    groups.unshift(['baseData', this.chartData.chartData[0].name]);
+        //}
+        this.chart = c3.generate({
+            bindto: '#chart',
+            size: {
+                height: this.chartData.height,
+                width: this.chartData.width
+            },
+            padding: {
+                top: this.chartData.margin.top,
+                bottom: this.chartData.margin.bottom,
+                left: this.chartData.margin.left,
+                right: this.chartData.margin.right
+            },
+            data: {
+                columns: columns,
+                type: 'bar',
+                color: (color, d) => {
+                    var name = '';
+                    if (d.id) {
+                        name = d.id;
+                    } else
+                        name = d;
+                    if (name === 'baseData')
+                        return '#DFDFDF';
+                    if (this.chartData &&
+                        this.chartData.chartData &&
+                        this.chartData.chartData.filter(x => x.name === name).length > 0) {
+                        if (this.chartData.chartData.filter(x => x.name === name)[0].colour !== '')
+                            return this.chartData.chartData.filter(x => x.name === name)[0].colour;
+                    }
+                    return color;
+                }, groups: groups
+            },
+            bar: {
+                width: {
+                    ratio: 0.5 
+                }
+            },
+            tooltip: {
+                format: {
+                    title: (d) => { return this.chartData.xLegend + ': ' + d; }
+                }
+            }
+        });
     }
 
-    private initTip() {
-        this.tooltip = d3.select("body").append("div").attr("class", "toolTip");
-    }
+    //private initTip() {
+    //    this.tooltip = d3.select("body").append("div").attr("class", "toolTip");
+    //}
 
-    private initSvg() {
-        this.svg = d3.select("svg");
-        this.width = +this.chartData.width - this.chartData.margin.left - this.chartData.margin.right;
-        this.height = +this.chartData.height - this.chartData.margin.top - this.chartData.margin.bottom;
+    //private initSvg() {
+    //    this.svg = d3.select("svg");
+    //    this.width = +this.chartData.width - this.chartData.margin.left - this.chartData.margin.right;
+    //    this.height = +this.chartData.height - this.chartData.margin.top - this.chartData.margin.bottom;
 
-        this.g = this.svg.append("g")
-            .attr("transform", "translate(" + this.chartData.margin.left + "," + this.chartData.margin.top + ")");
-    }
+    //    this.g = this.svg.append("g")
+    //        .attr("transform", "translate(" + this.chartData.margin.left + "," + this.chartData.margin.top + ")");
+    //}
 
-    private initAxis() {
-        this.x = d3Scale.scaleBand().rangeRound([0, this.width]).padding(0.8);
-        this.y = d3Scale.scaleLinear().rangeRound([this.height, 0]);
-        this.x.domain(this.chartData.chartData.map((d) => d.x));
-        this.y.domain([0, d3Array.max(this.chartData.chartData, (d) => d.y)]);
-    }
+    //private initAxis() {
+    //    this.x = d3Scale.scaleBand().rangeRound([0, this.width]).padding(0.8);
+    //    this.y = d3Scale.scaleLinear().rangeRound([this.height, 0]);
+    //    this.x.domain(this.chartData.chartData.map((d) => d.x));
+    //    this.y.domain([0, d3Array.max(this.chartData.chartData, (d) => d.y)]);
+    //}
 
-    private drawAxis() {
-        this.g.append("g")
-            .attr("class", "axis axis--x")
-            .attr("transform", "translate(0," + this.height + ")")
-            .call(d3Axis.axisBottom(this.x));
-        //this.g.append("g")
-        //    .attr("class", "axis axis--y")
-        //    .call(d3Axis.axisLeft(this.y).ticks(10, "%"));
-    }
+    //private drawAxis() {
+    //    this.g.append("g")
+    //        .attr("class", "axis axis--x")
+    //        .attr("transform", "translate(0," + this.height + ")")
+    //        .call(d3Axis.axisBottom(this.x));
+    //}
 
-    private drawBars() {
-        this.g.selectAll(".bar")
-            .data(this.chartData.chartData)
-            .enter().append("rect")
-            .attr("class", "bar")
-            .attr("fill", '#9F378E')
-            .attr("x", (d) => this.x(d.x))
-            .attr("y", (d) => this.y(d.y))
-            .attr("width", this.x.bandwidth())
-            .attr("height", (d) => this.height - this.y(d.y))
-            .on("mousemove", (d) => {
-                this.tooltip
-                    .style("left", d3.event.pageX - 20 + "px")
-                    .style("top", d3.event.pageY - 20 + "px")
-                    .style("display", "inline-block")
-                    .html(d.y);
-            })
-            .on("mouseout", (d) => { this.tooltip.style("display", "none"); });
-        this.g.selectAll(".bar")
-            .data(this.chartData.chartData)
-            .enter().append("rect")
-            .attr("class", "base-bar")
-            .attr("fill", '#DFDFDF')
-            .attr("x", (d) => this.x(d.x))
-            .attr("y", () => this.chartData.height)
-            .attr("width", this.x.bandwidth())
-            .attr("height", () => this.chartData.height);
-    }
+    //private drawBars() {
+    //    this.g.selectAll(".bar")
+    //        .data(this.chartData.chartData)
+    //        .enter().append("rect")
+    //        .attr("class", "bar")
+    //        .attr("fill", '#9F378E')
+    //        .attr("x", (d) => this.x(d.x))
+    //        .attr("y", (d) => this.y(d.y))
+    //        .attr("width", this.x.bandwidth())
+    //        .attr("height", (d) => this.height - this.y(d.y))
+    //        .on("mousemove", (d) => {
+    //            this.tooltip
+    //                .style("left", d3.event.pageX - 20 + "px")
+    //                .style("top", d3.event.pageY - 20 + "px")
+    //                .style("display", "inline-block")
+    //                .html(d.y);
+    //        })
+    //        .on("mouseout", (d) => { this.tooltip.style("display", "none"); });
+    //    this.g.selectAll(".bar")
+    //        .data(this.chartData.chartData)
+    //        .enter().append("rect")
+    //        .attr("class", "base-bar")
+    //        .attr("fill", '#DFDFDF')
+    //        .attr("x", (d) => this.x(d.x))
+    //        .attr("y", () => this.chartData.height)
+    //        .attr("width", this.x.bandwidth())
+    //        .attr("height", () => this.chartData.height);
+    //}
     
 }

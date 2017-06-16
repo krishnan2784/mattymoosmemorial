@@ -36,6 +36,7 @@ var FeedItemReport = (function (_super) {
         _this.feedDataService = feedDataService;
         _this.injector = injector;
         _this.feedTypes = Enums.FeedTypeEnum;
+        _this.totalLearners = 100;
         _this.averageTimeData = new BarChartData();
         _this.model = _this.injector.get('model');
         _this.pageTitle = _this.injector.get('pageTitle');

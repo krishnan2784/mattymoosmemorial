@@ -6,13 +6,56 @@
 }
 
 .feed-cat-img {
+    margin: 0 15px 0 10px;
     width: 15px;
 }
 
+.report-title {
+    margin-bottom: 20px;
+}
+
+.header-border {
+    width: 50%;
+    height: 2px;
+    background-color: #914784;
+}
+
+.stat-title, .report-subtitle {
+    font-weight: 600;
+}
+
 .stat-title {
-     background-color: #eee;
+    background-color: #eee;
+    height: 50px;
+    padding: 0;
+    text-align: center;
+
+}
+
+.stat-title h5 {
+    padding: 0;
+    margin: 0;
+    font-weight: 600;
+}
+
+.stat-title > h5 {
+    padding-top: 10px;
+}
+
+.stat-title img {
+    height: 45px;
+}
+
+.stat-container {
+    padding: 0;
 }
 
 .stat-block {
-    border: 1px solid #eee;
+     border: 1px solid #eee;
+    margin-right: 10px;
+ }
+
+.stat-body {
+    min-height: 220px;
+    padding: 10px;
 }
