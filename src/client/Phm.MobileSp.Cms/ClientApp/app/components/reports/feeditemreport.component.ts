@@ -14,7 +14,7 @@ import FeedDataService = Feeddataservice.FeedDataService;
 import Chartclasses = require("../../models/chartclasses");
 import BarChartData = Chartclasses.BarChartData;
 import Barchartcomponent = require("../charts/barchart.component");
-
+import GaugeChartData = Chartclasses.GaugeChartData;
 declare var  Materialize: any;
 
 @Component({
@@ -35,6 +35,7 @@ export class FeedItemReport extends BaseComponent implements OnInit {
 
     public totalLearners: number = 100;
 
+    public passRatioData: GaugeChartData = new GaugeChartData({});
     public averageTimeData: BarChartData = new BarChartData();
 
     constructor(sharedService: ShareService, public feedDataService: FeedDataService,
@@ -70,11 +71,10 @@ export class FeedItemReport extends BaseComponent implements OnInit {
         //if (this.reportData) {
         //    this.averageTimeData = new BarChartData();
         //}
-        var barData = new BarChartData({
-            xLegend: "Allocated time / Submitted by day",
-            yLegend: "Number of learners"
-        });
+        var barData = new BarChartData({});
         this.averageTimeData = barData;
+        var gaugeData = new GaugeChartData({});
+        this.passRatioData = gaugeData;
     }
 
     private goBack() {

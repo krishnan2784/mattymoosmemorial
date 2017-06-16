@@ -31,8 +31,9 @@ var BarChartData = (function (_super) {
     function BarChartData(options) {
         if (options === void 0) { options = {}; }
         var _this = _super.call(this, options) || this;
-        _this.xLegend = options['xLegend'] || 'Submitted on day';
+        _this.xLegend = options['xLegend'] || '';
         _this.yLegend = options['yLegend'] || 'Number of learners';
+        _this.showLegend = options['showLegend'] || true;
         _this.chartData = options['chartData'] ||
             [{
                     name: 'Submissions',
@@ -64,4 +65,24 @@ var BarChartData = (function (_super) {
     return BarChartData;
 }(BaseChart));
 exports.BarChartData = BarChartData;
+var GaugeChartData = (function (_super) {
+    __extends(GaugeChartData, _super);
+    function GaugeChartData(options) {
+        if (options === void 0) { options = {}; }
+        var _this = _super.call(this, options) || this;
+        _this.showMinMaxLabels = options['showMinMaxLabels'] || false;
+        _this.min = options['min'] || 0;
+        _this.max = options['max'] || 100;
+        _this.units = options['units'] || '';
+        _this.arcThickness = options['arcThickness'] || 30;
+        _this.chartData = options['chartData'] || [{
+                name: 'Passed',
+                colour: '#9F378E',
+                data: 50.5
+            }];
+        return _this;
+    }
+    return GaugeChartData;
+}(BaseChart));
+exports.GaugeChartData = GaugeChartData;
 //# sourceMappingURL=chartclasses.js.map

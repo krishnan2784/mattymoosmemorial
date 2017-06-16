@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterViewChecked } from '@angular/core';
 import Chartclasses = require("../../models/chartclasses");
 import BarChartData = Chartclasses.BarChartData;
 import * as d3 from 'd3-selection';
@@ -13,10 +13,11 @@ declare var c3;
     template: require('./barchart.component.html'),
     styles: [require('./barchart.component.css')]
 })
-export class BarChart implements OnInit {
-
+export class BarChart implements OnInit, AfterViewChecked {
     @Input()
-    public chartData: BarChartData = new BarChartData({});
+    public id: string;
+    @Input()
+    public chartData: BarChartData;
 
     private chart;
 
@@ -33,9 +34,18 @@ export class BarChart implements OnInit {
     }
 
     ngOnInit() {
+        if (!this.id)
+            this.id = 'chart_' + this.chartData.title.replace(' ', '_');
+    }
+
+    ngAfterViewChecked() {
         var columns = this.chartData.chartData.map((d) => {
             return [d.name].concat(d.data.map((data) => { return data.y.toString() }));
         });
+        var xAxis = [];
+        if (this.chartData.chartData.length > 0) {
+            xAxis = this.chartData.chartData[0].data.map((d) => { return d.x});
+        }
         var groups = [];
         //if (this.chartData.chartData.length === 1) {
         //    var max = 0;
@@ -48,7 +58,7 @@ export class BarChart implements OnInit {
         //    groups.unshift(['baseData', this.chartData.chartData[0].name]);
         //}
         this.chart = c3.generate({
-            bindto: '#chart',
+            bindto: '#' + this.id,
             size: {
                 height: this.chartData.height,
                 width: this.chartData.width
@@ -79,6 +89,12 @@ export class BarChart implements OnInit {
                     return color;
                 }, groups: groups
             },
+            axis: {
+                x: {
+                    type: 'category',
+                    categories: xAxis
+                }
+            },
             bar: {
                 width: {
                     ratio: 0.5 
@@ -86,7 +102,22 @@ export class BarChart implements OnInit {
             },
             tooltip: {
                 format: {
-                    title: (d) => { return this.chartData.xLegend + ': ' + d; }
+                    title: (d) => {
+                        if (!this.chartData.xLegend || this.chartData.xLegend === '')
+                            return '';
+                        return this.chartData.xLegend + ': ' + d;
+                    }
+                }
+            },
+            legend: {
+                show: this.chartData.showLegend,
+                inset: {
+                    anchor: 'top-left',
+                    x: 20,
+                    y: 10
+                },
+                item: {
+                    onclick: (id) => {}
                 }
             }
         });

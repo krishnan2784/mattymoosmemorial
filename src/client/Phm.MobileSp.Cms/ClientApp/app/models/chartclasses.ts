@@ -16,14 +16,16 @@
     }
 }
 export class BarChartData extends BaseChart {
-    chartData: [{ name: string, colour: string, data: [{ x: number, y: number }]}];
+    chartData: [{ name: string, colour: string, data: [{ x: number, y: number }] }];
     xLegend: string;
     yLegend: string;
+    showLegend: boolean;
 
     constructor(options: {} = {}) {
         super(options);
-        this.xLegend = options['xLegend'] || 'Submitted on day';
+        this.xLegend = options['xLegend'] || '';
         this.yLegend = options['yLegend'] || 'Number of learners';
+        this.showLegend = options['showLegend'] || true;
         this.chartData = options['chartData'] ||
         [{
             name: 'Submissions',
@@ -53,3 +55,27 @@ export class BarChartData extends BaseChart {
     }
 }
 
+export class GaugeChartData extends BaseChart {
+    chartData: [{ name: string, colour: string, data: number }];
+    showMinMaxLabels: boolean;
+    min: number;
+    max: number;
+    units: string;
+    
+    arcThickness: number;
+
+    constructor(options: {} = {}) {
+        super(options);
+        this.showMinMaxLabels = options['showMinMaxLabels'] || false;
+        this.min = options['min'] || 0;
+        this.max = options['max'] || 100;
+        this.units = options['units'] || '';
+        this.arcThickness = options['arcThickness'] || 30;
+
+        this.chartData = options['chartData'] || [{
+            name: 'Passed',
+            colour: '#9F378E',
+            data: 50.5
+        }];
+    }
+}

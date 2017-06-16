@@ -11,41 +11,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var Chartclasses = require("../../models/chartclasses");
-var BarChartData = Chartclasses.BarChartData;
-var BarChart = (function () {
-    //public tooltip;
-    //private width: number;
-    //private height: number;
-    //private x: any;
-    //private y: any;
-    //private svg: any;
-    //private g: any;
-    function BarChart() {
+var GaugeChartData = Chartclasses.GaugeChartData;
+var GaugeChart = (function () {
+    function GaugeChart() {
     }
-    BarChart.prototype.ngOnInit = function () {
+    GaugeChart.prototype.ngOnInit = function () {
         if (!this.id)
             this.id = 'chart_' + this.chartData.title.replace(' ', '_');
     };
-    BarChart.prototype.ngAfterViewChecked = function () {
+    GaugeChart.prototype.ngAfterViewChecked = function () {
         var _this = this;
         var columns = this.chartData.chartData.map(function (d) {
-            return [d.name].concat(d.data.map(function (data) { return data.y.toString(); }));
+            return [d.name, d.data];
         });
-        var xAxis = [];
-        if (this.chartData.chartData.length > 0) {
-            xAxis = this.chartData.chartData[0].data.map(function (d) { return d.x; });
-        }
-        var groups = [];
-        //if (this.chartData.chartData.length === 1) {
-        //    var max = 0;
-        //    this.chartData.chartData[0].data.forEach((x) => {
-        //        if (x.y > max)
-        //            max = x.y;
-        //    });
-        //    var maxString = max.toString();
-        //    columns.unshift(['baseData'].concat(this.chartData.chartData[0].data.map(() => { return maxString; })));
-        //    groups.unshift(['baseData', this.chartData.chartData[0].name]);
-        //}
         this.chart = c3.generate({
             bindto: '#' + this.id,
             size: {
@@ -60,7 +38,10 @@ var BarChart = (function () {
             },
             data: {
                 columns: columns,
-                type: 'bar',
+                type: 'gauge',
+                onclick: function (d, i) { console.log("onclick", d, i); },
+                onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+                onmouseout: function (d, i) { console.log("onmouseout", d, i); },
                 color: function (color, d) {
                     var name = '';
                     if (d.id) {
@@ -77,58 +58,52 @@ var BarChart = (function () {
                             return _this.chartData.chartData.filter(function (x) { return x.name === name; })[0].colour;
                     }
                     return color;
-                }, groups: groups
-            },
-            axis: {
-                x: {
-                    type: 'category',
-                    categories: xAxis
                 }
             },
-            bar: {
-                width: {
-                    ratio: 0.5
-                }
-            },
-            tooltip: {
-                format: {
-                    title: function (d) {
-                        if (!_this.chartData.xLegend || _this.chartData.xLegend === '')
-                            return '';
-                        return _this.chartData.xLegend + ': ' + d;
-                    }
-                }
-            },
-            legend: {
-                show: this.chartData.showLegend,
-                inset: {
-                    anchor: 'top-left',
-                    x: 20,
-                    y: 10
+            gauge: {
+                label: {
+                    format: function (value, ratio) {
+                        return value;
+                    },
+                    show: this.chartData.showMinMaxLabels
                 },
-                item: {
-                    onclick: function (id) { }
-                }
+                min: this.chartData.min,
+                max: this.chartData.max,
+                units: ' ' + this.chartData.units,
+                width: this.chartData.arcThickness
             }
+            //color: {
+            //    pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
+            //    threshold: {
+            //        //            unit: 'value', // percentage is default
+            //        //            max: 200, // 100 is default
+            //        values: [30, 60, 90, 100]
+            //    }
+            //},
+            //tooltip: {
+            //    format: {
+            //        title: (d) => { return this. + ': ' + d; }
+            //    }
+            //}
         });
     };
-    return BarChart;
+    return GaugeChart;
 }());
 __decorate([
     core_1.Input(),
     __metadata("design:type", String)
-], BarChart.prototype, "id", void 0);
+], GaugeChart.prototype, "id", void 0);
 __decorate([
     core_1.Input(),
-    __metadata("design:type", BarChartData)
-], BarChart.prototype, "chartData", void 0);
-BarChart = __decorate([
+    __metadata("design:type", GaugeChartData)
+], GaugeChart.prototype, "chartData", void 0);
+GaugeChart = __decorate([
     core_1.Component({
-        selector: 'barchart',
-        template: require('./barchart.component.html'),
-        styles: [require('./barchart.component.css')]
+        selector: 'gaugechart',
+        template: require('./gaugechart.component.html'),
+        styles: [require('./gaugechart.component.css')]
     }),
     __metadata("design:paramtypes", [])
-], BarChart);
-exports.BarChart = BarChart;
-//# sourceMappingURL=barchart.component.js.map
+], GaugeChart);
+exports.GaugeChart = GaugeChart;
+//# sourceMappingURL=gaugechart.component.js.map

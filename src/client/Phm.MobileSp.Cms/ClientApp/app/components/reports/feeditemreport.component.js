@@ -29,6 +29,7 @@ var Feeddataservice = require("../../dataservices/feeddataservice");
 var FeedDataService = Feeddataservice.FeedDataService;
 var Chartclasses = require("../../models/chartclasses");
 var BarChartData = Chartclasses.BarChartData;
+var GaugeChartData = Chartclasses.GaugeChartData;
 var FeedItemReport = (function (_super) {
     __extends(FeedItemReport, _super);
     function FeedItemReport(sharedService, feedDataService, injector) {
@@ -37,6 +38,7 @@ var FeedItemReport = (function (_super) {
         _this.injector = injector;
         _this.feedTypes = Enums.FeedTypeEnum;
         _this.totalLearners = 100;
+        _this.passRatioData = new GaugeChartData({});
         _this.averageTimeData = new BarChartData();
         _this.model = _this.injector.get('model');
         _this.pageTitle = _this.injector.get('pageTitle');
@@ -66,11 +68,10 @@ var FeedItemReport = (function (_super) {
         //if (this.reportData) {
         //    this.averageTimeData = new BarChartData();
         //}
-        var barData = new BarChartData({
-            xLegend: "Allocated time / Submitted by day",
-            yLegend: "Number of learners"
-        });
+        var barData = new BarChartData({});
         this.averageTimeData = barData;
+        var gaugeData = new GaugeChartData({});
+        this.passRatioData = gaugeData;
     };
     FeedItemReport.prototype.goBack = function () {
         this.pageTitle = null;

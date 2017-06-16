@@ -22,7 +22,8 @@
                     </div>
                     <img src="assets/images/Icon-Learning-b.png" class="right"/>
                 </div>
-                <div class="stat-body" *ngIf="averageTimeData">
+                <div class="stat-body" *ngIf="passRatioData">
+                    <gaugechart [chartData]="passRatioData" [id]="'passRatioChart'"></gaugechart>
                 </div>
             </div>
         </div>
@@ -47,7 +48,7 @@
                     </h5>
                 </div>
                 <div class="stat-body" *ngIf="averageTimeData">
-                    <barchart [chartData]="averageTimeData"></barchart>
+                    <barchart [chartData]="averageTimeData" [id]="'averageTimeChart'"></barchart>
                 </div>
             </div>
         </div>

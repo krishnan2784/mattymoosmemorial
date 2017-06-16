@@ -47,6 +47,8 @@ var Barchartcomponent = require("./components/charts/barchart.component");
 var BarChart = Barchartcomponent.BarChart;
 var Basefeeditemreportcomponent = require("./components/reports/basefeeditemreport.component");
 var FeedItemReportContainerComponent = Basefeeditemreportcomponent.FeedItemReportContainerComponent;
+var Gaugechartcomponent = require("./components/charts/gaugechart.component");
+var GaugeChart = Gaugechartcomponent.GaugeChart;
 var AppModule = (function () {
     function AppModule() {
     }
@@ -83,6 +85,7 @@ AppModule = __decorate([
             feeditemreport_component_1.FeedItemReport,
             // charts
             BarChart,
+            GaugeChart,
             //modals
             FeedItemCopyToMarket
         ],
