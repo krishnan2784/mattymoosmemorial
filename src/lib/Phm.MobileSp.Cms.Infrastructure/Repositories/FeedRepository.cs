@@ -83,7 +83,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             return response.Deleted;
         }
 
-        public async Task<List<FeedItemSummary>> GetFeedItemSummary(int feedItemId)
+        public async Task<FeedItemSummary> GetFeedItemSummary(int feedItemId)
         {
             var request = GetRequest(new GetQuizFeedSummariesRequest
             {
@@ -94,7 +94,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             });
             var response = await _proxyClient.GetQuizFeedSummariesAsync(request);
             var mapper = new AutoMapperGenericsHelper<QuizSummaryDto, FeedItemSummary>();
-            var summary = mapper.ConvertToDbEntity(response.QuizSummaries);
+            var summary = mapper.ConvertToDbEntity(response.QuizSummaries.FirstOrDefault());
             return summary;
         }
         

@@ -74,7 +74,7 @@ var GaugeChartData = (function (_super) {
         _this.min = options['min'] || 0;
         _this.max = options['max'] || 100;
         _this.units = options['units'] || '';
-        _this.arcThickness = options['arcThickness'] || 30;
+        _this.arcThickness = options['arcThickness'] || 5;
         _this.chartData = options['chartData'] || [{
                 name: 'Passed',
                 colour: '#9F378E',
@@ -85,4 +85,26 @@ var GaugeChartData = (function (_super) {
     return GaugeChartData;
 }(BaseChart));
 exports.GaugeChartData = GaugeChartData;
+var DonutChartData = (function (_super) {
+    __extends(DonutChartData, _super);
+    function DonutChartData(options) {
+        if (options === void 0) { options = {}; }
+        var _this = _super.call(this, options) || this;
+        _this.showLegend = options['showLegend'] || true;
+        _this.arcThickness = options['arcThickness'] || 10;
+        _this.chartData = options['chartData'] ||
+            [{
+                    name: 'Pass',
+                    colour: '#9F378E',
+                    data: [80]
+                }, {
+                    name: 'Fail',
+                    colour: '#ECECEC',
+                    data: [20]
+                }];
+        return _this;
+    }
+    return DonutChartData;
+}(BaseChart));
+exports.DonutChartData = DonutChartData;
 //# sourceMappingURL=chartclasses.js.map

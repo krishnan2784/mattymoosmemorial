@@ -1,19 +1,19 @@
 import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import Chartclasses = require("../../models/chartclasses");
-import GaugeChartData = Chartclasses.GaugeChartData;
+import DonutChartData = Chartclasses.DonutChartData;
 
 declare var c3;
 
 @Component({
-    selector: 'gaugechart',
-    template: require('./gaugechart.component.html'),
-    styles: [require('./gaugechart.component.css')]
+    selector: 'donutchart',
+    template: require('./donutchart.component.html'),
+    styles: [require('./donutchart.component.css')]
 })
-export class GaugeChart implements OnInit, AfterViewInit {
+export class DonutChart implements OnInit, AfterViewInit {
     @Input()
     public id: string;
     @Input()
-    public chartData: GaugeChartData;
+    public chartData: DonutChartData;
 
     private chart;
 
@@ -26,12 +26,12 @@ export class GaugeChart implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-         var columns = this.chartData.chartData.map((d) => {
-            return [d.name, d.data];
+        var columns = this.chartData.chartData.map((d) => {
+            return [d.name].concat(d.data.map((data) => { return data.toString() }));
         });
 
         this.chart = c3.generate({
-            bindto:  '#' + this.id,
+            bindto: '#' + this.id,
             size: {
                 height: this.chartData.height,
                 width: this.chartData.width
@@ -44,7 +44,7 @@ export class GaugeChart implements OnInit, AfterViewInit {
             },
             data: {
                 columns: columns,
-                type: 'gauge',
+                type: 'donut',
                 onclick: (d, i) => { console.log("onclick", d, i); },
                 onmouseover: (d, i) => { console.log("onmouseover", d, i); },
                 onmouseout: (d, i) => { console.log("onmouseout", d, i); },
@@ -65,31 +65,9 @@ export class GaugeChart implements OnInit, AfterViewInit {
                     return color;
                 }
             },
-            gauge: {
-                label: {
-                    format: (value, ratio) => {
-                        return this.chartData.title;
-                    },
-                    show: this.chartData.showMinMaxLabels 
-                },
-                min: this.chartData.min, 
-                max: this.chartData.max, 
-                units: ' ' + this.chartData.units,
-                width: this.chartData.arcThickness
+            donut: {
+                title: this.chartData.title
             }
-            //color: {
-            //    pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
-            //    threshold: {
-            //        //            unit: 'value', // percentage is default
-            //        //            max: 200, // 100 is default
-            //        values: [30, 60, 90, 100]
-            //    }
-            //},
-            //tooltip: {
-            //    format: {
-            //        title: (d) => { return this. + ': ' + d; }
-            //    }
-            //}
         });
     }
 

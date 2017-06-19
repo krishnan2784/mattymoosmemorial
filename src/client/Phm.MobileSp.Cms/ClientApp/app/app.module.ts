@@ -46,6 +46,8 @@ import Basefeeditemreportcomponent = require("./components/reports/basefeeditemr
 import FeedItemReportContainerComponent = Basefeeditemreportcomponent.FeedItemReportContainerComponent;
 import Gaugechartcomponent = require("./components/charts/gaugechart.component");
 import GaugeChart = Gaugechartcomponent.GaugeChart;
+import Donutchartcomponent = require("./components/charts/donutchart.component");
+import DonutChart = Donutchartcomponent.DonutChart;
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -82,6 +84,7 @@ import GaugeChart = Gaugechartcomponent.GaugeChart;
         // charts
         BarChart,
         GaugeChart,
+        DonutChart,
 
         //modals
         FeedItemCopyToMarket

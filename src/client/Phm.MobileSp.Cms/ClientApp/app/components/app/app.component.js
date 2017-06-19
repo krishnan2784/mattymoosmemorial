@@ -21,6 +21,9 @@ var AppComponent = (function () {
         sharedService.pageTitleUpdated.subscribe(function (pageTitle) {
             _this.setPageTitle(pageTitle);
         });
+        sharedService.backButtonUpdated.subscribe(function (backText) {
+            _this.setBackText(backText);
+        });
         sharedService.marketDropdownVisibilitypeUpdated.subscribe(function (isVisible) {
             _this.setMarketDropdownVisibility(isVisible);
         });
@@ -28,8 +31,14 @@ var AppComponent = (function () {
     AppComponent.prototype.setPageTitle = function (value) {
         this.pageTitle = value;
     };
+    AppComponent.prototype.setBackText = function (value) {
+        this.backButtonText = value;
+    };
     AppComponent.prototype.setMarketDropdownVisibility = function (value) {
         this.marketDropdownIsVisible = value;
+    };
+    AppComponent.prototype.goBack = function () {
+        this.sharedService.goBackEvent.emit();
     };
     return AppComponent;
 }());

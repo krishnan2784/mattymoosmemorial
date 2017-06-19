@@ -42,8 +42,8 @@
     padding-top: 10px;
 }
 
-.stat-title img {
-    height: 45px;
+.stat-title i {
+    font-size: 3.5em;
 }
 
 .stat-container {

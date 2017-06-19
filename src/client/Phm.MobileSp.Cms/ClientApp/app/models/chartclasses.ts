@@ -61,7 +61,6 @@ export class GaugeChartData extends BaseChart {
     min: number;
     max: number;
     units: string;
-    
     arcThickness: number;
 
     constructor(options: {} = {}) {
@@ -70,12 +69,34 @@ export class GaugeChartData extends BaseChart {
         this.min = options['min'] || 0;
         this.max = options['max'] || 100;
         this.units = options['units'] || '';
-        this.arcThickness = options['arcThickness'] || 30;
+        this.arcThickness = options['arcThickness'] || 5;
 
         this.chartData = options['chartData'] || [{
             name: 'Passed',
             colour: '#9F378E',
             data: 50.5
+        }];
+    }
+}
+
+export class DonutChartData extends BaseChart {
+    chartData: [{ name: string, colour: string, data: number[] }];
+    showLegend: boolean;
+    arcThickness: number;
+
+    constructor(options: {} = {}) {
+        super(options);
+        this.showLegend = options['showLegend'] || true;
+        this.arcThickness = options['arcThickness'] || 10;
+        this.chartData = options['chartData'] ||
+        [{
+            name: 'Pass',
+            colour: '#9F378E',
+            data: [80]
+        }, {
+            name: 'Fail',
+            colour: '#ECECEC',
+            data: [20]
         }];
     }
 }

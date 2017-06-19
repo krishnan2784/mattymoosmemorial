@@ -84,10 +84,15 @@ export class FeedReportIndexComponent extends BaseComponent implements OnInit, O
     viewFeedItemDetails(feedItem: IFeedItem = null) {
         let inputs = { model: feedItem, pageTitle: '' };
         var report = FeedItemReport;
+        this.updateMarketDropdownVisibility(false);
+        this.updateBackText('Back to Reports Index');
+        this.updatePageTitle(Enums.FeedTypeEnum[feedItem.feedType] + ' Analytics Reports');
+
         report.prototype.onBackEvent = new EventEmitter();
         report.prototype.onBackEvent.subscribe(() => {
             this.setPageTitle();
             this.updateMarketDropdownVisibility(true);
+            this.updateBackText('');
             this.selectedItem = null;
         });
         this.selectedItem = {

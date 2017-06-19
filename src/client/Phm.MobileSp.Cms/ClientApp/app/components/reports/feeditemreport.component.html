@@ -20,10 +20,14 @@
                         <p>Total learners</p>
                         <div class="clearboth"></div>
                     </div>
-                    <img src="assets/images/Icon-Learning-b.png" class="right"/>
+                    <i class="material-icons right">person</i> 
                 </div>
                 <div class="stat-body" *ngIf="passRatioData">
                     <gaugechart [chartData]="passRatioData" [id]="'passRatioChart'"></gaugechart>
+                    <h5 *ngIf="reportData">
+                        <b>{{reportData.submitted}} <span>submitted / </span></b>
+                        {{reportData.passed}} <span> passed</span>
+                    </h5>
                 </div>
             </div>
         </div>
@@ -35,7 +39,8 @@
                         Average Score
                     </h5>
                 </div>
-                <div class="stat-body" *ngIf="averageTimeData">
+                <div class="stat-body" *ngIf="averageScoreData">
+                    <donutchart [chartData]="averageScoreData" [id]="'averageScoreChart'"></donutchart>
                 </div>
             </div>
         </div>

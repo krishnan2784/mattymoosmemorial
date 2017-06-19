@@ -26,7 +26,7 @@ var BarChart = (function () {
         if (!this.id)
             this.id = 'chart_' + this.chartData.title.replace(' ', '_');
     };
-    BarChart.prototype.ngAfterViewChecked = function () {
+    BarChart.prototype.ngAfterViewInit = function () {
         var _this = this;
         var columns = this.chartData.chartData.map(function (d) {
             return [d.name].concat(d.data.map(function (data) { return data.y.toString(); }));

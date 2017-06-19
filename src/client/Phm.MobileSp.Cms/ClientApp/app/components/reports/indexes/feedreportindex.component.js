@@ -87,10 +87,14 @@ var FeedReportIndexComponent = (function (_super) {
         if (feedItem === void 0) { feedItem = null; }
         var inputs = { model: feedItem, pageTitle: '' };
         var report = FeedItemReport;
+        this.updateMarketDropdownVisibility(false);
+        this.updateBackText('Back to Reports Index');
+        this.updatePageTitle(Enums.FeedTypeEnum[feedItem.feedType] + ' Analytics Reports');
         report.prototype.onBackEvent = new core_1.EventEmitter();
         report.prototype.onBackEvent.subscribe(function () {
             _this.setPageTitle();
             _this.updateMarketDropdownVisibility(true);
+            _this.updateBackText('');
             _this.selectedItem = null;
         });
         this.selectedItem = {

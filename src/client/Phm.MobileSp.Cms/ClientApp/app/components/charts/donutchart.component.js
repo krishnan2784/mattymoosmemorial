@@ -11,18 +11,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var Chartclasses = require("../../models/chartclasses");
-var GaugeChartData = Chartclasses.GaugeChartData;
-var GaugeChart = (function () {
-    function GaugeChart() {
+var DonutChartData = Chartclasses.DonutChartData;
+var DonutChart = (function () {
+    function DonutChart() {
     }
-    GaugeChart.prototype.ngOnInit = function () {
+    DonutChart.prototype.ngOnInit = function () {
         if (!this.id)
             this.id = 'chart_' + this.chartData.title.replace(' ', '_');
     };
-    GaugeChart.prototype.ngAfterViewInit = function () {
+    DonutChart.prototype.ngAfterViewInit = function () {
         var _this = this;
         var columns = this.chartData.chartData.map(function (d) {
-            return [d.name, d.data];
+            return [d.name].concat(d.data.map(function (data) { return data.toString(); }));
         });
         this.chart = c3.generate({
             bindto: '#' + this.id,
@@ -38,7 +38,7 @@ var GaugeChart = (function () {
             },
             data: {
                 columns: columns,
-                type: 'gauge',
+                type: 'donut',
                 onclick: function (d, i) { console.log("onclick", d, i); },
                 onmouseover: function (d, i) { console.log("onmouseover", d, i); },
                 onmouseout: function (d, i) { console.log("onmouseout", d, i); },
@@ -60,50 +60,28 @@ var GaugeChart = (function () {
                     return color;
                 }
             },
-            gauge: {
-                label: {
-                    format: function (value, ratio) {
-                        return _this.chartData.title;
-                    },
-                    show: this.chartData.showMinMaxLabels
-                },
-                min: this.chartData.min,
-                max: this.chartData.max,
-                units: ' ' + this.chartData.units,
-                width: this.chartData.arcThickness
+            donut: {
+                title: this.chartData.title
             }
-            //color: {
-            //    pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
-            //    threshold: {
-            //        //            unit: 'value', // percentage is default
-            //        //            max: 200, // 100 is default
-            //        values: [30, 60, 90, 100]
-            //    }
-            //},
-            //tooltip: {
-            //    format: {
-            //        title: (d) => { return this. + ': ' + d; }
-            //    }
-            //}
         });
     };
-    return GaugeChart;
+    return DonutChart;
 }());
 __decorate([
     core_1.Input(),
     __metadata("design:type", String)
-], GaugeChart.prototype, "id", void 0);
+], DonutChart.prototype, "id", void 0);
 __decorate([
     core_1.Input(),
-    __metadata("design:type", GaugeChartData)
-], GaugeChart.prototype, "chartData", void 0);
-GaugeChart = __decorate([
+    __metadata("design:type", DonutChartData)
+], DonutChart.prototype, "chartData", void 0);
+DonutChart = __decorate([
     core_1.Component({
-        selector: 'gaugechart',
-        template: require('./gaugechart.component.html'),
-        styles: [require('./gaugechart.component.css')]
+        selector: 'donutchart',
+        template: require('./donutchart.component.html'),
+        styles: [require('./donutchart.component.css')]
     }),
     __metadata("design:paramtypes", [])
-], GaugeChart);
-exports.GaugeChart = GaugeChart;
-//# sourceMappingURL=gaugechart.component.js.map
+], DonutChart);
+exports.DonutChart = DonutChart;
+//# sourceMappingURL=donutchart.component.js.map

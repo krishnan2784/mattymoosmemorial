@@ -16,15 +16,21 @@ var ShareService = (function () {
         this.currentMarketId = this.currentMarket.id;
         this.pageTitleUpdate = new Subject_1.Subject();
         this.pageTitleUpdated = this.pageTitleUpdate.asObservable();
+        this.backButtonUpdate = new Subject_1.Subject();
+        this.backButtonUpdated = this.backButtonUpdate.asObservable();
         this.marketDropdownVisibilitypeUpdate = new Subject_1.Subject();
         this.marketDropdownVisibilitypeUpdated = this.marketDropdownVisibilitypeUpdate.asObservable();
         this.marketUpdate = new Subject_1.Subject();
         this.marketUpdated = this.marketUpdate.asObservable();
         this.feedItemUpdate = new Subject_1.Subject();
         this.feedItemUpdated = this.feedItemUpdate.asObservable();
+        this.goBackEvent = new core_1.EventEmitter();
     }
     ShareService.prototype.updatePageTitle = function (pageTitle) {
         this.pageTitleUpdate.next(pageTitle);
+    };
+    ShareService.prototype.updateBackButton = function (backText) {
+        this.backButtonUpdate.next(backText);
     };
     ShareService.prototype.updateMarketDropdownVisibility = function (isMarketDropdownVisible) {
         this.marketDropdownVisibilitypeUpdate.next(isMarketDropdownVisible);
@@ -37,6 +43,9 @@ var ShareService = (function () {
     };
     ShareService.prototype.updateFeedItem = function (feedItem) {
         this.feedItemUpdate.next(feedItem);
+    };
+    ShareService.prototype.goBack = function () {
+        this.goBackEvent.emit();
     };
     return ShareService;
 }());

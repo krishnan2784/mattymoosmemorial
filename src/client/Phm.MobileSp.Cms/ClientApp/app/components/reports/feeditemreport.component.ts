@@ -15,6 +15,9 @@ import Chartclasses = require("../../models/chartclasses");
 import BarChartData = Chartclasses.BarChartData;
 import Barchartcomponent = require("../charts/barchart.component");
 import GaugeChartData = Chartclasses.GaugeChartData;
+import DonutChartData = Chartclasses.DonutChartData;
+import Reportclasses = require("../../models/reportclasses");
+import FeedItemSummary = Reportclasses.FeedItemSummary;
 declare var  Materialize: any;
 
 @Component({
@@ -22,7 +25,7 @@ declare var  Materialize: any;
     template: require('./feeditemreport.component.html'),
     styles: [require('./feeditemreport.component.css')]
 })
-export class FeedItemReport extends BaseComponent implements OnInit {
+export class FeedItemReport implements OnInit {
     @Output()
     public onBackEvent: EventEmitter<any>;
 
@@ -31,34 +34,34 @@ export class FeedItemReport extends BaseComponent implements OnInit {
     public feedTypeString: string;
     public feedTypes = Enums.FeedTypeEnum;
 
-    public reportData: any;
+    public reportData: FeedItemSummary;
 
     public totalLearners: number = 100;
 
-    public passRatioData: GaugeChartData = new GaugeChartData({});
-    public averageTimeData: BarChartData = new BarChartData();
+    public passRatioData: GaugeChartData;
+    public averageScoreData: DonutChartData;
+    public averageTimeData: BarChartData;
 
-    constructor(sharedService: ShareService, public feedDataService: FeedDataService,
+    constructor(private sharedService: ShareService, public feedDataService: FeedDataService,
         private injector: Injector) { 
-        super(sharedService, '', false);
         this.model = this.injector.get('model');
         this.pageTitle = this.injector.get('pageTitle');
+        this.feedTypeString = Enums.FeedTypeEnum[this.model.feedType];
+
+        this.sharedService.goBackEvent.subscribe(() => {
+            this.onBackEvent.emit();
+        });
     }
 
     ngOnInit() {
-        if (!this.pageTitle || this.pageTitle === '')
-            this.pageTitle = Enums.FeedTypeEnum[this.model.feedType] + ' Analytics Reports';
-        this.updatePageTitle(this.pageTitle);
-
-        this.feedTypeString = Enums.FeedTypeEnum[this.model.feedType];
-
         this.getData();
     }
 
     private getData() {
         this.feedDataService.getFeedItemReport(this.model.id).subscribe((result) => {
             if (result.success) {
-                this.reportData = result.content;
+                //this.reportData = new FeedItemSummary(result.content);
+                this.reportData = new FeedItemSummary({});
                 this.updateReport();
             } else {
                 Materialize.toast(result.message, 5000, 'red');
@@ -73,11 +76,33 @@ export class FeedItemReport extends BaseComponent implements OnInit {
         //}
         var barData = new BarChartData({});
         this.averageTimeData = barData;
-        var gaugeData = new GaugeChartData({});
+        var gaugeData = new GaugeChartData({
+            height: 150,
+            chartData: [
+                {
+                    name: 'Passed',
+                    colour: '#9F378E',
+                    data: (this.reportData.passed / this.reportData.submitted) * 100
+                }
+            ]
+        });
         this.passRatioData = gaugeData;
+        var donutData = new DonutChartData({
+            chartData: [
+                {
+                    name: 'Pass',
+                    colour: '#9F378E',
+                    data: [this.reportData.averageScore]
+                }, {
+                    name: 'Fail',
+                    colour: '#ECECEC',
+                    data: [100 - this.reportData.averageScore]
+                }]
+        });
+        this.averageScoreData = donutData;
     }
 
-    private goBack() {
+    public goBack() {
         this.pageTitle = null;
         this.model = null;
         this.averageTimeData = null;

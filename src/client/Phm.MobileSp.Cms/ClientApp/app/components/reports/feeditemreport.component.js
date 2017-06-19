@@ -1,14 +1,4 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -20,8 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var Basecomponent = require("../base.component");
-var BaseComponent = Basecomponent.BaseComponent;
 var Datashareservice = require("../../dataservices/datashareservice");
 var ShareService = Datashareservice.ShareService;
 var Enums = require("../../enums");
@@ -30,32 +18,33 @@ var FeedDataService = Feeddataservice.FeedDataService;
 var Chartclasses = require("../../models/chartclasses");
 var BarChartData = Chartclasses.BarChartData;
 var GaugeChartData = Chartclasses.GaugeChartData;
-var FeedItemReport = (function (_super) {
-    __extends(FeedItemReport, _super);
+var DonutChartData = Chartclasses.DonutChartData;
+var Reportclasses = require("../../models/reportclasses");
+var FeedItemSummary = Reportclasses.FeedItemSummary;
+var FeedItemReport = (function () {
     function FeedItemReport(sharedService, feedDataService, injector) {
-        var _this = _super.call(this, sharedService, '', false) || this;
-        _this.feedDataService = feedDataService;
-        _this.injector = injector;
-        _this.feedTypes = Enums.FeedTypeEnum;
-        _this.totalLearners = 100;
-        _this.passRatioData = new GaugeChartData({});
-        _this.averageTimeData = new BarChartData();
-        _this.model = _this.injector.get('model');
-        _this.pageTitle = _this.injector.get('pageTitle');
-        return _this;
+        var _this = this;
+        this.sharedService = sharedService;
+        this.feedDataService = feedDataService;
+        this.injector = injector;
+        this.feedTypes = Enums.FeedTypeEnum;
+        this.totalLearners = 100;
+        this.model = this.injector.get('model');
+        this.pageTitle = this.injector.get('pageTitle');
+        this.feedTypeString = Enums.FeedTypeEnum[this.model.feedType];
+        this.sharedService.goBackEvent.subscribe(function () {
+            _this.onBackEvent.emit();
+        });
     }
     FeedItemReport.prototype.ngOnInit = function () {
-        if (!this.pageTitle || this.pageTitle === '')
-            this.pageTitle = Enums.FeedTypeEnum[this.model.feedType] + ' Analytics Reports';
-        this.updatePageTitle(this.pageTitle);
-        this.feedTypeString = Enums.FeedTypeEnum[this.model.feedType];
         this.getData();
     };
     FeedItemReport.prototype.getData = function () {
         var _this = this;
         this.feedDataService.getFeedItemReport(this.model.id).subscribe(function (result) {
             if (result.success) {
-                _this.reportData = result.content;
+                //this.reportData = new FeedItemSummary(result.content);
+                _this.reportData = new FeedItemSummary({});
                 _this.updateReport();
             }
             else {
@@ -70,8 +59,31 @@ var FeedItemReport = (function (_super) {
         //}
         var barData = new BarChartData({});
         this.averageTimeData = barData;
-        var gaugeData = new GaugeChartData({});
+        var gaugeData = new GaugeChartData({
+            height: 150,
+            chartData: [
+                {
+                    name: 'Passed',
+                    colour: '#9F378E',
+                    data: (this.reportData.passed / this.reportData.submitted) * 100
+                }
+            ]
+        });
         this.passRatioData = gaugeData;
+        var donutData = new DonutChartData({
+            chartData: [
+                {
+                    name: 'Pass',
+                    colour: '#9F378E',
+                    data: [this.reportData.averageScore]
+                }, {
+                    name: 'Fail',
+                    colour: '#ECECEC',
+                    data: [100 - this.reportData.averageScore]
+                }
+            ]
+        });
+        this.averageScoreData = donutData;
     };
     FeedItemReport.prototype.goBack = function () {
         this.pageTitle = null;
@@ -80,7 +92,7 @@ var FeedItemReport = (function (_super) {
         this.onBackEvent.emit();
     };
     return FeedItemReport;
-}(BaseComponent));
+}());
 __decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)

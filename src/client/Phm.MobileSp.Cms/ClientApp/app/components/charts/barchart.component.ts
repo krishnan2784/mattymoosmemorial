@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import Chartclasses = require("../../models/chartclasses");
 import BarChartData = Chartclasses.BarChartData;
 import * as d3 from 'd3-selection';
@@ -13,7 +13,7 @@ declare var c3;
     template: require('./barchart.component.html'),
     styles: [require('./barchart.component.css')]
 })
-export class BarChart implements OnInit, AfterViewChecked {
+export class BarChart implements OnInit, AfterViewInit {
     @Input()
     public id: string;
     @Input()
@@ -38,7 +38,7 @@ export class BarChart implements OnInit, AfterViewChecked {
             this.id = 'chart_' + this.chartData.title.replace(' ', '_');
     }
 
-    ngAfterViewChecked() {
+    ngAfterViewInit() {
         var columns = this.chartData.chartData.map((d) => {
             return [d.name].concat(d.data.map((data) => { return data.y.toString() }));
         });

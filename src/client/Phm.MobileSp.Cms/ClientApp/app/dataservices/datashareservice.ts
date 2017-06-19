@@ -1,5 +1,5 @@
 ﻿import { Observable } from 'rxjs/Observable';
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import Userclasses = require("../models/userclasses");
 import UserMarket = Userclasses.UserMarket;
@@ -16,6 +16,13 @@ export class ShareService {
 
     public updatePageTitle(pageTitle: string) {
         this.pageTitleUpdate.next(pageTitle);
+    }
+
+    private backButtonUpdate = new Subject<string>();
+    backButtonUpdated = this.backButtonUpdate.asObservable();
+
+    public updateBackButton(backText: string) {
+        this.backButtonUpdate.next(backText);
     }
 
     private marketDropdownVisibilitypeUpdate = new Subject<boolean>();
@@ -40,5 +47,11 @@ export class ShareService {
 
     public updateFeedItem(feedItem: IFeedItem) {
         this.feedItemUpdate.next(feedItem);
+    }
+
+    public goBackEvent: EventEmitter<any> = new EventEmitter<any>();
+
+    public goBack() {
+        this.goBackEvent.emit();
     }
 }
