@@ -40,18 +40,23 @@ export class FeedReportIndexComponent extends BaseComponent implements OnInit, O
 
     setupSubscriptions() {
         this.sharedService.marketUpdated.subscribe((market) => {
-            this.currentMarket = market;
-            this.feedItems = null;
-            this.getData();
+            this.updateMarket();
         });
+    }
+
+    updateMarket() {
+        if (!this.sharedService.currentMarket || !this.sharedService.currentMarket.id)
+            return;
+        this.currentMarket = this.sharedService.currentMarket;
+        this.feedItems = null;
+        this.getData();
     }
 
     ngOnInit() {
         this.id_sub = this.route.params.subscribe(
             (params: any) => {
-                this.feedItems = null;
                 this.feedTypeId = +params["feedType"];
-                this.getData();
+                this.updateMarket();
             }
         );
     }

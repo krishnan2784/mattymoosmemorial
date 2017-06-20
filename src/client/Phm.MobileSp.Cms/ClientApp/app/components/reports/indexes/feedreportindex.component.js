@@ -45,17 +45,21 @@ var FeedReportIndexComponent = (function (_super) {
     FeedReportIndexComponent.prototype.setupSubscriptions = function () {
         var _this = this;
         this.sharedService.marketUpdated.subscribe(function (market) {
-            _this.currentMarket = market;
-            _this.feedItems = null;
-            _this.getData();
+            _this.updateMarket();
         });
+    };
+    FeedReportIndexComponent.prototype.updateMarket = function () {
+        if (!this.sharedService.currentMarket || !this.sharedService.currentMarket.id)
+            return;
+        this.currentMarket = this.sharedService.currentMarket;
+        this.feedItems = null;
+        this.getData();
     };
     FeedReportIndexComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.id_sub = this.route.params.subscribe(function (params) {
-            _this.feedItems = null;
             _this.feedTypeId = +params["feedType"];
-            _this.getData();
+            _this.updateMarket();
         });
     };
     FeedReportIndexComponent.prototype.ngOnDestroy = function () {

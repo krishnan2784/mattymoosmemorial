@@ -20,5 +20,6 @@ export interface IFeedItem {
     readingTime: number;
     startDate: Date;
     endDate: Date;
+    publishedLiveAt: Date;
     shortDescription: string;
 }

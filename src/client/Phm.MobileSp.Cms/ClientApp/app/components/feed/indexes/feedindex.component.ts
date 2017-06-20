@@ -45,23 +45,28 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
 
     setupSubscriptions() {
         this.sharedService.marketUpdated.subscribe((market) => {
-            this.currentMarket = market;
-            this.feedItems = null;
-            this.getData();
+            this.updateMarket();
         });
         this.sharedService.feedItemUpdated.subscribe((feedItem) => {
             this.updateFeedItem(feedItem);
         });
     }
 
+    updateMarket() {
+        if (!this.sharedService.currentMarket || !this.sharedService.currentMarket.id)
+            return;
+        this.currentMarket = this.sharedService.currentMarket;
+        this.feedItems = null;
+        this.getData();
+    }
+
     ngOnInit() {
         this.id_sub = this.route.params.subscribe(
             (params: any) => {
-                this.feedItems = null;
                 this.catId = +params["feedCat"];
                 this.filteredFeed = !isNaN(this.catId);
                 this.setPageTitle();
-                this.getData();
+                this.updateMarket();
             }
         );
     }
@@ -164,7 +169,13 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
 
 
     publishFeedItemTolive(feedItem: IFeedItem) {
-        if (confirm("Are you sure to publish " + feedItem.title + '?')) {
+        var confirmText;
+        if (feedItem.publishedLiveAt) {
+            confirmText = feedItem.title + " has already been published. Are you sure to overwrite it?";
+        } else {
+            confirmText = "Are you sure to publish " + feedItem.title + "?";
+        }
+        if (confirm(confirmText)) {
             this.feedDataService.publishContentToLive(feedItem.id).subscribe((result) => {
                 if (result) {
                     this.feedDataService.getFeeditem(feedItem.id).subscribe((result) => {

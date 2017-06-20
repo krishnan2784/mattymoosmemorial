@@ -46,7 +46,7 @@ export class UserMarket {
         isMaster?: boolean
     } = {}) {
 
-        this.id = options.id || 0;
+        this.id = options.id || null;
         this.name = options.name || '';
         this.isDefault = options.isDefault || false;
         this.isMaster = options.isMaster || false;

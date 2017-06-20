@@ -48,22 +48,26 @@ var FeedIndexComponent = (function (_super) {
     FeedIndexComponent.prototype.setupSubscriptions = function () {
         var _this = this;
         this.sharedService.marketUpdated.subscribe(function (market) {
-            _this.currentMarket = market;
-            _this.feedItems = null;
-            _this.getData();
+            _this.updateMarket();
         });
         this.sharedService.feedItemUpdated.subscribe(function (feedItem) {
             _this.updateFeedItem(feedItem);
         });
     };
+    FeedIndexComponent.prototype.updateMarket = function () {
+        if (!this.sharedService.currentMarket || !this.sharedService.currentMarket.id)
+            return;
+        this.currentMarket = this.sharedService.currentMarket;
+        this.feedItems = null;
+        this.getData();
+    };
     FeedIndexComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.id_sub = this.route.params.subscribe(function (params) {
-            _this.feedItems = null;
             _this.catId = +params["feedCat"];
             _this.filteredFeed = !isNaN(_this.catId);
             _this.setPageTitle();
-            _this.getData();
+            _this.updateMarket();
         });
     };
     FeedIndexComponent.prototype.ngOnDestroy = function () {
@@ -164,7 +168,14 @@ var FeedIndexComponent = (function (_super) {
     };
     FeedIndexComponent.prototype.publishFeedItemTolive = function (feedItem) {
         var _this = this;
-        if (confirm("Are you sure to publish " + feedItem.title + '?')) {
+        var confirmText;
+        if (feedItem.publishedLiveAt) {
+            confirmText = feedItem.title + " has already been published. Are you sure to overwrite it?";
+        }
+        else {
+            confirmText = "Are you sure to publish " + feedItem.title + "?";
+        }
+        if (confirm(confirmText)) {
             this.feedDataService.publishContentToLive(feedItem.id).subscribe(function (result) {
                 if (result) {
                     _this.feedDataService.getFeeditem(feedItem.id).subscribe(function (result) {
