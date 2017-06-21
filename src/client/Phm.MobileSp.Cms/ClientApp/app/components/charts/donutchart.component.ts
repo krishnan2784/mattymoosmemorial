@@ -45,9 +45,9 @@ export class DonutChart implements OnInit, AfterViewInit {
             data: {
                 columns: columns,
                 type: 'donut',
-                onclick: (d, i) => { console.log("onclick", d, i); },
-                onmouseover: (d, i) => { console.log("onmouseover", d, i); },
-                onmouseout: (d, i) => { console.log("onmouseout", d, i); },
+                onclick: (d, i) => {  },
+                onmouseover: (d, i) => {  },
+                onmouseout: (d, i) => {  },
                 color: (color, d) => {
                     var name = '';
                     if (d.id) {
@@ -66,7 +66,25 @@ export class DonutChart implements OnInit, AfterViewInit {
                 }
             },
             donut: {
-                title: this.chartData.title
+                title: this.chartData.title,
+                width: this.chartData.donutThickness,
+                label: {
+                    show: false
+                }
+            },
+            legend: {
+                show: this.chartData.showLegend,
+                //inset: {
+                //    anchor: 'top-left',
+                //    x: 20,
+                //    y: 10
+                //},
+                item: {
+                    onclick: (id) => { }
+                }
+            },
+            tooltip: {
+                show: this.chartData.showTooltip
             }
         });
     }

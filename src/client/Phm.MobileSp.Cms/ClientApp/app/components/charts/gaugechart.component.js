@@ -39,9 +39,6 @@ var GaugeChart = (function () {
             data: {
                 columns: columns,
                 type: 'gauge',
-                onclick: function (d, i) { console.log("onclick", d, i); },
-                onmouseover: function (d, i) { console.log("onmouseover", d, i); },
-                onmouseout: function (d, i) { console.log("onmouseout", d, i); },
                 color: function (color, d) {
                     var name = '';
                     if (d.id) {
@@ -71,6 +68,14 @@ var GaugeChart = (function () {
                 max: this.chartData.max,
                 units: ' ' + this.chartData.units,
                 width: this.chartData.arcThickness
+            },
+            tooltip: {
+                show: this.chartData.showTooltip,
+                format: {
+                    title: '',
+                    name: function (name, ratio, id, index) { return id; },
+                    value: function (name, ratio, id, index) { return ratio * 100 + '%'; }
+                }
             }
             //color: {
             //    pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
@@ -80,11 +85,6 @@ var GaugeChart = (function () {
             //        values: [30, 60, 90, 100]
             //    }
             //},
-            //tooltip: {
-            //    format: {
-            //        title: (d) => { return this. + ': ' + d; }
-            //    }
-            //}
         });
     };
     return GaugeChart;

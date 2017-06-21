@@ -39,9 +39,9 @@ var DonutChart = (function () {
             data: {
                 columns: columns,
                 type: 'donut',
-                onclick: function (d, i) { console.log("onclick", d, i); },
-                onmouseover: function (d, i) { console.log("onmouseover", d, i); },
-                onmouseout: function (d, i) { console.log("onmouseout", d, i); },
+                onclick: function (d, i) { },
+                onmouseover: function (d, i) { },
+                onmouseout: function (d, i) { },
                 color: function (color, d) {
                     var name = '';
                     if (d.id) {
@@ -61,7 +61,25 @@ var DonutChart = (function () {
                 }
             },
             donut: {
-                title: this.chartData.title
+                title: this.chartData.title,
+                width: this.chartData.donutThickness,
+                label: {
+                    show: false
+                }
+            },
+            legend: {
+                show: this.chartData.showLegend,
+                //inset: {
+                //    anchor: 'top-left',
+                //    x: 20,
+                //    y: 10
+                //},
+                item: {
+                    onclick: function (id) { }
+                }
+            },
+            tooltip: {
+                show: this.chartData.showTooltip
             }
         });
     };

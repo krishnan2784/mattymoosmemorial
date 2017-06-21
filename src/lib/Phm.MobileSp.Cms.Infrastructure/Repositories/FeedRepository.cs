@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using MLearningCoreService;
 using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Core.Models.Interfaces;
@@ -97,7 +98,31 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             var summary = mapper.ConvertToDbEntity(response.QuizSummaries.FirstOrDefault());
             return summary;
         }
-        
+
+        public async Task<IEnumerable<dynamic>> GetFeedItemResultList(int feedItemId, decimal lowerBoundary, decimal higherBoundary, int userGroupId)
+        {
+            var request = GetRequest(new GetQuizResultsSummariesEXRequest
+            {
+                Criteria = GetCriteria(new QuizResultsSummariesEXCriteriaDto()
+                {
+                    QuizFeedId = feedItemId,
+                    LowerBoundary = lowerBoundary,
+                    HigherBoundary = higherBoundary,
+                    UserGroupId = userGroupId
+                })
+            });
+            var response = await _proxyClient.GetQuizResultsSummariesEXAsync(new GetQuizResultsSummariesEXRequest1(request));
+            //var config = new MapperConfiguration(cfg =>
+            //{
+            //    cfg.CreateMap<QuizResultsSummariesEXDto, FeedItemSummaryEx>().ReverseMap();
+            //    cfg.CreateMap<QuizFeedResultDto, FeedItemSummary>().ReverseMap();
+            //    cfg.CreateMap<UserDto, User>().ReverseMap();
+            //});
+            //var mapper = config.CreateMapper();
+            //var summary = mapper.Map<List<FeedItemSummaryEx>>(response.GetQuizResultsSummariesEXResult.QuizResultsSummaries);
+            return response.GetQuizResultsSummariesEXResult.QuizResultsSummaries;
+        }
+
         public async Task<bool> CopyFeedItemToMarketAsync(int feedItemId, List<int> marketIds)
         {
 

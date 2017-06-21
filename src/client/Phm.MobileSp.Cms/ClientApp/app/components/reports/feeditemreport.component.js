@@ -19,8 +19,6 @@ var Chartclasses = require("../../models/chartclasses");
 var BarChartData = Chartclasses.BarChartData;
 var GaugeChartData = Chartclasses.GaugeChartData;
 var DonutChartData = Chartclasses.DonutChartData;
-var Reportclasses = require("../../models/reportclasses");
-var FeedItemSummary = Reportclasses.FeedItemSummary;
 var FeedItemReport = (function () {
     function FeedItemReport(sharedService, feedDataService, injector) {
         var _this = this;
@@ -28,7 +26,9 @@ var FeedItemReport = (function () {
         this.feedDataService = feedDataService;
         this.injector = injector;
         this.feedTypes = Enums.FeedTypeEnum;
-        this.totalLearners = 100;
+        this.rangeBottom = 0;
+        this.rangeTop = 100;
+        this.slideChangeBusy = false;
         this.model = this.injector.get('model');
         this.pageTitle = this.injector.get('pageTitle');
         this.feedTypeString = Enums.FeedTypeEnum[this.model.feedType];
@@ -39,12 +39,16 @@ var FeedItemReport = (function () {
     FeedItemReport.prototype.ngOnInit = function () {
         this.getData();
     };
+    FeedItemReport.prototype.ngAfterViewInit = function () {
+        this.setupRangeSlider();
+        this.getData();
+    };
     FeedItemReport.prototype.getData = function () {
         var _this = this;
         this.feedDataService.getFeedItemReport(this.model.id).subscribe(function (result) {
+            _this.slideChangeBusy = false;
             if (result.success) {
-                //this.reportData = new FeedItemSummary(result.content);
-                _this.reportData = new FeedItemSummary({});
+                _this.summaryData = result.content;
                 _this.updateReport();
             }
             else {
@@ -52,38 +56,86 @@ var FeedItemReport = (function () {
                 _this.goBack();
             }
         });
+        console.log(this.rangeTop);
+        this.feedDataService.getFeedItemResultList(this.model.id, this.rangeBottom, this.rangeTop, 0).subscribe(function (result) {
+            _this.listData = result.content;
+        });
     };
     FeedItemReport.prototype.updateReport = function () {
-        //if (this.reportData) {
+        //if (this.summaryData) {
         //    this.averageTimeData = new BarChartData();
         //}
-        var barData = new BarChartData({});
+        var barData = new BarChartData({
+            showTooltip: true,
+            showYAxis: false,
+            showXAxis: true
+        });
         this.averageTimeData = barData;
         var gaugeData = new GaugeChartData({
             height: 150,
+            showTooltip: true,
             chartData: [
                 {
                     name: 'Passed',
                     colour: '#9F378E',
-                    data: (this.reportData.passed / this.reportData.submitted) * 100
+                    data: (this.summaryData.passed / this.summaryData.submitted) * 100
                 }
             ]
         });
         this.passRatioData = gaugeData;
         var donutData = new DonutChartData({
+            showLegend: false,
+            showTooltip: false,
+            title: this.summaryData.averageScore + '%',
             chartData: [
                 {
-                    name: 'Pass',
+                    name: 'Average Score',
                     colour: '#9F378E',
-                    data: [this.reportData.averageScore]
+                    data: [this.summaryData.averageScore]
                 }, {
-                    name: 'Fail',
+                    name: 'Blank',
                     colour: '#ECECEC',
-                    data: [100 - this.reportData.averageScore]
+                    data: [100 - this.summaryData.averageScore]
                 }
             ]
         });
         this.averageScoreData = donutData;
+    };
+    FeedItemReport.prototype.clearFilters = function () {
+        // not implemented
+    };
+    FeedItemReport.prototype.privateResetRange = function () {
+        var slider = document.getElementById('range');
+        slider.noUiSlider.reset();
+        setTimeout(this.onSliderChange, 500);
+    };
+    FeedItemReport.prototype.setupRangeSlider = function () {
+        var _this = this;
+        var slider = document.getElementById('range');
+        noUiSlider.create(slider, {
+            start: [0, 100],
+            connect: true,
+            range: {
+                'min': 0,
+                'max': 100
+            }
+        });
+        slider.noUiSlider.on('end', function () {
+            _this.onSliderChange();
+        });
+    };
+    FeedItemReport.prototype.onSliderChange = function () {
+        console.log(this.slideChangeBusy);
+        if (this.slideChangeBusy) {
+            return;
+        }
+        this.slideChangeBusy = true;
+        console.log(this.slideChangeBusy);
+        var slider = document.getElementById('range');
+        var sliderVals = slider.noUiSlider.get();
+        this.rangeBottom = parseInt(sliderVals[0]);
+        this.rangeTop = parseInt(sliderVals[1]);
+        this.getData();
     };
     FeedItemReport.prototype.goBack = function () {
         this.pageTitle = null;

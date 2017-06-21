@@ -45,9 +45,6 @@ export class GaugeChart implements OnInit, AfterViewInit {
             data: {
                 columns: columns,
                 type: 'gauge',
-                onclick: (d, i) => { console.log("onclick", d, i); },
-                onmouseover: (d, i) => { console.log("onmouseover", d, i); },
-                onmouseout: (d, i) => { console.log("onmouseout", d, i); },
                 color: (color, d) => {
                     var name = '';
                     if (d.id) {
@@ -76,6 +73,14 @@ export class GaugeChart implements OnInit, AfterViewInit {
                 max: this.chartData.max, 
                 units: ' ' + this.chartData.units,
                 width: this.chartData.arcThickness
+            },
+            tooltip: {
+                show: this.chartData.showTooltip,
+                format: {
+                    title: '',
+                    name: (name, ratio, id, index) => { return id; },
+                    value: (name, ratio, id, index) => { return ratio * 100 + '%'; }
+                }
             }
             //color: {
             //    pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
@@ -85,11 +90,6 @@ export class GaugeChart implements OnInit, AfterViewInit {
             //        values: [30, 60, 90, 100]
             //    }
             //},
-            //tooltip: {
-            //    format: {
-            //        title: (d) => { return this. + ': ' + d; }
-            //    }
-            //}
         });
     }
 

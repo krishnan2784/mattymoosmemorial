@@ -77,4 +77,13 @@ export class FeedDataService extends RequestHelper implements IFeedDataService, 
     public getFeedItemReport(feedItemId: number): Observable<any> {
         return this.getRequestFull('/api/Feed/GetFeedItemSummary?feedItemId=' + feedItemId);
     }
+
+    public getFeedItemResultList(feedItemId: number, lowerBoundary: number, higherBoundary: number, userGroupId: number) {
+        var requestUrl = '/api/Feed/GetFeedItemResultList?feedItemId=' + feedItemId
+         + '&lowerBoundary=' + lowerBoundary
+         + '&higherBoundary=' + higherBoundary
+         + '&userGroupId=' + userGroupId;
+        return this.getRequestFull(requestUrl);
+    }
+     
 }

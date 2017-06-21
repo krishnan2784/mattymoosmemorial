@@ -85,6 +85,13 @@ var FeedDataService = (function (_super) {
     FeedDataService.prototype.getFeedItemReport = function (feedItemId) {
         return this.getRequestFull('/api/Feed/GetFeedItemSummary?feedItemId=' + feedItemId);
     };
+    FeedDataService.prototype.getFeedItemResultList = function (feedItemId, lowerBoundary, higherBoundary, userGroupId) {
+        var requestUrl = '/api/Feed/GetFeedItemResultList?feedItemId=' + feedItemId
+            + '&lowerBoundary=' + lowerBoundary
+            + '&higherBoundary=' + higherBoundary
+            + '&userGroupId=' + userGroupId;
+        return this.getRequestFull(requestUrl);
+    };
     return FeedDataService;
 }(requesthelper_1.RequestHelper));
 FeedDataService = __decorate([

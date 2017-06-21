@@ -14,8 +14,8 @@
             <div class="stat-block">
                 <div class="stat-title">
                     <div class="col-md-4 total-learners">
-                        <h5>
-                            {{totalLearners}}
+                        <h5 *ngIf="summaryData">
+                            {{summaryData.submitted}}
                         </h5>
                         <p>Total learners</p>
                         <div class="clearboth"></div>
@@ -24,9 +24,9 @@
                 </div>
                 <div class="stat-body" *ngIf="passRatioData">
                     <gaugechart [chartData]="passRatioData" [id]="'passRatioChart'"></gaugechart>
-                    <h5 *ngIf="reportData">
-                        <b>{{reportData.submitted}} <span>submitted / </span></b>
-                        {{reportData.passed}} <span> passed</span>
+                    <h5 *ngIf="summaryData">
+                        <b>{{summaryData.submitted}} <span>submitted / </span></b>
+                        {{summaryData.passed}} <span> passed</span>
                     </h5>
                 </div>
             </div>
@@ -58,5 +58,88 @@
             </div>
         </div>
         <div class="clearfix"></div>
+    </div>
+    <div>
+        <div class="col-md-3 right">
+            <input placeholder="Searce" type="search" />
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div>
+        <div class="col-md-2 filter-col">
+            <div class="filter-container">
+                <div class="filter-header filter-block">
+                    <p>Refine by: <a class="right" (click)="clearFilters()">Clear all</a></p>
+                </div>
+                <div class="filter-block">
+                    <p>Role <a class="right" (click)="clearFilters()">Clear</a></p>
+                    <input type="checkbox" id="salesMan"><label for="salesMan">Sales Manager</label>
+                    <input type="checkbox" id="salesExec"><label for="salesExec">Sales Executive</label>
+                    <input type="checkbox" id="dealer"><label for="dealer">Dealer</label>
+                </div>
+                <div class="filter-block">
+                    <p>Dealership <a class="right" (click)="clearFilters()">Clear</a></p>
+                    <div class="filter-block">
+                        <input type="checkbox" id="dealer_1"><label for="dealer_1">Dealership A</label>
+                        <input type="checkbox" id="dealer_2"><label for="dealer_2">Dealership B</label>
+                        <input type="checkbox" id="dealer_3"><label for="dealer_3">Dealership C</label>
+                        <input type="checkbox" id="dealer_4"><label for="dealer_4">Dealership D</label>
+                        <input type="checkbox" id="dealer_5"><label for="dealer_5">Dealership E</label>
+                    </div>
+                </div>
+                <div class="filter-block">
+                    <p>Range <a class="right" (click)="privateResetRange()">Reset</a></p>
+                    <div id="range"></div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="col-md-10">
+            <div class="result-list">
+                <div class="result-list-header">
+                    <div class="col-md-4 header">
+                        <div>
+                            Learner stats
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        Role
+                    </div>
+                    <div class="col-md-3">
+                        Dealership
+                    </div>
+                    <div class="col-md-3">
+                        <span class="center">
+                            Status
+                        </span>
+                    </div>
+                </div>
+                <div class="result-list-content">
+                    <div *ngFor="let quizResult of this.listData | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}" class="result-list-content-row">
+                        <div class="col-md-1">
+                            <i class="material-icons person-icon">person</i>
+                        </div>
+                        <div class="col-md-3 border-bottom">
+                            {{quizResult.user.firstName}} {{quizResult.user.lastName}}
+                        </div>
+                        <div class="col-md-2 border-bottom">
+                            {{ quizResult.mainUserGroup }}
+                        </div>
+                        <div class="col-md-3 border-bottom">
+                            {{ quizResult.user.dealershipName }}
+                        </div>
+                        <div class="col-md-2 border-bottom">
+                            <i class="material-icons" *ngIf="quizResult.resultPercentage===100">star_rate</i>
+                            <span *ngIf="quizResult.resultPercentage!==100">{{ quizResult.resultPercentage }}%</span>
+                        </div>
+                        <div class="col-md-1">
+                            <i class="material-icons right">keyboard_arrow_right</i>
+                        </div>
+                        <span class="clearfix"></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>

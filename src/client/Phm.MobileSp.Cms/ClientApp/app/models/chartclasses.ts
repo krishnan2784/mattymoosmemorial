@@ -2,11 +2,15 @@
     title: string;
     width: number;
     height: number;
+    showLegend: boolean;
+    showTooltip: boolean;
     margin: { top: number, right: number, bottom: number, left: number };
     constructor(options: {} = {}) {
-        this.title = options['title'] = '';
+        this.title = options['title'] || '';
         this.width = options['width'] || 300;
         this.height = options['height'] || 200;
+        this.showLegend = options['showLegend'] || true;
+        this.showTooltip = options['showTooltip'];
         this.margin = options['margin'] || {
             top: 20,
             right: 20,
@@ -18,17 +22,20 @@
 export class BarChartData extends BaseChart {
     chartData: [{ name: string, colour: string, data: [{ x: number, y: number }] }];
     xLegend: string;
+    showXAxis: boolean;
     yLegend: string;
+    showYAxis: boolean;
     showLegend: boolean;
 
     constructor(options: {} = {}) {
         super(options);
+        this.showXAxis = options['showXAxis'];
+        this.showYAxis = options['showYAxis'];
         this.xLegend = options['xLegend'] || '';
         this.yLegend = options['yLegend'] || 'Number of learners';
-        this.showLegend = options['showLegend'] || true;
         this.chartData = options['chartData'] ||
         [{
-            name: 'Submissions',
+            name: 'Number of learners',
             colour: '#9F378E',
             data: [
                 {
@@ -70,33 +77,21 @@ export class GaugeChartData extends BaseChart {
         this.max = options['max'] || 100;
         this.units = options['units'] || '';
         this.arcThickness = options['arcThickness'] || 5;
-
-        this.chartData = options['chartData'] || [{
-            name: 'Passed',
-            colour: '#9F378E',
-            data: 50.5
-        }];
+        this.chartData = options['chartData'];
     }
 }
 
 export class DonutChartData extends BaseChart {
     chartData: [{ name: string, colour: string, data: number[] }];
-    showLegend: boolean;
-    arcThickness: number;
+    donutThickness: number;
+    valueLabelFormat: string;
 
     constructor(options: {} = {}) {
         super(options);
-        this.showLegend = options['showLegend'] || true;
-        this.arcThickness = options['arcThickness'] || 10;
-        this.chartData = options['chartData'] ||
-        [{
-            name: 'Pass',
-            colour: '#9F378E',
-            data: [80]
-        }, {
-            name: 'Fail',
-            colour: '#ECECEC',
-            data: [20]
-        }];
+        this.donutThickness = options['donutThickness'] || 5;
+        this.chartData = options['chartData'];
+        this.showLegend = options['showLegend'];
+        this.valueLabelFormat = options['valueLabelFormat'] || '%';
+
     }
 }

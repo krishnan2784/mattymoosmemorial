@@ -13,9 +13,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var BaseChart = (function () {
     function BaseChart(options) {
         if (options === void 0) { options = {}; }
-        this.title = options['title'] = '';
+        this.title = options['title'] || '';
         this.width = options['width'] || 300;
         this.height = options['height'] || 200;
+        this.showLegend = options['showLegend'] || true;
+        this.showTooltip = options['showTooltip'];
         this.margin = options['margin'] || {
             top: 20,
             right: 20,
@@ -31,12 +33,13 @@ var BarChartData = (function (_super) {
     function BarChartData(options) {
         if (options === void 0) { options = {}; }
         var _this = _super.call(this, options) || this;
+        _this.showXAxis = options['showXAxis'];
+        _this.showYAxis = options['showYAxis'];
         _this.xLegend = options['xLegend'] || '';
         _this.yLegend = options['yLegend'] || 'Number of learners';
-        _this.showLegend = options['showLegend'] || true;
         _this.chartData = options['chartData'] ||
             [{
-                    name: 'Submissions',
+                    name: 'Number of learners',
                     colour: '#9F378E',
                     data: [
                         {
@@ -75,11 +78,7 @@ var GaugeChartData = (function (_super) {
         _this.max = options['max'] || 100;
         _this.units = options['units'] || '';
         _this.arcThickness = options['arcThickness'] || 5;
-        _this.chartData = options['chartData'] || [{
-                name: 'Passed',
-                colour: '#9F378E',
-                data: 50.5
-            }];
+        _this.chartData = options['chartData'];
         return _this;
     }
     return GaugeChartData;
@@ -90,18 +89,10 @@ var DonutChartData = (function (_super) {
     function DonutChartData(options) {
         if (options === void 0) { options = {}; }
         var _this = _super.call(this, options) || this;
-        _this.showLegend = options['showLegend'] || true;
-        _this.arcThickness = options['arcThickness'] || 10;
-        _this.chartData = options['chartData'] ||
-            [{
-                    name: 'Pass',
-                    colour: '#9F378E',
-                    data: [80]
-                }, {
-                    name: 'Fail',
-                    colour: '#ECECEC',
-                    data: [20]
-                }];
+        _this.donutThickness = options['donutThickness'] || 5;
+        _this.chartData = options['chartData'];
+        _this.showLegend = options['showLegend'];
+        _this.valueLabelFormat = options['valueLabelFormat'] || '%';
         return _this;
     }
     return DonutChartData;

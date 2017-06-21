@@ -4,6 +4,7 @@ import { UniversalModule } from 'angular2-universal';
 import { Ng2PaginationModule } from 'ng2-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { D3Service } from 'd3-ng2-service';
+import { NouisliderModule } from 'ng2-nouislider';
 //import { CalendarModule } from 'primeng/primeng';
 //import { DateValueAccessor } from './classes/datevalueaccessor';
 
@@ -93,6 +94,7 @@ import DonutChart = Donutchartcomponent.DonutChart;
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
         Ng2PaginationModule,
         FormsModule,
+        NouisliderModule,
         ReactiveFormsModule,
         //CalendarModule,
         RouterModule.forRoot([

@@ -87,20 +87,29 @@ export class BarChart implements OnInit, AfterViewInit {
                             return this.chartData.chartData.filter(x => x.name === name)[0].colour;
                     }
                     return color;
-                }, groups: groups
+                },
+                groups: groups
             },
             axis: {
                 x: {
                     type: 'category',
-                    categories: xAxis
+                    categories: xAxis,
+                    show: this.chartData.showXAxis,
+                    tick: {
+                        outer: false
+                    }
+                },
+                y: {
+                    show: this.chartData.showYAxis
                 }
             },
             bar: {
                 width: {
-                    ratio: 0.5 
+                    ratio: 0.5
                 }
             },
             tooltip: {
+                show: this.chartData.showTooltip,
                 format: {
                     title: (d) => {
                         if (!this.chartData.xLegend || this.chartData.xLegend === '')

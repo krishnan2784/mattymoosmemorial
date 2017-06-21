@@ -1,5 +1,4 @@
-﻿body {
-}
+﻿a{ cursor: pointer;}
 
 .item-title {
     padding-left: 15px;
@@ -29,7 +28,6 @@
     height: 50px;
     padding: 0;
     text-align: center;
-
 }
 
 .stat-title h5 {
@@ -51,7 +49,7 @@
 }
 
 .stat-block {
-     border: 1px solid #eee;
+    border: 1px solid #eee;
     margin-right: 10px;
  }
 
@@ -59,4 +57,62 @@
     min-height: 220px;
     padding: 10px;
     text-align: center;
+}
+
+.filter-col {
+    padding: 0;
+    margin-bottom: 100px;
+}
+
+.filter-container {
+    margin-right: 10px;
+}
+
+.filter-header {
+    background-color: #eee;
+}
+
+.filter-block {
+    border: 1px solid #eee;
+    padding: 10px;
+}
+.result-list-header > div {
+    background-color: #A6C58A;
+    vertical-align: middle;
+    line-height: 45px;
+    height: 100%;
+}
+.result-list-header {
+    height: 52px;
+    background-color: transparent;
+}
+.result-list-header .header {
+    font-size: 1.5em;
+    font-weight: 600;
+}
+.result-list-header .header > div {
+    padding-left: 15px;
+}
+.result-list-header > div:not(.header) {
+     padding-top: 3px;
+ }
+.result-list-content {
+    border: #EFEFEF 1px solid;
+}
+.result-list-content .person-icon {
+    padding-left: 15px;
+}
+.result-list-content-row{
+    min-height: 35px;
+    padding-top: 10px;
+}
+.result-list-content-row > div {
+    height:100%;
+}
+.result-list-content-row:not(:last-child) .border-bottom {
+    border-bottom: #EFEFEF 1px solid;
+    padding-top: 4px;
+}
+.noUi-connect {
+    background-color: #4F3A9F!important;
 }

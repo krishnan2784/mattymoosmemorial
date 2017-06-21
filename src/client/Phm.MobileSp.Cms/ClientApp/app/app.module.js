@@ -11,6 +11,7 @@ var router_1 = require("@angular/router");
 var angular2_universal_1 = require("angular2-universal");
 var ng2_pagination_1 = require("ng2-pagination");
 var forms_1 = require("@angular/forms");
+var ng2_nouislider_1 = require("ng2-nouislider");
 //import { CalendarModule } from 'primeng/primeng';
 //import { DateValueAccessor } from './classes/datevalueaccessor';
 require("rxjs/add/observable/throw");
@@ -96,6 +97,7 @@ AppModule = __decorate([
             angular2_universal_1.UniversalModule,
             ng2_pagination_1.Ng2PaginationModule,
             forms_1.FormsModule,
+            ng2_nouislider_1.NouisliderModule,
             forms_1.ReactiveFormsModule,
             //CalendarModule,
             router_1.RouterModule.forRoot([

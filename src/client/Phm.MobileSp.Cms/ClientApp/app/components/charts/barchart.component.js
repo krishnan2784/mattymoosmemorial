@@ -77,12 +77,20 @@ var BarChart = (function () {
                             return _this.chartData.chartData.filter(function (x) { return x.name === name; })[0].colour;
                     }
                     return color;
-                }, groups: groups
+                },
+                groups: groups
             },
             axis: {
                 x: {
                     type: 'category',
-                    categories: xAxis
+                    categories: xAxis,
+                    show: this.chartData.showXAxis,
+                    tick: {
+                        outer: false
+                    }
+                },
+                y: {
+                    show: this.chartData.showYAxis
                 }
             },
             bar: {
@@ -91,6 +99,7 @@ var BarChart = (function () {
                 }
             },
             tooltip: {
+                show: this.chartData.showTooltip,
                 format: {
                     title: function (d) {
                         if (!_this.chartData.xLegend || _this.chartData.xLegend === '')
