@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { FeedDataService } from "../../../dataservices/feeddataservice";
+import { FeedDataService } from "../../../services/feeddataservice";
 import { FeedItemForm } from "../modelforms/feeditemform.component";
 import { Observable } from 'rxjs/Observable';
 import { IFeedItem} from "../../../interfaces/models/IFeedModel";
@@ -8,7 +8,7 @@ import Enums = require("../../../enums");
 import FeedTypeEnum = Enums.FeedTypeEnum;
 import FeedCategoryEnum = Enums.FeedCategoryEnum;
 import { BaseComponent} from "../../base.component";
-import { ShareService } from "../../../dataservices/datashareservice";
+import { ShareService } from "../../../services/helpers/shareservice";
 import Userclasses = require("../../../models/userclasses");
 import UserMarket = Userclasses.UserMarket;
 import Copytomarketcomponent = require("../modals/copytomarket.component");

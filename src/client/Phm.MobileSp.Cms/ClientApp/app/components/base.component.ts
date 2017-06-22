@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { ShareService} from "../dataservices/datashareservice";
+import { ShareService} from "../services/helpers/shareservice";
 
 @Component({
     template: '',

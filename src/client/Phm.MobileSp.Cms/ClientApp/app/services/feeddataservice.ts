@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/publishReplay';
-import { IFeedDataService } from "../interfaces/dataservices/IfeedDataService";
+import { IFeedDataService } from "../interfaces/services/IFeedDataService";
 import { RequestHelper } from "./helpers/requesthelper";
 
 import Enums = require("../enums");
@@ -11,7 +11,7 @@ import FeedModel = require("../interfaces/models/IFeedModel");
 import FeedItem = FeedModel.IFeedItem;
 import Feedclasses = require("../models/feedclasses");
 import Apiresponse = require("../models/apiresponse");
-import MarketContentService = require("../interfaces/dataservices/IMarketContentService");
+import MarketContentService = require("../interfaces/services/IMarketContentService");
 import IMarketContentService = MarketContentService.IMarketContentService;
 import CopiedElementTypeEnum = Enums.CopiedElementTypeEnum;
 

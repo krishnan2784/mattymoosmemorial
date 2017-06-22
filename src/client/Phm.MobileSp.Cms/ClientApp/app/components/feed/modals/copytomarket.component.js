@@ -22,12 +22,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var Basemodalcontentcomponent = require("../../modals/basemodalcontent.component");
 var BaseModalContent = Basemodalcontentcomponent.BaseModalContent;
-var Datashareservice = require("../../../dataservices/datashareservice");
+var Datashareservice = require("../../../services/helpers/shareservice");
 var ShareService = Datashareservice.ShareService;
-var Marketdataservice = require("../../../dataservices/marketdataservice");
+var Marketdataservice = require("../../../services/marketdataservice");
 var MarketDataService = Marketdataservice.MarketDataService;
 var Userclasses = require("../../../models/userclasses");
-var Userdataservice = require("../../../dataservices/userdataservice");
+var Userdataservice = require("../../../services/userdataservice");
 var UserDataService = Userdataservice.UserDataService;
 var ContentMarket = Userclasses.ContentMarket;
 var FeedItemCopyToMarket = (function (_super) {

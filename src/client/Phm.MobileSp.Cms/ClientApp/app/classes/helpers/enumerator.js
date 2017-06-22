@@ -18,4 +18,4 @@ var EnumEx = (function () {
     return EnumEx;
 }());
 exports.EnumEx = EnumEx;
-//# sourceMappingURL=enumerators.js.map
+//# sourceMappingURL=enumerator.js.map

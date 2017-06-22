@@ -10,10 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var Datashareservice = require("../../dataservices/datashareservice");
+var Datashareservice = require("../../services/helpers/shareservice");
 var ShareService = Datashareservice.ShareService;
 var Enums = require("../../enums");
-var Feeddataservice = require("../../dataservices/feeddataservice");
+var Feeddataservice = require("../../services/feeddataservice");
 var FeedDataService = Feeddataservice.FeedDataService;
 var Chartclasses = require("../../models/chartclasses");
 var BarChartData = Chartclasses.BarChartData;
@@ -45,7 +45,9 @@ var FeedItemReport = (function () {
     };
     FeedItemReport.prototype.ngOnDestroy = function () {
         var slider = document.getElementById('scoreRange');
-        slider.noUiSlider.off('end');
+        if (slider) {
+            slider.noUiSlider.off('end');
+        }
     };
     FeedItemReport.prototype.getData = function () {
         var _this = this;
@@ -138,22 +140,28 @@ var FeedItemReport = (function () {
         slider.noUiSlider.on('end', function () { _this.onSliderChange(); });
     };
     FeedItemReport.prototype.onSliderChange = function () {
-        var slider = document.getElementById('scoreRange');
-        var sliderVals = slider.noUiSlider.get();
-        var botRange = parseInt(sliderVals[0]);
-        var topRange = parseInt(sliderVals[1]);
-        if ((this.rangeBottom === botRange && this.rangeTop === topRange) || this.slideChangeBusy)
-            return;
-        slider.noUiSlider.off('end');
         console.log(this.slideChangeBusy);
-        this.slideChangeBusy = true;
-        this.rangeBottom = botRange;
-        this.rangeTop = topRange;
-        this.listData = null;
-        this.getData();
-        this.enableSlider();
+        var slider = document.getElementById('scoreRange');
+        if (slider) {
+            var sliderVals = slider.noUiSlider.get();
+            var botRange = parseInt(sliderVals[0]);
+            var topRange = parseInt(sliderVals[1]);
+            if ((this.rangeBottom === botRange && this.rangeTop === topRange) || this.slideChangeBusy)
+                return;
+            slider.noUiSlider.off('end');
+            this.slideChangeBusy = true;
+            this.rangeBottom = botRange;
+            this.rangeTop = topRange;
+            this.listData = null;
+            this.getData();
+            this.enableSlider();
+        }
     };
     FeedItemReport.prototype.goBack = function () {
+        var slider = document.getElementById('scoreRange');
+        if (slider) {
+            slider.noUiSlider.off('end');
+        }
         this.pageTitle = null;
         this.model = null;
         this.averageTimeData = null;

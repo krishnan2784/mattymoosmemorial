@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BaseComponent } from "../base.component";
-import { ShareService } from "../../dataservices/datashareservice";
+import { ShareService } from "../../services/helpers/shareservice";
 
 @Component({
     selector: 'home',

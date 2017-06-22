@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { FeedDataService } from "../../dataservices/feeddataservice";
-import { MarketDataService } from "../../dataservices/marketdataservice";
-import { ShareService } from "../../dataservices/datashareservice";
-import { UserDataService } from "../../dataservices/userdataservice";
+import { FeedDataService } from "../../services/feeddataservice";
+import { MarketDataService } from "../../services/marketdataservice";
+import { ShareService } from "../../services/helpers/shareservice";
+import { UserDataService } from "../../services/userdataservice";
 
 @Component({
     selector: 'app',

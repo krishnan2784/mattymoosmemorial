@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from "rxjs/Rx";
-import { FeedDataService } from "../../../dataservices/FeedDataService";
+import { FeedDataService } from "../../../services/feedDataService";
 import * as IFeedItemComponents from "../../../interfaces/components/IFeedItemComponents";
 import { TextFeedItemFormComponent } from "./textfeeditem.component";
 import FeedModel = require("../../../interfaces/models/IFeedModel");
@@ -19,10 +19,11 @@ import Quizfeeditemcomponent = require("./quizfeeditem.component");
 import QuizFeedItemFormComponent = Quizfeeditemcomponent.QuizFeedItemFormComponent;
 import Surveyfeeditemcomponent = require("./surveyfeeditem.component");
 import SurveyFeedItemFormComponent = Surveyfeeditemcomponent.SurveyFeedItemFormComponent;
-import Datashareservice = require("../../../dataservices/datashareservice");
+import Datashareservice = require("../../../services/helpers/shareservice");
 import ShareService = Datashareservice.ShareService;
 import Observationfeeditemcomponent = require("./observationfeeditem.component");
 import ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationFeedItemFormComponent;
+import BaseFeed = Feedclasses.BaseFeed;
 declare var $: any;
 declare var Materialize: any;
 
@@ -112,36 +113,42 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             makeTitleWidgetLink: ['', []],
             permissions: ['', []],
             readingTime: ['', []],
-            startDate: ['', []],
-            endDate: ['', []]
+            startDate: ['', [<any>Validators.required]],
+            endDate: ['', [<any>Validators.required]]
         });
 
-        setTimeout(function(){
-            $('.datepicker').pickadate({
-                selectMonths: true,
-                selectYears: 5,
-                format: 'dddd, dd mmm, yyyy',
-                formatSubmit: 'yyyy/mm/dd'
-            })}, 1000);
+        //setTimeout(function(){
+        //    $('.datepicker').pickadate({
+        //        selectMonths: true,
+        //        selectYears: 5,
+        //        format: 'dddd, dd mmm, yyyy',
+        //        formatSubmit: 'yyyy/mm/dd'
+        //    })}, 1000);
     }
 
     getModel() {
         if (this.model) {
+            let baseModel = new Feedclasses.BaseFeed();
+            baseModel.formatFeedItemDates(this.model);
             this.swapForm(this.getFeedType(this.model.feedType), this.model.feedCategory);
         } else {
             this.model = new Feedclasses.BaseFeed();
+            this.updateForm();
         }
     };
 
     updateForm() {
         if (this.model && this.model.id > 0) {
+            console.log(this.model);
             (this.form).patchValue(this.model, { onlySelf: true });
-            setTimeout(function () {
+            setTimeout(() => {
                 Materialize.updateTextFields();
             }, 10);  
         } else {
             this.form.controls['feedType'].patchValue(this.model.feedType, { onlySelf: true });
             this.form.controls['feedCategory'].patchValue(this.model.feedCategory, { onlySelf: true });
+            this.form.controls['startDate'].patchValue(this.model.startDate, { onlySelf: true });
+            this.form.controls['endDate'].patchValue(this.model.endDate, { onlySelf: true });
         }
     }
 

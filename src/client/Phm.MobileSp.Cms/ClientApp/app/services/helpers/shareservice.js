@@ -8,7 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var Subject_1 = require("rxjs/Subject");
-var Userclasses = require("../models/userclasses");
+var Userclasses = require("../../models/userclasses");
 var UserMarket = Userclasses.UserMarket;
 var ShareService = (function () {
     function ShareService() {
@@ -53,4 +53,4 @@ ShareService = __decorate([
     core_1.Injectable()
 ], ShareService);
 exports.ShareService = ShareService;
-//# sourceMappingURL=datashareservice.js.map
+//# sourceMappingURL=shareservice.js.map

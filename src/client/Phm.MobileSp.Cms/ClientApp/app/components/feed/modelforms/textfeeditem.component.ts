@@ -4,7 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FeedItemForm } from "./feeditemform.component";
-import { FeedDataService }  from "../../../dataservices/feeddataservice";
+import { FeedDataService }  from "../../../services/feeddataservice";
 import * as IFeedItemComponents from "../../../interfaces/components/IFeedItemComponents";
 import Enums = require("../../../enums");
 import FeedTypeEnum = Enums.FeedTypeEnum;

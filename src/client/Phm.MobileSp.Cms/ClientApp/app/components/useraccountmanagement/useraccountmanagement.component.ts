@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Http } from '@angular/http';
 import UserAccount = require("../../interfaces/models/IUserAccount");
 import { BaseComponent } from "../base.component";
-import { ShareService } from "../../dataservices/datashareservice";
-import { UserDataService } from "../../dataservices/userdataservice";
+import { ShareService } from "../../services/helpers/shareservice";
+import { UserDataService } from "../../services/userdataservice";
 
 @Component({
     selector: 'useraccountmanagement',

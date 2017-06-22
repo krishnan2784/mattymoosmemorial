@@ -1,16 +1,18 @@
 import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { FeedDataService } from "../../../dataservices/feeddataservice";
+import { FeedDataService } from "../../../services/feeddataservice";
 import { IFeedItem} from "../../../interfaces/models/IFeedModel";
 import Enums = require("../../../enums");
 import FeedTypeEnum = Enums.FeedTypeEnum;
 import FeedCategoryEnum = Enums.FeedCategoryEnum;
 import { BaseComponent} from "../../base.component";
-import { ShareService } from "../../../dataservices/datashareservice";
+import { ShareService } from "../../../services/helpers/shareservice";
 import Userclasses = require("../../../models/userclasses");
 import UserMarket = Userclasses.UserMarket;
 import Feeditemreportcomponent = require("../feeditemreport.component");
 import FeedItemReport = Feeditemreportcomponent.FeedItemReport;
+import Feeddataservice = require("../../../services/feeddataservice");
+
 declare var $: any;
 declare var Materialize: any;
 

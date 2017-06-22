@@ -5,7 +5,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/publishReplay';
-import { IUserDataService } from "../interfaces/dataservices/IUserDataService";
+import { IUserDataService } from "../interfaces/services/IUserDataService";
 import { ResponseHelper } from "./helpers/responsehelper";
 import Userclasses = require("../models/userclasses");
 import { ApiResponse } from "../models/apiresponse";

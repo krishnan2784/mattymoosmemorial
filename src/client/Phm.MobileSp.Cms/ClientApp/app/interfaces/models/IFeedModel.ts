@@ -18,8 +18,8 @@ export interface IFeedItem {
     makeTitleWidgetLink: boolean;
     permissions: number;
     readingTime: number;
-    startDate: Date;
-    endDate: Date;
+    startDate: string;
+    endDate: string;
     publishedLiveAt: Date;
     shortDescription: string;
 }

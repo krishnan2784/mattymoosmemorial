@@ -5,7 +5,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/publishReplay';
-import { IMarketDataService } from "../interfaces/dataservices/IMarketDataService";
+import { IMarketDataService } from "../interfaces/services/IMarketDataService";
 import { ResponseHelper } from "./helpers/responsehelper";
 import Marketclasses = require("../models/marketclasses");
 import Market = Marketclasses.Market;

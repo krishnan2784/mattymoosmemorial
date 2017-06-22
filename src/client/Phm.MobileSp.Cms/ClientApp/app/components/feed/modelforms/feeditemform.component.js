@@ -13,7 +13,7 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
-var FeedDataService_1 = require("../../../dataservices/FeedDataService");
+var feedDataService_1 = require("../../../services/feedDataService");
 var textfeeditem_component_1 = require("./textfeeditem.component");
 var Enums = require("../../../enums");
 var FeedCategoryEnum = Enums.FeedCategoryEnum;
@@ -24,7 +24,7 @@ var Quizfeeditemcomponent = require("./quizfeeditem.component");
 var QuizFeedItemFormComponent = Quizfeeditemcomponent.QuizFeedItemFormComponent;
 var Surveyfeeditemcomponent = require("./surveyfeeditem.component");
 var SurveyFeedItemFormComponent = Surveyfeeditemcomponent.SurveyFeedItemFormComponent;
-var Datashareservice = require("../../../dataservices/datashareservice");
+var Datashareservice = require("../../../services/helpers/shareservice");
 var ShareService = Datashareservice.ShareService;
 var Observationfeeditemcomponent = require("./observationfeeditem.component");
 var ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationFeedItemFormComponent;
@@ -85,29 +85,32 @@ var FeedItemForm = (function () {
             makeTitleWidgetLink: ['', []],
             permissions: ['', []],
             readingTime: ['', []],
-            startDate: ['', []],
-            endDate: ['', []]
+            startDate: ['', [forms_1.Validators.required]],
+            endDate: ['', [forms_1.Validators.required]]
         });
-        setTimeout(function () {
-            $('.datepicker').pickadate({
-                selectMonths: true,
-                selectYears: 5,
-                format: 'dddd, dd mmm, yyyy',
-                formatSubmit: 'yyyy/mm/dd'
-            });
-        }, 1000);
+        //setTimeout(function(){
+        //    $('.datepicker').pickadate({
+        //        selectMonths: true,
+        //        selectYears: 5,
+        //        format: 'dddd, dd mmm, yyyy',
+        //        formatSubmit: 'yyyy/mm/dd'
+        //    })}, 1000);
     };
     FeedItemForm.prototype.getModel = function () {
         if (this.model) {
+            var baseModel = new Feedclasses.BaseFeed();
+            baseModel.formatFeedItemDates(this.model);
             this.swapForm(this.getFeedType(this.model.feedType), this.model.feedCategory);
         }
         else {
             this.model = new Feedclasses.BaseFeed();
+            this.updateForm();
         }
     };
     ;
     FeedItemForm.prototype.updateForm = function () {
         if (this.model && this.model.id > 0) {
+            console.log(this.model);
             (this.form).patchValue(this.model, { onlySelf: true });
             setTimeout(function () {
                 Materialize.updateTextFields();
@@ -116,6 +119,8 @@ var FeedItemForm = (function () {
         else {
             this.form.controls['feedType'].patchValue(this.model.feedType, { onlySelf: true });
             this.form.controls['feedCategory'].patchValue(this.model.feedCategory, { onlySelf: true });
+            this.form.controls['startDate'].patchValue(this.model.startDate, { onlySelf: true });
+            this.form.controls['endDate'].patchValue(this.model.endDate, { onlySelf: true });
         }
     };
     FeedItemForm.prototype.getFeedType = function (feedType) {
@@ -158,10 +163,10 @@ FeedItemForm = __decorate([
         selector: 'feeditemform',
         template: require('./feeditemform.component.html'),
         styles: [require('./feeditemform.component.css')],
-        providers: [FeedDataService_1.FeedDataService]
+        providers: [feedDataService_1.FeedDataService]
     }),
     __metadata("design:paramtypes", [forms_1.FormBuilder, http_1.Http, router_1.ActivatedRoute,
-        router_1.Router, FeedDataService_1.FeedDataService, core_1.Injector, ShareService])
+        router_1.Router, feedDataService_1.FeedDataService, core_1.Injector, ShareService])
 ], FeedItemForm);
 exports.FeedItemForm = FeedItemForm;
 //# sourceMappingURL=feeditemform.component.js.map

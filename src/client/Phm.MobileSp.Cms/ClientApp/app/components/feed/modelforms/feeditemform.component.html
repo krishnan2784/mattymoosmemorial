@@ -211,12 +211,12 @@
 
         <div>
             <label>Start Date</label>
-            <input id="startDate" type="date" class="datepicker" for="startDate" formControlName="startDate">
+            <input id="startDate" type="date" formControlName="startDate" [value]="model.startDate">
         </div>
 
         <div>
             <label>End Date</label>
-            <input id="endDate" type="date" class="datepicker" for="endDate" formControlName="endDate">
+            <input id="endDate" type="date" formControlName="endDate" [value]="model.endDate">
         </div>
 
         <!--<p-calendar formControlName="endDate" dateFormat="DD.MM.YYYY"></p-calendar>-->

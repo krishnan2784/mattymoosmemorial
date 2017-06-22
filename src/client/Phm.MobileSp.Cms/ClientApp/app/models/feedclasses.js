@@ -16,6 +16,8 @@ var FeedTypeEnum = Enums.FeedTypeEnum;
 var Quizclasses = require("./quizclasses");
 var Surveyclasses = require("./surveyclasses");
 var Baseclasses = require("./baseclasses");
+var Date1 = require("../classes/helpers/date");
+var DateEx = Date1.DateEx;
 var BaseFeed = (function (_super) {
     __extends(BaseFeed, _super);
     function BaseFeed(options) {
@@ -33,11 +35,29 @@ var BaseFeed = (function (_super) {
         _this.makeTitleWidgetLink = options['makeTitleWidgetLink'];
         _this.permissions = options['permissions'];
         _this.readingTime = options['readingTime'] || 0;
-        _this.startDate = options['startDate']; // || Date.now();
-        _this.endDate = options['endDate']; // || Date.now() + 14;
+        _this.startDate = options['startDate'];
+        _this.endDate = options['endDate'];
         _this.publishedLiveAt = options['publishedLiveAt'];
+        _this.formatFeedItemDates();
         return _this;
     }
+    BaseFeed.prototype.formatFeedItemDates = function (feedItem) {
+        if (feedItem === void 0) { feedItem = this; }
+        var d = new Date();
+        if (feedItem.startDate) {
+            d = new Date(feedItem.startDate);
+        }
+        feedItem.startDate = DateEx.formatDate(d);
+        var d2 = new Date();
+        ;
+        if (feedItem.endDate) {
+            d2 = new Date(feedItem.endDate);
+        }
+        else {
+            d2.setDate(d.getDate() + 14);
+        }
+        feedItem.endDate = DateEx.formatDate(d2);
+    };
     return BaseFeed;
 }(Baseclasses.BaseModel));
 exports.BaseFeed = BaseFeed;

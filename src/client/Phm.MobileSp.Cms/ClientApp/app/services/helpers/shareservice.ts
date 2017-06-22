@@ -1,9 +1,9 @@
 ﻿import { Observable } from 'rxjs/Observable';
 import { Injectable, EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import Userclasses = require("../models/userclasses");
+import Userclasses = require("../../models/userclasses");
 import UserMarket = Userclasses.UserMarket;
-import FeedModel = require("../interfaces/models/IFeedModel");
+import FeedModel = require("../../interfaces/models/IFeedModel");
 import IFeedItem = FeedModel.IFeedItem;
 
 @Injectable()

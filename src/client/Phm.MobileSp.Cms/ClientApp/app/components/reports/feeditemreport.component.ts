@@ -3,13 +3,13 @@ import Baseclasses = require("../../models/baseclasses");
 import BaseModel = Baseclasses.BaseModel;
 import Basecomponent = require("../base.component");
 import BaseComponent = Basecomponent.BaseComponent;
-import Datashareservice = require("../../dataservices/datashareservice");
+import Datashareservice = require("../../services/helpers/shareservice");
 import ShareService = Datashareservice.ShareService;
 import FeedModel = require("../../interfaces/models/IFeedModel");
 import IFeedItem = FeedModel.IFeedItem;
 import Enums = require("../../enums");
 import FeedTypeEnum = Enums.FeedTypeEnum;
-import Feeddataservice = require("../../dataservices/feeddataservice");
+import Feeddataservice = require("../../services/feeddataservice");
 import FeedDataService = Feeddataservice.FeedDataService;
 import Chartclasses = require("../../models/chartclasses");
 import BarChartData = Chartclasses.BarChartData;
@@ -69,7 +69,9 @@ export class FeedItemReport implements OnInit, AfterViewInit, OnDestroy {
 
     ngOnDestroy() {
         var slider: any = document.getElementById('scoreRange');
-        slider.noUiSlider.off('end');
+        if (slider) {
+            slider.noUiSlider.off('end');
+        }
     }
 
     private getData() {
@@ -164,32 +166,37 @@ export class FeedItemReport implements OnInit, AfterViewInit, OnDestroy {
 
     setEvent() {
         var slider: any = document.getElementById('scoreRange');
-
         slider.noUiSlider.on('end', () => { this.onSliderChange(); });
     }
 
     public onSliderChange() {
-        var slider: any = document.getElementById('scoreRange');
-        var sliderVals = slider.noUiSlider.get();
-        var botRange = parseInt(sliderVals[0]);
-        var topRange = parseInt(sliderVals[1]);
-
-        if ((this.rangeBottom === botRange && this.rangeTop === topRange) || this.slideChangeBusy)
-            return;
-
-        slider.noUiSlider.off('end');
-
         console.log(this.slideChangeBusy);
-        this.slideChangeBusy = true;
 
-        this.rangeBottom = botRange;
-        this.rangeTop = topRange;
-        this.listData = null;
-        this.getData();
-        this.enableSlider();
+        var slider: any = document.getElementById('scoreRange');
+        if (slider) {
+            var sliderVals = slider.noUiSlider.get();
+            var botRange = parseInt(sliderVals[0]);
+            var topRange = parseInt(sliderVals[1]);
+
+            if ((this.rangeBottom === botRange && this.rangeTop === topRange) || this.slideChangeBusy)
+                return;
+
+            slider.noUiSlider.off('end');
+            this.slideChangeBusy = true;
+
+            this.rangeBottom = botRange;
+            this.rangeTop = topRange;
+            this.listData = null;
+            this.getData();
+            this.enableSlider();
+        }
     }
 
     public goBack() {
+        var slider: any = document.getElementById('scoreRange');
+        if (slider) {
+            slider.noUiSlider.off('end');
+        }
         this.pageTitle = null;
         this.model = null;
         this.averageTimeData = null;

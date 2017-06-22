@@ -11,6 +11,8 @@ import Corporateappclasses = require("./corporateappclasses");
 import CorporateApp = Corporateappclasses.CorporateApp;
 import Observationclasses = require("./observationclasses");
 import UserObservation = Observationclasses.UserObservation;
+import Date1 = require("../classes/helpers/date");
+import DateEx = Date1.DateEx;
 
 export class BaseFeed extends Baseclasses.BaseModel implements FeedModel.IFeedItem {
     allowFavourite: boolean;
@@ -19,8 +21,8 @@ export class BaseFeed extends Baseclasses.BaseModel implements FeedModel.IFeedIt
     makeTitleWidgetLink: boolean;
     permissions: number;
     readingTime: number;
-    startDate: Date;
-    endDate: Date;
+    startDate: string;
+    endDate: string;
     publishedLiveAt: Date;
     title: string;
     shortDescription: string;
@@ -44,9 +46,26 @@ export class BaseFeed extends Baseclasses.BaseModel implements FeedModel.IFeedIt
         this.makeTitleWidgetLink = options['makeTitleWidgetLink'];
         this.permissions = options['permissions'];
         this.readingTime = options['readingTime'] || 0;
-        this.startDate = options['startDate']; // || Date.now();
-        this.endDate = options['endDate']; // || Date.now() + 14;
-        this.publishedLiveAt = options['publishedLiveAt']; 
+        this.startDate = options['startDate'];
+        this.endDate = options['endDate'];
+        this.publishedLiveAt = options['publishedLiveAt'];
+
+        this.formatFeedItemDates();
+    }
+
+    public formatFeedItemDates(feedItem: FeedModel.IFeedItem = this) {
+        let d = new Date();
+        if (feedItem.startDate) {
+            d = new Date(feedItem.startDate);
+        }
+        feedItem.startDate = DateEx.formatDate(d);
+        let d2 = new Date();;
+        if (feedItem.endDate) {
+            d2 = new Date(feedItem.endDate);
+        } else {
+            d2.setDate(d.getDate() + 14);
+        }
+        feedItem.endDate = DateEx.formatDate(d2);
     }
 }
 

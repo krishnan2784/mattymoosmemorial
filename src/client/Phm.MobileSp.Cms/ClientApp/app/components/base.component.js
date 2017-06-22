@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var datashareservice_1 = require("../dataservices/datashareservice");
+var shareservice_1 = require("../services/helpers/shareservice");
 var BaseComponent = (function () {
     function BaseComponent(sharedService, pageTitle, marketDropdownVisiblity, goBackText) {
         if (goBackText === void 0) { goBackText = ''; }
@@ -46,9 +46,9 @@ var BaseComponent = (function () {
 BaseComponent = __decorate([
     core_1.Component({
         template: '',
-        providers: [datashareservice_1.ShareService]
+        providers: [shareservice_1.ShareService]
     }),
-    __metadata("design:paramtypes", [datashareservice_1.ShareService, String, Boolean, String])
+    __metadata("design:paramtypes", [shareservice_1.ShareService, String, Boolean, String])
 ], BaseComponent);
 exports.BaseComponent = BaseComponent;
 //# sourceMappingURL=base.component.js.map

@@ -21,12 +21,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var feeddataservice_1 = require("../../../dataservices/feeddataservice");
+var feeddataservice_1 = require("../../../services/feeddataservice");
 var Enums = require("../../../enums");
 var FeedTypeEnum = Enums.FeedTypeEnum;
 var FeedCategoryEnum = Enums.FeedCategoryEnum;
 var base_component_1 = require("../../base.component");
-var datashareservice_1 = require("../../../dataservices/datashareservice");
+var shareservice_1 = require("../../../services/helpers/shareservice");
 var Feeditemreportcomponent = require("../feeditemreport.component");
 var FeedItemReport = Feeditemreportcomponent.FeedItemReport;
 var FeedReportIndexComponent = (function (_super) {
@@ -120,7 +120,7 @@ FeedReportIndexComponent = __decorate([
     __metadata("design:paramtypes", [router_1.ActivatedRoute,
         router_1.Router,
         feeddataservice_1.FeedDataService,
-        datashareservice_1.ShareService])
+        shareservice_1.ShareService])
 ], FeedReportIndexComponent);
 exports.FeedReportIndexComponent = FeedReportIndexComponent;
 //# sourceMappingURL=feedreportindex.component.js.map

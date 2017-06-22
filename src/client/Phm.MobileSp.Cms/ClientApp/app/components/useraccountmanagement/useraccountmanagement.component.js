@@ -21,8 +21,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var base_component_1 = require("../base.component");
-var datashareservice_1 = require("../../dataservices/datashareservice");
-var userdataservice_1 = require("../../dataservices/userdataservice");
+var shareservice_1 = require("../../services/helpers/shareservice");
+var userdataservice_1 = require("../../services/userdataservice");
 var UserAccountManagementComponent = (function (_super) {
     __extends(UserAccountManagementComponent, _super);
     function UserAccountManagementComponent(sharedService, userDataService) {
@@ -46,7 +46,7 @@ UserAccountManagementComponent = __decorate([
         template: require('./useraccountmanagement.component.html'),
         styles: [require('./useraccountmanagement.component.css')]
     }),
-    __metadata("design:paramtypes", [datashareservice_1.ShareService, userdataservice_1.UserDataService])
+    __metadata("design:paramtypes", [shareservice_1.ShareService, userdataservice_1.UserDataService])
 ], UserAccountManagementComponent);
 exports.UserAccountManagementComponent = UserAccountManagementComponent;
 //# sourceMappingURL=useraccountmanagement.component.js.map
