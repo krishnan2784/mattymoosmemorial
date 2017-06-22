@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, Input, Output, ViewChild, EventEmitter, Injector, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ElementRef, Input, Output, ViewChild, EventEmitter, Injector, AfterViewInit, OnDestroy } from '@angular/core';
 import Baseclasses = require("../../models/baseclasses");
 import BaseModel = Baseclasses.BaseModel;
 import Basecomponent = require("../base.component");
@@ -26,7 +26,7 @@ declare var noUiSlider: any;
     template: require('./feeditemreport.component.html'),
     styles: [require('./feeditemreport.component.css')]
 })
-export class FeedItemReport implements OnInit, AfterViewInit {
+export class FeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     @Output()
     public onBackEvent: EventEmitter<any>;
 
@@ -65,6 +65,11 @@ export class FeedItemReport implements OnInit, AfterViewInit {
     ngAfterViewInit() {
         this.setupRangeSlider();
         this.getData();
+    }
+
+    ngOnDestroy() {
+        var slider: any = document.getElementById('scoreRange');
+        slider.noUiSlider.off('end');
     }
 
     private getData() {

@@ -43,6 +43,10 @@ var FeedItemReport = (function () {
         this.setupRangeSlider();
         this.getData();
     };
+    FeedItemReport.prototype.ngOnDestroy = function () {
+        var slider = document.getElementById('scoreRange');
+        slider.noUiSlider.off('end');
+    };
     FeedItemReport.prototype.getData = function () {
         var _this = this;
         this.feedDataService.getFeedItemReport(this.model.id).subscribe(function (result) {
