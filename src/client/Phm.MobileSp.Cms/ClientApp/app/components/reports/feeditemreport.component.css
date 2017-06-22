@@ -107,12 +107,12 @@
     padding-top: 10px;
 }
 .result-list-content-row > div {
-    height:100%;
+    min-height:35px;
 }
 .result-list-content-row:not(:last-child) .border-bottom {
     border-bottom: #EFEFEF 1px solid;
     padding-top: 4px;
 }
-.noUi-connect {
-    background-color: #4F3A9F!important;
+#scoreRange {
+    margin-top: 45px;
 }

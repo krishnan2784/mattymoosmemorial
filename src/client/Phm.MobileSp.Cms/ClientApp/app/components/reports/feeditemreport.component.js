@@ -46,7 +46,6 @@ var FeedItemReport = (function () {
     FeedItemReport.prototype.getData = function () {
         var _this = this;
         this.feedDataService.getFeedItemReport(this.model.id).subscribe(function (result) {
-            _this.slideChangeBusy = false;
             if (result.success) {
                 _this.summaryData = result.content;
                 _this.updateReport();
@@ -104,38 +103,51 @@ var FeedItemReport = (function () {
     FeedItemReport.prototype.clearFilters = function () {
         // not implemented
     };
-    FeedItemReport.prototype.privateResetRange = function () {
-        var slider = document.getElementById('range');
+    FeedItemReport.prototype.enableSlider = function () {
+        this.setEvent();
+        this.slideChangeBusy = false;
+    };
+    FeedItemReport.prototype.resetRange = function () {
+        var slider = document.getElementById('scoreRange');
         slider.noUiSlider.reset();
-        setTimeout(this.onSliderChange, 500);
+        this.onSliderChange();
     };
     FeedItemReport.prototype.setupRangeSlider = function () {
         var _this = this;
-        var slider = document.getElementById('range');
+        var slider = document.getElementById('scoreRange');
         noUiSlider.create(slider, {
             start: [0, 100],
             connect: true,
+            step: 5,
+            tooltips: [true, true],
+            behaviour: 'drag',
             range: {
                 'min': 0,
                 'max': 100
             }
         });
-        slider.noUiSlider.on('end', function () {
-            _this.onSliderChange();
-        });
+        setTimeout(function () { _this.setEvent(); }, 500);
+    };
+    FeedItemReport.prototype.setEvent = function () {
+        var _this = this;
+        var slider = document.getElementById('scoreRange');
+        slider.noUiSlider.on('end', function () { _this.onSliderChange(); });
     };
     FeedItemReport.prototype.onSliderChange = function () {
-        console.log(this.slideChangeBusy);
-        if (this.slideChangeBusy) {
-            return;
-        }
-        this.slideChangeBusy = true;
-        console.log(this.slideChangeBusy);
-        var slider = document.getElementById('range');
+        var slider = document.getElementById('scoreRange');
         var sliderVals = slider.noUiSlider.get();
-        this.rangeBottom = parseInt(sliderVals[0]);
-        this.rangeTop = parseInt(sliderVals[1]);
+        var botRange = parseInt(sliderVals[0]);
+        var topRange = parseInt(sliderVals[1]);
+        if ((this.rangeBottom === botRange && this.rangeTop === topRange) || this.slideChangeBusy)
+            return;
+        slider.noUiSlider.off('end');
+        console.log(this.slideChangeBusy);
+        this.slideChangeBusy = true;
+        this.rangeBottom = botRange;
+        this.rangeTop = topRange;
+        this.listData = null;
         this.getData();
+        this.enableSlider();
     };
     FeedItemReport.prototype.goBack = function () {
         this.pageTitle = null;

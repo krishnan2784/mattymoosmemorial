@@ -69,7 +69,6 @@ export class FeedItemReport implements OnInit, AfterViewInit {
 
     private getData() {
         this.feedDataService.getFeedItemReport(this.model.id).subscribe(result => {
-            this.slideChangeBusy = false;
             if (result.success) {
                 this.summaryData = result.content;
                 this.updateReport();
@@ -129,42 +128,60 @@ export class FeedItemReport implements OnInit, AfterViewInit {
         // not implemented
     }
 
-    privateResetRange() {
-        var slider: any = document.getElementById('range');
+    enableSlider() {
+        this.setEvent();
+        this.slideChangeBusy = false;
+    }
+
+    private resetRange() {
+        var slider: any = document.getElementById('scoreRange');
         slider.noUiSlider.reset();
-        setTimeout(this.onSliderChange, 500);
+        this.onSliderChange();
     }
 
     private setupRangeSlider() {
-        var slider: any = document.getElementById('range');
+        var slider: any = document.getElementById('scoreRange');
 
         noUiSlider.create(slider, {
             start: [0, 100],
             connect: true,
+            step: 5,
+            tooltips: [true, true],
+            behaviour: 'drag',
             range: {
                 'min': 0,
                 'max': 100
             }
         });
 
-        slider.noUiSlider.on('end', () => {
-            this.onSliderChange();
-        });
+        setTimeout(() => { this.setEvent(); }, 500);
     }
 
-    private onSliderChange() {
-        console.log(this.slideChangeBusy);
-        if (this.slideChangeBusy) {
-            return;
-        }
-        this.slideChangeBusy = true;
-        console.log(this.slideChangeBusy);
+    setEvent() {
+        var slider: any = document.getElementById('scoreRange');
 
-        var slider: any = document.getElementById('range');
+        slider.noUiSlider.on('end', () => { this.onSliderChange(); });
+    }
+
+    public onSliderChange() {
+        var slider: any = document.getElementById('scoreRange');
         var sliderVals = slider.noUiSlider.get();
-        this.rangeBottom = parseInt(sliderVals[0]);
-        this.rangeTop = parseInt(sliderVals[1]);
+        var botRange = parseInt(sliderVals[0]);
+        var topRange = parseInt(sliderVals[1]);
+
+        if ((this.rangeBottom === botRange && this.rangeTop === topRange) || this.slideChangeBusy)
+            return;
+
+        slider.noUiSlider.off('end');
+
+        console.log(this.slideChangeBusy);
+        this.slideChangeBusy = true;
+
+        this.rangeBottom = botRange;
+        this.rangeTop = topRange;
+        this.listData = null;
         this.getData();
+        this.enableSlider();
     }
 
     public goBack() {

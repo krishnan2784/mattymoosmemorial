@@ -88,8 +88,8 @@
                     </div>
                 </div>
                 <div class="filter-block">
-                    <p>Range <a class="right" (click)="privateResetRange()">Reset</a></p>
-                    <div id="range"></div>
+                    <p>Range <a class="right" (click)="resetRange()">Reset</a></p>
+                    <div id="scoreRange"></div>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -114,7 +114,10 @@
                         </span>
                     </div>
                 </div>
-                <div class="result-list-content">
+                
+                <div *ngIf="!listData"><em>Loading...</em></div>
+                <div *ngIf="listData && listData.length === 0">No results have been found for the selected filters.</div>
+                <div *ngIf="listData && listData.length > 0" class="result-list-content">
                     <div *ngFor="let quizResult of this.listData | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}" class="result-list-content-row">
                         <div class="col-md-1">
                             <i class="material-icons person-icon">person</i>
@@ -137,6 +140,11 @@
                         </div>
                         <span class="clearfix"></span>
                     </div>
+                    <pagination-controls (pageChange)="page = $event" id="1"
+                                         maxSize="20"
+                                         directionLinks="true"
+                                         autoHide="true">
+                    </pagination-controls>
                 </div>
             </div>
 
