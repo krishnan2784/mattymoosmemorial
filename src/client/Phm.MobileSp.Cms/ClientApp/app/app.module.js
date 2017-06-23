@@ -53,6 +53,8 @@ var GaugeChart = Gaugechartcomponent.GaugeChart;
 var Donutchartcomponent = require("./components/charts/donutchart.component");
 var navbar_component_1 = require("./components/navbar/navbar.component");
 var DonutChart = Donutchartcomponent.DonutChart;
+var Leaderboardcomponent = require("./components/reports/leaderboard.component");
+var LeaderboardComponent = Leaderboardcomponent.LeaderboardComponent;
 var AppModule = (function () {
     function AppModule() {
     }
@@ -88,6 +90,7 @@ AppModule = __decorate([
             feedreportindex_component_1.FeedReportIndexComponent,
             FeedItemReportContainerComponent,
             feeditemreport_component_1.FeedItemReport,
+            LeaderboardComponent,
             // charts
             BarChart,
             GaugeChart,

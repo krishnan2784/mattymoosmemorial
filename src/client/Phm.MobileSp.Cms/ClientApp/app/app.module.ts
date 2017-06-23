@@ -50,6 +50,8 @@ import GaugeChart = Gaugechartcomponent.GaugeChart;
 import Donutchartcomponent = require("./components/charts/donutchart.component");
 import { NavBarComponent } from "./components/navbar/navbar.component";
 import DonutChart = Donutchartcomponent.DonutChart;
+import Leaderboardcomponent = require("./components/reports/leaderboard.component");
+import LeaderboardComponent = Leaderboardcomponent.LeaderboardComponent;
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -83,6 +85,7 @@ import DonutChart = Donutchartcomponent.DonutChart;
         FeedReportIndexComponent,
         FeedItemReportContainerComponent,
         FeedItemReport,
+        LeaderboardComponent,
          
         // charts
         BarChart,
