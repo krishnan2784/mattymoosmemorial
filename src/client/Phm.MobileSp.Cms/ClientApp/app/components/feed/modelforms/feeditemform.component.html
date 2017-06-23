@@ -13,18 +13,17 @@
     <input type="hidden" formControlName="published">
     <input type="hidden" formControlName="feedType">
     <input type="hidden" formControlName="feedCategory">
-    
+
     <div class="feed-item-form-buttons">
         <a (click)="goBack()" class="btn btn-primary">Cancel</a>
-        <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Submit</button>
+        <button type="submit" class="btn btn-primary btn-save" [disabled]="!form.valid">Save</button>
     </div>
-    <div class="clear-both"></div>
+
     <div class="feed-form-navigation col-md-8">
-        <span *ngFor="let step of this.feedFormSteps.visibleSteps">
-            <a (click)="this.feedFormSteps.navigateToSelectedStep(step)" [class.active-form-tab]="this.feedFormSteps.currentStep == step">{{step.name}}</a>
-        </span> 
+        <navbar [data]="navbarData" (optionSelected)="this.feedFormSteps.navigateToSelectedStep($event)"></navbar>
         <div class="clear-both"></div>
     </div>
+
     <div class="clear-both"></div>
 
     <div class="col-md-8 no-pad" *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Category)">

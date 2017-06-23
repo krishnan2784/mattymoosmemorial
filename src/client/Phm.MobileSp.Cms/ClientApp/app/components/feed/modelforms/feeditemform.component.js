@@ -45,15 +45,13 @@ var FeedItemForm = (function () {
         this.surveyForm = SurveyFeedItemFormComponent;
         this.observationForm = ObservationFeedItemFormComponent;
         this.feedFormSteps = new FeedFormSteps();
+        this.navbarData = [];
         this._fb = fb;
-        this.setupForm();
+        this.initialiseForm();
         this.model = this.injector.get('feedItem');
         this.selectedFeedCatId = this.injector.get('feedCat');
         this.getModel();
     }
-    FeedItemForm.prototype.setupForm = function () {
-        this.initialiseForm();
-    };
     FeedItemForm.prototype.swapForm = function (newFormType, feedCategory) {
         var newForm = (new newFormType());
         if (this.form && this.subForm) {
@@ -67,7 +65,20 @@ var FeedItemForm = (function () {
         this.model.feedType = this.subForm.feedType;
         this.model.feedCategory = feedCategory;
         this.feedFormSteps.setFormType(newForm.feedType);
+        this.setupFormSteps();
         this.updateForm();
+    };
+    FeedItemForm.prototype.setupFormSteps = function () {
+        var _this = this;
+        this.navbarData = [];
+        this.feedFormSteps.visibleSteps.forEach(function (step) {
+            _this.navbarData.push({
+                id: step.type,
+                text: step.name,
+                additionalText: step.additionalText
+            });
+        });
+        this.navbarData[0].selected = true;
     };
     FeedItemForm.prototype.initialiseForm = function () {
         this.form = this._fb.group({
@@ -88,13 +99,6 @@ var FeedItemForm = (function () {
             startDate: ['', [forms_1.Validators.required]],
             endDate: ['', [forms_1.Validators.required]]
         });
-        //setTimeout(function(){
-        //    $('.datepicker').pickadate({
-        //        selectMonths: true,
-        //        selectYears: 5,
-        //        format: 'dddd, dd mmm, yyyy',
-        //        formatSubmit: 'yyyy/mm/dd'
-        //    })}, 1000);
     };
     FeedItemForm.prototype.getModel = function () {
         if (this.model) {
@@ -105,6 +109,7 @@ var FeedItemForm = (function () {
         else {
             this.model = new Feedclasses.BaseFeed();
             this.updateForm();
+            this.setupFormSteps();
         }
     };
     ;

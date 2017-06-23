@@ -74,6 +74,11 @@
     height: 50px;
     padding: 0 15px;
     vertical-align: middle;
+    margin-bottom: 40px;
+}
+
+.btn-save {
+    margin-left: 30px;
 }
 
 .feed-form-navigation a {

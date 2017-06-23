@@ -48,6 +48,7 @@ import FeedItemReportContainerComponent = Basefeeditemreportcomponent.FeedItemRe
 import Gaugechartcomponent = require("./components/charts/gaugechart.component");
 import GaugeChart = Gaugechartcomponent.GaugeChart;
 import Donutchartcomponent = require("./components/charts/donutchart.component");
+import { NavBarComponent } from "./components/navbar/navbar.component";
 import DonutChart = Donutchartcomponent.DonutChart;
 
 @NgModule({
@@ -56,6 +57,7 @@ import DonutChart = Donutchartcomponent.DonutChart;
         AppComponent,
         BaseComponent,
         NavMenuComponent,
+        NavBarComponent,
         FooterComponent,
         MarketDropdown,
         //DateValueAccessor,

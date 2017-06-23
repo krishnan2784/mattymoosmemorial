@@ -59,22 +59,18 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     public observationForm = ObservationFeedItemFormComponent;
 
     public feedFormSteps: FeedFormSteps = new FeedFormSteps();
-
+    public navbarData = [];
     constructor(fb: FormBuilder, public http: Http, public route: ActivatedRoute,
         private router: Router, public feedDataService: FeedDataService, private injector: Injector, public sharedService: ShareService) {
         
         this._fb = fb;
 
-        this.setupForm();
+        this.initialiseForm();
 
         this.model = this.injector.get('feedItem');
         this.selectedFeedCatId = this.injector.get('feedCat');
 
         this.getModel();
-    }
-
-    public setupForm() {
-        this.initialiseForm();
     }
 
     public swapForm<TFormType extends any>(newFormType: TFormType, feedCategory: FeedCategoryEnum) {
@@ -93,8 +89,22 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         this.model.feedType = this.subForm.feedType;
         this.model.feedCategory = feedCategory;
         this.feedFormSteps.setFormType(newForm.feedType);
+        this.setupFormSteps();
+
         this.updateForm();
-     
+    }
+
+    public setupFormSteps() {
+        this.navbarData = [];
+        this.feedFormSteps.visibleSteps.forEach((step) => {
+            this.navbarData.push({
+                id: step.type,
+                text: step.name,
+                additionalText: step.additionalText
+            });
+        });
+        this.navbarData[0].selected = true;
+
     }
 
     public initialiseForm() {
@@ -116,14 +126,6 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             startDate: ['', [<any>Validators.required]],
             endDate: ['', [<any>Validators.required]]
         });
-
-        //setTimeout(function(){
-        //    $('.datepicker').pickadate({
-        //        selectMonths: true,
-        //        selectYears: 5,
-        //        format: 'dddd, dd mmm, yyyy',
-        //        formatSubmit: 'yyyy/mm/dd'
-        //    })}, 1000);
     }
 
     getModel() {
@@ -134,6 +136,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         } else {
             this.model = new Feedclasses.BaseFeed();
             this.updateForm();
+            this.setupFormSteps();
         }
     };
 

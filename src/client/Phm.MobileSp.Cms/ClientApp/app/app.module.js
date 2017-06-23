@@ -51,6 +51,7 @@ var FeedItemReportContainerComponent = Basefeeditemreportcomponent.FeedItemRepor
 var Gaugechartcomponent = require("./components/charts/gaugechart.component");
 var GaugeChart = Gaugechartcomponent.GaugeChart;
 var Donutchartcomponent = require("./components/charts/donutchart.component");
+var navbar_component_1 = require("./components/navbar/navbar.component");
 var DonutChart = Donutchartcomponent.DonutChart;
 var AppModule = (function () {
     function AppModule() {
@@ -64,6 +65,7 @@ AppModule = __decorate([
             app_component_1.AppComponent,
             base_component_1.BaseComponent,
             navmenu_component_1.NavMenuComponent,
+            navbar_component_1.NavBarComponent,
             footer_component_1.FooterComponent,
             marketdropdown_component_1.MarketDropdown,
             //DateValueAccessor,

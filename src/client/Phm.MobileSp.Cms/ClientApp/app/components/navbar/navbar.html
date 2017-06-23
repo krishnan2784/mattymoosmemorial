@@ -1,0 +1,10 @@
+<div class="navBarContents">
+  <div class="gradientLine" [ngStyle]="{ 'width' : ((data.length -1) * 165) + 'px' }"></div>
+  <div *ngFor = "let o of data ; let i=index" class="option" (click)="raiseEvent(o.id, i)">
+    <div class="circle" [ngClass]="{ selected: o.selected, notSelected: !o.selected}"></div>
+    <div class="text">
+      <span [ngClass]="{textSelected: o.selected}">{{o.text}}</span>
+      <span *ngIf="o.additionalText" class="additionalText">&nbsp;({{o.additionalText}})</span>
+    </div>
+  </div>
+</div>
