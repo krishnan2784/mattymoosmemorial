@@ -112,15 +112,17 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
                 })
             });
             var response = await _proxyClient.GetQuizResultsSummariesEXAsync(new GetQuizResultsSummariesEXRequest1(request));
-            //var config = new MapperConfiguration(cfg =>
-            //{
-            //    cfg.CreateMap<QuizResultsSummariesEXDto, FeedItemSummaryEx>().ReverseMap();
-            //    cfg.CreateMap<QuizFeedResultDto, FeedItemSummary>().ReverseMap();
-            //    cfg.CreateMap<UserDto, User>().ReverseMap();
-            //});
-            //var mapper = config.CreateMapper();
-            //var summary = mapper.Map<List<FeedItemSummaryEx>>(response.GetQuizResultsSummariesEXResult.QuizResultsSummaries);
             return response.GetQuizResultsSummariesEXResult.QuizResultsSummaries;
+        }
+
+        public async Task<dynamic> GetQuizSummaryFilters(int marketId)
+        {
+            var request = GetRequest(new GetQuizSummaryFiltersRequest
+            {
+                MarketId = marketId
+            });
+            var response = await _proxyClient.GetQuizSummaryFiltersAsync(new GetQuizSummaryFiltersRequest1(request));
+            return response.GetQuizSummaryFiltersResult;
         }
 
         public async Task<bool> CopyFeedItemToMarketAsync(int feedItemId, List<int> marketIds)

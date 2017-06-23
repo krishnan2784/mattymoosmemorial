@@ -92,6 +92,18 @@ var FeedDataService = (function (_super) {
             + '&userGroupId=' + userGroupId;
         return this.getRequestFull(requestUrl);
     };
+    FeedDataService.prototype.getQuizSummaryFilters = function () {
+        var _this = this;
+        return Observable_1.Observable.create(function (observer) {
+            _this.getRequestBase('/api/Feed/GetQuizSummaryFilters').subscribe(function (result) {
+                if (result) {
+                    var response = { userGroupNames: result.userGroupNames, dealershipNames: result.dealershipNames };
+                    observer.next(response);
+                }
+                observer.complete();
+            });
+        });
+    };
     return FeedDataService;
 }(requesthelper_1.RequestHelper));
 FeedDataService = __decorate([

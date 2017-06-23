@@ -32,6 +32,7 @@ var FeedItemSummaryEx = (function (_super) {
         var _this = _super.call(this, options) || this;
         _this.finishedAt = options['finishedAt'];
         _this.mainUserGroup = options['mainUserGroup'] || '';
+        _this.dealershipName = options['dealershipName'] || '';
         _this.minSucceedThreshold = options['minSucceedThreshold'] || 0;
         _this.pointsGained = options['pointsGained'] || 0;
         _this.quizFeedId = options['quizFeedId'] || 0;

@@ -61,7 +61,7 @@
     </div>
     <div>
         <div class="col-md-3 right">
-            <input placeholder="Searce" type="search" />
+            <input placeholder="Searce" type="search" [(ngModel)]="searchString"/>
         </div>
         <div class="clearfix"></div>
     </div>
@@ -72,34 +72,16 @@
                     <p>Refine by: <a class="right" (click)="clearFilters()">Clear all</a></p>
                 </div>
                 <div class="filter-block">
-                    <p>Role <a class="right" (click)="clearFilters()">Clear</a></p>
-                    <div>
-                        <input type="checkbox" id="salesMan"><label for="salesMan">Sales Manager</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="salesExec"><label for="salesExec">Sales Executive</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="dealer"><label for="dealer">Dealer</label>
+                    <p>Role <a class="right" (click)="clearUserFilters()">Clear</a></p>
+                    <div *ngFor="let userGroup of this.userGroupFilters">
+                        <input type="checkbox" id="{{userGroup.id}}" [(ngModel)]="userGroup.checked" ><label [attr.for]="userGroup.id">{{userGroup.text}}</label>
                     </div>
                 </div>
                 <div class="filter-block">
-                    <p>Dealership <a class="right" (click)="clearFilters()">Clear</a></p>
+                    <p>Dealership <a class="right" (click)="clearDealerFilters()">Clear</a></p>
                     <div class="filter-block">
-                        <div>
-                            <input type="checkbox" id="dealer_1"><label for="dealer_1">Dealership A</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="dealer_2"><label for="dealer_2">Dealership B</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="dealer_3"><label for="dealer_3">Dealership C</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="dealer_4"><label for="dealer_4">Dealership D</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="dealer_5"><label for="dealer_5">Dealership E</label>
+                        <div *ngFor="let dealer of this.dealershipFilters">
+                            <input type="checkbox" id="{{dealer.id}}" [(ngModel)]="dealer.checked"><label [attr.for]="dealer.id">{{dealer.text}}</label>
                         </div>
                     </div>
                 </div>
@@ -131,10 +113,10 @@
                     </div>
                 </div>
                 
-                <div *ngIf="!listData"><em>Loading...</em></div>
-                <div *ngIf="listData && listData.length === 0">No results have been found for the selected filters.</div>
-                <div *ngIf="listData && listData.length > 0" class="result-list-content">
-                    <div *ngFor="let quizResult of this.listData | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}" class="result-list-content-row">
+                <div *ngIf="!filteredListData"><em>Loading...</em></div>
+                <div *ngIf="filteredListData && filteredListData.length === 0">No results have been found for the selected filters.</div>
+                <div *ngIf="filteredListData && filteredListData.length > 0" class="result-list-content">
+                    <div *ngFor="let quizResult of filteredListData | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}" class="result-list-content-row">
                         <div class="col-md-1">
                             <i class="material-icons person-icon">person</i>
                         </div>
@@ -145,7 +127,7 @@
                             {{ quizResult.mainUserGroup }}
                         </div>
                         <div class="col-md-3 border-bottom">
-                            {{ quizResult.user.dealershipName }}
+                            {{ quizResult.dealershipName }}
                         </div>
                         <div class="col-md-2 border-bottom">
                             <i class="material-icons" *ngIf="quizResult.resultPercentage===100">star_rate</i>

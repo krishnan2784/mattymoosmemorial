@@ -139,5 +139,14 @@ namespace Phm.MobileSp.Cms.Controllers.API
             return Json(new BaseResponse(success, success ? "" : "Failed to get a report for this feed item", feedItemResponse));
         }
 
+
+        [HttpGet("[action]")]
+        [JsonResponseWrapper]
+        public async Task<JsonResult> GetQuizSummaryFilters()
+        {
+            var response = await _feedRepository.GetQuizSummaryFilters(CurrentMarketId);
+            return Json(new BaseResponse(response));
+        }
+
     }
 }

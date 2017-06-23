@@ -28,20 +28,31 @@ var FeedItemReport = (function () {
         this.feedTypes = Enums.FeedTypeEnum;
         this.rangeBottom = 0;
         this.rangeTop = 100;
+        this.userGroupFilters = [];
+        this.dealershipFilters = [];
+        this.searchString = "";
         this.slideChangeBusy = false;
         this.model = this.injector.get('model');
         this.pageTitle = this.injector.get('pageTitle');
         this.feedTypeString = Enums.FeedTypeEnum[this.model.feedType];
+        this.getMarketFilters();
         this.sharedService.goBackEvent.subscribe(function () {
             _this.onBackEvent.emit();
         });
     }
+    Object.defineProperty(FeedItemReport.prototype, "filteredListData", {
+        get: function () {
+            return this.filterResultList();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ;
     FeedItemReport.prototype.ngOnInit = function () {
         this.getData();
     };
     FeedItemReport.prototype.ngAfterViewInit = function () {
         this.setupRangeSlider();
-        this.getData();
     };
     FeedItemReport.prototype.ngOnDestroy = function () {
         var slider = document.getElementById('scoreRange');
@@ -50,6 +61,10 @@ var FeedItemReport = (function () {
         }
     };
     FeedItemReport.prototype.getData = function () {
+        this.getHeaderData();
+        this.getResultListData();
+    };
+    FeedItemReport.prototype.getHeaderData = function () {
         var _this = this;
         this.feedDataService.getFeedItemReport(this.model.id).subscribe(function (result) {
             if (result.success) {
@@ -61,15 +76,48 @@ var FeedItemReport = (function () {
                 _this.goBack();
             }
         });
-        console.log(this.rangeTop);
+    };
+    FeedItemReport.prototype.getResultListData = function () {
+        var _this = this;
         this.feedDataService.getFeedItemResultList(this.model.id, this.rangeBottom, this.rangeTop, 0).subscribe(function (result) {
             _this.listData = result.content;
         });
     };
+    FeedItemReport.prototype.filterResultList = function () {
+        if (!this.listData)
+            return null;
+        var data = Object.assign([], this.listData);
+        var userFilters = this.userGroupFilters.filter(function (x) { return x.checked; });
+        if (userFilters.length > 0)
+            data = data.filter(function (x) { return userFilters.filter(function (y) { return y.text === x.mainUserGroup; }).length > 0; });
+        var dealerFilters = this.dealershipFilters.filter(function (x) { return x.checked; });
+        if (dealerFilters.length > 0)
+            data = data.filter(function (x) { return dealerFilters.filter(function (y) { return y.text === x.dealershipName; }).length > 0; });
+        if (this.searchString !== "") {
+            var search = this.searchString.toLowerCase();
+            data = data.filter(function (x) { return x.user.firstName.toLowerCase().indexOf(search) > -1
+                || x.user.lastName.toLowerCase().indexOf(search) > -1; });
+        }
+        return data;
+    };
+    FeedItemReport.prototype.getMarketFilters = function () {
+        var _this = this;
+        this.feedDataService.getQuizSummaryFilters().subscribe(function (result) {
+            if (result) {
+                if (result.userGroupNames) {
+                    result.userGroupNames.forEach(function (group) {
+                        _this.userGroupFilters.push({ id: group.replace(" ", "_"), text: group, checked: false });
+                    });
+                }
+                if (result.dealershipNames) {
+                    result.dealershipNames.forEach(function (group) {
+                        _this.dealershipFilters.push({ id: group.replace(" ", "_"), text: group, checked: false });
+                    });
+                }
+            }
+        });
+    };
     FeedItemReport.prototype.updateReport = function () {
-        //if (this.summaryData) {
-        //    this.averageTimeData = new BarChartData();
-        //}
         var barData = new BarChartData({
             showTooltip: true,
             showYAxis: false,
@@ -107,16 +155,25 @@ var FeedItemReport = (function () {
         this.averageScoreData = donutData;
     };
     FeedItemReport.prototype.clearFilters = function () {
-        // not implemented
+        this.userGroupFilters.forEach(function (x) { return x.checked = false; });
+        this.dealershipFilters.forEach(function (x) { return x.checked = false; });
+        this.searchString = "";
+        this.resetRange();
     };
-    FeedItemReport.prototype.enableSlider = function () {
-        this.setEvent();
-        this.slideChangeBusy = false;
+    FeedItemReport.prototype.clearUserFilters = function () {
+        this.userGroupFilters.forEach(function (x) { return x.checked = false; });
+    };
+    FeedItemReport.prototype.clearDealerFilters = function () {
+        this.dealershipFilters.forEach(function (x) { return x.checked = false; });
     };
     FeedItemReport.prototype.resetRange = function () {
         var slider = document.getElementById('scoreRange');
         slider.noUiSlider.reset();
         this.onSliderChange();
+    };
+    FeedItemReport.prototype.enableSlider = function () {
+        this.setSliderEvent();
+        this.slideChangeBusy = false;
     };
     FeedItemReport.prototype.setupRangeSlider = function () {
         var _this = this;
@@ -132,9 +189,9 @@ var FeedItemReport = (function () {
                 'max': 100
             }
         });
-        setTimeout(function () { _this.setEvent(); }, 500);
+        setTimeout(function () { _this.setSliderEvent(); }, 500);
     };
-    FeedItemReport.prototype.setEvent = function () {
+    FeedItemReport.prototype.setSliderEvent = function () {
         var _this = this;
         var slider = document.getElementById('scoreRange');
         slider.noUiSlider.on('end', function () { _this.onSliderChange(); });
@@ -153,7 +210,7 @@ var FeedItemReport = (function () {
             this.rangeBottom = botRange;
             this.rangeTop = topRange;
             this.listData = null;
-            this.getData();
+            this.getResultListData();
             this.enableSlider();
         }
     };

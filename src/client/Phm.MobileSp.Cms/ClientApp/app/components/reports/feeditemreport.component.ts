@@ -37,6 +37,9 @@ export class FeedItemReport implements OnInit, AfterViewInit, OnDestroy {
 
     public summaryData: FeedItemSummary;
     public listData: FeedItemSummaryEx[];
+    get filteredListData(): FeedItemSummaryEx[]{
+        return this.filterResultList();
+    };
     
     public passRatioData: GaugeChartData;
     public averageScoreData: DonutChartData;
@@ -45,6 +48,10 @@ export class FeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     public rangeBottom:number = 0;
     public rangeTop: number = 100;
 
+    public userGroupFilters: {id:string, text:string, checked: boolean}[] =[];
+    public dealershipFilters: { id: string, text: string, checked: boolean }[] = [];
+    public searchString: string = "";
+
     public slideChangeBusy = false;
 
     constructor(private sharedService: ShareService, public feedDataService: FeedDataService,
@@ -52,6 +59,7 @@ export class FeedItemReport implements OnInit, AfterViewInit, OnDestroy {
         this.model = this.injector.get('model');
         this.pageTitle = this.injector.get('pageTitle');
         this.feedTypeString = Enums.FeedTypeEnum[this.model.feedType];
+        this.getMarketFilters();
 
         this.sharedService.goBackEvent.subscribe(() => {
             this.onBackEvent.emit();
@@ -64,7 +72,6 @@ export class FeedItemReport implements OnInit, AfterViewInit, OnDestroy {
 
     ngAfterViewInit() {
         this.setupRangeSlider();
-        this.getData();
     }
 
     ngOnDestroy() {
@@ -75,6 +82,11 @@ export class FeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private getData() {
+        this.getHeaderData();
+        this.getResultListData();
+    }
+
+    getHeaderData() {
         this.feedDataService.getFeedItemReport(this.model.id).subscribe(result => {
             if (result.success) {
                 this.summaryData = result.content;
@@ -84,17 +96,52 @@ export class FeedItemReport implements OnInit, AfterViewInit, OnDestroy {
                 this.goBack();
             }
         });
-        console.log(this.rangeTop);
+    }
 
+    getResultListData() {
         this.feedDataService.getFeedItemResultList(this.model.id, this.rangeBottom, this.rangeTop, 0).subscribe((result) => {
             this.listData = result.content;
         });
     }
 
+    filterResultList(): FeedItemSummaryEx[] {
+        if (!this.listData)
+            return null;
+        var data = Object.assign([], this.listData);
+        var userFilters = this.userGroupFilters.filter(x => x.checked);
+        if (userFilters.length > 0)
+            data = data.filter(x => userFilters.filter(y => y.text === x.mainUserGroup).length > 0);
+
+        var dealerFilters = this.dealershipFilters.filter(x => x.checked);
+        if (dealerFilters.length > 0)
+            data = data.filter(x => dealerFilters.filter(y => y.text === x.dealershipName).length > 0);
+
+        if (this.searchString !== "") {
+            var search = this.searchString.toLowerCase();
+            data = data.filter(x => x.user.firstName.toLowerCase().indexOf(search) > -1
+                || x.user.lastName.toLowerCase().indexOf(search) > -1);
+        }
+        return data;
+    }
+
+    getMarketFilters() {
+        this.feedDataService.getQuizSummaryFilters().subscribe((result) => {
+            if (result) {
+                if (result.userGroupNames) {
+                    result.userGroupNames.forEach((group) => {
+                        this.userGroupFilters.push({ id: group.replace(" ", "_"), text: group, checked: false });
+                    });
+                }
+                if (result.dealershipNames) {
+                    result.dealershipNames.forEach((group) => {
+                        this.dealershipFilters.push({ id: group.replace(" ", "_"), text: group, checked: false });
+                    });
+                }
+            }
+        });
+    }
+
     updateReport() {
-        //if (this.summaryData) {
-        //    this.averageTimeData = new BarChartData();
-        //}
         var barData = new BarChartData({
             showTooltip: true,
             showYAxis: false,
@@ -132,21 +179,32 @@ export class FeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public clearFilters() {
-        // not implemented
+        this.userGroupFilters.forEach(x => x.checked = false);
+        this.dealershipFilters.forEach(x => x.checked = false);
+        this.searchString = "";
+        this.resetRange();
     }
 
-    enableSlider() {
-        this.setEvent();
-        this.slideChangeBusy = false;
+    public clearUserFilters() {
+        this.userGroupFilters.forEach(x => x.checked = false);
     }
 
-    private resetRange() {
+    public clearDealerFilters() {
+        this.dealershipFilters.forEach(x => x.checked = false);
+    }
+
+    public resetRange() {
         var slider: any = document.getElementById('scoreRange');
         slider.noUiSlider.reset();
         this.onSliderChange();
     }
 
-    private setupRangeSlider() {
+    public enableSlider() {
+        this.setSliderEvent();
+        this.slideChangeBusy = false;
+    }
+    
+    public setupRangeSlider() {
         var slider: any = document.getElementById('scoreRange');
 
         noUiSlider.create(slider, {
@@ -161,10 +219,10 @@ export class FeedItemReport implements OnInit, AfterViewInit, OnDestroy {
             }
         });
 
-        setTimeout(() => { this.setEvent(); }, 500);
+        setTimeout(() => { this.setSliderEvent(); }, 500);
     }
 
-    setEvent() {
+    public setSliderEvent() {
         var slider: any = document.getElementById('scoreRange');
         slider.noUiSlider.on('end', () => { this.onSliderChange(); });
     }
@@ -187,7 +245,7 @@ export class FeedItemReport implements OnInit, AfterViewInit, OnDestroy {
             this.rangeBottom = botRange;
             this.rangeTop = topRange;
             this.listData = null;
-            this.getData();
+            this.getResultListData();
             this.enableSlider();
         }
     }

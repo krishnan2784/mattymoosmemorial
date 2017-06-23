@@ -25,6 +25,7 @@ export class FeedItemSummaryEx extends BaseModel
 {
     public finishedAt: Date;
     public mainUserGroup: string;
+    public dealershipName: string;
     public minSucceedThreshold: number;
     public pointsGained: number;
     public quizFeedId: number;
@@ -41,6 +42,7 @@ export class FeedItemSummaryEx extends BaseModel
         super(options);
         this.finishedAt = options['finishedAt'];
         this.mainUserGroup = options['mainUserGroup'] || '';
+        this.dealershipName = options['dealershipName'] || '';
         this.minSucceedThreshold = options['minSucceedThreshold'] || 0;
         this.pointsGained = options['pointsGained'] || 0;
         this.quizFeedId = options['quizFeedId'] || 0;
