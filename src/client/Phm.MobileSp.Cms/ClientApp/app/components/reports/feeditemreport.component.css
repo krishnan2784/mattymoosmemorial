@@ -76,6 +76,9 @@
     border: 1px solid #eee;
     padding: 10px;
 }
+.result-list {
+    margin-bottom: 50px;
+}
 .result-list-header > div {
     background-color: #A6C58A;
     vertical-align: middle;
