@@ -42,7 +42,6 @@ var FeedItemCopyToMarket = (function (_super) {
         _this.currentMarkets = [];
         _this.unsavedChanges = false;
         if (injector) {
-            _this.title = injector.get('title');
             _this.model = injector.get('model');
             _this.contentType = injector.get('contentType');
             _this.marketContentService = injector.get('marketContentService');

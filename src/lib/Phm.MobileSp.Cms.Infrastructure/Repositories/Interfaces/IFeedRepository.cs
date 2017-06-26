@@ -14,7 +14,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
         Task<TFeedItem> UpdateFeedItemAsync<TFeedItem, TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed
             where TDestinationDto : BaseFeedDto;
         Task<bool> DeleteFeedItemAsync(int feedItemId);
-        Task<FeedItemSummary> GetFeedItemSummary(int feedItemId);
+        Task<dynamic> GetFeedItemSummary(int feedItemId);
         Task<IEnumerable<dynamic>> GetFeedItemResultList(int feedItemId, decimal lowerBoundary, decimal higherBoundary, int userGroupId);
         Task<dynamic> GetQuizSummaryFilters(int marketId);
         Task<bool> CopyFeedItemToMarketAsync(int feedItemId, List<int> marketIds);

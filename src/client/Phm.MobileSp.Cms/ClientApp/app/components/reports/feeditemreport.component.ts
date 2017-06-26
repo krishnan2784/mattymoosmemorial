@@ -19,8 +19,11 @@ import DonutChartData = Chartclasses.DonutChartData;
 import Reportclasses = require("../../models/reportclasses");
 import FeedItemSummary = Reportclasses.FeedItemSummary;
 import FeedItemSummaryEx = Reportclasses.FeedItemSummaryEx;
-declare var  Materialize: any;
+import Date1 = require("../../classes/helpers/date");
+import DateEx = Date1.DateEx;
+declare var Materialize: any;
 declare var noUiSlider: any;
+
 @Component({
     selector: 'feeditemreport',
     template: require('./feeditemreport.component.html'),
@@ -142,12 +145,12 @@ export class FeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     }
 
     updateReport() {
-        var barData = new BarChartData({
-            showTooltip: true,
-            showYAxis: false,
-            showXAxis: true
-        });
-        this.averageTimeData = barData;
+        this.updateGaugeData();
+        this.updateDonutData();
+        this.updateBarData();
+    }
+
+    public updateGaugeData() {
         var gaugeData = new GaugeChartData({
             height: 150,
             showTooltip: true,
@@ -160,6 +163,9 @@ export class FeedItemReport implements OnInit, AfterViewInit, OnDestroy {
             ]
         });
         this.passRatioData = gaugeData;
+    }
+
+    public updateDonutData() {
         var donutData = new DonutChartData({
             showLegend: false,
             showTooltip: false,
@@ -176,6 +182,30 @@ export class FeedItemReport implements OnInit, AfterViewInit, OnDestroy {
                 }]
         });
         this.averageScoreData = donutData;
+    }
+
+    public updateBarData() {
+        let dates: { x: string, y: number }[] = [];
+        for (let submission in this.summaryData.submissions) {
+            let formatted = DateEx.formatDate(new Date(submission), "dd/MM");
+            let existing = dates.find(x => x.x === formatted);
+            if (existing) {
+                dates.splice(dates.indexOf(existing), 1, { x: formatted, y: existing.y + 1 });
+            } else {
+                dates.push({ x: formatted, y: 1 });
+            }
+        }
+        var barData = new BarChartData({
+            showTooltip: true,
+            showYAxis: false,
+            showXAxis: true,
+            chartData: [{
+                name: 'Number of learners',
+                colour: '#9F378E',
+                data: dates
+            }]
+        });
+        this.averageTimeData = barData;
     }
 
     public clearFilters() {

@@ -19,6 +19,8 @@ var Chartclasses = require("../../models/chartclasses");
 var BarChartData = Chartclasses.BarChartData;
 var GaugeChartData = Chartclasses.GaugeChartData;
 var DonutChartData = Chartclasses.DonutChartData;
+var Date1 = require("../../classes/helpers/date");
+var DateEx = Date1.DateEx;
 var FeedItemReport = (function () {
     function FeedItemReport(sharedService, feedDataService, injector) {
         var _this = this;
@@ -118,12 +120,11 @@ var FeedItemReport = (function () {
         });
     };
     FeedItemReport.prototype.updateReport = function () {
-        var barData = new BarChartData({
-            showTooltip: true,
-            showYAxis: false,
-            showXAxis: true
-        });
-        this.averageTimeData = barData;
+        this.updateGaugeData();
+        this.updateDonutData();
+        this.updateBarData();
+    };
+    FeedItemReport.prototype.updateGaugeData = function () {
         var gaugeData = new GaugeChartData({
             height: 150,
             showTooltip: true,
@@ -136,6 +137,8 @@ var FeedItemReport = (function () {
             ]
         });
         this.passRatioData = gaugeData;
+    };
+    FeedItemReport.prototype.updateDonutData = function () {
         var donutData = new DonutChartData({
             showLegend: false,
             showTooltip: false,
@@ -153,6 +156,33 @@ var FeedItemReport = (function () {
             ]
         });
         this.averageScoreData = donutData;
+    };
+    FeedItemReport.prototype.updateBarData = function () {
+        var dates = [];
+        var _loop_1 = function (submission) {
+            var formatted = DateEx.formatDate(new Date(submission), "dd/MM");
+            var existing = dates.find(function (x) { return x.x === formatted; });
+            if (existing) {
+                dates.splice(dates.indexOf(existing), 1, { x: formatted, y: existing.y + 1 });
+            }
+            else {
+                dates.push({ x: formatted, y: 1 });
+            }
+        };
+        for (var submission in this.summaryData.submissions) {
+            _loop_1(submission);
+        }
+        var barData = new BarChartData({
+            showTooltip: true,
+            showYAxis: false,
+            showXAxis: true,
+            chartData: [{
+                    name: 'Number of learners',
+                    colour: '#9F378E',
+                    data: dates
+                }]
+        });
+        this.averageTimeData = barData;
     };
     FeedItemReport.prototype.clearFilters = function () {
         this.userGroupFilters.forEach(function (x) { return x.checked = false; });

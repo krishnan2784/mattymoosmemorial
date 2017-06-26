@@ -1439,6 +1439,8 @@ namespace MLearningCoreService
         
         private int QuizFeedIdField;
         
+        private System.Collections.Generic.Dictionary<System.DateTime, int> SubmissionsField;
+        
         private int SubmittedField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
@@ -1503,6 +1505,19 @@ namespace MLearningCoreService
             set
             {
                 this.QuizFeedIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.Dictionary<System.DateTime, int> Submissions
+        {
+            get
+            {
+                return this.SubmissionsField;
+            }
+            set
+            {
+                this.SubmissionsField = value;
             }
         }
         

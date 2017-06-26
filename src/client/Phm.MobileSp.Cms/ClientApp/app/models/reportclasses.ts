@@ -10,6 +10,7 @@ export class FeedItemSummary {
     public submitted: number;
     public passed: number;
     public failed: number;
+    public submissions: [string,number][];
 
     constructor(options: {} = {}) {
         this.quizFeedId = options['quizFeedId'] || 0;
@@ -18,6 +19,7 @@ export class FeedItemSummary {
         this.submitted = options['submitted'] || 100;
         this.passed = options['passed'] || 80;
         this.failed = options['failed'] || 20;
+        this.submissions = options['submissions'];
     }
 }
 

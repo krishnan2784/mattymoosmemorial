@@ -49,7 +49,6 @@ var BaseFeed = (function (_super) {
         }
         feedItem.startDate = DateEx.formatDate(d);
         var d2 = new Date();
-        ;
         if (feedItem.endDate) {
             d2 = new Date(feedItem.endDate);
         }

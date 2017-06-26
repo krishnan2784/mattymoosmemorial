@@ -84,7 +84,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             return response.Deleted;
         }
 
-        public async Task<FeedItemSummary> GetFeedItemSummary(int feedItemId)
+        public async Task<dynamic> GetFeedItemSummary(int feedItemId)
         {
             var request = GetRequest(new GetQuizFeedSummariesRequest
             {
@@ -94,9 +94,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
                 })
             });
             var response = await _proxyClient.GetQuizFeedSummariesAsync(request);
-            var mapper = new AutoMapperGenericsHelper<QuizSummaryDto, FeedItemSummary>();
-            var summary = mapper.ConvertToDbEntity(response.QuizSummaries.FirstOrDefault());
-            return summary;
+            return response.QuizSummaries.FirstOrDefault();
         }
 
         public async Task<IEnumerable<dynamic>> GetFeedItemResultList(int feedItemId, decimal lowerBoundary, decimal higherBoundary, int userGroupId)

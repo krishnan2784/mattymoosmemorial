@@ -21,6 +21,7 @@ var FeedItemSummary = (function () {
         this.submitted = options['submitted'] || 100;
         this.passed = options['passed'] || 80;
         this.failed = options['failed'] || 20;
+        this.submissions = options['submissions'];
     }
     return FeedItemSummary;
 }());
