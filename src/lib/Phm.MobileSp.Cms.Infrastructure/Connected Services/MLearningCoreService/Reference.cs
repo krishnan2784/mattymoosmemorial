@@ -22,6 +22,7 @@ namespace MLearningCoreService
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.GetQuizFeedSummariesRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.GetQuizResultsSummariesEXRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.GetQuizSummaryFiltersRequest))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.GetLeaderBoardDataRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.GetFeedsRequest))]
     public partial class RequestBase : object
     {
@@ -252,6 +253,28 @@ namespace MLearningCoreService
             set
             {
                 this.MarketIdField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="GetLeaderBoardDataRequest", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class GetLeaderBoardDataRequest : MLearningCoreService.RequestBase
+    {
+        
+        private MLearningCoreService.LeaderBoardDataCriteriaDto CriteriaField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MLearningCoreService.LeaderBoardDataCriteriaDto Criteria
+        {
+            get
+            {
+                return this.CriteriaField;
+            }
+            set
+            {
+                this.CriteriaField = value;
             }
         }
     }
@@ -2293,6 +2316,7 @@ namespace MLearningCoreService
     [System.Runtime.Serialization.DataContractAttribute(Name="BaseCriteriaDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Common.Dto")]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.FeedCriteriaDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.QuizResultsSummariesEXCriteriaDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.LeaderBoardDataCriteriaDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.QuizFeedSummaryCriteriaDto))]
     public partial class BaseCriteriaDto : object
     {
@@ -2481,6 +2505,73 @@ namespace MLearningCoreService
             set
             {
                 this.UserGroupIdField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="LeaderBoardDataCriteriaDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class LeaderBoardDataCriteriaDto : MLearningCoreService.BaseCriteriaDto
+    {
+        
+        private System.Nullable<System.DateTime> EndDateField;
+        
+        private int MarketIdField;
+        
+        private System.Collections.Generic.List<int> RolesIdField;
+        
+        private System.Nullable<System.DateTime> StartDateField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> EndDate
+        {
+            get
+            {
+                return this.EndDateField;
+            }
+            set
+            {
+                this.EndDateField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MarketId
+        {
+            get
+            {
+                return this.MarketIdField;
+            }
+            set
+            {
+                this.MarketIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<int> RolesId
+        {
+            get
+            {
+                return this.RolesIdField;
+            }
+            set
+            {
+                this.RolesIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> StartDate
+        {
+            get
+            {
+                return this.StartDateField;
+            }
+            set
+            {
+                this.StartDateField = value;
             }
         }
     }
@@ -2743,6 +2834,125 @@ namespace MLearningCoreService
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="GetLeaderBoardDataResponse", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class GetLeaderBoardDataResponse : object
+    {
+        
+        private System.Collections.Generic.List<MLearningCoreService.LeaderBoardDataDto> LeaderBoardDataField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<MLearningCoreService.LeaderBoardDataDto> LeaderBoardData
+        {
+            get
+            {
+                return this.LeaderBoardDataField;
+            }
+            set
+            {
+                this.LeaderBoardDataField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="LeaderBoardDataDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class LeaderBoardDataDto : object
+    {
+        
+        private MLearningCoreService.UserDto CurrentUserField;
+        
+        private string DealershipCodeField;
+        
+        private string RegionNameField;
+        
+        private string RoleNameField;
+        
+        private int TotalMLearningPointsField;
+        
+        private string ZoneNameField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MLearningCoreService.UserDto CurrentUser
+        {
+            get
+            {
+                return this.CurrentUserField;
+            }
+            set
+            {
+                this.CurrentUserField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DealershipCode
+        {
+            get
+            {
+                return this.DealershipCodeField;
+            }
+            set
+            {
+                this.DealershipCodeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RegionName
+        {
+            get
+            {
+                return this.RegionNameField;
+            }
+            set
+            {
+                this.RegionNameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RoleName
+        {
+            get
+            {
+                return this.RoleNameField;
+            }
+            set
+            {
+                this.RoleNameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TotalMLearningPoints
+        {
+            get
+            {
+                return this.TotalMLearningPointsField;
+            }
+            set
+            {
+                this.TotalMLearningPointsField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ZoneName
+        {
+            get
+            {
+                return this.ZoneNameField;
+            }
+            set
+            {
+                this.ZoneNameField = value;
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MLearningCoreService.IMLearningCoreContract")]
     public interface IMLearningCoreContract
@@ -2772,94 +2982,18 @@ namespace MLearningCoreService
         [System.ServiceModel.FaultContractAttribute(typeof(MLearningCoreService.BaseError), Action="http://tempuri.org/IMLearningCoreContract/GetQuizFeedSummariesBaseErrorFault", Name="BaseError", Namespace="http://www.phm.co.uk/types/common/")]
         System.Threading.Tasks.Task<MLearningCoreService.GetQuizFeedSummariesRespose> GetQuizFeedSummariesAsync(MLearningCoreService.GetQuizFeedSummariesRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMLearningCoreContract/GetQuizResultsSummariesEX ", ReplyAction="http://tempuri.org/IMLearningCoreContract/GetQuizResultsSummariesEX Response")]
-        [System.ServiceModel.FaultContractAttribute(typeof(MLearningCoreService.BaseError), Action="http://tempuri.org/IMLearningCoreContract/GetQuizResultsSummariesEX BaseErrorFaul" +
-            "t", Name="BaseError", Namespace="http://www.phm.co.uk/types/common/")]
-        System.Threading.Tasks.Task<MLearningCoreService.GetQuizResultsSummariesEXResponse1> GetQuizResultsSummariesEXAsync(MLearningCoreService.GetQuizResultsSummariesEXRequest1 request);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMLearningCoreContract/GetQuizResultsSummariesEX", ReplyAction="http://tempuri.org/IMLearningCoreContract/GetQuizResultsSummariesEXResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(MLearningCoreService.BaseError), Action="http://tempuri.org/IMLearningCoreContract/GetQuizResultsSummariesEXBaseErrorFault" +
+            "", Name="BaseError", Namespace="http://www.phm.co.uk/types/common/")]
+        System.Threading.Tasks.Task<MLearningCoreService.GetQuizResultsSummariesEXResponse> GetQuizResultsSummariesEXAsync(MLearningCoreService.GetQuizResultsSummariesEXRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMLearningCoreContract/GetQuizSummaryFilters ", ReplyAction="http://tempuri.org/IMLearningCoreContract/GetQuizSummaryFilters Response")]
-        [System.ServiceModel.FaultContractAttribute(typeof(MLearningCoreService.BaseError), Action="http://tempuri.org/IMLearningCoreContract/GetQuizSummaryFilters BaseErrorFault", Name="BaseError", Namespace="http://www.phm.co.uk/types/common/")]
-        System.Threading.Tasks.Task<MLearningCoreService.GetQuizSummaryFiltersResponse1> GetQuizSummaryFiltersAsync(MLearningCoreService.GetQuizSummaryFiltersRequest1 request);
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="GetQuizResultsSummariesEX ", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
-    public partial class GetQuizResultsSummariesEXRequest1
-    {
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMLearningCoreContract/GetQuizSummaryFilters", ReplyAction="http://tempuri.org/IMLearningCoreContract/GetQuizSummaryFiltersResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(MLearningCoreService.BaseError), Action="http://tempuri.org/IMLearningCoreContract/GetQuizSummaryFiltersBaseErrorFault", Name="BaseError", Namespace="http://www.phm.co.uk/types/common/")]
+        System.Threading.Tasks.Task<MLearningCoreService.GetQuizSummaryFiltersResponse> GetQuizSummaryFiltersAsync(MLearningCoreService.GetQuizSummaryFiltersRequest request);
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
-        public MLearningCoreService.GetQuizResultsSummariesEXRequest request;
-        
-        public GetQuizResultsSummariesEXRequest1()
-        {
-        }
-        
-        public GetQuizResultsSummariesEXRequest1(MLearningCoreService.GetQuizResultsSummariesEXRequest request)
-        {
-            this.request = request;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="GetQuizResultsSummariesEX Response", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
-    public partial class GetQuizResultsSummariesEXResponse1
-    {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetQuizResultsSummariesEX_x0020_Result", Namespace="http://tempuri.org/", Order=0)]
-        public MLearningCoreService.GetQuizResultsSummariesEXResponse GetQuizResultsSummariesEXResult;
-        
-        public GetQuizResultsSummariesEXResponse1()
-        {
-        }
-        
-        public GetQuizResultsSummariesEXResponse1(MLearningCoreService.GetQuizResultsSummariesEXResponse GetQuizResultsSummariesEXResult)
-        {
-            this.GetQuizResultsSummariesEXResult = GetQuizResultsSummariesEXResult;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="GetQuizSummaryFilters ", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
-    public partial class GetQuizSummaryFiltersRequest1
-    {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
-        public MLearningCoreService.GetQuizSummaryFiltersRequest request;
-        
-        public GetQuizSummaryFiltersRequest1()
-        {
-        }
-        
-        public GetQuizSummaryFiltersRequest1(MLearningCoreService.GetQuizSummaryFiltersRequest request)
-        {
-            this.request = request;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="GetQuizSummaryFilters Response", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
-    public partial class GetQuizSummaryFiltersResponse1
-    {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetQuizSummaryFilters_x0020_Result", Namespace="http://tempuri.org/", Order=0)]
-        public MLearningCoreService.GetQuizSummaryFiltersResponse GetQuizSummaryFiltersResult;
-        
-        public GetQuizSummaryFiltersResponse1()
-        {
-        }
-        
-        public GetQuizSummaryFiltersResponse1(MLearningCoreService.GetQuizSummaryFiltersResponse GetQuizSummaryFiltersResult)
-        {
-            this.GetQuizSummaryFiltersResult = GetQuizSummaryFiltersResult;
-        }
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMLearningCoreContract/GetLeaderBoardData", ReplyAction="http://tempuri.org/IMLearningCoreContract/GetLeaderBoardDataResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(MLearningCoreService.BaseError), Action="http://tempuri.org/IMLearningCoreContract/GetLeaderBoardDataBaseErrorFault", Name="BaseError", Namespace="http://www.phm.co.uk/types/common/")]
+        System.Threading.Tasks.Task<MLearningCoreService.GetLeaderBoardDataResponse> GetLeaderBoardDataAsync(MLearningCoreService.GetLeaderBoardDataRequest request);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
@@ -2942,30 +3076,19 @@ namespace MLearningCoreService
             return base.Channel.GetQuizFeedSummariesAsync(request);
         }
         
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<MLearningCoreService.GetQuizResultsSummariesEXResponse1> MLearningCoreService.IMLearningCoreContract.GetQuizResultsSummariesEXAsync(MLearningCoreService.GetQuizResultsSummariesEXRequest1 request)
+        public System.Threading.Tasks.Task<MLearningCoreService.GetQuizResultsSummariesEXResponse> GetQuizResultsSummariesEXAsync(MLearningCoreService.GetQuizResultsSummariesEXRequest request)
         {
             return base.Channel.GetQuizResultsSummariesEXAsync(request);
         }
         
-        public System.Threading.Tasks.Task<MLearningCoreService.GetQuizResultsSummariesEXResponse1> GetQuizResultsSummariesEXAsync(MLearningCoreService.GetQuizResultsSummariesEXRequest request)
-        {
-            MLearningCoreService.GetQuizResultsSummariesEXRequest1 inValue = new MLearningCoreService.GetQuizResultsSummariesEXRequest1();
-            inValue.request = request;
-            return ((MLearningCoreService.IMLearningCoreContract)(this)).GetQuizResultsSummariesEXAsync(inValue);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<MLearningCoreService.GetQuizSummaryFiltersResponse1> MLearningCoreService.IMLearningCoreContract.GetQuizSummaryFiltersAsync(MLearningCoreService.GetQuizSummaryFiltersRequest1 request)
+        public System.Threading.Tasks.Task<MLearningCoreService.GetQuizSummaryFiltersResponse> GetQuizSummaryFiltersAsync(MLearningCoreService.GetQuizSummaryFiltersRequest request)
         {
             return base.Channel.GetQuizSummaryFiltersAsync(request);
         }
         
-        public System.Threading.Tasks.Task<MLearningCoreService.GetQuizSummaryFiltersResponse1> GetQuizSummaryFiltersAsync(MLearningCoreService.GetQuizSummaryFiltersRequest request)
+        public System.Threading.Tasks.Task<MLearningCoreService.GetLeaderBoardDataResponse> GetLeaderBoardDataAsync(MLearningCoreService.GetLeaderBoardDataRequest request)
         {
-            MLearningCoreService.GetQuizSummaryFiltersRequest1 inValue = new MLearningCoreService.GetQuizSummaryFiltersRequest1();
-            inValue.request = request;
-            return ((MLearningCoreService.IMLearningCoreContract)(this)).GetQuizSummaryFiltersAsync(inValue);
+            return base.Channel.GetLeaderBoardDataAsync(request);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()
