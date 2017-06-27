@@ -2,13 +2,15 @@
 import Baseclasses = require("./baseclasses");
 import BaseModel = Baseclasses.BaseModel;
 
-export class UserAccount implements Account.IUserAccount {
+export class UserAccount {
     id: number;
     firstName: string;
     lastName: string;
     userName: string;
+    email: string;
     role: string;
-    dealer: string;
+    dealershipCode: string;
+    dealershipName: string;
     market: string;
     createdDate: Date;
 
@@ -17,8 +19,10 @@ export class UserAccount implements Account.IUserAccount {
         firstName?: string,
         lastName?: string,
         userName?: string,
+        email?: string,
         role?: string,
-        dealer?: string,
+        dealershipCode?: string,
+        dealershipName?: string,
         market?: string,
         createdDate?: Date
     } = {}) {
@@ -27,8 +31,10 @@ export class UserAccount implements Account.IUserAccount {
         this.firstName = options.firstName;
         this.lastName = options.lastName;
         this.userName = options.userName;
+        this.email = options.email;
         this.role = options.role;
-        this.dealer = options.dealer;
+        this.dealershipCode = options.dealershipCode;
+        this.dealershipName = options.dealershipName;
         this.market = options.market;
         this.createdDate = options.createdDate;
     }

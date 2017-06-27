@@ -1,16 +1,6 @@
 ﻿body {
 }
 
-.btn-add-feed-item {
-    position: absolute;
-    right: 100px;
-    top: 73px;
-    background-color: #F9F9F9;
-}
-.btn-add-feed-item i.material-icons{
-    color: #000;
-}
-
 .index-feed-item {
     padding: 0 10px;
 }

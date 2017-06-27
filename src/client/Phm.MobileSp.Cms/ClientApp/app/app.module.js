@@ -12,6 +12,8 @@ var angular2_universal_1 = require("angular2-universal");
 var ng2_pagination_1 = require("ng2-pagination");
 var forms_1 = require("@angular/forms");
 var ng2_nouislider_1 = require("ng2-nouislider");
+var ng2_table_1 = require("ng2-table/ng2-table");
+var ngx_bootstrap_1 = require("ngx-bootstrap");
 //import { CalendarModule } from 'primeng/primeng';
 //import { DateValueAccessor } from './classes/datevalueaccessor';
 require("rxjs/add/observable/throw");
@@ -29,7 +31,7 @@ var footer_component_1 = require("./components/navmenu/footer.component");
 var home_component_1 = require("./components/home/home.component");
 var fetchdata_component_1 = require("./components/fetchdata/fetchdata.component");
 var counter_component_1 = require("./components/counter/counter.component");
-var useraccountmanagement_component_1 = require("./components/useraccountmanagement/useraccountmanagement.component");
+var useraccountmanagement_component_1 = require("./components/accountmanagement/useraccountmanagement.component");
 var textfeeditem_component_1 = require("./components/feed/modelforms/textfeeditem.component");
 var feedindex_component_1 = require("./components/feed/indexes/feedindex.component");
 var feeditemform_component_1 = require("./components/feed/modelforms/feeditemform.component");
@@ -101,6 +103,8 @@ AppModule = __decorate([
             forms_1.FormsModule,
             ng2_nouislider_1.NouisliderModule,
             forms_1.ReactiveFormsModule,
+            ng2_table_1.Ng2TableModule,
+            ngx_bootstrap_1.PaginationModule.forRoot(),
             //CalendarModule,
             router_1.RouterModule.forRoot([
                 { path: '', redirectTo: 'home', pathMatch: 'full' },

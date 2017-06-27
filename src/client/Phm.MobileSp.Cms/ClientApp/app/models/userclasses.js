@@ -19,8 +19,10 @@ var UserAccount = (function () {
         this.firstName = options.firstName;
         this.lastName = options.lastName;
         this.userName = options.userName;
+        this.email = options.email;
         this.role = options.role;
-        this.dealer = options.dealer;
+        this.dealershipCode = options.dealershipCode;
+        this.dealershipName = options.dealershipName;
         this.market = options.market;
         this.createdDate = options.createdDate;
     }

@@ -5,6 +5,8 @@ import { Ng2PaginationModule } from 'ng2-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { D3Service } from 'd3-ng2-service';
 import { NouisliderModule } from 'ng2-nouislider';
+import { Ng2TableModule } from 'ng2-table/ng2-table';
+import { PaginationModule } from 'ngx-bootstrap';
 //import { CalendarModule } from 'primeng/primeng';
 //import { DateValueAccessor } from './classes/datevalueaccessor';
 
@@ -25,7 +27,7 @@ import { FooterComponent } from './components/navmenu/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
-import { UserAccountManagementComponent } from './components/useraccountmanagement/useraccountmanagement.component';
+import { UserAccountManagementComponent } from './components/accountmanagement/useraccountmanagement.component';
 import { TextFeedItemFormComponent } from './components/feed/modelforms/textfeeditem.component';
 import { FeedIndexComponent } from "./components/feed/indexes/feedindex.component";
 import { FeedItemForm } from "./components/feed/modelforms/feeditemform.component";
@@ -98,6 +100,8 @@ import DonutChart = Donutchartcomponent.DonutChart;
         FormsModule,
         NouisliderModule,
         ReactiveFormsModule,
+        Ng2TableModule,
+        PaginationModule.forRoot(),
         //CalendarModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
