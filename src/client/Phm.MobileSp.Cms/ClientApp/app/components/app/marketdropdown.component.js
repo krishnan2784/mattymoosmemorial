@@ -10,9 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var marketdataservice_1 = require("../../dataservices/marketdataservice");
-var datashareservice_1 = require("../../dataservices/datashareservice");
-var userdataservice_1 = require("../../dataservices/userdataservice");
+var marketdataservice_1 = require("../../services/marketdataservice");
+var shareservice_1 = require("../../services/helpers/shareservice");
+var userdataservice_1 = require("../../services/userdataservice");
 var MarketDropdown = (function () {
     function MarketDropdown(marketDataService, userDataService, sharedService) {
         var _this = this;
@@ -54,7 +54,7 @@ MarketDropdown = __decorate([
         styles: [require('./marketdropdown.component.css')]
     }),
     __metadata("design:paramtypes", [marketdataservice_1.MarketDataService, userdataservice_1.UserDataService,
-        datashareservice_1.ShareService])
+        shareservice_1.ShareService])
 ], MarketDropdown);
 exports.MarketDropdown = MarketDropdown;
 //# sourceMappingURL=marketdropdown.component.js.map

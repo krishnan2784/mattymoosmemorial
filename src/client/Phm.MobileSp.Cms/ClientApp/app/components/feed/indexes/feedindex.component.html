@@ -124,7 +124,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="feed-control col-md-3" *ngIf="!feedItem.postedAt && !(currentMarket && currentMarket.isMaster)">
+                            <div class="feed-control col-md-3" *ngIf="currentMarket && !currentMarket.isMaster">
                                 <div>
                                     <a (click)="publishFeedItemTolive(feedItem)">
                                         <i class="material-icons">launch</i>

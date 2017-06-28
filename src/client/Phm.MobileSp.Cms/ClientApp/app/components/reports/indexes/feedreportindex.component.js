@@ -21,12 +21,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var feeddataservice_1 = require("../../../dataservices/feeddataservice");
+var feeddataservice_1 = require("../../../services/feeddataservice");
 var Enums = require("../../../enums");
 var FeedTypeEnum = Enums.FeedTypeEnum;
 var FeedCategoryEnum = Enums.FeedCategoryEnum;
 var base_component_1 = require("../../base.component");
-var datashareservice_1 = require("../../../dataservices/datashareservice");
+var shareservice_1 = require("../../../services/helpers/shareservice");
+var Feeditemreportcomponent = require("../feeditemreport.component");
+var FeedItemReport = Feeditemreportcomponent.FeedItemReport;
 var FeedReportIndexComponent = (function (_super) {
     __extends(FeedReportIndexComponent, _super);
     function FeedReportIndexComponent(route, router, feedDataService, sharedService) {
@@ -34,26 +36,30 @@ var FeedReportIndexComponent = (function (_super) {
         _this.route = route;
         _this.router = router;
         _this.feedDataService = feedDataService;
-        _this.feedItemDetails = null;
         _this.feedTypes = FeedTypeEnum;
         _this.feedCats = FeedCategoryEnum;
+        _this.selectedItem = null;
         _this.setupSubscriptions();
         return _this;
     }
     FeedReportIndexComponent.prototype.setupSubscriptions = function () {
         var _this = this;
         this.sharedService.marketUpdated.subscribe(function (market) {
-            _this.currentMarket = market;
-            _this.feedItems = null;
-            _this.getData();
+            _this.updateMarket();
         });
+    };
+    FeedReportIndexComponent.prototype.updateMarket = function () {
+        if (!this.sharedService.currentMarket || !this.sharedService.currentMarket.id)
+            return;
+        this.currentMarket = this.sharedService.currentMarket;
+        this.feedItems = null;
+        this.getData();
     };
     FeedReportIndexComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.id_sub = this.route.params.subscribe(function (params) {
-            _this.feedItems = null;
             _this.feedTypeId = +params["feedType"];
-            _this.getData();
+            _this.updateMarket();
         });
     };
     FeedReportIndexComponent.prototype.ngOnDestroy = function () {
@@ -67,7 +73,10 @@ var FeedReportIndexComponent = (function (_super) {
     FeedReportIndexComponent.prototype.getData = function () {
         var _this = this;
         this.feedDataService.getFeeditemsByType(this.feedTypeId).subscribe(function (result) {
-            _this.feedItems = _this.sortFeed(result);
+            if (result && result.length > 0) {
+                result = result.filter(function (x) { return x.publishedLiveAt; });
+                _this.feedItems = _this.sortFeed(result);
+            }
         });
     };
     FeedReportIndexComponent.prototype.sortFeed = function (feedItem) {
@@ -80,12 +89,23 @@ var FeedReportIndexComponent = (function (_super) {
             return 0;
         });
     };
-    FeedReportIndexComponent.prototype.viewFeedItemDetails = function (feedItem, feedCat) {
+    FeedReportIndexComponent.prototype.viewFeedItemDetails = function (feedItem) {
+        var _this = this;
         if (feedItem === void 0) { feedItem = null; }
-        if (feedCat === void 0) { feedCat = null; }
-        var inputs = { feedItem: feedItem };
-        this.updatePageTitle("Quiz Analytics Reports");
-        this.feedItemDetails = {
+        var inputs = { model: feedItem, pageTitle: '' };
+        var report = FeedItemReport;
+        this.updateMarketDropdownVisibility(false);
+        this.updateBackText('Back to Reports Index');
+        this.updatePageTitle(Enums.FeedTypeEnum[feedItem.feedType] + ' Analytics Reports');
+        report.prototype.onBackEvent = new core_1.EventEmitter();
+        report.prototype.onBackEvent.subscribe(function () {
+            _this.setPageTitle();
+            _this.updateMarketDropdownVisibility(true);
+            _this.updateBackText('');
+            _this.selectedItem = null;
+        });
+        this.selectedItem = {
+            reportContent: FeedItemReport,
             inputs: inputs
         };
     };
@@ -100,7 +120,7 @@ FeedReportIndexComponent = __decorate([
     __metadata("design:paramtypes", [router_1.ActivatedRoute,
         router_1.Router,
         feeddataservice_1.FeedDataService,
-        datashareservice_1.ShareService])
+        shareservice_1.ShareService])
 ], FeedReportIndexComponent);
 exports.FeedReportIndexComponent = FeedReportIndexComponent;
 //# sourceMappingURL=feedreportindex.component.js.map

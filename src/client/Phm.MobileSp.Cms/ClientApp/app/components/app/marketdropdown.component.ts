@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Injectable } from '@angular/core';
-import { MarketDataService } from "../../dataservices/marketdataservice";
+import { MarketDataService } from "../../services/marketdataservice";
 import Userclasses = require("../../models/userclasses");
 import UserMarket = Userclasses.UserMarket;
-import { ShareService } from "../../dataservices/datashareservice";
-import { UserDataService } from "../../dataservices/userdataservice";
+import { ShareService } from "../../services/helpers/shareservice";
+import { UserDataService } from "../../services/userdataservice";
 
 @Injectable()
 @Component({

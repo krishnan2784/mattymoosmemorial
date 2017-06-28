@@ -30,7 +30,7 @@ exports.UserAccount = UserAccount;
 var UserMarket = (function () {
     function UserMarket(options) {
         if (options === void 0) { options = {}; }
-        this.id = options.id || 0;
+        this.id = options.id || null;
         this.name = options.name || '';
         this.isDefault = options.isDefault || false;
         this.isMaster = options.isMaster || false;

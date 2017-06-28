@@ -7,6 +7,9 @@
             <div class='col-sm-10 content-col'>
                 <div *ngIf="pageTitle!=''" class="header-bar">
                     <div class="header-bar-content">
+                        <div *ngIf="backButtonText" class="back-button">
+                            <a (click)="goBack()"><i class="material-icons">keyboard_arrow_left</i> {{backButtonText}}</a>
+                        </div>
                         <div class="col-md-8">
                             <h5 class="page-title">
                                 {{pageTitle}}
@@ -15,8 +18,8 @@
                         <div class="col-md-4">
                             <marketdropdown *ngIf="this.marketDropdownIsVisible" class="marketdropdown"></marketdropdown>
                         </div>
-                        <hr />
-                        <div class="clearfix"></div>                        
+                        <hr/>
+                        <div class="clearfix"></div>
                     </div>
                 </div>
                 <div class="router-content">

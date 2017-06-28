@@ -1,14 +1,17 @@
 import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { FeedDataService } from "../../../dataservices/feeddataservice";
+import { FeedDataService } from "../../../services/feeddataservice";
 import { IFeedItem} from "../../../interfaces/models/IFeedModel";
 import Enums = require("../../../enums");
 import FeedTypeEnum = Enums.FeedTypeEnum;
 import FeedCategoryEnum = Enums.FeedCategoryEnum;
 import { BaseComponent} from "../../base.component";
-import { ShareService } from "../../../dataservices/datashareservice";
+import { ShareService } from "../../../services/helpers/shareservice";
 import Userclasses = require("../../../models/userclasses");
 import UserMarket = Userclasses.UserMarket;
+import Feeditemreportcomponent = require("../feeditemreport.component");
+import FeedItemReport = Feeditemreportcomponent.FeedItemReport;
+import Feeddataservice = require("../../../services/feeddataservice");
 
 declare var $: any;
 declare var Materialize: any;
@@ -19,14 +22,14 @@ declare var Materialize: any;
     styles: [require('./feedreportindex.component.css')]
 })
 export class FeedReportIndexComponent extends BaseComponent implements OnInit, OnDestroy {
-    feedItemDetails = null;
-
     public feedItems: IFeedItem[];
     feedTypes: typeof Enums.FeedTypeEnum = FeedTypeEnum;
     feedCats: typeof FeedCategoryEnum = FeedCategoryEnum;
     public feedTypeId : number;
     public id_sub: any;
     public currentMarket: UserMarket;
+
+    public selectedItem : any = null;
 
     constructor(private route: ActivatedRoute,
         private router: Router,
@@ -39,18 +42,23 @@ export class FeedReportIndexComponent extends BaseComponent implements OnInit, O
 
     setupSubscriptions() {
         this.sharedService.marketUpdated.subscribe((market) => {
-            this.currentMarket = market;
-            this.feedItems = null;
-            this.getData();
+            this.updateMarket();
         });
+    }
+
+    updateMarket() {
+        if (!this.sharedService.currentMarket || !this.sharedService.currentMarket.id)
+            return;
+        this.currentMarket = this.sharedService.currentMarket;
+        this.feedItems = null;
+        this.getData();
     }
 
     ngOnInit() {
         this.id_sub = this.route.params.subscribe(
             (params: any) => {
-                this.feedItems = null;
                 this.feedTypeId = +params["feedType"];
-                this.getData();
+                this.updateMarket();
             }
         );
     }
@@ -67,7 +75,10 @@ export class FeedReportIndexComponent extends BaseComponent implements OnInit, O
 
     getData() {
         this.feedDataService.getFeeditemsByType(this.feedTypeId).subscribe((result) => {
-            this.feedItems = this.sortFeed(result);
+            if (result && result.length > 0) {
+                result = result.filter(x => x.publishedLiveAt);
+                this.feedItems = this.sortFeed(result);
+            }
         });
     }
 
@@ -80,14 +91,23 @@ export class FeedReportIndexComponent extends BaseComponent implements OnInit, O
         });
     }
     
-    viewFeedItemDetails(feedItem: IFeedItem = null, feedCat: FeedCategoryEnum = null) {
+    viewFeedItemDetails(feedItem: IFeedItem = null) {
+        let inputs = { model: feedItem, pageTitle: '' };
+        var report = FeedItemReport;
+        this.updateMarketDropdownVisibility(false);
+        this.updateBackText('Back to Reports Index');
+        this.updatePageTitle(Enums.FeedTypeEnum[feedItem.feedType] + ' Analytics Reports');
 
-        let inputs = { feedItem: feedItem };
-        this.updatePageTitle("Quiz Analytics Reports");
-
-        this.feedItemDetails = {
+        report.prototype.onBackEvent = new EventEmitter();
+        report.prototype.onBackEvent.subscribe(() => {
+            this.setPageTitle();
+            this.updateMarketDropdownVisibility(true);
+            this.updateBackText('');
+            this.selectedItem = null;
+        });
+        this.selectedItem = {
+            reportContent: FeedItemReport,
             inputs: inputs
         };
     }
-    
 }

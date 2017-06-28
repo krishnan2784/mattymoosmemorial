@@ -1,0 +1,72 @@
+//$fullWidth: 660px;
+$height : 50px;
+$textHeight : $height - 30px;
+$circleWidth : $height - $textHeight -4;
+$optionWidth: 165px;
+.navBarContents{
+    //width: $fullWidth;
+    height: $height ;
+    font-size: 14px;
+    //border: 1px solid red;
+  position: relative;
+  .gradientLine{
+    width: 100%;
+    height: 4px;
+    position: absolute;
+    left : ($optionWidth /2);
+    top: calc(#{$circleWidth /2});
+    z-index: 40;
+    /* IE10+ */
+    background-image: -ms-linear-gradient(left, #1A4064 0%, #2BE7D0 100%);
+    /* Mozilla Firefox */
+    background-image: -moz-linear-gradient(left, #1A4064 0%, #2BE7D0 100%);
+    /* Opera */
+    background-image: -o-linear-gradient(left, #1A4064 0%, #2BE7D0 100%);
+    /* Webkit (Safari/Chrome 10) */
+    background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #1A4064), color-stop(100, #2BE7D0));
+    /* Webkit (Chrome 11+) */
+    background-image: -webkit-linear-gradient(left, #1A4064 0%, #2BE7D0 100%);
+    /* W3C Markup */
+    background-image: linear-gradient(to right, #1A4064 0%, #2BE7D0 100%);
+  }
+  .option {
+      float: left;
+      height: $height;
+      width: $optionWidth;
+    }
+  .text {
+    position: absolute;
+    height: $textHeight;
+    width: $optionWidth;
+    text-align: center;
+    font-weight: bold;
+    margin-top : 4px;
+    cursor: pointer;
+  }
+  .textSelected {
+    color: #756ca1;
+  }
+  .circle {
+    border-radius: 50%;
+    margin-left : ($optionWidth /2) - ($circleWidth /2);
+    z-index: 50;
+    position: relative;
+    width: $circleWidth;
+    height: $circleWidth;
+    cursor: pointer;
+    -webkit-transition: all 500ms; /* Safari */
+    transition: all 500ms;
+    //margin-left: calc(50% - #{$circleWidth /2});
+  }
+  .selected {
+    background: #473b62;
+    border: 2px solid #39d3c3;
+  }
+  .additionalText{
+    font-weight: lighter;
+  }
+  .notSelected {
+    background: #eeeef0;
+    border: 2px solid #6f6f6f;
+  }
+}

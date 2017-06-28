@@ -21,13 +21,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var feeddataservice_1 = require("../../../dataservices/feeddataservice");
+var feeddataservice_1 = require("../../../services/feeddataservice");
 var feeditemform_component_1 = require("../modelforms/feeditemform.component");
 var Enums = require("../../../enums");
 var FeedTypeEnum = Enums.FeedTypeEnum;
 var FeedCategoryEnum = Enums.FeedCategoryEnum;
 var base_component_1 = require("../../base.component");
-var datashareservice_1 = require("../../../dataservices/datashareservice");
+var shareservice_1 = require("../../../services/helpers/shareservice");
 var Copytomarketcomponent = require("../modals/copytomarket.component");
 var FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
 var CopiedElementTypeEnum = Enums.CopiedElementTypeEnum;
@@ -48,22 +48,26 @@ var FeedIndexComponent = (function (_super) {
     FeedIndexComponent.prototype.setupSubscriptions = function () {
         var _this = this;
         this.sharedService.marketUpdated.subscribe(function (market) {
-            _this.currentMarket = market;
-            _this.feedItems = null;
-            _this.getData();
+            _this.updateMarket();
         });
         this.sharedService.feedItemUpdated.subscribe(function (feedItem) {
             _this.updateFeedItem(feedItem);
         });
     };
+    FeedIndexComponent.prototype.updateMarket = function () {
+        if (!this.sharedService.currentMarket || !this.sharedService.currentMarket.id)
+            return;
+        this.currentMarket = this.sharedService.currentMarket;
+        this.feedItems = null;
+        this.getData();
+    };
     FeedIndexComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.id_sub = this.route.params.subscribe(function (params) {
-            _this.feedItems = null;
             _this.catId = +params["feedCat"];
             _this.filteredFeed = !isNaN(_this.catId);
             _this.setPageTitle();
-            _this.getData();
+            _this.updateMarket();
         });
     };
     FeedIndexComponent.prototype.ngOnDestroy = function () {
@@ -146,7 +150,7 @@ var FeedIndexComponent = (function (_super) {
         };
     };
     FeedIndexComponent.prototype.copyFeedItemToMarket = function (feedItem) {
-        var inputs = { model: feedItem, title: '', contentType: CopiedElementTypeEnum.Feed, marketContentService: this.feedDataService };
+        var inputs = { model: feedItem, contentType: CopiedElementTypeEnum.Feed, marketContentService: this.feedDataService };
         var modelData = FeedItemCopyToMarket;
         this.modalData = {
             modalContent: modelData,
@@ -164,7 +168,14 @@ var FeedIndexComponent = (function (_super) {
     };
     FeedIndexComponent.prototype.publishFeedItemTolive = function (feedItem) {
         var _this = this;
-        if (confirm("Are you sure to publish " + feedItem.title + '?')) {
+        var confirmText;
+        if (feedItem.publishedLiveAt) {
+            confirmText = feedItem.title + " has already been published. Are you sure to overwrite it?";
+        }
+        else {
+            confirmText = "Are you sure to publish " + feedItem.title + "?";
+        }
+        if (confirm(confirmText)) {
             this.feedDataService.publishContentToLive(feedItem.id).subscribe(function (result) {
                 if (result) {
                     _this.feedDataService.getFeeditem(feedItem.id).subscribe(function (result) {
@@ -186,7 +197,7 @@ FeedIndexComponent = __decorate([
     __metadata("design:paramtypes", [router_1.ActivatedRoute,
         router_1.Router,
         feeddataservice_1.FeedDataService,
-        datashareservice_1.ShareService])
+        shareservice_1.ShareService])
 ], FeedIndexComponent);
 exports.FeedIndexComponent = FeedIndexComponent;
 //# sourceMappingURL=feedindex.component.js.map

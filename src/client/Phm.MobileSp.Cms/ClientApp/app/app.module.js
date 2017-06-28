@@ -11,6 +11,9 @@ var router_1 = require("@angular/router");
 var angular2_universal_1 = require("angular2-universal");
 var ng2_pagination_1 = require("ng2-pagination");
 var forms_1 = require("@angular/forms");
+var ng2_nouislider_1 = require("ng2-nouislider");
+//import { CalendarModule } from 'primeng/primeng';
+//import { DateValueAccessor } from './classes/datevalueaccessor';
 require("rxjs/add/observable/throw");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/debounceTime");
@@ -39,8 +42,17 @@ var Basemodalcomponent = require("./components/modals/basemodal.component");
 var BaseModalComponent = Basemodalcomponent.BaseModalComponent;
 var Copytomarketcomponent = require("./components/feed/modals/copytomarket.component");
 var FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
-var Feedreportindexcomponent = require("./components/reports/indexes/feedreportindex.component");
-var FeedReportIndexComponent = Feedreportindexcomponent.FeedReportIndexComponent;
+var feedreportindex_component_1 = require("./components/reports/indexes/feedreportindex.component");
+var feeditemreport_component_1 = require("./components/reports/feeditemreport.component");
+var Barchartcomponent = require("./components/charts/barchart.component");
+var BarChart = Barchartcomponent.BarChart;
+var Basefeeditemreportcomponent = require("./components/reports/basefeeditemreport.component");
+var FeedItemReportContainerComponent = Basefeeditemreportcomponent.FeedItemReportContainerComponent;
+var Gaugechartcomponent = require("./components/charts/gaugechart.component");
+var GaugeChart = Gaugechartcomponent.GaugeChart;
+var Donutchartcomponent = require("./components/charts/donutchart.component");
+var navbar_component_1 = require("./components/navbar/navbar.component");
+var DonutChart = Donutchartcomponent.DonutChart;
 var AppModule = (function () {
     function AppModule() {
     }
@@ -53,6 +65,7 @@ AppModule = __decorate([
             app_component_1.AppComponent,
             base_component_1.BaseComponent,
             navmenu_component_1.NavMenuComponent,
+            navbar_component_1.NavBarComponent,
             footer_component_1.FooterComponent,
             marketdropdown_component_1.MarketDropdown,
             //DateValueAccessor,
@@ -72,7 +85,13 @@ AppModule = __decorate([
             questionform_component_1.QuestionFormComponent,
             BaseModalComponent,
             // reporting
-            FeedReportIndexComponent,
+            feedreportindex_component_1.FeedReportIndexComponent,
+            FeedItemReportContainerComponent,
+            feeditemreport_component_1.FeedItemReport,
+            // charts
+            BarChart,
+            GaugeChart,
+            DonutChart,
             //modals
             FeedItemCopyToMarket
         ],
@@ -80,6 +99,7 @@ AppModule = __decorate([
             angular2_universal_1.UniversalModule,
             ng2_pagination_1.Ng2PaginationModule,
             forms_1.FormsModule,
+            ng2_nouislider_1.NouisliderModule,
             forms_1.ReactiveFormsModule,
             //CalendarModule,
             router_1.RouterModule.forRoot([
@@ -93,7 +113,7 @@ AppModule = __decorate([
                 { path: 'feeditem', component: feeditemform_component_1.FeedItemForm },
                 { path: 'feeditem/:id', component: feeditemform_component_1.FeedItemForm },
                 { path: ':feedCat/feeditem', component: feeditemform_component_1.FeedItemForm },
-                { path: 'reports/:feedType', component: FeedReportIndexComponent },
+                { path: 'reports/:feedType', component: feedreportindex_component_1.FeedReportIndexComponent },
                 { path: '**', redirectTo: 'home' }
             ])
         ]

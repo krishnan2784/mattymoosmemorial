@@ -27,8 +27,8 @@ var FeedFormSteps = (function () {
                 steps.push(new FeedFormStep(FeedFormStepType.SurveyScore, 3, "Survey Results"));
             }
             else {
-                steps.push(new FeedFormStep(FeedFormStepType.Media, 2, "Media (if required)"));
-                steps.push(new FeedFormStep(FeedFormStepType.Links, 3, "Links (if required)"));
+                steps.push(new FeedFormStep(FeedFormStepType.Media, 2, "Media", "if required"));
+                steps.push(new FeedFormStep(FeedFormStepType.Links, 3, "Links", "if required"));
             }
             observer.next(steps);
         });
@@ -64,7 +64,7 @@ var FeedFormSteps = (function () {
         this.currentStep = this.visibleSteps.filter(function (x) { return x.stepPosition > _this.currentStep.stepPosition; })[0];
     };
     FeedFormSteps.prototype.navigateToSelectedStep = function (selectedStep) {
-        this.currentStep = this.visibleSteps.find(function (x) { return x.type === selectedStep.type; });
+        this.currentStep = this.visibleSteps.find(function (x) { return x.type === selectedStep; });
         setTimeout(function () {
             Materialize.updateTextFields();
             $('.datepicker').pickadate({
@@ -79,10 +79,12 @@ var FeedFormSteps = (function () {
 }());
 exports.FeedFormSteps = FeedFormSteps;
 var FeedFormStep = (function () {
-    function FeedFormStep(type, stepPosition, name) {
+    function FeedFormStep(type, stepPosition, name, additionalText) {
+        if (additionalText === void 0) { additionalText = ""; }
         this.type = type;
         this.stepPosition = stepPosition;
         this.name = name;
+        this.additionalText = additionalText;
     }
     return FeedFormStep;
 }());

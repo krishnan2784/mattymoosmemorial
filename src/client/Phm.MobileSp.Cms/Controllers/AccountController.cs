@@ -1,4 +1,7 @@
-﻿namespace Phm.MobileSp.Cms.Controllers
+﻿using Microsoft.AspNetCore.Http;
+using Phm.MobileSp.Cms.Helpers;
+
+namespace Phm.MobileSp.Cms.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -50,13 +53,8 @@
             if (User.Identity.IsAuthenticated)
                 RedirectToAction("Index", "Home");
 
-            var loginDetails = new LoginDetails();
-#if DEBUG
-            loginDetails.UserName = "admin";
-            loginDetails.Password = "12345";
-            loginDetails.RememberMe = true;
-#endif
-                Console.WriteLine(JsonConvert.SerializeObject(loginDetails));
+            var loginDetails = CookieHelper.GetLoginDetails(HttpContext);
+            Console.WriteLine(JsonConvert.SerializeObject(loginDetails));
             return View(loginDetails);
         }
 
@@ -71,9 +69,7 @@
 
             var user = await userRepository.GetUserAsync(loginDetails);
             
-            if (!user.ValidUser)
-            {
-                
+            if (!user.ValidUser){
                 return View(loginDetails);
             }
 
@@ -83,11 +79,8 @@
                                  new Claim("sessionguid", user.SessionGuid),
                                  new Claim("userid", user.UserDetails.Id.ToString()),
                                  new Claim("currentmarketid", user.UserDetails.DefaultMarketId.ToString()),
-
                                  new Claim("name", user.UserDetails.Email)
                              };
-           
-            
 
             try
             {
@@ -104,6 +97,8 @@
             }
 
             await this.HttpContext.Authentication.SignInAsync("MobileSPAuthCookie", claimsPrinciple);
+
+            CookieHelper.StoreLoginDetails(HttpContext, loginDetails);
 
             return this.LocalRedirect(returnUrl);
         }

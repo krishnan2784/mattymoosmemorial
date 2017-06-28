@@ -21,7 +21,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var base_component_1 = require("../base.component");
-var datashareservice_1 = require("../../dataservices/datashareservice");
+var shareservice_1 = require("../../services/helpers/shareservice");
 var HomeComponent = (function (_super) {
     __extends(HomeComponent, _super);
     function HomeComponent(sharedService) {
@@ -34,7 +34,7 @@ HomeComponent = __decorate([
         selector: 'home',
         template: require('./home.component.html')
     }),
-    __metadata("design:paramtypes", [datashareservice_1.ShareService])
+    __metadata("design:paramtypes", [shareservice_1.ShareService])
 ], HomeComponent);
 exports.HomeComponent = HomeComponent;
 //# sourceMappingURL=home.component.js.map

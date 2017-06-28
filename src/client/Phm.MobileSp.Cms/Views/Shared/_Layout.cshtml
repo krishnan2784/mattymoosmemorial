@@ -9,15 +9,19 @@
         <link rel="stylesheet" href="~/dist/vendor.css" asp-append-version="true" />
         <link rel="stylesheet" href="/css/materialize.min.css" asp-append-version="true" />
         <link rel="stylesheet" href="/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="/css/c3.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="/css/nouislider.min.css" asp-append-version="true" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    
+        <script type="text/javascript" src="scripts/jquery-3.2.1.min.js"></script>
     </head>
 <body>
 @RenderBody()
 
 @RenderSection("scripts", required: false)
 <script type="text/javascript" src="scripts/materialize.min.js"></script>
+<script type="text/javascript" src="scripts/d3.min.js"></script>
+<script type="text/javascript" src="scripts/c3.min.js"></script>
+<script type="text/javascript" src="scripts/nouislider.min.js"></script>
 
 </body>
 </html>

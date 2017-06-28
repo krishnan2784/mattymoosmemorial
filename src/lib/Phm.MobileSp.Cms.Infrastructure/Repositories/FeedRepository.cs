@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using MLearningCoreService;
 using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Core.Models.Interfaces;
@@ -81,6 +82,45 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             var request = GetRequest(new DeleteFeedRequest { FeedId = feedItemId });
             var response = await _proxyClient.DeleteFeedAsync(request);
             return response.Deleted;
+        }
+
+        public async Task<dynamic> GetFeedItemSummary(int feedItemId)
+        {
+            var request = GetRequest(new GetQuizFeedSummariesRequest
+            {
+                Criteria = GetCriteria(new QuizFeedSummaryCriteriaDto()
+                {
+                    QuizFeedId = feedItemId
+                })
+            });
+            var response = await _proxyClient.GetQuizFeedSummariesAsync(request);
+            return response.QuizSummaries.FirstOrDefault();
+        }
+
+        public async Task<IEnumerable<dynamic>> GetFeedItemResultList(int feedItemId, decimal lowerBoundary, decimal higherBoundary, int userGroupId)
+        {
+            var request = GetRequest(new GetQuizResultsSummariesEXRequest
+            {
+                Criteria = GetCriteria(new QuizResultsSummariesEXCriteriaDto()
+                {
+                    QuizFeedId = feedItemId,
+                    LowerBoundary = lowerBoundary,
+                    HigherBoundary = higherBoundary,
+                    UserGroupId = userGroupId
+                })
+            });
+            var response = await _proxyClient.GetQuizResultsSummariesEXAsync(new GetQuizResultsSummariesEXRequest1(request));
+            return response.GetQuizResultsSummariesEXResult.QuizResultsSummaries;
+        }
+
+        public async Task<dynamic> GetQuizSummaryFilters(int marketId)
+        {
+            var request = GetRequest(new GetQuizSummaryFiltersRequest
+            {
+                MarketId = marketId
+            });
+            var response = await _proxyClient.GetQuizSummaryFiltersAsync(new GetQuizSummaryFiltersRequest1(request));
+            return response.GetQuizSummaryFiltersResult;
         }
 
         public async Task<bool> CopyFeedItemToMarketAsync(int feedItemId, List<int> marketIds)

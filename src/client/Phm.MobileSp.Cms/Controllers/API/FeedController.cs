@@ -121,5 +121,32 @@ namespace Phm.MobileSp.Cms.Controllers.API
             return Json(new BaseResponse(feedItemResponse, feedItemResponse ? "Feed item successfuly deleted" : "Failed to delete feed item", feedItemResponse));
         }
 
+        [HttpGet("[action]")]
+        [JsonResponseWrapper]
+        public async Task<JsonResult> GetFeedItemSummary(int feedItemId)
+        {
+            var feedItemResponse = await _feedRepository.GetFeedItemSummary(feedItemId);
+            var success = feedItemResponse != null;
+            return Json(new BaseResponse(success, success ? "" : "Failed to get a report for this feed item", feedItemResponse));
+        }
+
+        [HttpGet("[action]")]
+        [JsonResponseWrapper]
+        public async Task<JsonResult> GetFeedItemResultList(int feedItemId, decimal lowerBoundary = 0, decimal higherBoundary = 0, int userGroupId = 0)
+        {
+            var feedItemResponse = await _feedRepository.GetFeedItemResultList(feedItemId, lowerBoundary, higherBoundary, userGroupId);
+            var success = feedItemResponse != null;
+            return Json(new BaseResponse(success, success ? "" : "Failed to get a report for this feed item", feedItemResponse));
+        }
+
+
+        [HttpGet("[action]")]
+        [JsonResponseWrapper]
+        public async Task<JsonResult> GetQuizSummaryFilters()
+        {
+            var response = await _feedRepository.GetQuizSummaryFilters(CurrentMarketId);
+            return Json(new BaseResponse(response));
+        }
+
     }
 }

@@ -3,10 +3,11 @@ import { RouterModule } from '@angular/router';
 import { UniversalModule } from 'angular2-universal';
 import { Ng2PaginationModule } from 'ng2-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { D3Service } from 'd3-ng2-service';
+import { NouisliderModule } from 'ng2-nouislider';
 //import { CalendarModule } from 'primeng/primeng';
 //import { DateValueAccessor } from './classes/datevalueaccessor';
 
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
@@ -38,8 +39,17 @@ import Basemodalcomponent = require("./components/modals/basemodal.component");
 import BaseModalComponent = Basemodalcomponent.BaseModalComponent;
 import Copytomarketcomponent = require("./components/feed/modals/copytomarket.component");
 import FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
-import Feedreportindexcomponent = require("./components/reports/indexes/feedreportindex.component");
-import FeedReportIndexComponent = Feedreportindexcomponent.FeedReportIndexComponent;
+import { FeedReportIndexComponent } from "./components/reports/indexes/feedreportindex.component";
+import { FeedItemReport } from "./components/reports/feeditemreport.component";
+import Barchartcomponent = require("./components/charts/barchart.component");
+import BarChart = Barchartcomponent.BarChart;
+import Basefeeditemreportcomponent = require("./components/reports/basefeeditemreport.component");
+import FeedItemReportContainerComponent = Basefeeditemreportcomponent.FeedItemReportContainerComponent;
+import Gaugechartcomponent = require("./components/charts/gaugechart.component");
+import GaugeChart = Gaugechartcomponent.GaugeChart;
+import Donutchartcomponent = require("./components/charts/donutchart.component");
+import { NavBarComponent } from "./components/navbar/navbar.component";
+import DonutChart = Donutchartcomponent.DonutChart;
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -47,6 +57,7 @@ import FeedReportIndexComponent = Feedreportindexcomponent.FeedReportIndexCompon
         AppComponent,
         BaseComponent,
         NavMenuComponent,
+        NavBarComponent,
         FooterComponent,
         MarketDropdown,
         //DateValueAccessor,
@@ -70,6 +81,13 @@ import FeedReportIndexComponent = Feedreportindexcomponent.FeedReportIndexCompon
 
         // reporting
         FeedReportIndexComponent,
+        FeedItemReportContainerComponent,
+        FeedItemReport,
+         
+        // charts
+        BarChart,
+        GaugeChart,
+        DonutChart,
 
         //modals
         FeedItemCopyToMarket
@@ -78,6 +96,7 @@ import FeedReportIndexComponent = Feedreportindexcomponent.FeedReportIndexCompon
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
         Ng2PaginationModule,
         FormsModule,
+        NouisliderModule,
         ReactiveFormsModule,
         //CalendarModule,
         RouterModule.forRoot([

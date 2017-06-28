@@ -33,8 +33,8 @@ export class FeedFormSteps implements OnInit {
                 steps.push(new FeedFormStep(FeedFormStepType.SurveyQuestions, 2, "Survey Questions"));
                 steps.push(new FeedFormStep(FeedFormStepType.SurveyScore, 3, "Survey Results"));
             } else {
-                steps.push(new FeedFormStep(FeedFormStepType.Media, 2, "Media (if required)"));
-                steps.push(new FeedFormStep(FeedFormStepType.Links, 3, "Links (if required)"));
+                steps.push(new FeedFormStep(FeedFormStepType.Media, 2, "Media", "if required"));
+                steps.push(new FeedFormStep(FeedFormStepType.Links, 3, "Links", "if required"));
             }
             observer.next(steps);
         });
@@ -73,8 +73,8 @@ export class FeedFormSteps implements OnInit {
         this.currentStep = this.visibleSteps.filter(x => x.stepPosition > this.currentStep.stepPosition)[0];
     }
 
-    public navigateToSelectedStep(selectedStep: FeedFormStep) {
-        this.currentStep = this.visibleSteps.find(x => x.type === selectedStep.type);
+    public navigateToSelectedStep(selectedStep: FeedFormStepType) {
+        this.currentStep = this.visibleSteps.find(x => x.type === selectedStep);
         setTimeout(function() {
             Materialize.updateTextFields();
             $('.datepicker').pickadate({
@@ -88,7 +88,7 @@ export class FeedFormSteps implements OnInit {
 }
 
 export class FeedFormStep {
-    constructor(public type: FeedFormStepType, public stepPosition: number, public name: string) { }
+    constructor(public type: FeedFormStepType, public stepPosition: number, public name: string, public additionalText = "") { }
 }
 
 export enum FeedFormStepType {

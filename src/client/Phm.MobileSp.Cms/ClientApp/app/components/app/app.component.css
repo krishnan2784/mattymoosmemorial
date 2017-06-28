@@ -61,3 +61,22 @@ html, a, p, span, div, input, td, li, h1, h2, h3, h4, h5 {
 li.current {
     background-color: #4F3A9F !important;
 }
+.back-button {
+    min-height: 30px;
+    margin-bottom: 15px;
+    color: #1E1E1E;
+}
+
+.back-button i {
+    margin-top: -3px;
+}
+.back-button a {
+    vertical-align: top;
+    cursor: pointer;
+    color: #1E1E1E;
+
+}
+
+.back-button a:hover {
+    text-decoration: none;
+}

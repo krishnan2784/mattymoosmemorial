@@ -85,6 +85,6 @@
   },
 
   "tooling": {
-    "defaultNamespace": "MobileSP_CMS"
+    "defaultNamespace": "Phm.MobileSp.Cms"
   }
 }

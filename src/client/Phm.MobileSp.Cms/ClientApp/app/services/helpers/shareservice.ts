@@ -1,0 +1,57 @@
+﻿import { Observable } from 'rxjs/Observable';
+import { Injectable, EventEmitter } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
+import Userclasses = require("../../models/userclasses");
+import UserMarket = Userclasses.UserMarket;
+import FeedModel = require("../../interfaces/models/IFeedModel");
+import IFeedItem = FeedModel.IFeedItem;
+
+@Injectable()
+export class ShareService {
+    public currentMarket: UserMarket = new UserMarket;
+    public currentMarketId: number = this.currentMarket.id;
+
+    private pageTitleUpdate = new Subject<string>();
+    pageTitleUpdated = this.pageTitleUpdate.asObservable();
+
+    public updatePageTitle(pageTitle: string) {
+        this.pageTitleUpdate.next(pageTitle);
+    }
+
+    private backButtonUpdate = new Subject<string>();
+    backButtonUpdated = this.backButtonUpdate.asObservable();
+
+    public updateBackButton(backText: string) {
+        this.backButtonUpdate.next(backText);
+    }
+
+    private marketDropdownVisibilitypeUpdate = new Subject<boolean>();
+    marketDropdownVisibilitypeUpdated = this.marketDropdownVisibilitypeUpdate.asObservable();
+
+    public updateMarketDropdownVisibility(isMarketDropdownVisible: boolean) {
+        this.marketDropdownVisibilitypeUpdate.next(isMarketDropdownVisible);
+    }
+
+    private marketUpdate = new Subject<UserMarket>();
+    marketUpdated = this.marketUpdate.asObservable();
+
+    public updateMarket(market: UserMarket) {
+        if (this.currentMarket && this.currentMarket.id === market.id)
+            return;
+        this.currentMarket = market;
+        this.marketUpdate.next(market);
+    }
+
+    private feedItemUpdate = new Subject<IFeedItem>();
+    feedItemUpdated = this.feedItemUpdate.asObservable();
+
+    public updateFeedItem(feedItem: IFeedItem) {
+        this.feedItemUpdate.next(feedItem);
+    }
+
+    public goBackEvent: EventEmitter<any> = new EventEmitter<any>();
+
+    public goBack() {
+        this.goBackEvent.emit();
+    }
+}
