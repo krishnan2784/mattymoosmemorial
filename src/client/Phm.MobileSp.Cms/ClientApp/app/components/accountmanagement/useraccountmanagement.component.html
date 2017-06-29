@@ -1,5 +1,5 @@
 <p *ngIf="!userAccounts"><em>Loading accounts...</em></p>
-<a (click)="editUser()" class="btn-floating btn-large waves-effect waves-light btn-top-right">
+<a (click)="editUser()" class="btn-floating btn-large waves-effect waves-light btn-top-right" data-toggle="modal" data-target="#edit-user">
     <i class="material-icons">person_add</i>
 </a>
 <div *ngIf="userAccounts">
@@ -28,3 +28,4 @@
                 (numPages)="numPages = $event">
     </pagination>
 </div>
+<base-modal [modalData]="modalData" [modalId]="'edit-user'" [modalHeader]="modalData ? modalData.inputs.title : ''" [modalDescription]="''" (modalClosed)="updateUser($event)"></base-modal>

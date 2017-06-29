@@ -11,6 +11,8 @@ export class UserAccount {
     role: string;
     dealershipCode: string;
     dealershipName: string;
+    region: string;
+    zone: string;
     market: string;
     createdDate: Date;
 
@@ -23,19 +25,23 @@ export class UserAccount {
         role?: string,
         dealershipCode?: string,
         dealershipName?: string,
+        region?: string,
+        zone?: string,
         market?: string,
         createdDate?: Date
     } = {}) {
 
-        this.id = options.id;
-        this.firstName = options.firstName;
-        this.lastName = options.lastName;
-        this.userName = options.userName;
-        this.email = options.email;
-        this.role = options.role;
-        this.dealershipCode = options.dealershipCode;
-        this.dealershipName = options.dealershipName;
-        this.market = options.market;
+        this.id = options.id || 0;
+        this.firstName = options.firstName || '';
+        this.lastName = options.lastName || '';
+        this.userName = options.userName || '';
+        this.email = options.email || '';
+        this.role = options.role || 'Sales Manager';
+        this.dealershipCode = options.dealershipCode || '';
+        this.dealershipName = options.dealershipName || '';
+        this.region = options.region || '';
+        this.zone = options.zone || '';
+        this.market = options.market || '';
         this.createdDate = options.createdDate;
     }
 }

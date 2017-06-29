@@ -7,6 +7,7 @@ import { D3Service } from 'd3-ng2-service';
 import { NouisliderModule } from 'ng2-nouislider';
 import { Ng2TableModule } from 'ng2-table/ng2-table';
 import { PaginationModule } from 'ngx-bootstrap';
+import { MaterializeModule } from 'angular2-materialize';
 //import { CalendarModule } from 'primeng/primeng';
 //import { DateValueAccessor } from './classes/datevalueaccessor';
 
@@ -52,6 +53,8 @@ import GaugeChart = Gaugechartcomponent.GaugeChart;
 import Donutchartcomponent = require("./components/charts/donutchart.component");
 import { NavBarComponent } from "./components/navbar/navbar.component";
 import DonutChart = Donutchartcomponent.DonutChart;
+import Editusercomponent = require("./components/accountmanagement/modals/edituser.component");
+import EditUser = Editusercomponent.EditUser;
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -85,7 +88,10 @@ import DonutChart = Donutchartcomponent.DonutChart;
         FeedReportIndexComponent,
         FeedItemReportContainerComponent,
         FeedItemReport,
-         
+
+        // user management
+        EditUser,
+
         // charts
         BarChart,
         GaugeChart,

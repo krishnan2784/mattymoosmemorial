@@ -1,9 +1,13 @@
-import { Component, OnInit  } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Http } from '@angular/http';
 import { BaseComponent } from "../base.component";
 import { ShareService } from "../../services/helpers/shareservice";
 import { UserDataService } from "../../services/userdataservice";
 import { UserAccount } from "../../models/userclasses";
+import Editusercomponent = require("./modals/edituser.component");
+import EditUser = Editusercomponent.EditUser;
+import FeedModel = require("../../interfaces/models/IFeedModel");
+import IFeedItem = FeedModel.IFeedItem;
 
 @Component({
     selector: 'useraccountmanagement',
@@ -11,6 +15,9 @@ import { UserAccount } from "../../models/userclasses";
     styles: [require('./useraccountmanagement.component.css')]
 })
 export class UserAccountManagementComponent extends BaseComponent {
+    modalData = null;
+
+
     public rows: Array<any> = [];
     public columns: Array<any> = [
         { title: 'First Name', name: 'firstName' },
@@ -56,11 +63,9 @@ export class UserAccountManagementComponent extends BaseComponent {
 
             if (result) {
                 for (let i = 0; i < result.length; i++) {
-                    this.userAccounts[i].actionEdit = '<a class="action-btn remove"><i class="material-icons">edit</i><p>Edit</p></a>';
-                    this.userAccounts[i].actionDelete = '<a class="action-btn remove"><i class="material-icons">delete</i><p>Delete</p></a>';
+                    this.attachUserEvents(this.userAccounts[i]);
                 }
             }
-
 
             this.length = this.userAccounts.length;
             this.onChangeTable(this.config);
@@ -170,8 +175,27 @@ export class UserAccountManagementComponent extends BaseComponent {
 
     public editUser(user: UserAccount = new UserAccount()) {
         user = new UserAccount(user);
-        console.log(user);
+        let inputs = { model: user, title: user.id === 0 ? 'Create User' : 'Edit User' };
+        var modelData = EditUser;
+
+        this.modalData = {
+            modalContent: modelData,
+            inputs: inputs
+        };
+    }
+
+    public updateUser(user: UserAccount) {
+        this.attachUserEvents(user);
+        var index = this.userAccounts.indexOf(user);
+        if (index > -1) 
+            this.userAccounts.splice(index, 1, user);
+         else
+            this.userAccounts.unshift(user);
+    }
+
+    public attachUserEvents(user: any) {
+        user.actionEdit = '<a class="action-btn remove" data-toggle="modal" data-target="#edit-user"><i class="material-icons">edit</i><p>Edit</p></a>';
+        user.actionDelete = '<a class="action-btn remove"><i class="material-icons">delete</i><p>Delete</p></a>';
+        return user;
     }
 }
-
-

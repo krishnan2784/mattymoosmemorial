@@ -1,4 +1,14 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -15,10 +25,15 @@ var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/publishReplay");
 var responsehelper_1 = require("./helpers/responsehelper");
-var UserDataService = (function () {
+var Requesthelper = require("./helpers/requesthelper");
+var RequestHelper = Requesthelper.RequestHelper;
+var UserDataService = (function (_super) {
+    __extends(UserDataService, _super);
     function UserDataService(http, zone) {
-        this.http = http;
-        this.zone = zone;
+        var _this = _super.call(this, http) || this;
+        _this.http = http;
+        _this.zone = zone;
+        return _this;
     }
     UserDataService.prototype.getUsers = function () {
         var _this = this;
@@ -40,8 +55,11 @@ var UserDataService = (function () {
             });
         });
     };
+    UserDataService.prototype.updateUser = function (user) {
+        return this.postRequestFull('/api/AccountManagement/UpdateUser', user);
+    };
     return UserDataService;
-}());
+}(RequestHelper));
 UserDataService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [http_1.Http, core_1.NgZone])

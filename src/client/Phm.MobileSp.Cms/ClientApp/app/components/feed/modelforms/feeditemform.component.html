@@ -158,7 +158,7 @@
 
         <div *ngIf="model.feedType == feedTypes.Text"  class="input-field">
             <label [class.active]="form.controls.bodyText.value.length>0">Body Text</label>
-            <input type="text" formControlName="bodyText">
+            <textarea formControlName="bodyText" class="materialize-textarea"></textarea>
             <small [class.active-warning]="!form.controls.bodyText.valid && submitted">
                 Body text is required (minimum 5 characters).
             </small> 

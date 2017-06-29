@@ -24,12 +24,15 @@ var base_component_1 = require("../base.component");
 var shareservice_1 = require("../../services/helpers/shareservice");
 var userdataservice_1 = require("../../services/userdataservice");
 var userclasses_1 = require("../../models/userclasses");
+var Editusercomponent = require("./modals/edituser.component");
+var EditUser = Editusercomponent.EditUser;
 var UserAccountManagementComponent = (function (_super) {
     __extends(UserAccountManagementComponent, _super);
     function UserAccountManagementComponent(sharedService, userDataService) {
         var _this = _super.call(this, sharedService, 'Account Management', true) || this;
         _this.sharedService = sharedService;
         _this.userDataService = userDataService;
+        _this.modalData = null;
         _this.rows = [];
         _this.columns = [
             { title: 'First Name', name: 'firstName' },
@@ -69,8 +72,7 @@ var UserAccountManagementComponent = (function (_super) {
             _this.userAccounts = result;
             if (result) {
                 for (var i = 0; i < result.length; i++) {
-                    _this.userAccounts[i].actionEdit = '<a class="action-btn remove"><i class="material-icons">edit</i><p>Edit</p></a>';
-                    _this.userAccounts[i].actionDelete = '<a class="action-btn remove"><i class="material-icons">delete</i><p>Delete</p></a>';
+                    _this.attachUserEvents(_this.userAccounts[i]);
                 }
             }
             _this.length = _this.userAccounts.length;
@@ -169,7 +171,25 @@ var UserAccountManagementComponent = (function (_super) {
     UserAccountManagementComponent.prototype.editUser = function (user) {
         if (user === void 0) { user = new userclasses_1.UserAccount(); }
         user = new userclasses_1.UserAccount(user);
-        console.log(user);
+        var inputs = { model: user, title: user.id === 0 ? 'Create User' : 'Edit User' };
+        var modelData = EditUser;
+        this.modalData = {
+            modalContent: modelData,
+            inputs: inputs
+        };
+    };
+    UserAccountManagementComponent.prototype.updateUser = function (user) {
+        this.attachUserEvents(user);
+        var index = this.userAccounts.indexOf(user);
+        if (index > -1)
+            this.userAccounts.splice(index, 1, user);
+        else
+            this.userAccounts.unshift(user);
+    };
+    UserAccountManagementComponent.prototype.attachUserEvents = function (user) {
+        user.actionEdit = '<a class="action-btn remove" data-toggle="modal" data-target="#edit-user"><i class="material-icons">edit</i><p>Edit</p></a>';
+        user.actionDelete = '<a class="action-btn remove"><i class="material-icons">delete</i><p>Delete</p></a>';
+        return user;
     };
     return UserAccountManagementComponent;
 }(base_component_1.BaseComponent));

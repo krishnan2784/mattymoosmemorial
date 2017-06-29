@@ -55,6 +55,8 @@ var GaugeChart = Gaugechartcomponent.GaugeChart;
 var Donutchartcomponent = require("./components/charts/donutchart.component");
 var navbar_component_1 = require("./components/navbar/navbar.component");
 var DonutChart = Donutchartcomponent.DonutChart;
+var Editusercomponent = require("./components/accountmanagement/modals/edituser.component");
+var EditUser = Editusercomponent.EditUser;
 var AppModule = (function () {
     function AppModule() {
     }
@@ -90,6 +92,8 @@ AppModule = __decorate([
             feedreportindex_component_1.FeedReportIndexComponent,
             FeedItemReportContainerComponent,
             feeditemreport_component_1.FeedItemReport,
+            // user management
+            EditUser,
             // charts
             BarChart,
             GaugeChart,

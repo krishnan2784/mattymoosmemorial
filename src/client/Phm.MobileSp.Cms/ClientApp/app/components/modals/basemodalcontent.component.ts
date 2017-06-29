@@ -22,7 +22,7 @@ export class BaseModalContent implements IModalContent  {
         
     }
 
-    closeModal() {
-        this.closeModalEvent.emit(null);
+    closeModal(data: any = null) {
+        this.closeModalEvent.emit(data);
     }
 }

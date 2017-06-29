@@ -1,0 +1,60 @@
+<form [formGroup]="form" novalidate (ngSubmit)="saveUser(form.value, form.valid)" *ngIf="model">
+    <input type="hidden" formControlName="id">
+
+    <div class="modal-body">
+        <div class="col-md-8 col-md-offset-2">
+
+            <div class="input-field">
+                <label [class.active]="form.controls.email.value.length>0">Email</label>
+                <input type="text" formControlName="email">
+            </div>
+
+            <div class="input-field">
+                <label [class.active]="form.controls.firstName.value.length>0">First Name</label>
+                <input type="text" formControlName="firstName">
+            </div>
+
+            <div class="input-field">
+                <label [class.active]="form.controls.lastName.value.length>0">Last Name</label>
+                <input type="text" formControlName="lastName">
+            </div>
+
+            <label>Role</label>
+            <select id="role" formControlName="role" materialize="material_select" class="browser-default">
+                <option *ngFor="let r of roles" [ngValue]="r.name">{{r.name}}</option>
+            </select>
+
+            <div class="input-field">
+                <label [class.active]="form.controls.dealershipCode.value.length>0">Dealership</label>
+                <input type="text" formControlName="dealershipCode" class="autocomplete" list="dealershipCodes">
+            </div>
+
+            <div class="input-field">
+                <label [class.active]="form.controls.region.value.length>0">Region</label>
+                <input type="text" formControlName="region" class="autocomplete" list="regions">
+            </div>
+
+            <div class="input-field">
+                <label [class.active]="form.controls.zone.value.length>0">Zone</label>
+                <input type="text" formControlName="zone" class="autocomplete" list="zones">
+            </div>
+
+        </div>
+        <div class="clearfix"></div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary btn-save" [disabled]="!form.valid">Save</button>
+    </div>
+</form>
+
+<datalist id="dealershipCodes">
+    <option *ngFor="let x of dealerships" value="{{x}}">
+</datalist>
+<datalist id="zones">
+    <option *ngFor="let x of zones" value="{{x}}">
+</datalist>
+<datalist id="regions">
+    <option *ngFor="let x of regions" value="{{x}}">
+</datalist>
