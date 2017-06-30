@@ -13,7 +13,6 @@ export class DateEx {
             } else if (format.length >= i + 1) {
                 if (firstchar === format.charAt(i+1)) {
                     let firstTwoChars = firstchar + format.charAt(i + 1);
-                    console.log(firstTwoChars);
 
                     if (format.length < i + 4 || firstchar !== format.charAt(i + 3) || firstchar !== format.charAt(i + 2)) {
                         switch (firstTwoChars) {
@@ -31,7 +30,6 @@ export class DateEx {
                         continue;
                     } else {
                         let firstFourChars = firstTwoChars + firstTwoChars;
-                        console.log('FF' + firstFourChars);
 
                         switch (firstFourChars) {
                             case 'yyyy' || 'YYYY':

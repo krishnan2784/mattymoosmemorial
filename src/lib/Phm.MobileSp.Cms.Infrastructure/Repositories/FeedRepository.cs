@@ -109,8 +109,8 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
                     UserGroupId = userGroupId
                 })
             });
-            var response = await _proxyClient.GetQuizResultsSummariesEXAsync(new GetQuizResultsSummariesEXRequest1(request));
-            return response.GetQuizResultsSummariesEXResult.QuizResultsSummaries;
+            var response = await _proxyClient.GetQuizResultsSummariesEXAsync(request);
+            return response.QuizResultsSummaries;
         }
 
         public async Task<dynamic> GetQuizSummaryFilters(int marketId)
@@ -119,8 +119,8 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             {
                 MarketId = marketId
             });
-            var response = await _proxyClient.GetQuizSummaryFiltersAsync(new GetQuizSummaryFiltersRequest1(request));
-            return response.GetQuizSummaryFiltersResult;
+            var response = await _proxyClient.GetQuizSummaryFiltersAsync(request);
+            return response;
         }
 
         public async Task<bool> CopyFeedItemToMarketAsync(int feedItemId, List<int> marketIds)

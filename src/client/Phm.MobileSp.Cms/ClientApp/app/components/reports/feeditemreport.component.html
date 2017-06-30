@@ -60,36 +60,14 @@
         <div class="clearfix"></div>
     </div>
     <div>
-        <div class="col-md-3 right">
-            <input placeholder="Search" type="search" [(ngModel)]="searchString"/>
+        <div class="col-md-3 right search-filter">
+            <input placeholder="Search" type="search" [(ngModel)]="searchString" (ngModelChange)="filterResultList()"/>
         </div>
         <div class="clearfix"></div>
     </div>
     <div>
         <div class="col-md-2 filter-col">
-            <div class="filter-container">
-                <div class="filter-header filter-block">
-                    <p>Refine by: <a class="right" (click)="clearFilters()">Clear all</a></p>
-                </div>
-                <div class="filter-block">
-                    <p>Role <a class="right" (click)="clearUserFilters()">Clear</a></p>
-                    <div *ngFor="let userGroup of this.userGroupFilters">
-                        <input type="checkbox" id="{{userGroup.id}}" [(ngModel)]="userGroup.checked" ><label [attr.for]="userGroup.id">{{userGroup.text}}</label>
-                    </div>
-                </div>
-                <div class="filter-block">
-                    <p>Dealership <a class="right" (click)="clearDealerFilters()">Clear</a></p>
-                    <div class="filter-block">
-                        <div *ngFor="let dealer of this.dealershipFilters">
-                            <input type="checkbox" id="{{dealer.id}}" [(ngModel)]="dealer.checked"><label [attr.for]="dealer.id">{{dealer.text}}</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="filter-block">
-                    <p>Range <a class="right" (click)="resetRange()">Reset</a></p>
-                    <div id="scoreRange"></div>
-                </div>
-            </div>
+            <userfilter [renderPointRange]="true" [renderUserGroupFilter]="true" [renderDealershipFilter]="true" (criteriaChanged)="filterUpdate($event)"></userfilter>
             <div class="clearfix"></div>
         </div>
         <div class="col-md-10">
@@ -113,8 +91,8 @@
                     </div>
                 </div>
                 
-                <div *ngIf="!filteredListData"><em>Loading...</em></div>
-                <div *ngIf="filteredListData && filteredListData.length === 0">No results have been found for the selected filters.</div>
+                <div *ngIf="!filteredListData" class="result-list-content"><em>Loading...</em></div>
+                <div *ngIf="filteredListData && filteredListData.length === 0" class="result-list-content">No results have been found for the selected filters.</div>
                 <div *ngIf="filteredListData && filteredListData.length > 0" class="result-list-content">
                     <div *ngFor="let quizResult of filteredListData | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}" class="result-list-content-row">
                         <div class="col-md-1">
