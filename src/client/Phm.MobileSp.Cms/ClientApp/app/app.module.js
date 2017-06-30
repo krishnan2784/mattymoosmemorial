@@ -57,6 +57,8 @@ var navbar_component_1 = require("./components/navbar/navbar.component");
 var DonutChart = Donutchartcomponent.DonutChart;
 var Editusercomponent = require("./components/accountmanagement/modals/edituser.component");
 var EditUser = Editusercomponent.EditUser;
+var Userfiltercomponent = require("./components/common/filters/userfilter.component");
+var UserFilter = Userfiltercomponent.UserFilter;
 var AppModule = (function () {
     function AppModule() {
     }
@@ -99,7 +101,9 @@ AppModule = __decorate([
             GaugeChart,
             DonutChart,
             //modals
-            FeedItemCopyToMarket
+            FeedItemCopyToMarket,
+            //shared
+            UserFilter
         ],
         imports: [
             angular2_universal_1.UniversalModule,

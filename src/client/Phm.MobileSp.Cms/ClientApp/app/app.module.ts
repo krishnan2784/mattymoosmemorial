@@ -55,6 +55,8 @@ import { NavBarComponent } from "./components/navbar/navbar.component";
 import DonutChart = Donutchartcomponent.DonutChart;
 import Editusercomponent = require("./components/accountmanagement/modals/edituser.component");
 import EditUser = Editusercomponent.EditUser;
+import Userfiltercomponent = require("./components/common/filters/userfilter.component");
+import UserFilter = Userfiltercomponent.UserFilter;
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -98,7 +100,10 @@ import EditUser = Editusercomponent.EditUser;
         DonutChart,
 
         //modals
-        FeedItemCopyToMarket
+        FeedItemCopyToMarket,
+
+        //shared
+        UserFilter
     ],
     imports: [
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.

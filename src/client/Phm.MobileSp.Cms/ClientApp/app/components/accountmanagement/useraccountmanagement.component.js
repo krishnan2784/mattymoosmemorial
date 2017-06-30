@@ -26,6 +26,8 @@ var userdataservice_1 = require("../../services/userdataservice");
 var userclasses_1 = require("../../models/userclasses");
 var Editusercomponent = require("./modals/edituser.component");
 var EditUser = Editusercomponent.EditUser;
+var Userfiltercomponent = require("../common/filters/userfilter.component");
+var UserFilters = Userfiltercomponent.UserFilters;
 var UserAccountManagementComponent = (function (_super) {
     __extends(UserAccountManagementComponent, _super);
     function UserAccountManagementComponent(sharedService, userDataService) {
@@ -33,24 +35,16 @@ var UserAccountManagementComponent = (function (_super) {
         _this.sharedService = sharedService;
         _this.userDataService = userDataService;
         _this.modalData = null;
+        _this.filterCriteria = new UserFilters();
         _this.rows = [];
         _this.columns = [
-            { title: 'First Name', name: 'firstName' },
+            { title: '', name: 'userAvatar' },
+            { title: 'First Name', name: 'firstName_region' },
             { title: 'Last Name', name: 'lastName' },
-            { title: 'Email', name: 'email' },
+            { title: 'Email', name: 'email_zone' },
             { title: 'Dealership Code', name: 'dealershipCode' },
             { title: '', name: 'actionEdit', sort: false, className: 'col-action' },
             { title: '', name: 'actionDelete', sort: false, className: 'col-action' }
-            //{
-            //    title: 'Position',
-            //    name: 'position',
-            //    sort: false,
-            //    filtering: { filterString: '', placeholder: 'Filter by position' }
-            //},
-            //{ title: 'Office', className: ['office-header', 'text-success'], name: 'office', sort: 'asc' },
-            //{ title: 'Extn.', name: 'ext', sort: '', filtering: { filterString: '', placeholder: 'Filter by extn.' } },
-            //{ title: 'Start date', className: 'text-warning', name: 'startDate' },
-            //{ title: 'Salary ($)', name: 'salary' }
         ];
         _this.page = 1;
         _this.itemsPerPage = 20;
@@ -60,7 +54,11 @@ var UserAccountManagementComponent = (function (_super) {
         _this.config = {
             paging: true,
             sorting: { columns: _this.columns },
-            filtering: { filterString: '' },
+            filtering: {
+                filterString: '',
+                'zone': '%' + _this.filterCriteria.zoneFilters.map(function (x) { return x.text; }).join('%') + '%',
+                'region': '%' + _this.filterCriteria.regionFilters.map(function (x) { return x.text; }).join('%') + '%'
+            },
             className: ['table-bordered', 'table-hover']
         };
         _this.getData();
@@ -69,20 +67,23 @@ var UserAccountManagementComponent = (function (_super) {
     UserAccountManagementComponent.prototype.getData = function () {
         var _this = this;
         this.userDataService.getUsers().subscribe(function (result) {
-            _this.userAccounts = result;
+            _this.allUserAccounts = result;
             if (result) {
                 for (var i = 0; i < result.length; i++) {
-                    _this.attachUserEvents(_this.userAccounts[i]);
+                    _this.allUserAccounts[i].zone = "Zone " + i;
+                    _this.allUserAccounts[i].region = "Region " + i;
+                    _this.attachUserProperties(_this.allUserAccounts[i]);
                 }
             }
-            _this.length = _this.userAccounts.length;
+            _this.length = _this.allUserAccounts.length;
+            _this.filteredUserAccounts = _this.allUserAccounts;
             _this.onChangeTable(_this.config);
         });
     };
     UserAccountManagementComponent.prototype.ngOnInit = function () {
     };
     UserAccountManagementComponent.prototype.changePage = function (page, data) {
-        if (data === void 0) { data = this.userAccounts; }
+        if (data === void 0) { data = this.filteredUserAccounts; }
         var start = (page.page - 1) * page.itemsPerPage;
         var end = page.itemsPerPage > -1 ? (start + page.itemsPerPage) : data.length;
         return data.slice(start, end);
@@ -155,7 +156,7 @@ var UserAccountManagementComponent = (function (_super) {
         if (config.sorting) {
             Object.assign(this.config.sorting, config.sorting);
         }
-        var filteredData = this.changeFilter(this.userAccounts, this.config);
+        var filteredData = this.changeFilter(this.filteredUserAccounts, this.config);
         var sortedData = this.changeSort(filteredData, this.config);
         this.rows = page && config.paging ? this.changePage(page, sortedData) : sortedData;
         this.length = sortedData.length;
@@ -179,17 +180,32 @@ var UserAccountManagementComponent = (function (_super) {
         };
     };
     UserAccountManagementComponent.prototype.updateUser = function (user) {
-        this.attachUserEvents(user);
-        var index = this.userAccounts.indexOf(user);
+        this.attachUserProperties(user);
+        var index = this.filteredUserAccounts.indexOf(user);
         if (index > -1)
-            this.userAccounts.splice(index, 1, user);
+            this.filteredUserAccounts.splice(index, 1, user);
         else
-            this.userAccounts.unshift(user);
+            this.filteredUserAccounts.unshift(user);
     };
-    UserAccountManagementComponent.prototype.attachUserEvents = function (user) {
+    UserAccountManagementComponent.prototype.attachUserProperties = function (user) {
+        user.userAvatar = '<i class="material-icons table-avatar">person</i>';
+        user.firstName_region = user.firstName + '<p class="sub-data">' + user.region + '</p>';
+        user.email_zone = user.email + '<p class="sub-data">' + user.zone + '</p>';
         user.actionEdit = '<a class="action-btn remove" data-toggle="modal" data-target="#edit-user"><i class="material-icons">edit</i><p>Edit</p></a>';
         user.actionDelete = '<a class="action-btn remove"><i class="material-icons">delete</i><p>Delete</p></a>';
         return user;
+    };
+    UserAccountManagementComponent.prototype.filterUpdate = function (criteria) {
+        var _this = this;
+        this.filterCriteria = criteria;
+        var data = Object.assign([], this.allUserAccounts);
+        if (this.filterCriteria.zoneFilters.length > 0)
+            data = data.filter(function (x) { return _this.filterCriteria.zoneFilters.filter(function (y) { return y.text === x.zone; }).length > 0; });
+        if (this.filterCriteria.regionFilters.length > 0)
+            data = data.filter(function (x) { return _this.filterCriteria.regionFilters.filter(function (y) { return y.text === x.region; }).length > 0; });
+        this.filteredUserAccounts = data;
+        this.config.filtering.filterString = criteria.searchString;
+        this.onChangeTable(this.config);
     };
     return UserAccountManagementComponent;
 }(base_component_1.BaseComponent));

@@ -4,12 +4,9 @@
 }
 .header-bar {
     height: 100px;
-    background-color: #EEE;
+    background-color: #fff;
     margin: 0 -15px 27px -12px;
     position: relative;
-    -webkit-box-shadow: 1px 2px 2px 0 #999;
-    -moz-box-shadow: 1px 2px 2px 0 #999;
-    box-shadow: 1px 2px 2px 0 #999;
 }
 .header-bar .header-bar-content {
     position: absolute;
@@ -19,6 +16,8 @@
 .header-bar .header-bar-content .page-title {
     margin-top: 0;
     color: #4F3A9F;
+    margin: 0 0 30px 30px;
+    font-weight: 300;
 }
 .marketdropdown {
     display: inline-flex;
@@ -26,9 +25,11 @@
 }
 .router-content {
     padding: 0 15px;
+    margin-bottom: 50px;
 }
 .body-content {
     overflow: hidden;
+    background-color: #eee;
 }
 .content-col {
     margin-bottom: -99999px;
@@ -58,11 +59,8 @@ html, a, p, span, div, input, td, li, h1, h2, h3, h4, h5 {
     font-family: 'Roboto', sans-serif!important;
 }
 
-li.current {
-    background-color: #4F3A9F !important;
-}
 .back-button {
-    min-height: 30px;
+    height: 15px;
     margin-bottom: 15px;
     color: #1E1E1E;
 }

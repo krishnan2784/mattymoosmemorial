@@ -1,31 +1,47 @@
-<p *ngIf="!userAccounts"><em>Loading accounts...</em></p>
-<a (click)="editUser()" class="btn-floating btn-large waves-effect waves-light btn-top-right" data-toggle="modal" data-target="#edit-user">
-    <i class="material-icons">person_add</i>
-</a>
-<div *ngIf="userAccounts">
-    <div class="col-md-4 col-lg-offset-6">
-        <input *ngIf="config.filtering" placeholder="Filter all columns"
-               [ngTableFiltering]="config.filtering"
-               class="form-control"
-               (tableChanged)="onChangeTable(config)"/>
-        <div class="clearfix"></div>
+<p *ngIf="!filteredUserAccounts"><em>Loading accounts...</em></p>
+
+<div *ngIf="filteredUserAccounts">
+    <a (click)="editUser()" class="btn-floating btn-large waves-effect waves-light btn-top-right" data-toggle="modal" data-target="#edit-user">
+        <i class="material-icons">person_add</i>
+    </a>
+    <div class="col-md-8">
+        <pagination *ngIf="config.paging"
+                    class="pagination-sm right"
+                    [(ngModel)]="page"
+                    [totalItems]="length"
+                    [itemsPerPage]="itemsPerPage"
+                    [maxSize]="maxSize"
+                    [boundaryLinks]="true"
+                    [rotate]="false"
+                    (pageChanged)="onChangeTable(config, $event)"
+                    (numPages)="numPages = $event">
+        </pagination>
+        <ng-table [config]="config"
+                  (tableChanged)="onChangeTable(config)"
+                  (cellClicked)="onCellClick($event)"
+                  [rows]="rows" [columns]="columns">
+        </ng-table>
+        <pagination *ngIf="config.paging"
+                    class="pagination-sm right"
+                    [(ngModel)]="page"
+                    [totalItems]="length"
+                    [itemsPerPage]="itemsPerPage"
+                    [maxSize]="maxSize"
+                    [boundaryLinks]="true"
+                    [rotate]="false"
+                    (pageChanged)="onChangeTable(config, $event)"
+                    (numPages)="numPages = $event">
+        </pagination>
     </div>
-    <br>
-    <ng-table [config]="config"
-              (tableChanged)="onChangeTable(config)"
-              (cellClicked)="onCellClick($event)"
-              [rows]="rows" [columns]="columns">
-    </ng-table>
-    <pagination *ngIf="config.paging"
-                class="pagination-sm"
-                [(ngModel)]="page"
-                [totalItems]="length"
-                [itemsPerPage]="itemsPerPage"
-                [maxSize]="maxSize"
-                [boundaryLinks]="true"
-                [rotate]="false"
-                (pageChanged)="onChangeTable(config, $event)"
-                (numPages)="numPages = $event">
-    </pagination>
+    <div class="col-md-4">
+        <div class="search-filter hidden">
+            <input *ngIf="config.filtering" placeholder="Search..."
+                   [ngTableFiltering]="config.filtering"
+                   class="form-control"
+                   (tableChanged)="onChangeTable(config)"/>
+        </div>
+        <userfilter [renderTextSearch]="true" [renderRegionFilter]="true" [renderZoneFilter]="true" (criteriaChanged)="filterUpdate($event)"></userfilter>
+    </div>
+    <div class="clearfix"></div>
 </div>
 <base-modal [modalData]="modalData" [modalId]="'edit-user'" [modalHeader]="modalData ? modalData.inputs.title : ''" [modalDescription]="''" (modalClosed)="updateUser($event)"></base-modal>

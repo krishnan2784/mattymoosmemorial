@@ -8,6 +8,8 @@ import Editusercomponent = require("./modals/edituser.component");
 import EditUser = Editusercomponent.EditUser;
 import FeedModel = require("../../interfaces/models/IFeedModel");
 import IFeedItem = FeedModel.IFeedItem;
+import Userfiltercomponent = require("../common/filters/userfilter.component");
+import UserFilters = Userfiltercomponent.UserFilters;
 
 @Component({
     selector: 'useraccountmanagement',
@@ -16,26 +18,17 @@ import IFeedItem = FeedModel.IFeedItem;
 })
 export class UserAccountManagementComponent extends BaseComponent {
     modalData = null;
-
+    filterCriteria: UserFilters = new UserFilters();
 
     public rows: Array<any> = [];
     public columns: Array<any> = [
-        { title: 'First Name', name: 'firstName' },
+        { title: '', name: 'userAvatar' },
+        { title: 'First Name', name: 'firstName_region' },
         { title: 'Last Name', name: 'lastName' },
-        { title: 'Email', name: 'email' },
+        { title: 'Email', name: 'email_zone' },
         { title: 'Dealership Code', name: 'dealershipCode' },
         { title: '', name: 'actionEdit', sort: false, className: 'col-action' },
         { title: '', name: 'actionDelete', sort: false, className: 'col-action' }
-        //{
-        //    title: 'Position',
-        //    name: 'position',
-        //    sort: false,
-        //    filtering: { filterString: '', placeholder: 'Filter by position' }
-        //},
-        //{ title: 'Office', className: ['office-header', 'text-success'], name: 'office', sort: 'asc' },
-        //{ title: 'Extn.', name: 'ext', sort: '', filtering: { filterString: '', placeholder: 'Filter by extn.' } },
-        //{ title: 'Start date', className: 'text-warning', name: 'startDate' },
-        //{ title: 'Salary ($)', name: 'salary' }
     ];
     public page: number = 1;
     public itemsPerPage: number = 20;
@@ -46,11 +39,16 @@ export class UserAccountManagementComponent extends BaseComponent {
     public config: any = {
         paging: true,
         sorting: { columns: this.columns },
-        filtering: { filterString: '' },
+        filtering: {
+            filterString: '' ,
+            'zone': '%' + this.filterCriteria.zoneFilters.map((x) => { return x.text; }).join('%') + '%',
+            'region': '%' + this.filterCriteria.regionFilters.map((x) => { return x.text; }).join('%') + '%'
+        },
         className: ['table-bordered','table-hover']
     };
 
-    private userAccounts: Array<any>;
+    private allUserAccounts: Array<any>;
+    private filteredUserAccounts: Array<any>;
 
     constructor(public sharedService: ShareService, public userDataService: UserDataService) {
         super(sharedService, 'Account Management', true);
@@ -59,15 +57,18 @@ export class UserAccountManagementComponent extends BaseComponent {
 
     getData() {
         this.userDataService.getUsers().subscribe((result) => {
-            this.userAccounts = result;
+            this.allUserAccounts = result;
 
             if (result) {
                 for (let i = 0; i < result.length; i++) {
-                    this.attachUserEvents(this.userAccounts[i]);
+                    this.allUserAccounts[i].zone = "Zone " + i;
+                    this.allUserAccounts[i].region = "Region " + i;
+                    this.attachUserProperties(this.allUserAccounts[i]); 
                 }
             }
 
-            this.length = this.userAccounts.length;
+            this.length = this.allUserAccounts.length;
+            this.filteredUserAccounts = this.allUserAccounts;
             this.onChangeTable(this.config);
         });
     }
@@ -76,7 +77,7 @@ export class UserAccountManagementComponent extends BaseComponent {
     public ngOnInit(): void {
     }
 
-    public changePage(page: any, data: Array<any> = this.userAccounts): Array<any> {
+    public changePage(page: any, data: Array<any> = this.filteredUserAccounts): Array<any> {
         let start = (page.page - 1) * page.itemsPerPage;
         let end = page.itemsPerPage > -1 ? (start + page.itemsPerPage) : data.length;
         return data.slice(start, end);
@@ -158,7 +159,7 @@ export class UserAccountManagementComponent extends BaseComponent {
             Object.assign(this.config.sorting, config.sorting);
         }
 
-        let filteredData = this.changeFilter(this.userAccounts, this.config);
+        let filteredData = this.changeFilter(this.filteredUserAccounts, this.config);
         let sortedData = this.changeSort(filteredData, this.config);
 
         this.rows = page && config.paging ? this.changePage(page, sortedData) : sortedData;
@@ -185,17 +186,34 @@ export class UserAccountManagementComponent extends BaseComponent {
     }
 
     public updateUser(user: UserAccount) {
-        this.attachUserEvents(user);
-        var index = this.userAccounts.indexOf(user);
+        this.attachUserProperties(user);
+        var index = this.filteredUserAccounts.indexOf(user);
         if (index > -1) 
-            this.userAccounts.splice(index, 1, user);
+            this.filteredUserAccounts.splice(index, 1, user);
          else
-            this.userAccounts.unshift(user);
+            this.filteredUserAccounts.unshift(user);
     }
 
-    public attachUserEvents(user: any) {
+    public attachUserProperties(user: any) {
+        user.userAvatar = '<i class="material-icons table-avatar">person</i>';
+        user.firstName_region = user.firstName + '<p class="sub-data">' + user.region + '</p>';
+        user.email_zone = user.email + '<p class="sub-data">' + user.zone + '</p>';
         user.actionEdit = '<a class="action-btn remove" data-toggle="modal" data-target="#edit-user"><i class="material-icons">edit</i><p>Edit</p></a>';
         user.actionDelete = '<a class="action-btn remove"><i class="material-icons">delete</i><p>Delete</p></a>';
         return user;
+    }
+
+    filterUpdate(criteria: UserFilters) {
+        this.filterCriteria = criteria;
+        var data = Object.assign([], this.allUserAccounts);
+
+        if (this.filterCriteria.zoneFilters.length > 0)
+            data = data.filter(x => this.filterCriteria.zoneFilters.filter(y => y.text === x.zone).length > 0);
+        if (this.filterCriteria.regionFilters.length > 0)
+            data = data.filter(x => this.filterCriteria.regionFilters.filter(y => y.text === x.region).length > 0);
+
+        this.filteredUserAccounts = data;
+        this.config.filtering.filterString = criteria.searchString;
+        this.onChangeTable(this.config);
     }
 }

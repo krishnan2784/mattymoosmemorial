@@ -21,6 +21,9 @@ import FeedItemSummary = Reportclasses.FeedItemSummary;
 import FeedItemSummaryEx = Reportclasses.FeedItemSummaryEx;
 import Date1 = require("../../classes/helpers/date");
 import DateEx = Date1.DateEx;
+import Userfiltercomponent = require("../common/filters/userfilter.component");
+import UserFilters = Userfiltercomponent.UserFilters;
+
 declare var Materialize: any;
 declare var noUiSlider: any;
 
@@ -40,29 +43,20 @@ export class FeedItemReport implements OnInit, AfterViewInit, OnDestroy {
 
     public summaryData: FeedItemSummary;
     public listData: FeedItemSummaryEx[];
-    get filteredListData(): FeedItemSummaryEx[]{
-        return this.filterResultList();
-    };
+    public filteredListData: FeedItemSummaryEx[];
     
     public passRatioData: GaugeChartData;
     public averageScoreData: DonutChartData;
     public averageTimeData: BarChartData;
 
-    public rangeBottom:number = 0;
-    public rangeTop: number = 100;
-
-    public userGroupFilters: {id:string, text:string, checked: boolean}[] =[];
-    public dealershipFilters: { id: string, text: string, checked: boolean }[] = [];
-    public searchString: string = "";
-
-    public slideChangeBusy = false;
+    public filterCriteria: UserFilters = new UserFilters();
+    public searchString = '';
 
     constructor(private sharedService: ShareService, public feedDataService: FeedDataService,
         private injector: Injector) { 
         this.model = this.injector.get('model');
         this.pageTitle = this.injector.get('pageTitle');
         this.feedTypeString = Enums.FeedTypeEnum[this.model.feedType];
-        this.getMarketFilters();
 
         this.sharedService.goBackEvent.subscribe(() => {
             this.onBackEvent.emit();
@@ -74,7 +68,6 @@ export class FeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit() {
-        this.setupRangeSlider();
     }
 
     ngOnDestroy() {
@@ -102,46 +95,38 @@ export class FeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     }
 
     getResultListData() {
-        this.feedDataService.getFeedItemResultList(this.model.id, this.rangeBottom, this.rangeTop, 0).subscribe((result) => {
+        this.feedDataService.getFeedItemResultList(this.model.id, this.filterCriteria.pointsRangeBottom, this.filterCriteria.pointsRangeTop, 0).subscribe((result) => {
             this.listData = result.content;
+            this.filterResultList();
         });
     }
 
-    filterResultList(): FeedItemSummaryEx[] {
+    filterUpdate(criteria: UserFilters) {
+        this.filterCriteria = criteria;
+        this.filterResultList();
+    }
+
+    filterResultList() {
         if (!this.listData)
             return null;
         var data = Object.assign([], this.listData);
-        var userFilters = this.userGroupFilters.filter(x => x.checked);
-        if (userFilters.length > 0)
-            data = data.filter(x => userFilters.filter(y => y.text === x.mainUserGroup).length > 0);
 
-        var dealerFilters = this.dealershipFilters.filter(x => x.checked);
-        if (dealerFilters.length > 0)
-            data = data.filter(x => dealerFilters.filter(y => y.text === x.dealershipName).length > 0);
+        if (this.filterCriteria.userGroupFilters.length > 0)
+            data = data.filter(x => this.filterCriteria.userGroupFilters.filter(y => y.text === x.mainUserGroup).length > 0);
+        
+        if (this.filterCriteria.dealershipFilters.length > 0)
+            data = data.filter(x => this.filterCriteria.dealershipFilters.filter(y => y.text === x.dealershipName).length > 0);
 
         if (this.searchString !== "") {
             var search = this.searchString.toLowerCase();
             data = data.filter(x => x.user.firstName.toLowerCase().indexOf(search) > -1
                 || x.user.lastName.toLowerCase().indexOf(search) > -1);
         }
-        return data;
-    }
 
-    getMarketFilters() {
-        this.feedDataService.getQuizSummaryFilters().subscribe((result) => {
-            if (result) {
-                if (result.userGroupNames) {
-                    result.userGroupNames.forEach((group) => {
-                        this.userGroupFilters.push({ id: group.replace(" ", "_"), text: group, checked: false });
-                    });
-                }
-                if (result.dealershipNames) {
-                    result.dealershipNames.forEach((group) => {
-                        this.dealershipFilters.push({ id: group.replace(" ", "_"), text: group, checked: false });
-                    });
-                }
-            }
-        });
+        data = data.filter(x => x.resultPercentage >= this.filterCriteria.pointsRangeBottom &&
+            x.resultPercentage <= this.filterCriteria.pointsRangeTop);
+
+        this.filteredListData = data;
     }
 
     updateReport() {
@@ -206,78 +191,6 @@ export class FeedItemReport implements OnInit, AfterViewInit, OnDestroy {
             }]
         });
         this.averageTimeData = barData;
-    }
-
-    public clearFilters() {
-        this.userGroupFilters.forEach(x => x.checked = false);
-        this.dealershipFilters.forEach(x => x.checked = false);
-        this.searchString = "";
-        this.resetRange();
-    }
-
-    public clearUserFilters() {
-        this.userGroupFilters.forEach(x => x.checked = false);
-    }
-
-    public clearDealerFilters() {
-        this.dealershipFilters.forEach(x => x.checked = false);
-    }
-
-    public resetRange() {
-        var slider: any = document.getElementById('scoreRange');
-        slider.noUiSlider.reset();
-        this.onSliderChange();
-    }
-
-    public enableSlider() {
-        this.setSliderEvent();
-        this.slideChangeBusy = false;
-    }
-    
-    public setupRangeSlider() {
-        var slider: any = document.getElementById('scoreRange');
-
-        noUiSlider.create(slider, {
-            start: [0, 100],
-            connect: true,
-            step: 5,
-            tooltips: [true, true],
-            behaviour: 'drag',
-            range: {
-                'min': 0,
-                'max': 100
-            }
-        });
-
-        setTimeout(() => { this.setSliderEvent(); }, 500);
-    }
-
-    public setSliderEvent() {
-        var slider: any = document.getElementById('scoreRange');
-        slider.noUiSlider.on('end', () => { this.onSliderChange(); });
-    }
-
-    public onSliderChange() {
-        console.log(this.slideChangeBusy);
-
-        var slider: any = document.getElementById('scoreRange');
-        if (slider) {
-            var sliderVals = slider.noUiSlider.get();
-            var botRange = parseInt(sliderVals[0]);
-            var topRange = parseInt(sliderVals[1]);
-
-            if ((this.rangeBottom === botRange && this.rangeTop === topRange) || this.slideChangeBusy)
-                return;
-
-            slider.noUiSlider.off('end');
-            this.slideChangeBusy = true;
-
-            this.rangeBottom = botRange;
-            this.rangeTop = topRange;
-            this.listData = null;
-            this.getResultListData();
-            this.enableSlider();
-        }
     }
 
     public goBack() {
