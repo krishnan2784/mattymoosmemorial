@@ -57,6 +57,8 @@ import Editusercomponent = require("./components/accountmanagement/modals/editus
 import EditUser = Editusercomponent.EditUser;
 import Userfiltercomponent = require("./components/common/filters/userfilter.component");
 import UserFilter = Userfiltercomponent.UserFilter;
+import Uploadcomponent = require("./components/media/upload.component");
+import UploadMediaComponent = Uploadcomponent.UploadMediaComponent;
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -103,7 +105,9 @@ import UserFilter = Userfiltercomponent.UserFilter;
         FeedItemCopyToMarket,
 
         //shared
-        UserFilter
+        UserFilter,
+
+        UploadMediaComponent
     ],
     imports: [
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.

@@ -65,6 +65,14 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="config.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <None Update="ClientApp\app\components\feed\modelforms\questionform.component.css">
       <DependentUpon>questionform.component.html</DependentUpon>
     </None>

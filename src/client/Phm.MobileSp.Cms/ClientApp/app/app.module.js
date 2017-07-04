@@ -59,6 +59,8 @@ var Editusercomponent = require("./components/accountmanagement/modals/edituser.
 var EditUser = Editusercomponent.EditUser;
 var Userfiltercomponent = require("./components/common/filters/userfilter.component");
 var UserFilter = Userfiltercomponent.UserFilter;
+var Uploadcomponent = require("./components/media/upload.component");
+var UploadMediaComponent = Uploadcomponent.UploadMediaComponent;
 var AppModule = (function () {
     function AppModule() {
     }
@@ -103,7 +105,8 @@ AppModule = __decorate([
             //modals
             FeedItemCopyToMarket,
             //shared
-            UserFilter
+            UserFilter,
+            UploadMediaComponent
         ],
         imports: [
             angular2_universal_1.UniversalModule,
