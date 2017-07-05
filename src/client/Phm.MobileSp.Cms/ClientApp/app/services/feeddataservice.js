@@ -114,7 +114,6 @@ var FeedDataService = (function (_super) {
                 + (startDate && endDate ? '&' : '')
                 + (endDate ? 'endDate=' + endDate : '');
         }
-        console.log(requestUrl);
         return this.getRequestBase(requestUrl);
     };
     return FeedDataService;

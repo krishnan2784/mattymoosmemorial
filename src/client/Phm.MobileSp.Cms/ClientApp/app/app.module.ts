@@ -60,6 +60,7 @@ import Userfiltercomponent = require("./components/common/filters/userfilter.com
 import UserFilter = Userfiltercomponent.UserFilter;
 import Uploadcomponent = require("./components/media/upload.component");
 import UploadMediaComponent = Uploadcomponent.UploadMediaComponent;
+import { LeaderboardContainer } from "./components/reports/leaderboards/leaderboardcontainer.component";
 import { PartitionComponent } from "./components/reports/leaderboards/partition/partition.component";
 import { LbExecutivesTableComponent } from "./components/reports/leaderboards/lbexecutivestable/lbexecutivestable.component";
 import { LbrefineComponent } from "./components/reports/leaderboards/lbrefine/lbrefine.component";
@@ -99,6 +100,7 @@ import { LeaderboardComponent } from "./components/reports/leaderboards/leaderbo
         FeedItemReport,
 
         //leaderbaord
+        LeaderboardContainer,
         LeaderboardComponent,
         LbExecutivesTableComponent,
         LbrefineComponent,
@@ -142,7 +144,7 @@ import { LeaderboardComponent } from "./components/reports/leaderboards/leaderbo
             { path: 'feeditem/:id', component: FeedItemForm },
             { path: ':feedCat/feeditem', component: FeedItemForm },
             { path: 'reports/:feedType', component: FeedReportIndexComponent },
-            { path: 'leaderboard', component: LeaderboardComponent },            
+            { path: 'leaderboard', component: LeaderboardContainer },            
             { path: '**', redirectTo: 'home' }
         ])
     ]

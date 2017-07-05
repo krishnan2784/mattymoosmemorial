@@ -106,7 +106,6 @@ export class FeedDataService extends RequestHelper implements IFeedDataService, 
                 + (startDate && endDate ? '&' : '')
                 + (endDate ? 'endDate=' + endDate : '');
         }
-        console.log(requestUrl);
         return this.getRequestBase(requestUrl);
     }
 }

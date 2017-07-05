@@ -62,6 +62,7 @@ var Userfiltercomponent = require("./components/common/filters/userfilter.compon
 var UserFilter = Userfiltercomponent.UserFilter;
 var Uploadcomponent = require("./components/media/upload.component");
 var UploadMediaComponent = Uploadcomponent.UploadMediaComponent;
+var leaderboardcontainer_component_1 = require("./components/reports/leaderboards/leaderboardcontainer.component");
 var partition_component_1 = require("./components/reports/leaderboards/partition/partition.component");
 var lbexecutivestable_component_1 = require("./components/reports/leaderboards/lbexecutivestable/lbexecutivestable.component");
 var lbrefine_component_1 = require("./components/reports/leaderboards/lbrefine/lbrefine.component");
@@ -102,6 +103,7 @@ AppModule = __decorate([
             FeedItemReportContainerComponent,
             feeditemreport_component_1.FeedItemReport,
             //leaderbaord
+            leaderboardcontainer_component_1.LeaderboardContainer,
             leaderboard_component_1.LeaderboardComponent,
             lbexecutivestable_component_1.LbExecutivesTableComponent,
             lbrefine_component_1.LbrefineComponent,
@@ -140,7 +142,7 @@ AppModule = __decorate([
                 { path: 'feeditem/:id', component: feeditemform_component_1.FeedItemForm },
                 { path: ':feedCat/feeditem', component: feeditemform_component_1.FeedItemForm },
                 { path: 'reports/:feedType', component: feedreportindex_component_1.FeedReportIndexComponent },
-                { path: 'leaderboard', component: leaderboard_component_1.LeaderboardComponent },
+                { path: 'leaderboard', component: leaderboardcontainer_component_1.LeaderboardContainer },
                 { path: '**', redirectTo: 'home' }
             ])
         ]

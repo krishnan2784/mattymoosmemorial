@@ -31,6 +31,7 @@ var LbrefineComponent = (function () {
         });
     };
     LbrefineComponent.prototype.broadcastChanges = function (par) {
+        console.log(par);
         if (par) {
             this.rangeFrom = par.from;
             this.rangeTo = par.to;

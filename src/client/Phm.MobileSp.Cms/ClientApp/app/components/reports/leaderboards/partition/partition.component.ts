@@ -198,7 +198,11 @@ export class PartitionComponent implements OnInit {
 
       function zoomOut(p) {
         if (!p.parent) {
-          levelEvent.emit('region');
+            levelEvent.emit({
+                displayLevel: 'region',
+                selectionType: null,
+                selection: null
+            });
           return
             ;
         }

@@ -62,10 +62,10 @@
     <Folder Include="ClientApp\app\components\navbar\" />
     <Folder Include="ClientApp\plugins\" />
     <Folder Include="Connected Services\Application Insights" />
-    <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="config.json" />
+    <None Include="wwwroot\assets\images\partitionLevels.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="config.json">

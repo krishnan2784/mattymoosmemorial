@@ -10,10 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var feeddataservice_1 = require("../../../../services/feeddataservice");
 var LeaderboardComponent = (function () {
-    function LeaderboardComponent(feedDataService) {
-        this.feedDataService = feedDataService;
+    function LeaderboardComponent() {
         this.optionSelected = new core_1.EventEmitter();
         this.datesChanged = new core_1.EventEmitter();
         this.report = new core_1.EventEmitter();
@@ -34,25 +32,26 @@ var LeaderboardComponent = (function () {
             children: []
         };
         this.pageStep = 0;
-        this.getData();
+        this.useUpdatedData = false;
     }
-    LeaderboardComponent.prototype.getData = function () {
-        var _this = this;
-        this.feedDataService.getLeaderBoard(this.curDate1, this.curDate2).subscribe(function (result) {
-            _this.data = result;
-            if (_this.data)
-                _this.data = [];
-            _this.formatDataset();
-        });
-    };
     LeaderboardComponent.prototype.ngOnInit = function () {
+        this.formatDataset();
     };
     LeaderboardComponent.prototype.ngOnChanges = function (changes) {
-        if (changes['updatedData'] === undefined) {
+        if (changes['updatedData'] === undefined && changes['data'] === undefined) {
             return;
         }
         if (changes['updatedData'].currentValue != changes['updatedData'].PreviousValue) {
             this.formatUpdatedData();
+            this.useUpdatedData = true;
+        }
+        if (changes['data']) {
+            if (changes['data'].currentValue != changes['data'].PreviousValue) {
+                this.formatDataset();
+                this.updatedData = undefined;
+                this.searchString = "";
+                this.curPage = 0;
+            }
         }
     };
     LeaderboardComponent.prototype.formatUpdatedData = function () {
@@ -60,12 +59,12 @@ var LeaderboardComponent = (function () {
         this.salesExecList = [];
         this.updatedData.forEach(function (e) {
             var ins = {
-                firstName: e.CurrentUser.firstName,
-                lastName: e.CurrentUser.lastName,
-                points: e.TotalMLearningPoints,
-                region: e.RegionName,
-                zone: e.ZoneName,
-                dealership: e.DealershipCode
+                firstName: e.currentUser.firstName,
+                lastName: e.currentUser.lastName,
+                points: e.totalMLearningPoints,
+                region: e.regionName,
+                zone: e.zoneName,
+                dealership: e.dealershipCode
             };
             _this.salesExecList.push(ins);
         });
@@ -78,14 +77,14 @@ var LeaderboardComponent = (function () {
             regions: []
         };
         for (var i = 0; i < this.data.length; i++) {
-            if (!this.regionAdded(this.data[i].RegionName, out)) {
+            if (!this.regionAdded(this.data[i].regionName, out)) {
                 out.regions.push({
-                    name: this.data[i].RegionName,
+                    name: this.data[i].regionName,
                     zones: []
                 });
                 this.graphData.children.push({
-                    name: this.data[i].RegionName,
-                    description: this.data[i].RegionName,
+                    name: this.data[i].regionName,
+                    description: this.data[i].regionName,
                     size: 0,
                     displayLevel: 'zone',
                     selectionType: 'region',
@@ -93,15 +92,15 @@ var LeaderboardComponent = (function () {
                 });
             }
             var regionsCountM1 = out.regions.length - 1;
-            this.graphData.children[regionsCountM1].size += this.data[i].TotalMLearningPoints;
-            if (!this.zoneAdded(this.data[i].RegionName, this.data[i].ZoneName, out)) {
+            this.graphData.children[regionsCountM1].size += this.data[i].totalMLearningPoints;
+            if (!this.zoneAdded(this.data[i].regionName, this.data[i].zoneName, out)) {
                 out.regions[regionsCountM1].zones.push({
-                    name: this.data[i].ZoneName,
+                    name: this.data[i].zoneName,
                     dealerships: []
                 });
                 this.graphData.children[regionsCountM1].children.push({
-                    name: this.data[i].ZoneName,
-                    description: this.data[i].ZoneName,
+                    name: this.data[i].zoneName,
+                    description: this.data[i].zoneName,
                     displayLevel: 'dealership',
                     selectionType: 'zone',
                     size: 0,
@@ -109,21 +108,21 @@ var LeaderboardComponent = (function () {
                 });
             }
             var zonesCountM1 = out.regions[regionsCountM1].zones.length - 1;
-            this.graphData.children[regionsCountM1].children[zonesCountM1].size += this.data[i].TotalMLearningPoints;
-            if (!this.dealershipAdded(this.data[i].RegionName, this.data[i].ZoneName, this.data[i].DealershipCode, out)) {
+            this.graphData.children[regionsCountM1].children[zonesCountM1].size += this.data[i].totalMLearningPoints;
+            if (!this.dealershipAdded(this.data[i].regionName, this.data[i].zoneName, this.data[i].dealershipCode, out)) {
                 out.regions[regionsCountM1].zones[zonesCountM1].dealerships.push({
-                    code: this.data[i].DealershipCode,
+                    code: this.data[i].dealershipCode,
                     users: []
                 });
                 this.graphData.children[regionsCountM1].children[zonesCountM1].children.push({
-                    name: this.data[i].DealershipCode,
-                    description: this.data[i].DealershipCode,
+                    name: this.data[i].dealershipCode,
+                    description: this.data[i].dealershipCode,
                     size: 0
                 });
             }
             var dealersM1 = out.regions[regionsCountM1].zones[zonesCountM1].dealerships.length - 1;
-            this.graphData.children[regionsCountM1].children[zonesCountM1].children[dealersM1].size += this.data[i].TotalMLearningPoints;
-            out = this.insertUser(this.data[i].RegionName, this.data[i].ZoneName, this.data[i].DealershipCode, this.data[i].CurrentUser.firstName, this.data[i].CurrentUser.lastName, this.data[i].TotalMLearningPoints, out);
+            this.graphData.children[regionsCountM1].children[zonesCountM1].children[dealersM1].size += this.data[i].totalMLearningPoints;
+            out = this.insertUser(this.data[i].regionName, this.data[i].zoneName, this.data[i].dealershipCode, this.data[i].currentUser.firstName, this.data[i].currentUser.lastName, this.data[i].totalMLearningPoints, out);
         }
         this.formatedData = out;
         this.commitList(this.top10, true, false);
@@ -297,7 +296,6 @@ var LeaderboardComponent = (function () {
             });
             this.curDate1 = e.selectedDate1;
             this.curDate2 = e.selectedDate2;
-            this.getData();
         }
         this.filter = {
             zones: e.selections.zones,
@@ -315,7 +313,12 @@ var LeaderboardComponent = (function () {
         }
     };
     LeaderboardComponent.prototype.handleSearchText = function () {
-        this.salesExecList = this.cloneObject(this.allUsers);
+        if (!this.useUpdatedData) {
+            this.salesExecList = this.cloneObject(this.allUsers);
+        }
+        else {
+            this.formatUpdatedData();
+        }
         this.commitList(this.salesExecList, false, true);
         this.curPage = 0;
         this.totPages = Math.ceil(this.salesExecList.length / this.pagCap);
@@ -439,8 +442,7 @@ LeaderboardComponent = __decorate([
         selector: 'leaderboard',
         template: require('./leaderboard.html'),
         styles: [require('./leaderboard.css')]
-    }),
-    __metadata("design:paramtypes", [feeddataservice_1.FeedDataService])
+    })
 ], LeaderboardComponent);
 exports.LeaderboardComponent = LeaderboardComponent;
 //# sourceMappingURL=leaderboard.component.js.map

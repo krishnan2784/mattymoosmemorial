@@ -1,0 +1,7 @@
+<leaderboard *ngIf="leaderBoard"
+             [data]="leaderBoard"
+             [updatedData]="myUpdatedData"
+             [refineGroups]="refineGroups"
+             (datesChanged)="getNewDataFromServer($event)"
+             (report)="handleReport($event)">
+</leaderboard>
