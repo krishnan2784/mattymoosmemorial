@@ -5,13 +5,13 @@
                 <nav-menu></nav-menu>
             </div>
             <div class='col-sm-10 content-col'>
-                <div *ngIf="pageTitle!=''" class="header-bar">
+                <div class="header-bar">
                     <div class="header-bar-content">
                         <div *ngIf="backButtonText" class="back-button">
                             <a (click)="goBack()"><i class="material-icons">keyboard_arrow_left</i> {{backButtonText}}</a>
                         </div>
                         <div class="col-md-8">
-                            <h4 class="page-title">
+                            <h4 *ngIf="pageTitle!=''" class="page-title">
                                 {{pageTitle}}
                             </h4>
                         </div>
@@ -21,6 +21,7 @@
                         <div class="clearfix"></div>
                     </div>
                 </div>
+                <tab-nav-menu></tab-nav-menu>
                 <div class="router-content">
                     <router-outlet></router-outlet>
                     <div class="clearfix"></div>

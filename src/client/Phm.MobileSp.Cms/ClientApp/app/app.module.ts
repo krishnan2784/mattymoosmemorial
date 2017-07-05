@@ -65,6 +65,7 @@ import { PartitionComponent } from "./components/reports/leaderboards/partition/
 import { LbExecutivesTableComponent } from "./components/reports/leaderboards/lbexecutivestable/lbexecutivestable.component";
 import { LbrefineComponent } from "./components/reports/leaderboards/lbrefine/lbrefine.component";
 import { LeaderboardComponent } from "./components/reports/leaderboards/leaderboard/leaderboard.component";
+import { TabNavMenuComponent } from "./components/navmenu/tabnavmenu.component";
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -73,6 +74,7 @@ import { LeaderboardComponent } from "./components/reports/leaderboards/leaderbo
         BaseComponent,
         NavMenuComponent,
         NavBarComponent,
+        TabNavMenuComponent,
         FooterComponent,
         MarketDropdown,
         //DateValueAccessor,

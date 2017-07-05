@@ -12,6 +12,7 @@ import UserMarket = Userclasses.UserMarket;
 import Feeditemreportcomponent = require("../feeditemreport.component");
 import FeedItemReport = Feeditemreportcomponent.FeedItemReport;
 import Feeddataservice = require("../../../services/feeddataservice");
+import { DefaultTabNavs } from "../../navmenu/tabnavmenu.component";
 
 declare var $: any;
 declare var Materialize: any;
@@ -36,7 +37,7 @@ export class FeedReportIndexComponent extends BaseComponent implements OnInit, O
         public feedDataService: FeedDataService,
         sharedService: ShareService) {
 
-        super(sharedService, 'Reports', true);
+        super(sharedService, 'Reports', true, '', DefaultTabNavs.reportsTabs);
         this.setupSubscriptions();
     }
 

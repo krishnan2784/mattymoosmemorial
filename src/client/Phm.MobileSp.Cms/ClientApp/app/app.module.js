@@ -67,6 +67,7 @@ var partition_component_1 = require("./components/reports/leaderboards/partition
 var lbexecutivestable_component_1 = require("./components/reports/leaderboards/lbexecutivestable/lbexecutivestable.component");
 var lbrefine_component_1 = require("./components/reports/leaderboards/lbrefine/lbrefine.component");
 var leaderboard_component_1 = require("./components/reports/leaderboards/leaderboard/leaderboard.component");
+var tabnavmenu_component_1 = require("./components/navmenu/tabnavmenu.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -80,6 +81,7 @@ AppModule = __decorate([
             base_component_1.BaseComponent,
             navmenu_component_1.NavMenuComponent,
             navbar_component_1.NavBarComponent,
+            tabnavmenu_component_1.TabNavMenuComponent,
             footer_component_1.FooterComponent,
             marketdropdown_component_1.MarketDropdown,
             //DateValueAccessor,

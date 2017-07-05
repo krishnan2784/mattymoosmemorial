@@ -1,0 +1,26 @@
+.tab-nav-container{
+    background-color: #fff;
+    border-top: 1px solid #D8DEDC;
+    border-bottom: 2px solid #D8DEDC;
+    margin: 0 -15px 0 -12px;
+    height: 50px;
+    padding-top: 14px;
+    padding-left: 25px;
+}
+.tab-nav-container li {
+    display: inline-block;   
+    min-width: 125px;
+    text-align: center;
+    color: #000;
+    text-decoration: none;
+}
+.tab-nav-container li a, .tab-nav-container li a:hover, .tabnavitem:not(.link-active) a  {
+    color: #000;
+    text-decoration: none;
+}
+.tabnavitem:not(.link-active) .header-style {
+    background-color: transparent;
+}
+.tabnavitem.link-active a {
+    color: #ff0000;
+}

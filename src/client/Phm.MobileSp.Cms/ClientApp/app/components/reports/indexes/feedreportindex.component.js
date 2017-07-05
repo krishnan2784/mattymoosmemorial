@@ -29,10 +29,11 @@ var base_component_1 = require("../../base.component");
 var shareservice_1 = require("../../../services/helpers/shareservice");
 var Feeditemreportcomponent = require("../feeditemreport.component");
 var FeedItemReport = Feeditemreportcomponent.FeedItemReport;
+var tabnavmenu_component_1 = require("../../navmenu/tabnavmenu.component");
 var FeedReportIndexComponent = (function (_super) {
     __extends(FeedReportIndexComponent, _super);
     function FeedReportIndexComponent(route, router, feedDataService, sharedService) {
-        var _this = _super.call(this, sharedService, 'Reports', true) || this;
+        var _this = _super.call(this, sharedService, 'Reports', true, '', tabnavmenu_component_1.DefaultTabNavs.reportsTabs) || this;
         _this.route = route;
         _this.router = router;
         _this.feedDataService = feedDataService;

@@ -12,12 +12,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var shareservice_1 = require("../services/helpers/shareservice");
 var BaseComponent = (function () {
-    function BaseComponent(sharedService, pageTitle, marketDropdownVisiblity, goBackText) {
+    function BaseComponent(sharedService, pageTitle, marketDropdownVisiblity, goBackText, tabNavItems) {
         if (goBackText === void 0) { goBackText = ''; }
+        if (tabNavItems === void 0) { tabNavItems = []; }
         this.sharedService = sharedService;
         this.updatePageTitle(pageTitle);
         this.updateMarketDropdownVisibility(marketDropdownVisiblity);
         this.updateBackText(goBackText);
+        this.updateTabNavItems(tabNavItems);
     }
     BaseComponent.prototype.updatePageTitle = function (pageTitle) {
         this.sharedService.updatePageTitle(pageTitle);
@@ -34,6 +36,10 @@ var BaseComponent = (function () {
             });
         }
     };
+    BaseComponent.prototype.updateTabNavItems = function (tabNavItems) {
+        console.log('1:' + tabNavItems);
+        this.sharedService.updateNavTabs(tabNavItems);
+    };
     BaseComponent.prototype.goBack = function () {
     };
     BaseComponent.prototype.ngOnDestroy = function () {
@@ -48,7 +54,7 @@ BaseComponent = __decorate([
         template: '',
         providers: [shareservice_1.ShareService]
     }),
-    __metadata("design:paramtypes", [shareservice_1.ShareService, String, Boolean, String])
+    __metadata("design:paramtypes", [shareservice_1.ShareService, String, Boolean, String, Array])
 ], BaseComponent);
 exports.BaseComponent = BaseComponent;
 //# sourceMappingURL=base.component.js.map

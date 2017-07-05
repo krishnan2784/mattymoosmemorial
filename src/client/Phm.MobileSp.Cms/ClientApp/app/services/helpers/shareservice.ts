@@ -4,6 +4,7 @@ import { Subject } from 'rxjs/Subject';
 import Userclasses = require("../../models/userclasses");
 import UserMarket = Userclasses.UserMarket;
 import FeedModel = require("../../interfaces/models/IFeedModel");
+import { NavItem } from "../../components/navmenu/tabnavmenu.component";
 import IFeedItem = FeedModel.IFeedItem;
 
 @Injectable()
@@ -54,4 +55,12 @@ export class ShareService {
     public goBack() {
         this.goBackEvent.emit();
     }
+
+    private tabNavUpdate = new Subject<NavItem[]>();
+    navTabsUpdated = this.tabNavUpdate.asObservable();
+
+    public updateNavTabs(navItems: NavItem[]) {
+        console.log('1:' + navItems);
+        this.tabNavUpdate.next(navItems);
+    }    
 }
