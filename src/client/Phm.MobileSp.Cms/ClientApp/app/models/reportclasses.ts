@@ -10,6 +10,7 @@ export class FeedItemSummary {
     public submitted: number;
     public passed: number;
     public failed: number;
+    public submissions: [string,number][];
 
     constructor(options: {} = {}) {
         this.quizFeedId = options['quizFeedId'] || 0;
@@ -18,6 +19,7 @@ export class FeedItemSummary {
         this.submitted = options['submitted'] || 100;
         this.passed = options['passed'] || 80;
         this.failed = options['failed'] || 20;
+        this.submissions = options['submissions'];
     }
 }
 
@@ -25,6 +27,7 @@ export class FeedItemSummaryEx extends BaseModel
 {
     public finishedAt: Date;
     public mainUserGroup: string;
+    public dealershipName: string;
     public minSucceedThreshold: number;
     public pointsGained: number;
     public quizFeedId: number;
@@ -41,6 +44,7 @@ export class FeedItemSummaryEx extends BaseModel
         super(options);
         this.finishedAt = options['finishedAt'];
         this.mainUserGroup = options['mainUserGroup'] || '';
+        this.dealershipName = options['dealershipName'] || '';
         this.minSucceedThreshold = options['minSucceedThreshold'] || 0;
         this.pointsGained = options['pointsGained'] || 0;
         this.quizFeedId = options['quizFeedId'] || 0;

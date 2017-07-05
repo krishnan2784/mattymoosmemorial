@@ -1,0 +1,140 @@
+.leadershipBoard {
+  height: 1209px;
+  overflow: hidden;
+  min-width: 920px; }
+  .leadershipBoard .borderDetail {
+    background-color: #06a2d1;
+    height: 3px;
+    width: 90px;
+    position: absolute; }
+  .leadershipBoard .topAreaHeader {
+    height: 50px;
+    border: 0px solid red;
+    position: relative; }
+    .leadershipBoard .topAreaHeader button {
+      background-color: #06a2d1;
+      color: white;
+      border: none;
+      width: 80px;
+      height: 36px;
+      border-radius: 2px;
+      position: absolute;
+      right: 0;
+      top: 0px; }
+    .leadershipBoard .topAreaHeader .ta {
+      float: left;
+      text-transform: uppercase;
+      font-weight: bold;
+      margin-top: 15px; }
+    .leadershipBoard .topAreaHeader .ta1 {
+      border: 0px solid blue;
+      width: 356px; }
+    .leadershipBoard .topAreaHeader .ta2 {
+      margin-left: 30px; }
+  .leadershipBoard .areaTitle {
+    float: left;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 10px; }
+  .leadershipBoard .clickZoomOut {
+    margin-top: 10px;
+    font-size: 11px;
+    font-weight: bold;
+    margin-left: 30px; }
+  .leadershipBoard .divTop10Table {
+    border: 0px solid blue;
+    height: 430px;
+    overflow: hidden;
+    margin-top: 8px; }
+  .leadershipBoard .topArea {
+    height: 520px; }
+  .leadershipBoard .graphArea {
+    border: 0px solid black;
+    background-color: white;
+    border-radius: 2px;
+    width: 356px;
+    height: 450px;
+    position: relative;
+    float: left; }
+  .leadershipBoard .top10 {
+    border: 0px solid black;
+    background-color: white;
+    border-radius: 2px;
+    width: calc(100% - 386px);
+    height: 450px;
+    float: left;
+    margin-left: 30px; }
+    .leadershipBoard .top10 .top10Lb {
+      margin-top: 15px;
+      font-size: 11px;
+      font-weight: bold;
+      color: black; }
+  .leadershipBoard .levels {
+    width: 324px;
+    margin-left: 16px;
+    margin-top: 10px;
+    position: relative; }
+  .leadershipBoard .l1 {
+    left: 6px; }
+  .leadershipBoard .l2 {
+    left: 104px; }
+  .leadershipBoard .l3 {
+    left: 201px; }
+  .leadershipBoard .activeCircle {
+    background-color: #06a2d1; }
+  .leadershipBoard .level {
+    position: absolute;
+    top: 6px; }
+    .leadershipBoard .level div {
+      width: 15px;
+      height: 15px;
+      float: left; }
+    .leadershipBoard .level label {
+      float: left;
+      margin-left: 11px;
+      color: black;
+      font-weight: bold; }
+  .leadershipBoard .bottomArea {
+    border: 0px solid red;
+    height: 300px;
+    clear: both; }
+    .leadershipBoard .bottomArea .tableTops {
+      height: 40px; }
+    .leadershipBoard .bottomArea .pag {
+      margin-top: -10px; }
+      .leadershipBoard .bottomArea .pag li.active {
+        background-color: #06a2d1; }
+    .leadershipBoard .bottomArea .refine {
+      width: 292px;
+      float: left;
+      padding: 10px;
+      background-color: white;
+      border-radius: 2px; }
+    .leadershipBoard .bottomArea .all {
+      width: calc(100% - 322px);
+      float: left;
+      margin-left: 30px;
+      border-radius: 2px;
+      background-color: white;
+      overflow: hidden; }
+    .leadershipBoard .bottomArea .tableAll {
+      width: 100%;
+      height: 603px;
+      overflow: hidden;
+      border-radius: 2px;
+      margin-top: 12px; }
+  .leadershipBoard .bottomHeader {
+    width: 100%;
+    height: 40px; }
+    .leadershipBoard .bottomHeader div {
+      margin-left: 323px; }
+  .leadershipBoard .search {
+    width: 300px;
+    float: left;
+    height: 30px;
+    position: relative;
+    margin-left: 26px; }
+    .leadershipBoard .search i {
+      position: absolute;
+      top: 10px;
+      right: 0px; }

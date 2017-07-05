@@ -1,0 +1,8 @@
+<div>
+    <p>Upload one or more photos using this form:</p>
+    <input type="file" accept="image/*" (change)="filesSelectHandler($event)" />
+</div>
+<span class="input-group-btn">
+    <button class="btn btn-primary btn-save" (click)="uploadImage()">Upload</button>
+</span>
+<img src="{{imagePreviewUrl}}" *ngIf="imagePreviewUrl" class="preview-image" />

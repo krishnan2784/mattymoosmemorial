@@ -6,6 +6,7 @@ using MLearningCoreService;
 using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Core.Models.Interfaces;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
+using System;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 {
@@ -84,7 +85,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             return response.Deleted;
         }
 
-        public async Task<FeedItemSummary> GetFeedItemSummary(int feedItemId)
+        public async Task<dynamic> GetFeedItemSummary(int feedItemId)
         {
             var request = GetRequest(new GetQuizFeedSummariesRequest
             {
@@ -94,9 +95,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
                 })
             });
             var response = await _proxyClient.GetQuizFeedSummariesAsync(request);
-            var mapper = new AutoMapperGenericsHelper<QuizSummaryDto, FeedItemSummary>();
-            var summary = mapper.ConvertToDbEntity(response.QuizSummaries.FirstOrDefault());
-            return summary;
+            return response.QuizSummaries.FirstOrDefault();
         }
 
         public async Task<IEnumerable<dynamic>> GetFeedItemResultList(int feedItemId, decimal lowerBoundary, decimal higherBoundary, int userGroupId)
@@ -111,16 +110,18 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
                     UserGroupId = userGroupId
                 })
             });
-            var response = await _proxyClient.GetQuizResultsSummariesEXAsync(new GetQuizResultsSummariesEXRequest1(request));
-            //var config = new MapperConfiguration(cfg =>
-            //{
-            //    cfg.CreateMap<QuizResultsSummariesEXDto, FeedItemSummaryEx>().ReverseMap();
-            //    cfg.CreateMap<QuizFeedResultDto, FeedItemSummary>().ReverseMap();
-            //    cfg.CreateMap<UserDto, User>().ReverseMap();
-            //});
-            //var mapper = config.CreateMapper();
-            //var summary = mapper.Map<List<FeedItemSummaryEx>>(response.GetQuizResultsSummariesEXResult.QuizResultsSummaries);
-            return response.GetQuizResultsSummariesEXResult.QuizResultsSummaries;
+            var response = await _proxyClient.GetQuizResultsSummariesEXAsync(request);
+            return response.QuizResultsSummaries;
+        }
+
+        public async Task<dynamic> GetQuizSummaryFilters(int marketId)
+        {
+            var request = GetRequest(new GetQuizSummaryFiltersRequest
+            {
+                MarketId = marketId
+            });
+            var response = await _proxyClient.GetQuizSummaryFiltersAsync(request);
+            return response;
         }
 
         public async Task<bool> CopyFeedItemToMarketAsync(int feedItemId, List<int> marketIds)
@@ -135,5 +136,27 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             var response = await _proxyCoreClient.CopyFeedToMarketAsync(request);
             return response.BaseFeeds?.Count == marketIds.Count;
         }
+
+        public async Task<dynamic> GetLeaderBoard(int currentMarketId, DateTime? startDate = null, DateTime? endDate = null)
+        {
+            try
+            {
+                var request = GetRequest(new GetLeaderBoardDataRequest
+                {
+                    Criteria = GetCriteria(new LeaderBoardDataCriteriaDto()
+                    {
+                        MarketId = currentMarketId,
+                        StartDate = startDate,
+                        EndDate = endDate
+                    })
+                });
+                var response = await _proxyClient.GetLeaderBoardDataAsync(request);
+                return response.LeaderBoardData;   
+            }catch (Exception e)
+            {
+                return null;
+            }         
+        }
+
     }
 }

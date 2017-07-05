@@ -43,7 +43,6 @@ export class FeedItemCopyToMarket extends BaseModalContent implements OnInit, IM
         private marketService: MarketDataService, private userDataService: UserDataService) {
         super();
         if (injector) {
-            this.title = injector.get('title');
             this.model = injector.get('model');
             this.contentType = injector.get('contentType');
             this.marketContentService = injector.get('marketContentService');
@@ -119,7 +118,6 @@ export class FeedItemCopyToMarket extends BaseModalContent implements OnInit, IM
         this.marketContentService.copyItemToMarket(this.model.id, marketIds).subscribe((result) => {
             if (result.success) {
                 this.closeModal();
-                this.markMarketsAsCopied();
             }
         });
     }

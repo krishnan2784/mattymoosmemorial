@@ -19,8 +19,14 @@ import DonutChartData = Chartclasses.DonutChartData;
 import Reportclasses = require("../../models/reportclasses");
 import FeedItemSummary = Reportclasses.FeedItemSummary;
 import FeedItemSummaryEx = Reportclasses.FeedItemSummaryEx;
-declare var  Materialize: any;
+import Date1 = require("../../classes/helpers/date");
+import DateEx = Date1.DateEx;
+import Userfiltercomponent = require("../common/filters/userfilter.component");
+import UserFilters = Userfiltercomponent.UserFilters;
+
+declare var Materialize: any;
 declare var noUiSlider: any;
+
 @Component({
     selector: 'feeditemreport',
     template: require('./feeditemreport.component.html'),
@@ -37,15 +43,14 @@ export class FeedItemReport implements OnInit, AfterViewInit, OnDestroy {
 
     public summaryData: FeedItemSummary;
     public listData: FeedItemSummaryEx[];
+    public filteredListData: FeedItemSummaryEx[];
     
     public passRatioData: GaugeChartData;
     public averageScoreData: DonutChartData;
     public averageTimeData: BarChartData;
 
-    public rangeBottom:number = 0;
-    public rangeTop: number = 100;
-
-    public slideChangeBusy = false;
+    public filterCriteria: UserFilters = new UserFilters();
+    public searchString = '';
 
     constructor(private sharedService: ShareService, public feedDataService: FeedDataService,
         private injector: Injector) { 
@@ -63,8 +68,6 @@ export class FeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit() {
-        this.setupRangeSlider();
-        this.getData();
     }
 
     ngOnDestroy() {
@@ -75,6 +78,11 @@ export class FeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private getData() {
+        this.getHeaderData();
+        this.getResultListData();
+    }
+
+    getHeaderData() {
         this.feedDataService.getFeedItemReport(this.model.id).subscribe(result => {
             if (result.success) {
                 this.summaryData = result.content;
@@ -84,23 +92,50 @@ export class FeedItemReport implements OnInit, AfterViewInit, OnDestroy {
                 this.goBack();
             }
         });
-        console.log(this.rangeTop);
+    }
 
-        this.feedDataService.getFeedItemResultList(this.model.id, this.rangeBottom, this.rangeTop, 0).subscribe((result) => {
+    getResultListData() {
+        this.feedDataService.getFeedItemResultList(this.model.id, this.filterCriteria.pointsRangeBottom, this.filterCriteria.pointsRangeTop, 0).subscribe((result) => {
             this.listData = result.content;
+            this.filterResultList();
         });
     }
 
+    filterUpdate(criteria: UserFilters) {
+        this.filterCriteria = criteria;
+        this.filterResultList();
+    }
+
+    filterResultList() {
+        if (!this.listData)
+            return null;
+        var data = Object.assign([], this.listData);
+
+        if (this.filterCriteria.userGroupFilters.length > 0)
+            data = data.filter(x => this.filterCriteria.userGroupFilters.filter(y => y.text === x.mainUserGroup).length > 0);
+        
+        if (this.filterCriteria.dealershipFilters.length > 0)
+            data = data.filter(x => this.filterCriteria.dealershipFilters.filter(y => y.text === x.dealershipName).length > 0);
+
+        if (this.searchString !== "") {
+            var search = this.searchString.toLowerCase();
+            data = data.filter(x => x.user.firstName.toLowerCase().indexOf(search) > -1
+                || x.user.lastName.toLowerCase().indexOf(search) > -1);
+        }
+
+        data = data.filter(x => x.resultPercentage >= this.filterCriteria.pointsRangeBottom &&
+            x.resultPercentage <= this.filterCriteria.pointsRangeTop);
+
+        this.filteredListData = data;
+    }
+
     updateReport() {
-        //if (this.summaryData) {
-        //    this.averageTimeData = new BarChartData();
-        //}
-        var barData = new BarChartData({
-            showTooltip: true,
-            showYAxis: false,
-            showXAxis: true
-        });
-        this.averageTimeData = barData;
+        this.updateGaugeData();
+        this.updateDonutData();
+        this.updateBarData();
+    }
+
+    public updateGaugeData() {
         var gaugeData = new GaugeChartData({
             height: 150,
             showTooltip: true,
@@ -113,6 +148,9 @@ export class FeedItemReport implements OnInit, AfterViewInit, OnDestroy {
             ]
         });
         this.passRatioData = gaugeData;
+    }
+
+    public updateDonutData() {
         var donutData = new DonutChartData({
             showLegend: false,
             showTooltip: false,
@@ -131,65 +169,28 @@ export class FeedItemReport implements OnInit, AfterViewInit, OnDestroy {
         this.averageScoreData = donutData;
     }
 
-    public clearFilters() {
-        // not implemented
-    }
-
-    enableSlider() {
-        this.setEvent();
-        this.slideChangeBusy = false;
-    }
-
-    private resetRange() {
-        var slider: any = document.getElementById('scoreRange');
-        slider.noUiSlider.reset();
-        this.onSliderChange();
-    }
-
-    private setupRangeSlider() {
-        var slider: any = document.getElementById('scoreRange');
-
-        noUiSlider.create(slider, {
-            start: [0, 100],
-            connect: true,
-            step: 5,
-            tooltips: [true, true],
-            behaviour: 'drag',
-            range: {
-                'min': 0,
-                'max': 100
+    public updateBarData() {
+        let dates: { x: string, y: number }[] = [];
+        for (let submission in this.summaryData.submissions) {
+            let formatted = DateEx.formatDate(new Date(submission), "dd/MM");
+            let existing = dates.find(x => x.x === formatted);
+            if (existing) {
+                dates.splice(dates.indexOf(existing), 1, { x: formatted, y: existing.y + 1 });
+            } else {
+                dates.push({ x: formatted, y: 1 });
             }
-        });
-
-        setTimeout(() => { this.setEvent(); }, 500);
-    }
-
-    setEvent() {
-        var slider: any = document.getElementById('scoreRange');
-        slider.noUiSlider.on('end', () => { this.onSliderChange(); });
-    }
-
-    public onSliderChange() {
-        console.log(this.slideChangeBusy);
-
-        var slider: any = document.getElementById('scoreRange');
-        if (slider) {
-            var sliderVals = slider.noUiSlider.get();
-            var botRange = parseInt(sliderVals[0]);
-            var topRange = parseInt(sliderVals[1]);
-
-            if ((this.rangeBottom === botRange && this.rangeTop === topRange) || this.slideChangeBusy)
-                return;
-
-            slider.noUiSlider.off('end');
-            this.slideChangeBusy = true;
-
-            this.rangeBottom = botRange;
-            this.rangeTop = topRange;
-            this.listData = null;
-            this.getData();
-            this.enableSlider();
         }
+        var barData = new BarChartData({
+            showTooltip: true,
+            showYAxis: false,
+            showXAxis: true,
+            chartData: [{
+                name: 'Number of learners',
+                colour: '#9F378E',
+                data: dates
+            }]
+        });
+        this.averageTimeData = barData;
     }
 
     public goBack() {

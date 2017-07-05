@@ -1,0 +1,68 @@
+<div class="leadershipBoard">
+  <div class="topArea">
+    <div class="topAreaHeader">
+      <div class="ta1 ta">Bilevel partition</div>
+      <div class="ta2 ta">Top 10</div>
+      <button (click)="handleReport()">Report</button>
+    </div>
+    <div class="graphArea">
+      <div class="borderDetail"></div>
+      <div class="levels">
+        <img src="./assets/partitionLevels.png"/>
+        <div class="level l1">
+          <div class="circle" [ngClass]="{activeCircle : graphLevel == 'region'}"></div>
+          <label>Region</label>
+        </div>
+        <div class="level l2">
+          <div class="circle" [ngClass]="{activeCircle : graphLevel == 'zone'}"></div>
+          <label>Zone</label>
+        </div>
+        <div class="level l3">
+          <div class="circle" [ngClass]="{activeCircle : graphLevel == 'dealership'}"></div>
+          <label>Dealership codes</label>
+        </div>
+      </div>
+      <partition *ngIf="formatedData" [data]="graphData" (levelChanged)="handleLevelChanged($event)"></partition>
+      <div class="clickZoomOut">Click the center to zoom out</div>
+    </div>
+    <div class="top10">
+      <div class="borderDetail"></div>
+        <div class="divTop10Table">
+          <lbexecutivestable [data]="top10" [page]="0" [pageSize]="10"></lbexecutivestable>
+        </div>
+    </div>
+  </div>
+  <div class="bottomArea">
+    <div class="bottomHeader">
+      <div class="areaTitle">
+        All sales executive
+      </div>
+    </div>
+    <div class="refine">
+      <!--<lbrefine [groups]="refineGroups" [hideDates]="false" [hideRange]="true" (criteriaChanged)="handleRefine($event)"></lbrefine>-->
+    </div>
+    <div class="all">
+      <div class="tableTops">
+        <div class="borderDetail"></div>
+        <div class="search">
+          <input type="text" [(ngModel)]="searchString" (keyup)="handleSearchText()" placeholder="Search for...">
+          <i class="material-icons">search</i><br>
+        </div>
+        <div class="right pag" *ngIf="salesExecList.length > 0">
+          <ul class="pagination">
+            <li [ngClass]="{disabled : curPage ==0, 'waves-effect' : curPage > 0}" (click)="handlePagination({ action : 'prevPage' })"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+            <li class="waves-effect"
+                *ngFor="let p of pageArray(); let i = index"
+                (click)="handlePagination(p)"
+                [ngClass]="{ active: curPage == p.display -1 , 'waves-effect' : curPage != i }">
+              <a href="#!">{{p.display}}</a></li>
+            <li [ngClass]="{disabled : curPage == (totPages -1), 'waves-effect' : curPage < (totPages -1)}" (click)="handlePagination({ action : 'nextPage' })"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="tableAll">
+        <lbexecutivestable [data]="salesExecList" [page]="curPage" [pageSize]="pagCap"></lbexecutivestable>
+      </div>
+    </div>
+  </div>
+</div>

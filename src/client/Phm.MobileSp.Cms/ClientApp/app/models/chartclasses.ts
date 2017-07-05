@@ -20,7 +20,7 @@
     }
 }
 export class BarChartData extends BaseChart {
-    chartData: [{ name: string, colour: string, data: [{ x: number, y: number }] }];
+    chartData: [{ name: string, colour: string, data: [{ x: string, y: number }] }];
     xLegend: string;
     showXAxis: boolean;
     yLegend: string;

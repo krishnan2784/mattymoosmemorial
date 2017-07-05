@@ -85,5 +85,28 @@ export class FeedDataService extends RequestHelper implements IFeedDataService, 
          + '&userGroupId=' + userGroupId;
         return this.getRequestFull(requestUrl);
     }
-     
+
+    public getQuizSummaryFilters(): Observable<{ userGroupNames: string[], dealershipNames: string[] }> {
+        return Observable.create(observer => {
+            this.getRequestBase('/api/Feed/GetQuizSummaryFilters').subscribe((result) => {
+                if (result) {
+                    let response = { userGroupNames: result.userGroupNames, dealershipNames: result.dealershipNames };
+                    observer.next(response);
+                }
+                observer.complete();
+            });
+        });
+    }
+
+    public getLeaderBoard(startDate: string = null, endDate: string = null) {
+        var requestUrl = '/api/Feed/GetLeaderBoard';
+        if (startDate || endDate) {
+            requestUrl = requestUrl + '?'
+                + (startDate ? 'startDate=' + startDate : '')
+                + (startDate && endDate ? '&' : '')
+                + (endDate ? 'endDate=' + endDate : '');
+        }
+        console.log(requestUrl);
+        return this.getRequestBase(requestUrl);
+    }
 }

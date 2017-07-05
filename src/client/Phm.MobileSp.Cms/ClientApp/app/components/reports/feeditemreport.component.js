@@ -19,6 +19,10 @@ var Chartclasses = require("../../models/chartclasses");
 var BarChartData = Chartclasses.BarChartData;
 var GaugeChartData = Chartclasses.GaugeChartData;
 var DonutChartData = Chartclasses.DonutChartData;
+var Date1 = require("../../classes/helpers/date");
+var DateEx = Date1.DateEx;
+var Userfiltercomponent = require("../common/filters/userfilter.component");
+var UserFilters = Userfiltercomponent.UserFilters;
 var FeedItemReport = (function () {
     function FeedItemReport(sharedService, feedDataService, injector) {
         var _this = this;
@@ -26,9 +30,8 @@ var FeedItemReport = (function () {
         this.feedDataService = feedDataService;
         this.injector = injector;
         this.feedTypes = Enums.FeedTypeEnum;
-        this.rangeBottom = 0;
-        this.rangeTop = 100;
-        this.slideChangeBusy = false;
+        this.filterCriteria = new UserFilters();
+        this.searchString = '';
         this.model = this.injector.get('model');
         this.pageTitle = this.injector.get('pageTitle');
         this.feedTypeString = Enums.FeedTypeEnum[this.model.feedType];
@@ -40,8 +43,6 @@ var FeedItemReport = (function () {
         this.getData();
     };
     FeedItemReport.prototype.ngAfterViewInit = function () {
-        this.setupRangeSlider();
-        this.getData();
     };
     FeedItemReport.prototype.ngOnDestroy = function () {
         var slider = document.getElementById('scoreRange');
@@ -50,6 +51,10 @@ var FeedItemReport = (function () {
         }
     };
     FeedItemReport.prototype.getData = function () {
+        this.getHeaderData();
+        this.getResultListData();
+    };
+    FeedItemReport.prototype.getHeaderData = function () {
         var _this = this;
         this.feedDataService.getFeedItemReport(this.model.id).subscribe(function (result) {
             if (result.success) {
@@ -61,21 +66,42 @@ var FeedItemReport = (function () {
                 _this.goBack();
             }
         });
-        console.log(this.rangeTop);
-        this.feedDataService.getFeedItemResultList(this.model.id, this.rangeBottom, this.rangeTop, 0).subscribe(function (result) {
+    };
+    FeedItemReport.prototype.getResultListData = function () {
+        var _this = this;
+        this.feedDataService.getFeedItemResultList(this.model.id, this.filterCriteria.pointsRangeBottom, this.filterCriteria.pointsRangeTop, 0).subscribe(function (result) {
             _this.listData = result.content;
+            _this.filterResultList();
         });
     };
+    FeedItemReport.prototype.filterUpdate = function (criteria) {
+        this.filterCriteria = criteria;
+        this.filterResultList();
+    };
+    FeedItemReport.prototype.filterResultList = function () {
+        var _this = this;
+        if (!this.listData)
+            return null;
+        var data = Object.assign([], this.listData);
+        if (this.filterCriteria.userGroupFilters.length > 0)
+            data = data.filter(function (x) { return _this.filterCriteria.userGroupFilters.filter(function (y) { return y.text === x.mainUserGroup; }).length > 0; });
+        if (this.filterCriteria.dealershipFilters.length > 0)
+            data = data.filter(function (x) { return _this.filterCriteria.dealershipFilters.filter(function (y) { return y.text === x.dealershipName; }).length > 0; });
+        if (this.searchString !== "") {
+            var search = this.searchString.toLowerCase();
+            data = data.filter(function (x) { return x.user.firstName.toLowerCase().indexOf(search) > -1
+                || x.user.lastName.toLowerCase().indexOf(search) > -1; });
+        }
+        data = data.filter(function (x) { return x.resultPercentage >= _this.filterCriteria.pointsRangeBottom &&
+            x.resultPercentage <= _this.filterCriteria.pointsRangeTop; });
+        this.filteredListData = data;
+    };
     FeedItemReport.prototype.updateReport = function () {
-        //if (this.summaryData) {
-        //    this.averageTimeData = new BarChartData();
-        //}
-        var barData = new BarChartData({
-            showTooltip: true,
-            showYAxis: false,
-            showXAxis: true
-        });
-        this.averageTimeData = barData;
+        this.updateGaugeData();
+        this.updateDonutData();
+        this.updateBarData();
+    };
+    FeedItemReport.prototype.updateGaugeData = function () {
         var gaugeData = new GaugeChartData({
             height: 150,
             showTooltip: true,
@@ -88,6 +114,8 @@ var FeedItemReport = (function () {
             ]
         });
         this.passRatioData = gaugeData;
+    };
+    FeedItemReport.prototype.updateDonutData = function () {
         var donutData = new DonutChartData({
             showLegend: false,
             showTooltip: false,
@@ -106,56 +134,32 @@ var FeedItemReport = (function () {
         });
         this.averageScoreData = donutData;
     };
-    FeedItemReport.prototype.clearFilters = function () {
-        // not implemented
-    };
-    FeedItemReport.prototype.enableSlider = function () {
-        this.setEvent();
-        this.slideChangeBusy = false;
-    };
-    FeedItemReport.prototype.resetRange = function () {
-        var slider = document.getElementById('scoreRange');
-        slider.noUiSlider.reset();
-        this.onSliderChange();
-    };
-    FeedItemReport.prototype.setupRangeSlider = function () {
-        var _this = this;
-        var slider = document.getElementById('scoreRange');
-        noUiSlider.create(slider, {
-            start: [0, 100],
-            connect: true,
-            step: 5,
-            tooltips: [true, true],
-            behaviour: 'drag',
-            range: {
-                'min': 0,
-                'max': 100
+    FeedItemReport.prototype.updateBarData = function () {
+        var dates = [];
+        var _loop_1 = function (submission) {
+            var formatted = DateEx.formatDate(new Date(submission), "dd/MM");
+            var existing = dates.find(function (x) { return x.x === formatted; });
+            if (existing) {
+                dates.splice(dates.indexOf(existing), 1, { x: formatted, y: existing.y + 1 });
             }
-        });
-        setTimeout(function () { _this.setEvent(); }, 500);
-    };
-    FeedItemReport.prototype.setEvent = function () {
-        var _this = this;
-        var slider = document.getElementById('scoreRange');
-        slider.noUiSlider.on('end', function () { _this.onSliderChange(); });
-    };
-    FeedItemReport.prototype.onSliderChange = function () {
-        console.log(this.slideChangeBusy);
-        var slider = document.getElementById('scoreRange');
-        if (slider) {
-            var sliderVals = slider.noUiSlider.get();
-            var botRange = parseInt(sliderVals[0]);
-            var topRange = parseInt(sliderVals[1]);
-            if ((this.rangeBottom === botRange && this.rangeTop === topRange) || this.slideChangeBusy)
-                return;
-            slider.noUiSlider.off('end');
-            this.slideChangeBusy = true;
-            this.rangeBottom = botRange;
-            this.rangeTop = topRange;
-            this.listData = null;
-            this.getData();
-            this.enableSlider();
+            else {
+                dates.push({ x: formatted, y: 1 });
+            }
+        };
+        for (var submission in this.summaryData.submissions) {
+            _loop_1(submission);
         }
+        var barData = new BarChartData({
+            showTooltip: true,
+            showYAxis: false,
+            showXAxis: true,
+            chartData: [{
+                    name: 'Number of learners',
+                    colour: '#9F378E',
+                    data: dates
+                }]
+        });
+        this.averageTimeData = barData;
     };
     FeedItemReport.prototype.goBack = function () {
         var slider = document.getElementById('scoreRange');

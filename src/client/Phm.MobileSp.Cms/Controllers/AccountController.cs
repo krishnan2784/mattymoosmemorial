@@ -66,10 +66,11 @@ namespace Phm.MobileSp.Cms.Controllers
             ClaimsPrincipal claimsPrinciple;
             ViewData["ReturnUrl"] = returnUrl;
             userRepository.SetAuthToken(Constants.CstAccesstoken);
-
-            var user = await userRepository.GetUserAsync(loginDetails);
+            var response = await userRepository.GetUserAsync(loginDetails);
+            var user = response.Item1;
             
             if (!user.ValidUser){
+                TempData["ErrorMessage"] = response.Item2;
                 return View(loginDetails);
             }
 

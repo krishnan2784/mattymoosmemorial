@@ -30,6 +30,7 @@ namespace Phm.MobileSp.Cms
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddJsonFile("config.json")
                 .AddEnvironmentVariables();
             if (env.IsDevelopment())
             {
@@ -71,7 +72,9 @@ namespace Phm.MobileSp.Cms
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IMarketRepository, MarketRepository>();
             services.AddTransient<IFeedRepository, FeedRepository>();
-            
+
+            services.AddTransient<IMediaRepository, MediaRepository>();
+
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromHours(1);

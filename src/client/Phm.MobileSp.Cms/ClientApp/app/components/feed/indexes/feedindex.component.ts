@@ -149,7 +149,7 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
     }
 
     copyFeedItemToMarket(feedItem: IFeedItem) {
-        let inputs = { model: feedItem, title: '', contentType: CopiedElementTypeEnum.Feed, marketContentService: this.feedDataService };
+        let inputs = { model: feedItem, contentType: CopiedElementTypeEnum.Feed, marketContentService: this.feedDataService };
         var modelData = FeedItemCopyToMarket;
 
         this.modalData = {

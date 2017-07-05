@@ -21,6 +21,9 @@ namespace MLearningCoreService
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.UpdateObserverionUsersResponseRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.GetQuizFeedSummariesRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.GetQuizResultsSummariesEXRequest))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.GetQuizSummaryFiltersRequest))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.GetMarketUserFiltersRequest))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.GetLeaderBoardDataRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.GetFeedsRequest))]
     public partial class RequestBase : object
     {
@@ -221,6 +224,72 @@ namespace MLearningCoreService
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public MLearningCoreService.QuizResultsSummariesEXCriteriaDto Criteria
+        {
+            get
+            {
+                return this.CriteriaField;
+            }
+            set
+            {
+                this.CriteriaField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="GetQuizSummaryFiltersRequest", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class GetQuizSummaryFiltersRequest : MLearningCoreService.RequestBase
+    {
+        
+        private int MarketIdField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MarketId
+        {
+            get
+            {
+                return this.MarketIdField;
+            }
+            set
+            {
+                this.MarketIdField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="GetMarketUserFiltersRequest", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class GetMarketUserFiltersRequest : MLearningCoreService.RequestBase
+    {
+        
+        private int MarketIdField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MarketId
+        {
+            get
+            {
+                return this.MarketIdField;
+            }
+            set
+            {
+                this.MarketIdField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="GetLeaderBoardDataRequest", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class GetLeaderBoardDataRequest : MLearningCoreService.RequestBase
+    {
+        
+        private MLearningCoreService.LeaderBoardDataCriteriaDto CriteriaField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MLearningCoreService.LeaderBoardDataCriteriaDto Criteria
         {
             get
             {
@@ -669,8 +738,6 @@ namespace MLearningCoreService
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BaseDtoOfint", Namespace="http://schemas.datacontract.org/2004/07/Phm.Common.Dto")]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.MediaInfoDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.UserDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.CorporateAppDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.QuizQuestionDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.QuizQuestionAnswerDto))]
@@ -679,6 +746,8 @@ namespace MLearningCoreService
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.QuizSummaryDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.QuizResultsSummariesEXDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.QuizFeedResultDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.UserDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.MediaInfoDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.BaseFeedDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.ImageFeedDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.TextFeedDto))]
@@ -792,305 +861,6 @@ namespace MLearningCoreService
             set
             {
                 this.UpdatedAtField = value;
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="MediaInfoDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
-    public partial class MediaInfoDto : MLearningCoreService.BaseDtoOfint
-    {
-        
-        private string AzureUrlField;
-        
-        private string ExtensionField;
-        
-        private int MarketIdField;
-        
-        private string MediaIdField;
-        
-        private MLearningCoreService.MediaTypesDto MediaTypeField;
-        
-        private int MediaVersionField;
-        
-        private string NameField;
-        
-        private string PathField;
-        
-        private string Preview1PathField;
-        
-        private long SizeField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string AzureUrl
-        {
-            get
-            {
-                return this.AzureUrlField;
-            }
-            set
-            {
-                this.AzureUrlField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Extension
-        {
-            get
-            {
-                return this.ExtensionField;
-            }
-            set
-            {
-                this.ExtensionField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int MarketId
-        {
-            get
-            {
-                return this.MarketIdField;
-            }
-            set
-            {
-                this.MarketIdField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string MediaId
-        {
-            get
-            {
-                return this.MediaIdField;
-            }
-            set
-            {
-                this.MediaIdField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MLearningCoreService.MediaTypesDto MediaType
-        {
-            get
-            {
-                return this.MediaTypeField;
-            }
-            set
-            {
-                this.MediaTypeField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int MediaVersion
-        {
-            get
-            {
-                return this.MediaVersionField;
-            }
-            set
-            {
-                this.MediaVersionField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name
-        {
-            get
-            {
-                return this.NameField;
-            }
-            set
-            {
-                this.NameField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Path
-        {
-            get
-            {
-                return this.PathField;
-            }
-            set
-            {
-                this.PathField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Preview1Path
-        {
-            get
-            {
-                return this.Preview1PathField;
-            }
-            set
-            {
-                this.Preview1PathField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public long Size
-        {
-            get
-            {
-                return this.SizeField;
-            }
-            set
-            {
-                this.SizeField = value;
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="UserDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
-    public partial class UserDto : MLearningCoreService.BaseDtoOfint
-    {
-        
-        private string DealershipCodeField;
-        
-        private string DealershipNameField;
-        
-        private string EmailField;
-        
-        private string FirstNameField;
-        
-        private bool IsBuiltInField;
-        
-        private string LastNameField;
-        
-        private System.Nullable<int> SecEntityIdField;
-        
-        private int SessionExpireMinutesField;
-        
-        private string UserNameField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string DealershipCode
-        {
-            get
-            {
-                return this.DealershipCodeField;
-            }
-            set
-            {
-                this.DealershipCodeField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string DealershipName
-        {
-            get
-            {
-                return this.DealershipNameField;
-            }
-            set
-            {
-                this.DealershipNameField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Email
-        {
-            get
-            {
-                return this.EmailField;
-            }
-            set
-            {
-                this.EmailField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string FirstName
-        {
-            get
-            {
-                return this.FirstNameField;
-            }
-            set
-            {
-                this.FirstNameField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool IsBuiltIn
-        {
-            get
-            {
-                return this.IsBuiltInField;
-            }
-            set
-            {
-                this.IsBuiltInField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string LastName
-        {
-            get
-            {
-                return this.LastNameField;
-            }
-            set
-            {
-                this.LastNameField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<int> SecEntityId
-        {
-            get
-            {
-                return this.SecEntityIdField;
-            }
-            set
-            {
-                this.SecEntityIdField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int SessionExpireMinutes
-        {
-            get
-            {
-                return this.SessionExpireMinutesField;
-            }
-            set
-            {
-                this.SessionExpireMinutesField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string UserName
-        {
-            get
-            {
-                return this.UserNameField;
-            }
-            set
-            {
-                this.UserNameField = value;
             }
         }
     }
@@ -1446,6 +1216,8 @@ namespace MLearningCoreService
         
         private int QuizFeedIdField;
         
+        private System.Collections.Generic.Dictionary<System.DateTime, int> SubmissionsField;
+        
         private int SubmittedField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
@@ -1514,6 +1286,19 @@ namespace MLearningCoreService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.Dictionary<System.DateTime, int> Submissions
+        {
+            get
+            {
+                return this.SubmissionsField;
+            }
+            set
+            {
+                this.SubmissionsField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int Submitted
         {
             get
@@ -1532,6 +1317,8 @@ namespace MLearningCoreService
     [System.Runtime.Serialization.DataContractAttribute(Name="QuizResultsSummariesEXDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     public partial class QuizResultsSummariesEXDto : MLearningCoreService.BaseDtoOfint
     {
+        
+        private string DealerShipNameField;
         
         private System.Nullable<System.DateTime> FinishedAtField;
         
@@ -1556,6 +1343,19 @@ namespace MLearningCoreService
         private int TotalWrongAnswersField;
         
         private MLearningCoreService.UserDto UserField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DealerShipName
+        {
+            get
+            {
+                return this.DealerShipNameField;
+            }
+            set
+            {
+                this.DealerShipNameField = value;
+            }
+        }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Nullable<System.DateTime> FinishedAt
@@ -1792,6 +1592,275 @@ namespace MLearningCoreService
             set
             {
                 this.UserIdField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UserDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
+    public partial class UserDto : MLearningCoreService.BaseDtoOfint
+    {
+        
+        private string EmailField;
+        
+        private string FirstNameField;
+        
+        private bool IsBuiltInField;
+        
+        private string LastNameField;
+        
+        private System.Nullable<int> SecEntityIdField;
+        
+        private int SessionExpireMinutesField;
+        
+        private string UserNameField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Email
+        {
+            get
+            {
+                return this.EmailField;
+            }
+            set
+            {
+                this.EmailField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FirstName
+        {
+            get
+            {
+                return this.FirstNameField;
+            }
+            set
+            {
+                this.FirstNameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsBuiltIn
+        {
+            get
+            {
+                return this.IsBuiltInField;
+            }
+            set
+            {
+                this.IsBuiltInField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string LastName
+        {
+            get
+            {
+                return this.LastNameField;
+            }
+            set
+            {
+                this.LastNameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> SecEntityId
+        {
+            get
+            {
+                return this.SecEntityIdField;
+            }
+            set
+            {
+                this.SecEntityIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int SessionExpireMinutes
+        {
+            get
+            {
+                return this.SessionExpireMinutesField;
+            }
+            set
+            {
+                this.SessionExpireMinutesField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UserName
+        {
+            get
+            {
+                return this.UserNameField;
+            }
+            set
+            {
+                this.UserNameField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="MediaInfoDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
+    public partial class MediaInfoDto : MLearningCoreService.BaseDtoOfint
+    {
+        
+        private string AzureUrlField;
+        
+        private string ExtensionField;
+        
+        private int MarketIdField;
+        
+        private string MediaIdField;
+        
+        private MLearningCoreService.MediaTypesDto MediaTypeField;
+        
+        private int MediaVersionField;
+        
+        private string NameField;
+        
+        private string PathField;
+        
+        private string Preview1PathField;
+        
+        private long SizeField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AzureUrl
+        {
+            get
+            {
+                return this.AzureUrlField;
+            }
+            set
+            {
+                this.AzureUrlField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Extension
+        {
+            get
+            {
+                return this.ExtensionField;
+            }
+            set
+            {
+                this.ExtensionField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MarketId
+        {
+            get
+            {
+                return this.MarketIdField;
+            }
+            set
+            {
+                this.MarketIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MediaId
+        {
+            get
+            {
+                return this.MediaIdField;
+            }
+            set
+            {
+                this.MediaIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MLearningCoreService.MediaTypesDto MediaType
+        {
+            get
+            {
+                return this.MediaTypeField;
+            }
+            set
+            {
+                this.MediaTypeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MediaVersion
+        {
+            get
+            {
+                return this.MediaVersionField;
+            }
+            set
+            {
+                this.MediaVersionField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name
+        {
+            get
+            {
+                return this.NameField;
+            }
+            set
+            {
+                this.NameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Path
+        {
+            get
+            {
+                return this.PathField;
+            }
+            set
+            {
+                this.PathField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Preview1Path
+        {
+            get
+            {
+                return this.Preview1PathField;
+            }
+            set
+            {
+                this.Preview1PathField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long Size
+        {
+            get
+            {
+                return this.SizeField;
+            }
+            set
+            {
+                this.SizeField = value;
             }
         }
     }
@@ -2132,27 +2201,6 @@ namespace MLearningCoreService
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="MediaTypesDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
-    public enum MediaTypesDto : int
-    {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Text = 0,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Font = 1,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Image = 2,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Video = 3,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Icon = 4,
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="AppTypeEnumDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
     public enum AppTypeEnumDto : int
     {
@@ -2189,6 +2237,27 @@ namespace MLearningCoreService
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Multiple = 1,
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="MediaTypesDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
+    public enum MediaTypesDto : int
+    {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Text = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Font = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Image = 2,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Video = 3,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Icon = 4,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -2270,6 +2339,7 @@ namespace MLearningCoreService
     [System.Runtime.Serialization.DataContractAttribute(Name="BaseCriteriaDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Common.Dto")]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.FeedCriteriaDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.QuizResultsSummariesEXCriteriaDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.LeaderBoardDataCriteriaDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.QuizFeedSummaryCriteriaDto))]
     public partial class BaseCriteriaDto : object
     {
@@ -2458,6 +2528,73 @@ namespace MLearningCoreService
             set
             {
                 this.UserGroupIdField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="LeaderBoardDataCriteriaDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class LeaderBoardDataCriteriaDto : MLearningCoreService.BaseCriteriaDto
+    {
+        
+        private System.Nullable<System.DateTime> EndDateField;
+        
+        private int MarketIdField;
+        
+        private System.Collections.Generic.List<int> RolesIdField;
+        
+        private System.Nullable<System.DateTime> StartDateField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> EndDate
+        {
+            get
+            {
+                return this.EndDateField;
+            }
+            set
+            {
+                this.EndDateField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MarketId
+        {
+            get
+            {
+                return this.MarketIdField;
+            }
+            set
+            {
+                this.MarketIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<int> RolesId
+        {
+            get
+            {
+                return this.RolesIdField;
+            }
+            set
+            {
+                this.RolesIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> StartDate
+        {
+            get
+            {
+                return this.StartDateField;
+            }
+            set
+            {
+                this.StartDateField = value;
             }
         }
     }
@@ -2683,6 +2820,244 @@ namespace MLearningCoreService
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="GetQuizSummaryFiltersResponse", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class GetQuizSummaryFiltersResponse : object
+    {
+        
+        private System.Collections.Generic.List<string> DealershipNamesField;
+        
+        private System.Collections.Generic.List<string> UserGroupNamesField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<string> DealershipNames
+        {
+            get
+            {
+                return this.DealershipNamesField;
+            }
+            set
+            {
+                this.DealershipNamesField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<string> UserGroupNames
+        {
+            get
+            {
+                return this.UserGroupNamesField;
+            }
+            set
+            {
+                this.UserGroupNamesField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="GetMarketUserFiltersResponse", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class GetMarketUserFiltersResponse : object
+    {
+        
+        private System.Collections.Generic.List<string> AreasField;
+        
+        private System.Collections.Generic.List<string> DealershipNamesField;
+        
+        private System.Collections.Generic.List<string> RegionsField;
+        
+        private System.Collections.Generic.List<string> UserGroupNamesField;
+        
+        private System.Collections.Generic.List<string> ZonesField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<string> Areas
+        {
+            get
+            {
+                return this.AreasField;
+            }
+            set
+            {
+                this.AreasField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<string> DealershipNames
+        {
+            get
+            {
+                return this.DealershipNamesField;
+            }
+            set
+            {
+                this.DealershipNamesField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<string> Regions
+        {
+            get
+            {
+                return this.RegionsField;
+            }
+            set
+            {
+                this.RegionsField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<string> UserGroupNames
+        {
+            get
+            {
+                return this.UserGroupNamesField;
+            }
+            set
+            {
+                this.UserGroupNamesField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<string> Zones
+        {
+            get
+            {
+                return this.ZonesField;
+            }
+            set
+            {
+                this.ZonesField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="GetLeaderBoardDataResponse", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class GetLeaderBoardDataResponse : object
+    {
+        
+        private System.Collections.Generic.List<MLearningCoreService.LeaderBoardDataDto> LeaderBoardDataField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<MLearningCoreService.LeaderBoardDataDto> LeaderBoardData
+        {
+            get
+            {
+                return this.LeaderBoardDataField;
+            }
+            set
+            {
+                this.LeaderBoardDataField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="LeaderBoardDataDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class LeaderBoardDataDto : object
+    {
+        
+        private MLearningCoreService.UserDto CurrentUserField;
+        
+        private string DealershipCodeField;
+        
+        private string RegionNameField;
+        
+        private string RoleNameField;
+        
+        private int TotalMLearningPointsField;
+        
+        private string ZoneNameField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MLearningCoreService.UserDto CurrentUser
+        {
+            get
+            {
+                return this.CurrentUserField;
+            }
+            set
+            {
+                this.CurrentUserField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DealershipCode
+        {
+            get
+            {
+                return this.DealershipCodeField;
+            }
+            set
+            {
+                this.DealershipCodeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RegionName
+        {
+            get
+            {
+                return this.RegionNameField;
+            }
+            set
+            {
+                this.RegionNameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RoleName
+        {
+            get
+            {
+                return this.RoleNameField;
+            }
+            set
+            {
+                this.RoleNameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TotalMLearningPoints
+        {
+            get
+            {
+                return this.TotalMLearningPointsField;
+            }
+            set
+            {
+                this.TotalMLearningPointsField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ZoneName
+        {
+            get
+            {
+                return this.ZoneNameField;
+            }
+            set
+            {
+                this.ZoneNameField = value;
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MLearningCoreService.IMLearningCoreContract")]
     public interface IMLearningCoreContract
@@ -2712,50 +3087,22 @@ namespace MLearningCoreService
         [System.ServiceModel.FaultContractAttribute(typeof(MLearningCoreService.BaseError), Action="http://tempuri.org/IMLearningCoreContract/GetQuizFeedSummariesBaseErrorFault", Name="BaseError", Namespace="http://www.phm.co.uk/types/common/")]
         System.Threading.Tasks.Task<MLearningCoreService.GetQuizFeedSummariesRespose> GetQuizFeedSummariesAsync(MLearningCoreService.GetQuizFeedSummariesRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMLearningCoreContract/GetQuizResultsSummariesEX ", ReplyAction="http://tempuri.org/IMLearningCoreContract/GetQuizResultsSummariesEX Response")]
-        [System.ServiceModel.FaultContractAttribute(typeof(MLearningCoreService.BaseError), Action="http://tempuri.org/IMLearningCoreContract/GetQuizResultsSummariesEX BaseErrorFaul" +
-            "t", Name="BaseError", Namespace="http://www.phm.co.uk/types/common/")]
-        System.Threading.Tasks.Task<MLearningCoreService.GetQuizResultsSummariesEXResponse1> GetQuizResultsSummariesEXAsync(MLearningCoreService.GetQuizResultsSummariesEXRequest1 request);
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="GetQuizResultsSummariesEX ", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
-    public partial class GetQuizResultsSummariesEXRequest1
-    {
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMLearningCoreContract/GetQuizResultsSummariesEX", ReplyAction="http://tempuri.org/IMLearningCoreContract/GetQuizResultsSummariesEXResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(MLearningCoreService.BaseError), Action="http://tempuri.org/IMLearningCoreContract/GetQuizResultsSummariesEXBaseErrorFault" +
+            "", Name="BaseError", Namespace="http://www.phm.co.uk/types/common/")]
+        System.Threading.Tasks.Task<MLearningCoreService.GetQuizResultsSummariesEXResponse> GetQuizResultsSummariesEXAsync(MLearningCoreService.GetQuizResultsSummariesEXRequest request);
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
-        public MLearningCoreService.GetQuizResultsSummariesEXRequest request;
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMLearningCoreContract/GetQuizSummaryFilters", ReplyAction="http://tempuri.org/IMLearningCoreContract/GetQuizSummaryFiltersResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(MLearningCoreService.BaseError), Action="http://tempuri.org/IMLearningCoreContract/GetQuizSummaryFiltersBaseErrorFault", Name="BaseError", Namespace="http://www.phm.co.uk/types/common/")]
+        System.Threading.Tasks.Task<MLearningCoreService.GetQuizSummaryFiltersResponse> GetQuizSummaryFiltersAsync(MLearningCoreService.GetQuizSummaryFiltersRequest request);
         
-        public GetQuizResultsSummariesEXRequest1()
-        {
-        }
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMLearningCoreContract/GetMarketUserFilters", ReplyAction="http://tempuri.org/IMLearningCoreContract/GetMarketUserFiltersResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(MLearningCoreService.BaseError), Action="http://tempuri.org/IMLearningCoreContract/GetMarketUserFiltersBaseErrorFault", Name="BaseError", Namespace="http://www.phm.co.uk/types/common/")]
+        System.Threading.Tasks.Task<MLearningCoreService.GetMarketUserFiltersResponse> GetMarketUserFiltersAsync(MLearningCoreService.GetMarketUserFiltersRequest request);
         
-        public GetQuizResultsSummariesEXRequest1(MLearningCoreService.GetQuizResultsSummariesEXRequest request)
-        {
-            this.request = request;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="GetQuizResultsSummariesEX Response", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
-    public partial class GetQuizResultsSummariesEXResponse1
-    {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetQuizResultsSummariesEX_x0020_Result", Namespace="http://tempuri.org/", Order=0)]
-        public MLearningCoreService.GetQuizResultsSummariesEXResponse GetQuizResultsSummariesEXResult;
-        
-        public GetQuizResultsSummariesEXResponse1()
-        {
-        }
-        
-        public GetQuizResultsSummariesEXResponse1(MLearningCoreService.GetQuizResultsSummariesEXResponse GetQuizResultsSummariesEXResult)
-        {
-            this.GetQuizResultsSummariesEXResult = GetQuizResultsSummariesEXResult;
-        }
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMLearningCoreContract/GetLeaderBoardData", ReplyAction="http://tempuri.org/IMLearningCoreContract/GetLeaderBoardDataResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(MLearningCoreService.BaseError), Action="http://tempuri.org/IMLearningCoreContract/GetLeaderBoardDataBaseErrorFault", Name="BaseError", Namespace="http://www.phm.co.uk/types/common/")]
+        System.Threading.Tasks.Task<MLearningCoreService.GetLeaderBoardDataResponse> GetLeaderBoardDataAsync(MLearningCoreService.GetLeaderBoardDataRequest request);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
@@ -2838,17 +3185,24 @@ namespace MLearningCoreService
             return base.Channel.GetQuizFeedSummariesAsync(request);
         }
         
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<MLearningCoreService.GetQuizResultsSummariesEXResponse1> MLearningCoreService.IMLearningCoreContract.GetQuizResultsSummariesEXAsync(MLearningCoreService.GetQuizResultsSummariesEXRequest1 request)
+        public System.Threading.Tasks.Task<MLearningCoreService.GetQuizResultsSummariesEXResponse> GetQuizResultsSummariesEXAsync(MLearningCoreService.GetQuizResultsSummariesEXRequest request)
         {
             return base.Channel.GetQuizResultsSummariesEXAsync(request);
         }
         
-        public System.Threading.Tasks.Task<MLearningCoreService.GetQuizResultsSummariesEXResponse1> GetQuizResultsSummariesEXAsync(MLearningCoreService.GetQuizResultsSummariesEXRequest request)
+        public System.Threading.Tasks.Task<MLearningCoreService.GetQuizSummaryFiltersResponse> GetQuizSummaryFiltersAsync(MLearningCoreService.GetQuizSummaryFiltersRequest request)
         {
-            MLearningCoreService.GetQuizResultsSummariesEXRequest1 inValue = new MLearningCoreService.GetQuizResultsSummariesEXRequest1();
-            inValue.request = request;
-            return ((MLearningCoreService.IMLearningCoreContract)(this)).GetQuizResultsSummariesEXAsync(inValue);
+            return base.Channel.GetQuizSummaryFiltersAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<MLearningCoreService.GetMarketUserFiltersResponse> GetMarketUserFiltersAsync(MLearningCoreService.GetMarketUserFiltersRequest request)
+        {
+            return base.Channel.GetMarketUserFiltersAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<MLearningCoreService.GetLeaderBoardDataResponse> GetLeaderBoardDataAsync(MLearningCoreService.GetLeaderBoardDataRequest request)
+        {
+            return base.Channel.GetLeaderBoardDataAsync(request);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()

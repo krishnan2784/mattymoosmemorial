@@ -13,8 +13,9 @@ var core_1 = require("@angular/core");
 var BaseModalContent = (function () {
     function BaseModalContent() {
     }
-    BaseModalContent.prototype.closeModal = function () {
-        this.closeModalEvent.emit(null);
+    BaseModalContent.prototype.closeModal = function (data) {
+        if (data === void 0) { data = null; }
+        this.closeModalEvent.emit(data);
     };
     return BaseModalContent;
 }());

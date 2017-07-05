@@ -24,7 +24,6 @@
 }
 
 .stat-title {
-    background-color: #eee;
     height: 50px;
     padding: 0;
     text-align: center;
@@ -51,6 +50,7 @@
 .stat-block {
     border: 1px solid #eee;
     margin-right: 10px;
+    background-color: #fff;
  }
 
 .stat-body {
@@ -68,13 +68,12 @@
     margin-right: 10px;
 }
 
-.filter-header {
-    background-color: #eee;
-}
-
 .filter-block {
     border: 1px solid #eee;
     padding: 10px;
+}
+.result-list {
+    margin-bottom: 50px;
 }
 .result-list-header > div {
     background-color: #A6C58A;
@@ -98,6 +97,7 @@
  }
 .result-list-content {
     border: #EFEFEF 1px solid;
+    background-color: #fff;
 }
 .result-list-content .person-icon {
     padding-left: 15px;
@@ -115,4 +115,8 @@
 }
 #scoreRange {
     margin-top: 45px;
+}
+.search-filter input {
+    background-color: #fff;
+    margin-top: 20px;
 }

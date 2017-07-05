@@ -21,6 +21,7 @@ var FeedItemSummary = (function () {
         this.submitted = options['submitted'] || 100;
         this.passed = options['passed'] || 80;
         this.failed = options['failed'] || 20;
+        this.submissions = options['submissions'];
     }
     return FeedItemSummary;
 }());
@@ -32,6 +33,7 @@ var FeedItemSummaryEx = (function (_super) {
         var _this = _super.call(this, options) || this;
         _this.finishedAt = options['finishedAt'];
         _this.mainUserGroup = options['mainUserGroup'] || '';
+        _this.dealershipName = options['dealershipName'] || '';
         _this.minSucceedThreshold = options['minSucceedThreshold'] || 0;
         _this.pointsGained = options['pointsGained'] || 0;
         _this.quizFeedId = options['quizFeedId'] || 0;

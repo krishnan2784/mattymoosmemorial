@@ -17,6 +17,11 @@
                         Observations Analytics Index
                     </a>
                 </span>
+                <span [routerLinkActive]="['link-active']">
+                    <a [routerLink]="['/leaderboard']" class="feed-cat-index">
+                        Leaderboard
+                    </a>
+                </span>
   
                 <div class="clearfix"></div>
             </div>
@@ -63,7 +68,6 @@
                             <a class="btn btn-inverted report-index-view-details" (click)="viewFeedItemDetails(feedItem)">Open</a>
                         </div>
                         <div class="clearfix"></div>
-                        <hr />
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -74,8 +78,6 @@
                                  autoHide="true">
             </pagination-controls>
         </div>
-        
-
     </div>
 </div>
 

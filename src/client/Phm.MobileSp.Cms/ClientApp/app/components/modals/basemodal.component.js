@@ -12,18 +12,28 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var Copytomarketcomponent = require("../feed/modals/copytomarket.component");
 var FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
-var Feedindexcomponent = require("../feed/indexes/feedindex.component");
-var FeedIndexComponent = Feedindexcomponent.FeedIndexComponent;
+var Editusercomponent = require("../accountmanagement/modals/edituser.component");
+var EditUser = Editusercomponent.EditUser;
 var BaseModalComponent = (function () {
     function BaseModalComponent(resolver) {
         this.resolver = resolver;
         this.modelContent = null;
+        this.modalClosed = new core_1.EventEmitter();
     }
     Object.defineProperty(BaseModalComponent.prototype, "modalData", {
         set: function (data) {
+            var _this = this;
             if (!data) {
                 return;
             }
+            data.modalContent.prototype.closeModalEvent = new core_1.EventEmitter();
+            data.modalContent.prototype.closeModalEvent.subscribe(function (data) {
+                _this.closeModal(data);
+            });
+            data.modalContent.closeModalEvent = new core_1.EventEmitter;
+            data.modalContent.closeModalEvent.subscribe(function (data) {
+                _this.closeModal(data);
+            });
             var inputProviders = Object.keys(data.inputs).map(function (inputName) { return { provide: inputName, useValue: data.inputs[inputName] }; });
             var resolvedInputs = core_1.ReflectiveInjector.resolve(inputProviders);
             var injector = core_1.ReflectiveInjector.fromResolvedProviders(resolvedInputs, this.dynamicComponentContainer.parentInjector);
@@ -38,9 +48,12 @@ var BaseModalComponent = (function () {
         enumerable: true,
         configurable: true
     });
-    BaseModalComponent.prototype.closeModal = function () {
+    BaseModalComponent.prototype.closeModal = function (data) {
+        if (data === void 0) { data = null; }
+        this.modalClosed.emit(data);
+        $('#' + this.modalId + ' .modal-header button').click();
         this.modelContent = null;
-        this.modalClosed.emit(null);
+        this.dynamicComponentContainer.clear();
     };
     return BaseModalComponent;
 }());
@@ -72,7 +85,7 @@ __decorate([
 BaseModalComponent = __decorate([
     core_1.Component({
         selector: 'base-modal',
-        entryComponents: [FeedIndexComponent, FeedItemCopyToMarket],
+        entryComponents: [FeedItemCopyToMarket, EditUser],
         template: require('./basemodal.component.html'),
         styles: [require('./basemodal.component.css')],
     }),

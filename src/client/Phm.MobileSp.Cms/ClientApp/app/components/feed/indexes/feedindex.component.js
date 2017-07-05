@@ -150,7 +150,7 @@ var FeedIndexComponent = (function (_super) {
         };
     };
     FeedIndexComponent.prototype.copyFeedItemToMarket = function (feedItem) {
-        var inputs = { model: feedItem, title: '', contentType: CopiedElementTypeEnum.Feed, marketContentService: this.feedDataService };
+        var inputs = { model: feedItem, contentType: CopiedElementTypeEnum.Feed, marketContentService: this.feedDataService };
         var modelData = FeedItemCopyToMarket;
         this.modalData = {
             modalContent: modelData,

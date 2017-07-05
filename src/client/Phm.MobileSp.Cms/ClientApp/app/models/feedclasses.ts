@@ -59,7 +59,7 @@ export class BaseFeed extends Baseclasses.BaseModel implements FeedModel.IFeedIt
             d = new Date(feedItem.startDate);
         }
         feedItem.startDate = DateEx.formatDate(d);
-        let d2 = new Date();;
+        let d2 = new Date();
         if (feedItem.endDate) {
             d2 = new Date(feedItem.endDate);
         } else {
