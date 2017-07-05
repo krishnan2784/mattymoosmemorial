@@ -8,7 +8,11 @@
 }
 @*<app asp-ng2-prerender-module="ClientApp/dist/main-server">Loading...</app>*@
 
-<app style="display: block;"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i></app>
+<app style="display: block;">
+    <div class="loader-container">
+        <div class="loader"></div>
+    </div>
+</app>
 @*<app asp-prerender-module="ClientApp/dist/main-server">Loading...</app>*@
 
 <script src="~/dist/vendor.js" asp-append-version="true"></script>
