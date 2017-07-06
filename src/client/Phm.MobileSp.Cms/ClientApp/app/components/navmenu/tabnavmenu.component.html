@@ -1,0 +1,13 @@
+<div *ngIf="navItems && navItems.length>0" class="tab-nav-container">
+    <ul>
+        <li *ngFor="let navItem of navItems" class="tabnavitem" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{exact: true}">
+            <div class="header-style {{navItem.colourClass}}"></div>
+            <div class="clearfix"></div>
+            <a [routerLink]="['/' + navItem.link]" class="waves-effect waves-light">
+                {{navItem.displayText}}
+            </a>
+        </li>
+    </ul>
+    <div class="clearfix"></div>
+</div>
+

@@ -1,4 +1,14 @@
-﻿.body-content {}
+﻿@darkGrey: #405362;
+@lightGrey: #eee;
+@lightBlue: #D5EDF7;
+@purple: #4F3A9F;
+@skyBlue: #00A7DE;
+
+
+@primaryColour: @purple;
+@secondaryColour: @skyBlue;
+
+.body-content {}
 
 .ng2-pagination li a {cursor:pointer;}
 
@@ -17,18 +27,18 @@
 }
 
 input:not([type]):not([readonly]):focus, input[type=text]:not([readonly]):focus, input[type=password]:not([readonly]):focus,
-    input[type=email]:not([readonly]):focus, input[type=url]:not([readonly]):focus, input[type=time]:not([readonly]):focus, 
-    input[type=date]:not([readonly]):focus, input[type=datetime]:not([readonly]):focus, input[type=datetime-local]:not([readonly]):focus, 
-    input[type=tel]:not([readonly]):focus, input[type=number]:not([readonly]):focus, input[type=search]:not([readonly]):focus, 
-    textarea:not([readonly]).materialize-textarea:focus{
-    border-color: #4F3A9F;
+input[type=email]:not([readonly]):focus, input[type=url]:not([readonly]):focus, input[type=time]:not([readonly]):focus,
+input[type=date]:not([readonly]):focus, input[type=datetime]:not([readonly]):focus, input[type=datetime-local]:not([readonly]):focus,
+input[type=tel]:not([readonly]):focus, input[type=number]:not([readonly]):focus, input[type=search]:not([readonly]):focus,
+textarea:not([readonly]).materialize-textarea:focus {
+    border-color: @primaryColour;
 }
 
 
 
 /* Dropdown Button */
 .dropbtn {
-    background-color: #4F3A9F;
+    background-color: @primaryColour;
     color: #f9f9f9;
     padding: 16px;
     font-size: 16px;
@@ -90,7 +100,7 @@ div, span, ul, li, h1, h2, h3, h4, h5, p {
     min-width: 40px;
     height: auto;
     background-color: #000;
-    color: #eee;
+    color: @lightGrey;
     padding: 0 10px;
     text-align: center;
 }
@@ -98,3 +108,181 @@ div, span, ul, li, h1, h2, h3, h4, h5, p {
 .btn, .btn-large, .btn-flat {
     text-transform: none!important;
 }
+
+.btn-top-right {
+    position: absolute;
+    right: 100px;
+    top: 73px;
+    background-color: #F9F9F9;
+}
+
+.btn-top-right:hover {
+    background-color: @lightGrey;
+}
+
+.btn-top-right i.material-icons {
+    color: #000;
+}
+table .sub-data {
+    font-size: 0.8em;
+}
+ng-table .table-avatar{
+    font-size: 3em;
+}
+table.table{
+    margin-bottom: 0;
+}
+table, thead, th, tr, td {
+    background-color: #fff!important;
+}
+tr:hover {
+    background-color: lightBlue!important;
+}
+
+th:first-child {
+    border-top-left-radius: 4px !important;
+    border-bottom-left-radius: 4px !important;
+}
+th:last-child {
+    border-top-right-radius: 4px !important;
+    border-bottom-right-radius: 4px !important;
+}
+th {
+    border: 0 !important;
+    border-radius: 0;
+}
+table, tr, thead {
+    border: 0 !important;
+}
+thead tr {
+    border-bottom: 2px @skyBlue solid !important;
+    margin-bottom: 5px;
+}
+td {
+    border-top: 0 !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+    border-bottom: 2px solid @lightGrey !important;
+}
+.action-btn p:hover, .action-btn:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
+.action-btn p {
+    margin-bottom: 0;
+    color: #000;
+    font-size: 0.8em;
+}
+.col-action {
+    width: 30px;
+    text-align: center;
+}
+table .material-icons {
+    color: #000;
+}
+pagination ul{
+    margin: 10px 0;
+}
+.pagination li a {
+    font-size: 0.8em;
+    color: #000;
+}
+.pagination > li > span, .pagination > .disabled > span, .pagination > .disabled > span:hover, .pagination > .disabled > span:focus,
+.pagination > .disabled > a, .pagination > .disabled > a:hover, .pagination > .disabled > a:focus {
+    border-color: @skyBlue !important;
+}
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover,
+.pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+    border-color: @skyBlue !important;
+    background-color: @skyBlue !important;
+}
+
+.loader {
+    border: 16px solid rgba(220,220,220,0.1);
+    border-top: 16px solid @primaryColour;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    margin: 15% 45%;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.349019);
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loader-container {
+    background-image: url('../assets/images/LoginCMSbg.png');
+    background-size: 100%;
+    height: 100vh;
+    padding-top: 15vh;
+    background-size: cover;
+}
+
+
+
+.animate-bottom {
+    position: relative;
+    -webkit-animation-name: animatebottom;
+    -webkit-animation-duration: 1s;
+    animation-name: animatebottom;
+    animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+    from {
+        bottom: -100px;
+        opacity: 0
+    }
+
+    to {
+        bottom: 0px;
+        opacity: 1
+    }
+}
+
+@keyframes animatebottom {
+    from {
+        bottom: -100px;
+        opacity: 0
+    }
+
+    to {
+        bottom: 0;
+        opacity: 1
+    }
+}
+
+.btn-top-right, .marketdropdown, .page-title {
+    -webkit-animation-name: fadein;
+    -webkit-animation-duration: 1s;
+    animation-name: fadein;
+    animation-duration: 1s
+}
+
+@-webkit-keyframes fadein {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
+}
+

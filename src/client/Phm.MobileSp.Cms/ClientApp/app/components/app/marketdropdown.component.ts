@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Injectable } from '@angular/core';
+import { Component, EventEmitter, Injectable, OnInit, AfterViewInit } from '@angular/core';
 import { MarketDataService } from "../../services/marketdataservice";
 import Userclasses = require("../../models/userclasses");
 import UserMarket = Userclasses.UserMarket;
@@ -11,7 +11,7 @@ import { UserDataService } from "../../services/userdataservice";
     template: require('./marketdropdown.component.html'),
     styles: [require('./marketdropdown.component.css')]
 })
-export class MarketDropdown {
+export class MarketDropdown implements AfterViewInit {
     public currentMarket: UserMarket;
     public marketUpdated = new EventEmitter();
     public userMarkets: UserMarket[] = [];
@@ -22,6 +22,10 @@ export class MarketDropdown {
             this.userMarkets = result;
             this.setCurrentMarketId();
         });
+    }
+    
+    ngAfterViewInit() {
+
     }
 
     setCurrentMarketId() {

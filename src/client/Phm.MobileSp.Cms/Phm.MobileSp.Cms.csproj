@@ -24,6 +24,9 @@
     <NoStdLib>false</NoStdLib>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="wwwroot\assets\images\Icon-Leaderboard-b.png" />
+  </ItemGroup>
+  <ItemGroup>
     <None Update="ClientApp\dist\**\*;node_modules\**\*;Views\**\*;wwwroot\**\*">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </None>
@@ -62,7 +65,15 @@
     <Folder Include="ClientApp\app\components\navbar\" />
     <Folder Include="ClientApp\plugins\" />
     <Folder Include="Connected Services\Application Insights" />
-    <Folder Include="wwwroot\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="config.json" />
+    <None Include="wwwroot\assets\images\partitionLevels.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Update="ClientApp\app\components\feed\modelforms\questionform.component.css">

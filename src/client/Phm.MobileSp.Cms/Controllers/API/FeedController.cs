@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Helpers.Attributes;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
+using System;
 
 namespace Phm.MobileSp.Cms.Controllers.API
 {
@@ -145,6 +146,14 @@ namespace Phm.MobileSp.Cms.Controllers.API
         public async Task<JsonResult> GetQuizSummaryFilters()
         {
             var response = await _feedRepository.GetQuizSummaryFilters(CurrentMarketId);
+            return Json(new BaseResponse(response));
+        }
+
+        [HttpGet("[action]")]
+        [JsonResponseWrapper]
+        public async Task<JsonResult> GetLeaderBoard(DateTime? startDate = null, DateTime? endDate = null)
+        {
+            var response = await _feedRepository.GetLeaderBoard(CurrentMarketId, startDate, endDate);
             return Json(new BaseResponse(response));
         }
 

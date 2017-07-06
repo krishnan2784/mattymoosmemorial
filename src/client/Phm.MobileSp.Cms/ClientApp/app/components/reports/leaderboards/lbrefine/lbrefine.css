@@ -1,0 +1,80 @@
+.lbRefine {
+  font-size: 11px; }
+  .lbRefine .range {
+    margin-top: 30px;
+    margin-bottom: 20px; }
+    .lbRefine .range .lbSlider {
+      margin-top: 10px;
+      margin-bottom: 20px; }
+  .lbRefine .pointer {
+    cursor: pointer; }
+  .lbRefine .selectDate {
+    position: relative; }
+    .lbRefine .selectDate i {
+      position: absolute;
+      top: 11px;
+      font-size: 20px;
+      left: 3px; }
+    .lbRefine .selectDate input {
+      width: 240px;
+      padding-left: 30px; }
+    .lbRefine .selectDate input::-webkit-input-placeholder {
+      /* Chrome/Opera/Safari */
+      padding-left: 00px; }
+    .lbRefine .selectDate input::-moz-placeholder {
+      /* Firefox 19+ */
+      padding-left: 00px; }
+    .lbRefine .selectDate input:-ms-input-placeholder {
+      /* IE 10+ */
+      padding-left: 00px; }
+    .lbRefine .selectDate input:-moz-placeholder {
+      /* Firefox 18- */
+      padding-left: 00px; }
+    .lbRefine .selectDate div {
+      clear: both;
+      position: absolute;
+      top: 30px;
+      width: 24px;
+      text-align: center;
+      color: #06a2d1; }
+  .lbRefine .groupBy {
+    margin-top: 30px; }
+  .lbRefine .sectionRow {
+    clear: both;
+    height: 16px; }
+    .lbRefine .sectionRow div {
+      float: left; }
+    .lbRefine .sectionRow .right {
+      color: #06a2d1;
+      font-weight: bold; }
+    .lbRefine .sectionRow .strong {
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: bold; }
+  .lbRefine .groups {
+    clear: both;
+    width: 100%;
+    border: 1px solid lightgray;
+    border-radius: 2px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    overflow-y: scroll;
+    padding: 5px; }
+  .lbRefine .zone {
+    clear: both;
+    width: 100%;
+    border: 1px solid lightgray;
+    border-radius: 2px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    overflow-y: scroll;
+    padding: 5px; }
+  .lbRefine .region {
+    clear: both;
+    height: 215px;
+    width: 100%;
+    border: 1px solid lightgray;
+    border-radius: 2px;
+    margin-top: 30px;
+    overflow-y: scroll;
+    padding: 5px; }

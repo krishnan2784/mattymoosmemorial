@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using MLearningCoreService;
 using Phm.MobileSp.Cms.Core.Models;
+using System;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
 {
@@ -18,5 +19,6 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
         Task<IEnumerable<dynamic>> GetFeedItemResultList(int feedItemId, decimal lowerBoundary, decimal higherBoundary, int userGroupId);
         Task<dynamic> GetQuizSummaryFilters(int marketId);
         Task<bool> CopyFeedItemToMarketAsync(int feedItemId, List<int> marketIds);
+        Task<dynamic> GetLeaderBoard(int currentMarketId, DateTime? startDate = null, DateTime? endDate = null);
     }
 }

@@ -22,12 +22,16 @@
                     </div>
                     <i class="material-icons right">person</i> 
                 </div>
-                <div class="stat-body" *ngIf="passRatioData">
-                    <gaugechart [chartData]="passRatioData" [id]="'passRatioChart'"></gaugechart>
-                    <h5 *ngIf="summaryData">
-                        <b>{{summaryData.submitted}} <span>submitted / </span></b>
-                        {{summaryData.passed}} <span> passed</span>
-                    </h5>
+
+                <div class="stat-body">
+                    <div class="loader" *ngIf="!passRatioData"></div>   
+                    <div *ngIf="passRatioData" class="animate-bottom">
+                        <gaugechart [chartData]="passRatioData" [id]="'passRatioChart'"></gaugechart>
+                        <h5 *ngIf="summaryData">
+                            <b>{{summaryData.submitted}} <span>submitted / </span></b>
+                            {{summaryData.passed}} <span> passed</span>
+                        </h5>
+                    </div>
                 </div>
             </div>
         </div>
@@ -39,8 +43,11 @@
                         Average Score
                     </h5>
                 </div>
-                <div class="stat-body" *ngIf="averageScoreData">
-                    <donutchart [chartData]="averageScoreData" [id]="'averageScoreChart'"></donutchart>
+                <div class="stat-body">
+                    <div class="loader" *ngIf="!averageScoreData"></div>
+                    <div *ngIf="averageScoreData" class="animate-bottom">
+                        <donutchart [chartData]="averageScoreData" [id]="'averageScoreChart'"></donutchart>
+                    </div>
                 </div>
             </div>
         </div>
@@ -52,44 +59,25 @@
                         Average Time
                     </h5>
                 </div>
-                <div class="stat-body" *ngIf="averageTimeData">
-                    <barchart [chartData]="averageTimeData" [id]="'averageTimeChart'"></barchart>
+                <div class="stat-body">
+                    <div class="loader" *ngIf="!averageTimeData"></div>
+                    <div *ngIf="averageTimeData" class="animate-bottom">
+                        <barchart [chartData]="averageTimeData" [id]="'averageTimeChart'"></barchart>                        
+                    </div>
                 </div>
             </div>
         </div>
         <div class="clearfix"></div>
     </div>
     <div>
-        <div class="col-md-3 right">
-            <input placeholder="Search" type="search" [(ngModel)]="searchString"/>
+        <div class="col-md-3 right search-filter">
+            <input placeholder="Search" type="search" [(ngModel)]="searchString" (ngModelChange)="filterResultList()"/>
         </div>
         <div class="clearfix"></div>
     </div>
     <div>
         <div class="col-md-2 filter-col">
-            <div class="filter-container">
-                <div class="filter-header filter-block">
-                    <p>Refine by: <a class="right" (click)="clearFilters()">Clear all</a></p>
-                </div>
-                <div class="filter-block">
-                    <p>Role <a class="right" (click)="clearUserFilters()">Clear</a></p>
-                    <div *ngFor="let userGroup of this.userGroupFilters">
-                        <input type="checkbox" id="{{userGroup.id}}" [(ngModel)]="userGroup.checked" ><label [attr.for]="userGroup.id">{{userGroup.text}}</label>
-                    </div>
-                </div>
-                <div class="filter-block">
-                    <p>Dealership <a class="right" (click)="clearDealerFilters()">Clear</a></p>
-                    <div class="filter-block">
-                        <div *ngFor="let dealer of this.dealershipFilters">
-                            <input type="checkbox" id="{{dealer.id}}" [(ngModel)]="dealer.checked"><label [attr.for]="dealer.id">{{dealer.text}}</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="filter-block">
-                    <p>Range <a class="right" (click)="resetRange()">Reset</a></p>
-                    <div id="scoreRange"></div>
-                </div>
-            </div>
+            <userfilter [renderPointRange]="true" [renderUserGroupFilter]="true" [renderDealershipFilter]="true" (criteriaChanged)="filterUpdate($event)"></userfilter>
             <div class="clearfix"></div>
         </div>
         <div class="col-md-10">
@@ -113,9 +101,9 @@
                     </div>
                 </div>
                 
-                <div *ngIf="!filteredListData"><em>Loading...</em></div>
-                <div *ngIf="filteredListData && filteredListData.length === 0">No results have been found for the selected filters.</div>
-                <div *ngIf="filteredListData && filteredListData.length > 0" class="result-list-content">
+                <div class="loader" *ngIf="!filteredListData"></div>
+                <div *ngIf="filteredListData && filteredListData.length === 0" class="result-list-content">No results have been found for the selected filters.</div>
+                <div *ngIf="filteredListData && filteredListData.length > 0" class="result-list-content animate-bottom">
                     <div *ngFor="let quizResult of filteredListData | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}" class="result-list-content-row">
                         <div class="col-md-1">
                             <i class="material-icons person-icon">person</i>
@@ -130,7 +118,7 @@
                             {{ quizResult.dealershipName }}
                         </div>
                         <div class="col-md-2 border-bottom">
-                            <i class="material-icons" *ngIf="quizResult.resultPercentage===100">star_rate</i>
+                            <img src="assets/images/Icon-Leaderboard-b.png" class="leaderboard-icon" *ngIf="quizResult.resultPercentage===100" />
                             <span *ngIf="quizResult.resultPercentage!==100">{{ quizResult.resultPercentage }}%</span>
                         </div>
                         <div class="col-md-1">

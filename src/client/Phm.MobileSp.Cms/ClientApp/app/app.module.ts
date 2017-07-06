@@ -5,6 +5,10 @@ import { Ng2PaginationModule } from 'ng2-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { D3Service } from 'd3-ng2-service';
 import { NouisliderModule } from 'ng2-nouislider';
+import { Ng2TableModule } from 'ng2-table/ng2-table';
+import { PaginationModule } from 'ngx-bootstrap';
+import { MaterializeModule } from 'angular2-materialize';
+//import { IonRangeSliderModule } from "ng2-ion-range-slider";
 //import { CalendarModule } from 'primeng/primeng';
 //import { DateValueAccessor } from './classes/datevalueaccessor';
 
@@ -25,7 +29,7 @@ import { FooterComponent } from './components/navmenu/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
-import { UserAccountManagementComponent } from './components/useraccountmanagement/useraccountmanagement.component';
+import { UserAccountManagementComponent } from './components/accountmanagement/useraccountmanagement.component';
 import { TextFeedItemFormComponent } from './components/feed/modelforms/textfeeditem.component';
 import { FeedIndexComponent } from "./components/feed/indexes/feedindex.component";
 import { FeedItemForm } from "./components/feed/modelforms/feeditemform.component";
@@ -50,6 +54,18 @@ import GaugeChart = Gaugechartcomponent.GaugeChart;
 import Donutchartcomponent = require("./components/charts/donutchart.component");
 import { NavBarComponent } from "./components/navbar/navbar.component";
 import DonutChart = Donutchartcomponent.DonutChart;
+import Editusercomponent = require("./components/accountmanagement/modals/edituser.component");
+import EditUser = Editusercomponent.EditUser;
+import Userfiltercomponent = require("./components/common/filters/userfilter.component");
+import UserFilter = Userfiltercomponent.UserFilter;
+import Uploadcomponent = require("./components/media/upload.component");
+import UploadMediaComponent = Uploadcomponent.UploadMediaComponent;
+import { LeaderboardContainer } from "./components/reports/leaderboards/leaderboardcontainer.component";
+import { PartitionComponent } from "./components/reports/leaderboards/partition/partition.component";
+import { LbExecutivesTableComponent } from "./components/reports/leaderboards/lbexecutivestable/lbexecutivestable.component";
+import { LbrefineComponent } from "./components/reports/leaderboards/lbrefine/lbrefine.component";
+import { LeaderboardComponent } from "./components/reports/leaderboards/leaderboard/leaderboard.component";
+import { TabNavMenuComponent } from "./components/navmenu/tabnavmenu.component";
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -58,6 +74,7 @@ import DonutChart = Donutchartcomponent.DonutChart;
         BaseComponent,
         NavMenuComponent,
         NavBarComponent,
+        TabNavMenuComponent,
         FooterComponent,
         MarketDropdown,
         //DateValueAccessor,
@@ -83,14 +100,29 @@ import DonutChart = Donutchartcomponent.DonutChart;
         FeedReportIndexComponent,
         FeedItemReportContainerComponent,
         FeedItemReport,
-         
+
+        //leaderbaord
+        LeaderboardContainer,
+        LeaderboardComponent,
+        LbExecutivesTableComponent,
+        LbrefineComponent,
+        PartitionComponent,
+
+        // user management
+        EditUser,
+        
         // charts
         BarChart,
         GaugeChart,
         DonutChart,
 
         //modals
-        FeedItemCopyToMarket
+        FeedItemCopyToMarket,
+
+        //shared
+        UserFilter,
+
+        UploadMediaComponent
     ],
     imports: [
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
@@ -98,6 +130,9 @@ import DonutChart = Donutchartcomponent.DonutChart;
         FormsModule,
         NouisliderModule,
         ReactiveFormsModule,
+        Ng2TableModule,
+        //IonRangeSliderModule,
+        PaginationModule.forRoot(),
         //CalendarModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -105,11 +140,13 @@ import DonutChart = Donutchartcomponent.DonutChart;
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
             { path: 'useraccountmanagement', component: UserAccountManagementComponent },
-            { path: ':feedCat/feed', component: FeedIndexComponent },
+            { path: 'feed/:feedCat', component: FeedIndexComponent },
             { path: 'feed', component: FeedIndexComponent },
             { path: 'feeditem', component: FeedItemForm },
             { path: 'feeditem/:id', component: FeedItemForm },
-            { path: ':feedCat/feeditem', component: FeedItemForm },
+            { path: 'feeditem/:feedCat', component: FeedItemForm },
+            { path: 'reports/leaderboard', component: LeaderboardContainer },          
+            { path: 'reports', component: FeedReportIndexComponent },
             { path: 'reports/:feedType', component: FeedReportIndexComponent },
             { path: '**', redirectTo: 'home' }
         ])

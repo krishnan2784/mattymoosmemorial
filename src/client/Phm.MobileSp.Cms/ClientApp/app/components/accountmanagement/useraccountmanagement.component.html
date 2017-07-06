@@ -1,0 +1,50 @@
+<div class="loader" *ngIf="!filteredUserAccounts"></div>
+
+<div *ngIf="filteredUserAccounts">
+    <a (click)="editUser()" class="btn-floating btn-large waves-effect waves-light btn-top-right" data-toggle="modal" data-target="#edit-user">
+        <i class="material-icons">person_add</i>
+    </a>
+    <div class="animate-bottom">
+        <div class="col-md-8">
+            <pagination *ngIf="config.paging"
+                        class="pagination-sm right"
+                        [(ngModel)]="page"
+                        [totalItems]="length"
+                        [itemsPerPage]="itemsPerPage"
+                        [maxSize]="maxSize"
+                        [boundaryLinks]="true"
+                        [rotate]="false"
+                        (pageChanged)="onChangeTable(config, $event)"
+                        (numPages)="numPages = $event">
+            </pagination>
+            <ng-table [config]="config"
+                      (tableChanged)="onChangeTable(config)"
+                      (cellClicked)="onCellClick($event)"
+                      [rows]="rows" [columns]="columns">
+            </ng-table>
+            <pagination *ngIf="config.paging"
+                        class="pagination-sm right"
+                        [(ngModel)]="page"
+                        [totalItems]="length"
+                        [itemsPerPage]="itemsPerPage"
+                        [maxSize]="maxSize"
+                        [boundaryLinks]="true"
+                        [rotate]="false"
+                        (pageChanged)="onChangeTable(config, $event)"
+                        (numPages)="numPages = $event">
+            </pagination>
+        </div>
+        <div class="col-md-4">
+            <div class="search-filter hidden">
+                <input *ngIf="config.filtering" placeholder="Search..."
+                       [ngTableFiltering]="config.filtering"
+                       class="form-control"
+                       (tableChanged)="onChangeTable(config)" />
+            </div>
+            <userfilter [renderTextSearch]="true" [renderRegionFilter]="true" [renderZoneFilter]="true" (criteriaChanged)="filterUpdate($event)"></userfilter>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+</div>
+<base-modal [modalData]="modalData" [modalId]="'edit-user'" [modalHeader]="modalData ? modalData.inputs.title : ''" [modalDescription]="''" (modalClosed)="updateUser($event)"></base-modal>

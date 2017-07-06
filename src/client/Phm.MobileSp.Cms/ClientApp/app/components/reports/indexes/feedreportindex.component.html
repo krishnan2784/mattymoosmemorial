@@ -1,38 +1,7 @@
 <div *ngIf="!selectedItem">
-    <div>
-        <div class="col-md-12">
-            <div class="col-md-8 feed-index-type-container">
-                <span [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/reports', feedTypes.Quiz]" class="feed-cat-index">
-                        Quiz Analytics Index
-                    </a>
-                </span>
-                <span [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/reports', feedTypes.Survey]" class="feed-cat-index">
-                        Survey Analytics Index
-                    </a>
-                </span>
-                <span [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/reports', feedTypes.Observations]" class="feed-cat-index">
-                        Observations Analytics Index
-                    </a>
-                </span>
-  
-                <div class="clearfix"></div>
-            </div>
-            <div class="col-md-12">
-                <hr class="col-md-11 col-md-offset-1" />
-            </div>
-        </div>
-        
-        <div class="col-md-12" *ngIf="!this.feedItems">
-            <div class="col-md-12">
-                <div class="col-md-11 col-md-offset-1">
-                    <em>Loading feed...</em>
-                </div>
-            </div>
-        </div>
-        
+    <div>       
+        <div class="loader" *ngIf="!this.feedItems"></div>
+
         <div *ngIf="this.feedItems">
             <div class="col-md-12" *ngIf="this.feedItems.length === 0">
                 <div class="col-md-11 col-md-offset-1">
@@ -40,13 +9,13 @@
                 </div>
             </div>
 
-            <div class='feed-index col-md-12' *ngIf="this.feedItems.length > 0">
+            <div class='feed-index col-md-12 animate-bottom' *ngIf="this.feedItems.length > 0">
                 <div *ngFor="let feedItem of this.feedItems | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}" class="col-md-12 index-feed-item">
                     <div class="col-md-1">
                         <img src="assets/images/Icon-{{feedCats[feedItem.feedCategory]}}-b.png" class="feed-cat-img" *ngIf="feedItem.feedType!=feedTypes.Observation" />
                         <img src="assets/images/Icon-Observation-b.png" class="feed-cat-img" *ngIf="feedItem.feedType==feedTypes.Observation" />
                     </div>
-                    <div class="col-md-11 no-pad">
+                    <div class="col-md-9 no-pad">
                         <div class="col-md-11 no-pad">
                             <div class="col-md-12 feed-item-title">
                                 <h5>
@@ -59,11 +28,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-1">
-                            <a class="btn btn-inverted report-index-view-details" (click)="viewFeedItemDetails(feedItem)">Open</a>
-                        </div>
                         <div class="clearfix"></div>
-                        <hr />
+                    </div>
+                    <div class="col-md-2">
+                        <a class="btn btn-inverted right report-index-view-details" (click)="viewFeedItemDetails(feedItem)">Open</a>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -74,8 +42,6 @@
                                  autoHide="true">
             </pagination-controls>
         </div>
-        
-
     </div>
 </div>
 

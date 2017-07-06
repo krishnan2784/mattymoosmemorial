@@ -26,6 +26,8 @@ var MarketDropdown = (function () {
             _this.setCurrentMarketId();
         });
     }
+    MarketDropdown.prototype.ngAfterViewInit = function () {
+    };
     MarketDropdown.prototype.setCurrentMarketId = function () {
         var _this = this;
         this.marketDataService.getCurrentMarketId().subscribe(function (result) {

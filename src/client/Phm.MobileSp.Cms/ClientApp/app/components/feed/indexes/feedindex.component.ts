@@ -12,6 +12,7 @@ import { ShareService } from "../../../services/helpers/shareservice";
 import Userclasses = require("../../../models/userclasses");
 import UserMarket = Userclasses.UserMarket;
 import Copytomarketcomponent = require("../modals/copytomarket.component");
+import { DefaultTabNavs } from "../../navmenu/tabnavmenu.component";
 import FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
 import CopiedElementTypeEnum = Enums.CopiedElementTypeEnum;
 declare var $: any;
@@ -39,7 +40,7 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
         public feedDataService: FeedDataService,
         sharedService: ShareService) {
 
-        super(sharedService, '', true);
+        super(sharedService, '', true, '', DefaultTabNavs.feedIndexTabs);
         this.setupSubscriptions();
     }
 

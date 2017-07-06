@@ -1,0 +1,6 @@
+{
+  "MicrosoftAzureStorage": {
+    "mobilespstagingstorage_AzureStorageConnectionString": "DefaultEndpointsProtocol=https;AccountName=mobilespstagingstorage;AccountKey=UNeGTlebJS6N5WFFhnt3UacS+6XPfOOqZ9muFmvBDirDRbUGrTpbDeEJkk2Ume9SC0yr/8Pg+DtdY/bkKmCyYw==",
+    "containerRoot": "mobilesp"
+  }
+}

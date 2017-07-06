@@ -1,4 +1,4 @@
-﻿.navBarContents {
+.navBarContents {
   height: 50px;
   font-size: 14px;
   position: relative; }
@@ -54,4 +54,3 @@
   .navBarContents .notSelected {
     background: #eeeef0;
     border: 2px solid #6f6f6f; }
-

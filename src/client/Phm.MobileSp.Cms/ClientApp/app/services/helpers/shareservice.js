@@ -25,6 +25,8 @@ var ShareService = (function () {
         this.feedItemUpdate = new Subject_1.Subject();
         this.feedItemUpdated = this.feedItemUpdate.asObservable();
         this.goBackEvent = new core_1.EventEmitter();
+        this.tabNavUpdate = new Subject_1.Subject();
+        this.navTabsUpdated = this.tabNavUpdate.asObservable();
     }
     ShareService.prototype.updatePageTitle = function (pageTitle) {
         this.pageTitleUpdate.next(pageTitle);
@@ -46,6 +48,10 @@ var ShareService = (function () {
     };
     ShareService.prototype.goBack = function () {
         this.goBackEvent.emit();
+    };
+    ShareService.prototype.updateNavTabs = function (navItems) {
+        console.log('1:' + navItems);
+        this.tabNavUpdate.next(navItems);
     };
     return ShareService;
 }());

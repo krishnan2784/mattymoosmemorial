@@ -1,10 +1,27 @@
-﻿/// <binding BeforeBuild='assets, less, typescript, css, javascript' Clean='clean' ProjectOpened='watch-assets, watch-less, watch-ts' />
+﻿/// <binding BeforeBuild='assets, less, typescript, css, javascript' AfterBuild='dummy-data' Clean='clean' ProjectOpened='watch-assets, watch-less, watch-ts' />
 var gulp = require('gulp');
 var less = require('gulp-less');
+var sass = require('gulp-sass');
+var rename = require('gulp-rename');
 var path = require('path');
 var changed = require('gulp-changed');
 var ts = require('gulp-typescript');
 var clean = require('gulp-clean');
+
+gulp.task('dummy-data', function () {
+    return gulp.src('./ClientApp/**/data2.json')
+            .pipe(rename({dirname: ''}))
+          .pipe(changed('./wwwroot/assets'))
+            .pipe(gulp.dest('./wwwroot/assets'));
+});
+
+gulp.task('sass', function() {
+    gulp.src('./ClientApp/**/*.scss')
+        .pipe(sass())
+        .pipe(gulp.dest(function(f) {
+            return f.base;
+        }))
+});
 
 gulp.task('assets', function () {
     return gulp.src('./assets/**')
@@ -45,6 +62,10 @@ gulp.task('javascript', function () {
 
 gulp.task('watch-assets', function () {
     gulp.watch('./assets/**/*', ['assets']);
+});
+
+gulp.task('watch-scss', function () {
+    gulp.watch('./ClientApp/**/*.scss', ['sass']);
 });
 
 gulp.task('watch-less', function () {

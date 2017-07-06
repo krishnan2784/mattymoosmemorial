@@ -14,6 +14,8 @@ var feeddataservice_1 = require("../../services/feeddataservice");
 var marketdataservice_1 = require("../../services/marketdataservice");
 var shareservice_1 = require("../../services/helpers/shareservice");
 var userdataservice_1 = require("../../services/userdataservice");
+var Mediaservice = require("../../services/mediaservice");
+var MediaDataService = Mediaservice.MediaDataService;
 var AppComponent = (function () {
     function AppComponent(sharedService) {
         var _this = this;
@@ -47,7 +49,7 @@ AppComponent = __decorate([
         selector: 'app',
         template: require('./app.component.html'),
         styles: [require('./app.component.css')],
-        providers: [feeddataservice_1.FeedDataService, marketdataservice_1.MarketDataService, shareservice_1.ShareService, userdataservice_1.UserDataService]
+        providers: [feeddataservice_1.FeedDataService, marketdataservice_1.MarketDataService, shareservice_1.ShareService, userdataservice_1.UserDataService, MediaDataService]
     }),
     __metadata("design:paramtypes", [shareservice_1.ShareService])
 ], AppComponent);

@@ -104,6 +104,18 @@ var FeedDataService = (function (_super) {
             });
         });
     };
+    FeedDataService.prototype.getLeaderBoard = function (startDate, endDate) {
+        if (startDate === void 0) { startDate = null; }
+        if (endDate === void 0) { endDate = null; }
+        var requestUrl = '/api/Feed/GetLeaderBoard';
+        if (startDate || endDate) {
+            requestUrl = requestUrl + '?'
+                + (startDate ? 'startDate=' + startDate : '')
+                + (startDate && endDate ? '&' : '')
+                + (endDate ? 'endDate=' + endDate : '');
+        }
+        return this.getRequestBase(requestUrl);
+    };
     return FeedDataService;
 }(requesthelper_1.RequestHelper));
 FeedDataService = __decorate([

@@ -118,7 +118,6 @@ export class FeedItemCopyToMarket extends BaseModalContent implements OnInit, IM
         this.marketContentService.copyItemToMarket(this.model.id, marketIds).subscribe((result) => {
             if (result.success) {
                 this.closeModal();
-                this.markMarketsAsCopied();
             }
         });
     }

@@ -97,4 +97,15 @@ export class FeedDataService extends RequestHelper implements IFeedDataService, 
             });
         });
     }
+
+    public getLeaderBoard(startDate: string = null, endDate: string = null) {
+        var requestUrl = '/api/Feed/GetLeaderBoard';
+        if (startDate || endDate) {
+            requestUrl = requestUrl + '?'
+                + (startDate ? 'startDate=' + startDate : '')
+                + (startDate && endDate ? '&' : '')
+                + (endDate ? 'endDate=' + endDate : '');
+        }
+        return this.getRequestBase(requestUrl);
+    }
 }

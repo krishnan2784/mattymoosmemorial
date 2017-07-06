@@ -1,65 +1,18 @@
 <div *ngIf="!feedFormData">
-    
-    <a (click)="editFeedItem()" class="btn-floating btn-large waves-effect waves-light btn-add-feed-item">
-        <i class="material-icons">add</i>
-    </a>
-
     <div>
-        <div class="col-md-12">
-            <div class="col-md-8 feed-index-type-container">
-                <span [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/feed']" class="feed-cat-index">
-                        All
-                    </a>
-                </span>
-                <span [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/', feedCats.Announcement, 'feed']" class="feed-cat-index">
-                        Announcement
-                    </a>
-                </span>
-                <span [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/', feedCats.Article, 'feed']" class="feed-cat-index">
-                        Article
-                    </a>
-                </span>
-                <span [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/', feedCats.Campaign, 'feed']" class="feed-cat-index">
-                        Campaign
-                    </a>
-                </span>
-                <span [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/', feedCats.Learning, 'feed']" class="feed-cat-index">
-                        Learning
-                    </a>
-                </span>
-                <span [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/', feedCats.News, 'feed']" class="feed-cat-index">
-                        News
-                    </a>
-                </span>             
-                <div class="clearfix"></div>
-            </div>
-            <div class="col-md-12">
-                <hr class="col-md-11 col-md-offset-1" />
-            </div>
-        </div>
-        
-        <div class="col-md-12" *ngIf="!this.feedItems">
-            <div class="col-md-12">
-                <div class="col-md-11 col-md-offset-1">
-                    <em>Loading feed...</em>
-                </div>
-            </div>
-        </div>
-        
+        <div class="loader" *ngIf="!this.feedItems"></div>
+                
         <div *ngIf="this.feedItems">
+            <a (click)="editFeedItem()" class="btn-floating btn-large waves-effect waves-light btn-top-right">
+                <i class="material-icons">add</i>
+            </a>
             <div class="col-md-12" *ngIf="this.feedItems.length === 0">
                 <div class="col-md-11 col-md-offset-1">
                     <em>No items to display.</em>
                 </div>
             </div>
 
-            <div class='feed-index col-md-12' *ngIf="this.feedItems.length > 0">
+            <div class='feed-index col-md-12 animate-bottom' *ngIf="this.feedItems.length > 0">
                 <div *ngFor="let feedItem of this.feedItems | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}" class="col-md-12 index-feed-item">
                     <div class="col-md-1">
                         <img src="assets/images/Icon-{{feedCats[feedItem.feedCategory]}}-b.png" class="feed-cat-img" *ngIf="feedItem.feedType!=feedTypes.Observation" />
@@ -134,7 +87,6 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                        <hr />
                     </div>
                     <div class="clearfix"></div>
                 </div>

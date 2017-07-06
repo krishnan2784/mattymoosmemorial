@@ -6,6 +6,7 @@ using MLearningCoreService;
 using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Core.Models.Interfaces;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
+using System;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 {
@@ -109,8 +110,8 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
                     UserGroupId = userGroupId
                 })
             });
-            var response = await _proxyClient.GetQuizResultsSummariesEXAsync(new GetQuizResultsSummariesEXRequest1(request));
-            return response.GetQuizResultsSummariesEXResult.QuizResultsSummaries;
+            var response = await _proxyClient.GetQuizResultsSummariesEXAsync(request);
+            return response.QuizResultsSummaries;
         }
 
         public async Task<dynamic> GetQuizSummaryFilters(int marketId)
@@ -119,8 +120,8 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             {
                 MarketId = marketId
             });
-            var response = await _proxyClient.GetQuizSummaryFiltersAsync(new GetQuizSummaryFiltersRequest1(request));
-            return response.GetQuizSummaryFiltersResult;
+            var response = await _proxyClient.GetQuizSummaryFiltersAsync(request);
+            return response;
         }
 
         public async Task<bool> CopyFeedItemToMarketAsync(int feedItemId, List<int> marketIds)
@@ -135,5 +136,27 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             var response = await _proxyCoreClient.CopyFeedToMarketAsync(request);
             return response.BaseFeeds?.Count == marketIds.Count;
         }
+
+        public async Task<dynamic> GetLeaderBoard(int currentMarketId, DateTime? startDate = null, DateTime? endDate = null)
+        {
+            try
+            {
+                var request = GetRequest(new GetLeaderBoardDataRequest
+                {
+                    Criteria = GetCriteria(new LeaderBoardDataCriteriaDto()
+                    {
+                        MarketId = currentMarketId,
+                        StartDate = startDate,
+                        EndDate = endDate
+                    })
+                });
+                var response = await _proxyClient.GetLeaderBoardDataAsync(request);
+                return response.LeaderBoardData;   
+            }catch (Exception e)
+            {
+                return null;
+            }         
+        }
+
     }
 }

@@ -1,0 +1,9 @@
+﻿.button-col .btn {
+     padding: 0 15px;
+    background-color: #EDEDED;
+    color: #000;
+}
+
+.button-col {
+    text-align: center;
+}

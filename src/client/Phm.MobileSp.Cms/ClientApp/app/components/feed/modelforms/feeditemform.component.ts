@@ -170,7 +170,6 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
 
     save(feedItem: FeedItem, isValid: boolean) {
         this.submitted = true;
-
         if (!isValid)
             return;
 

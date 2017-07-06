@@ -12,6 +12,7 @@ import UserMarket = Userclasses.UserMarket;
 import Feeditemreportcomponent = require("../feeditemreport.component");
 import FeedItemReport = Feeditemreportcomponent.FeedItemReport;
 import Feeddataservice = require("../../../services/feeddataservice");
+import { DefaultTabNavs } from "../../navmenu/tabnavmenu.component";
 
 declare var $: any;
 declare var Materialize: any;
@@ -36,7 +37,7 @@ export class FeedReportIndexComponent extends BaseComponent implements OnInit, O
         public feedDataService: FeedDataService,
         sharedService: ShareService) {
 
-        super(sharedService, 'Reports', true);
+        super(sharedService, 'Reports', true, '', DefaultTabNavs.reportsTabs);
         this.setupSubscriptions();
     }
 
@@ -50,6 +51,7 @@ export class FeedReportIndexComponent extends BaseComponent implements OnInit, O
         if (!this.sharedService.currentMarket || !this.sharedService.currentMarket.id)
             return;
         this.currentMarket = this.sharedService.currentMarket;
+        this.selectedItem = null;
         this.feedItems = null;
         this.getData();
     }
@@ -57,7 +59,10 @@ export class FeedReportIndexComponent extends BaseComponent implements OnInit, O
     ngOnInit() {
         this.id_sub = this.route.params.subscribe(
             (params: any) => {
-                this.feedTypeId = +params["feedType"];
+                if (params["feedType"]) {
+                    this.feedTypeId = +params["feedType"];
+                } else
+                    this.feedTypeId = FeedTypeEnum.Quiz;
                 this.updateMarket();
             }
         );

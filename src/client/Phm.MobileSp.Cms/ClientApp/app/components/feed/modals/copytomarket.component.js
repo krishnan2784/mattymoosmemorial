@@ -120,7 +120,6 @@ var FeedItemCopyToMarket = (function (_super) {
         this.marketContentService.copyItemToMarket(this.model.id, marketIds).subscribe(function (result) {
             if (result.success) {
                 _this.closeModal();
-                _this.markMarketsAsCopied();
             }
         });
     };
