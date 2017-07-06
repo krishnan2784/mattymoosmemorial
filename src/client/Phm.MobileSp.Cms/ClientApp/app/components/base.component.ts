@@ -16,7 +16,7 @@ export class BaseComponent implements  OnDestroy {
         this.updateTabNavItems(tabNavItems);
     }
 
-    public updatePageTitle(pageTitle: string) {
+    public updatePageTitle(pageTitle: string = '') {
         this.sharedService.updatePageTitle(pageTitle);
     }
 
@@ -24,7 +24,7 @@ export class BaseComponent implements  OnDestroy {
         this.sharedService.updateMarketDropdownVisibility(displayMarketDropdown);
     }
 
-    public updateBackText(backText: string) {
+    public updateBackText(backText: string = '') {
         this.sharedService.updateBackButton(backText);
         if (backText !== '') {
             this.sharedService.goBackEvent.subscribe(() => {
@@ -33,8 +33,7 @@ export class BaseComponent implements  OnDestroy {
         }
     }
 
-    public updateTabNavItems(tabNavItems: NavItem[]) {
-        console.log('1:' + tabNavItems);
+    public updateTabNavItems(tabNavItems: NavItem[] =[]) {
         this.sharedService.updateNavTabs(tabNavItems);
     }
 

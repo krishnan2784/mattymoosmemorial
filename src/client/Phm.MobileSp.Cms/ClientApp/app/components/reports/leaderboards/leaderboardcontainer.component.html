@@ -1,3 +1,5 @@
+<div class="loader" *ngIf="!leaderBoard"></div>
+
 <leaderboard *ngIf="leaderBoard"
              [data]="leaderBoard"
              [updatedData]="myUpdatedData"

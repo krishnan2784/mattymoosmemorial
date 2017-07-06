@@ -24,6 +24,9 @@
     <NoStdLib>false</NoStdLib>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="wwwroot\assets\images\Icon-Leaderboard-b.png" />
+  </ItemGroup>
+  <ItemGroup>
     <None Update="ClientApp\dist\**\*;node_modules\**\*;Views\**\*;wwwroot\**\*">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </None>

@@ -68,15 +68,20 @@ export class UserFilter implements AfterViewInit, OnDestroy {
         this.feedDataService.getQuizSummaryFilters().subscribe((result) => {
             if (result) {
                 if (this.renderUserGroupFilter && result.userGroupNames) {
+                    this.criteria.allUserGroupFilters = [];
                     result.userGroupNames.forEach((group) => {
                         this.criteria.allUserGroupFilters.push({ id: group.replace(" ", ""), text: group, checked: false });
                     });
                 }
                 if (this.renderDealershipFilter && result.dealershipNames) {
+                    this.criteria.allDealershipFilters = [];
                     result.dealershipNames.forEach((group) => {
                         this.criteria.allDealershipFilters.push({ id: group.replace(" ", ""), text: group, checked: false });
                     });
                 }
+                this.criteria.allZoneFilters = [];
+                this.criteria.allRegionFilters = [];
+
                 this.criteria.allRegionFilters.push({ id: 'Region 1', text: 'Region 1', checked: false });
                 this.criteria.allRegionFilters.push({ id: 'Region 2', text: 'Region 2', checked: false });
                 this.criteria.allRegionFilters.push({ id: 'Region 3', text: 'Region 3', checked: false });
@@ -169,10 +174,10 @@ export class UserFilter implements AfterViewInit, OnDestroy {
 }
 
 export class UserFilters {
-    public allUserGroupFilters: { id: string, text: string, checked: boolean }[] = [];
-    public allDealershipFilters: { id: string, text: string, checked: boolean }[] = [];
-    public allZoneFilters: { id: string, text: string, checked: boolean }[] = [];
-    public allRegionFilters: { id: string, text: string, checked: boolean }[] = [];
+    public allUserGroupFilters: { id: string, text: string, checked: boolean }[];
+    public allDealershipFilters: { id: string, text: string, checked: boolean }[];
+    public allZoneFilters: { id: string, text: string, checked: boolean }[];
+    public allRegionFilters: { id: string, text: string, checked: boolean }[];
     public userGroupFilters: { id: string, text: string, checked: boolean }[] = [];
     public dealershipFilters: { id: string, text: string, checked: boolean }[] = [];
     public zoneFilters: { id: string, text: string, checked: boolean }[] = [];

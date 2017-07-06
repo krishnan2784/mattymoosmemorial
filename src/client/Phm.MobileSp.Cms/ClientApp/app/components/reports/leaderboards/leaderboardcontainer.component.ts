@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { BaseComponent} from "../../base.component";
 import { ShareService } from "../../../services/helpers/shareservice";
 import { UserMarket } from "../../../models/userclasses";
+import { DefaultTabNavs } from "../../navmenu/tabnavmenu.component";
 
 @Component({
     selector: 'leaderboardcontainer',
@@ -50,7 +51,7 @@ export class LeaderboardContainer extends BaseComponent {
     ];
 
     constructor(public feedDataService: FeedDataService,sharedService: ShareService) {
-        super(sharedService, 'Leaderboard', true);
+        super(sharedService, 'Leaderboard', true, '', DefaultTabNavs.reportsTabs);
         this.setupSubscriptions();
         this.getData();
     }

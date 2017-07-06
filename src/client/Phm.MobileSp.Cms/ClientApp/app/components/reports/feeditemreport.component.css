@@ -54,9 +54,13 @@
  }
 
 .stat-body {
-    min-height: 220px;
+    height: 220px;
     padding: 10px;
     text-align: center;
+}
+
+.stat-body .loader{
+    margin-top: 5%;
 }
 
 .filter-col {
@@ -71,6 +75,12 @@
 .filter-block {
     border: 1px solid #eee;
     padding: 10px;
+}
+.filter-block .loader{
+    margin:5% 20%;
+}
+.result-list .loader {
+    margin: 5% 40%;
 }
 .result-list {
     margin-bottom: 50px;
@@ -119,4 +129,7 @@
 .search-filter input {
     background-color: #fff;
     margin-top: 20px;
+}
+.leaderboard-icon {
+    width: 15px;
 }

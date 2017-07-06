@@ -53,6 +53,7 @@ var FeedReportIndexComponent = (function (_super) {
         if (!this.sharedService.currentMarket || !this.sharedService.currentMarket.id)
             return;
         this.currentMarket = this.sharedService.currentMarket;
+        this.selectedItem = null;
         this.feedItems = null;
         this.getData();
     };

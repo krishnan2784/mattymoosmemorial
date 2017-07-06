@@ -1,10 +1,4 @@
-
-<div *ngIf="!model">
-    <em>Loading...</em>
-</div>
-
-
-
+<div class="loader" *ngIf="!model"></div>
 
 <form [formGroup]="form" novalidate (ngSubmit)="save(form.value, form.valid)" *ngIf="model" class="feed-item-form-container">
     

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ShareService } from "../../services/helpers/shareservice";
-import { FeedTypeEnum } from "../../enums";
+import { FeedTypeEnum, FeedCategoryEnum } from "../../enums";
 
 @Component({
     selector: 'tab-nav-menu',
@@ -19,15 +19,20 @@ export class TabNavMenuComponent {
 }
 
 export class NavItem {
-    constructor(public displayText: string, public link: string, public colour: string = 'DFE1E0') {    }
+    constructor(public displayText: string, public link: string, public colourClass: string = 'grey') {    }
 }
 
 export class DefaultTabNavs {
+    public static feedIndexTabs: NavItem[] = [
+        new NavItem('All', '/feed'),
+        new NavItem('Announcement', '/' + FeedCategoryEnum.Announcement + '/feed'),
+        new NavItem('Article', '/' + FeedCategoryEnum.Article + '/feed'),
+        new NavItem('Campaign', '/' + FeedCategoryEnum.Campaign + '/feed'),
+        new NavItem('Learning', '/' + FeedCategoryEnum.Learning + '/feed'),
+        new NavItem('News', '/' + FeedCategoryEnum.News + '/feed')];
     public static reportsTabs: NavItem[] = [
-        new NavItem('Quiz Reports', '/reports/' + FeedTypeEnum.Quiz),
-        new NavItem('Survey Reports', '/reports/' + FeedTypeEnum.Survey),
-        new NavItem('Observation Reports', '/reports/' + FeedTypeEnum.Observation),
-        new NavItem('Leaderboards', '/leaderboard', '27B295')];
-
-
+            new NavItem('Quiz Reports', '/reports/' + FeedTypeEnum.Quiz),
+            new NavItem('Survey Reports', '/reports/' + FeedTypeEnum.Survey),
+            new NavItem('Observation Reports', '/reports/' + FeedTypeEnum.Observation),
+            new NavItem('Leaderboards', '/leaderboard', 'teal')];
 }

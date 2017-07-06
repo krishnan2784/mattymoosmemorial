@@ -4,12 +4,12 @@
     border-bottom: 2px solid #D8DEDC;
     margin: 0 -15px 0 -12px;
     height: 50px;
-    padding-top: 14px;
     padding-left: 25px;
 }
 .tab-nav-container li {
     display: inline-block;   
     min-width: 125px;
+    padding: 0 15px;
     text-align: center;
     color: #000;
     text-decoration: none;
@@ -18,9 +18,20 @@
     color: #000;
     text-decoration: none;
 }
+.header-style{ 
+    width: 50%;
+    height:5px;
+}
 .tabnavitem:not(.link-active) .header-style {
-    background-color: transparent;
+    background-color: transparent!important;
 }
-.tabnavitem.link-active a {
-    color: #ff0000;
+.tabnavitem a {
+    padding-top: 14px;
 }
+
+.link-active a {
+    font-weight: 600;
+}
+
+.grey{background-color:#DFE1E0}
+.teal{ background-color: #27B295;}

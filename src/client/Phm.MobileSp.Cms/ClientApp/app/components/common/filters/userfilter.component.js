@@ -58,15 +58,19 @@ var UserFilter = (function () {
         this.feedDataService.getQuizSummaryFilters().subscribe(function (result) {
             if (result) {
                 if (_this.renderUserGroupFilter && result.userGroupNames) {
+                    _this.criteria.allUserGroupFilters = [];
                     result.userGroupNames.forEach(function (group) {
                         _this.criteria.allUserGroupFilters.push({ id: group.replace(" ", ""), text: group, checked: false });
                     });
                 }
                 if (_this.renderDealershipFilter && result.dealershipNames) {
+                    _this.criteria.allDealershipFilters = [];
                     result.dealershipNames.forEach(function (group) {
                         _this.criteria.allDealershipFilters.push({ id: group.replace(" ", ""), text: group, checked: false });
                     });
                 }
+                _this.criteria.allZoneFilters = [];
+                _this.criteria.allRegionFilters = [];
                 _this.criteria.allRegionFilters.push({ id: 'Region 1', text: 'Region 1', checked: false });
                 _this.criteria.allRegionFilters.push({ id: 'Region 2', text: 'Region 2', checked: false });
                 _this.criteria.allRegionFilters.push({ id: 'Region 3', text: 'Region 3', checked: false });
@@ -188,10 +192,6 @@ UserFilter = __decorate([
 exports.UserFilter = UserFilter;
 var UserFilters = (function () {
     function UserFilters() {
-        this.allUserGroupFilters = [];
-        this.allDealershipFilters = [];
-        this.allZoneFilters = [];
-        this.allRegionFilters = [];
         this.userGroupFilters = [];
         this.dealershipFilters = [];
         this.zoneFilters = [];

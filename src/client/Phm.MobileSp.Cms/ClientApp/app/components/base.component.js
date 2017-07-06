@@ -22,6 +22,7 @@ var BaseComponent = (function () {
         this.updateTabNavItems(tabNavItems);
     }
     BaseComponent.prototype.updatePageTitle = function (pageTitle) {
+        if (pageTitle === void 0) { pageTitle = ''; }
         this.sharedService.updatePageTitle(pageTitle);
     };
     BaseComponent.prototype.updateMarketDropdownVisibility = function (displayMarketDropdown) {
@@ -29,6 +30,7 @@ var BaseComponent = (function () {
     };
     BaseComponent.prototype.updateBackText = function (backText) {
         var _this = this;
+        if (backText === void 0) { backText = ''; }
         this.sharedService.updateBackButton(backText);
         if (backText !== '') {
             this.sharedService.goBackEvent.subscribe(function () {
@@ -37,7 +39,7 @@ var BaseComponent = (function () {
         }
     };
     BaseComponent.prototype.updateTabNavItems = function (tabNavItems) {
-        console.log('1:' + tabNavItems);
+        if (tabNavItems === void 0) { tabNavItems = []; }
         this.sharedService.updateNavTabs(tabNavItems);
     };
     BaseComponent.prototype.goBack = function () {

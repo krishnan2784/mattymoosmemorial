@@ -33,11 +33,11 @@ TabNavMenuComponent = __decorate([
 ], TabNavMenuComponent);
 exports.TabNavMenuComponent = TabNavMenuComponent;
 var NavItem = (function () {
-    function NavItem(displayText, link, colour) {
-        if (colour === void 0) { colour = 'DFE1E0'; }
+    function NavItem(displayText, link, colourClass) {
+        if (colourClass === void 0) { colourClass = 'grey'; }
         this.displayText = displayText;
         this.link = link;
-        this.colour = colour;
+        this.colourClass = colourClass;
     }
     return NavItem;
 }());
@@ -47,11 +47,19 @@ var DefaultTabNavs = (function () {
     }
     return DefaultTabNavs;
 }());
+DefaultTabNavs.feedIndexTabs = [
+    new NavItem('All', '/feed'),
+    new NavItem('Announcement', '/' + enums_1.FeedCategoryEnum.Announcement + '/feed'),
+    new NavItem('Article', '/' + enums_1.FeedCategoryEnum.Article + '/feed'),
+    new NavItem('Campaign', '/' + enums_1.FeedCategoryEnum.Campaign + '/feed'),
+    new NavItem('Learning', '/' + enums_1.FeedCategoryEnum.Learning + '/feed'),
+    new NavItem('News', '/' + enums_1.FeedCategoryEnum.News + '/feed')
+];
 DefaultTabNavs.reportsTabs = [
     new NavItem('Quiz Reports', '/reports/' + enums_1.FeedTypeEnum.Quiz),
     new NavItem('Survey Reports', '/reports/' + enums_1.FeedTypeEnum.Survey),
     new NavItem('Observation Reports', '/reports/' + enums_1.FeedTypeEnum.Observation),
-    new NavItem('Leaderboards', '/leaderboard', '27B295')
+    new NavItem('Leaderboards', '/leaderboard', 'teal')
 ];
 exports.DefaultTabNavs = DefaultTabNavs;
 //# sourceMappingURL=tabnavmenu.component.js.map

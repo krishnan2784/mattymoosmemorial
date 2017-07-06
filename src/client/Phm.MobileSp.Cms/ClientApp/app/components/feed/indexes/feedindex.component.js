@@ -29,12 +29,13 @@ var FeedCategoryEnum = Enums.FeedCategoryEnum;
 var base_component_1 = require("../../base.component");
 var shareservice_1 = require("../../../services/helpers/shareservice");
 var Copytomarketcomponent = require("../modals/copytomarket.component");
+var tabnavmenu_component_1 = require("../../navmenu/tabnavmenu.component");
 var FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
 var CopiedElementTypeEnum = Enums.CopiedElementTypeEnum;
 var FeedIndexComponent = (function (_super) {
     __extends(FeedIndexComponent, _super);
     function FeedIndexComponent(route, router, feedDataService, sharedService) {
-        var _this = _super.call(this, sharedService, '', true) || this;
+        var _this = _super.call(this, sharedService, '', true, '', tabnavmenu_component_1.DefaultTabNavs.feedIndexTabs) || this;
         _this.route = route;
         _this.router = router;
         _this.feedDataService = feedDataService;

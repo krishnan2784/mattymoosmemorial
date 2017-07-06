@@ -23,10 +23,11 @@ var core_1 = require("@angular/core");
 var feeddataservice_1 = require("../../../services/feeddataservice");
 var base_component_1 = require("../../base.component");
 var shareservice_1 = require("../../../services/helpers/shareservice");
+var tabnavmenu_component_1 = require("../../navmenu/tabnavmenu.component");
 var LeaderboardContainer = (function (_super) {
     __extends(LeaderboardContainer, _super);
     function LeaderboardContainer(feedDataService, sharedService) {
-        var _this = _super.call(this, sharedService, 'Leaderboard', true) || this;
+        var _this = _super.call(this, sharedService, 'Leaderboard', true, '', tabnavmenu_component_1.DefaultTabNavs.reportsTabs) || this;
         _this.feedDataService = feedDataService;
         _this.loading = true;
         _this.refineGroups = [
