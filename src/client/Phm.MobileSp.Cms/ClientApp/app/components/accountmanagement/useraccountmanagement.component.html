@@ -1,6 +1,6 @@
 <div class="loader" *ngIf="!filteredUserAccounts"></div>
 
-<div *ngIf="filteredUserAccounts">
+<div *ngIf="filteredUserAccounts" class="animate-bottom">
     <a (click)="editUser()" class="btn-floating btn-large waves-effect waves-light btn-top-right" data-toggle="modal" data-target="#edit-user">
         <i class="material-icons">person_add</i>
     </a>

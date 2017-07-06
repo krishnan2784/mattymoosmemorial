@@ -25,7 +25,7 @@
 
                 <div class="stat-body">
                     <div class="loader" *ngIf="!passRatioData"></div>   
-                    <div *ngIf="passRatioData">
+                    <div *ngIf="passRatioData" class="animate-bottom">
                         <gaugechart [chartData]="passRatioData" [id]="'passRatioChart'"></gaugechart>
                         <h5 *ngIf="summaryData">
                             <b>{{summaryData.submitted}} <span>submitted / </span></b>
@@ -45,7 +45,7 @@
                 </div>
                 <div class="stat-body">
                     <div class="loader" *ngIf="!averageScoreData"></div>
-                    <div *ngIf="averageScoreData">
+                    <div *ngIf="averageScoreData" class="animate-bottom">
                         <donutchart [chartData]="averageScoreData" [id]="'averageScoreChart'"></donutchart>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
                 </div>
                 <div class="stat-body">
                     <div class="loader" *ngIf="!averageTimeData"></div>
-                    <div *ngIf="averageTimeData">
+                    <div *ngIf="averageTimeData" class="animate-bottom">
                         <barchart [chartData]="averageTimeData" [id]="'averageTimeChart'"></barchart>                        
                     </div>
                 </div>
@@ -103,7 +103,7 @@
                 
                 <div class="loader" *ngIf="!filteredListData"></div>
                 <div *ngIf="filteredListData && filteredListData.length === 0" class="result-list-content">No results have been found for the selected filters.</div>
-                <div *ngIf="filteredListData && filteredListData.length > 0" class="result-list-content">
+                <div *ngIf="filteredListData && filteredListData.length > 0" class="result-list-content animate-bottom">
                     <div *ngFor="let quizResult of filteredListData | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}" class="result-list-content-row">
                         <div class="col-md-1">
                             <i class="material-icons person-icon">person</i>

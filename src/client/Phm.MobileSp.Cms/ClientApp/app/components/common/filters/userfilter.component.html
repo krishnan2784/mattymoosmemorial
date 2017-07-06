@@ -12,7 +12,7 @@
             <p>Role <a class="right" (click)="clearUserFilters();broadcastChanges();">Clear</a>
             </p>
             <div class="loader" *ngIf="!this.criteria.allUserGroupFilters"></div>
-            <div *ngIf="this.criteria.allUserGroupFilters">
+            <div *ngIf="this.criteria.allUserGroupFilters" class="animate-bottom">
                 <div *ngFor="let userGroup of this.criteria.allUserGroupFilters">
                     <input type="checkbox" id="{{userGroup.id}}" [(ngModel)]="userGroup.checked" (click)="broadcastChanges()"><label [attr.for]="userGroup.id">{{userGroup.text}}</label>
                 </div>
@@ -23,7 +23,7 @@
             </p>
             <div class="filter-block">
                 <div class="loader" *ngIf="!this.criteria.allDealershipFilters"></div>
-                <div *ngIf="this.criteria.allDealershipFilters">
+                <div *ngIf="this.criteria.allDealershipFilters" class="animate-bottom">
                     <div *ngFor="let dealer of this.criteria.allDealershipFilters">
                         <input type="checkbox" id="{{dealer.id}}" [(ngModel)]="dealer.checked" (click)="broadcastChanges()"><label [attr.for]="dealer.id">{{dealer.text}}</label>
                     </div>
@@ -35,7 +35,7 @@
             </p>
             <div class="filter-block">
                 <div class="loader" *ngIf="!this.criteria.allZoneFilters"></div>
-                <div *ngIf="this.criteria.allZoneFilters">
+                <div *ngIf="this.criteria.allZoneFilters" class="animate-bottom">
                     <div *ngFor="let zone of this.criteria.allZoneFilters">
                         <input type="checkbox" id="{{zone.id}}" [(ngModel)]="zone.checked" (click)="broadcastChanges()"><label [attr.for]="zone.id">{{zone.text}}</label>
                     </div>
@@ -47,7 +47,7 @@
             </p>
             <div class="filter-block">
                 <div class="loader" *ngIf="!this.criteria.allRegionFilters"></div>
-                <div *ngIf="this.criteria.allRegionFilters">
+                <div *ngIf="this.criteria.allRegionFilters" class="animate-bottom">
                     <div *ngFor="let region of this.criteria.allRegionFilters">
                         <input type="checkbox" id="{{region.id}}" [(ngModel)]="region.checked" (click)="broadcastChanges()"><label [attr.for]="region.id">{{region.text}}</label>
                     </div>
