@@ -138,13 +138,14 @@ AppModule = __decorate([
                 { path: 'counter', component: counter_component_1.CounterComponent },
                 { path: 'fetch-data', component: fetchdata_component_1.FetchDataComponent },
                 { path: 'useraccountmanagement', component: useraccountmanagement_component_1.UserAccountManagementComponent },
-                { path: ':feedCat/feed', component: feedindex_component_1.FeedIndexComponent },
+                { path: 'feed/:feedCat', component: feedindex_component_1.FeedIndexComponent },
                 { path: 'feed', component: feedindex_component_1.FeedIndexComponent },
                 { path: 'feeditem', component: feeditemform_component_1.FeedItemForm },
                 { path: 'feeditem/:id', component: feeditemform_component_1.FeedItemForm },
-                { path: ':feedCat/feeditem', component: feeditemform_component_1.FeedItemForm },
+                { path: 'feeditem/:feedCat', component: feeditemform_component_1.FeedItemForm },
+                { path: 'reports/leaderboard', component: leaderboardcontainer_component_1.LeaderboardContainer },
+                { path: 'reports', component: feedreportindex_component_1.FeedReportIndexComponent },
                 { path: 'reports/:feedType', component: feedreportindex_component_1.FeedReportIndexComponent },
-                { path: 'leaderboard', component: leaderboardcontainer_component_1.LeaderboardContainer },
                 { path: '**', redirectTo: 'home' }
             ])
         ]

@@ -25,14 +25,14 @@ export class NavItem {
 export class DefaultTabNavs {
     public static feedIndexTabs: NavItem[] = [
         new NavItem('All', '/feed'),
-        new NavItem('Announcement', '/' + FeedCategoryEnum.Announcement + '/feed'),
-        new NavItem('Article', '/' + FeedCategoryEnum.Article + '/feed'),
-        new NavItem('Campaign', '/' + FeedCategoryEnum.Campaign + '/feed'),
-        new NavItem('Learning', '/' + FeedCategoryEnum.Learning + '/feed'),
-        new NavItem('News', '/' + FeedCategoryEnum.News + '/feed')];
+        new NavItem('Announcement', '/feed/' + FeedCategoryEnum.Announcement),
+        new NavItem('Article', '/feed/' + FeedCategoryEnum.Article),
+        new NavItem('Campaign', '/feed/' + FeedCategoryEnum.Campaign),
+        new NavItem('Learning', '/feed/' + FeedCategoryEnum.Learning),
+        new NavItem('News', '/feed/' + FeedCategoryEnum.News)];
     public static reportsTabs: NavItem[] = [
-            new NavItem('Quiz Reports', '/reports/' + FeedTypeEnum.Quiz),
+            new NavItem('Quiz Reports', '/reports'),
             new NavItem('Survey Reports', '/reports/' + FeedTypeEnum.Survey),
             new NavItem('Observation Reports', '/reports/' + FeedTypeEnum.Observation),
-            new NavItem('Leaderboards', '/leaderboard', 'teal')];
+            new NavItem('Leaderboards', '/reports/leaderboard', 'teal')];
 }

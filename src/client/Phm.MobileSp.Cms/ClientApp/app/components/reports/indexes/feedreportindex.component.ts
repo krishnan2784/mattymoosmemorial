@@ -59,7 +59,10 @@ export class FeedReportIndexComponent extends BaseComponent implements OnInit, O
     ngOnInit() {
         this.id_sub = this.route.params.subscribe(
             (params: any) => {
-                this.feedTypeId = +params["feedType"];
+                if (params["feedType"]) {
+                    this.feedTypeId = +params["feedType"];
+                } else
+                    this.feedTypeId = FeedTypeEnum.Quiz;
                 this.updateMarket();
             }
         );

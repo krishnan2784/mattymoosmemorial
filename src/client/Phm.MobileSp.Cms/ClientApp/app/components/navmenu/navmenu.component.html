@@ -52,8 +52,8 @@
                             Legal Content
                         </a>
                     </li>-->
-                    <li [routerLinkActive]="['link-active']" class="waves-effect waves-light">
-                        <a [routerLink]="['/reports/3']">
+                    <li [routerLinkActive]="['link-active']" class="waves-effect waves-light" [routerLinkActiveOptions]="{exact: false}">
+                        <a [routerLink]="['/reports']">
                             Reports
                         </a>
                     </li>
@@ -62,8 +62,8 @@
                             Media Library
                         </a>
                     </li>-->
-                    <li [routerLinkActive]="['link-active']">
-                        <a [routerLink]="['/useraccountmanagement']" class="waves-effect waves-light">
+                    <li [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{exact: false}">
+                        <a [routerLink]="['/useraccountmanagement/']" class="waves-effect waves-light">
                             Accounts
                         </a>
                     </li>

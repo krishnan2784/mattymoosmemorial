@@ -60,7 +60,11 @@ var FeedReportIndexComponent = (function (_super) {
     FeedReportIndexComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.id_sub = this.route.params.subscribe(function (params) {
-            _this.feedTypeId = +params["feedType"];
+            if (params["feedType"]) {
+                _this.feedTypeId = +params["feedType"];
+            }
+            else
+                _this.feedTypeId = FeedTypeEnum.Quiz;
             _this.updateMarket();
         });
     };

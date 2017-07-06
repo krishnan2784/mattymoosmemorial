@@ -140,13 +140,14 @@ import { TabNavMenuComponent } from "./components/navmenu/tabnavmenu.component";
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
             { path: 'useraccountmanagement', component: UserAccountManagementComponent },
-            { path: ':feedCat/feed', component: FeedIndexComponent },
+            { path: 'feed/:feedCat', component: FeedIndexComponent },
             { path: 'feed', component: FeedIndexComponent },
             { path: 'feeditem', component: FeedItemForm },
             { path: 'feeditem/:id', component: FeedItemForm },
-            { path: ':feedCat/feeditem', component: FeedItemForm },
+            { path: 'feeditem/:feedCat', component: FeedItemForm },
+            { path: 'reports/leaderboard', component: LeaderboardContainer },          
+            { path: 'reports', component: FeedReportIndexComponent },
             { path: 'reports/:feedType', component: FeedReportIndexComponent },
-            { path: 'leaderboard', component: LeaderboardContainer },            
             { path: '**', redirectTo: 'home' }
         ])
     ]
