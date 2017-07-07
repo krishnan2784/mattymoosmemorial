@@ -46,6 +46,14 @@
                         </div>
                         <div class="col-md-4 feed-index-controls">
                             <div class="feed-control col-md-3">
+                                <!--<div>
+                                    <a onclick="alert('Feature coming soon.');">
+                                        <i class="material-icons">smartphone</i>
+                                        <p>Preview</p>
+                                    </a>
+                                </div>-->
+                            </div>
+                            <div class="feed-control col-md-3" [class.col-md-offset-3]="currentMarket && currentMarket.isLive">
                                 <div>
                                     <a (click)="editFeedItem(feedItem)">
                                         <i class="material-icons">edit</i>
@@ -62,23 +70,13 @@
                                 </div>
                             </div>
                             <div class="feed-control col-md-3">
-                                <div>
-                                    <a onclick="alert('Feature coming soon.');">
-                                        <i class="material-icons">smartphone</i>
-                                        <p>Preview</p>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="feed-control col-md-3" *ngIf="currentMarket && currentMarket.isMaster">
-                                <div>
+                                <div *ngIf="currentMarket && !currentMarket.isLive && currentMarket.isMaster">
                                     <a (click)="copyFeedItemToMarket(feedItem)" data-toggle="modal" data-target="#feeditem-copytomarket">
                                         <i class="material-icons">content_copy</i>
                                         <p>Copy</p>
                                     </a>
                                 </div>
-                            </div>
-                            <div class="feed-control col-md-3" *ngIf="currentMarket && !currentMarket.isMaster">
-                                <div>
+                                <div *ngIf="currentMarket && !currentMarket.isLive && !currentMarket.isMaster">
                                     <a (click)="publishFeedItemTolive(feedItem)">
                                         <i class="material-icons">launch</i>
                                         <p>Publish</p>

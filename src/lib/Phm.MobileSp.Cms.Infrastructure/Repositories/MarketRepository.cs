@@ -7,16 +7,18 @@ using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Core.Models.Interfaces;
 using Phm.MobileSp.Cms.Infrastructure;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
+using MLearningCoreService;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 {
     public class MarketRepository : CoreBaseRepository, IMarketRepository
     {
-        private readonly ICoreContract _proxyClient;
-
-        public MarketRepository(ICoreContract proxyClient, IBaseRequest baseRequest, IBaseCriteria baseRBaseCriteria)
-            : base(baseRequest, baseRBaseCriteria)
+        private readonly ICoreContract _proxyCoreClient;
+        private readonly IMLearningCoreContract _proxyClient;
+        public MarketRepository(ICoreContract proxyCoreClient, IMLearningCoreContract proxyClient, IBaseRequest baseRequest, IBaseCriteria baseCriteria)
+            : base(baseRequest, baseCriteria)
         {
+            _proxyCoreClient = proxyCoreClient;
             _proxyClient = proxyClient;
         }
 
@@ -27,12 +29,9 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
                 var request = GetRequest(new GetMarketRequest
                 {
                     Criteria = new MarketCriteriaDto()
-                    {
-                        IsLive = false
-                    }
                 });
 
-                var response = await _proxyClient.GetMarketsAsync(request);
+                var response = await _proxyCoreClient.GetMarketsAsync(request);
 
                 var mapper = new AutoMapperGenericsHelper<MarketDto, Market>();
                 var markets = mapper.ConvertToDbEntity(response.Markets);
@@ -55,7 +54,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
                     MasterId = masterId
                 });
 
-                var response = await _proxyClient.GetMarketsByMasterIdAsync(request);
+                var response = await _proxyCoreClient.GetMarketsByMasterIdAsync(request);
 
                 var mapper = new AutoMapperGenericsHelper<MarketDto, Market>();
                 var markets = mapper.ConvertToDbEntity(response.Markets);
@@ -78,7 +77,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
                     ParentId = id
                 });
 
-                var response = await _proxyClient.PublishContentsAsync(request);
+                var response = await _proxyCoreClient.PublishContentsAsync(request);
                 return new BaseResponse(response.Published, 
                     response.Published ? "Item published to live" : "Item could not be published to live", response.Published);
             }
@@ -86,6 +85,16 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             {
                 return new BaseResponse(false, e.Message, false);
             }
+        }
+
+        public async Task<dynamic> GetMarketUserFilters(int marketId)
+        {
+            var request = new GetMarketUserFiltersRequest() {
+                AccessToken = BaseRequest.AccessToken,
+                MarketId = marketId
+            };
+            var response = await _proxyClient.GetMarketUserFiltersAsync(request);
+            return response;
         }
     }
 }

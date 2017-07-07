@@ -27,8 +27,8 @@ var FeedTypeEnum = Enums.FeedTypeEnum;
 var FeedCategoryEnum = Enums.FeedCategoryEnum;
 var base_component_1 = require("../../base.component");
 var shareservice_1 = require("../../../services/helpers/shareservice");
-var Feeditemreportcomponent = require("../feeditemreport.component");
-var FeedItemReport = Feeditemreportcomponent.FeedItemReport;
+var QuizFeeditemreportcomponent = require("../quizfeeditemreport.component");
+var QuizFeedItemReport = QuizFeeditemreportcomponent.QuizFeedItemReport;
 var tabnavmenu_component_1 = require("../../navmenu/tabnavmenu.component");
 var FeedReportIndexComponent = (function (_super) {
     __extends(FeedReportIndexComponent, _super);
@@ -99,7 +99,9 @@ var FeedReportIndexComponent = (function (_super) {
         var _this = this;
         if (feedItem === void 0) { feedItem = null; }
         var inputs = { model: feedItem, pageTitle: '' };
-        var report = FeedItemReport;
+        var report;
+        if (feedItem.feedType === FeedTypeEnum.Quiz)
+            report = QuizFeedItemReport;
         this.updateMarketDropdownVisibility(false);
         this.updateBackText('Back to Reports Index');
         this.updatePageTitle(Enums.FeedTypeEnum[feedItem.feedType] + ' Analytics Reports');
@@ -111,7 +113,7 @@ var FeedReportIndexComponent = (function (_super) {
             _this.selectedItem = null;
         });
         this.selectedItem = {
-            reportContent: FeedItemReport,
+            reportContent: report,
             inputs: inputs
         };
     };
@@ -121,7 +123,8 @@ FeedReportIndexComponent = __decorate([
     core_1.Component({
         selector: 'feedreportindex',
         template: require('./feedreportindex.component.html'),
-        styles: [require('./feedreportindex.component.css')]
+        styles: [require('./feedreportindex.component.css')],
+        encapsulation: core_1.ViewEncapsulation.None
     }),
     __metadata("design:paramtypes", [router_1.ActivatedRoute,
         router_1.Router,

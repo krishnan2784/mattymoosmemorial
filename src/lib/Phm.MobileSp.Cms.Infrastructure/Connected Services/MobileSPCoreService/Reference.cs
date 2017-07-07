@@ -7563,10 +7563,6 @@ namespace MobileSPCoreService
     public partial class UserDto : MobileSPCoreService.BaseDtoOfint
     {
         
-        private string DealershipCodeField;
-        
-        private string DealershipNameField;
-        
         private string EmailField;
         
         private string FirstNameField;
@@ -7580,32 +7576,6 @@ namespace MobileSPCoreService
         private int SessionExpireMinutesField;
         
         private string UserNameField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string DealershipCode
-        {
-            get
-            {
-                return this.DealershipCodeField;
-            }
-            set
-            {
-                this.DealershipCodeField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string DealershipName
-        {
-            get
-            {
-                return this.DealershipNameField;
-            }
-            set
-            {
-                this.DealershipNameField = value;
-            }
-        }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string Email
@@ -7702,11 +7672,29 @@ namespace MobileSPCoreService
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BaseDtoOfint", Namespace="http://schemas.datacontract.org/2004/07/Phm.Common.Dto")]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.BaseVersionableEntityDtoOfint))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ProductSpecDataItemDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ProductSpecDataItemValueDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.MessageDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.BaseFeedDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.CorporateAppDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.MediaInfoDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ImageFeedDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.TextFeedDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.VideoFeedDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.QuizFeedDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.QuizQuestionDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.QuizQuestionAnswerDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.SurveyFeedDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.SurveyQuestionDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.SurveyQuestionAnswerDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ObservationFeedDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.LinkFeedDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.LtrOperationDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.LtrOperationConfigDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ImportCarModelSpecMarketConfigDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ImportCarModelSpecConfigDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.BaseConflictSetDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ImportConflictSetDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ImportConflictDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.BaseVersionableEntityDtoOfint))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.MessageDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.TechnologyDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.TechnologyBaseStepDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.TechnologyKeyFeaturesStepDto))]
@@ -7739,13 +7727,8 @@ namespace MobileSPCoreService
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.LocalisationSetDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.CarModelGroupDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.CarSerieSpecDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.LtrOperationDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.LtrOperationConfigDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ImportCarModelSpecMarketConfigDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ImportCarModelSpecConfigDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.BaseConflictSetDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ImportConflictSetDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ImportConflictDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ProductSpecDataItemDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ProductSpecDataItemValueDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.LayoutStatusDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.VEDBandDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.VEDBandGroupDto))]
@@ -7782,19 +7765,6 @@ namespace MobileSPCoreService
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.CarSerie2NMDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.CarSerieNM2Dto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ProductSpecSectionDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.BaseFeedDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.CorporateAppDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ImageFeedDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.TextFeedDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.VideoFeedDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.QuizFeedDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.QuizQuestionDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.QuizQuestionAnswerDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.SurveyFeedDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.SurveyQuestionDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.SurveyQuestionAnswerDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ObservationFeedDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.LinkFeedDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.UserDto))]
     public partial class BaseDtoOfint : object
     {
@@ -7907,8 +7877,1739 @@ namespace MobileSPCoreService
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BaseFeedDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ImageFeedDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.TextFeedDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.VideoFeedDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.QuizFeedDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.SurveyFeedDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ObservationFeedDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.LinkFeedDto))]
+    public partial class BaseFeedDto : MobileSPCoreService.BaseDtoOfint
+    {
+        
+        private bool AllowFavouriteField;
+        
+        private MobileSPCoreService.CorporateAppDto CorporateAppField;
+        
+        private System.Nullable<System.DateTime> EndDateField;
+        
+        private MobileSPCoreService.FeedCategoryEnumDto FeedCategoryField;
+        
+        private MobileSPCoreService.FeedTypeEnumDto FeedTypeField;
+        
+        private bool IsFavouriteField;
+        
+        private string LegalInformationField;
+        
+        private MobileSPCoreService.MediaInfoDto MainIconField;
+        
+        private System.Nullable<int> MainIconIdField;
+        
+        private bool MakeTitleWidgetLinkField;
+        
+        private int MarketIdField;
+        
+        private long PermissionsField;
+        
+        private int PointsField;
+        
+        private System.Nullable<System.DateTime> PublishedLiveAtField;
+        
+        private int ReadingTimeField;
+        
+        private string ShortDescriptionField;
+        
+        private System.Nullable<System.DateTime> StartDateField;
+        
+        private string TitleField;
+        
+        private string WebUrlLinkField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool AllowFavourite
+        {
+            get
+            {
+                return this.AllowFavouriteField;
+            }
+            set
+            {
+                this.AllowFavouriteField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MobileSPCoreService.CorporateAppDto CorporateApp
+        {
+            get
+            {
+                return this.CorporateAppField;
+            }
+            set
+            {
+                this.CorporateAppField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> EndDate
+        {
+            get
+            {
+                return this.EndDateField;
+            }
+            set
+            {
+                this.EndDateField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MobileSPCoreService.FeedCategoryEnumDto FeedCategory
+        {
+            get
+            {
+                return this.FeedCategoryField;
+            }
+            set
+            {
+                this.FeedCategoryField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MobileSPCoreService.FeedTypeEnumDto FeedType
+        {
+            get
+            {
+                return this.FeedTypeField;
+            }
+            set
+            {
+                this.FeedTypeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsFavourite
+        {
+            get
+            {
+                return this.IsFavouriteField;
+            }
+            set
+            {
+                this.IsFavouriteField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string LegalInformation
+        {
+            get
+            {
+                return this.LegalInformationField;
+            }
+            set
+            {
+                this.LegalInformationField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MobileSPCoreService.MediaInfoDto MainIcon
+        {
+            get
+            {
+                return this.MainIconField;
+            }
+            set
+            {
+                this.MainIconField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> MainIconId
+        {
+            get
+            {
+                return this.MainIconIdField;
+            }
+            set
+            {
+                this.MainIconIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool MakeTitleWidgetLink
+        {
+            get
+            {
+                return this.MakeTitleWidgetLinkField;
+            }
+            set
+            {
+                this.MakeTitleWidgetLinkField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MarketId
+        {
+            get
+            {
+                return this.MarketIdField;
+            }
+            set
+            {
+                this.MarketIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long Permissions
+        {
+            get
+            {
+                return this.PermissionsField;
+            }
+            set
+            {
+                this.PermissionsField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Points
+        {
+            get
+            {
+                return this.PointsField;
+            }
+            set
+            {
+                this.PointsField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> PublishedLiveAt
+        {
+            get
+            {
+                return this.PublishedLiveAtField;
+            }
+            set
+            {
+                this.PublishedLiveAtField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ReadingTime
+        {
+            get
+            {
+                return this.ReadingTimeField;
+            }
+            set
+            {
+                this.ReadingTimeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ShortDescription
+        {
+            get
+            {
+                return this.ShortDescriptionField;
+            }
+            set
+            {
+                this.ShortDescriptionField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> StartDate
+        {
+            get
+            {
+                return this.StartDateField;
+            }
+            set
+            {
+                this.StartDateField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Title
+        {
+            get
+            {
+                return this.TitleField;
+            }
+            set
+            {
+                this.TitleField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string WebUrlLink
+        {
+            get
+            {
+                return this.WebUrlLinkField;
+            }
+            set
+            {
+                this.WebUrlLinkField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CorporateAppDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class CorporateAppDto : MobileSPCoreService.BaseDtoOfint
+    {
+        
+        private MobileSPCoreService.AppTypeEnumDto AppTypeField;
+        
+        private string LinkUrlField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MobileSPCoreService.AppTypeEnumDto AppType
+        {
+            get
+            {
+                return this.AppTypeField;
+            }
+            set
+            {
+                this.AppTypeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string LinkUrl
+        {
+            get
+            {
+                return this.LinkUrlField;
+            }
+            set
+            {
+                this.LinkUrlField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="MediaInfoDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
+    public partial class MediaInfoDto : MobileSPCoreService.BaseDtoOfint
+    {
+        
+        private string AzureUrlField;
+        
+        private string ExtensionField;
+        
+        private int MarketIdField;
+        
+        private string MediaIdField;
+        
+        private MobileSPCoreService.MediaTypesDto MediaTypeField;
+        
+        private int MediaVersionField;
+        
+        private string NameField;
+        
+        private string PathField;
+        
+        private string Preview1PathField;
+        
+        private long SizeField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AzureUrl
+        {
+            get
+            {
+                return this.AzureUrlField;
+            }
+            set
+            {
+                this.AzureUrlField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Extension
+        {
+            get
+            {
+                return this.ExtensionField;
+            }
+            set
+            {
+                this.ExtensionField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MarketId
+        {
+            get
+            {
+                return this.MarketIdField;
+            }
+            set
+            {
+                this.MarketIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MediaId
+        {
+            get
+            {
+                return this.MediaIdField;
+            }
+            set
+            {
+                this.MediaIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MobileSPCoreService.MediaTypesDto MediaType
+        {
+            get
+            {
+                return this.MediaTypeField;
+            }
+            set
+            {
+                this.MediaTypeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MediaVersion
+        {
+            get
+            {
+                return this.MediaVersionField;
+            }
+            set
+            {
+                this.MediaVersionField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name
+        {
+            get
+            {
+                return this.NameField;
+            }
+            set
+            {
+                this.NameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Path
+        {
+            get
+            {
+                return this.PathField;
+            }
+            set
+            {
+                this.PathField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Preview1Path
+        {
+            get
+            {
+                return this.Preview1PathField;
+            }
+            set
+            {
+                this.Preview1PathField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long Size
+        {
+            get
+            {
+                return this.SizeField;
+            }
+            set
+            {
+                this.SizeField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ImageFeedDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class ImageFeedDto : MobileSPCoreService.BaseFeedDto
+    {
+        
+        private string ImageDescriptionField;
+        
+        private MobileSPCoreService.MediaInfoDto MainImageField;
+        
+        private System.Nullable<int> MainImageIdField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ImageDescription
+        {
+            get
+            {
+                return this.ImageDescriptionField;
+            }
+            set
+            {
+                this.ImageDescriptionField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MobileSPCoreService.MediaInfoDto MainImage
+        {
+            get
+            {
+                return this.MainImageField;
+            }
+            set
+            {
+                this.MainImageField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> MainImageId
+        {
+            get
+            {
+                return this.MainImageIdField;
+            }
+            set
+            {
+                this.MainImageIdField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TextFeedDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class TextFeedDto : MobileSPCoreService.BaseFeedDto
+    {
+        
+        private string BodyTextField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string BodyText
+        {
+            get
+            {
+                return this.BodyTextField;
+            }
+            set
+            {
+                this.BodyTextField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="VideoFeedDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class VideoFeedDto : MobileSPCoreService.BaseFeedDto
+    {
+        
+        private MobileSPCoreService.MediaInfoDto MainVideoField;
+        
+        private System.Nullable<int> MainVideoIdField;
+        
+        private string VideoDescriptionField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MobileSPCoreService.MediaInfoDto MainVideo
+        {
+            get
+            {
+                return this.MainVideoField;
+            }
+            set
+            {
+                this.MainVideoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> MainVideoId
+        {
+            get
+            {
+                return this.MainVideoIdField;
+            }
+            set
+            {
+                this.MainVideoIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string VideoDescription
+        {
+            get
+            {
+                return this.VideoDescriptionField;
+            }
+            set
+            {
+                this.VideoDescriptionField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="QuizFeedDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class QuizFeedDto : MobileSPCoreService.BaseFeedDto
+    {
+        
+        private string FailMessageField;
+        
+        private string OnBoardingMessageField;
+        
+        private System.Collections.Generic.List<MobileSPCoreService.QuizQuestionDto> QuestionsField;
+        
+        private string QuizDescriptionField;
+        
+        private string SuccessMessageField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FailMessage
+        {
+            get
+            {
+                return this.FailMessageField;
+            }
+            set
+            {
+                this.FailMessageField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string OnBoardingMessage
+        {
+            get
+            {
+                return this.OnBoardingMessageField;
+            }
+            set
+            {
+                this.OnBoardingMessageField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<MobileSPCoreService.QuizQuestionDto> Questions
+        {
+            get
+            {
+                return this.QuestionsField;
+            }
+            set
+            {
+                this.QuestionsField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string QuizDescription
+        {
+            get
+            {
+                return this.QuizDescriptionField;
+            }
+            set
+            {
+                this.QuizDescriptionField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SuccessMessage
+        {
+            get
+            {
+                return this.SuccessMessageField;
+            }
+            set
+            {
+                this.SuccessMessageField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="QuizQuestionDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class QuizQuestionDto : MobileSPCoreService.BaseDtoOfint
+    {
+        
+        private System.Collections.Generic.List<MobileSPCoreService.QuizQuestionAnswerDto> AnswersField;
+        
+        private int OrderField;
+        
+        private string QuestionField;
+        
+        private MobileSPCoreService.QuizQuestionTypeEnumDto QuestionTypeField;
+        
+        private int QuizFeedIdField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<MobileSPCoreService.QuizQuestionAnswerDto> Answers
+        {
+            get
+            {
+                return this.AnswersField;
+            }
+            set
+            {
+                this.AnswersField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Order
+        {
+            get
+            {
+                return this.OrderField;
+            }
+            set
+            {
+                this.OrderField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Question
+        {
+            get
+            {
+                return this.QuestionField;
+            }
+            set
+            {
+                this.QuestionField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MobileSPCoreService.QuizQuestionTypeEnumDto QuestionType
+        {
+            get
+            {
+                return this.QuestionTypeField;
+            }
+            set
+            {
+                this.QuestionTypeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int QuizFeedId
+        {
+            get
+            {
+                return this.QuizFeedIdField;
+            }
+            set
+            {
+                this.QuizFeedIdField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="QuizQuestionAnswerDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class QuizQuestionAnswerDto : MobileSPCoreService.BaseDtoOfint
+    {
+        
+        private string AnswerField;
+        
+        private bool IsCorrectField;
+        
+        private int OrderField;
+        
+        private int QuizQuestionIdField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Answer
+        {
+            get
+            {
+                return this.AnswerField;
+            }
+            set
+            {
+                this.AnswerField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsCorrect
+        {
+            get
+            {
+                return this.IsCorrectField;
+            }
+            set
+            {
+                this.IsCorrectField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Order
+        {
+            get
+            {
+                return this.OrderField;
+            }
+            set
+            {
+                this.OrderField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int QuizQuestionId
+        {
+            get
+            {
+                return this.QuizQuestionIdField;
+            }
+            set
+            {
+                this.QuizQuestionIdField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="SurveyFeedDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ObservationFeedDto))]
+    public partial class SurveyFeedDto : MobileSPCoreService.BaseFeedDto
+    {
+        
+        private System.Collections.Generic.List<MobileSPCoreService.SurveyQuestionDto> QuestionsField;
+        
+        private string SurveyDescriptionField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<MobileSPCoreService.SurveyQuestionDto> Questions
+        {
+            get
+            {
+                return this.QuestionsField;
+            }
+            set
+            {
+                this.QuestionsField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SurveyDescription
+        {
+            get
+            {
+                return this.SurveyDescriptionField;
+            }
+            set
+            {
+                this.SurveyDescriptionField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="SurveyQuestionDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class SurveyQuestionDto : MobileSPCoreService.BaseDtoOfint
+    {
+        
+        private System.Collections.Generic.List<MobileSPCoreService.SurveyQuestionAnswerDto> AnswersField;
+        
+        private int OrderField;
+        
+        private string QuestionField;
+        
+        private MobileSPCoreService.SurveyQuestionTypeEnumDto QuestionTypeField;
+        
+        private int SurveyFeedIdField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<MobileSPCoreService.SurveyQuestionAnswerDto> Answers
+        {
+            get
+            {
+                return this.AnswersField;
+            }
+            set
+            {
+                this.AnswersField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Order
+        {
+            get
+            {
+                return this.OrderField;
+            }
+            set
+            {
+                this.OrderField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Question
+        {
+            get
+            {
+                return this.QuestionField;
+            }
+            set
+            {
+                this.QuestionField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MobileSPCoreService.SurveyQuestionTypeEnumDto QuestionType
+        {
+            get
+            {
+                return this.QuestionTypeField;
+            }
+            set
+            {
+                this.QuestionTypeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int SurveyFeedId
+        {
+            get
+            {
+                return this.SurveyFeedIdField;
+            }
+            set
+            {
+                this.SurveyFeedIdField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="SurveyQuestionAnswerDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class SurveyQuestionAnswerDto : MobileSPCoreService.BaseDtoOfint
+    {
+        
+        private string AnswerField;
+        
+        private bool IsFreeTextField;
+        
+        private int OrderField;
+        
+        private int SurveyQuestionIdField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Answer
+        {
+            get
+            {
+                return this.AnswerField;
+            }
+            set
+            {
+                this.AnswerField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsFreeText
+        {
+            get
+            {
+                return this.IsFreeTextField;
+            }
+            set
+            {
+                this.IsFreeTextField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Order
+        {
+            get
+            {
+                return this.OrderField;
+            }
+            set
+            {
+                this.OrderField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int SurveyQuestionId
+        {
+            get
+            {
+                return this.SurveyQuestionIdField;
+            }
+            set
+            {
+                this.SurveyQuestionIdField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ObservationFeedDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class ObservationFeedDto : MobileSPCoreService.SurveyFeedDto
+    {
+        
+        private System.Collections.Generic.List<MobileSPCoreService.UserObservationDto> UserObservationsField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<MobileSPCoreService.UserObservationDto> UserObservations
+        {
+            get
+            {
+                return this.UserObservationsField;
+            }
+            set
+            {
+                this.UserObservationsField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="LinkFeedDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class LinkFeedDto : MobileSPCoreService.BaseFeedDto
+    {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="LtrOperationDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
+    public partial class LtrOperationDto : MobileSPCoreService.BaseDtoOfint
+    {
+        
+        private System.Nullable<int> BaseConflictSetIdField;
+        
+        private System.Nullable<MobileSPCoreService.BaseConflictSetStatusEnumDto> BaseConflictSetStatusField;
+        
+        private System.Nullable<System.DateTime> FinishedAtField;
+        
+        private string LastMessageField;
+        
+        private int LtrOperationConfigIdField;
+        
+        private MobileSPCoreService.LtrOperationStatusEnumDto LtrOperationStatusField;
+        
+        private System.DateTime StartedAtField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> BaseConflictSetId
+        {
+            get
+            {
+                return this.BaseConflictSetIdField;
+            }
+            set
+            {
+                this.BaseConflictSetIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<MobileSPCoreService.BaseConflictSetStatusEnumDto> BaseConflictSetStatus
+        {
+            get
+            {
+                return this.BaseConflictSetStatusField;
+            }
+            set
+            {
+                this.BaseConflictSetStatusField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> FinishedAt
+        {
+            get
+            {
+                return this.FinishedAtField;
+            }
+            set
+            {
+                this.FinishedAtField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string LastMessage
+        {
+            get
+            {
+                return this.LastMessageField;
+            }
+            set
+            {
+                this.LastMessageField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int LtrOperationConfigId
+        {
+            get
+            {
+                return this.LtrOperationConfigIdField;
+            }
+            set
+            {
+                this.LtrOperationConfigIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MobileSPCoreService.LtrOperationStatusEnumDto LtrOperationStatus
+        {
+            get
+            {
+                return this.LtrOperationStatusField;
+            }
+            set
+            {
+                this.LtrOperationStatusField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime StartedAt
+        {
+            get
+            {
+                return this.StartedAtField;
+            }
+            set
+            {
+                this.StartedAtField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="LtrOperationConfigDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ImportCarModelSpecMarketConfigDto))]
+    public partial class LtrOperationConfigDto : MobileSPCoreService.BaseDtoOfint
+    {
+        
+        private MobileSPCoreService.UserDto CreatorField;
+        
+        private int CreatorIdField;
+        
+        private bool IsDefaultField;
+        
+        private MobileSPCoreService.LtrOperationConfigTypeEnumDto LtrOperationTypeField;
+        
+        private int MarketIdField;
+        
+        private string NameField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MobileSPCoreService.UserDto Creator
+        {
+            get
+            {
+                return this.CreatorField;
+            }
+            set
+            {
+                this.CreatorField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CreatorId
+        {
+            get
+            {
+                return this.CreatorIdField;
+            }
+            set
+            {
+                this.CreatorIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsDefault
+        {
+            get
+            {
+                return this.IsDefaultField;
+            }
+            set
+            {
+                this.IsDefaultField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MobileSPCoreService.LtrOperationConfigTypeEnumDto LtrOperationType
+        {
+            get
+            {
+                return this.LtrOperationTypeField;
+            }
+            set
+            {
+                this.LtrOperationTypeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MarketId
+        {
+            get
+            {
+                return this.MarketIdField;
+            }
+            set
+            {
+                this.MarketIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name
+        {
+            get
+            {
+                return this.NameField;
+            }
+            set
+            {
+                this.NameField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ImportCarModelSpecMarketConfigDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
+    public partial class ImportCarModelSpecMarketConfigDto : MobileSPCoreService.LtrOperationConfigDto
+    {
+        
+        private string DataTableNameField;
+        
+        private string DbNameField;
+        
+        private System.Collections.Generic.List<MobileSPCoreService.ImportCarModelSpecConfigDto> ImportCarModelSpecConfigsField;
+        
+        private int LanguageIdField;
+        
+        private string SchemaTableNameField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DataTableName
+        {
+            get
+            {
+                return this.DataTableNameField;
+            }
+            set
+            {
+                this.DataTableNameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DbName
+        {
+            get
+            {
+                return this.DbNameField;
+            }
+            set
+            {
+                this.DbNameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<MobileSPCoreService.ImportCarModelSpecConfigDto> ImportCarModelSpecConfigs
+        {
+            get
+            {
+                return this.ImportCarModelSpecConfigsField;
+            }
+            set
+            {
+                this.ImportCarModelSpecConfigsField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int LanguageId
+        {
+            get
+            {
+                return this.LanguageIdField;
+            }
+            set
+            {
+                this.LanguageIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SchemaTableName
+        {
+            get
+            {
+                return this.SchemaTableNameField;
+            }
+            set
+            {
+                this.SchemaTableNameField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ImportCarModelSpecConfigDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
+    public partial class ImportCarModelSpecConfigDto : MobileSPCoreService.BaseDtoOfint
+    {
+        
+        private string BodyStyleDescriptionField;
+        
+        private string CarModelBodyStyleCodeField;
+        
+        private int CarModelIdField;
+        
+        private string CarModelNameField;
+        
+        private int CarModelYearField;
+        
+        private int ImportCarModelSpecMarketConfigIdField;
+        
+        private string JatoMakeNameField;
+        
+        private string JatoModelNameField;
+        
+        private string JatoSeriesNameField;
+        
+        private string YearField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string BodyStyleDescription
+        {
+            get
+            {
+                return this.BodyStyleDescriptionField;
+            }
+            set
+            {
+                this.BodyStyleDescriptionField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CarModelBodyStyleCode
+        {
+            get
+            {
+                return this.CarModelBodyStyleCodeField;
+            }
+            set
+            {
+                this.CarModelBodyStyleCodeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CarModelId
+        {
+            get
+            {
+                return this.CarModelIdField;
+            }
+            set
+            {
+                this.CarModelIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CarModelName
+        {
+            get
+            {
+                return this.CarModelNameField;
+            }
+            set
+            {
+                this.CarModelNameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CarModelYear
+        {
+            get
+            {
+                return this.CarModelYearField;
+            }
+            set
+            {
+                this.CarModelYearField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ImportCarModelSpecMarketConfigId
+        {
+            get
+            {
+                return this.ImportCarModelSpecMarketConfigIdField;
+            }
+            set
+            {
+                this.ImportCarModelSpecMarketConfigIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string JatoMakeName
+        {
+            get
+            {
+                return this.JatoMakeNameField;
+            }
+            set
+            {
+                this.JatoMakeNameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string JatoModelName
+        {
+            get
+            {
+                return this.JatoModelNameField;
+            }
+            set
+            {
+                this.JatoModelNameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string JatoSeriesName
+        {
+            get
+            {
+                return this.JatoSeriesNameField;
+            }
+            set
+            {
+                this.JatoSeriesNameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Year
+        {
+            get
+            {
+                return this.YearField;
+            }
+            set
+            {
+                this.YearField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BaseConflictSetDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ImportConflictSetDto))]
+    public partial class BaseConflictSetDto : MobileSPCoreService.BaseDtoOfint
+    {
+        
+        private string MessageField;
+        
+        private MobileSPCoreService.BaseConflictSetStatusEnumDto StatusField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Message
+        {
+            get
+            {
+                return this.MessageField;
+            }
+            set
+            {
+                this.MessageField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MobileSPCoreService.BaseConflictSetStatusEnumDto Status
+        {
+            get
+            {
+                return this.StatusField;
+            }
+            set
+            {
+                this.StatusField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ImportConflictSetDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
+    public partial class ImportConflictSetDto : MobileSPCoreService.BaseConflictSetDto
+    {
+        
+        private System.Collections.Generic.List<MobileSPCoreService.ImportConflictDto> ImportConfictsField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<MobileSPCoreService.ImportConflictDto> ImportConficts
+        {
+            get
+            {
+                return this.ImportConfictsField;
+            }
+            set
+            {
+                this.ImportConfictsField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ImportConflictDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
+    public partial class ImportConflictDto : MobileSPCoreService.BaseDtoOfint
+    {
+        
+        private string CarModelNameField;
+        
+        private string CarSerieNameField;
+        
+        private System.Nullable<int> ChosenProductSpecDataItemIdField;
+        
+        private int EngineIdField;
+        
+        private string EngineNameField;
+        
+        private string KeyField;
+        
+        private int MarketIdField;
+        
+        private MobileSPCoreService.ProductSpecDataItemDto ProductSpecDataItem1Field;
+        
+        private MobileSPCoreService.ProductSpecDataItemDto ProductSpecDataItem2Field;
+        
+        private MobileSPCoreService.ImportConflictStatusEnumDto StatusField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CarModelName
+        {
+            get
+            {
+                return this.CarModelNameField;
+            }
+            set
+            {
+                this.CarModelNameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CarSerieName
+        {
+            get
+            {
+                return this.CarSerieNameField;
+            }
+            set
+            {
+                this.CarSerieNameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> ChosenProductSpecDataItemId
+        {
+            get
+            {
+                return this.ChosenProductSpecDataItemIdField;
+            }
+            set
+            {
+                this.ChosenProductSpecDataItemIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EngineId
+        {
+            get
+            {
+                return this.EngineIdField;
+            }
+            set
+            {
+                this.EngineIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string EngineName
+        {
+            get
+            {
+                return this.EngineNameField;
+            }
+            set
+            {
+                this.EngineNameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Key
+        {
+            get
+            {
+                return this.KeyField;
+            }
+            set
+            {
+                this.KeyField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MarketId
+        {
+            get
+            {
+                return this.MarketIdField;
+            }
+            set
+            {
+                this.MarketIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MobileSPCoreService.ProductSpecDataItemDto ProductSpecDataItem1
+        {
+            get
+            {
+                return this.ProductSpecDataItem1Field;
+            }
+            set
+            {
+                this.ProductSpecDataItem1Field = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MobileSPCoreService.ProductSpecDataItemDto ProductSpecDataItem2
+        {
+            get
+            {
+                return this.ProductSpecDataItem2Field;
+            }
+            set
+            {
+                this.ProductSpecDataItem2Field = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MobileSPCoreService.ImportConflictStatusEnumDto Status
+        {
+            get
+            {
+                return this.StatusField;
+            }
+            set
+            {
+                this.StatusField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BaseVersionableEntityDtoOfint", Namespace="http://schemas.datacontract.org/2004/07/Phm.Common.Dto")]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ProductSpecDataItemDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.MessageDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.TechnologyDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.TechnologyBaseStepDto))]
@@ -7931,6 +9632,7 @@ namespace MobileSPCoreService
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.LocalisationSetDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.CarModelGroupDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.CarSerieSpecDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ProductSpecDataItemDto))]
     public partial class BaseVersionableEntityDtoOfint : MobileSPCoreService.BaseDtoOfint
     {
         
@@ -7976,215 +9678,6 @@ namespace MobileSPCoreService
             set
             {
                 this.VersionField = value;
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ProductSpecDataItemDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
-    public partial class ProductSpecDataItemDto : MobileSPCoreService.BaseVersionableEntityDtoOfint
-    {
-        
-        private int EngineIdField;
-        
-        private string KeyField;
-        
-        private string NameField;
-        
-        private int OrderField;
-        
-        private MobileSPCoreService.ProductSpecDataItemTypeEnumDto ProductSpecDataItemTypeField;
-        
-        private MobileSPCoreService.ProductSpecDataItemUITypeEnumDto ProductSpecDataItemUITypeField;
-        
-        private System.Collections.Generic.List<MobileSPCoreService.ProductSpecDataItemValueDto> ProductSpecDataItemValuesField;
-        
-        private System.Nullable<int> ProductSpecSectionIdField;
-        
-        private string ValueField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int EngineId
-        {
-            get
-            {
-                return this.EngineIdField;
-            }
-            set
-            {
-                this.EngineIdField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Key
-        {
-            get
-            {
-                return this.KeyField;
-            }
-            set
-            {
-                this.KeyField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name
-        {
-            get
-            {
-                return this.NameField;
-            }
-            set
-            {
-                this.NameField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Order
-        {
-            get
-            {
-                return this.OrderField;
-            }
-            set
-            {
-                this.OrderField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MobileSPCoreService.ProductSpecDataItemTypeEnumDto ProductSpecDataItemType
-        {
-            get
-            {
-                return this.ProductSpecDataItemTypeField;
-            }
-            set
-            {
-                this.ProductSpecDataItemTypeField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MobileSPCoreService.ProductSpecDataItemUITypeEnumDto ProductSpecDataItemUIType
-        {
-            get
-            {
-                return this.ProductSpecDataItemUITypeField;
-            }
-            set
-            {
-                this.ProductSpecDataItemUITypeField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<MobileSPCoreService.ProductSpecDataItemValueDto> ProductSpecDataItemValues
-        {
-            get
-            {
-                return this.ProductSpecDataItemValuesField;
-            }
-            set
-            {
-                this.ProductSpecDataItemValuesField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<int> ProductSpecSectionId
-        {
-            get
-            {
-                return this.ProductSpecSectionIdField;
-            }
-            set
-            {
-                this.ProductSpecSectionIdField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Value
-        {
-            get
-            {
-                return this.ValueField;
-            }
-            set
-            {
-                this.ValueField = value;
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ProductSpecDataItemValueDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
-    public partial class ProductSpecDataItemValueDto : MobileSPCoreService.BaseDtoOfint
-    {
-        
-        private System.Nullable<int> MarketIdField;
-        
-        private int ProductSpecDataItemIdField;
-        
-        private string ValueField;
-        
-        private string ValueDescriptionField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<int> MarketId
-        {
-            get
-            {
-                return this.MarketIdField;
-            }
-            set
-            {
-                this.MarketIdField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int ProductSpecDataItemId
-        {
-            get
-            {
-                return this.ProductSpecDataItemIdField;
-            }
-            set
-            {
-                this.ProductSpecDataItemIdField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Value
-        {
-            get
-            {
-                return this.ValueField;
-            }
-            set
-            {
-                this.ValueField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ValueDescription
-        {
-            get
-            {
-                return this.ValueDescriptionField;
-            }
-            set
-            {
-                this.ValueDescriptionField = value;
             }
         }
     }
@@ -8417,163 +9910,6 @@ namespace MobileSPCoreService
             set
             {
                 this.TitleField = value;
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="MediaInfoDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
-    public partial class MediaInfoDto : MobileSPCoreService.BaseDtoOfint
-    {
-        
-        private string AzureUrlField;
-        
-        private string ExtensionField;
-        
-        private int MarketIdField;
-        
-        private string MediaIdField;
-        
-        private MobileSPCoreService.MediaTypesDto MediaTypeField;
-        
-        private int MediaVersionField;
-        
-        private string NameField;
-        
-        private string PathField;
-        
-        private string Preview1PathField;
-        
-        private long SizeField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string AzureUrl
-        {
-            get
-            {
-                return this.AzureUrlField;
-            }
-            set
-            {
-                this.AzureUrlField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Extension
-        {
-            get
-            {
-                return this.ExtensionField;
-            }
-            set
-            {
-                this.ExtensionField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int MarketId
-        {
-            get
-            {
-                return this.MarketIdField;
-            }
-            set
-            {
-                this.MarketIdField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string MediaId
-        {
-            get
-            {
-                return this.MediaIdField;
-            }
-            set
-            {
-                this.MediaIdField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MobileSPCoreService.MediaTypesDto MediaType
-        {
-            get
-            {
-                return this.MediaTypeField;
-            }
-            set
-            {
-                this.MediaTypeField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int MediaVersion
-        {
-            get
-            {
-                return this.MediaVersionField;
-            }
-            set
-            {
-                this.MediaVersionField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name
-        {
-            get
-            {
-                return this.NameField;
-            }
-            set
-            {
-                this.NameField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Path
-        {
-            get
-            {
-                return this.PathField;
-            }
-            set
-            {
-                this.PathField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Preview1Path
-        {
-            get
-            {
-                return this.Preview1PathField;
-            }
-            set
-            {
-                this.Preview1PathField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public long Size
-        {
-            get
-            {
-                return this.SizeField;
-            }
-            set
-            {
-                this.SizeField = value;
             }
         }
     }
@@ -11568,577 +12904,27 @@ namespace MobileSPCoreService
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="LtrOperationDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
-    public partial class LtrOperationDto : MobileSPCoreService.BaseDtoOfint
+    [System.Runtime.Serialization.DataContractAttribute(Name="ProductSpecDataItemDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
+    public partial class ProductSpecDataItemDto : MobileSPCoreService.BaseVersionableEntityDtoOfint
     {
-        
-        private System.Nullable<int> BaseConflictSetIdField;
-        
-        private System.Nullable<MobileSPCoreService.BaseConflictSetStatusEnumDto> BaseConflictSetStatusField;
-        
-        private System.Nullable<System.DateTime> FinishedAtField;
-        
-        private string LastMessageField;
-        
-        private int LtrOperationConfigIdField;
-        
-        private MobileSPCoreService.LtrOperationStatusEnumDto LtrOperationStatusField;
-        
-        private System.DateTime StartedAtField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<int> BaseConflictSetId
-        {
-            get
-            {
-                return this.BaseConflictSetIdField;
-            }
-            set
-            {
-                this.BaseConflictSetIdField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<MobileSPCoreService.BaseConflictSetStatusEnumDto> BaseConflictSetStatus
-        {
-            get
-            {
-                return this.BaseConflictSetStatusField;
-            }
-            set
-            {
-                this.BaseConflictSetStatusField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<System.DateTime> FinishedAt
-        {
-            get
-            {
-                return this.FinishedAtField;
-            }
-            set
-            {
-                this.FinishedAtField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string LastMessage
-        {
-            get
-            {
-                return this.LastMessageField;
-            }
-            set
-            {
-                this.LastMessageField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int LtrOperationConfigId
-        {
-            get
-            {
-                return this.LtrOperationConfigIdField;
-            }
-            set
-            {
-                this.LtrOperationConfigIdField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MobileSPCoreService.LtrOperationStatusEnumDto LtrOperationStatus
-        {
-            get
-            {
-                return this.LtrOperationStatusField;
-            }
-            set
-            {
-                this.LtrOperationStatusField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime StartedAt
-        {
-            get
-            {
-                return this.StartedAtField;
-            }
-            set
-            {
-                this.StartedAtField = value;
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="LtrOperationConfigDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ImportCarModelSpecMarketConfigDto))]
-    public partial class LtrOperationConfigDto : MobileSPCoreService.BaseDtoOfint
-    {
-        
-        private MobileSPCoreService.UserDto CreatorField;
-        
-        private int CreatorIdField;
-        
-        private bool IsDefaultField;
-        
-        private MobileSPCoreService.LtrOperationConfigTypeEnumDto LtrOperationTypeField;
-        
-        private int MarketIdField;
-        
-        private string NameField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MobileSPCoreService.UserDto Creator
-        {
-            get
-            {
-                return this.CreatorField;
-            }
-            set
-            {
-                this.CreatorField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int CreatorId
-        {
-            get
-            {
-                return this.CreatorIdField;
-            }
-            set
-            {
-                this.CreatorIdField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool IsDefault
-        {
-            get
-            {
-                return this.IsDefaultField;
-            }
-            set
-            {
-                this.IsDefaultField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MobileSPCoreService.LtrOperationConfigTypeEnumDto LtrOperationType
-        {
-            get
-            {
-                return this.LtrOperationTypeField;
-            }
-            set
-            {
-                this.LtrOperationTypeField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int MarketId
-        {
-            get
-            {
-                return this.MarketIdField;
-            }
-            set
-            {
-                this.MarketIdField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name
-        {
-            get
-            {
-                return this.NameField;
-            }
-            set
-            {
-                this.NameField = value;
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ImportCarModelSpecMarketConfigDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
-    public partial class ImportCarModelSpecMarketConfigDto : MobileSPCoreService.LtrOperationConfigDto
-    {
-        
-        private string DataTableNameField;
-        
-        private string DbNameField;
-        
-        private System.Collections.Generic.List<MobileSPCoreService.ImportCarModelSpecConfigDto> ImportCarModelSpecConfigsField;
-        
-        private int LanguageIdField;
-        
-        private string SchemaTableNameField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string DataTableName
-        {
-            get
-            {
-                return this.DataTableNameField;
-            }
-            set
-            {
-                this.DataTableNameField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string DbName
-        {
-            get
-            {
-                return this.DbNameField;
-            }
-            set
-            {
-                this.DbNameField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<MobileSPCoreService.ImportCarModelSpecConfigDto> ImportCarModelSpecConfigs
-        {
-            get
-            {
-                return this.ImportCarModelSpecConfigsField;
-            }
-            set
-            {
-                this.ImportCarModelSpecConfigsField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int LanguageId
-        {
-            get
-            {
-                return this.LanguageIdField;
-            }
-            set
-            {
-                this.LanguageIdField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string SchemaTableName
-        {
-            get
-            {
-                return this.SchemaTableNameField;
-            }
-            set
-            {
-                this.SchemaTableNameField = value;
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ImportCarModelSpecConfigDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
-    public partial class ImportCarModelSpecConfigDto : MobileSPCoreService.BaseDtoOfint
-    {
-        
-        private string BodyStyleDescriptionField;
-        
-        private string CarModelBodyStyleCodeField;
-        
-        private int CarModelIdField;
-        
-        private string CarModelNameField;
-        
-        private int CarModelYearField;
-        
-        private int ImportCarModelSpecMarketConfigIdField;
-        
-        private string JatoMakeNameField;
-        
-        private string JatoModelNameField;
-        
-        private string JatoSeriesNameField;
-        
-        private string YearField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string BodyStyleDescription
-        {
-            get
-            {
-                return this.BodyStyleDescriptionField;
-            }
-            set
-            {
-                this.BodyStyleDescriptionField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CarModelBodyStyleCode
-        {
-            get
-            {
-                return this.CarModelBodyStyleCodeField;
-            }
-            set
-            {
-                this.CarModelBodyStyleCodeField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int CarModelId
-        {
-            get
-            {
-                return this.CarModelIdField;
-            }
-            set
-            {
-                this.CarModelIdField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CarModelName
-        {
-            get
-            {
-                return this.CarModelNameField;
-            }
-            set
-            {
-                this.CarModelNameField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int CarModelYear
-        {
-            get
-            {
-                return this.CarModelYearField;
-            }
-            set
-            {
-                this.CarModelYearField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int ImportCarModelSpecMarketConfigId
-        {
-            get
-            {
-                return this.ImportCarModelSpecMarketConfigIdField;
-            }
-            set
-            {
-                this.ImportCarModelSpecMarketConfigIdField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string JatoMakeName
-        {
-            get
-            {
-                return this.JatoMakeNameField;
-            }
-            set
-            {
-                this.JatoMakeNameField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string JatoModelName
-        {
-            get
-            {
-                return this.JatoModelNameField;
-            }
-            set
-            {
-                this.JatoModelNameField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string JatoSeriesName
-        {
-            get
-            {
-                return this.JatoSeriesNameField;
-            }
-            set
-            {
-                this.JatoSeriesNameField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Year
-        {
-            get
-            {
-                return this.YearField;
-            }
-            set
-            {
-                this.YearField = value;
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BaseConflictSetDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ImportConflictSetDto))]
-    public partial class BaseConflictSetDto : MobileSPCoreService.BaseDtoOfint
-    {
-        
-        private string MessageField;
-        
-        private MobileSPCoreService.BaseConflictSetStatusEnumDto StatusField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Message
-        {
-            get
-            {
-                return this.MessageField;
-            }
-            set
-            {
-                this.MessageField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MobileSPCoreService.BaseConflictSetStatusEnumDto Status
-        {
-            get
-            {
-                return this.StatusField;
-            }
-            set
-            {
-                this.StatusField = value;
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ImportConflictSetDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
-    public partial class ImportConflictSetDto : MobileSPCoreService.BaseConflictSetDto
-    {
-        
-        private System.Collections.Generic.List<MobileSPCoreService.ImportConflictDto> ImportConfictsField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<MobileSPCoreService.ImportConflictDto> ImportConficts
-        {
-            get
-            {
-                return this.ImportConfictsField;
-            }
-            set
-            {
-                this.ImportConfictsField = value;
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ImportConflictDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
-    public partial class ImportConflictDto : MobileSPCoreService.BaseDtoOfint
-    {
-        
-        private string CarModelNameField;
-        
-        private string CarSerieNameField;
-        
-        private System.Nullable<int> ChosenProductSpecDataItemIdField;
         
         private int EngineIdField;
         
-        private string EngineNameField;
-        
         private string KeyField;
         
-        private int MarketIdField;
+        private string NameField;
         
-        private MobileSPCoreService.ProductSpecDataItemDto ProductSpecDataItem1Field;
+        private int OrderField;
         
-        private MobileSPCoreService.ProductSpecDataItemDto ProductSpecDataItem2Field;
+        private MobileSPCoreService.ProductSpecDataItemTypeEnumDto ProductSpecDataItemTypeField;
         
-        private MobileSPCoreService.ImportConflictStatusEnumDto StatusField;
+        private MobileSPCoreService.ProductSpecDataItemUITypeEnumDto ProductSpecDataItemUITypeField;
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CarModelName
-        {
-            get
-            {
-                return this.CarModelNameField;
-            }
-            set
-            {
-                this.CarModelNameField = value;
-            }
-        }
+        private System.Collections.Generic.List<MobileSPCoreService.ProductSpecDataItemValueDto> ProductSpecDataItemValuesField;
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CarSerieName
-        {
-            get
-            {
-                return this.CarSerieNameField;
-            }
-            set
-            {
-                this.CarSerieNameField = value;
-            }
-        }
+        private System.Nullable<int> ProductSpecSectionIdField;
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<int> ChosenProductSpecDataItemId
-        {
-            get
-            {
-                return this.ChosenProductSpecDataItemIdField;
-            }
-            set
-            {
-                this.ChosenProductSpecDataItemIdField = value;
-            }
-        }
+        private string ValueField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public int EngineId
@@ -12150,19 +12936,6 @@ namespace MobileSPCoreService
             set
             {
                 this.EngineIdField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string EngineName
-        {
-            get
-            {
-                return this.EngineNameField;
-            }
-            set
-            {
-                this.EngineNameField = value;
             }
         }
         
@@ -12180,7 +12953,113 @@ namespace MobileSPCoreService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int MarketId
+        public string Name
+        {
+            get
+            {
+                return this.NameField;
+            }
+            set
+            {
+                this.NameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Order
+        {
+            get
+            {
+                return this.OrderField;
+            }
+            set
+            {
+                this.OrderField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MobileSPCoreService.ProductSpecDataItemTypeEnumDto ProductSpecDataItemType
+        {
+            get
+            {
+                return this.ProductSpecDataItemTypeField;
+            }
+            set
+            {
+                this.ProductSpecDataItemTypeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MobileSPCoreService.ProductSpecDataItemUITypeEnumDto ProductSpecDataItemUIType
+        {
+            get
+            {
+                return this.ProductSpecDataItemUITypeField;
+            }
+            set
+            {
+                this.ProductSpecDataItemUITypeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<MobileSPCoreService.ProductSpecDataItemValueDto> ProductSpecDataItemValues
+        {
+            get
+            {
+                return this.ProductSpecDataItemValuesField;
+            }
+            set
+            {
+                this.ProductSpecDataItemValuesField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> ProductSpecSectionId
+        {
+            get
+            {
+                return this.ProductSpecSectionIdField;
+            }
+            set
+            {
+                this.ProductSpecSectionIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Value
+        {
+            get
+            {
+                return this.ValueField;
+            }
+            set
+            {
+                this.ValueField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ProductSpecDataItemValueDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
+    public partial class ProductSpecDataItemValueDto : MobileSPCoreService.BaseDtoOfint
+    {
+        
+        private System.Nullable<int> MarketIdField;
+        
+        private int ProductSpecDataItemIdField;
+        
+        private string ValueField;
+        
+        private string ValueDescriptionField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> MarketId
         {
             get
             {
@@ -12193,41 +13072,41 @@ namespace MobileSPCoreService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public MobileSPCoreService.ProductSpecDataItemDto ProductSpecDataItem1
+        public int ProductSpecDataItemId
         {
             get
             {
-                return this.ProductSpecDataItem1Field;
+                return this.ProductSpecDataItemIdField;
             }
             set
             {
-                this.ProductSpecDataItem1Field = value;
+                this.ProductSpecDataItemIdField = value;
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public MobileSPCoreService.ProductSpecDataItemDto ProductSpecDataItem2
+        public string Value
         {
             get
             {
-                return this.ProductSpecDataItem2Field;
+                return this.ValueField;
             }
             set
             {
-                this.ProductSpecDataItem2Field = value;
+                this.ValueField = value;
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public MobileSPCoreService.ImportConflictStatusEnumDto Status
+        public string ValueDescription
         {
             get
             {
-                return this.StatusField;
+                return this.ValueDescriptionField;
             }
             set
             {
-                this.StatusField = value;
+                this.ValueDescriptionField = value;
             }
         }
     }
@@ -15606,913 +16485,227 @@ namespace MobileSPCoreService
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BaseFeedDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ImageFeedDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.TextFeedDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.VideoFeedDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.QuizFeedDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.SurveyFeedDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ObservationFeedDto))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.LinkFeedDto))]
-    public partial class BaseFeedDto : MobileSPCoreService.BaseDtoOfint
+    [System.Runtime.Serialization.DataContractAttribute(Name="FeedCategoryEnumDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public enum FeedCategoryEnumDto : int
     {
         
-        private bool AllowFavouriteField;
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Learning = 0,
         
-        private MobileSPCoreService.CorporateAppDto CorporateAppField;
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        News = 1,
         
-        private System.Nullable<System.DateTime> EndDateField;
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        General = 2,
         
-        private MobileSPCoreService.FeedCategoryEnumDto FeedCategoryField;
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Campaign = 3,
         
-        private MobileSPCoreService.FeedTypeEnumDto FeedTypeField;
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Announcement = 4,
         
-        private bool IsFavouriteField;
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Article = 5,
         
-        private string LegalInformationField;
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Observation = 6,
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="FeedTypeEnumDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public enum FeedTypeEnumDto : int
+    {
         
-        private MobileSPCoreService.MediaInfoDto MainIconField;
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Text = 0,
         
-        private System.Nullable<int> MainIconIdField;
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Video = 1,
         
-        private bool MakeTitleWidgetLinkField;
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Image = 2,
         
-        private int MarketIdField;
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Quiz = 3,
         
-        private long PermissionsField;
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Survey = 4,
         
-        private int PointsField;
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        VideoLink = 5,
         
-        private System.Nullable<System.DateTime> PublishedLiveAtField;
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        ImageLink = 6,
         
-        private int ReadingTimeField;
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        PdfLink = 7,
         
-        private string ShortDescriptionField;
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Observation = 8,
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="AppTypeEnumDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public enum AppTypeEnumDto : int
+    {
         
-        private System.Nullable<System.DateTime> StartDateField;
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        FISA = 0,
         
-        private string TitleField;
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        CCESG = 1,
         
-        private string WebUrlLinkField;
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        MLearning = 2,
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="MediaTypesDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
+    public enum MediaTypesDto : int
+    {
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool AllowFavourite
-        {
-            get
-            {
-                return this.AllowFavouriteField;
-            }
-            set
-            {
-                this.AllowFavouriteField = value;
-            }
-        }
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Text = 0,
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MobileSPCoreService.CorporateAppDto CorporateApp
-        {
-            get
-            {
-                return this.CorporateAppField;
-            }
-            set
-            {
-                this.CorporateAppField = value;
-            }
-        }
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Font = 1,
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<System.DateTime> EndDate
-        {
-            get
-            {
-                return this.EndDateField;
-            }
-            set
-            {
-                this.EndDateField = value;
-            }
-        }
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Image = 2,
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MobileSPCoreService.FeedCategoryEnumDto FeedCategory
-        {
-            get
-            {
-                return this.FeedCategoryField;
-            }
-            set
-            {
-                this.FeedCategoryField = value;
-            }
-        }
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Video = 3,
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MobileSPCoreService.FeedTypeEnumDto FeedType
-        {
-            get
-            {
-                return this.FeedTypeField;
-            }
-            set
-            {
-                this.FeedTypeField = value;
-            }
-        }
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Icon = 4,
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="QuizQuestionTypeEnumDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public enum QuizQuestionTypeEnumDto : int
+    {
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool IsFavourite
-        {
-            get
-            {
-                return this.IsFavouriteField;
-            }
-            set
-            {
-                this.IsFavouriteField = value;
-            }
-        }
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Single = 0,
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string LegalInformation
-        {
-            get
-            {
-                return this.LegalInformationField;
-            }
-            set
-            {
-                this.LegalInformationField = value;
-            }
-        }
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Multiple = 1,
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="SurveyQuestionTypeEnumDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public enum SurveyQuestionTypeEnumDto : int
+    {
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MobileSPCoreService.MediaInfoDto MainIcon
-        {
-            get
-            {
-                return this.MainIconField;
-            }
-            set
-            {
-                this.MainIconField = value;
-            }
-        }
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Single = 0,
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<int> MainIconId
-        {
-            get
-            {
-                return this.MainIconIdField;
-            }
-            set
-            {
-                this.MainIconIdField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool MakeTitleWidgetLink
-        {
-            get
-            {
-                return this.MakeTitleWidgetLinkField;
-            }
-            set
-            {
-                this.MakeTitleWidgetLinkField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int MarketId
-        {
-            get
-            {
-                return this.MarketIdField;
-            }
-            set
-            {
-                this.MarketIdField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public long Permissions
-        {
-            get
-            {
-                return this.PermissionsField;
-            }
-            set
-            {
-                this.PermissionsField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Points
-        {
-            get
-            {
-                return this.PointsField;
-            }
-            set
-            {
-                this.PointsField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<System.DateTime> PublishedLiveAt
-        {
-            get
-            {
-                return this.PublishedLiveAtField;
-            }
-            set
-            {
-                this.PublishedLiveAtField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int ReadingTime
-        {
-            get
-            {
-                return this.ReadingTimeField;
-            }
-            set
-            {
-                this.ReadingTimeField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ShortDescription
-        {
-            get
-            {
-                return this.ShortDescriptionField;
-            }
-            set
-            {
-                this.ShortDescriptionField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<System.DateTime> StartDate
-        {
-            get
-            {
-                return this.StartDateField;
-            }
-            set
-            {
-                this.StartDateField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Title
-        {
-            get
-            {
-                return this.TitleField;
-            }
-            set
-            {
-                this.TitleField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string WebUrlLink
-        {
-            get
-            {
-                return this.WebUrlLinkField;
-            }
-            set
-            {
-                this.WebUrlLinkField = value;
-            }
-        }
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Multiple = 1,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CorporateAppDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
-    public partial class CorporateAppDto : MobileSPCoreService.BaseDtoOfint
+    [System.Runtime.Serialization.DataContractAttribute(Name="UserObservationDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class UserObservationDto : object
     {
         
-        private MobileSPCoreService.AppTypeEnumDto AppTypeField;
+        private int ObservationFeedIdField;
         
-        private string LinkUrlField;
+        private MobileSPCoreService.UserDto UserField;
+        
+        private int UserIdField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public MobileSPCoreService.AppTypeEnumDto AppType
+        public int ObservationFeedId
         {
             get
             {
-                return this.AppTypeField;
+                return this.ObservationFeedIdField;
             }
             set
             {
-                this.AppTypeField = value;
+                this.ObservationFeedIdField = value;
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string LinkUrl
+        public MobileSPCoreService.UserDto User
         {
             get
             {
-                return this.LinkUrlField;
+                return this.UserField;
             }
             set
             {
-                this.LinkUrlField = value;
+                this.UserField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int UserId
+        {
+            get
+            {
+                return this.UserIdField;
+            }
+            set
+            {
+                this.UserIdField = value;
             }
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ImageFeedDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
-    public partial class ImageFeedDto : MobileSPCoreService.BaseFeedDto
+    [System.Runtime.Serialization.DataContractAttribute(Name="BaseConflictSetStatusEnumDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
+    public enum BaseConflictSetStatusEnumDto : int
     {
         
-        private string ImageDescriptionField;
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        NotSolved = 0,
         
-        private MobileSPCoreService.MediaInfoDto MainImageField;
-        
-        private System.Nullable<int> MainImageIdField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ImageDescription
-        {
-            get
-            {
-                return this.ImageDescriptionField;
-            }
-            set
-            {
-                this.ImageDescriptionField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MobileSPCoreService.MediaInfoDto MainImage
-        {
-            get
-            {
-                return this.MainImageField;
-            }
-            set
-            {
-                this.MainImageField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<int> MainImageId
-        {
-            get
-            {
-                return this.MainImageIdField;
-            }
-            set
-            {
-                this.MainImageIdField = value;
-            }
-        }
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Solved = 1,
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TextFeedDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
-    public partial class TextFeedDto : MobileSPCoreService.BaseFeedDto
+    [System.Runtime.Serialization.DataContractAttribute(Name="LtrOperationStatusEnumDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
+    public enum LtrOperationStatusEnumDto : int
     {
         
-        private string BodyTextField;
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Saved = 0,
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string BodyText
-        {
-            get
-            {
-                return this.BodyTextField;
-            }
-            set
-            {
-                this.BodyTextField = value;
-            }
-        }
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Started = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Finished = 2,
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="VideoFeedDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
-    public partial class VideoFeedDto : MobileSPCoreService.BaseFeedDto
+    [System.Runtime.Serialization.DataContractAttribute(Name="LtrOperationConfigTypeEnumDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
+    public enum LtrOperationConfigTypeEnumDto : int
     {
         
-        private MobileSPCoreService.MediaInfoDto MainVideoField;
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        ImportCarModelSpec = 0,
         
-        private System.Nullable<int> MainVideoIdField;
-        
-        private string VideoDescriptionField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MobileSPCoreService.MediaInfoDto MainVideo
-        {
-            get
-            {
-                return this.MainVideoField;
-            }
-            set
-            {
-                this.MainVideoField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<int> MainVideoId
-        {
-            get
-            {
-                return this.MainVideoIdField;
-            }
-            set
-            {
-                this.MainVideoIdField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string VideoDescription
-        {
-            get
-            {
-                return this.VideoDescriptionField;
-            }
-            set
-            {
-                this.VideoDescriptionField = value;
-            }
-        }
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        SendNotification = 1,
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="QuizFeedDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
-    public partial class QuizFeedDto : MobileSPCoreService.BaseFeedDto
+    [System.Runtime.Serialization.DataContractAttribute(Name="ImportConflictStatusEnumDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
+    public enum ImportConflictStatusEnumDto : int
     {
         
-        private string FailMessageField;
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        NotFixed = 0,
         
-        private string OnBoardingMessageField;
-        
-        private System.Collections.Generic.List<MobileSPCoreService.QuizQuestionDto> QuestionsField;
-        
-        private string QuizDescriptionField;
-        
-        private string SuccessMessageField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string FailMessage
-        {
-            get
-            {
-                return this.FailMessageField;
-            }
-            set
-            {
-                this.FailMessageField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string OnBoardingMessage
-        {
-            get
-            {
-                return this.OnBoardingMessageField;
-            }
-            set
-            {
-                this.OnBoardingMessageField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<MobileSPCoreService.QuizQuestionDto> Questions
-        {
-            get
-            {
-                return this.QuestionsField;
-            }
-            set
-            {
-                this.QuestionsField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string QuizDescription
-        {
-            get
-            {
-                return this.QuizDescriptionField;
-            }
-            set
-            {
-                this.QuizDescriptionField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string SuccessMessage
-        {
-            get
-            {
-                return this.SuccessMessageField;
-            }
-            set
-            {
-                this.SuccessMessageField = value;
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="QuizQuestionDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
-    public partial class QuizQuestionDto : MobileSPCoreService.BaseDtoOfint
-    {
-        
-        private System.Collections.Generic.List<MobileSPCoreService.QuizQuestionAnswerDto> AnswersField;
-        
-        private int OrderField;
-        
-        private string QuestionField;
-        
-        private MobileSPCoreService.QuizQuestionTypeEnumDto QuestionTypeField;
-        
-        private int QuizFeedIdField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<MobileSPCoreService.QuizQuestionAnswerDto> Answers
-        {
-            get
-            {
-                return this.AnswersField;
-            }
-            set
-            {
-                this.AnswersField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Order
-        {
-            get
-            {
-                return this.OrderField;
-            }
-            set
-            {
-                this.OrderField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Question
-        {
-            get
-            {
-                return this.QuestionField;
-            }
-            set
-            {
-                this.QuestionField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MobileSPCoreService.QuizQuestionTypeEnumDto QuestionType
-        {
-            get
-            {
-                return this.QuestionTypeField;
-            }
-            set
-            {
-                this.QuestionTypeField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int QuizFeedId
-        {
-            get
-            {
-                return this.QuizFeedIdField;
-            }
-            set
-            {
-                this.QuizFeedIdField = value;
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="QuizQuestionAnswerDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
-    public partial class QuizQuestionAnswerDto : MobileSPCoreService.BaseDtoOfint
-    {
-        
-        private string AnswerField;
-        
-        private bool IsCorrectField;
-        
-        private int OrderField;
-        
-        private int QuizQuestionIdField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Answer
-        {
-            get
-            {
-                return this.AnswerField;
-            }
-            set
-            {
-                this.AnswerField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool IsCorrect
-        {
-            get
-            {
-                return this.IsCorrectField;
-            }
-            set
-            {
-                this.IsCorrectField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Order
-        {
-            get
-            {
-                return this.OrderField;
-            }
-            set
-            {
-                this.OrderField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int QuizQuestionId
-        {
-            get
-            {
-                return this.QuizQuestionIdField;
-            }
-            set
-            {
-                this.QuizQuestionIdField = value;
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="SurveyFeedDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.ObservationFeedDto))]
-    public partial class SurveyFeedDto : MobileSPCoreService.BaseFeedDto
-    {
-        
-        private System.Collections.Generic.List<MobileSPCoreService.SurveyQuestionDto> QuestionsField;
-        
-        private string SurveyDescriptionField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<MobileSPCoreService.SurveyQuestionDto> Questions
-        {
-            get
-            {
-                return this.QuestionsField;
-            }
-            set
-            {
-                this.QuestionsField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string SurveyDescription
-        {
-            get
-            {
-                return this.SurveyDescriptionField;
-            }
-            set
-            {
-                this.SurveyDescriptionField = value;
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="SurveyQuestionDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
-    public partial class SurveyQuestionDto : MobileSPCoreService.BaseDtoOfint
-    {
-        
-        private System.Collections.Generic.List<MobileSPCoreService.SurveyQuestionAnswerDto> AnswersField;
-        
-        private int OrderField;
-        
-        private string QuestionField;
-        
-        private MobileSPCoreService.SurveyQuestionTypeEnumDto QuestionTypeField;
-        
-        private int SurveyFeedIdField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<MobileSPCoreService.SurveyQuestionAnswerDto> Answers
-        {
-            get
-            {
-                return this.AnswersField;
-            }
-            set
-            {
-                this.AnswersField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Order
-        {
-            get
-            {
-                return this.OrderField;
-            }
-            set
-            {
-                this.OrderField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Question
-        {
-            get
-            {
-                return this.QuestionField;
-            }
-            set
-            {
-                this.QuestionField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MobileSPCoreService.SurveyQuestionTypeEnumDto QuestionType
-        {
-            get
-            {
-                return this.QuestionTypeField;
-            }
-            set
-            {
-                this.QuestionTypeField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int SurveyFeedId
-        {
-            get
-            {
-                return this.SurveyFeedIdField;
-            }
-            set
-            {
-                this.SurveyFeedIdField = value;
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="SurveyQuestionAnswerDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
-    public partial class SurveyQuestionAnswerDto : MobileSPCoreService.BaseDtoOfint
-    {
-        
-        private string AnswerField;
-        
-        private bool IsFreeTextField;
-        
-        private int OrderField;
-        
-        private int SurveyQuestionIdField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Answer
-        {
-            get
-            {
-                return this.AnswerField;
-            }
-            set
-            {
-                this.AnswerField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool IsFreeText
-        {
-            get
-            {
-                return this.IsFreeTextField;
-            }
-            set
-            {
-                this.IsFreeTextField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Order
-        {
-            get
-            {
-                return this.OrderField;
-            }
-            set
-            {
-                this.OrderField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int SurveyQuestionId
-        {
-            get
-            {
-                return this.SurveyQuestionIdField;
-            }
-            set
-            {
-                this.SurveyQuestionIdField = value;
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ObservationFeedDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
-    public partial class ObservationFeedDto : MobileSPCoreService.SurveyFeedDto
-    {
-        
-        private System.Collections.Generic.List<MobileSPCoreService.UserObservationDto> UserObservationsField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<MobileSPCoreService.UserObservationDto> UserObservations
-        {
-            get
-            {
-                return this.UserObservationsField;
-            }
-            set
-            {
-                this.UserObservationsField = value;
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="LinkFeedDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
-    public partial class LinkFeedDto : MobileSPCoreService.BaseFeedDto
-    {
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Fixed = 1,
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
@@ -16564,27 +16757,6 @@ namespace MobileSPCoreService
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Draft = 4,
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="MediaTypesDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
-    public enum MediaTypesDto : int
-    {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Text = 0,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Font = 1,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Image = 2,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Video = 3,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Icon = 4,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -17236,57 +17408,6 @@ namespace MobileSPCoreService
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BaseConflictSetStatusEnumDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
-    public enum BaseConflictSetStatusEnumDto : int
-    {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        NotSolved = 0,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Solved = 1,
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="LtrOperationStatusEnumDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
-    public enum LtrOperationStatusEnumDto : int
-    {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Saved = 0,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Started = 1,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Finished = 2,
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="LtrOperationConfigTypeEnumDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
-    public enum LtrOperationConfigTypeEnumDto : int
-    {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        ImportCarModelSpec = 0,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        SendNotification = 1,
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ImportConflictStatusEnumDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
-    public enum ImportConflictStatusEnumDto : int
-    {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        NotFixed = 0,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Fixed = 1,
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="LayoutStatusContextEnumDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
     public enum LayoutStatusContextEnumDto : int
     {
@@ -17749,157 +17870,6 @@ namespace MobileSPCoreService
             set
             {
                 this.OptionStatusField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="FeedCategoryEnumDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
-    public enum FeedCategoryEnumDto : int
-    {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Learning = 0,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        News = 1,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        General = 2,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Campaign = 3,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Announcement = 4,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Article = 5,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Observation = 6,
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="FeedTypeEnumDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
-    public enum FeedTypeEnumDto : int
-    {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Text = 0,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Video = 1,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Image = 2,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Quiz = 3,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Survey = 4,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        VideoLink = 5,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        ImageLink = 6,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        PdfLink = 7,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Observation = 8,
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="AppTypeEnumDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
-    public enum AppTypeEnumDto : int
-    {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        FISA = 0,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        CCESG = 1,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        MLearning = 2,
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="QuizQuestionTypeEnumDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
-    public enum QuizQuestionTypeEnumDto : int
-    {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Single = 0,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Multiple = 1,
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="SurveyQuestionTypeEnumDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
-    public enum SurveyQuestionTypeEnumDto : int
-    {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Single = 0,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Multiple = 1,
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="UserObservationDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
-    public partial class UserObservationDto : object
-    {
-        
-        private int ObservationFeedIdField;
-        
-        private MobileSPCoreService.UserDto UserField;
-        
-        private int UserIdField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int ObservationFeedId
-        {
-            get
-            {
-                return this.ObservationFeedIdField;
-            }
-            set
-            {
-                this.ObservationFeedIdField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public MobileSPCoreService.UserDto User
-        {
-            get
-            {
-                return this.UserField;
-            }
-            set
-            {
-                this.UserField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int UserId
-        {
-            get
-            {
-                return this.UserIdField;
-            }
-            set
-            {
-                this.UserIdField = value;
             }
         }
     }

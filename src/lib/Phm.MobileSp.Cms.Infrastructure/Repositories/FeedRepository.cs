@@ -16,8 +16,8 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
         private readonly MobileSPCoreService.ICoreContract _proxyCoreClient;
 
         public FeedRepository(IMLearningCoreContract proxyClient, MobileSPCoreService.ICoreContract proxyCoreClient, IBaseRequest baseRequest,
-            IBaseCriteria baseRBaseCriteria)
-            : base(baseRequest, baseRBaseCriteria)
+            IBaseCriteria baseCriteria)
+            : base(baseRequest, baseCriteria)
         {
             _proxyClient = proxyClient;
             _proxyCoreClient = proxyCoreClient;
@@ -67,7 +67,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             feedItem.MarketId = null;
             var originalFeedItem = await GetFeedItemAsync(feedItem.Id);
             feedItem = FeedMapper.ConvertUnpopulatedFieldsToModel(originalFeedItem, feedItem);
-
+            feedItem.DeletedAt = null;
             var request = GetRequest(new UpdateFeedRequest()
             {
                 CurrentFeed = feedItem.MapFeedItem<TFeedItem, TDestinationDto>()
@@ -113,17 +113,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             var response = await _proxyClient.GetQuizResultsSummariesEXAsync(request);
             return response.QuizResultsSummaries;
         }
-
-        public async Task<dynamic> GetQuizSummaryFilters(int marketId)
-        {
-            var request = GetRequest(new GetQuizSummaryFiltersRequest
-            {
-                MarketId = marketId
-            });
-            var response = await _proxyClient.GetQuizSummaryFiltersAsync(request);
-            return response;
-        }
-
+        
         public async Task<bool> CopyFeedItemToMarketAsync(int feedItemId, List<int> marketIds)
         {
 

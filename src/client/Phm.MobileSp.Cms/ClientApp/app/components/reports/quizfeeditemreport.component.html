@@ -1,15 +1,14 @@
 <div *ngIf="model">
     <div class="report-title">
-        <img src="assets/images/Icon-{{feedTypeString}}-b.png" class="feed-cat-img" *ngIf="model.feedType!=feedTypes.Observation" />
-        <img src="assets/images/Icon-Observation-b.png" class="feed-cat-img" *ngIf="model.feedType==feedTypes.Observation" />
+        <img src="assets/images/Icon-Quiz-b.png" class="feed-cat-img"/>
 
         <span class="item-title">{{model.title}}</span>
     </div>
     <div class="report-subtitle">
-        <p>{{feedTypeString}} stats</p>
+        <p>Quiz stats</p>
     </div>
     <div>
-        <div class="col-md-6 stat-container">
+        <div class="col-md-4 stat-container">
             <div class="header-border"></div>
             <div class="stat-block">
                 <div class="stat-title">
@@ -51,7 +50,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 stat-container">
+        <div class="col-md-5 stat-container">
             <div class="header-border"></div>
             <div class="stat-block">
                 <div class="stat-title">
@@ -122,7 +121,7 @@
                             <span *ngIf="quizResult.resultPercentage!==100">{{ quizResult.resultPercentage }}%</span>
                         </div>
                         <div class="col-md-1">
-                            <i class="material-icons right">keyboard_arrow_right</i>
+                            <!--<i class="material-icons right">keyboard_arrow_right</i>-->
                         </div>
                         <span class="clearfix"></span>
                     </div>

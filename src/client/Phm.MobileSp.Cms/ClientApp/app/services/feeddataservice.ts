@@ -80,22 +80,10 @@ export class FeedDataService extends RequestHelper implements IFeedDataService, 
 
     public getFeedItemResultList(feedItemId: number, lowerBoundary: number, higherBoundary: number, userGroupId: number) {
         var requestUrl = '/api/Feed/GetFeedItemResultList?feedItemId=' + feedItemId
-         + '&lowerBoundary=' + lowerBoundary
-         + '&higherBoundary=' + higherBoundary
-         + '&userGroupId=' + userGroupId;
+            + '&lowerBoundary=' + lowerBoundary
+            + '&higherBoundary=' + higherBoundary
+            + '&userGroupId=' + userGroupId;
         return this.getRequestFull(requestUrl);
-    }
-
-    public getQuizSummaryFilters(): Observable<{ userGroupNames: string[], dealershipNames: string[] }> {
-        return Observable.create(observer => {
-            this.getRequestBase('/api/Feed/GetQuizSummaryFilters').subscribe((result) => {
-                if (result) {
-                    let response = { userGroupNames: result.userGroupNames, dealershipNames: result.dealershipNames };
-                    observer.next(response);
-                }
-                observer.complete();
-            });
-        });
     }
 
     public getLeaderBoard(startDate: string = null, endDate: string = null) {

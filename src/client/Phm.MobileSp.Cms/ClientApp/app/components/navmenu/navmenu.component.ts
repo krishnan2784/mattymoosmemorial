@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import Enums = require("../../enums");
+import { ShareService } from "../../services/helpers/shareservice";
+import { User } from "../../models/userclasses";
 
 @Component({
     selector: 'nav-menu',
@@ -8,4 +10,7 @@ import Enums = require("../../enums");
 })
 export class NavMenuComponent {
     public feedCats = Enums.FeedCategoryEnum;
+
+    constructor(public shareService: ShareService) {
+    }
 }

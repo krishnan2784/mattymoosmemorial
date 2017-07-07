@@ -86,11 +86,12 @@ var RequestHelper = (function () {
             });
         });
     };
-    RequestHelper.prototype.publishToLive = function (contentType, contentId) {
+    RequestHelper.prototype.publishToLive = function (contentType, contentId, url) {
         var _this = this;
+        if (url === void 0) { url = '/api/Market/PublishContentToLive'; }
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         return Observable_1.Observable.create(function (observer) {
-            _this.http.post('/api/Market/PublishContentToLive?contentType=' + contentType + '&contentId=' + contentId, null, headers).subscribe(function (result) {
+            _this.http.post(url + '?contentType=' + contentType + '&contentId=' + contentId, null, headers).subscribe(function (result) {
                 var response = responsehelper_1.ResponseHelper.getResponse(result);
                 if (response.success) {
                     Materialize.toast(response.message, 5000, 'green');

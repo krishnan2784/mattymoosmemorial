@@ -5,10 +5,20 @@ import Userclasses = require("../../models/userclasses");
 import UserMarket = Userclasses.UserMarket;
 import FeedModel = require("../../interfaces/models/IFeedModel");
 import { NavItem } from "../../components/navmenu/tabnavmenu.component";
+import { UserDataService } from "../userdataservice";
+import { User } from "../../models/userclasses";
 import IFeedItem = FeedModel.IFeedItem;
 
 @Injectable()
 export class ShareService {
+    public currentUser: User = new User();
+
+    constructor(public userDataService: UserDataService) {
+        userDataService.getCurrentUser().subscribe(response => {
+            this.currentUser = response;
+        });
+    }
+
     public currentMarket: UserMarket = new UserMarket;
     public currentMarketId: number = this.currentMarket.id;
 

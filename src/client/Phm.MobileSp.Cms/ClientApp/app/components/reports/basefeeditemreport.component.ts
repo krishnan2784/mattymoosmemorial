@@ -1,10 +1,10 @@
 ﻿import {Component, Input, ViewContainerRef, ViewChild, ReflectiveInjector, ComponentFactoryResolver } from '@angular/core';
-import Feeditemreportcomponent = require("./feeditemreport.component");
-import FeedItemReport = Feeditemreportcomponent.FeedItemReport;
+import Feeditemreportcomponent = require("./quizfeeditemreport.component");
+import QuizFeedItemReport = Feeditemreportcomponent.QuizFeedItemReport;
 
 @Component({
     selector: 'feed-report-component',
-    entryComponents: [FeedItemReport],
+    entryComponents: [QuizFeedItemReport],
     template: require('./basefeeditemreport.component.html'),
     styles: [require('./basefeeditemreport.component.css')],
 })

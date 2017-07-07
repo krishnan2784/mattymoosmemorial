@@ -61,6 +61,7 @@ var UserAccountManagementComponent = (function (_super) {
             },
             className: ['table-bordered', 'table-hover']
         };
+        _this.setupSubscriptions();
         _this.getData();
         return _this;
     }
@@ -70,17 +71,23 @@ var UserAccountManagementComponent = (function (_super) {
             _this.allUserAccounts = result;
             if (result) {
                 for (var i = 0; i < result.length; i++) {
-                    _this.allUserAccounts[i].zone = "Zone " + i;
-                    _this.allUserAccounts[i].region = "Region " + i;
                     _this.attachUserProperties(_this.allUserAccounts[i]);
                 }
             }
+            else
+                _this.allUserAccounts = [];
             _this.length = _this.allUserAccounts.length;
             _this.filteredUserAccounts = _this.allUserAccounts;
             _this.onChangeTable(_this.config);
         });
     };
     UserAccountManagementComponent.prototype.ngOnInit = function () {
+    };
+    UserAccountManagementComponent.prototype.setupSubscriptions = function () {
+        var _this = this;
+        this.sharedService.marketUpdated.subscribe(function (market) {
+            _this.getData();
+        });
     };
     UserAccountManagementComponent.prototype.changePage = function (page, data) {
         if (data === void 0) { data = this.filteredUserAccounts; }
@@ -170,8 +177,8 @@ var UserAccountManagementComponent = (function (_super) {
         }
     };
     UserAccountManagementComponent.prototype.editUser = function (user) {
-        if (user === void 0) { user = new userclasses_1.UserAccount(); }
-        user = new userclasses_1.UserAccount(user);
+        if (user === void 0) { user = new userclasses_1.UserTemplate(); }
+        user = new userclasses_1.UserTemplate(user);
         var inputs = { model: user, title: user.id === 0 ? 'Create User' : 'Edit User' };
         var modelData = EditUser;
         this.modalData = {
@@ -189,8 +196,8 @@ var UserAccountManagementComponent = (function (_super) {
     };
     UserAccountManagementComponent.prototype.attachUserProperties = function (user) {
         user.userAvatar = '<i class="material-icons table-avatar">person</i>';
-        user.firstName_region = user.firstName + '<p class="sub-data">' + user.region + '</p>';
-        user.email_zone = user.email + '<p class="sub-data">' + user.zone + '</p>';
+        user.firstName_region = user.firstName + '<p class="sub-data">' + user.regionName + '</p>';
+        user.email_zone = user.email + '<p class="sub-data">' + user.areaName + '</p>';
         user.actionEdit = '<a class="action-btn remove" data-toggle="modal" data-target="#edit-user"><i class="material-icons">edit</i><p>Edit</p></a>';
         user.actionDelete = '<a class="action-btn remove"><i class="material-icons">delete</i><p>Delete</p></a>';
         return user;

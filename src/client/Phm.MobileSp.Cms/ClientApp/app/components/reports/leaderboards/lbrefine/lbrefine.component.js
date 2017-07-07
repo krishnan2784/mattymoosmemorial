@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-//declare var ionRangeSlider: any;
 var LbrefineComponent = (function () {
     function LbrefineComponent() {
         this.criteriaChanged = new core_1.EventEmitter();

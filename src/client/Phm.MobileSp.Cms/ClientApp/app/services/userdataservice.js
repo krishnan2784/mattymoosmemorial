@@ -25,6 +25,7 @@ var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/publishReplay");
 var responsehelper_1 = require("./helpers/responsehelper");
+var Userclasses = require("../models/userclasses");
 var Requesthelper = require("./helpers/requesthelper");
 var RequestHelper = Requesthelper.RequestHelper;
 var UserDataService = (function (_super) {
@@ -35,10 +36,31 @@ var UserDataService = (function (_super) {
         _this.zone = zone;
         return _this;
     }
-    UserDataService.prototype.getUsers = function () {
+    UserDataService.prototype.getCurrentUser = function () {
         var _this = this;
         return Observable_1.Observable.create(function (observer) {
-            _this.http.get('/api/AccountManagement/UserList').subscribe(function (result) {
+            _this.http.get('/api/AccountManagement/GetCurrentUser').subscribe(function (result) {
+                var response = responsehelper_1.ResponseHelper.getResponse(result);
+                observer.next(new Userclasses.User(response.content));
+                observer.complete();
+            });
+        });
+    };
+    UserDataService.prototype.getUser = function (userId) {
+        var _this = this;
+        return Observable_1.Observable.create(function (observer) {
+            _this.getUsers(userId).subscribe(function (result) {
+                if (result && result.length > 0)
+                    observer.next(result[0]);
+                observer.complete();
+            });
+        });
+    };
+    UserDataService.prototype.getUsers = function (userId) {
+        var _this = this;
+        if (userId === void 0) { userId = null; }
+        return Observable_1.Observable.create(function (observer) {
+            _this.http.get('/api/AccountManagement/GetUsers' + (userId ? "?userId=" + userId : "")).subscribe(function (result) {
                 var response = responsehelper_1.ResponseHelper.getResponse(result);
                 observer.next(response.content);
                 observer.complete();
@@ -57,6 +79,9 @@ var UserDataService = (function (_super) {
     };
     UserDataService.prototype.updateUser = function (user) {
         return this.postRequestFull('/api/AccountManagement/UpdateUser', user);
+    };
+    UserDataService.prototype.getUserGroups = function () {
+        return this.getRequestBase('/api/AccountManagement/GetSecGroups');
     };
     return UserDataService;
 }(RequestHelper));

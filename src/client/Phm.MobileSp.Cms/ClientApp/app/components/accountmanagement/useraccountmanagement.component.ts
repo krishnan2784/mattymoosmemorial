@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import { BaseComponent } from "../base.component";
 import { ShareService } from "../../services/helpers/shareservice";
 import { UserDataService } from "../../services/userdataservice";
-import { UserAccount } from "../../models/userclasses";
+import { UserAccount, UserTemplate } from "../../models/userclasses";
 import Editusercomponent = require("./modals/edituser.component");
 import EditUser = Editusercomponent.EditUser;
 import FeedModel = require("../../interfaces/models/IFeedModel");
@@ -52,20 +52,19 @@ export class UserAccountManagementComponent extends BaseComponent {
 
     constructor(public sharedService: ShareService, public userDataService: UserDataService) {
         super(sharedService, 'Account Management', true);
+        this.setupSubscriptions();
         this.getData();
     }
 
     getData() {
         this.userDataService.getUsers().subscribe((result) => {
             this.allUserAccounts = result;
-
             if (result) {
                 for (let i = 0; i < result.length; i++) {
-                    this.allUserAccounts[i].zone = "Zone " + i;
-                    this.allUserAccounts[i].region = "Region " + i;
-                    this.attachUserProperties(this.allUserAccounts[i]); 
+                    this.attachUserProperties(this.allUserAccounts[i]);
                 }
-            }
+            } else
+                this.allUserAccounts = [];
 
             this.length = this.allUserAccounts.length;
             this.filteredUserAccounts = this.allUserAccounts;
@@ -75,6 +74,12 @@ export class UserAccountManagementComponent extends BaseComponent {
 
 
     public ngOnInit(): void {
+    }
+
+    setupSubscriptions() {
+        this.sharedService.marketUpdated.subscribe((market) => {
+            this.getData();
+        });
     }
 
     public changePage(page: any, data: Array<any> = this.filteredUserAccounts): Array<any> {
@@ -174,8 +179,8 @@ export class UserAccountManagementComponent extends BaseComponent {
         }
     }
 
-    public editUser(user: UserAccount = new UserAccount()) {
-        user = new UserAccount(user);
+    public editUser(user: UserTemplate = new UserTemplate()) {
+        user = new UserTemplate(user);
         let inputs = { model: user, title: user.id === 0 ? 'Create User' : 'Edit User' };
         var modelData = EditUser;
 
@@ -185,7 +190,7 @@ export class UserAccountManagementComponent extends BaseComponent {
         };
     }
 
-    public updateUser(user: UserAccount) {
+    public updateUser(user: UserTemplate) {
         this.attachUserProperties(user);
         var index = this.filteredUserAccounts.indexOf(user);
         if (index > -1) 
@@ -196,8 +201,8 @@ export class UserAccountManagementComponent extends BaseComponent {
 
     public attachUserProperties(user: any) {
         user.userAvatar = '<i class="material-icons table-avatar">person</i>';
-        user.firstName_region = user.firstName + '<p class="sub-data">' + user.region + '</p>';
-        user.email_zone = user.email + '<p class="sub-data">' + user.zone + '</p>';
+        user.firstName_region = user.firstName + '<p class="sub-data">' + user.regionName + '</p>';
+        user.email_zone = user.email + '<p class="sub-data">' + user.areaName + '</p>';
         user.actionEdit = '<a class="action-btn remove" data-toggle="modal" data-target="#edit-user"><i class="material-icons">edit</i><p>Edit</p></a>';
         user.actionDelete = '<a class="action-btn remove"><i class="material-icons">delete</i><p>Delete</p></a>';
         return user;

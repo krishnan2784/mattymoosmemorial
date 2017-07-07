@@ -1,5 +1,6 @@
 ﻿import Account = require("../interfaces/models/IUserAccount");
 import Baseclasses = require("./baseclasses");
+import { MediaInfo } from "./mediainfoclasses";
 import BaseModel = Baseclasses.BaseModel;
 
 export class UserAccount {
@@ -51,17 +52,21 @@ export class UserMarket {
     name: string;
     isDefault: boolean;
     isMaster: boolean;
+    isLive: boolean;
     constructor(options: {
         id?: number,
         name?: string,
         isDefault?: boolean,
-        isMaster?: boolean
+        isMaster?: boolean,
+        isLive?: boolean
+
     } = {}) {
 
         this.id = options.id || null;
         this.name = options.name || '';
         this.isDefault = options.isDefault || false;
         this.isMaster = options.isMaster || false;
+        this.isLive = options.isLive || false;
     }
 }
 
@@ -100,3 +105,40 @@ export class User extends BaseModel {
     }
 }
 
+export class UserTemplate extends BaseModel {
+    dealershipCode: string;
+    dealershipName: string;
+    areaCode: string;
+    areaName: string;
+    regionCode: string;
+    regionName: string;
+    zoneCode: string;
+    zoneName: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    userName: string;
+    avatarId: number;
+    avatar: MediaInfo;
+    totalMLearningPoints: number;
+    secGroup: { id: number, name: string}
+    constructor(options: {} = {}) {
+        super(options);
+        this.dealershipCode = options['dealershipCode'] || '';
+        this.dealershipName = options['dealershipName'] || '';
+        this.areaCode = options['areaCode'] || '';
+        this.areaName = options['areaName'] || '';
+        this.regionCode = options['regionCode'] || '';
+        this.regionName = options['regionName'] || '';
+        this.zoneCode = options['zoneCode'] || '';
+        this.zoneName = options['zoneName'] || '';
+        this.email = options['email'] || '';
+        this.firstName = options['firstName'] || '';
+        this.lastName = options['lastName'] || '';
+        this.userName = options['userName'] || '';
+        this.avatarId = options['avatarId'];
+        this.avatar = options['avatar'];
+        this.totalMLearningPoints = options['totalMLearningPoints'] || 0;
+        this.secGroup = options['secGroup'] || { id: 0, name: '' };
+    }
+}

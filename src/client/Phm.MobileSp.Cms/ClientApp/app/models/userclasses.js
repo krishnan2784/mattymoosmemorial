@@ -38,6 +38,7 @@ var UserMarket = (function () {
         this.name = options.name || '';
         this.isDefault = options.isDefault || false;
         this.isMaster = options.isMaster || false;
+        this.isLive = options.isLive || false;
     }
     return UserMarket;
 }());
@@ -72,4 +73,30 @@ var User = (function (_super) {
     return User;
 }(BaseModel));
 exports.User = User;
+var UserTemplate = (function (_super) {
+    __extends(UserTemplate, _super);
+    function UserTemplate(options) {
+        if (options === void 0) { options = {}; }
+        var _this = _super.call(this, options) || this;
+        _this.dealershipCode = options['dealershipCode'] || '';
+        _this.dealershipName = options['dealershipName'] || '';
+        _this.areaCode = options['areaCode'] || '';
+        _this.areaName = options['areaName'] || '';
+        _this.regionCode = options['regionCode'] || '';
+        _this.regionName = options['regionName'] || '';
+        _this.zoneCode = options['zoneCode'] || '';
+        _this.zoneName = options['zoneName'] || '';
+        _this.email = options['email'] || '';
+        _this.firstName = options['firstName'] || '';
+        _this.lastName = options['lastName'] || '';
+        _this.userName = options['userName'] || '';
+        _this.avatarId = options['avatarId'];
+        _this.avatar = options['avatar'];
+        _this.totalMLearningPoints = options['totalMLearningPoints'] || 0;
+        _this.secGroup = options['secGroup'] || { id: 0, name: '' };
+        return _this;
+    }
+    return UserTemplate;
+}(BaseModel));
+exports.UserTemplate = UserTemplate;
 //# sourceMappingURL=userclasses.js.map

@@ -46,7 +46,7 @@ var BaseModalComponent = Basemodalcomponent.BaseModalComponent;
 var Copytomarketcomponent = require("./components/feed/modals/copytomarket.component");
 var FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
 var feedreportindex_component_1 = require("./components/reports/indexes/feedreportindex.component");
-var feeditemreport_component_1 = require("./components/reports/feeditemreport.component");
+var quizfeeditemreport_component_1 = require("./components/reports/quizfeeditemreport.component");
 var Barchartcomponent = require("./components/charts/barchart.component");
 var BarChart = Barchartcomponent.BarChart;
 var Basefeeditemreportcomponent = require("./components/reports/basefeeditemreport.component");
@@ -103,7 +103,7 @@ AppModule = __decorate([
             // reporting
             feedreportindex_component_1.FeedReportIndexComponent,
             FeedItemReportContainerComponent,
-            feeditemreport_component_1.FeedItemReport,
+            quizfeeditemreport_component_1.QuizFeedItemReport,
             //leaderbaord
             leaderboardcontainer_component_1.LeaderboardContainer,
             leaderboard_component_1.LeaderboardComponent,

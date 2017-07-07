@@ -23,8 +23,8 @@ var Date1 = require("../../classes/helpers/date");
 var DateEx = Date1.DateEx;
 var Userfiltercomponent = require("../common/filters/userfilter.component");
 var UserFilters = Userfiltercomponent.UserFilters;
-var FeedItemReport = (function () {
-    function FeedItemReport(sharedService, feedDataService, injector) {
+var QuizFeedItemReport = (function () {
+    function QuizFeedItemReport(sharedService, feedDataService, injector) {
         var _this = this;
         this.sharedService = sharedService;
         this.feedDataService = feedDataService;
@@ -39,22 +39,22 @@ var FeedItemReport = (function () {
             _this.onBackEvent.emit();
         });
     }
-    FeedItemReport.prototype.ngOnInit = function () {
+    QuizFeedItemReport.prototype.ngOnInit = function () {
         this.getData();
     };
-    FeedItemReport.prototype.ngAfterViewInit = function () {
+    QuizFeedItemReport.prototype.ngAfterViewInit = function () {
     };
-    FeedItemReport.prototype.ngOnDestroy = function () {
+    QuizFeedItemReport.prototype.ngOnDestroy = function () {
         var slider = document.getElementById('scoreRange');
         if (slider) {
             slider.noUiSlider.off('end');
         }
     };
-    FeedItemReport.prototype.getData = function () {
+    QuizFeedItemReport.prototype.getData = function () {
         this.getHeaderData();
         this.getResultListData();
     };
-    FeedItemReport.prototype.getHeaderData = function () {
+    QuizFeedItemReport.prototype.getHeaderData = function () {
         var _this = this;
         this.feedDataService.getFeedItemReport(this.model.id).subscribe(function (result) {
             if (result.success) {
@@ -67,18 +67,18 @@ var FeedItemReport = (function () {
             }
         });
     };
-    FeedItemReport.prototype.getResultListData = function () {
+    QuizFeedItemReport.prototype.getResultListData = function () {
         var _this = this;
         this.feedDataService.getFeedItemResultList(this.model.id, this.filterCriteria.pointsRangeBottom, this.filterCriteria.pointsRangeTop, 0).subscribe(function (result) {
             _this.listData = result.content;
             _this.filterResultList();
         });
     };
-    FeedItemReport.prototype.filterUpdate = function (criteria) {
+    QuizFeedItemReport.prototype.filterUpdate = function (criteria) {
         this.filterCriteria = criteria;
         this.filterResultList();
     };
-    FeedItemReport.prototype.filterResultList = function () {
+    QuizFeedItemReport.prototype.filterResultList = function () {
         var _this = this;
         if (!this.listData)
             return null;
@@ -96,12 +96,12 @@ var FeedItemReport = (function () {
             x.resultPercentage <= _this.filterCriteria.pointsRangeTop; });
         this.filteredListData = data;
     };
-    FeedItemReport.prototype.updateReport = function () {
+    QuizFeedItemReport.prototype.updateReport = function () {
         this.updateGaugeData();
         this.updateDonutData();
         this.updateBarData();
     };
-    FeedItemReport.prototype.updateGaugeData = function () {
+    QuizFeedItemReport.prototype.updateGaugeData = function () {
         var gaugeData = new GaugeChartData({
             height: 150,
             showTooltip: true,
@@ -115,7 +115,7 @@ var FeedItemReport = (function () {
         });
         this.passRatioData = gaugeData;
     };
-    FeedItemReport.prototype.updateDonutData = function () {
+    QuizFeedItemReport.prototype.updateDonutData = function () {
         var donutData = new DonutChartData({
             showLegend: false,
             showTooltip: false,
@@ -134,7 +134,7 @@ var FeedItemReport = (function () {
         });
         this.averageScoreData = donutData;
     };
-    FeedItemReport.prototype.updateBarData = function () {
+    QuizFeedItemReport.prototype.updateBarData = function () {
         var dates = [];
         var _loop_1 = function (submission) {
             var formatted = DateEx.formatDate(new Date(submission), "dd/MM");
@@ -150,6 +150,7 @@ var FeedItemReport = (function () {
             _loop_1(submission);
         }
         var barData = new BarChartData({
+            width: 500,
             showTooltip: true,
             showYAxis: false,
             showXAxis: true,
@@ -161,7 +162,7 @@ var FeedItemReport = (function () {
         });
         this.averageTimeData = barData;
     };
-    FeedItemReport.prototype.goBack = function () {
+    QuizFeedItemReport.prototype.goBack = function () {
         var slider = document.getElementById('scoreRange');
         if (slider) {
             slider.noUiSlider.off('end');
@@ -171,20 +172,20 @@ var FeedItemReport = (function () {
         this.averageTimeData = null;
         this.onBackEvent.emit();
     };
-    return FeedItemReport;
+    return QuizFeedItemReport;
 }());
 __decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)
-], FeedItemReport.prototype, "onBackEvent", void 0);
-FeedItemReport = __decorate([
+], QuizFeedItemReport.prototype, "onBackEvent", void 0);
+QuizFeedItemReport = __decorate([
     core_1.Component({
-        selector: 'feeditemreport',
-        template: require('./feeditemreport.component.html'),
-        styles: [require('./feeditemreport.component.css')]
+        selector: 'quizfeeditemreport',
+        template: require('./quizfeeditemreport.component.html'),
+        styles: [require('./quizfeeditemreport.component.css')]
     }),
     __metadata("design:paramtypes", [ShareService, FeedDataService,
         core_1.Injector])
-], FeedItemReport);
-exports.FeedItemReport = FeedItemReport;
-//# sourceMappingURL=feeditemreport.component.js.map
+], QuizFeedItemReport);
+exports.QuizFeedItemReport = QuizFeedItemReport;
+//# sourceMappingURL=quizfeeditemreport.component.js.map

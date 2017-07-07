@@ -33,15 +33,28 @@ namespace Phm.MobileSp.Cms.Controllers
         public async Task<JsonResult> ChangeMarket(int marketId)
         {
             var configs = await _userRepository.GetUserConfigurationsByUserId(UserId);
+            var isUserMarket = configs.FirstOrDefault(x => x.MarketId == marketId);
 
-            if (configs.FirstOrDefault(x => x.MarketId == marketId).MarketId > 0)
+            if (isUserMarket == null || isUserMarket.MarketId == 0)
             {
-                ClearMarketCache();
-                CurrentMarketId = marketId;
-                _userRepository.SetMarketId(marketId);
-                return new JsonResult(true);
+                var markets = await _marketRepository.GetMarketsAsync();
+                var isLiveMarket = markets.FirstOrDefault(x => (bool)x.IsLive && x.Id == marketId);
+                if (isLiveMarket != null && isLiveMarket.Id > 0)
+                {
+                    var baseMarket = markets.FirstOrDefault(x => !(bool)x.IsLive
+                    && x.MasterId == isLiveMarket.MasterId);
+
+                    if (baseMarket != null && configs.Where(x => x.MarketId == baseMarket.Id).Count() > 0)
+                        goto ValidMarket;
+                }
+                return new JsonResult(false);
             }
-            return new JsonResult(false);
+
+            ValidMarket:
+            ClearMarketCache();
+            CurrentMarketId = marketId;
+            _userRepository.SetMarketId(marketId);
+            return new JsonResult(true);
         }
 
         [HttpGet("[action]")]
@@ -60,6 +73,15 @@ namespace Phm.MobileSp.Cms.Controllers
             Guid master = new Guid(masterId);
             var markets = await _marketRepository.GetMarketsByMasterIdAsync(contentType, master);
             return Json(new BaseResponse(markets));
+        }
+
+        [HttpGet("[action]")]
+        [JsonResponseWrapper]
+        [ResponseCache(CacheProfileName = "NoCache")]
+        public async Task<JsonResult> GetMarketUserFilters()
+        {
+            var marketFilters = await _marketRepository.GetMarketUserFilters(CurrentMarketId);
+            return Json(new BaseResponse(marketFilters));
         }
 
 

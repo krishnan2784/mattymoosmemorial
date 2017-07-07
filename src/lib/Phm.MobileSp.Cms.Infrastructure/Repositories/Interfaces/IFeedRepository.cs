@@ -17,7 +17,6 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
         Task<bool> DeleteFeedItemAsync(int feedItemId);
         Task<dynamic> GetFeedItemSummary(int feedItemId);
         Task<IEnumerable<dynamic>> GetFeedItemResultList(int feedItemId, decimal lowerBoundary, decimal higherBoundary, int userGroupId);
-        Task<dynamic> GetQuizSummaryFilters(int marketId);
         Task<bool> CopyFeedItemToMarketAsync(int feedItemId, List<int> marketIds);
         Task<dynamic> GetLeaderBoard(int currentMarketId, DateTime? startDate = null, DateTime? endDate = null);
     }

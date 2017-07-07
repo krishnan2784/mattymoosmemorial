@@ -8,10 +8,10 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
         protected IBaseRequest BaseRequest;
         protected IBaseCriteria BaseRequestCriteria;
 
-        protected BaseRepository(IBaseRequest baseRequest, IBaseCriteria baseRBaseCriteria)
+        protected BaseRepository(IBaseRequest baseRequest, IBaseCriteria baseCriteria)
         {
             BaseRequest = baseRequest;
-            BaseRequestCriteria = baseRBaseCriteria;
+            BaseRequestCriteria = baseCriteria;
         }
 
         public void SetAuthToken(string authToken)

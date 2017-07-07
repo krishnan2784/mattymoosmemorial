@@ -44,7 +44,7 @@ import BaseModalComponent = Basemodalcomponent.BaseModalComponent;
 import Copytomarketcomponent = require("./components/feed/modals/copytomarket.component");
 import FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
 import { FeedReportIndexComponent } from "./components/reports/indexes/feedreportindex.component";
-import { FeedItemReport } from "./components/reports/feeditemreport.component";
+import { QuizFeedItemReport } from "./components/reports/quizfeeditemreport.component";
 import Barchartcomponent = require("./components/charts/barchart.component");
 import BarChart = Barchartcomponent.BarChart;
 import Basefeeditemreportcomponent = require("./components/reports/basefeeditemreport.component");
@@ -99,7 +99,7 @@ import { TabNavMenuComponent } from "./components/navmenu/tabnavmenu.component";
         // reporting
         FeedReportIndexComponent,
         FeedItemReportContainerComponent,
-        FeedItemReport,
+        QuizFeedItemReport,
 
         //leaderbaord
         LeaderboardContainer,

@@ -5,19 +5,29 @@ using System.Threading.Tasks;
 using MobileSPCoreService;
 using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Core.Models.Interfaces;
-using Phm.MobileSp.Cms.Infrastructure;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
+using SecurityService;
+using AutoMapper;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 {
     public class UserRepository : CoreBaseRepository, IUserRepository
     {
         private readonly ICoreContract _proxyClient;
+        private readonly ISecurityContract _securityClient;
 
-        public UserRepository(ICoreContract proxyClient, IBaseRequest baseRequest, IBaseCriteria baseRBaseCriteria)
-            : base(baseRequest, baseRBaseCriteria)
+        public UserRepository(ICoreContract proxyClient, ISecurityContract securityClient, IBaseRequest baseRequest, IBaseCriteria baseCriteria)
+            : base(baseRequest, baseCriteria)
         {
             _proxyClient = proxyClient;
+            _securityClient = securityClient;
+        }
+
+        
+        public async Task<dynamic> GetCurrentUser() {
+            var request = GetRequest(new MobileSPCoreService.RequestBase());
+            var response = await _proxyClient.GetCurrentUserAsync(request);
+            return response.CurretUser;            
         }
 
         public async Task<Tuple<ApplicationUser, string>> GetUserAsync(ILoginDetails loginDetails)
@@ -58,7 +68,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             var response = await _proxyClient.ValidateUserAsync(request);
 
             applicationUser.SessionGuid = response.SessionGUID;
-            var mapper = new AutoMapperGenericsHelper<UserDto, MLearningUser>();
+            var mapper = new AutoMapperGenericsHelper<MobileSPCoreService.UserDto, MLearningUser>();
             applicationUser.UserDetails = mapper.ConvertToDbEntity(response.CurrentUser);
 
             return applicationUser;
@@ -100,37 +110,128 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             foreach (var config in configs)
             {
                 var market = markets.First(x => x.Id == config.MarketId);
+                bool isLiveMarket = (bool)market.IsLive;
                 list.Add(new UserMarket()
                 {
                     Id = config.MarketId,
                     IsDefault = config.IsDefault,
                     Name = market.Name,
                     IsMaster = market.IsMaster,
+                    IsLive = isLiveMarket
                 });
+                if (!market.IsMaster && !isLiveMarket)
+                {
+                    var liveMarket = markets.FirstOrDefault(x => (bool)x.IsLive && x.Id!= market.Id && x.Name.Contains(market.Name));
+                    if (liveMarket != null && liveMarket.Id > 0)
+                        list.Add(new UserMarket()
+                        {
+                            Id = liveMarket.Id,
+                            Name = liveMarket.Name,
+                            IsDefault = false,
+                            IsMaster = false,
+                            IsLive = true
+                        });
+                }
             }
 
             return list;
         }
 
 
-        public async Task<IEnumerable<IMLearningUser>> GetUsersAsync()
+        public async Task<dynamic> GetUsersAsync(int marketId, int? userId)
         {
-            var users = new List<MLearningUser>();
             try
             {
-                var request = GetRequest(new GetUsersRequest());
+                var request = new GetUserTemplates1Request() {
+                    AccessToken = BaseRequest.AccessToken,
+                    Criteria = new UserTemplate1CriteriaDto()
+                    {
+                        MarketId = marketId,
+                        UserId = userId
+                    }
+                };
 
-                var response = await _proxyClient.GetUsersAsync(request);
-                
-                var mapper = new AutoMapperGenericsHelper<UserDto, MLearningUser>();
-                users = mapper.ConvertToDbEntity(response.Users);
+                var response = await _securityClient.GetUserTemplates1Async(request);
+                return response.UserTemplates1;
             }
             catch (Exception ex)
             {
+                return null;
             }
-            return users;
         }
 
+        public async Task<BaseResponse> CreateUserAsync(UserTemplate user)
+        {
+            try
+            {
+                user.UserName = "Cheese";
+                var userDto = GetUserTemplateDto(user);
+                var request = new CreateUserTemplate1Request()
+                {
+                    AccessToken = BaseRequest.AccessToken,
+                    CurrentUserTemplate1 = userDto
+                };
+                var response = await _securityClient.CreateUserTemplate1Async(request);
+                return new BaseResponse(response.Created, response.Message, GetUserTemplate(response.CurrentUserTemplate1));
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse(false, ex.Message);
+            }
+        }
 
+        public async Task<BaseResponse> UpdateUserAsync(UserTemplate user)
+        {
+            try
+            {
+                var userDto = GetUserTemplateDto(user);
+                var request = new UpdateUserTemplate1Request()
+                {
+                    AccessToken = BaseRequest.AccessToken,
+                    CurrentUserTemplate1 = userDto
+                };
+                var response = await _securityClient.UpdateUserTemplate1Async(request);
+                return new BaseResponse(response.Updated, response.Message, GetUserTemplate(response.CurrentUserTemplate1));
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse(false, ex.Message);
+            }
+        }
+
+        public async Task<BaseResponse> GetSecGroupsAsync()
+        {
+            try
+            {
+                var request = new GetSecGroupsRequest()
+                {
+                    AccessToken = BaseRequest.AccessToken
+                };
+                var response = await _securityClient.GetSecGroupsAsync(request);
+                return new BaseResponse(response.SecGroups);
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse(false, ex.Message);
+            }
+        }
+                
+        private UserTemplate1Dto GetUserTemplateDto(UserTemplate user)
+        {
+            return UserTemplateMapper().Map<UserTemplate1Dto>(user);
+        }
+        private UserTemplate GetUserTemplate(UserTemplate1Dto userDto)
+        {
+            return UserTemplateMapper().Map<UserTemplate>(userDto);
+        }
+        private IMapper UserTemplateMapper()
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<SecurityService.MediaInfoDto, MediaInfo>().ReverseMap();
+                cfg.CreateMap<UserTemplate, UserTemplate1Dto>().ReverseMap();
+            });
+            return config.CreateMapper();
+        }
     }
 }

@@ -64,6 +64,23 @@ var MarketDataService = (function (_super) {
             });
         });
     };
+    MarketDataService.prototype.getMarketUserFilters = function () {
+        var _this = this;
+        return Observable_1.Observable.create(function (observer) {
+            _this.getRequestBase('/api/Market/GetMarketUserFilters').subscribe(function (result) {
+                if (result) {
+                    var response = {
+                        userGroupNames: result.userGroupNames,
+                        dealershipNames: result.dealershipNames,
+                        regions: result.areas,
+                        zones: result.zones
+                    };
+                    observer.next(response);
+                }
+                observer.complete();
+            });
+        });
+    };
     return MarketDataService;
 }(RequestHelper));
 MarketDataService = __decorate([

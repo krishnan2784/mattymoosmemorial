@@ -28,11 +28,11 @@ declare var Materialize: any;
 declare var noUiSlider: any;
 
 @Component({
-    selector: 'feeditemreport',
-    template: require('./feeditemreport.component.html'),
-    styles: [require('./feeditemreport.component.css')]
+    selector: 'quizfeeditemreport',
+    template: require('./quizfeeditemreport.component.html'),
+    styles: [require('./quizfeeditemreport.component.css')]
 })
-export class FeedItemReport implements OnInit, AfterViewInit, OnDestroy {
+export class QuizFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     @Output()
     public onBackEvent: EventEmitter<any>;
 
@@ -181,6 +181,7 @@ export class FeedItemReport implements OnInit, AfterViewInit, OnDestroy {
             }
         }
         var barData = new BarChartData({
+            width: 500,
             showTooltip: true,
             showYAxis: false,
             showXAxis: true,

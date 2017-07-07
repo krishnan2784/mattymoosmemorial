@@ -92,18 +92,6 @@ var FeedDataService = (function (_super) {
             + '&userGroupId=' + userGroupId;
         return this.getRequestFull(requestUrl);
     };
-    FeedDataService.prototype.getQuizSummaryFilters = function () {
-        var _this = this;
-        return Observable_1.Observable.create(function (observer) {
-            _this.getRequestBase('/api/Feed/GetQuizSummaryFilters').subscribe(function (result) {
-                if (result) {
-                    var response = { userGroupNames: result.userGroupNames, dealershipNames: result.dealershipNames };
-                    observer.next(response);
-                }
-                observer.complete();
-            });
-        });
-    };
     FeedDataService.prototype.getLeaderBoard = function (startDate, endDate) {
         if (startDate === void 0) { startDate = null; }
         if (endDate === void 0) { endDate = null; }

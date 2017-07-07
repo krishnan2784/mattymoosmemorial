@@ -41,14 +41,30 @@ export class MarketDataService extends RequestHelper implements IMarketDataServi
         });
     }
 
-    getMarketsByMasterId(contentType: CopiedElementTypeEnum, masterId : string): Observable<Market[]> {
+    getMarketsByMasterId(contentType: CopiedElementTypeEnum, masterId: string): Observable<Market[]> {
         return Observable.create(observer => {
             this.getRequestBase('/api/Market/GetMarketsByMasterId?contentType=' + contentType
                 + '&masterId=' + masterId).subscribe((result) => {
-                observer.next(result);
+                    observer.next(result);
+                    observer.complete();
+                });
+        });
+    }
+
+    getMarketUserFilters(): Observable<{ userGroupNames: string[], dealershipNames: string[], regions: string[], zones: string[] }> {
+        return Observable.create(observer => {
+            this.getRequestBase('/api/Market/GetMarketUserFilters').subscribe((result) => {
+                if (result) {
+                    let response = {
+                        userGroupNames: result.userGroupNames,
+                        dealershipNames: result.dealershipNames,
+                        regions: result.areas,
+                        zones: result.zones
+                    };
+                    observer.next(response);
+                }
                 observer.complete();
             });
         });
     }
-    
 }
