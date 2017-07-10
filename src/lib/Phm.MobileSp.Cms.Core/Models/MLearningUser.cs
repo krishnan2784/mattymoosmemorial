@@ -68,5 +68,12 @@ namespace Phm.MobileSp.Cms.Core.Models
         public string UserName { get; set; }
         public string ZoneCode { get; set; }
         public string ZoneName { get; set; }
+        public SecGroupNM1 SecGroup { get; set; }
+    }
+
+    public class SecGroupNM1
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

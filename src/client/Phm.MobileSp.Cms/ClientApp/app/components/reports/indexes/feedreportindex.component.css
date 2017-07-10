@@ -90,3 +90,9 @@
 .report-index-view-details {
     margin-top: 15px;
 }
+
+.feed-item-title h5, .feed-item-dates{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}

@@ -24,6 +24,7 @@ namespace MLearningCoreService
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.GetQuizSummaryFiltersRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.GetMarketUserFiltersRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.GetLeaderBoardDataRequest))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.GetUserPointsHistoryRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.GetFeedsRequest))]
     public partial class RequestBase : object
     {
@@ -290,6 +291,28 @@ namespace MLearningCoreService
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public MLearningCoreService.LeaderBoardDataCriteriaDto Criteria
+        {
+            get
+            {
+                return this.CriteriaField;
+            }
+            set
+            {
+                this.CriteriaField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="GetUserPointsHistoryRequest", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class GetUserPointsHistoryRequest : MLearningCoreService.RequestBase
+    {
+        
+        private MLearningCoreService.UserPointsCriteriaDto CriteriaField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MLearningCoreService.UserPointsCriteriaDto Criteria
         {
             get
             {
@@ -747,6 +770,7 @@ namespace MLearningCoreService
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.QuizResultsSummariesEXDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.QuizFeedResultDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.UserDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.UserPointDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.MediaInfoDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.BaseFeedDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.ImageFeedDto))]
@@ -1710,6 +1734,73 @@ namespace MLearningCoreService
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UserPointDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class UserPointDto : MLearningCoreService.BaseDtoOfint
+    {
+        
+        private System.Nullable<int> CurrentFeedIdField;
+        
+        private int PointsField;
+        
+        private int UserIdField;
+        
+        private MLearningCoreService.UserPointTypeEnum UserPointTypeField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> CurrentFeedId
+        {
+            get
+            {
+                return this.CurrentFeedIdField;
+            }
+            set
+            {
+                this.CurrentFeedIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Points
+        {
+            get
+            {
+                return this.PointsField;
+            }
+            set
+            {
+                this.PointsField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int UserId
+        {
+            get
+            {
+                return this.UserIdField;
+            }
+            set
+            {
+                this.UserIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MLearningCoreService.UserPointTypeEnum UserPointType
+        {
+            get
+            {
+                return this.UserPointTypeField;
+            }
+            set
+            {
+                this.UserPointTypeField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="MediaInfoDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
     public partial class MediaInfoDto : MLearningCoreService.BaseDtoOfint
     {
@@ -2240,6 +2331,27 @@ namespace MLearningCoreService
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UserPointTypeEnum", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public enum UserPointTypeEnum : int
+    {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Unknown = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        QuizFeed = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        TextFeed = 2,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        VideoFeed = 3,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        SurveyFeed = 4,
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="MediaTypesDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
     public enum MediaTypesDto : int
     {
@@ -2340,6 +2452,7 @@ namespace MLearningCoreService
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.FeedCriteriaDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.QuizResultsSummariesEXCriteriaDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.LeaderBoardDataCriteriaDto))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.UserPointsCriteriaDto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MLearningCoreService.QuizFeedSummaryCriteriaDto))]
     public partial class BaseCriteriaDto : object
     {
@@ -2595,6 +2708,58 @@ namespace MLearningCoreService
             set
             {
                 this.StartDateField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UserPointsCriteriaDto", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class UserPointsCriteriaDto : MLearningCoreService.BaseCriteriaDto
+    {
+        
+        private System.Nullable<System.DateTime> EndDateField;
+        
+        private System.Nullable<System.DateTime> StartDateField;
+        
+        private int UserIdField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> EndDate
+        {
+            get
+            {
+                return this.EndDateField;
+            }
+            set
+            {
+                this.EndDateField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> StartDate
+        {
+            get
+            {
+                return this.StartDateField;
+            }
+            set
+            {
+                this.StartDateField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int UserId
+        {
+            get
+            {
+                return this.UserIdField;
+            }
+            set
+            {
+                this.UserIdField = value;
             }
         }
     }
@@ -3058,6 +3223,28 @@ namespace MLearningCoreService
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="GetUserPointsHistoryResponse", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data.MLearning")]
+    public partial class GetUserPointsHistoryResponse : object
+    {
+        
+        private System.Collections.Generic.List<MLearningCoreService.UserPointDto> UserPointsField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<MLearningCoreService.UserPointDto> UserPoints
+        {
+            get
+            {
+                return this.UserPointsField;
+            }
+            set
+            {
+                this.UserPointsField = value;
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MLearningCoreService.IMLearningCoreContract")]
     public interface IMLearningCoreContract
@@ -3103,6 +3290,10 @@ namespace MLearningCoreService
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMLearningCoreContract/GetLeaderBoardData", ReplyAction="http://tempuri.org/IMLearningCoreContract/GetLeaderBoardDataResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(MLearningCoreService.BaseError), Action="http://tempuri.org/IMLearningCoreContract/GetLeaderBoardDataBaseErrorFault", Name="BaseError", Namespace="http://www.phm.co.uk/types/common/")]
         System.Threading.Tasks.Task<MLearningCoreService.GetLeaderBoardDataResponse> GetLeaderBoardDataAsync(MLearningCoreService.GetLeaderBoardDataRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMLearningCoreContract/GetUserPointsHistory", ReplyAction="http://tempuri.org/IMLearningCoreContract/GetUserPointsHistoryResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(MLearningCoreService.BaseError), Action="http://tempuri.org/IMLearningCoreContract/GetUserPointsHistoryBaseErrorFault", Name="BaseError", Namespace="http://www.phm.co.uk/types/common/")]
+        System.Threading.Tasks.Task<MLearningCoreService.GetUserPointsHistoryResponse> GetUserPointsHistoryAsync(MLearningCoreService.GetUserPointsHistoryRequest request);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
@@ -3203,6 +3394,11 @@ namespace MLearningCoreService
         public System.Threading.Tasks.Task<MLearningCoreService.GetLeaderBoardDataResponse> GetLeaderBoardDataAsync(MLearningCoreService.GetLeaderBoardDataRequest request)
         {
             return base.Channel.GetLeaderBoardDataAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<MLearningCoreService.GetUserPointsHistoryResponse> GetUserPointsHistoryAsync(MLearningCoreService.GetUserPointsHistoryRequest request)
+        {
+            return base.Channel.GetUserPointsHistoryAsync(request);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()

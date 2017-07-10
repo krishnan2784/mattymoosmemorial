@@ -172,7 +172,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
                     CurrentUserTemplate1 = userDto
                 };
                 var response = await _securityClient.CreateUserTemplate1Async(request);
-                return new BaseResponse(response.Created, response.Message, GetUserTemplate(response.CurrentUserTemplate1));
+                return new BaseResponse(response.Created, "Succesfully created " + user.FirstName, GetUserTemplate(response.CurrentUserTemplate1));
             }
             catch (Exception ex)
             {
@@ -191,7 +191,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
                     CurrentUserTemplate1 = userDto
                 };
                 var response = await _securityClient.UpdateUserTemplate1Async(request);
-                return new BaseResponse(response.Updated, response.Message, GetUserTemplate(response.CurrentUserTemplate1));
+                return new BaseResponse(response.Updated, "Succesfully updated " + user.FirstName, GetUserTemplate(response.CurrentUserTemplate1));
             }
             catch (Exception ex)
             {
@@ -230,7 +230,8 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             {
                 cfg.CreateMap<SecurityService.MediaInfoDto, MediaInfo>().ReverseMap();
                 cfg.CreateMap<UserTemplate, UserTemplate1Dto>().ReverseMap();
-            });
+                cfg.CreateMap<SecGroupNM1, SecGroupNM1Dto>().ReverseMap();
+            }); 
             return config.CreateMapper();
         }
     }

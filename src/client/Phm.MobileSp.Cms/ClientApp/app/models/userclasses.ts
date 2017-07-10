@@ -121,7 +121,7 @@ export class UserTemplate extends BaseModel {
     avatarId: number;
     avatar: MediaInfo;
     totalMLearningPoints: number;
-    secGroup: { id: number, name: string}
+    secGroup: { id: number, name: string };
     constructor(options: {} = {}) {
         super(options);
         this.dealershipCode = options['dealershipCode'] || '';

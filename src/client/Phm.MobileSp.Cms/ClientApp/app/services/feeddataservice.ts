@@ -96,4 +96,11 @@ export class FeedDataService extends RequestHelper implements IFeedDataService, 
         }
         return this.getRequestBase(requestUrl);
     }
+
+    public getUserPointsHistory(userId: number, startDate: string = null, endDate: string = null) {
+        var requestUrl = '/api/Feed/GetUserPointsHistory?userId=' + userId
+                + (startDate ? '&startDate=' + startDate : '')
+                + (endDate ? '&endDate=' + endDate : '');
+        return this.getRequestBase(requestUrl);
+    }
 }

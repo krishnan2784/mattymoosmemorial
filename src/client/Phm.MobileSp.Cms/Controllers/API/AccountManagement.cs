@@ -7,6 +7,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Helpers.Attributes;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
+using Phm.MobileSp.Cms.Core.Models.Interfaces;
 
 namespace Phm.MobileSp.Cms.Controllers.API
 {
@@ -17,8 +18,9 @@ namespace Phm.MobileSp.Cms.Controllers.API
     {
         private readonly IUserRepository _userRepository;
         private readonly IMarketRepository _marketRepository;
-        public AccountManagement(IMemoryCache memoryCache, IUserRepository userRepository, IMarketRepository marketRepository) 
-            : base(memoryCache, userRepository, marketRepository)
+        public AccountManagement(IMemoryCache memoryCache, IUserRepository userRepository, IMarketRepository marketRepository, 
+            IBaseRequest baseRequest, IBaseCriteria baseCriteria) 
+            : base(memoryCache, userRepository, marketRepository, baseRequest, baseCriteria)
         {
             _userRepository = userRepository;
             _marketRepository = marketRepository;

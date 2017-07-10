@@ -41,6 +41,7 @@ var EditUser = (function (_super) {
         if (injector) {
             _this.model = injector.get('model');
         }
+        console.log(_this.model);
         _this.initialiseForm();
         _this.getAutoCompleteData();
         return _this;
@@ -61,7 +62,7 @@ var EditUser = (function (_super) {
             dealershipCode: new forms_1.FormControl(this.model.dealershipCode, [forms_1.Validators.required]),
             regionName: new forms_1.FormControl(this.model.regionName, [forms_1.Validators.required]),
             areaName: new forms_1.FormControl(this.model.areaName, [forms_1.Validators.required]),
-            role: new forms_1.FormControl(this.model.secGroup, [forms_1.Validators.required])
+            secGroup: new forms_1.FormControl(this.model.secGroup, [forms_1.Validators.required])
         });
     };
     EditUser.prototype.getAutoCompleteData = function () {

@@ -10,6 +10,7 @@ using Phm.MobileSp.Cms.Core.Enumerations;
 using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Helpers.Attributes;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
+using Phm.MobileSp.Cms.Core.Models.Interfaces;
 
 namespace Phm.MobileSp.Cms.Controllers
 {
@@ -21,7 +22,8 @@ namespace Phm.MobileSp.Cms.Controllers
         private readonly IUserRepository _userRepository;
         private readonly IMarketRepository _marketRepository;
 
-        public MarketController(IMemoryCache memoryCache, IUserRepository userRepository, IMarketRepository marketRepository) : base(memoryCache)
+        public MarketController(IMemoryCache memoryCache, IUserRepository userRepository, IMarketRepository marketRepository,
+         IBaseRequest baseRequest, IBaseCriteria baseCriteria) : base(memoryCache, baseRequest, baseCriteria)
         {
             _userRepository = userRepository;
             _marketRepository = marketRepository;

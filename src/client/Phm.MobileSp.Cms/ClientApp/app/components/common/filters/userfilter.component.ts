@@ -161,6 +161,8 @@ export class UserFilter implements AfterViewInit, OnDestroy {
     public resetRange() {
         this.criteria.pointsRangeBottom = 0;
         this.criteria.pointsRangeTop = 100;
+        var slider = $("#sliderElement").data("ionRangeSlider");
+        slider.reset();
     }
 
     public onSliderChange(event) {

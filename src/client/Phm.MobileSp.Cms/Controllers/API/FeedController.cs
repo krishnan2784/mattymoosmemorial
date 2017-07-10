@@ -9,6 +9,7 @@ using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Helpers.Attributes;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 using System;
+using Phm.MobileSp.Cms.Core.Models.Interfaces;
 
 namespace Phm.MobileSp.Cms.Controllers.API
 {
@@ -19,8 +20,9 @@ namespace Phm.MobileSp.Cms.Controllers.API
     {
         private readonly IFeedRepository _feedRepository;
 
-        public FeedController(IMemoryCache memoryCache, IFeedRepository feedRepository, IUserRepository userRepository, IMarketRepository marketRepository) 
-            : base(memoryCache, userRepository, marketRepository)
+        public FeedController(IMemoryCache memoryCache, IFeedRepository feedRepository, IUserRepository userRepository, IMarketRepository marketRepository, 
+            IBaseRequest baseRequest, IBaseCriteria baseCriteria) 
+            : base(memoryCache, userRepository, marketRepository, baseRequest, baseCriteria)
         {
             _feedRepository = feedRepository;
         }
@@ -145,6 +147,14 @@ namespace Phm.MobileSp.Cms.Controllers.API
         public async Task<JsonResult> GetLeaderBoard(DateTime? startDate = null, DateTime? endDate = null)
         {
             var response = await _feedRepository.GetLeaderBoard(CurrentMarketId, startDate, endDate);
+            return Json(new BaseResponse(response));
+        }
+
+        [HttpGet("[action]")]
+        [JsonResponseWrapper]
+        public async Task<JsonResult> GetUserPointsHistory(int userId, DateTime? startDate = null, DateTime? endDate = null)
+        {
+            var response = await _feedRepository.GetUserPointsHistory(userId, startDate, endDate);
             return Json(new BaseResponse(response));
         }
 

@@ -142,6 +142,8 @@ var UserFilter = (function () {
     UserFilter.prototype.resetRange = function () {
         this.criteria.pointsRangeBottom = 0;
         this.criteria.pointsRangeTop = 100;
+        var slider = $("#sliderElement").data("ionRangeSlider");
+        slider.reset();
     };
     UserFilter.prototype.onSliderChange = function (event) {
         console.log(event);

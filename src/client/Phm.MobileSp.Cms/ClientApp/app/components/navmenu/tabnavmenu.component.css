@@ -6,11 +6,12 @@
     height: 50px;
     padding-left: 25px;
 }
+.tab-nav-container ul{
+    padding-left: 6px;
+}
 .tab-nav-container li {
     display: inline-block;   
-    min-width: 125px;
     padding: 0 15px;
-    text-align: center;
     color: #000;
     text-decoration: none;
 }
@@ -19,8 +20,14 @@
     text-decoration: none;
 }
 .header-style{ 
-    width: 50%;
+    width: 80px;
+    margin-right: 45px;
     height:5px;
+}
+.header-style.all{ 
+    width: 100%;
+    margin-right: 0;
+    background-color: #4f3a9f;
 }
 .tabnavitem:not(.link-active) .header-style {
     background-color: transparent!important;
@@ -34,4 +41,8 @@
 }
 
 .grey{background-color:#DFE1E0}
-.teal{ background-color: #27B295;}
+.teal{ background-color: #00bea3;}
+.mobileSpPurple {background-color: #4f3a9f;}
+.lightPurple {background-color: #8b69d3;}
+.orange {background-color: #ffab4c;}
+.funk {background-color: #ff49c3;}

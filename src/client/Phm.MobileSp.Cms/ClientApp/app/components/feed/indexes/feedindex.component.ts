@@ -135,11 +135,13 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
             this.updatePageTitle("New Learning Content Form");
         }
         this.updateMarketDropdownVisibility(false);
+        this.updateTabNavItems();
 
         form.prototype.feedUpdated = new EventEmitter<IFeedItem>();
         form.prototype.feedUpdated.subscribe((feedItemResponse) => {
             this.setPageTitle();
             this.updateMarketDropdownVisibility(true);
+            this.updateTabNavItems(DefaultTabNavs.feedIndexTabs);
             this.feedFormData = null;
         });
 

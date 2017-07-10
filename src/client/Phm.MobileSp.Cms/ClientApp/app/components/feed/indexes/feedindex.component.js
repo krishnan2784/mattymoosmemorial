@@ -139,10 +139,12 @@ var FeedIndexComponent = (function (_super) {
             this.updatePageTitle("New Learning Content Form");
         }
         this.updateMarketDropdownVisibility(false);
+        this.updateTabNavItems();
         form.prototype.feedUpdated = new core_1.EventEmitter();
         form.prototype.feedUpdated.subscribe(function (feedItemResponse) {
             _this.setPageTitle();
             _this.updateMarketDropdownVisibility(true);
+            _this.updateTabNavItems(tabnavmenu_component_1.DefaultTabNavs.feedIndexTabs);
             _this.feedFormData = null;
         });
         this.feedFormData = {

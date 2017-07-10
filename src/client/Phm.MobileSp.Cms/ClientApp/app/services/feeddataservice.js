@@ -104,6 +104,14 @@ var FeedDataService = (function (_super) {
         }
         return this.getRequestBase(requestUrl);
     };
+    FeedDataService.prototype.getUserPointsHistory = function (userId, startDate, endDate) {
+        if (startDate === void 0) { startDate = null; }
+        if (endDate === void 0) { endDate = null; }
+        var requestUrl = '/api/Feed/GetUserPointsHistory?userId=' + userId
+            + (startDate ? '&startDate=' + startDate : '')
+            + (endDate ? '&endDate=' + endDate : '');
+        return this.getRequestBase(requestUrl);
+    };
     return FeedDataService;
 }(requesthelper_1.RequestHelper));
 FeedDataService = __decorate([

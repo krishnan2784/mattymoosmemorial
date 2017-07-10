@@ -19,20 +19,20 @@ export class TabNavMenuComponent {
 }
 
 export class NavItem {
-    constructor(public displayText: string, public link: string, public colourClass: string = 'grey') {    }
+    constructor(public displayText: string, public link: string, public colourClass: string = 'mobileSpPurple') {    }
 }
 
 export class DefaultTabNavs {
     public static feedIndexTabs: NavItem[] = [
-        new NavItem('All', '/feed'),
+        new NavItem('All', '/feed', 'all'),
         new NavItem('Announcement', '/feed/' + FeedCategoryEnum.Announcement),
         new NavItem('Article', '/feed/' + FeedCategoryEnum.Article),
         new NavItem('Campaign', '/feed/' + FeedCategoryEnum.Campaign),
         new NavItem('Learning', '/feed/' + FeedCategoryEnum.Learning),
         new NavItem('News', '/feed/' + FeedCategoryEnum.News)];
     public static reportsTabs: NavItem[] = [
-            new NavItem('Quiz Reports', '/reports'),
-            new NavItem('Survey Reports', '/reports/' + FeedTypeEnum.Survey),
-            new NavItem('Observation Reports', '/reports/' + FeedTypeEnum.Observation),
-            new NavItem('Leaderboards', '/reports/leaderboard', 'teal')];
+        new NavItem('Quiz Reports', '/reports', 'lightPurple'),
+        new NavItem('Survey Reports', '/reports/' + FeedTypeEnum.Survey, 'orange'),
+            new NavItem('Observation Reports', '/reports/' + FeedTypeEnum.Observation, 'funk'),
+            new NavItem('Leaderboard Reports', '/reports/leaderboard', 'teal')];
 }

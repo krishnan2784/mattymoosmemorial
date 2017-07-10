@@ -148,5 +148,28 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             }         
         }
 
+        public async Task<dynamic> GetUserPointsHistory(int userId, DateTime? startDate = null, DateTime? endDate = null)
+        {
+            try
+            {
+                
+                   var request = GetRequest(new GetUserPointsHistoryRequest
+                   {
+                       Criteria = GetCriteria(new UserPointsCriteriaDto()
+                       {
+                           UserId = userId,
+                           StartDate = startDate,
+                           EndDate = endDate
+                       })
+                   });
+                var response = await _proxyClient.GetUserPointsHistoryAsync(request);
+                return response.UserPoints;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
     }
 }
