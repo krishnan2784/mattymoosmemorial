@@ -66,6 +66,8 @@ import { LbExecutivesTableComponent } from "./components/reports/leaderboards/lb
 import { LbrefineComponent } from "./components/reports/leaderboards/lbrefine/lbrefine.component";
 import { LeaderboardComponent } from "./components/reports/leaderboards/leaderboard/leaderboard.component";
 import { TabNavMenuComponent } from "./components/navmenu/tabnavmenu.component";
+import { DynamicChartFormatsComponent } from "./components/reports/dynamicchartformats/dynamicchartformats.component";
+import { SurveyFeedItemReport } from "./components/reports/surveyfeeditemreport.component";
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -100,7 +102,8 @@ import { TabNavMenuComponent } from "./components/navmenu/tabnavmenu.component";
         FeedReportIndexComponent,
         FeedItemReportContainerComponent,
         QuizFeedItemReport,
-
+        SurveyFeedItemReport,
+        
         //leaderbaord
         LeaderboardContainer,
         LeaderboardComponent,
@@ -115,6 +118,7 @@ import { TabNavMenuComponent } from "./components/navmenu/tabnavmenu.component";
         BarChart,
         GaugeChart,
         DonutChart,
+        DynamicChartFormatsComponent,
 
         //modals
         FeedItemCopyToMarket,

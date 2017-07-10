@@ -32,7 +32,12 @@ var UserObservation = Observationclasses.UserObservation;
 var ObservationFeedItemFormComponent = (function (_super) {
     __extends(ObservationFeedItemFormComponent, _super);
     function ObservationFeedItemFormComponent(injector) {
-        return _super.call(this, injector, Feedclasses.ObservationFeed, '/api/Feed/UpdateObservationFeedItem', FeedTypeEnum.Observation, Enums.SurveyQuestionTypeEnum) || this;
+        var _this = _super.call(this, injector, Feedclasses.ObservationFeed, '/api/Feed/UpdateObservationFeedItem', FeedTypeEnum.Observation, Enums.SurveyQuestionTypeEnum) || this;
+        if (_this.model) {
+            _this.model.points = null;
+            _this.form.controls['points'].patchValue(_this.model.points, { onlySelf: true });
+        }
+        return _this;
     }
     ObservationFeedItemFormComponent.prototype.addFormControls = function () {
         var _this = this;

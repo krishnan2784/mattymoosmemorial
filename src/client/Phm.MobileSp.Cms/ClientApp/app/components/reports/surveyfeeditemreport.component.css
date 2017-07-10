@@ -1,0 +1,16 @@
+﻿.survey-title { 
+    background-color: #fff;
+    padding: 10px 15px;
+}
+
+button{
+      background-color: #06a2d1;
+      color: white;
+      border: none;
+      width: 80px;
+      height: 36px;
+      border-radius: 2px;
+      position: absolute;
+      right: 0;
+      top: 0px;
+    }

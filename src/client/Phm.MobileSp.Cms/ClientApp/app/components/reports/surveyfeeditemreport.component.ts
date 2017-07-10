@@ -28,11 +28,11 @@ declare var Materialize: any;
 declare var noUiSlider: any;
 
 @Component({
-    selector: 'quizfeeditemreport',
-    template: require('./quizfeeditemreport.component.html'),
-    styles: [require('./quizfeeditemreport.component.css')]
+    selector: 'surveyfeeditemreport',
+    template: require('./surveyfeeditemreport.component.html'),
+    styles: [require('./quizfeeditemreport.component.css'), require('./surveyfeeditemreport.component.css')]
 })
-export class QuizFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
+export class SurveyFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     @Output()
     public onBackEvent: EventEmitter<any>;
 
@@ -43,14 +43,9 @@ export class QuizFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
 
     public summaryData: FeedItemSummary;
     public listData: FeedItemSummaryEx[];
-    public filteredListData: FeedItemSummaryEx[];
     
-    public passRatioData: GaugeChartData;
-    public averageScoreData: DonutChartData;
+    public submissionRateData: GaugeChartData;
     public averageTimeData: BarChartData;
-
-    public filterCriteria: UserFilters = new UserFilters();
-    public searchString = '';
 
     constructor(private sharedService: ShareService, public feedDataService: FeedDataService,
         private injector: Injector) { 
@@ -71,10 +66,6 @@ export class QuizFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        var slider: any = document.getElementById('scoreRange');
-        if (slider) {
-            slider.noUiSlider.off('end');
-        }
     }
 
     private getData() {
@@ -84,55 +75,14 @@ export class QuizFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
 
     getHeaderData() {
         this.feedDataService.getQuizFeedItemReport(this.model.id).subscribe(result => {
-            if (result.success) {
-                this.summaryData = result.content;
-                this.updateReport();
-            } else {
-                Materialize.toast(result.message, 5000, 'red');
-                this.goBack();
-            }
+            this.summaryData = result.content;
+            this.updateGaugeData();
+            this.updateBarData();
         });
     }
 
     getResultListData() {
-        this.feedDataService.getFeedItemResultList(this.model.id, this.filterCriteria.pointsRangeBottom, this.filterCriteria.pointsRangeTop, 0).subscribe((result) => {
-            this.listData = result.content;
-            this.filterResultList();
-        });
-    }
 
-    filterUpdate(criteria: UserFilters) {
-        this.filterCriteria = criteria;
-        this.filterResultList();
-    }
-
-    filterResultList() {
-        if (!this.listData)
-            return null;
-        var data = Object.assign([], this.listData);
-
-        if (this.filterCriteria.userGroupFilters.length > 0)
-            data = data.filter(x => this.filterCriteria.userGroupFilters.filter(y => y.text === x.mainUserGroup).length > 0);
-        
-        if (this.filterCriteria.dealershipFilters.length > 0)
-            data = data.filter(x => this.filterCriteria.dealershipFilters.filter(y => y.text === x.dealershipName).length > 0);
-
-        if (this.searchString !== "") {
-            var search = this.searchString.toLowerCase();
-            data = data.filter(x => x.user.firstName.toLowerCase().indexOf(search) > -1
-                || x.user.lastName.toLowerCase().indexOf(search) > -1);
-        }
-
-        data = data.filter(x => x.resultPercentage >= this.filterCriteria.pointsRangeBottom &&
-            x.resultPercentage <= this.filterCriteria.pointsRangeTop);
-
-        this.filteredListData = data;
-    }
-
-    updateReport() {
-        this.updateGaugeData();
-        this.updateDonutData();
-        this.updateBarData();
     }
 
     public updateGaugeData() {
@@ -141,32 +91,13 @@ export class QuizFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
             showTooltip: true,
             chartData: [
                 {
-                    name: 'Passed',
+                    name: 'Submitted',
                     colour: '#9F378E',
                     data: (this.summaryData.passed / this.summaryData.submitted) * 100
                 }
             ]
         });
-        this.passRatioData = gaugeData;
-    }
-
-    public updateDonutData() {
-        var donutData = new DonutChartData({
-            showLegend: false,
-            showTooltip: false,
-            title: this.summaryData.averageScore + '%',
-            chartData: [
-                {
-                    name: 'Average Score',
-                    colour: '#9F378E',
-                    data: [this.summaryData.averageScore]
-                }, {
-                    name: 'Blank',
-                    colour: '#ECECEC',
-                    data: [100 - this.summaryData.averageScore]
-                }]
-        });
-        this.averageScoreData = donutData;
+        this.submissionRateData = gaugeData;
     }
 
     public updateBarData() {
@@ -186,13 +117,14 @@ export class QuizFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
             showYAxis: false,
             showXAxis: true,
             chartData: [{
-                name: 'Distribuition of submissions',
+                name: 's',
                 colour: '#9F378E',
                 data: dates
             }]
         });
         this.averageTimeData = barData;
     }
+    
 
     public goBack() {
         this.pageTitle = null;

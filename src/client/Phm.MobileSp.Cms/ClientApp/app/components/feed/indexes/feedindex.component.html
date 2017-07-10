@@ -3,7 +3,7 @@
         <div class="loader" *ngIf="!this.feedItems"></div>
                 
         <div *ngIf="this.feedItems">
-            <a (click)="editFeedItem()" class="btn-floating btn-large waves-effect waves-light btn-top-right">
+            <a (click)="editFeedItem()" class="btn-floating btn-large waves-effect waves-light btn-top-right" *ngIf="currentMarket && !currentMarket.isLive">
                 <i class="material-icons">add</i>
             </a>
             <div class="col-md-12" *ngIf="this.feedItems.length === 0">
@@ -32,15 +32,15 @@
                             </div>
                             <div class="col-md-12 feed-item-dates">
                                 <div *ngIf="feedItem.publishedLiveAt" class="col-md-4 no-pad date-posted">
-                                    Date posted: {{ feedItem.publishedLiveAt | date:'short' }}
+                                    Date posted: {{ feedItem.publishedLiveAt | date:'d/M/y, hh:mm a' }}
                                 </div>
 
                                 <div *ngIf="feedItem.updatedAt && feedItem.updatedAt!==feedItem.createdAt" class="col-md-4 no-pad">
-                                    Date modified: {{ feedItem.updatedAt | date:'short' }}
+                                    Date modified: {{ feedItem.updatedAt | date:'d/M/y, hh:mm a' }}
                                 </div>
 
                                 <div class="col-md-4 no-pad">
-                                    Date created: {{ feedItem.createdAt | date:'short' }}
+                                    Date created: {{ feedItem.createdAt | date:'d/M/y, hh:mm a' }}
                                 </div>
                             </div>
                         </div>

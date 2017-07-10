@@ -13,6 +13,7 @@ import QuizFeeditemreportcomponent = require("../quizfeeditemreport.component");
 import QuizFeedItemReport = QuizFeeditemreportcomponent.QuizFeedItemReport;
 import Feeddataservice = require("../../../services/feeddataservice");
 import { DefaultTabNavs } from "../../navmenu/tabnavmenu.component";
+import { SurveyFeedItemReport } from "../surveyfeeditemreport.component";
 
 declare var $: any;
 declare var Materialize: any;
@@ -102,15 +103,21 @@ export class FeedReportIndexComponent extends BaseComponent implements OnInit, O
         var report;
         if (feedItem.feedType === FeedTypeEnum.Quiz)
             report = QuizFeedItemReport;
+        if (feedItem.feedType === FeedTypeEnum.Survey)
+            report = SurveyFeedItemReport;
+
+        console.log(feedItem);
         this.updateMarketDropdownVisibility(false);
-        this.updateBackText('Back to Reports Index');
-        this.updatePageTitle(Enums.FeedTypeEnum[feedItem.feedType] + ' Analytics Reports');
+        this.updateTabNavItems();
+        this.updateBackText(Enums.FeedTypeEnum[feedItem.feedType] + ' Reports');
+        this.updatePageTitle('');
 
         report.prototype.onBackEvent = new EventEmitter();
         report.prototype.onBackEvent.subscribe(() => {
             this.setPageTitle();
             this.updateMarketDropdownVisibility(true);
             this.updateBackText('');
+            this.updateTabNavItems(DefaultTabNavs.reportsTabs);
             this.selectedItem = null;
         });
         this.selectedItem = {

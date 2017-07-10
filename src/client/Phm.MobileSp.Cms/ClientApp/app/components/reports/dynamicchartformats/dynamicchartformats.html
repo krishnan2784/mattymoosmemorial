@@ -1,0 +1,50 @@
+<div class="dcfContent" *ngIf="graphType > 0">
+  <div class="type_4_or_less" *ngIf="graphType ==1 ">
+    <div class="detailBar"></div>
+    <div class="title">{{data.title}}</div>
+    <div class="chartPlacer"><div #containerPieChart></div></div>
+    <div class="legend">
+      <div class="legRow" *ngFor="let r of data.data; let i = index">
+        <div class="circle" [style.backgroundColor]="colors[i]"></div>
+        <div class="text">{{getChar(97 + i)}}) {{r.label}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="type_5_6" *ngIf="graphType ==2 ">
+    <div class="detailBar"></div>
+    <div class="title">{{data.title}}</div>
+    <div style="height: 60px"></div>
+    <div class="chartPlacer">
+      <div *ngFor="let d of data.data; let i = index" class="row56Wrapper">
+        <div class="row56">
+          <div class="perc56" [style.color]="colors[i]">{{d.percent}}%</div>
+          <div class="label56">{{getChar(97 + i)}}) {{d.label}}</div>
+          <div class="graph56">
+            <div [style.width]="ani > 0 ? d.percent + '%' : '0px'" [style.backgroundColor]="colors[i]" class="percenBar56"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="type_7_or_more" *ngIf="graphType ==3" (mouseleave)="b7Mouse= -1" (mouseout)="b7Mouse= -1">
+    <div class="detailBar"></div>
+    <div class="title">{{data.title}}</div>
+    <div style="height: 60px"></div>
+    <div class="chartPlacer">
+      <div class="bars">
+        <div [style.width]="bar7H + '%'" class="bar7" *ngFor="let d of data.data ; let i = index">
+          <div class="innerBar7" (mouseover)="b7Mouse=i">
+            <div class="b7gauge" [style.height]="ani > 0 ? d.percent + '%' : '0px'" [style.backgroundColor]="colors[i]"></div>
+            <div class="b7Letters">{{getChar(97 + i)}}</div>
+            <div *ngIf="b7Mouse == i" class="details7" [style.bottom]="d.percent +'%'">
+              <div class="detWrapper">
+                <div class="detPerc" [style.color]="colors[i]">{{d.percent}}%</div>
+                <div class="detText">{{getChar(97 + i)}}) {{d.label}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

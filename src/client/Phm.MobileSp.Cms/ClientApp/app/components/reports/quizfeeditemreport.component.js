@@ -56,7 +56,7 @@ var QuizFeedItemReport = (function () {
     };
     QuizFeedItemReport.prototype.getHeaderData = function () {
         var _this = this;
-        this.feedDataService.getFeedItemReport(this.model.id).subscribe(function (result) {
+        this.feedDataService.getQuizFeedItemReport(this.model.id).subscribe(function (result) {
             if (result.success) {
                 _this.summaryData = result.content;
                 _this.updateReport();
@@ -155,7 +155,7 @@ var QuizFeedItemReport = (function () {
             showYAxis: false,
             showXAxis: true,
             chartData: [{
-                    name: 'Number of learners',
+                    name: 'Distribuition of submissions',
                     colour: '#9F378E',
                     data: dates
                 }]
@@ -163,10 +163,6 @@ var QuizFeedItemReport = (function () {
         this.averageTimeData = barData;
     };
     QuizFeedItemReport.prototype.goBack = function () {
-        var slider = document.getElementById('scoreRange');
-        if (slider) {
-            slider.noUiSlider.off('end');
-        }
         this.pageTitle = null;
         this.model = null;
         this.averageTimeData = null;

@@ -20,6 +20,10 @@ export class ObservationFeedItemFormComponent extends BaseQuestionFeedItemFormCo
 
     constructor(injector: Injector) {
         super(injector, Feedclasses.ObservationFeed, '/api/Feed/UpdateObservationFeedItem', FeedTypeEnum.Observation, Enums.SurveyQuestionTypeEnum);
+        if (this.model) {
+            this.model.points = null;
+            this.form.controls['points'].patchValue(this.model.points, { onlySelf: true });
+        }
     }
     
     addFormControls() {

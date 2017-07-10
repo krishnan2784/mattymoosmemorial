@@ -68,6 +68,8 @@ var lbexecutivestable_component_1 = require("./components/reports/leaderboards/l
 var lbrefine_component_1 = require("./components/reports/leaderboards/lbrefine/lbrefine.component");
 var leaderboard_component_1 = require("./components/reports/leaderboards/leaderboard/leaderboard.component");
 var tabnavmenu_component_1 = require("./components/navmenu/tabnavmenu.component");
+var dynamicchartformats_component_1 = require("./components/reports/dynamicchartformats/dynamicchartformats.component");
+var surveyfeeditemreport_component_1 = require("./components/reports/surveyfeeditemreport.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -104,6 +106,7 @@ AppModule = __decorate([
             feedreportindex_component_1.FeedReportIndexComponent,
             FeedItemReportContainerComponent,
             quizfeeditemreport_component_1.QuizFeedItemReport,
+            surveyfeeditemreport_component_1.SurveyFeedItemReport,
             //leaderbaord
             leaderboardcontainer_component_1.LeaderboardContainer,
             leaderboard_component_1.LeaderboardComponent,
@@ -116,6 +119,7 @@ AppModule = __decorate([
             BarChart,
             GaugeChart,
             DonutChart,
+            dynamicchartformats_component_1.DynamicChartFormatsComponent,
             //modals
             FeedItemCopyToMarket,
             //shared

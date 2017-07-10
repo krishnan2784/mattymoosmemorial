@@ -62,6 +62,7 @@ var FeedItemCopyToMarket = (function (_super) {
                 if (result && result.length > 0) {
                     if (_this.currentMarkets && _this.currentMarkets.length > 0)
                         result = result.filter(function (x) { return _this.currentMarkets.filter(function (y) { return y.id === x.id; }).length === 0; });
+                    result = result.filter(function (x) { return !x.isLive; });
                     _this.userMarkets = _this.filterMarkets(result.map(function (x) { return new ContentMarket(x); }));
                 }
             });

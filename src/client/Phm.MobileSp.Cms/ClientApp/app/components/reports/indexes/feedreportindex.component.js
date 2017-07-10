@@ -30,6 +30,7 @@ var shareservice_1 = require("../../../services/helpers/shareservice");
 var QuizFeeditemreportcomponent = require("../quizfeeditemreport.component");
 var QuizFeedItemReport = QuizFeeditemreportcomponent.QuizFeedItemReport;
 var tabnavmenu_component_1 = require("../../navmenu/tabnavmenu.component");
+var surveyfeeditemreport_component_1 = require("../surveyfeeditemreport.component");
 var FeedReportIndexComponent = (function (_super) {
     __extends(FeedReportIndexComponent, _super);
     function FeedReportIndexComponent(route, router, feedDataService, sharedService) {
@@ -102,14 +103,19 @@ var FeedReportIndexComponent = (function (_super) {
         var report;
         if (feedItem.feedType === FeedTypeEnum.Quiz)
             report = QuizFeedItemReport;
+        if (feedItem.feedType === FeedTypeEnum.Survey)
+            report = surveyfeeditemreport_component_1.SurveyFeedItemReport;
+        console.log(feedItem);
         this.updateMarketDropdownVisibility(false);
-        this.updateBackText('Back to Reports Index');
-        this.updatePageTitle(Enums.FeedTypeEnum[feedItem.feedType] + ' Analytics Reports');
+        this.updateTabNavItems();
+        this.updateBackText(Enums.FeedTypeEnum[feedItem.feedType] + ' Reports');
+        this.updatePageTitle('');
         report.prototype.onBackEvent = new core_1.EventEmitter();
         report.prototype.onBackEvent.subscribe(function () {
             _this.setPageTitle();
             _this.updateMarketDropdownVisibility(true);
             _this.updateBackText('');
+            _this.updateTabNavItems(tabnavmenu_component_1.DefaultTabNavs.reportsTabs);
             _this.selectedItem = null;
         });
         this.selectedItem = {

@@ -1,0 +1,56 @@
+<div class="col-md-8 survey-title">{{model.title}}</div>
+<div class="col-md-4">
+    <button (click)="handleReport()" class="right">Report</button>
+</div>
+<div class="clearfix"></div>
+
+<div class="loader" *ngIf="!this.listData"></div>
+<div class="loader" *ngIf="this.listData">
+    <div>
+        <div class="col-md-6 stat-container">
+            <div class="header-border"></div>
+            <div class="stat-block">
+                <div class="stat-title">
+                    <div class="col-md-4 total-learners">
+                        <h5 *ngIf="summaryData">
+                            {{summaryData.submitted}}
+                        </h5>
+                        <p>Total learners</p>
+                        <div class="clearboth"></div>
+                    </div>
+                    <i class="material-icons right">person</i>
+                </div>
+
+                <div class="stat-body">
+                    <div class="loader" *ngIf="!passRatioData"></div>
+                    <div *ngIf="passRatioData" class="animate-bottom">
+                        <gaugechart [chartData]="submissionRateData" [id]="'submissionRatioChart'"></gaugechart>
+                        <h5 *ngIf="summaryData">
+                            <b>{{summaryData.submitted}} <span>submitted / </span></b>
+                            {{summaryData.passed}} <span> total</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 stat-container">
+            <div class="header-border"></div>
+            <div class="stat-block">
+                <div class="stat-title">
+                    <h5>
+                        Distribuition of submissions
+                    </h5>
+                </div>
+                <div class="stat-body">
+                    <div class="loader" *ngIf="!averageTimeData"></div>
+                    <div *ngIf="averageTimeData" class="animate-bottom">
+                        <barchart [chartData]="averageTimeData" [id]="'averageTimeChart'"></barchart>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div *ngFor="let questionResults of this.listData" style="float: left;padding: 10px;"><dynamicchartformats [data]="questionResults"></dynamicchartformats></div>
+</div>
