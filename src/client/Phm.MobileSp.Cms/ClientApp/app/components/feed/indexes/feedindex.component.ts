@@ -89,20 +89,26 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
     }
 
     getData() {
+        this.sharedService.updateMarketDropdownEnabledState(false);
+
         if (!this.filteredFeed) {
             this.feedDataService.getFeeditems().subscribe((result) => {
                 this.feedItems = this.sortFeed(result);
+                this.sharedService.updateMarketDropdownEnabledState(true);
             });
         } else {
             this.feedDataService.getFeeditemsByCat(this.catId).subscribe((result) => {
                 this.feedItems = this.sortFeed(result);
+                this.sharedService.updateMarketDropdownEnabledState(true);
             });
         }
     }
 
-    sortFeed(feedItem: IFeedItem[]): IFeedItem[] {
+    sortFeed(feedItems: IFeedItem[] =[]): IFeedItem[] {
         // basic ordering by Id descending, will need to replace with a more robust sorting mechanism / index management facility 
-        return feedItem.sort((a, b) => {
+        if (!feedItems)
+            return feedItems;
+        return feedItems.sort((a, b) => {
             if (a.id > b.id) return -1;
             if (a.id < b.id) return 1;
             return 0;

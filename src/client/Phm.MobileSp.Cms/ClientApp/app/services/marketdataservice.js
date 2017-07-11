@@ -73,7 +73,8 @@ var MarketDataService = (function (_super) {
                         userGroupNames: result.userGroupNames,
                         dealershipNames: result.dealershipNames,
                         regions: result.areas,
-                        zones: result.zones
+                        zones: result.zones,
+                        areas: result.areas
                     };
                     observer.next(response);
                 }

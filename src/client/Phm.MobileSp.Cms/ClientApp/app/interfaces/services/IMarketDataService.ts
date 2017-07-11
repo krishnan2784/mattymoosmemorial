@@ -8,6 +8,6 @@ export interface IMarketDataService {
     updateCurrentMarketId(marketId: number): Observable<boolean>;
     getCurrentMarketId(): Observable<number>;
     getMarketsByMasterId(contentType: CopiedElementTypeEnum, masterId: string): Observable<Market[]>;
-    getMarketUserFilters(): Observable<{ userGroupNames: string[], dealershipNames: string[], regions: string[], zones: string[]}>;
+    getMarketUserFilters(): Observable<{ userGroupNames: string[], dealershipNames: string[], regions: string[], zones: string[], areas: string[]}>;
 
 }

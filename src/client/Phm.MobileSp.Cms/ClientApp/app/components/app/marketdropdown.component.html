@@ -1,5 +1,5 @@
 <div *ngIf="userMarkets && userMarkets.length>1 && currentMarket">
-    <select class="form-control" [(ngModel)]="currentMarket" (ngModelChange)="updateCurrentMarket($event)" materialize="material_select">
+    <select class="form-control" [(ngModel)]="currentMarket" (ngModelChange)="updateCurrentMarket($event)" materialize="material_select" [attr.disabled]="!enabled">
         <option *ngFor="let market of userMarkets" [ngValue]="market">{{market.name}}</option>
     </select>
 </div>

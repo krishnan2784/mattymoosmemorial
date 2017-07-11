@@ -58,6 +58,7 @@ var EditUser = (function (_super) {
             firstName: new forms_1.FormControl(this.model.firstName, [forms_1.Validators.required]),
             lastName: new forms_1.FormControl(this.model.lastName, [forms_1.Validators.required]),
             email: new forms_1.FormControl(this.model.email, [forms_1.Validators.required]),
+            dealershipName: new forms_1.FormControl(this.model.dealershipName, [forms_1.Validators.required]),
             dealershipCode: new forms_1.FormControl(this.model.dealershipCode, [forms_1.Validators.required]),
             regionName: new forms_1.FormControl(this.model.regionName, [forms_1.Validators.required]),
             areaName: new forms_1.FormControl(this.model.areaName, [forms_1.Validators.required]),
@@ -69,7 +70,7 @@ var EditUser = (function (_super) {
         this.marketDataService.getMarketUserFilters().subscribe(function (result) {
             if (result) {
                 _this.dealerships = result.dealershipNames;
-                _this.zones = result.zones;
+                _this.zones = result.areas;
                 _this.regions = result.regions;
             }
         });

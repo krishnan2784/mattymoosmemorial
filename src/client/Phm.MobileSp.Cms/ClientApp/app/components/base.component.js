@@ -27,6 +27,7 @@ var BaseComponent = (function () {
     };
     BaseComponent.prototype.updateMarketDropdownVisibility = function (displayMarketDropdown) {
         this.sharedService.updateMarketDropdownVisibility(displayMarketDropdown);
+        this.sharedService.updateMarketDropdownEnabledState(displayMarketDropdown);
     };
     BaseComponent.prototype.updateBackText = function (backText) {
         var _this = this;

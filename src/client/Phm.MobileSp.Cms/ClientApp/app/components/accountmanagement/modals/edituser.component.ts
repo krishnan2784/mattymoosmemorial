@@ -55,6 +55,7 @@ export class EditUser extends BaseModalContent implements OnInit, AfterViewInit,
             firstName: new FormControl(this.model.firstName, [<any>Validators.required]),
             lastName: new FormControl(this.model.lastName, [<any>Validators.required]),
             email: new FormControl(this.model.email, [<any>Validators.required]),
+            dealershipName: new FormControl(this.model.dealershipName, [<any>Validators.required]),
             dealershipCode: new FormControl(this.model.dealershipCode, [<any>Validators.required]),
             regionName: new FormControl(this.model.regionName, [<any>Validators.required]),
             areaName: new FormControl(this.model.areaName, [<any>Validators.required]),
@@ -66,7 +67,7 @@ export class EditUser extends BaseModalContent implements OnInit, AfterViewInit,
         this.marketDataService.getMarketUserFilters().subscribe((result) => {
             if (result) {
                 this.dealerships = result.dealershipNames;
-                this.zones = result.zones;
+                this.zones = result.areas;
                 this.regions = result.regions;
             }
         });

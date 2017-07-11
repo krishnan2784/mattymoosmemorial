@@ -51,7 +51,7 @@ export class MarketDataService extends RequestHelper implements IMarketDataServi
         });
     }
 
-    getMarketUserFilters(): Observable<{ userGroupNames: string[], dealershipNames: string[], regions: string[], zones: string[] }> {
+    getMarketUserFilters(): Observable<{ userGroupNames: string[], dealershipNames: string[], regions: string[], zones: string[], areas: string[] }> {
         return Observable.create(observer => {
             this.getRequestBase('/api/Market/GetMarketUserFilters').subscribe((result) => {
                 if (result) {
@@ -59,7 +59,8 @@ export class MarketDataService extends RequestHelper implements IMarketDataServi
                         userGroupNames: result.userGroupNames,
                         dealershipNames: result.dealershipNames,
                         regions: result.areas,
-                        zones: result.zones
+                        zones: result.zones,
+                        areas: result.areas
                     };
                     observer.next(response);
                 }

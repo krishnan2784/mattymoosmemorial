@@ -90,20 +90,26 @@ var FeedIndexComponent = (function (_super) {
     };
     FeedIndexComponent.prototype.getData = function () {
         var _this = this;
+        this.sharedService.updateMarketDropdownEnabledState(false);
         if (!this.filteredFeed) {
             this.feedDataService.getFeeditems().subscribe(function (result) {
                 _this.feedItems = _this.sortFeed(result);
+                _this.sharedService.updateMarketDropdownEnabledState(true);
             });
         }
         else {
             this.feedDataService.getFeeditemsByCat(this.catId).subscribe(function (result) {
                 _this.feedItems = _this.sortFeed(result);
+                _this.sharedService.updateMarketDropdownEnabledState(true);
             });
         }
     };
-    FeedIndexComponent.prototype.sortFeed = function (feedItem) {
+    FeedIndexComponent.prototype.sortFeed = function (feedItems) {
+        if (feedItems === void 0) { feedItems = []; }
         // basic ordering by Id descending, will need to replace with a more robust sorting mechanism / index management facility 
-        return feedItem.sort(function (a, b) {
+        if (!feedItems)
+            return feedItems;
+        return feedItems.sort(function (a, b) {
             if (a.id > b.id)
                 return -1;
             if (a.id < b.id)

@@ -31,9 +31,9 @@ export class UserAccountManagementComponent extends BaseComponent {
         { title: 'First Name', name: 'firstName_region' },
         { title: 'Last Name', name: 'lastName' },
         { title: 'Email', name: 'email_zone' },
-        { title: 'Dealership Code', name: 'dealershipCode' },
-        { title: '', name: 'actionEdit', sort: false, className: 'col-action' },
-        { title: '', name: 'actionDelete', sort: false, className: 'col-action' }
+        { title: 'Dealership', name: 'dealershipName_code' },
+        { title: '', name: 'actionEdit', sort: false, className: 'col-action' }
+        //,{ title: '', name: 'actionDelete', sort: false, className: 'col-action' }
     ];
     public page: number = 1;
     public itemsPerPage: number = 20;
@@ -221,6 +221,7 @@ export class UserAccountManagementComponent extends BaseComponent {
 
     public attachUserProperties(user: any) {
         user.userAvatar = '<i class="material-icons table-avatar">person</i>';
+        user.dealershipName_code = user.dealershipName + ' (' + user.dealershipCode + ')';
         user.firstName_region = user.firstName + '<p class="sub-data">' + user.regionName + '</p>';
         user.email_zone = user.email + '<p class="sub-data">' + user.areaName + '</p>';
         user.actionEdit = '<a class="action-btn remove" data-toggle="modal" data-target="#edit-user"><i class="material-icons">edit</i><p>Edit</p></a>';
