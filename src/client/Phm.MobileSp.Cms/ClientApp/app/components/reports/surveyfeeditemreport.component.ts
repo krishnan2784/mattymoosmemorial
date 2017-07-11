@@ -17,11 +17,11 @@ import Barchartcomponent = require("../charts/barchart.component");
 import GaugeChartData = Chartclasses.GaugeChartData;
 import DonutChartData = Chartclasses.DonutChartData;
 import Reportclasses = require("../../models/reportclasses");
-import FeedItemSummary = Reportclasses.FeedItemSummary;
-import FeedItemSummaryEx = Reportclasses.FeedItemSummaryEx;
+import SurveyItemSummary = Reportclasses.SurveyItemSummary;
 import Date1 = require("../../classes/helpers/date");
 import DateEx = Date1.DateEx;
 import Userfiltercomponent = require("../common/filters/userfilter.component");
+import { SurveyFeed } from "../../models/feedclasses";
 import UserFilters = Userfiltercomponent.UserFilters;
 
 declare var Materialize: any;
@@ -36,13 +36,13 @@ export class SurveyFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     @Output()
     public onBackEvent: EventEmitter<any>;
 
-    public model: IFeedItem;
+    public model: SurveyFeed;
     public pageTitle: string;
     public feedTypeString: string;
     public feedTypes = Enums.FeedTypeEnum;
 
-    public summaryData: FeedItemSummary;
-    public listData: FeedItemSummaryEx[];
+    public summaryData: SurveyItemSummary;
+    public listData = [];
     
     public submissionRateData: GaugeChartData;
     public averageTimeData: BarChartData;
@@ -52,7 +52,7 @@ export class SurveyFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
         this.model = this.injector.get('model');
         this.pageTitle = this.injector.get('pageTitle');
         this.feedTypeString = Enums.FeedTypeEnum[this.model.feedType];
-
+        console.log(this.model);
         this.sharedService.goBackEvent.subscribe(() => {
             this.onBackEvent.emit();
         });
@@ -69,20 +69,20 @@ export class SurveyFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private getData() {
-        this.getHeaderData();
-        this.getResultListData();
-    }
-
-    getHeaderData() {
-        this.feedDataService.getQuizFeedItemReport(this.model.id).subscribe(result => {
-            this.summaryData = result.content;
+        this.feedDataService.getSurveyFeedSummaries(this.model.id).subscribe(result => {
+            if (result.content) {
+                this.summaryData = new SurveyItemSummary(result.content);
+                this.updateGaugeData();
+                this.updateBarData();
+                this.updateListData();
+            } else
+                this.summaryData = new SurveyItemSummary();
             this.updateGaugeData();
             this.updateBarData();
+            this.updateListData();
+            console.log(this.summaryData);
+
         });
-    }
-
-    getResultListData() {
-
     }
 
     public updateGaugeData() {
@@ -111,20 +111,44 @@ export class SurveyFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
                 dates.push({ x: formatted, y: 1 });
             }
         }
+        if (dates.length == 0) {
+            dates.push({ x: "11/07", y: 2 });
+            dates.push({ x: "12/07", y: 4 });
+        }
         var barData = new BarChartData({
             width: 500,
             showTooltip: true,
             showYAxis: false,
             showXAxis: true,
             chartData: [{
-                name: 's',
+                name: 'Allocated time (days)',
                 colour: '#9F378E',
                 data: dates
             }]
         });
         this.averageTimeData = barData;
     }
-    
+
+    public updateListData() {
+        if (this.model && this.summaryData) {
+            for (let question of this.model.questions) {
+                var data = []
+                question.answers.forEach(x => {
+                    data.push({
+                        percent: this.summaryData.surveyFeedResults.filter(y => y.surverQuestionAnwerId == x.id)[0].percentage,
+                        label: x.answer
+                    });
+                });
+                console.log(data);
+                this.listData.push({
+                    title: question.question,
+                    data: data
+                });
+            };
+            console.log(this.listData);
+
+        }
+    }
 
     public goBack() {
         this.pageTitle = null;

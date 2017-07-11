@@ -52,7 +52,6 @@ var UserFilter = (function () {
     UserFilter.prototype.broadcastChanges = function () {
         var _this = this;
         setTimeout(function () {
-            console.log(_this.criteria);
             _this.criteria.userGroupFilters = _this.criteria.allUserGroupFilters.filter(function (x) { return x.checked; });
             _this.criteria.dealershipFilters = _this.criteria.allDealershipFilters.filter(function (x) { return x.checked; });
             _this.criteria.regionFilters = _this.criteria.allRegionFilters.filter(function (x) { return x.checked; });
@@ -146,7 +145,6 @@ var UserFilter = (function () {
         slider.reset();
     };
     UserFilter.prototype.onSliderChange = function (event) {
-        console.log(event);
         if (this.criteria.pointsRangeBottom === event.from && this.criteria.pointsRangeTop === event.to)
             return;
         this.criteria.pointsRangeBottom = event.from;

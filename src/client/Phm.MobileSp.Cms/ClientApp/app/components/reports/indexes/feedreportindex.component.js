@@ -105,7 +105,6 @@ var FeedReportIndexComponent = (function (_super) {
             report = QuizFeedItemReport;
         if (feedItem.feedType === FeedTypeEnum.Survey)
             report = surveyfeeditemreport_component_1.SurveyFeedItemReport;
-        console.log(feedItem);
         this.updateMarketDropdownVisibility(false);
         this.updateTabNavItems();
         this.updateBackText(Enums.FeedTypeEnum[feedItem.feedType] + ' Reports');

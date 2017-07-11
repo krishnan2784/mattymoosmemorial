@@ -18,20 +18,16 @@ var UploadMediaComponent = (function () {
         this.files = [];
     }
     UploadMediaComponent.prototype.uploadFile = function () {
-        console.log(this.files);
         if (!this.files)
             return;
         this.mediaService.uploadFile(this.files).subscribe(function (response) {
-            console.log(response);
         });
     };
     UploadMediaComponent.prototype.uploadImage = function () {
         var _this = this;
-        console.log(this.files);
         if (!this.files)
             return;
         this.mediaService.uploadImage(this.files[0]).subscribe(function (response) {
-            console.log(response);
             _this.imagePreviewUrl = response.path + response.name;
         });
     };

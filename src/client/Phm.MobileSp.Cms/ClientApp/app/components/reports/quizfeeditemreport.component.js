@@ -157,7 +157,7 @@ var QuizFeedItemReport = (function () {
             showYAxis: false,
             showXAxis: true,
             chartData: [{
-                    name: 'Distribuition of submissions',
+                    name: 'Allocated time (days)',
                     colour: '#9F378E',
                     data: dates
                 }]

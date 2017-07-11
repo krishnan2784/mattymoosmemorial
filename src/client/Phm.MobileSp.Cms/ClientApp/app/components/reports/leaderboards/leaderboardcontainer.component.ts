@@ -293,7 +293,6 @@ export class LeaderboardContainer extends BaseComponent {
     }
 
     getNewDataFromServer(event) {
-        console.log(event);
         this.getUpdateData(event.date1, event.date2); 
     }
 

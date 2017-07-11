@@ -48,7 +48,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
                 applicationUser.UserRoles = await GetUserRoles(applicationUser);
                 applicationUser.UserConfigurations = await GetUserConfigurationsByUserId(applicationUser.UserDetails.Id);
                 applicationUser.UserDetails.DefaultMarketId = applicationUser.UserConfigurations.FirstOrDefault(x=>x.IsDefault).MarketId;
-            } else
+            } else if (string.IsNullOrEmpty(message))
             {
                 message = "Your username or password is incorrect. Please try again.";
             }

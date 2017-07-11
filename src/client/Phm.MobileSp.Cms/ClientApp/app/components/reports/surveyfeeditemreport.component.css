@@ -1,6 +1,10 @@
-﻿.survey-title { 
+﻿.survey-header-container{
+    padding: 0 20px;
+}
+.survey-title { 
     background-color: #fff;
     padding: 10px 15px;
+    margin-bottom: 20px;
 }
 
 button{
@@ -14,3 +18,15 @@ button{
       right: 0;
       top: 0px;
     }
+.question-result{
+    background-color: #fff;
+    margin-right: 15px;
+    margin-top: 20px;
+}
+.container-header{
+    font-weight:600;
+    font-size: 1.2em;
+}
+.stat-container {
+    padding: 15px 20px;
+}

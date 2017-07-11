@@ -17,7 +17,6 @@ var TabNavMenuComponent = (function () {
         var _this = this;
         this.shareService = shareService;
         this.shareService.navTabsUpdated.subscribe(function (tabs) {
-            console.log(tabs);
             _this.navItems = tabs;
         });
     }

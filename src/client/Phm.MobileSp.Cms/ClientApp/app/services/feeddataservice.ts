@@ -75,15 +75,19 @@ export class FeedDataService extends RequestHelper implements IFeedDataService, 
     }
 
     public getQuizFeedItemReport(feedItemId: number): Observable<any> {
-        return this.getRequestFull('/api/Feed/GetFeedItemSummary?feedItemId=' + feedItemId);
+        return this.getRequestFull('/api/Feed/GetQuizFeedSummaries?feedItemId=' + feedItemId);
     }
 
     public getFeedItemResultList(feedItemId: number, lowerBoundary: number, higherBoundary: number, userGroupId: number) {
-        var requestUrl = '/api/Feed/GetFeedItemResultList?feedItemId=' + feedItemId
+        var requestUrl = '/api/Feed/GetQuizResultsSummariesEX?feedItemId=' + feedItemId
             + '&lowerBoundary=' + lowerBoundary
             + '&higherBoundary=' + higherBoundary
             + '&userGroupId=' + userGroupId;
         return this.getRequestFull(requestUrl);
+    }
+
+    public getSurveyFeedSummaries(feedItemId: number): Observable<any> {
+        return this.getRequestFull('/api/Feed/GetSurveyFeedSummaries?feedItemId=' + feedItemId);
     }
 
     public getLeaderBoard(startDate: string = null, endDate: string = null) {

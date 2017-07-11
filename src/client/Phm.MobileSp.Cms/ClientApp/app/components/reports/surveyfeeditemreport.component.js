@@ -18,6 +18,8 @@ var FeedDataService = Feeddataservice.FeedDataService;
 var Chartclasses = require("../../models/chartclasses");
 var BarChartData = Chartclasses.BarChartData;
 var GaugeChartData = Chartclasses.GaugeChartData;
+var Reportclasses = require("../../models/reportclasses");
+var SurveyItemSummary = Reportclasses.SurveyItemSummary;
 var Date1 = require("../../classes/helpers/date");
 var DateEx = Date1.DateEx;
 var SurveyFeedItemReport = (function () {
@@ -27,9 +29,11 @@ var SurveyFeedItemReport = (function () {
         this.feedDataService = feedDataService;
         this.injector = injector;
         this.feedTypes = Enums.FeedTypeEnum;
+        this.listData = [];
         this.model = this.injector.get('model');
         this.pageTitle = this.injector.get('pageTitle');
         this.feedTypeString = Enums.FeedTypeEnum[this.model.feedType];
+        console.log(this.model);
         this.sharedService.goBackEvent.subscribe(function () {
             _this.onBackEvent.emit();
         });
@@ -42,18 +46,21 @@ var SurveyFeedItemReport = (function () {
     SurveyFeedItemReport.prototype.ngOnDestroy = function () {
     };
     SurveyFeedItemReport.prototype.getData = function () {
-        this.getHeaderData();
-        this.getResultListData();
-    };
-    SurveyFeedItemReport.prototype.getHeaderData = function () {
         var _this = this;
-        this.feedDataService.getQuizFeedItemReport(this.model.id).subscribe(function (result) {
-            _this.summaryData = result.content;
+        this.feedDataService.getSurveyFeedSummaries(this.model.id).subscribe(function (result) {
+            if (result.content) {
+                _this.summaryData = new SurveyItemSummary(result.content);
+                _this.updateGaugeData();
+                _this.updateBarData();
+                _this.updateListData();
+            }
+            else
+                _this.summaryData = new SurveyItemSummary();
             _this.updateGaugeData();
             _this.updateBarData();
+            _this.updateListData();
+            console.log(_this.summaryData);
         });
-    };
-    SurveyFeedItemReport.prototype.getResultListData = function () {
     };
     SurveyFeedItemReport.prototype.updateGaugeData = function () {
         var gaugeData = new GaugeChartData({
@@ -84,18 +91,44 @@ var SurveyFeedItemReport = (function () {
         for (var submission in this.summaryData.submissions) {
             _loop_1(submission);
         }
+        if (dates.length == 0) {
+            dates.push({ x: "11/07", y: 2 });
+            dates.push({ x: "12/07", y: 4 });
+        }
         var barData = new BarChartData({
             width: 500,
             showTooltip: true,
             showYAxis: false,
             showXAxis: true,
             chartData: [{
-                    name: 's',
+                    name: 'Allocated time (days)',
                     colour: '#9F378E',
                     data: dates
                 }]
         });
         this.averageTimeData = barData;
+    };
+    SurveyFeedItemReport.prototype.updateListData = function () {
+        var _this = this;
+        if (this.model && this.summaryData) {
+            for (var _i = 0, _a = this.model.questions; _i < _a.length; _i++) {
+                var question = _a[_i];
+                var data = [];
+                question.answers.forEach(function (x) {
+                    data.push({
+                        percent: _this.summaryData.surveyFeedResults.filter(function (y) { return y.surverQuestionAnwerId == x.id; })[0].percentage,
+                        label: x.answer
+                    });
+                });
+                console.log(data);
+                this.listData.push({
+                    title: question.question,
+                    data: data
+                });
+            }
+            ;
+            console.log(this.listData);
+        }
     };
     SurveyFeedItemReport.prototype.goBack = function () {
         this.pageTitle = null;

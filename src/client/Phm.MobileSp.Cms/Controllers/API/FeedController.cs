@@ -126,17 +126,25 @@ namespace Phm.MobileSp.Cms.Controllers.API
 
         [HttpGet("[action]")]
         [JsonResponseWrapper]
-        public async Task<JsonResult> GetFeedItemSummary(int feedItemId)
+        public async Task<JsonResult> GetQuizFeedSummaries(int feedItemId)
         {
-            var feedItemResponse = await _feedRepository.GetFeedItemSummary(feedItemId);
+            var feedItemResponse = await _feedRepository.GetQuizFeedSummaries(feedItemId);
             return Json(new BaseResponse(feedItemResponse));
         }
 
         [HttpGet("[action]")]
         [JsonResponseWrapper]
-        public async Task<JsonResult> GetFeedItemResultList(int feedItemId, decimal lowerBoundary = 0, decimal higherBoundary = 0, int userGroupId = 0)
+        public async Task<JsonResult> GetQuizResultsSummariesEX(int feedItemId, decimal lowerBoundary = 0, decimal higherBoundary = 0, int userGroupId = 0)
         {
-            var feedItemResponse = await _feedRepository.GetFeedItemResultList(feedItemId, lowerBoundary, higherBoundary, userGroupId);
+            var feedItemResponse = await _feedRepository.GetQuizResultsSummariesEX(feedItemId, lowerBoundary, higherBoundary, userGroupId);
+            return Json(new BaseResponse(feedItemResponse));
+        }
+
+        [HttpGet("[action]")]
+        [JsonResponseWrapper]
+        public async Task<JsonResult> GetSurveyFeedSummaries(int feedItemId)
+        {
+            var feedItemResponse = await _feedRepository.GetSurveyFeedSummaries(feedItemId);
             return Json(new BaseResponse(feedItemResponse));
         }
 

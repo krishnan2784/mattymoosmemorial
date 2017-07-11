@@ -12,11 +12,11 @@
 
         <div class="loader" *ngIf="!summaryData"></div>
         <div *ngIf="summaryData && summaryData.quizFeedId == 0">
-            No submissions have been received for this Quiz.
+            No submissions have been received for this quiz.
         </div>
         <div *ngIf="summaryData && summaryData.quizFeedId > 0">
             <div>
-                <div class="col-md-4 stat-container">
+                <div class="col-md-4 stat-container animate-bottom">
                     <div class="header-border"></div>
                     <div class="stat-block">
                         <div class="stat-title">
@@ -32,7 +32,7 @@
 
                         <div class="stat-body">
                             <div class="loader" *ngIf="!passRatioData"></div>
-                            <div *ngIf="passRatioData" class="animate-bottom">
+                            <div *ngIf="passRatioData">
                                 <gaugechart [chartData]="passRatioData" [id]="'passRatioChart'"></gaugechart>
                                 <h5 *ngIf="summaryData">
                                     <b>{{summaryData.submitted}} <span>submitted / </span></b>
@@ -42,7 +42,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 stat-container">
+                <div class="col-md-3 stat-container animate-bottom">
                     <div class="header-border"></div>
                     <div class="stat-block">
                         <div class="stat-title">
@@ -52,13 +52,13 @@
                         </div>
                         <div class="stat-body">
                             <div class="loader" *ngIf="!averageScoreData"></div>
-                            <div *ngIf="averageScoreData" class="animate-bottom">
+                            <div *ngIf="averageScoreData">
                                 <donutchart [chartData]="averageScoreData" [id]="'averageScoreChart'"></donutchart>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-5 stat-container">
+                <div class="col-md-5 stat-container animate-bottom">
                     <div class="header-border"></div>
                     <div class="stat-block">
                         <div class="stat-title">
@@ -68,7 +68,7 @@
                         </div>
                         <div class="stat-body">
                             <div class="loader" *ngIf="!averageTimeData"></div>
-                            <div *ngIf="averageTimeData" class="animate-bottom">
+                            <div *ngIf="averageTimeData">
                                 <barchart [chartData]="averageTimeData" [id]="'averageTimeChart'"></barchart>
                             </div>
                         </div>

@@ -105,8 +105,7 @@ export class FeedReportIndexComponent extends BaseComponent implements OnInit, O
             report = QuizFeedItemReport;
         if (feedItem.feedType === FeedTypeEnum.Survey)
             report = SurveyFeedItemReport;
-
-        console.log(feedItem);
+        
         this.updateMarketDropdownVisibility(false);
         this.updateTabNavItems();
         this.updateBackText(Enums.FeedTypeEnum[feedItem.feedType] + ' Reports');

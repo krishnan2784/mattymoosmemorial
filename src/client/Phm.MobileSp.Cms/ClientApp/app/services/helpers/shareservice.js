@@ -61,7 +61,6 @@ var ShareService = (function () {
         this.goBackEvent.emit();
     };
     ShareService.prototype.updateNavTabs = function (navItems) {
-        console.log('1:' + navItems);
         this.tabNavUpdate.next(navItems);
     };
     return ShareService;

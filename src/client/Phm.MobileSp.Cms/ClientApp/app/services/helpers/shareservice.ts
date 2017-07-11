@@ -70,7 +70,6 @@ export class ShareService {
     navTabsUpdated = this.tabNavUpdate.asObservable();
 
     public updateNavTabs(navItems: NavItem[]) {
-        console.log('1:' + navItems);
         this.tabNavUpdate.next(navItems);
     }    
 }

@@ -62,7 +62,6 @@ export class UserFilter implements AfterViewInit, OnDestroy {
     
     broadcastChanges() {
         setTimeout(() => {
-            console.log(this.criteria);
             this.criteria.userGroupFilters = this.criteria.allUserGroupFilters.filter(x => x.checked);
             this.criteria.dealershipFilters = this.criteria.allDealershipFilters.filter(x => x.checked);
             this.criteria.regionFilters = this.criteria.allRegionFilters.filter(x => x.checked);
@@ -166,7 +165,6 @@ export class UserFilter implements AfterViewInit, OnDestroy {
     }
 
     public onSliderChange(event) {
-        console.log(event);
         if (this.criteria.pointsRangeBottom === event.from && this.criteria.pointsRangeTop === event.to)
             return;
 

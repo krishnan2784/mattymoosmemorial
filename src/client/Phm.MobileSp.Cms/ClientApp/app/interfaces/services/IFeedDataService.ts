@@ -20,4 +20,6 @@ export interface IFeedDataService {
     getQuizFeedItemReport(feedItemId: number): Observable<any>;
 
     getFeedItemResultList(feedItemId: number, lowerBoundary: number, higherBoundary: number, userGroupId: number);
+
+    getSurveyFeedSummaries(feedItemId: number): Observable<any>
 }

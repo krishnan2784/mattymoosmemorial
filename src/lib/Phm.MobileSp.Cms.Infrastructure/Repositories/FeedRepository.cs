@@ -85,7 +85,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             return response.Deleted;
         }
 
-        public async Task<dynamic> GetFeedItemSummary(int feedItemId)
+        public async Task<dynamic> GetQuizFeedSummaries(int feedItemId)
         {
             var request = GetRequest(new GetQuizFeedSummariesRequest
             {
@@ -98,7 +98,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             return response.QuizSummaries.FirstOrDefault();
         }
 
-        public async Task<IEnumerable<dynamic>> GetFeedItemResultList(int feedItemId, decimal lowerBoundary, decimal higherBoundary, int userGroupId)
+        public async Task<IEnumerable<dynamic>> GetQuizResultsSummariesEX(int feedItemId, decimal lowerBoundary, decimal higherBoundary, int userGroupId)
         {
             var request = GetRequest(new GetQuizResultsSummariesEXRequest
             {
@@ -113,7 +113,20 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             var response = await _proxyClient.GetQuizResultsSummariesEXAsync(request);
             return response.QuizResultsSummaries;
         }
-        
+
+        public async Task<dynamic> GetSurveyFeedSummaries(int feedItemId)
+        {
+            var request = GetRequest(new GetSurveyFeedSummariesRequest
+            {
+                Criteria = GetCriteria(new SurveyFeedSummaryCriteriaDto()
+                {
+                    SurveyFeedId = feedItemId
+                })
+            });
+            var response = await _proxyClient.GetSurveyFeedSummariesAsync(request);
+            return response.SurveySummaries.FirstOrDefault();
+        }
+
         public async Task<bool> CopyFeedItemToMarketAsync(int feedItemId, List<int> marketIds)
         {
 

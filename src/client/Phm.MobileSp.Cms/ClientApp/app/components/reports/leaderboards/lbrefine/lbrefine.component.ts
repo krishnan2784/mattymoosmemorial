@@ -30,7 +30,6 @@ export class LbrefineComponent implements AfterViewInit {
       });
   }
   broadcastChanges(par?) {
-      console.log(par);
     if (par) {
       this.rangeFrom = par.from;
       this.rangeTo = par.to;

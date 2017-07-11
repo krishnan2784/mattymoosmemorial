@@ -12,7 +12,6 @@ export class TabNavMenuComponent {
 
     constructor(public shareService: ShareService) {
         this.shareService.navTabsUpdated.subscribe((tabs) => {
-            console.log(tabs);
             this.navItems = tabs;
         });
     }

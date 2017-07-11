@@ -83,14 +83,17 @@ var FeedDataService = (function (_super) {
         return this.publishToLive(CopiedElementTypeEnum.Feed, contentId);
     };
     FeedDataService.prototype.getQuizFeedItemReport = function (feedItemId) {
-        return this.getRequestFull('/api/Feed/GetFeedItemSummary?feedItemId=' + feedItemId);
+        return this.getRequestFull('/api/Feed/GetQuizFeedSummaries?feedItemId=' + feedItemId);
     };
     FeedDataService.prototype.getFeedItemResultList = function (feedItemId, lowerBoundary, higherBoundary, userGroupId) {
-        var requestUrl = '/api/Feed/GetFeedItemResultList?feedItemId=' + feedItemId
+        var requestUrl = '/api/Feed/GetQuizResultsSummariesEX?feedItemId=' + feedItemId
             + '&lowerBoundary=' + lowerBoundary
             + '&higherBoundary=' + higherBoundary
             + '&userGroupId=' + userGroupId;
         return this.getRequestFull(requestUrl);
+    };
+    FeedDataService.prototype.getSurveyFeedSummaries = function (feedItemId) {
+        return this.getRequestFull('/api/Feed/GetSurveyFeedSummaries?feedItemId=' + feedItemId);
     };
     FeedDataService.prototype.getLeaderBoard = function (startDate, endDate) {
         if (startDate === void 0) { startDate = null; }

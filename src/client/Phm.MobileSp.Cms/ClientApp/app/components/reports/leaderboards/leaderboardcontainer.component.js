@@ -306,7 +306,6 @@ var LeaderboardContainer = (function (_super) {
         });
     };
     LeaderboardContainer.prototype.getNewDataFromServer = function (event) {
-        console.log(event);
         this.getUpdateData(event.date1, event.date2);
     };
     LeaderboardContainer.prototype.handleReport = function (event) {
