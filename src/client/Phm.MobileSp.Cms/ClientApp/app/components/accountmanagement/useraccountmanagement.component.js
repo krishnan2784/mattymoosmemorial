@@ -28,12 +28,15 @@ var Editusercomponent = require("./modals/edituser.component");
 var EditUser = Editusercomponent.EditUser;
 var Userfiltercomponent = require("../common/filters/userfilter.component");
 var UserFilters = Userfiltercomponent.UserFilters;
+var angular2_modal_1 = require("angular2-modal");
+var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var UserAccountManagementComponent = (function (_super) {
     __extends(UserAccountManagementComponent, _super);
-    function UserAccountManagementComponent(sharedService, userDataService) {
+    function UserAccountManagementComponent(sharedService, userDataService, overlay, vcRef, confirmBox) {
         var _this = _super.call(this, sharedService, 'Account Management', true) || this;
         _this.sharedService = sharedService;
         _this.userDataService = userDataService;
+        _this.confirmBox = confirmBox;
         _this.modalData = null;
         _this.filterCriteria = new UserFilters();
         _this.rows = [];
@@ -61,6 +64,7 @@ var UserAccountManagementComponent = (function (_super) {
             },
             className: ['table-bordered', 'table-hover']
         };
+        overlay.defaultViewContainer = vcRef;
         _this.setupSubscriptions();
         _this.getData();
         return _this;
@@ -173,7 +177,7 @@ var UserAccountManagementComponent = (function (_super) {
             this.editUser(data.row);
         }
         else if (data.column === 'actionDelete') {
-            console.log(data.row.id);
+            this.deleteUser(data.row);
         }
     };
     UserAccountManagementComponent.prototype.editUser = function (user) {
@@ -185,6 +189,23 @@ var UserAccountManagementComponent = (function (_super) {
             modalContent: modelData,
             inputs: inputs
         };
+    };
+    UserAccountManagementComponent.prototype.deleteUser = function (user) {
+        if (user === void 0) { user = new userclasses_1.UserTemplate(); }
+        this.confirmBox.confirm()
+            .size('sm')
+            .showClose(false)
+            .title('Delete')
+            .body("Are you sure you want to delete " + user.firstName + " " + user.lastName + "?")
+            .okBtn('Confirm')
+            .cancelBtn('Cancel')
+            .open()
+            .catch(function (err) { return console.log('ERROR: ' + err); })
+            .then(function (dialog) { return dialog.result; })
+            .then(function (result) {
+            console.log(user);
+        })
+            .catch(function (err) { });
     };
     UserAccountManagementComponent.prototype.updateUser = function (user) {
         this.attachUserProperties(user);
@@ -222,7 +243,7 @@ UserAccountManagementComponent = __decorate([
         template: require('./useraccountmanagement.component.html'),
         styles: [require('./useraccountmanagement.component.css')]
     }),
-    __metadata("design:paramtypes", [shareservice_1.ShareService, userdataservice_1.UserDataService])
+    __metadata("design:paramtypes", [shareservice_1.ShareService, userdataservice_1.UserDataService, angular2_modal_1.Overlay, core_1.ViewContainerRef, bootstrap_1.Modal])
 ], UserAccountManagementComponent);
 exports.UserAccountManagementComponent = UserAccountManagementComponent;
 //# sourceMappingURL=useraccountmanagement.component.js.map

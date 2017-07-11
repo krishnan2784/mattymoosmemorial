@@ -70,6 +70,8 @@ var leaderboard_component_1 = require("./components/reports/leaderboards/leaderb
 var tabnavmenu_component_1 = require("./components/navmenu/tabnavmenu.component");
 var dynamicchartformats_component_1 = require("./components/reports/dynamicchartformats/dynamicchartformats.component");
 var surveyfeeditemreport_component_1 = require("./components/reports/surveyfeeditemreport.component");
+var angular2_modal_1 = require("angular2-modal");
+var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -133,9 +135,9 @@ AppModule = __decorate([
             ng2_nouislider_1.NouisliderModule,
             forms_1.ReactiveFormsModule,
             ng2_table_1.Ng2TableModule,
-            //IonRangeSliderModule,
             ngx_bootstrap_1.PaginationModule.forRoot(),
-            //CalendarModule,
+            angular2_modal_1.ModalModule.forRoot(),
+            bootstrap_1.BootstrapModalModule,
             router_1.RouterModule.forRoot([
                 { path: '', redirectTo: 'home', pathMatch: 'full' },
                 { path: 'home', component: home_component_1.HomeComponent },

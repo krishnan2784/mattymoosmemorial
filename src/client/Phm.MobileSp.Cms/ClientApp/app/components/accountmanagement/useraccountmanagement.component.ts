@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, ViewContainerRef } from '@angular/core';
 import { Http } from '@angular/http';
 import { BaseComponent } from "../base.component";
 import { ShareService } from "../../services/helpers/shareservice";
@@ -11,6 +11,9 @@ import IFeedItem = FeedModel.IFeedItem;
 import Userfiltercomponent = require("../common/filters/userfilter.component");
 import UserFilters = Userfiltercomponent.UserFilters;
 
+import { Overlay } from 'angular2-modal';
+import { Modal } from 'angular2-modal/plugins/bootstrap';
+
 @Component({
     selector: 'useraccountmanagement',
     template: require('./useraccountmanagement.component.html'),
@@ -19,7 +22,9 @@ import UserFilters = Userfiltercomponent.UserFilters;
 export class UserAccountManagementComponent extends BaseComponent {
     modalData = null;
     filterCriteria: UserFilters = new UserFilters();
-
+    private allUserAccounts: Array<any>;
+    private filteredUserAccounts: Array<any>;
+    
     public rows: Array<any> = [];
     public columns: Array<any> = [
         { title: '', name: 'userAvatar' },
@@ -47,11 +52,9 @@ export class UserAccountManagementComponent extends BaseComponent {
         className: ['table-bordered','table-hover']
     };
 
-    private allUserAccounts: Array<any>;
-    private filteredUserAccounts: Array<any>;
-
-    constructor(public sharedService: ShareService, public userDataService: UserDataService) {
+    constructor(public sharedService: ShareService, public userDataService: UserDataService, overlay: Overlay, vcRef: ViewContainerRef, public confirmBox: Modal) {
         super(sharedService, 'Account Management', true);
+        overlay.defaultViewContainer = vcRef;
         this.setupSubscriptions();
         this.getData();
     }
@@ -175,7 +178,7 @@ export class UserAccountManagementComponent extends BaseComponent {
         if (data.column === 'actionEdit') {
             this.editUser(data.row);
         } else if (data.column === 'actionDelete') {
-            console.log(data.row.id);
+            this.deleteUser(data.row);
         }
     }
 
@@ -190,12 +193,29 @@ export class UserAccountManagementComponent extends BaseComponent {
         };
     }
 
+    public deleteUser(user: UserTemplate = new UserTemplate()) {
+        this.confirmBox.confirm()
+            .size('sm')
+            .showClose(false)
+            .title('Delete')
+            .body("Are you sure you want to delete " + user.firstName + " " + user.lastName + "?")
+            .okBtn('Confirm')
+                .cancelBtn('Cancel')
+                .open()
+            .catch((err: any) => console.log('ERROR: ' + err))
+            .then((dialog: any) => { return dialog.result })
+            .then((result: any) => {
+                console.log(user);
+            })
+            .catch((err: any) => { });
+    }
+
     public updateUser(user: UserTemplate) {
         this.attachUserProperties(user);
         var index = this.filteredUserAccounts.indexOf(user);
-        if (index > -1) 
+        if (index > -1)
             this.filteredUserAccounts.splice(index, 1, user);
-         else
+        else
             this.filteredUserAccounts.unshift(user);
     }
 

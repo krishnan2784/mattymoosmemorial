@@ -41,7 +41,6 @@ var EditUser = (function (_super) {
         if (injector) {
             _this.model = injector.get('model');
         }
-        console.log(_this.model);
         _this.initialiseForm();
         _this.getAutoCompleteData();
         return _this;
@@ -68,7 +67,6 @@ var EditUser = (function (_super) {
     EditUser.prototype.getAutoCompleteData = function () {
         var _this = this;
         this.marketDataService.getMarketUserFilters().subscribe(function (result) {
-            console.log(result);
             if (result) {
                 _this.dealerships = result.dealershipNames;
                 _this.zones = result.zones;
@@ -76,7 +74,6 @@ var EditUser = (function (_super) {
             }
         });
         this.userDataService.getUserGroups().subscribe(function (result) {
-            console.log(result);
             if (result) {
                 result.forEach(function (role) {
                     _this.roles.push({ id: role.id, name: role.name });

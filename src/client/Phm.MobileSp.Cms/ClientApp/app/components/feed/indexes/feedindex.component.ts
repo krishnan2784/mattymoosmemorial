@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter, ViewContainerRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FeedDataService } from "../../../services/feeddataservice";
 import { FeedItemForm } from "../modelforms/feeditemform.component";
@@ -15,6 +15,11 @@ import Copytomarketcomponent = require("../modals/copytomarket.component");
 import { DefaultTabNavs } from "../../navmenu/tabnavmenu.component";
 import FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
 import CopiedElementTypeEnum = Enums.CopiedElementTypeEnum;
+
+
+import { Overlay } from 'angular2-modal';
+import { Modal } from 'angular2-modal/plugins/bootstrap';
+
 declare var $: any;
 declare var Materialize: any;
 
@@ -35,13 +40,10 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
     public id_sub: any;
     public currentMarket: UserMarket;
 
-    constructor(private route: ActivatedRoute,
-        private router: Router,
-        public feedDataService: FeedDataService,
-        sharedService: ShareService) {
-
+    constructor(private route: ActivatedRoute, private router: Router, public feedDataService: FeedDataService, sharedService: ShareService, overlay: Overlay, vcRef: ViewContainerRef, public confirmBox: Modal) {
         super(sharedService, '', true, '', DefaultTabNavs.feedIndexTabs);
         this.setupSubscriptions();
+        overlay.defaultViewContainer = vcRef;
     }
 
     setupSubscriptions() {
@@ -162,12 +164,23 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
     }
 
     deleteFeeditem(feedItem: IFeedItem) {
-        if (confirm("Are you sure to delete " + feedItem.title + '?')) {
-            this.feedDataService.deleteFeeditem(feedItem.id).subscribe((result) => {
-                if (result)
-                    this.updateFeedItem(feedItem, true);
-            });
-        }
+        this.confirmBox.confirm()
+            .size('sm')
+            .showClose(false)
+            .title('Delete')
+            .body("Are you sure to delete " + feedItem.title + '?')
+            .okBtn('Confirm')
+            .cancelBtn('Cancel')
+            .open()
+            .catch((err: any) => console.log('ERROR: ' + err))
+            .then((dialog: any) => { return dialog.result })
+            .then((result: any) => {
+                this.feedDataService.deleteFeeditem(feedItem.id).subscribe((result) => {
+                    if (result)
+                        this.updateFeedItem(feedItem, true);
+                });
+            })
+            .catch((err: any) => { });
     }
 
 
@@ -178,16 +191,27 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
         } else {
             confirmText = "Are you sure to publish " + feedItem.title + "?";
         }
-        if (confirm(confirmText)) {
-            this.feedDataService.publishContentToLive(feedItem.id).subscribe((result) => {
-                if (result) {
-                    this.feedDataService.getFeeditem(feedItem.id).subscribe((result) => {
-                        if (result)
-                            this.updateFeedItem(result, false);
-                    });
-                }
-            });
-        }
+        this.confirmBox.confirm()
+            .size('sm')
+            .showClose(false)
+            .title('Publish')
+            .body(confirmText)
+            .okBtn('Confirm')
+            .cancelBtn('Cancel')
+            .open()
+            .catch((err: any) => console.log('ERROR: ' + err))
+            .then((dialog: any) => { return dialog.result })
+            .then((result: any) => {
+                this.feedDataService.publishContentToLive(feedItem.id).subscribe((result) => {
+                    if (result) {
+                        this.feedDataService.getFeeditem(feedItem.id).subscribe((result) => {
+                            if (result)
+                                this.updateFeedItem(result, false);
+                        });
+                    }
+                });
+            })
+            .catch((err: any) => { });
     }
     
 }

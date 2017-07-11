@@ -69,6 +69,9 @@ import { TabNavMenuComponent } from "./components/navmenu/tabnavmenu.component";
 import { DynamicChartFormatsComponent } from "./components/reports/dynamicchartformats/dynamicchartformats.component";
 import { SurveyFeedItemReport } from "./components/reports/surveyfeeditemreport.component";
 
+import { ModalModule } from 'angular2-modal';
+import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
+
 @NgModule({
     bootstrap: [AppComponent],
     declarations: [
@@ -135,9 +138,9 @@ import { SurveyFeedItemReport } from "./components/reports/surveyfeeditemreport.
         NouisliderModule,
         ReactiveFormsModule,
         Ng2TableModule,
-        //IonRangeSliderModule,
         PaginationModule.forRoot(),
-        //CalendarModule,
+        ModalModule.forRoot(),
+        BootstrapModalModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },

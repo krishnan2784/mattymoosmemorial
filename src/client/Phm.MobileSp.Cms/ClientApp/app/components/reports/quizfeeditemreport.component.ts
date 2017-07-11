@@ -22,6 +22,7 @@ import FeedItemSummaryEx = Reportclasses.FeedItemSummaryEx;
 import Date1 = require("../../classes/helpers/date");
 import DateEx = Date1.DateEx;
 import Userfiltercomponent = require("../common/filters/userfilter.component");
+import { QuizFeed } from "../../models/feedclasses";
 import UserFilters = Userfiltercomponent.UserFilters;
 
 declare var Materialize: any;
@@ -52,13 +53,15 @@ export class QuizFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     public filterCriteria: UserFilters = new UserFilters();
     public searchString = '';
 
+    public backSub;
+    public selectedQuizResult: FeedItemSummaryEx;
+
     constructor(private sharedService: ShareService, public feedDataService: FeedDataService,
         private injector: Injector) { 
         this.model = this.injector.get('model');
         this.pageTitle = this.injector.get('pageTitle');
         this.feedTypeString = Enums.FeedTypeEnum[this.model.feedType];
-
-        this.sharedService.goBackEvent.subscribe(() => {
+        this.backSub = this.sharedService.goBackEvent.subscribe(() => {
             this.onBackEvent.emit();
         });
     }
@@ -71,10 +74,6 @@ export class QuizFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        var slider: any = document.getElementById('scoreRange');
-        if (slider) {
-            slider.noUiSlider.off('end');
-        }
     }
 
     private getData() {
@@ -85,8 +84,11 @@ export class QuizFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     getHeaderData() {
         this.feedDataService.getQuizFeedItemReport(this.model.id).subscribe(result => {
             if (result.success) {
-                this.summaryData = result.content;
-                this.updateReport();
+                if (result.content) {
+                    this.summaryData = result.content;
+                    this.updateReport();
+                } else
+                    this.summaryData = new FeedItemSummary();
             } else {
                 Materialize.toast(result.message, 5000, 'red');
                 this.goBack();
@@ -199,5 +201,20 @@ export class QuizFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
         this.model = null;
         this.averageTimeData = null;
         this.onBackEvent.emit();
+    }
+
+    public viewQuizBreakdown(result: FeedItemSummaryEx) {
+        this.backSub.unsubscribe();
+        this.selectedQuizResult = result;
+        this.sharedService.updateBackButton('Learners stats');
+        this.backSub = this.sharedService.goBackEvent.subscribe(() => {
+            this.backSub.unsubscribe();
+            this.sharedService.updateBackButton(Enums.FeedTypeEnum[this.model.feedType] + ' Reports');
+            this.selectedQuizResult = null;
+
+            this.backSub = this.sharedService.goBackEvent.subscribe(() => {
+                this.onBackEvent.emit();
+            });
+        });
     }
 }

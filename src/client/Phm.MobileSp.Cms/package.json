@@ -15,6 +15,7 @@
     "@types/jquery": "^2.0.0",
     "@types/node": "^6.0.38",
     "angular2-materialize": "^15.0.4",
+    "angular2-modal": "2.0.2",
     "angular2-platform-node": "~2.0.10",
     "angular2-universal": "~2.0.10",
     "angular2-universal-polyfills": "~2.0.10",

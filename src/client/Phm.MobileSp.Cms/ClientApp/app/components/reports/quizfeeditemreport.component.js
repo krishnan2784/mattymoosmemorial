@@ -19,6 +19,8 @@ var Chartclasses = require("../../models/chartclasses");
 var BarChartData = Chartclasses.BarChartData;
 var GaugeChartData = Chartclasses.GaugeChartData;
 var DonutChartData = Chartclasses.DonutChartData;
+var Reportclasses = require("../../models/reportclasses");
+var FeedItemSummary = Reportclasses.FeedItemSummary;
 var Date1 = require("../../classes/helpers/date");
 var DateEx = Date1.DateEx;
 var Userfiltercomponent = require("../common/filters/userfilter.component");
@@ -35,7 +37,7 @@ var QuizFeedItemReport = (function () {
         this.model = this.injector.get('model');
         this.pageTitle = this.injector.get('pageTitle');
         this.feedTypeString = Enums.FeedTypeEnum[this.model.feedType];
-        this.sharedService.goBackEvent.subscribe(function () {
+        this.backSub = this.sharedService.goBackEvent.subscribe(function () {
             _this.onBackEvent.emit();
         });
     }
@@ -45,10 +47,6 @@ var QuizFeedItemReport = (function () {
     QuizFeedItemReport.prototype.ngAfterViewInit = function () {
     };
     QuizFeedItemReport.prototype.ngOnDestroy = function () {
-        var slider = document.getElementById('scoreRange');
-        if (slider) {
-            slider.noUiSlider.off('end');
-        }
     };
     QuizFeedItemReport.prototype.getData = function () {
         this.getHeaderData();
@@ -58,8 +56,12 @@ var QuizFeedItemReport = (function () {
         var _this = this;
         this.feedDataService.getQuizFeedItemReport(this.model.id).subscribe(function (result) {
             if (result.success) {
-                _this.summaryData = result.content;
-                _this.updateReport();
+                if (result.content) {
+                    _this.summaryData = result.content;
+                    _this.updateReport();
+                }
+                else
+                    _this.summaryData = new FeedItemSummary();
             }
             else {
                 Materialize.toast(result.message, 5000, 'red');
@@ -167,6 +169,20 @@ var QuizFeedItemReport = (function () {
         this.model = null;
         this.averageTimeData = null;
         this.onBackEvent.emit();
+    };
+    QuizFeedItemReport.prototype.viewQuizBreakdown = function (result) {
+        var _this = this;
+        this.backSub.unsubscribe();
+        this.selectedQuizResult = result;
+        this.sharedService.updateBackButton('Learners stats');
+        this.backSub = this.sharedService.goBackEvent.subscribe(function () {
+            _this.backSub.unsubscribe();
+            _this.sharedService.updateBackButton(Enums.FeedTypeEnum[_this.model.feedType] + ' Reports');
+            _this.selectedQuizResult = null;
+            _this.backSub = _this.sharedService.goBackEvent.subscribe(function () {
+                _this.onBackEvent.emit();
+            });
+        });
     };
     return QuizFeedItemReport;
 }());

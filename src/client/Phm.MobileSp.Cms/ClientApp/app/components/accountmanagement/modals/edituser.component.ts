@@ -36,7 +36,6 @@ export class EditUser extends BaseModalContent implements OnInit, AfterViewInit,
         if (injector) {
             this.model = injector.get('model');
         }
-        console.log(this.model);
         this.initialiseForm();
         this.getAutoCompleteData();
     } 
@@ -65,7 +64,6 @@ export class EditUser extends BaseModalContent implements OnInit, AfterViewInit,
 
     getAutoCompleteData() {
         this.marketDataService.getMarketUserFilters().subscribe((result) => {
-            console.log(result);
             if (result) {
                 this.dealerships = result.dealershipNames;
                 this.zones = result.zones;
@@ -73,7 +71,6 @@ export class EditUser extends BaseModalContent implements OnInit, AfterViewInit,
             }
         });
         this.userDataService.getUserGroups().subscribe((result) => {
-            console.log(result);
             if (result) {
                 result.forEach((role) => {
                     this.roles.push({ id: role.id, name: role.name });

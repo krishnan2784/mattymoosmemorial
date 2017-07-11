@@ -129,8 +129,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
         public async Task<JsonResult> GetFeedItemSummary(int feedItemId)
         {
             var feedItemResponse = await _feedRepository.GetFeedItemSummary(feedItemId);
-            var success = feedItemResponse != null;
-            return Json(new BaseResponse(success, success ? "" : "Failed to get a report for this feed item", feedItemResponse));
+            return Json(new BaseResponse(feedItemResponse));
         }
 
         [HttpGet("[action]")]
@@ -138,8 +137,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
         public async Task<JsonResult> GetFeedItemResultList(int feedItemId, decimal lowerBoundary = 0, decimal higherBoundary = 0, int userGroupId = 0)
         {
             var feedItemResponse = await _feedRepository.GetFeedItemResultList(feedItemId, lowerBoundary, higherBoundary, userGroupId);
-            var success = feedItemResponse != null;
-            return Json(new BaseResponse(success, success ? "" : "Failed to get a report for this feed item", feedItemResponse));
+            return Json(new BaseResponse(feedItemResponse));
         }
 
         [HttpGet("[action]")]
