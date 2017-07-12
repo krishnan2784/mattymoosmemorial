@@ -79,6 +79,8 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         if (this.form && this.subForm) {
             this.subForm = null;
         }
+        
+        this.model = new newForm.feedModelType(this.model);
 
         this.feedFormData = {
             feedFormComponent: newFormType,

@@ -36,6 +36,9 @@ export class BaseFeed extends Baseclasses.BaseModel implements FeedModel.IFeedIt
         super(options);
         this.title = options['title'] || '';
         this.shortDescription = options['shortDescription'] || '';
+        console.log(options['shortDescription']);
+        console.log(this.shortDescription);
+       // this.shortDescription = options['shortDescription'] ? options['shortDescription'] : '';
         this.feedCategory = options['feedCategory'];
         this.points = options['points'] || 0;
         this.mainIcon = options['mediaInfo'];

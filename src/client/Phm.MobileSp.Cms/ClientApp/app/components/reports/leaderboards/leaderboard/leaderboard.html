@@ -55,7 +55,7 @@
                 *ngFor="let p of pageArray(); let i = index"
                 (click)="handlePagination(p)"
                 [ngClass]="{ active: curPage == p.display -1 , 'waves-effect' : curPage != i }">
-              <a href="#!">{{p.display}}</a></li>
+              <a>{{p.display}}</a></li>
             <li [ngClass]="{disabled : curPage == (totPages -1), 'waves-effect' : curPage < (totPages -1)}" (click)="handlePagination({ action : 'nextPage' })"><a><i class="material-icons">chevron_right</i></a></li>
           </ul>
         </div>

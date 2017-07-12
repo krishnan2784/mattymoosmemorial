@@ -48,14 +48,14 @@ var ObservationFeedItemFormComponent = (function (_super) {
         this.model.userObservations.forEach(function (x) { return userFormArray.push(_this.initUserObservation(x)); });
         this.form.addControl('userObservations', userFormArray);
         this.form.addControl('surveyDescription', new forms_1.FormControl(this.model.surveyDescription, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
-        this.form.addControl('completionMessage', new forms_1.FormControl(this.model.completionMessage, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
+        //this.form.addControl('completionMessage', new FormControl(this.model.completionMessage, [<any>Validators.required, <any>Validators.minLength(5)]));
     };
     ;
     ObservationFeedItemFormComponent.prototype.removeFormControls = function () {
         this.form.removeControl('questions');
         this.form.removeControl('userObservations');
         this.form.removeControl('surveyDescription');
-        this.form.removeControl('completionMessage');
+        //this.form.removeControl('completionMessage');
     };
     ;
     ObservationFeedItemFormComponent.prototype.initUserObservation = function (userObservation) {

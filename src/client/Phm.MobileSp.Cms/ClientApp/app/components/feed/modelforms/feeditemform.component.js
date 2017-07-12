@@ -57,6 +57,7 @@ var FeedItemForm = (function () {
         if (this.form && this.subForm) {
             this.subForm = null;
         }
+        this.model = new newForm.feedModelType(this.model);
         this.feedFormData = {
             feedFormComponent: newFormType,
             inputs: { form: this.form, feedFormSteps: this.feedFormSteps, model: this.model }

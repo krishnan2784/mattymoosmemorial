@@ -25,6 +25,9 @@ var BaseFeed = (function (_super) {
         var _this = _super.call(this, options) || this;
         _this.title = options['title'] || '';
         _this.shortDescription = options['shortDescription'] || '';
+        console.log(options['shortDescription']);
+        console.log(_this.shortDescription);
+        // this.shortDescription = options['shortDescription'] ? options['shortDescription'] : '';
         _this.feedCategory = options['feedCategory'];
         _this.points = options['points'] || 0;
         _this.mainIcon = options['mediaInfo'];

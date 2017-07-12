@@ -36,14 +36,14 @@ export class ObservationFeedItemFormComponent extends BaseQuestionFeedItemFormCo
         this.form.addControl('userObservations', userFormArray);
 
         this.form.addControl('surveyDescription', new FormControl(this.model.surveyDescription, [<any>Validators.required, <any>Validators.minLength(5)]));
-        this.form.addControl('completionMessage', new FormControl(this.model.completionMessage, [<any>Validators.required, <any>Validators.minLength(5)]));
+        //this.form.addControl('completionMessage', new FormControl(this.model.completionMessage, [<any>Validators.required, <any>Validators.minLength(5)]));
     };
     
     removeFormControls() {
         this.form.removeControl('questions');
         this.form.removeControl('userObservations');
         this.form.removeControl('surveyDescription');
-        this.form.removeControl('completionMessage');
+        //this.form.removeControl('completionMessage');
     };
 
     initUserObservation(userObservation: UserObservation = new UserObservation()) {
