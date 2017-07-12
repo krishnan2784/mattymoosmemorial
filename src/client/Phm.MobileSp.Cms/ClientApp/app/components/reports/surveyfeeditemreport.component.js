@@ -33,7 +33,6 @@ var SurveyFeedItemReport = (function () {
         this.model = this.injector.get('model');
         this.pageTitle = this.injector.get('pageTitle');
         this.feedTypeString = Enums.FeedTypeEnum[this.model.feedType];
-        console.log(this.model);
         this.sharedService.goBackEvent.subscribe(function () {
             _this.onBackEvent.emit();
         });
@@ -59,7 +58,6 @@ var SurveyFeedItemReport = (function () {
             _this.updateGaugeData();
             _this.updateBarData();
             _this.updateListData();
-            console.log(_this.summaryData);
         });
     };
     SurveyFeedItemReport.prototype.updateGaugeData = function () {
@@ -120,14 +118,12 @@ var SurveyFeedItemReport = (function () {
                         label: x.answer
                     });
                 });
-                console.log(data);
                 this.listData.push({
                     title: question.question,
                     data: data
                 });
             }
             ;
-            console.log(this.listData);
         }
     };
     SurveyFeedItemReport.prototype.goBack = function () {
