@@ -27,7 +27,6 @@ var MarketDropdown = (function () {
             _this.setCurrentMarketId();
         });
         this.sharedService.marketDropdownEnabledUpdated.subscribe(function (enabled) {
-            console.log(enabled);
             _this.enabled = enabled;
         });
     }

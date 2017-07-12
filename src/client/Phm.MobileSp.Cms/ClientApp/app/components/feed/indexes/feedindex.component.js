@@ -76,9 +76,10 @@ var FeedIndexComponent = (function (_super) {
         });
     };
     FeedIndexComponent.prototype.ngOnDestroy = function () {
-        if (this.id_sub) {
+        if (this.id_sub)
             this.id_sub.unsubscribe();
-        }
+        if (this.getFeedItemsSub)
+            this.getFeedItemsSub.unsubscribe();
     };
     FeedIndexComponent.prototype.setPageTitle = function () {
         if (!this.filteredFeed) {
@@ -90,15 +91,17 @@ var FeedIndexComponent = (function (_super) {
     };
     FeedIndexComponent.prototype.getData = function () {
         var _this = this;
+        if (this.getFeedItemsSub)
+            this.getFeedItemsSub.unsubscribe();
         this.sharedService.updateMarketDropdownEnabledState(false);
         if (!this.filteredFeed) {
-            this.feedDataService.getFeeditems().subscribe(function (result) {
+            this.getFeedItemsSub = this.feedDataService.getFeeditems().subscribe(function (result) {
                 _this.feedItems = _this.sortFeed(result);
                 _this.sharedService.updateMarketDropdownEnabledState(true);
             });
         }
         else {
-            this.feedDataService.getFeeditemsByCat(this.catId).subscribe(function (result) {
+            this.getFeedItemsSub = this.feedDataService.getFeeditemsByCat(this.catId).subscribe(function (result) {
                 _this.feedItems = _this.sortFeed(result);
                 _this.sharedService.updateMarketDropdownEnabledState(true);
             });

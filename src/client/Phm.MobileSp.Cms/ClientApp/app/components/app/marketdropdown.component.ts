@@ -24,7 +24,6 @@ export class MarketDropdown implements AfterViewInit {
             this.setCurrentMarketId();
         });
         this.sharedService.marketDropdownEnabledUpdated.subscribe(enabled => {
-            console.log(enabled);
             this.enabled = enabled;
         });
     }

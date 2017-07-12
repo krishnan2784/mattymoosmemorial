@@ -9,7 +9,7 @@
 
 <div class="loader" *ngIf="!this.summaryData"></div>
 <div *ngIf="summaryData && summaryData.surveyFeedId == 0">
-    No submissions have been received for this survey.
+    No submissions have been received for this {{feedTypeString}}.
 </div>
 <div *ngIf="this.summaryData && summaryData.surveyFeedId > 0">
     <div>

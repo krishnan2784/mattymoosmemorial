@@ -8,12 +8,14 @@ import { UserMarket } from "../../../models/userclasses";
 import { DefaultTabNavs } from "../../navmenu/tabnavmenu.component";
 import { MarketDataService } from "../../../services/marketdataservice";
 
+declare var $: any;
+
 @Component({
     selector: 'leaderboardcontainer',
     template: require('./leaderboardcontainer.component.html'),
     styles: [require('./leaderboardcontainer.component.css')]
 })
-export class LeaderboardContainer extends BaseComponent {
+export class LeaderboardContainer extends BaseComponent implements OnDestroy {
     public leaderBoard: any;
     public myUpdatedData: any;
     public loading = true;
@@ -57,6 +59,14 @@ export class LeaderboardContainer extends BaseComponent {
         super(sharedService, 'Reports', true, '', DefaultTabNavs.reportsTabs);
         this.setupSubscriptions();
         this.getData();
+    }
+
+    ngOnDestroy() {
+        while ($('#tooltip').length > 0) {
+            $('#tooltip').each((index, element) => {
+                $(element).remove();
+            });
+        }
     }
 
     setupPageVariables() {

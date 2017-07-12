@@ -72,6 +72,7 @@ export class UserAccountManagementComponent extends BaseComponent {
             this.length = this.allUserAccounts.length;
             this.filteredUserAccounts = this.allUserAccounts;
             this.onChangeTable(this.config);
+            this.sharedService.updateMarketDropdownEnabledState(true);
         });
     }
 

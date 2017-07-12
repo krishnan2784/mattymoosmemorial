@@ -83,6 +83,7 @@ var UserAccountManagementComponent = (function (_super) {
             _this.length = _this.allUserAccounts.length;
             _this.filteredUserAccounts = _this.allUserAccounts;
             _this.onChangeTable(_this.config);
+            _this.sharedService.updateMarketDropdownEnabledState(true);
         });
     };
     UserAccountManagementComponent.prototype.ngOnInit = function () {

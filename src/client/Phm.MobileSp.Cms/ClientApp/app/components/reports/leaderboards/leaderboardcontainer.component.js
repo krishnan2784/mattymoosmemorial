@@ -70,6 +70,13 @@ var LeaderboardContainer = (function (_super) {
         _this.getData();
         return _this;
     }
+    LeaderboardContainer.prototype.ngOnDestroy = function () {
+        while ($('#tooltip').length > 0) {
+            $('#tooltip').each(function (index, element) {
+                $(element).remove();
+            });
+        }
+    };
     LeaderboardContainer.prototype.setupPageVariables = function () {
         this.updatePageTitle('Reports');
         this.updateMarketDropdownVisibility(true);

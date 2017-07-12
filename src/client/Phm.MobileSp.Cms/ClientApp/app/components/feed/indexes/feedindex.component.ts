@@ -39,6 +39,7 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
     public filteredFeed: boolean;
     public id_sub: any;
     public currentMarket: UserMarket;
+    public getFeedItemsSub;
 
     constructor(private route: ActivatedRoute, private router: Router, public feedDataService: FeedDataService, sharedService: ShareService, overlay: Overlay, vcRef: ViewContainerRef, public confirmBox: Modal) {
         super(sharedService, '', true, '', DefaultTabNavs.feedIndexTabs);
@@ -75,9 +76,10 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
     }
 
     ngOnDestroy() {
-        if (this.id_sub) {
+        if (this.id_sub)
             this.id_sub.unsubscribe();
-        }
+        if (this.getFeedItemsSub)
+            this.getFeedItemsSub.unsubscribe();        
     }
 
     setPageTitle() {
@@ -89,15 +91,17 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
     }
 
     getData() {
+        if (this.getFeedItemsSub)
+            this.getFeedItemsSub.unsubscribe();
         this.sharedService.updateMarketDropdownEnabledState(false);
 
         if (!this.filteredFeed) {
-            this.feedDataService.getFeeditems().subscribe((result) => {
+            this.getFeedItemsSub = this.feedDataService.getFeeditems().subscribe((result) => {
                 this.feedItems = this.sortFeed(result);
                 this.sharedService.updateMarketDropdownEnabledState(true);
             });
         } else {
-            this.feedDataService.getFeeditemsByCat(this.catId).subscribe((result) => {
+            this.getFeedItemsSub = this.feedDataService.getFeeditemsByCat(this.catId).subscribe((result) => {
                 this.feedItems = this.sortFeed(result);
                 this.sharedService.updateMarketDropdownEnabledState(true);
             });
