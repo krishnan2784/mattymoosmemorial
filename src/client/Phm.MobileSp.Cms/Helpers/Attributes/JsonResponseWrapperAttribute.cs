@@ -28,7 +28,7 @@ namespace Phm.MobileSp.Cms.Helpers.Attributes
                 wrappedResponse.Success = false;
                 wrappedResponse.Message = context.Exception.Message;
 
-                context.Exception = null;
+                context.Exception = null;                
             }
             context.Result = new JsonResult(wrappedResponse);
         }

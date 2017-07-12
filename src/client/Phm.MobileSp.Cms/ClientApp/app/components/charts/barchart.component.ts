@@ -60,8 +60,7 @@ export class BarChart implements OnInit, AfterViewInit {
         this.chart = c3.generate({
             bindto: '#' + this.id,
             size: {
-                height: this.chartData.height,
-                width: this.chartData.width
+                height: this.chartData.height
             },
             padding: {
                 top: this.chartData.margin.top,

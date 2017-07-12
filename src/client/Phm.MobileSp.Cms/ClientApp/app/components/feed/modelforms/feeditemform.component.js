@@ -115,7 +115,6 @@ var FeedItemForm = (function () {
     ;
     FeedItemForm.prototype.updateForm = function () {
         if (this.model && this.model.id > 0) {
-            console.log(this.model);
             (this.form).patchValue(this.model, { onlySelf: true });
             setTimeout(function () {
                 Materialize.updateTextFields();

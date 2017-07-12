@@ -2,7 +2,6 @@ import { Component, Input, Output, EventEmitter, ViewEncapsulation, AfterViewIni
 
 
 declare var $: any;
-//declare var ionRangeSlider: any;
 @Component({
     selector: 'lbrefine',
     template: require('./lbrefine.html'),
@@ -31,7 +30,6 @@ export class LbrefineComponent implements AfterViewInit {
       });
   }
   broadcastChanges(par?) {
-      console.log(par);
     if (par) {
       this.rangeFrom = par.from;
       this.rangeTo = par.to;

@@ -8,6 +8,7 @@ namespace Phm.MobileSp.Cms.Core.Models
         public virtual string Name { get; set; }
         public virtual bool IsDefault { get; set; }
         public virtual bool IsMaster { get; set; }
+        public virtual bool IsLive { get; set; }
 
     }
 

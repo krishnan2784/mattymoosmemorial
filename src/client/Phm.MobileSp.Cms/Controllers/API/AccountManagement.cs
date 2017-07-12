@@ -7,6 +7,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Helpers.Attributes;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
+using Phm.MobileSp.Cms.Core.Models.Interfaces;
 
 namespace Phm.MobileSp.Cms.Controllers.API
 {
@@ -17,8 +18,9 @@ namespace Phm.MobileSp.Cms.Controllers.API
     {
         private readonly IUserRepository _userRepository;
         private readonly IMarketRepository _marketRepository;
-        public AccountManagement(IMemoryCache memoryCache, IUserRepository userRepository, IMarketRepository marketRepository) 
-            : base(memoryCache, userRepository, marketRepository)
+        public AccountManagement(IMemoryCache memoryCache, IUserRepository userRepository, IMarketRepository marketRepository, 
+            IBaseRequest baseRequest, IBaseCriteria baseCriteria) 
+            : base(memoryCache, userRepository, marketRepository, baseRequest, baseCriteria)
         {
             _userRepository = userRepository;
             _marketRepository = marketRepository;
@@ -27,12 +29,30 @@ namespace Phm.MobileSp.Cms.Controllers.API
         [HttpGet("[action]")]
         [JsonResponseWrapper]
         [ResponseCache(CacheProfileName = "NoCache")]
-        public async Task<JsonResult> UserList()
+        public async Task<JsonResult> GetCurrentUser()
         {
-            var cachedUsers = await _cache.GetOrCreateAsync(CacheKeys.USERLIST, entry => _userRepository.GetUsersAsync());
-            return Json(cachedUsers);
+            var response = await _userRepository.GetCurrentUser();
+            return Json(new BaseResponse(response));
+        }
+
+        [HttpGet("[action]")]
+        [JsonResponseWrapper]
+        [ResponseCache(CacheProfileName = "NoCache")]
+        public async Task<JsonResult> GetUsers(int? userId = null)
+        {
+            var response = await _userRepository.GetUsersAsync(CurrentMarketId, userId);
+            return Json(new BaseResponse(response));
         }
         
+        [HttpGet("[action]")]
+        [JsonResponseWrapper]
+        [ResponseCache(CacheProfileName = "NoCache")]
+        public async Task<JsonResult> GetSecGroups()
+        {
+            var response = await _userRepository.GetSecGroupsAsync();
+            return Json(response);
+        }
+
         [HttpGet("[action]")]
         [JsonResponseWrapper]
         [ResponseCache(CacheProfileName = "NoCache")]
@@ -44,6 +64,15 @@ namespace Phm.MobileSp.Cms.Controllers.API
                 return list;
             });
             return Json(cachedUsers);
+        }
+
+        [HttpPost("[action]")]
+        public async Task<JsonResult> UpdateUser([FromBody]UserTemplate user) 
+        {
+            if (user.Id == 0)
+                return Json(await _userRepository.CreateUserAsync(user));
+            else
+                return Json(await _userRepository.UpdateUserAsync(user));
         }
     }
 }

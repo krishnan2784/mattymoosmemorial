@@ -15,12 +15,16 @@ export class MarketDropdown implements AfterViewInit {
     public currentMarket: UserMarket;
     public marketUpdated = new EventEmitter();
     public userMarkets: UserMarket[] = [];
+    public enabled: boolean = true;
 
     constructor(public marketDataService: MarketDataService, private userDataService: UserDataService,
         private sharedService: ShareService) {
         this.userDataService.getUserMarkets().subscribe((result) => {
             this.userMarkets = result;
             this.setCurrentMarketId();
+        });
+        this.sharedService.marketDropdownEnabledUpdated.subscribe(enabled => {
+            this.enabled = enabled;
         });
     }
     

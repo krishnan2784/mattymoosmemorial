@@ -1,0 +1,153 @@
+<div *ngIf="model">
+
+    <div *ngIf="!selectedQuizResult">
+        <div class="report-title">
+            <img src="assets/images/Icon-Quiz-b.png" class="feed-cat-img" />
+
+            <span class="item-title">{{model.title}}</span>
+        </div>
+        <div class="report-subtitle">
+            <p>Quiz stats</p>
+        </div>
+
+        <div class="loader" *ngIf="!summaryData"></div>
+        <div *ngIf="summaryData && summaryData.quizFeedId == 0">
+            No submissions have been received for this quiz.
+        </div>
+        <div *ngIf="summaryData && summaryData.quizFeedId > 0">
+            <div>
+                <div class="col-md-4 stat-container animate-bottom">
+                    <div class="header-border"></div>
+                    <div class="stat-block">
+                        <div class="stat-title">
+                            <div class="col-md-4 total-learners">
+                                <h5 *ngIf="summaryData">
+                                    {{summaryData.submitted}}
+                                </h5>
+                                <p>Total learners</p>
+                                <div class="clearboth"></div>
+                            </div>
+                            <i class="material-icons right">person</i>
+                        </div>
+
+                        <div class="stat-body">
+                            <div class="loader" *ngIf="!passRatioData"></div>
+                            <div *ngIf="passRatioData">
+                                <gaugechart [chartData]="passRatioData" [id]="'passRatioChart'"></gaugechart>
+                                <h5 *ngIf="summaryData">
+                                    <b>{{summaryData.submitted}} <span>submitted / </span></b>
+                                    {{summaryData.passed}} <span> passed</span>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 stat-container animate-bottom">
+                    <div class="header-border"></div>
+                    <div class="stat-block">
+                        <div class="stat-title">
+                            <h5>
+                                Average Score
+                            </h5>
+                        </div>
+                        <div class="stat-body">
+                            <div class="loader" *ngIf="!averageScoreData"></div>
+                            <div *ngIf="averageScoreData">
+                                <donutchart [chartData]="averageScoreData" [id]="'averageScoreChart'"></donutchart>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 stat-container animate-bottom">
+                    <div class="header-border"></div>
+                    <div class="stat-block">
+                        <div class="stat-title">
+                            <h5>
+                                Distribuition of submissions
+                            </h5>
+                        </div>
+                        <div class="stat-body">
+                            <div class="loader" *ngIf="!averageTimeData"></div>
+                            <div *ngIf="averageTimeData">
+                                <barchart [chartData]="averageTimeData" [id]="'averageTimeChart'"></barchart>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div>
+                <div class="col-md-3 right search-filter">
+                    <input placeholder="Search" type="search" [(ngModel)]="searchString" (ngModelChange)="filterResultList()" />
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div>
+                <div class="col-md-2 filter-col">
+                    <userfilter [renderPointRange]="true" [renderUserGroupFilter]="true" [renderDealershipFilter]="true" (criteriaChanged)="filterUpdate($event)"></userfilter>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="col-md-10">
+                    <div class="result-list">
+                        <div class="result-list-header">
+                            <div class="col-md-4 header">
+                                <div>
+                                    Users
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                Role
+                            </div>
+                            <div class="col-md-3">
+                                Dealership
+                            </div>
+                            <div class="col-md-3">
+                                <span class="center">
+                                    Status
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="loader" *ngIf="!filteredListData"></div>
+                        <div *ngIf="filteredListData && filteredListData.length === 0" class="result-list-content">No results have been found for the selected filters.</div>
+                        <div *ngIf="filteredListData && filteredListData.length > 0" class="result-list-content animate-bottom">
+                            <div *ngFor="let quizResult of filteredListData | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}" class="result-list-content-row">
+                                <div class="col-md-1">
+                                    <i class="material-icons person-icon">person</i>
+                                </div>
+                                <div class="col-md-3 border-bottom">
+                                    {{quizResult.user.firstName}} {{quizResult.user.lastName}}
+                                </div>
+                                <div class="col-md-2 border-bottom">
+                                    {{ quizResult.mainUserGroup }}
+                                </div>
+                                <div class="col-md-3 border-bottom">
+                                    {{ quizResult.dealershipName }}
+                                </div>
+                                <div class="col-md-2 border-bottom">
+                                    <img src="assets/images/Icon-Leaderboard-b.png" class="leaderboard-icon" *ngIf="quizResult.resultPercentage===100" />
+                                    <span *ngIf="quizResult.resultPercentage!==100">{{ quizResult.resultPercentage }}%</span>
+                                </div>
+                                <div class="col-md-1">
+                                    <a (click)="viewQuizBreakdown(quizResult)">
+                                        <i class="material-icons right">keyboard_arrow_right</i>
+                                    </a>                                    
+                                </div>
+                                <span class="clearfix"></span>
+                            </div>
+                            <pagination-controls (pageChange)="page = $event" id="1"
+                                                 maxSize="20"
+                                                 directionLinks="true"
+                                                 autoHide="true">
+                            </pagination-controls>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="selectedQuizResult">
+        <div class="loader"></div>
+    </div>
+</div>

@@ -11,37 +11,43 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var Shareservice = require("../../../services/helpers/shareservice");
+var marketdataservice_1 = require("../../../services/marketdataservice");
+var userdataservice_1 = require("../../../services/userdataservice");
 var ShareService = Shareservice.ShareService;
-var Feeddataservice = require("../../../services/feeddataservice");
-var FeedDataService = Feeddataservice.FeedDataService;
-var Userdataservice = require("../../../services/userdataservice");
-var UserDataService = Userdataservice.UserDataService;
 var UserFilter = (function () {
-    function UserFilter(sharedService, feedDataService, userDataService) {
+    function UserFilter(sharedService, marketDataService, userDataService) {
         this.sharedService = sharedService;
-        this.feedDataService = feedDataService;
+        this.marketDataService = marketDataService;
         this.userDataService = userDataService;
         this.renderTextSearch = false;
         this.renderPointRange = false;
         this.renderPointDateRange = false;
+        this.rangeFrom = 0;
+        this.rangeTo = 100;
         this.renderUserGroupFilter = false;
         this.renderRegionFilter = false;
         this.renderZoneFilter = false;
         this.renderDealershipFilter = false;
         this.criteriaChanged = new core_1.EventEmitter();
         this.criteria = new UserFilters();
-        this.slideChangeBusy = false;
         this.getMarketFilters();
+        this.setupSubscriptions();
     }
     UserFilter.prototype.ngAfterViewInit = function () {
+        var _this = this;
         if (this.renderPointRange)
-            this.setupRangeSlider();
+            setTimeout(function () {
+                _this.setupRangeSlider();
+            }, 10);
     };
     UserFilter.prototype.ngOnDestroy = function () {
-        var slider = document.getElementById('scoreRange');
-        if (slider) {
-            slider.noUiSlider.off('end');
-        }
+    };
+    UserFilter.prototype.setupSubscriptions = function () {
+        var _this = this;
+        this.sharedService.marketUpdated.subscribe(function (market) {
+            _this.nullAllFilters();
+            _this.getMarketFilters();
+        });
     };
     UserFilter.prototype.broadcastChanges = function () {
         var _this = this;
@@ -55,30 +61,48 @@ var UserFilter = (function () {
     };
     UserFilter.prototype.getMarketFilters = function () {
         var _this = this;
-        this.feedDataService.getQuizSummaryFilters().subscribe(function (result) {
+        this.marketDataService.getMarketUserFilters().subscribe(function (result) {
             if (result) {
-                if (_this.renderUserGroupFilter && result.userGroupNames) {
-                    _this.criteria.allUserGroupFilters = [];
-                    result.userGroupNames.forEach(function (group) {
-                        _this.criteria.allUserGroupFilters.push({ id: group.replace(" ", ""), text: group, checked: false });
-                    });
-                }
+                _this.emptyAllFilters();
                 if (_this.renderDealershipFilter && result.dealershipNames) {
-                    _this.criteria.allDealershipFilters = [];
                     result.dealershipNames.forEach(function (group) {
                         _this.criteria.allDealershipFilters.push({ id: group.replace(" ", ""), text: group, checked: false });
                     });
                 }
-                _this.criteria.allZoneFilters = [];
-                _this.criteria.allRegionFilters = [];
-                _this.criteria.allRegionFilters.push({ id: 'Region 1', text: 'Region 1', checked: false });
-                _this.criteria.allRegionFilters.push({ id: 'Region 2', text: 'Region 2', checked: false });
-                _this.criteria.allRegionFilters.push({ id: 'Region 3', text: 'Region 3', checked: false });
-                _this.criteria.allZoneFilters.push({ id: 'Zone 1', text: 'Zone 1', checked: false });
-                _this.criteria.allZoneFilters.push({ id: 'Zone 2', text: 'Zone 2', checked: false });
-                _this.criteria.allZoneFilters.push({ id: 'Zone 3', text: 'Zone 3', checked: false });
+                if (_this.renderRegionFilter && result.regions) {
+                    result.regions.forEach(function (group) {
+                        _this.criteria.allRegionFilters.push({ id: group.replace(" ", ""), text: group, checked: false });
+                    });
+                }
+                if (_this.renderZoneFilter && result.zones) {
+                    result.zones.forEach(function (group) {
+                        _this.criteria.allZoneFilters.push({ id: group.replace(" ", ""), text: group, checked: false });
+                    });
+                }
             }
         });
+        if (this.renderUserGroupFilter) {
+            this.userDataService.getUserGroups().subscribe(function (result) {
+                _this.criteria.allUserGroupFilters = [];
+                if (result) {
+                    result.userGroupNames.forEach(function (group) {
+                        _this.criteria.allUserGroupFilters.push({ id: group.id, text: group.name, checked: false });
+                    });
+                }
+            });
+        }
+    };
+    UserFilter.prototype.nullAllFilters = function () {
+        this.criteria.allUserGroupFilters = null;
+        this.criteria.allDealershipFilters = null;
+        this.criteria.allRegionFilters = null;
+        this.criteria.allZoneFilters = null;
+    };
+    UserFilter.prototype.emptyAllFilters = function () {
+        this.criteria.allUserGroupFilters = [];
+        this.criteria.allDealershipFilters = [];
+        this.criteria.allRegionFilters = [];
+        this.criteria.allZoneFilters = [];
     };
     UserFilter.prototype.clearFilters = function () {
         this.criteria.allUserGroupFilters.forEach(function (x) { return x.checked = false; });
@@ -101,51 +125,31 @@ var UserFilter = (function () {
     UserFilter.prototype.clearRegionFilters = function () {
         this.criteria.allRegionFilters.forEach(function (x) { return x.checked = false; });
     };
-    UserFilter.prototype.resetRange = function () {
-        var slider = document.getElementById('scoreRange');
-        slider.noUiSlider.reset();
-        this.onSliderChange();
-    };
-    UserFilter.prototype.enableSlider = function () {
-        this.setSliderEvent();
-        this.slideChangeBusy = false;
-    };
     UserFilter.prototype.setupRangeSlider = function () {
         var _this = this;
-        var slider = document.getElementById('scoreRange');
-        noUiSlider.create(slider, { start: [0, 100],
-            connect: true,
-            step: 5,
-            tooltips: [true, true],
-            behaviour: 'drag',
-            range: {
-                'min': 0,
-                'max': 100
-            }
+        $("#sliderElement").ionRangeSlider({
+            type: "double",
+            min: this.rangeFrom,
+            max: this.rangeTo,
+            grid: false,
+            from: this.criteria.pointsRangeBottom,
+            to: this.criteria.pointsRangeTop,
+            decorate_both: false,
+            onFinish: function (event) { return _this.onSliderChange(event); }
         });
-        setTimeout(function () { _this.setSliderEvent(); }, 500);
     };
-    UserFilter.prototype.setSliderEvent = function () {
-        var _this = this;
-        var slider = document.getElementById('scoreRange');
-        slider.noUiSlider.on('end', function () { _this.onSliderChange(); });
+    UserFilter.prototype.resetRange = function () {
+        this.criteria.pointsRangeBottom = 0;
+        this.criteria.pointsRangeTop = 100;
+        var slider = $("#sliderElement").data("ionRangeSlider");
+        slider.reset();
     };
-    UserFilter.prototype.onSliderChange = function () {
-        console.log(this.slideChangeBusy);
-        var slider = document.getElementById('scoreRange');
-        if (slider) {
-            var sliderVals = slider.noUiSlider.get();
-            var botRange = parseInt(sliderVals[0]);
-            var topRange = parseInt(sliderVals[1]);
-            if ((this.criteria.pointsRangeBottom === botRange && this.criteria.pointsRangeTop === topRange) || this.slideChangeBusy)
-                return;
-            slider.noUiSlider.off('end');
-            this.slideChangeBusy = true;
-            this.criteria.pointsRangeBottom = botRange;
-            this.criteria.pointsRangeTop = topRange;
-            this.broadcastChanges();
-            this.enableSlider();
-        }
+    UserFilter.prototype.onSliderChange = function (event) {
+        if (this.criteria.pointsRangeBottom === event.from && this.criteria.pointsRangeTop === event.to)
+            return;
+        this.criteria.pointsRangeBottom = event.from;
+        this.criteria.pointsRangeTop = event.to;
+        this.broadcastChanges();
     };
     return UserFilter;
 }());
@@ -161,6 +165,14 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Boolean)
 ], UserFilter.prototype, "renderPointDateRange", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Number)
+], UserFilter.prototype, "rangeFrom", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Number)
+], UserFilter.prototype, "rangeTo", void 0);
 __decorate([
     core_1.Input(),
     __metadata("design:type", Boolean)
@@ -185,9 +197,9 @@ UserFilter = __decorate([
     core_1.Component({
         selector: 'userfilter',
         template: require('./userfilter.component.html'),
-        styles: [require('./userfilter.component.css')]
+        styles: [require('./userfilter.component.css'), require('./ion.rangeSlider.custom.css')]
     }),
-    __metadata("design:paramtypes", [ShareService, FeedDataService, UserDataService])
+    __metadata("design:paramtypes", [ShareService, marketdataservice_1.MarketDataService, userdataservice_1.UserDataService])
 ], UserFilter);
 exports.UserFilter = UserFilter;
 var UserFilters = (function () {

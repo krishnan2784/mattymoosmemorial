@@ -5,10 +5,20 @@ import Userclasses = require("../../models/userclasses");
 import UserMarket = Userclasses.UserMarket;
 import FeedModel = require("../../interfaces/models/IFeedModel");
 import { NavItem } from "../../components/navmenu/tabnavmenu.component";
+import { UserDataService } from "../userdataservice";
+import { User } from "../../models/userclasses";
 import IFeedItem = FeedModel.IFeedItem;
 
 @Injectable()
 export class ShareService {
+    public currentUser: User = new User();
+
+    constructor(public userDataService: UserDataService) {
+        userDataService.getCurrentUser().subscribe(response => {
+            this.currentUser = response;
+        });
+    }
+
     public currentMarket: UserMarket = new UserMarket;
     public currentMarketId: number = this.currentMarket.id;
 
@@ -31,6 +41,13 @@ export class ShareService {
 
     public updateMarketDropdownVisibility(isMarketDropdownVisible: boolean) {
         this.marketDropdownVisibilitypeUpdate.next(isMarketDropdownVisible);
+    }
+
+    private marketDropdownEnabledUpdate = new Subject<boolean>();
+    marketDropdownEnabledUpdated = this.marketDropdownEnabledUpdate.asObservable();
+
+    public updateMarketDropdownEnabledState(isMarketDropdownEnabled: boolean) {
+        this.marketDropdownEnabledUpdate.next(isMarketDropdownEnabled);
     }
 
     private marketUpdate = new Subject<UserMarket>();
@@ -60,7 +77,6 @@ export class ShareService {
     navTabsUpdated = this.tabNavUpdate.asObservable();
 
     public updateNavTabs(navItems: NavItem[]) {
-        console.log('1:' + navItems);
         this.tabNavUpdate.next(navItems);
     }    
 }

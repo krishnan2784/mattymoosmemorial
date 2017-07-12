@@ -181,7 +181,7 @@
         <h5>Options</h5>
         <hr/>
         
-        <div class="input-field">
+        <div class="input-field" [class.hidden]="model.feedType == feedTypes.Observation">
             <input id="points" type="text" formControlName="points">
             <label for="points" [class.active]="form.controls.points.value>0">Reward Points</label>
             <small [class.active-warning]="!form.controls.points.valid && submitted">

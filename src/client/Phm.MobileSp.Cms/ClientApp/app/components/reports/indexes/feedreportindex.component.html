@@ -24,7 +24,7 @@
                             </div>
                             <div class="col-md-12 feed-item-dates">
                                 <div class="col-md-12 no-pad">
-                                    Date posted: {{ feedItem.publishedLiveAt | date:'short' }}
+                                    Date posted: {{ feedItem.publishedLiveAt | date:'d/M/y, hh:mm a' }}
                                 </div>
                             </div>
                         </div>
@@ -35,12 +35,12 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
+                <pagination-controls (pageChange)="page = $event" id="1"
+                                     maxSize="20"
+                                     directionLinks="true"
+                                     autoHide="true">
+                </pagination-controls>
             </div>
-            <pagination-controls (pageChange)="page = $event" id="1"
-                                 maxSize="20"
-                                 directionLinks="true"
-                                 autoHide="true">
-            </pagination-controls>
         </div>
     </div>
 </div>

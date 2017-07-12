@@ -44,7 +44,7 @@ import BaseModalComponent = Basemodalcomponent.BaseModalComponent;
 import Copytomarketcomponent = require("./components/feed/modals/copytomarket.component");
 import FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
 import { FeedReportIndexComponent } from "./components/reports/indexes/feedreportindex.component";
-import { FeedItemReport } from "./components/reports/feeditemreport.component";
+import { QuizFeedItemReport } from "./components/reports/quizfeeditemreport.component";
 import Barchartcomponent = require("./components/charts/barchart.component");
 import BarChart = Barchartcomponent.BarChart;
 import Basefeeditemreportcomponent = require("./components/reports/basefeeditemreport.component");
@@ -66,6 +66,11 @@ import { LbExecutivesTableComponent } from "./components/reports/leaderboards/lb
 import { LbrefineComponent } from "./components/reports/leaderboards/lbrefine/lbrefine.component";
 import { LeaderboardComponent } from "./components/reports/leaderboards/leaderboard/leaderboard.component";
 import { TabNavMenuComponent } from "./components/navmenu/tabnavmenu.component";
+import { DynamicChartFormatsComponent } from "./components/reports/dynamicchartformats/dynamicchartformats.component";
+import { SurveyFeedItemReport } from "./components/reports/surveyfeeditemreport.component";
+
+import { ModalModule } from 'angular2-modal';
+import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -99,8 +104,9 @@ import { TabNavMenuComponent } from "./components/navmenu/tabnavmenu.component";
         // reporting
         FeedReportIndexComponent,
         FeedItemReportContainerComponent,
-        FeedItemReport,
-
+        QuizFeedItemReport,
+        SurveyFeedItemReport,
+        
         //leaderbaord
         LeaderboardContainer,
         LeaderboardComponent,
@@ -115,6 +121,7 @@ import { TabNavMenuComponent } from "./components/navmenu/tabnavmenu.component";
         BarChart,
         GaugeChart,
         DonutChart,
+        DynamicChartFormatsComponent,
 
         //modals
         FeedItemCopyToMarket,
@@ -131,9 +138,9 @@ import { TabNavMenuComponent } from "./components/navmenu/tabnavmenu.component";
         NouisliderModule,
         ReactiveFormsModule,
         Ng2TableModule,
-        //IonRangeSliderModule,
         PaginationModule.forRoot(),
-        //CalendarModule,
+        ModalModule.forRoot(),
+        BootstrapModalModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },

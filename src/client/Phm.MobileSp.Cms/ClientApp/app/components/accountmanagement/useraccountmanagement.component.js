@@ -28,12 +28,15 @@ var Editusercomponent = require("./modals/edituser.component");
 var EditUser = Editusercomponent.EditUser;
 var Userfiltercomponent = require("../common/filters/userfilter.component");
 var UserFilters = Userfiltercomponent.UserFilters;
+var angular2_modal_1 = require("angular2-modal");
+var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var UserAccountManagementComponent = (function (_super) {
     __extends(UserAccountManagementComponent, _super);
-    function UserAccountManagementComponent(sharedService, userDataService) {
+    function UserAccountManagementComponent(sharedService, userDataService, overlay, vcRef, confirmBox) {
         var _this = _super.call(this, sharedService, 'Account Management', true) || this;
         _this.sharedService = sharedService;
         _this.userDataService = userDataService;
+        _this.confirmBox = confirmBox;
         _this.modalData = null;
         _this.filterCriteria = new UserFilters();
         _this.rows = [];
@@ -42,9 +45,9 @@ var UserAccountManagementComponent = (function (_super) {
             { title: 'First Name', name: 'firstName_region' },
             { title: 'Last Name', name: 'lastName' },
             { title: 'Email', name: 'email_zone' },
-            { title: 'Dealership Code', name: 'dealershipCode' },
-            { title: '', name: 'actionEdit', sort: false, className: 'col-action' },
-            { title: '', name: 'actionDelete', sort: false, className: 'col-action' }
+            { title: 'Dealership', name: 'dealershipName_code' },
+            { title: '', name: 'actionEdit', sort: false, className: 'col-action' }
+            //,{ title: '', name: 'actionDelete', sort: false, className: 'col-action' }
         ];
         _this.page = 1;
         _this.itemsPerPage = 20;
@@ -61,6 +64,8 @@ var UserAccountManagementComponent = (function (_super) {
             },
             className: ['table-bordered', 'table-hover']
         };
+        overlay.defaultViewContainer = vcRef;
+        _this.setupSubscriptions();
         _this.getData();
         return _this;
     }
@@ -70,17 +75,24 @@ var UserAccountManagementComponent = (function (_super) {
             _this.allUserAccounts = result;
             if (result) {
                 for (var i = 0; i < result.length; i++) {
-                    _this.allUserAccounts[i].zone = "Zone " + i;
-                    _this.allUserAccounts[i].region = "Region " + i;
                     _this.attachUserProperties(_this.allUserAccounts[i]);
                 }
             }
+            else
+                _this.allUserAccounts = [];
             _this.length = _this.allUserAccounts.length;
             _this.filteredUserAccounts = _this.allUserAccounts;
             _this.onChangeTable(_this.config);
+            _this.sharedService.updateMarketDropdownEnabledState(true);
         });
     };
     UserAccountManagementComponent.prototype.ngOnInit = function () {
+    };
+    UserAccountManagementComponent.prototype.setupSubscriptions = function () {
+        var _this = this;
+        this.sharedService.marketUpdated.subscribe(function (market) {
+            _this.getData();
+        });
     };
     UserAccountManagementComponent.prototype.changePage = function (page, data) {
         if (data === void 0) { data = this.filteredUserAccounts; }
@@ -166,18 +178,35 @@ var UserAccountManagementComponent = (function (_super) {
             this.editUser(data.row);
         }
         else if (data.column === 'actionDelete') {
-            console.log(data.row.id);
+            this.deleteUser(data.row);
         }
     };
     UserAccountManagementComponent.prototype.editUser = function (user) {
-        if (user === void 0) { user = new userclasses_1.UserAccount(); }
-        user = new userclasses_1.UserAccount(user);
+        if (user === void 0) { user = new userclasses_1.UserTemplate(); }
+        user = new userclasses_1.UserTemplate(user);
         var inputs = { model: user, title: user.id === 0 ? 'Create User' : 'Edit User' };
         var modelData = EditUser;
         this.modalData = {
             modalContent: modelData,
             inputs: inputs
         };
+    };
+    UserAccountManagementComponent.prototype.deleteUser = function (user) {
+        if (user === void 0) { user = new userclasses_1.UserTemplate(); }
+        this.confirmBox.confirm()
+            .size('sm')
+            .showClose(false)
+            .title('Delete')
+            .body("Are you sure you want to delete " + user.firstName + " " + user.lastName + "?")
+            .okBtn('Confirm')
+            .cancelBtn('Cancel')
+            .open()
+            .catch(function (err) { return console.log('ERROR: ' + err); })
+            .then(function (dialog) { return dialog.result; })
+            .then(function (result) {
+            console.log(user);
+        })
+            .catch(function (err) { });
     };
     UserAccountManagementComponent.prototype.updateUser = function (user) {
         this.attachUserProperties(user);
@@ -189,8 +218,9 @@ var UserAccountManagementComponent = (function (_super) {
     };
     UserAccountManagementComponent.prototype.attachUserProperties = function (user) {
         user.userAvatar = '<i class="material-icons table-avatar">person</i>';
-        user.firstName_region = user.firstName + '<p class="sub-data">' + user.region + '</p>';
-        user.email_zone = user.email + '<p class="sub-data">' + user.zone + '</p>';
+        user.dealershipName_code = user.dealershipName + ' (' + user.dealershipCode + ')';
+        user.firstName_region = user.firstName + '<p class="sub-data">' + user.regionName + '</p>';
+        user.email_zone = user.email + '<p class="sub-data">' + user.areaName + '</p>';
         user.actionEdit = '<a class="action-btn remove" data-toggle="modal" data-target="#edit-user"><i class="material-icons">edit</i><p>Edit</p></a>';
         user.actionDelete = '<a class="action-btn remove"><i class="material-icons">delete</i><p>Delete</p></a>';
         return user;
@@ -215,7 +245,7 @@ UserAccountManagementComponent = __decorate([
         template: require('./useraccountmanagement.component.html'),
         styles: [require('./useraccountmanagement.component.css')]
     }),
-    __metadata("design:paramtypes", [shareservice_1.ShareService, userdataservice_1.UserDataService])
+    __metadata("design:paramtypes", [shareservice_1.ShareService, userdataservice_1.UserDataService, angular2_modal_1.Overlay, core_1.ViewContainerRef, bootstrap_1.Modal])
 ], UserAccountManagementComponent);
 exports.UserAccountManagementComponent = UserAccountManagementComponent;
 //# sourceMappingURL=useraccountmanagement.component.js.map

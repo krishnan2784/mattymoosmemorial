@@ -10,8 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var Feeditemreportcomponent = require("./feeditemreport.component");
-var FeedItemReport = Feeditemreportcomponent.FeedItemReport;
+var Feeditemreportcomponent = require("./quizfeeditemreport.component");
+var surveyfeeditemreport_component_1 = require("./surveyfeeditemreport.component");
+var QuizFeedItemReport = Feeditemreportcomponent.QuizFeedItemReport;
 var FeedItemReportContainerComponent = (function () {
     function FeedItemReportContainerComponent(resolver) {
         this.resolver = resolver;
@@ -50,7 +51,7 @@ __decorate([
 FeedItemReportContainerComponent = __decorate([
     core_1.Component({
         selector: 'feed-report-component',
-        entryComponents: [FeedItemReport],
+        entryComponents: [QuizFeedItemReport, surveyfeeditemreport_component_1.SurveyFeedItemReport],
         template: require('./basefeeditemreport.component.html'),
         styles: [require('./basefeeditemreport.component.css')],
     }),

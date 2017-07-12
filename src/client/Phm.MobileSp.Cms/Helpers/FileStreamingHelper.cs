@@ -27,7 +27,6 @@ namespace Phm.MobileSp.Cms.Helpers
             // Used to accumulate all the form url encoded key value pairs in the 
             // request.
             var formAccumulator = new KeyValueAccumulator();
-            string targetFilePath = null;
 
             var boundary = MultipartRequestHelper.GetBoundary(
                 MediaTypeHeaderValue.Parse(request.ContentType),

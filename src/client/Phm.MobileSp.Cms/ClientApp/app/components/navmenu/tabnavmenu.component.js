@@ -17,7 +17,6 @@ var TabNavMenuComponent = (function () {
         var _this = this;
         this.shareService = shareService;
         this.shareService.navTabsUpdated.subscribe(function (tabs) {
-            console.log(tabs);
             _this.navItems = tabs;
         });
     }
@@ -34,7 +33,7 @@ TabNavMenuComponent = __decorate([
 exports.TabNavMenuComponent = TabNavMenuComponent;
 var NavItem = (function () {
     function NavItem(displayText, link, colourClass) {
-        if (colourClass === void 0) { colourClass = 'grey'; }
+        if (colourClass === void 0) { colourClass = 'mobileSpPurple'; }
         this.displayText = displayText;
         this.link = link;
         this.colourClass = colourClass;
@@ -48,7 +47,7 @@ var DefaultTabNavs = (function () {
     return DefaultTabNavs;
 }());
 DefaultTabNavs.feedIndexTabs = [
-    new NavItem('All', '/feed'),
+    new NavItem('All', '/feed', 'all'),
     new NavItem('Announcement', '/feed/' + enums_1.FeedCategoryEnum.Announcement),
     new NavItem('Article', '/feed/' + enums_1.FeedCategoryEnum.Article),
     new NavItem('Campaign', '/feed/' + enums_1.FeedCategoryEnum.Campaign),
@@ -56,10 +55,10 @@ DefaultTabNavs.feedIndexTabs = [
     new NavItem('News', '/feed/' + enums_1.FeedCategoryEnum.News)
 ];
 DefaultTabNavs.reportsTabs = [
-    new NavItem('Quiz Reports', '/reports'),
-    new NavItem('Survey Reports', '/reports/' + enums_1.FeedTypeEnum.Survey),
-    new NavItem('Observation Reports', '/reports/' + enums_1.FeedTypeEnum.Observation),
-    new NavItem('Leaderboards', '/reports/leaderboard', 'teal')
+    new NavItem('Quiz Reports', '/reports', 'lightPurple'),
+    new NavItem('Survey Reports', '/reports/' + enums_1.FeedTypeEnum.Survey, 'orange'),
+    new NavItem('Observation Reports', '/reports/' + enums_1.FeedTypeEnum.Observation, 'funk'),
+    new NavItem('Leaderboard Reports', '/reports/leaderboard', 'teal')
 ];
 exports.DefaultTabNavs = DefaultTabNavs;
 //# sourceMappingURL=tabnavmenu.component.js.map

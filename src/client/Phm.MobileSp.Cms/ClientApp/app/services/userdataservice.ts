@@ -18,9 +18,29 @@ export class UserDataService extends RequestHelper implements IUserDataService {
         super(http);
     }
 
-    public getUsers(): Observable<Userclasses.UserAccount[]> {
+    public getCurrentUser(): Observable<Userclasses.User> {
         return Observable.create(observer => {
-            this.http.get('/api/AccountManagement/UserList').subscribe(result => {
+            this.http.get('/api/AccountManagement/GetCurrentUser').subscribe(result => {
+                let response = ResponseHelper.getResponse(result);
+                observer.next(new Userclasses.User(response.content));
+                observer.complete();
+            });
+        });
+    }
+
+    public getUser(userId: number): Observable<Userclasses.UserTemplate> {
+        return Observable.create(observer => {
+            this.getUsers(userId).subscribe(result => {
+                if (result && result.length > 0)
+                    observer.next(result[0]);
+                observer.complete();
+            });
+        });
+    }
+
+    public getUsers(userId: number = null): Observable<Userclasses.UserTemplate[]> {
+        return Observable.create(observer => {
+            this.http.get('/api/AccountManagement/GetUsers' + (userId ? "?userId=" + userId : "")).subscribe(result => {
                 let response = ResponseHelper.getResponse(result);
                 observer.next(response.content);
                 observer.complete();
@@ -39,7 +59,12 @@ export class UserDataService extends RequestHelper implements IUserDataService {
         });
     }
 
-    public updateUser(user: UserAccount): Observable<ApiResponse> {
+    public updateUser(user: Userclasses.UserTemplate): Observable<ApiResponse> {
         return this.postRequestFull('/api/AccountManagement/UpdateUser', user);
     }
+
+    public getUserGroups() {
+        return this.getRequestBase('/api/AccountManagement/GetSecGroups');
+    }
+    
 }

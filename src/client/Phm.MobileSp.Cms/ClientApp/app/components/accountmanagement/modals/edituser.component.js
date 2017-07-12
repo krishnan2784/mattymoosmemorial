@@ -25,14 +25,16 @@ var Basemodalcontentcomponent = require("../../modals/basemodalcontent.component
 var BaseModalContent = Basemodalcontentcomponent.BaseModalContent;
 var Userdataservice = require("../../../services/userdataservice");
 var UserDataService = Userdataservice.UserDataService;
+var marketdataservice_1 = require("../../../services/marketdataservice");
 var EditUser = (function (_super) {
     __extends(EditUser, _super);
-    function EditUser(injector, userDataService, fb) {
+    function EditUser(injector, userDataService, fb, marketDataService) {
         var _this = _super.call(this) || this;
         _this.injector = injector;
         _this.userDataService = userDataService;
         _this.fb = fb;
-        _this.roles = [{ id: 1, name: 'Sales Manager' }, { id: 2, name: 'Sales Executive' }];
+        _this.marketDataService = marketDataService;
+        _this.roles = [];
         _this.regions = ['Region 1', 'Region 2', 'Region 3'];
         _this.zones = ['Zone 1', 'Zone 2', 'Zone 3'];
         _this.dealerships = ['Dealership 1', 'Dealership 2', 'Dealership 3'];
@@ -40,6 +42,7 @@ var EditUser = (function (_super) {
             _this.model = injector.get('model');
         }
         _this.initialiseForm();
+        _this.getAutoCompleteData();
         return _this;
     }
     EditUser.prototype.ngOnInit = function () {
@@ -55,25 +58,39 @@ var EditUser = (function (_super) {
             firstName: new forms_1.FormControl(this.model.firstName, [forms_1.Validators.required]),
             lastName: new forms_1.FormControl(this.model.lastName, [forms_1.Validators.required]),
             email: new forms_1.FormControl(this.model.email, [forms_1.Validators.required]),
+            dealershipName: new forms_1.FormControl(this.model.dealershipName, [forms_1.Validators.required]),
             dealershipCode: new forms_1.FormControl(this.model.dealershipCode, [forms_1.Validators.required]),
-            region: new forms_1.FormControl(this.model.region, [forms_1.Validators.required]),
-            zone: new forms_1.FormControl(this.model.zone, [forms_1.Validators.required]),
-            role: new forms_1.FormControl(this.model.role, [forms_1.Validators.required])
+            regionName: new forms_1.FormControl(this.model.regionName, [forms_1.Validators.required]),
+            areaName: new forms_1.FormControl(this.model.areaName, [forms_1.Validators.required]),
+            secGroup: new forms_1.FormControl(this.model.secGroup, [forms_1.Validators.required])
+        });
+    };
+    EditUser.prototype.getAutoCompleteData = function () {
+        var _this = this;
+        this.marketDataService.getMarketUserFilters().subscribe(function (result) {
+            if (result) {
+                _this.dealerships = result.dealershipNames;
+                _this.zones = result.areas;
+                _this.regions = result.regions;
+            }
+        });
+        this.userDataService.getUserGroups().subscribe(function (result) {
+            if (result) {
+                result.forEach(function (role) {
+                    _this.roles.push({ id: role.id, name: role.name });
+                });
+            }
         });
     };
     EditUser.prototype.saveUser = function (user, isValid) {
-        console.log(user);
-        //this.closeModal(user);
-        //if (!isValid)
-        //    return;
-        //this.userDataService.updateUser(user).subscribe((response) => {
-        //    if (response.success) {
-        //        Materialize.toast(response.message, 5000, 'green');
-        //        this.closeModal(user);
-        //    } else {
-        //        Materialize.toast(response.message, 5000, 'red');
-        //    }
-        //});
+        var _this = this;
+        if (!isValid)
+            return;
+        this.userDataService.updateUser(user).subscribe(function (response) {
+            if (response.success) {
+                _this.closeModal(user);
+            }
+        });
     };
     return EditUser;
 }(BaseModalContent));
@@ -83,7 +100,8 @@ EditUser = __decorate([
         template: require('./edituser.component.html'),
         styles: [require('./edituser.component.css')]
     }),
-    __metadata("design:paramtypes", [core_1.Injector, UserDataService, forms_1.FormBuilder])
+    __metadata("design:paramtypes", [core_1.Injector, UserDataService,
+        forms_1.FormBuilder, marketdataservice_1.MarketDataService])
 ], EditUser);
 exports.EditUser = EditUser;
 //# sourceMappingURL=edituser.component.js.map

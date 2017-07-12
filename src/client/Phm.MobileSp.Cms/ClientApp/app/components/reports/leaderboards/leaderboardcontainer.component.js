@@ -24,11 +24,13 @@ var feeddataservice_1 = require("../../../services/feeddataservice");
 var base_component_1 = require("../../base.component");
 var shareservice_1 = require("../../../services/helpers/shareservice");
 var tabnavmenu_component_1 = require("../../navmenu/tabnavmenu.component");
+var marketdataservice_1 = require("../../../services/marketdataservice");
 var LeaderboardContainer = (function (_super) {
     __extends(LeaderboardContainer, _super);
-    function LeaderboardContainer(feedDataService, sharedService) {
-        var _this = _super.call(this, sharedService, 'Leaderboard', true, '', tabnavmenu_component_1.DefaultTabNavs.reportsTabs) || this;
+    function LeaderboardContainer(feedDataService, sharedService, marketDataService) {
+        var _this = _super.call(this, sharedService, 'Reports', true, '', tabnavmenu_component_1.DefaultTabNavs.reportsTabs) || this;
         _this.feedDataService = feedDataService;
+        _this.marketDataService = marketDataService;
         _this.loading = true;
         _this.refineGroups = [
             {
@@ -62,10 +64,25 @@ var LeaderboardContainer = (function (_super) {
                 ]
             }
         ];
+        _this.reportData = null;
+        _this.backSub = null;
         _this.setupSubscriptions();
         _this.getData();
         return _this;
     }
+    LeaderboardContainer.prototype.ngOnDestroy = function () {
+        while ($('#tooltip').length > 0) {
+            $('#tooltip').each(function (index, element) {
+                $(element).remove();
+            });
+        }
+    };
+    LeaderboardContainer.prototype.setupPageVariables = function () {
+        this.updatePageTitle('Reports');
+        this.updateMarketDropdownVisibility(true);
+        this.updateBackText();
+        this.updateTabNavItems(tabnavmenu_component_1.DefaultTabNavs.reportsTabs);
+    };
     LeaderboardContainer.prototype.setupSubscriptions = function () {
         var _this = this;
         this.sharedService.marketUpdated.subscribe(function (market) {
@@ -211,6 +228,35 @@ var LeaderboardContainer = (function (_super) {
                 _this.leaderBoard = result;
             _this.loading = false;
         });
+        this.marketDataService.getMarketUserFilters().subscribe(function (result) {
+            if (result && (result.regions.length > 0 || result.zones.length > 0)) {
+                _this.refineGroups = [];
+                if (result.regions.length > 0) {
+                    var regions_1 = [];
+                    result.regions.forEach(function (group) {
+                        regions_1.push({ id: group.replace(" ", ""), name: group });
+                    });
+                    _this.refineGroups.push({
+                        groupName: "Regions",
+                        groupId: "regions",
+                        height: "202px",
+                        items: regions_1
+                    });
+                }
+                if (result.zones.length > 0) {
+                    var zones_1 = [];
+                    result.zones.forEach(function (zone) {
+                        zones_1.push({ id: zone.replace(" ", ""), name: zone });
+                    });
+                    _this.refineGroups.push({
+                        groupName: "Zones",
+                        groupId: "zones",
+                        height: "145px",
+                        items: zones_1
+                    });
+                }
+            }
+        });
     };
     LeaderboardContainer.prototype.getUpdateData = function (curDate1, curDate2) {
         var _this = this;
@@ -267,10 +313,23 @@ var LeaderboardContainer = (function (_super) {
         });
     };
     LeaderboardContainer.prototype.getNewDataFromServer = function (event) {
-        console.log(event);
         this.getUpdateData(event.date1, event.date2);
     };
     LeaderboardContainer.prototype.handleReport = function (event) {
+    };
+    LeaderboardContainer.prototype.viewUserBreakdown = function (event) {
+        var _this = this;
+        this.updatePageTitle('');
+        this.updateMarketDropdownVisibility(false);
+        this.updateBackText('Learners stats');
+        this.updateTabNavItems();
+        this.backSub = this.sharedService.goBackEvent.subscribe(function () {
+            _this.setupPageVariables();
+            _this.backSub = null;
+        });
+        this.feedDataService.getUserPointsHistory(event.userId, event.date1, event.date2).subscribe(function (result) {
+            _this.reportData = result;
+        });
     };
     return LeaderboardContainer;
 }(base_component_1.BaseComponent));
@@ -280,7 +339,7 @@ LeaderboardContainer = __decorate([
         template: require('./leaderboardcontainer.component.html'),
         styles: [require('./leaderboardcontainer.component.css')]
     }),
-    __metadata("design:paramtypes", [feeddataservice_1.FeedDataService, shareservice_1.ShareService])
+    __metadata("design:paramtypes", [feeddataservice_1.FeedDataService, shareservice_1.ShareService, marketdataservice_1.MarketDataService])
 ], LeaderboardContainer);
 exports.LeaderboardContainer = LeaderboardContainer;
 //# sourceMappingURL=leaderboardcontainer.component.js.map

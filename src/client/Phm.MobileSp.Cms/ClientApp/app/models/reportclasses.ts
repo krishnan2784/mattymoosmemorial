@@ -74,3 +74,35 @@ export class QuizFeedResult extends BaseModel
         this.userId = options['userId'] || 0;
     }
 }
+
+export class SurveyItemSummary extends FeedItemSummary {
+    public surveyFeedResults: SurveyFeedResult[];
+    public surveyFeedId: number;
+    constructor(options: {} = {}) {
+        super(options);
+        this.surveyFeedResults = options["surveyQuestionSummaries"] || [{
+            surveyQuestionSummaryId: 124,
+            surverQuestionAnwerId: 247,
+            percentage: 40
+        }, {
+            surveyQuestionSummaryId: 124,
+            surverQuestionAnwerId: 248,
+            percentage: 60
+        }];
+        this.surveyFeedId = options["surveyFeedId"] || 10;
+    }
+}
+
+export class SurveyFeedResult extends BaseModel {
+    public surverQuestionAnwerId: number;
+    public surveyQuestionSummaryId: number;
+    public totalSelected: number;
+    public percentage: number;
+    constructor(options: {} = {}) {
+        super(options);
+        this.surverQuestionAnwerId = options['surverQuestionAnwerId'] || 0;
+        this.surveyQuestionSummaryId = options['surveyQuestionSummaryId'] || 0;
+        this.totalSelected = options['totalSelected'] || 0;
+        this.percentage = options['percentage'] || 0;
+    }
+}

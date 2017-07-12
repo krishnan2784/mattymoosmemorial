@@ -98,10 +98,10 @@ export class RequestHelper {
         });
     }
 
-    protected publishToLive(contentType: CopiedElementTypeEnum, contentId: number) {
+    protected publishToLive(contentType: CopiedElementTypeEnum, contentId: number, url: string = '/api/Market/PublishContentToLive') {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         return Observable.create(observer => {
-            this.http.post('/api/Market/PublishContentToLive?contentType=' + contentType + '&contentId=' + contentId, null, headers).subscribe(
+            this.http.post(url + '?contentType=' + contentType + '&contentId=' + contentId, null, headers).subscribe(
                 (result) => {
                     let response = ResponseHelper.getResponse(result);
                     if (response.success) {

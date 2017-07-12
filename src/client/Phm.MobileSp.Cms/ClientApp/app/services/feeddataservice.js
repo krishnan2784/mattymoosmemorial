@@ -82,27 +82,18 @@ var FeedDataService = (function (_super) {
     FeedDataService.prototype.publishContentToLive = function (contentId) {
         return this.publishToLive(CopiedElementTypeEnum.Feed, contentId);
     };
-    FeedDataService.prototype.getFeedItemReport = function (feedItemId) {
-        return this.getRequestFull('/api/Feed/GetFeedItemSummary?feedItemId=' + feedItemId);
+    FeedDataService.prototype.getQuizFeedItemReport = function (feedItemId) {
+        return this.getRequestFull('/api/Feed/GetQuizFeedSummaries?feedItemId=' + feedItemId);
     };
     FeedDataService.prototype.getFeedItemResultList = function (feedItemId, lowerBoundary, higherBoundary, userGroupId) {
-        var requestUrl = '/api/Feed/GetFeedItemResultList?feedItemId=' + feedItemId
+        var requestUrl = '/api/Feed/GetQuizResultsSummariesEX?feedItemId=' + feedItemId
             + '&lowerBoundary=' + lowerBoundary
             + '&higherBoundary=' + higherBoundary
             + '&userGroupId=' + userGroupId;
         return this.getRequestFull(requestUrl);
     };
-    FeedDataService.prototype.getQuizSummaryFilters = function () {
-        var _this = this;
-        return Observable_1.Observable.create(function (observer) {
-            _this.getRequestBase('/api/Feed/GetQuizSummaryFilters').subscribe(function (result) {
-                if (result) {
-                    var response = { userGroupNames: result.userGroupNames, dealershipNames: result.dealershipNames };
-                    observer.next(response);
-                }
-                observer.complete();
-            });
-        });
+    FeedDataService.prototype.getSurveyFeedSummaries = function (feedItemId) {
+        return this.getRequestFull('/api/Feed/GetSurveyFeedSummaries?feedItemId=' + feedItemId);
     };
     FeedDataService.prototype.getLeaderBoard = function (startDate, endDate) {
         if (startDate === void 0) { startDate = null; }
@@ -114,6 +105,14 @@ var FeedDataService = (function (_super) {
                 + (startDate && endDate ? '&' : '')
                 + (endDate ? 'endDate=' + endDate : '');
         }
+        return this.getRequestBase(requestUrl);
+    };
+    FeedDataService.prototype.getUserPointsHistory = function (userId, startDate, endDate) {
+        if (startDate === void 0) { startDate = null; }
+        if (endDate === void 0) { endDate = null; }
+        var requestUrl = '/api/Feed/GetUserPointsHistory?userId=' + userId
+            + (startDate ? '&startDate=' + startDate : '')
+            + (endDate ? '&endDate=' + endDate : '');
         return this.getRequestBase(requestUrl);
     };
     return FeedDataService;

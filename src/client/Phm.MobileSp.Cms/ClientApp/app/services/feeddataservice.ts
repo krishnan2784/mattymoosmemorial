@@ -74,28 +74,20 @@ export class FeedDataService extends RequestHelper implements IFeedDataService, 
         return this.publishToLive(CopiedElementTypeEnum.Feed, contentId);
     }
 
-    public getFeedItemReport(feedItemId: number): Observable<any> {
-        return this.getRequestFull('/api/Feed/GetFeedItemSummary?feedItemId=' + feedItemId);
+    public getQuizFeedItemReport(feedItemId: number): Observable<any> {
+        return this.getRequestFull('/api/Feed/GetQuizFeedSummaries?feedItemId=' + feedItemId);
     }
 
     public getFeedItemResultList(feedItemId: number, lowerBoundary: number, higherBoundary: number, userGroupId: number) {
-        var requestUrl = '/api/Feed/GetFeedItemResultList?feedItemId=' + feedItemId
-         + '&lowerBoundary=' + lowerBoundary
-         + '&higherBoundary=' + higherBoundary
-         + '&userGroupId=' + userGroupId;
+        var requestUrl = '/api/Feed/GetQuizResultsSummariesEX?feedItemId=' + feedItemId
+            + '&lowerBoundary=' + lowerBoundary
+            + '&higherBoundary=' + higherBoundary
+            + '&userGroupId=' + userGroupId;
         return this.getRequestFull(requestUrl);
     }
 
-    public getQuizSummaryFilters(): Observable<{ userGroupNames: string[], dealershipNames: string[] }> {
-        return Observable.create(observer => {
-            this.getRequestBase('/api/Feed/GetQuizSummaryFilters').subscribe((result) => {
-                if (result) {
-                    let response = { userGroupNames: result.userGroupNames, dealershipNames: result.dealershipNames };
-                    observer.next(response);
-                }
-                observer.complete();
-            });
-        });
+    public getSurveyFeedSummaries(feedItemId: number): Observable<any> {
+        return this.getRequestFull('/api/Feed/GetSurveyFeedSummaries?feedItemId=' + feedItemId);
     }
 
     public getLeaderBoard(startDate: string = null, endDate: string = null) {
@@ -106,6 +98,13 @@ export class FeedDataService extends RequestHelper implements IFeedDataService, 
                 + (startDate && endDate ? '&' : '')
                 + (endDate ? 'endDate=' + endDate : '');
         }
+        return this.getRequestBase(requestUrl);
+    }
+
+    public getUserPointsHistory(userId: number, startDate: string = null, endDate: string = null) {
+        var requestUrl = '/api/Feed/GetUserPointsHistory?userId=' + userId
+                + (startDate ? '&startDate=' + startDate : '')
+                + (endDate ? '&endDate=' + endDate : '');
         return this.getRequestBase(requestUrl);
     }
 }

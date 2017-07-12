@@ -1,18 +1,16 @@
 import { Component, OnInit, ElementRef, Input, Output, ViewChild, EventEmitter, Injector, AfterViewInit, OnDestroy } from '@angular/core';
 import Shareservice = require("../../../services/helpers/shareservice");
+import { MarketDataService } from "../../../services/marketdataservice";
+import { UserDataService } from "../../../services/userdataservice";
 import ShareService = Shareservice.ShareService;
-import Feeddataservice = require("../../../services/feeddataservice");
-import FeedDataService = Feeddataservice.FeedDataService;
-import Userdataservice = require("../../../services/userdataservice");
-import UserDataService = Userdataservice.UserDataService;
 
 declare var Materialize: any;
-declare var noUiSlider: any;
+declare var $: any;
 
 @Component({
     selector: 'userfilter',
     template: require('./userfilter.component.html'),
-    styles: [require('./userfilter.component.css')]
+    styles: [require('./userfilter.component.css'), require('./ion.rangeSlider.custom.css')]
 })
 export class UserFilter implements AfterViewInit, OnDestroy {
 
@@ -22,6 +20,10 @@ export class UserFilter implements AfterViewInit, OnDestroy {
     renderPointRange: boolean = false;
     @Input()
     renderPointDateRange: boolean = false;
+    @Input()
+    rangeFrom: number = 0;
+    @Input()
+    rangeTo: number = 100;
     @Input()
     renderUserGroupFilter: boolean = false;
     @Input()
@@ -35,22 +37,27 @@ export class UserFilter implements AfterViewInit, OnDestroy {
     criteriaChanged: EventEmitter<UserFilters> = new EventEmitter();
     
     public criteria: UserFilters = new UserFilters();
-    public slideChangeBusy = false;
 
-    constructor(private sharedService: ShareService, public feedDataService: FeedDataService, public userDataService: UserDataService) { 
+    constructor(private sharedService: ShareService, public marketDataService: MarketDataService, public userDataService: UserDataService) { 
         this.getMarketFilters();
+        this.setupSubscriptions();
     }
     
     ngAfterViewInit() {
         if (this.renderPointRange)
-            this.setupRangeSlider();
+            setTimeout(() => {
+                this.setupRangeSlider();
+            }, 10);
     }
 
     ngOnDestroy() {
-        var slider: any = document.getElementById('scoreRange');
-        if (slider) {
-            slider.noUiSlider.off('end');
-        }
+    }
+
+    setupSubscriptions() {
+        this.sharedService.marketUpdated.subscribe((market) => {
+            this.nullAllFilters();
+            this.getMarketFilters();
+        });
     }
     
     broadcastChanges() {
@@ -61,35 +68,54 @@ export class UserFilter implements AfterViewInit, OnDestroy {
             this.criteria.zoneFilters = this.criteria.allZoneFilters.filter(x => x.checked);
             this.criteriaChanged.emit(this.criteria);
         }, 50);
-
     }
 
     getMarketFilters() {
-        this.feedDataService.getQuizSummaryFilters().subscribe((result) => {
+        this.marketDataService.getMarketUserFilters().subscribe((result) => {
             if (result) {
-                if (this.renderUserGroupFilter && result.userGroupNames) {
-                    this.criteria.allUserGroupFilters = [];
-                    result.userGroupNames.forEach((group) => {
-                        this.criteria.allUserGroupFilters.push({ id: group.replace(" ", ""), text: group, checked: false });
-                    });
-                }
+                this.emptyAllFilters();
                 if (this.renderDealershipFilter && result.dealershipNames) {
-                    this.criteria.allDealershipFilters = [];
                     result.dealershipNames.forEach((group) => {
                         this.criteria.allDealershipFilters.push({ id: group.replace(" ", ""), text: group, checked: false });
                     });
                 }
-                this.criteria.allZoneFilters = [];
-                this.criteria.allRegionFilters = [];
-
-                this.criteria.allRegionFilters.push({ id: 'Region 1', text: 'Region 1', checked: false });
-                this.criteria.allRegionFilters.push({ id: 'Region 2', text: 'Region 2', checked: false });
-                this.criteria.allRegionFilters.push({ id: 'Region 3', text: 'Region 3', checked: false });
-                this.criteria.allZoneFilters.push({ id: 'Zone 1', text: 'Zone 1', checked: false });
-                this.criteria.allZoneFilters.push({ id: 'Zone 2', text: 'Zone 2', checked: false });
-                this.criteria.allZoneFilters.push({ id: 'Zone 3', text: 'Zone 3', checked: false });
+                if (this.renderRegionFilter && result.regions) {
+                    result.regions.forEach((group) => {
+                        this.criteria.allRegionFilters.push({ id: group.replace(" ", ""), text: group, checked: false });
+                    });
+                }
+                if (this.renderZoneFilter && result.zones) {
+                    result.zones.forEach((group) => {
+                        this.criteria.allZoneFilters.push({ id: group.replace(" ", ""), text: group, checked: false });
+                    });
+                }
             }
         });
+        if (this.renderUserGroupFilter) {
+            this.userDataService.getUserGroups().subscribe((result) => {
+                this.criteria.allUserGroupFilters = [];
+                if (result) {
+                    result.userGroupNames.forEach((group) => {
+                        this.criteria.allUserGroupFilters.push({ id: group.id, text: group.name, checked: false });
+                    });
+                }
+            });
+        }
+
+    }
+
+    nullAllFilters() {
+        this.criteria.allUserGroupFilters = null;
+        this.criteria.allDealershipFilters = null;
+        this.criteria.allRegionFilters = null;
+        this.criteria.allZoneFilters = null;
+    }
+
+    emptyAllFilters() {
+        this.criteria.allUserGroupFilters = [];
+        this.criteria.allDealershipFilters = [];
+        this.criteria.allRegionFilters = [];
+        this.criteria.allZoneFilters = [];
     }
 
     public clearFilters() {
@@ -117,59 +143,34 @@ export class UserFilter implements AfterViewInit, OnDestroy {
     public clearRegionFilters() {
         this.criteria.allRegionFilters.forEach(x => x.checked = false);
     }
+        
+    public setupRangeSlider() {
+        $("#sliderElement").ionRangeSlider({
+            type: "double",
+            min: this.rangeFrom,
+            max: this.rangeTo,
+            grid: false,
+            from: this.criteria.pointsRangeBottom,
+            to: this.criteria.pointsRangeTop,
+            decorate_both: false,
+            onFinish: event => this.onSliderChange(event)
+        });
+    }
 
     public resetRange() {
-        var slider: any = document.getElementById('scoreRange');
-        slider.noUiSlider.reset();
-        this.onSliderChange();
+        this.criteria.pointsRangeBottom = 0;
+        this.criteria.pointsRangeTop = 100;
+        var slider = $("#sliderElement").data("ionRangeSlider");
+        slider.reset();
     }
 
-    public enableSlider() {
-        this.setSliderEvent();
-        this.slideChangeBusy = false;
-    }
-    
-    public setupRangeSlider() {
-        var slider: any = document.getElementById('scoreRange');
+    public onSliderChange(event) {
+        if (this.criteria.pointsRangeBottom === event.from && this.criteria.pointsRangeTop === event.to)
+            return;
 
-        noUiSlider.create(slider, {start: [0, 100],
-            connect: true,
-            step: 5,
-            tooltips: [true, true],
-            behaviour: 'drag',
-            range: {
-                'min': 0,
-                'max': 100
-            }
-        });
-        setTimeout(() => { this.setSliderEvent(); }, 500);
-    }
-
-    public setSliderEvent() {
-        var slider: any = document.getElementById('scoreRange');
-        slider.noUiSlider.on('end', () => { this.onSliderChange(); });
-    }
-
-    public onSliderChange() {
-        console.log(this.slideChangeBusy);
-
-        var slider: any = document.getElementById('scoreRange');
-        if (slider) {
-            var sliderVals = slider.noUiSlider.get();
-            var botRange = parseInt(sliderVals[0]);
-            var topRange = parseInt(sliderVals[1]);
-
-            if ((this.criteria.pointsRangeBottom === botRange && this.criteria.pointsRangeTop === topRange) || this.slideChangeBusy)
-                return;
-
-            slider.noUiSlider.off('end');
-            this.slideChangeBusy = true;
-
-            this.criteria.pointsRangeBottom = botRange;
-            this.criteria.pointsRangeTop = topRange;
-            this.broadcastChanges();
-            this.enableSlider();
-        }
+        this.criteria.pointsRangeBottom = event.from;
+        this.criteria.pointsRangeTop = event.to;
+        this.broadcastChanges();
     }
 }
 

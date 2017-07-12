@@ -19,6 +19,7 @@ using Phm.MobileSp.Cms.Core.Models.Interfaces;
 using Phm.MobileSp.Cms.Helpers.Attributes;
 using Phm.MobileSp.Cms.Infrastructure.Repositories;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
+using SecurityService;
 
 namespace Phm.MobileSp.Cms
 {
@@ -63,7 +64,8 @@ namespace Phm.MobileSp.Cms
             
             services.AddSingleton<IMLearningCoreContract, MLearningCoreContractClient>();
             services.AddSingleton<ICoreContract, CoreContractClient>();
-
+            services.AddSingleton<ISecurityContract, SecurityContractClient>();
+            
             services.AddSingleton<IApplicationUser, ApplicationUser>();
 
             services.AddSingleton<IBaseRequest, BaseRequest>();

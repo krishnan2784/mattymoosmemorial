@@ -34,22 +34,19 @@ export class UploadMediaComponent {
     }
 
     uploadFile() {
-        console.log(this.files);
         if (!this.files)
             return;
 
         this.mediaService.uploadFile(this.files).subscribe((response) => {
-            console.log(response);
+
         });
     }
 
     uploadImage() {
-        console.log(this.files);
         if (!this.files)
             return;
 
         this.mediaService.uploadImage(this.files[0]).subscribe((response) => {
-            console.log(response);
             this.imagePreviewUrl = response.path + response.name;
         });
     }

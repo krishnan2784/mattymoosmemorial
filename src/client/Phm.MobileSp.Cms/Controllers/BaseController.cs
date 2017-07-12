@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Phm.MobileSp.Cms.Helpers.Attributes;
+using Microsoft.AspNetCore.Mvc.Filters;
+using System.Net.Http;
+using System.Net;
+using Phm.MobileSp.Cms.Core.Models.Interfaces;
 
 namespace Phm.MobileSp.Cms.Controllers
 {
@@ -18,8 +22,34 @@ namespace Phm.MobileSp.Cms.Controllers
         private static int _CurrentMarketId { get; set; }
         private static int _UserId { get; set; }
 
-        public BaseController(IMemoryCache memoryCache) :base(memoryCache){}
+        private static IBaseRequest baseRequest;
+        private static IBaseCriteria baseCriteria;
 
+        public static IBaseRequest _baseRequest { get { return baseRequest; } }
+        public static IBaseCriteria _baseCriteria { get { return baseCriteria; } }
+
+        public BaseController(IMemoryCache memoryCache, IBaseRequest request, IBaseCriteria criteria) :base(memoryCache){
+            baseCriteria = criteria;
+            baseRequest = request;
+        }
+
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+#if DEBUG
+            if (string.IsNullOrEmpty(baseRequest.AccessToken))
+            {
+                if (!string.IsNullOrEmpty(AuthToken))
+                    baseRequest.AccessToken = AuthToken;
+                else
+                    throw new HttpRequestException("401");
+            }
+            if (baseCriteria.MarketId == null && CurrentMarketId != 0)
+                baseCriteria.MarketId = CurrentMarketId;
+
+#endif
+
+            base.OnActionExecuting(context);
+        }
 
         [HttpGet]
         public async Task<IActionResult> Logout()

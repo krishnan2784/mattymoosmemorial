@@ -3,7 +3,7 @@
         <div class="loader" *ngIf="!this.feedItems"></div>
                 
         <div *ngIf="this.feedItems">
-            <a (click)="editFeedItem()" class="btn-floating btn-large waves-effect waves-light btn-top-right">
+            <a (click)="editFeedItem()" class="btn-floating btn-large waves-effect waves-light btn-top-right" *ngIf="currentMarket && !currentMarket.isLive">
                 <i class="material-icons">add</i>
             </a>
             <div class="col-md-12" *ngIf="this.feedItems.length === 0">
@@ -32,20 +32,28 @@
                             </div>
                             <div class="col-md-12 feed-item-dates">
                                 <div *ngIf="feedItem.publishedLiveAt" class="col-md-4 no-pad date-posted">
-                                    Date posted: {{ feedItem.publishedLiveAt | date:'short' }}
+                                    Date posted: {{ feedItem.publishedLiveAt | date:'d/M/y, hh:mm a' }}
                                 </div>
 
                                 <div *ngIf="feedItem.updatedAt && feedItem.updatedAt!==feedItem.createdAt" class="col-md-4 no-pad">
-                                    Date modified: {{ feedItem.updatedAt | date:'short' }}
+                                    Date modified: {{ feedItem.updatedAt | date:'d/M/y, hh:mm a' }}
                                 </div>
 
                                 <div class="col-md-4 no-pad">
-                                    Date created: {{ feedItem.createdAt | date:'short' }}
+                                    Date created: {{ feedItem.createdAt | date:'d/M/y, hh:mm a' }}
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4 feed-index-controls">
                             <div class="feed-control col-md-3">
+                                <!--<div>
+                                    <a onclick="alert('Feature coming soon.');">
+                                        <i class="material-icons">smartphone</i>
+                                        <p>Preview</p>
+                                    </a>
+                                </div>-->
+                            </div>
+                            <div class="feed-control col-md-3" [class.col-md-offset-3]="currentMarket && currentMarket.isLive">
                                 <div>
                                     <a (click)="editFeedItem(feedItem)">
                                         <i class="material-icons">edit</i>
@@ -62,23 +70,13 @@
                                 </div>
                             </div>
                             <div class="feed-control col-md-3">
-                                <div>
-                                    <a onclick="alert('Feature coming soon.');">
-                                        <i class="material-icons">smartphone</i>
-                                        <p>Preview</p>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="feed-control col-md-3" *ngIf="currentMarket && currentMarket.isMaster">
-                                <div>
+                                <div *ngIf="currentMarket && !currentMarket.isLive && currentMarket.isMaster">
                                     <a (click)="copyFeedItemToMarket(feedItem)" data-toggle="modal" data-target="#feeditem-copytomarket">
                                         <i class="material-icons">content_copy</i>
                                         <p>Copy</p>
                                     </a>
                                 </div>
-                            </div>
-                            <div class="feed-control col-md-3" *ngIf="currentMarket && !currentMarket.isMaster">
-                                <div>
+                                <div *ngIf="currentMarket && !currentMarket.isLive && !currentMarket.isMaster">
                                     <a (click)="publishFeedItemTolive(feedItem)">
                                         <i class="material-icons">launch</i>
                                         <p>Publish</p>

@@ -17,9 +17,9 @@ export interface IFeedDataService {
     
     deleteFeeditem(feedItemId: number): Observable<boolean>;
 
-    getFeedItemReport(feedItemId: number): Observable<any>;
+    getQuizFeedItemReport(feedItemId: number): Observable<any>;
 
     getFeedItemResultList(feedItemId: number, lowerBoundary: number, higherBoundary: number, userGroupId: number);
 
-    getQuizSummaryFilters(): Observable<{ userGroupNames: string[], dealershipNames: string[] }> ;
+    getSurveyFeedSummaries(feedItemId: number): Observable<any>
 }

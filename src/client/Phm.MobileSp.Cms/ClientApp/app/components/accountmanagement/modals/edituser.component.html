@@ -20,23 +20,28 @@
             </div>
 
             <label>Role</label>
-            <select id="role" formControlName="role" materialize="material_select" class="browser-default">
-                <option *ngFor="let r of roles" [ngValue]="r.name">{{r.name}}</option>
+            <select id="role" formControlName="secGroup" materialize="material_select" [(ngModel)]="model.secGroup" class="browser-default">
+                <option *ngFor="let r of roles" [ngValue]="r">{{r.name}}</option>
             </select>
 
             <div class="input-field">
-                <label [class.active]="form.controls.dealershipCode.value.length>0">Dealership</label>
-                <input type="text" formControlName="dealershipCode" class="autocomplete" list="dealershipCodes">
+                <label [class.active]="form.controls.dealershipName.value.length>0">Dealership Name</label>
+                <input type="text" formControlName="dealershipName" class="autocomplete" list="dealershipNames">
             </div>
 
             <div class="input-field">
-                <label [class.active]="form.controls.region.value.length>0">Region</label>
-                <input type="text" formControlName="region" class="autocomplete" list="regions">
+                <label [class.active]="form.controls.dealershipCode.value.length>0">Dealership Code</label>
+                <input type="text" formControlName="dealershipCode" class="autocomplete" list="dealershipNames">
             </div>
 
             <div class="input-field">
-                <label [class.active]="form.controls.zone.value.length>0">Zone</label>
-                <input type="text" formControlName="zone" class="autocomplete" list="zones">
+                <label [class.active]="form.controls.regionName.value.length>0">Region</label>
+                <input type="text" formControlName="regionName" class="autocomplete" list="regions">
+            </div>
+
+            <div class="input-field">
+                <label [class.active]="form.controls.areaName.value.length>0">Zone</label>
+                <input type="text" formControlName="areaName" class="autocomplete" list="zones">
             </div>
 
         </div>
@@ -49,7 +54,7 @@
     </div>
 </form>
 
-<datalist id="dealershipCodes">
+<datalist id="dealershipNames">
     <option *ngFor="let x of dealerships" value="{{x}}">
 </datalist>
 <datalist id="zones">

@@ -27,9 +27,10 @@ var FeedTypeEnum = Enums.FeedTypeEnum;
 var FeedCategoryEnum = Enums.FeedCategoryEnum;
 var base_component_1 = require("../../base.component");
 var shareservice_1 = require("../../../services/helpers/shareservice");
-var Feeditemreportcomponent = require("../feeditemreport.component");
-var FeedItemReport = Feeditemreportcomponent.FeedItemReport;
+var QuizFeeditemreportcomponent = require("../quizfeeditemreport.component");
+var QuizFeedItemReport = QuizFeeditemreportcomponent.QuizFeedItemReport;
 var tabnavmenu_component_1 = require("../../navmenu/tabnavmenu.component");
+var surveyfeeditemreport_component_1 = require("../surveyfeeditemreport.component");
 var FeedReportIndexComponent = (function (_super) {
     __extends(FeedReportIndexComponent, _super);
     function FeedReportIndexComponent(route, router, feedDataService, sharedService) {
@@ -99,19 +100,25 @@ var FeedReportIndexComponent = (function (_super) {
         var _this = this;
         if (feedItem === void 0) { feedItem = null; }
         var inputs = { model: feedItem, pageTitle: '' };
-        var report = FeedItemReport;
+        var report;
+        if (feedItem.feedType === FeedTypeEnum.Quiz)
+            report = QuizFeedItemReport;
+        if (feedItem.feedType === FeedTypeEnum.Survey)
+            report = surveyfeeditemreport_component_1.SurveyFeedItemReport;
         this.updateMarketDropdownVisibility(false);
-        this.updateBackText('Back to Reports Index');
-        this.updatePageTitle(Enums.FeedTypeEnum[feedItem.feedType] + ' Analytics Reports');
+        this.updateTabNavItems();
+        this.updateBackText(Enums.FeedTypeEnum[feedItem.feedType] + ' Reports');
+        this.updatePageTitle('');
         report.prototype.onBackEvent = new core_1.EventEmitter();
         report.prototype.onBackEvent.subscribe(function () {
             _this.setPageTitle();
             _this.updateMarketDropdownVisibility(true);
             _this.updateBackText('');
+            _this.updateTabNavItems(tabnavmenu_component_1.DefaultTabNavs.reportsTabs);
             _this.selectedItem = null;
         });
         this.selectedItem = {
-            reportContent: FeedItemReport,
+            reportContent: report,
             inputs: inputs
         };
     };
@@ -121,7 +128,8 @@ FeedReportIndexComponent = __decorate([
     core_1.Component({
         selector: 'feedreportindex',
         template: require('./feedreportindex.component.html'),
-        styles: [require('./feedreportindex.component.css')]
+        styles: [require('./feedreportindex.component.css')],
+        encapsulation: core_1.ViewEncapsulation.None
     }),
     __metadata("design:paramtypes", [router_1.ActivatedRoute,
         router_1.Router,

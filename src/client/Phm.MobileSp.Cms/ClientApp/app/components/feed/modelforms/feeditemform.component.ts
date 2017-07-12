@@ -142,7 +142,6 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
 
     updateForm() {
         if (this.model && this.model.id > 0) {
-            console.log(this.model);
             (this.form).patchValue(this.model, { onlySelf: true });
             setTimeout(() => {
                 Materialize.updateTextFields();

@@ -63,6 +63,7 @@ export class FeedItemCopyToMarket extends BaseModalContent implements OnInit, IM
                 if (result && result.length > 0) {
                     if (this.currentMarkets && this.currentMarkets.length > 0)
                         result = result.filter(x => this.currentMarkets.filter(y => y.id === x.id).length === 0);
+                    result = result.filter(x => !x.isLive);
                     this.userMarkets = this.filterMarkets(result.map((x) => { return new ContentMarket(x); }));
                 }
             });

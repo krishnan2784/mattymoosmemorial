@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter, ViewContainerRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FeedDataService } from "../../../services/feeddataservice";
 import { FeedItemForm } from "../modelforms/feeditemform.component";
@@ -15,6 +15,11 @@ import Copytomarketcomponent = require("../modals/copytomarket.component");
 import { DefaultTabNavs } from "../../navmenu/tabnavmenu.component";
 import FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
 import CopiedElementTypeEnum = Enums.CopiedElementTypeEnum;
+
+
+import { Overlay } from 'angular2-modal';
+import { Modal } from 'angular2-modal/plugins/bootstrap';
+
 declare var $: any;
 declare var Materialize: any;
 
@@ -34,14 +39,12 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
     public filteredFeed: boolean;
     public id_sub: any;
     public currentMarket: UserMarket;
+    public getFeedItemsSub;
 
-    constructor(private route: ActivatedRoute,
-        private router: Router,
-        public feedDataService: FeedDataService,
-        sharedService: ShareService) {
-
+    constructor(private route: ActivatedRoute, private router: Router, public feedDataService: FeedDataService, sharedService: ShareService, overlay: Overlay, vcRef: ViewContainerRef, public confirmBox: Modal) {
         super(sharedService, '', true, '', DefaultTabNavs.feedIndexTabs);
         this.setupSubscriptions();
+        overlay.defaultViewContainer = vcRef;
     }
 
     setupSubscriptions() {
@@ -73,9 +76,10 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
     }
 
     ngOnDestroy() {
-        if (this.id_sub) {
+        if (this.id_sub)
             this.id_sub.unsubscribe();
-        }
+        if (this.getFeedItemsSub)
+            this.getFeedItemsSub.unsubscribe();        
     }
 
     setPageTitle() {
@@ -87,20 +91,28 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
     }
 
     getData() {
+        if (this.getFeedItemsSub)
+            this.getFeedItemsSub.unsubscribe();
+        this.sharedService.updateMarketDropdownEnabledState(false);
+
         if (!this.filteredFeed) {
-            this.feedDataService.getFeeditems().subscribe((result) => {
+            this.getFeedItemsSub = this.feedDataService.getFeeditems().subscribe((result) => {
                 this.feedItems = this.sortFeed(result);
+                this.sharedService.updateMarketDropdownEnabledState(true);
             });
         } else {
-            this.feedDataService.getFeeditemsByCat(this.catId).subscribe((result) => {
+            this.getFeedItemsSub = this.feedDataService.getFeeditemsByCat(this.catId).subscribe((result) => {
                 this.feedItems = this.sortFeed(result);
+                this.sharedService.updateMarketDropdownEnabledState(true);
             });
         }
     }
 
-    sortFeed(feedItem: IFeedItem[]): IFeedItem[] {
+    sortFeed(feedItems: IFeedItem[] =[]): IFeedItem[] {
         // basic ordering by Id descending, will need to replace with a more robust sorting mechanism / index management facility 
-        return feedItem.sort((a, b) => {
+        if (!feedItems)
+            return feedItems;
+        return feedItems.sort((a, b) => {
             if (a.id > b.id) return -1;
             if (a.id < b.id) return 1;
             return 0;
@@ -135,11 +147,13 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
             this.updatePageTitle("New Learning Content Form");
         }
         this.updateMarketDropdownVisibility(false);
+        this.updateTabNavItems();
 
         form.prototype.feedUpdated = new EventEmitter<IFeedItem>();
         form.prototype.feedUpdated.subscribe((feedItemResponse) => {
             this.setPageTitle();
             this.updateMarketDropdownVisibility(true);
+            this.updateTabNavItems(DefaultTabNavs.feedIndexTabs);
             this.feedFormData = null;
         });
 
@@ -160,12 +174,23 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
     }
 
     deleteFeeditem(feedItem: IFeedItem) {
-        if (confirm("Are you sure to delete " + feedItem.title + '?')) {
-            this.feedDataService.deleteFeeditem(feedItem.id).subscribe((result) => {
-                if (result)
-                    this.updateFeedItem(feedItem, true);
-            });
-        }
+        this.confirmBox.confirm()
+            .size('sm')
+            .showClose(false)
+            .title('Delete')
+            .body("Are you sure to delete " + feedItem.title + '?')
+            .okBtn('Confirm')
+            .cancelBtn('Cancel')
+            .open()
+            .catch((err: any) => console.log('ERROR: ' + err))
+            .then((dialog: any) => { return dialog.result })
+            .then((result: any) => {
+                this.feedDataService.deleteFeeditem(feedItem.id).subscribe((result) => {
+                    if (result)
+                        this.updateFeedItem(feedItem, true);
+                });
+            })
+            .catch((err: any) => { });
     }
 
 
@@ -176,16 +201,27 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
         } else {
             confirmText = "Are you sure to publish " + feedItem.title + "?";
         }
-        if (confirm(confirmText)) {
-            this.feedDataService.publishContentToLive(feedItem.id).subscribe((result) => {
-                if (result) {
-                    this.feedDataService.getFeeditem(feedItem.id).subscribe((result) => {
-                        if (result)
-                            this.updateFeedItem(result, false);
-                    });
-                }
-            });
-        }
+        this.confirmBox.confirm()
+            .size('sm')
+            .showClose(false)
+            .title('Publish')
+            .body(confirmText)
+            .okBtn('Confirm')
+            .cancelBtn('Cancel')
+            .open()
+            .catch((err: any) => console.log('ERROR: ' + err))
+            .then((dialog: any) => { return dialog.result })
+            .then((result: any) => {
+                this.feedDataService.publishContentToLive(feedItem.id).subscribe((result) => {
+                    if (result) {
+                        this.feedDataService.getFeeditem(feedItem.id).subscribe((result) => {
+                            if (result)
+                                this.updateFeedItem(result, false);
+                        });
+                    }
+                });
+            })
+            .catch((err: any) => { });
     }
     
 }

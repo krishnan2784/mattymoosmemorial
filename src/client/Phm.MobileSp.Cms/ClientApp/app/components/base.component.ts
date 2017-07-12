@@ -22,6 +22,7 @@ export class BaseComponent implements  OnDestroy {
 
     public updateMarketDropdownVisibility(displayMarketDropdown: boolean) {
         this.sharedService.updateMarketDropdownVisibility(displayMarketDropdown);
+        this.sharedService.updateMarketDropdownEnabledState(displayMarketDropdown);
     }
 
     public updateBackText(backText: string = '') {

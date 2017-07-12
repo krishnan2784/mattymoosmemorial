@@ -1,15 +1,18 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, ViewContainerRef } from '@angular/core';
 import { Http } from '@angular/http';
 import { BaseComponent } from "../base.component";
 import { ShareService } from "../../services/helpers/shareservice";
 import { UserDataService } from "../../services/userdataservice";
-import { UserAccount } from "../../models/userclasses";
+import { UserAccount, UserTemplate } from "../../models/userclasses";
 import Editusercomponent = require("./modals/edituser.component");
 import EditUser = Editusercomponent.EditUser;
 import FeedModel = require("../../interfaces/models/IFeedModel");
 import IFeedItem = FeedModel.IFeedItem;
 import Userfiltercomponent = require("../common/filters/userfilter.component");
 import UserFilters = Userfiltercomponent.UserFilters;
+
+import { Overlay } from 'angular2-modal';
+import { Modal } from 'angular2-modal/plugins/bootstrap';
 
 @Component({
     selector: 'useraccountmanagement',
@@ -19,16 +22,18 @@ import UserFilters = Userfiltercomponent.UserFilters;
 export class UserAccountManagementComponent extends BaseComponent {
     modalData = null;
     filterCriteria: UserFilters = new UserFilters();
-
+    private allUserAccounts: Array<any>;
+    private filteredUserAccounts: Array<any>;
+    
     public rows: Array<any> = [];
     public columns: Array<any> = [
         { title: '', name: 'userAvatar' },
         { title: 'First Name', name: 'firstName_region' },
         { title: 'Last Name', name: 'lastName' },
         { title: 'Email', name: 'email_zone' },
-        { title: 'Dealership Code', name: 'dealershipCode' },
-        { title: '', name: 'actionEdit', sort: false, className: 'col-action' },
-        { title: '', name: 'actionDelete', sort: false, className: 'col-action' }
+        { title: 'Dealership', name: 'dealershipName_code' },
+        { title: '', name: 'actionEdit', sort: false, className: 'col-action' }
+        //,{ title: '', name: 'actionDelete', sort: false, className: 'col-action' }
     ];
     public page: number = 1;
     public itemsPerPage: number = 20;
@@ -47,34 +52,38 @@ export class UserAccountManagementComponent extends BaseComponent {
         className: ['table-bordered','table-hover']
     };
 
-    private allUserAccounts: Array<any>;
-    private filteredUserAccounts: Array<any>;
-
-    constructor(public sharedService: ShareService, public userDataService: UserDataService) {
+    constructor(public sharedService: ShareService, public userDataService: UserDataService, overlay: Overlay, vcRef: ViewContainerRef, public confirmBox: Modal) {
         super(sharedService, 'Account Management', true);
+        overlay.defaultViewContainer = vcRef;
+        this.setupSubscriptions();
         this.getData();
     }
 
     getData() {
         this.userDataService.getUsers().subscribe((result) => {
             this.allUserAccounts = result;
-
             if (result) {
                 for (let i = 0; i < result.length; i++) {
-                    this.allUserAccounts[i].zone = "Zone " + i;
-                    this.allUserAccounts[i].region = "Region " + i;
-                    this.attachUserProperties(this.allUserAccounts[i]); 
+                    this.attachUserProperties(this.allUserAccounts[i]);
                 }
-            }
+            } else
+                this.allUserAccounts = [];
 
             this.length = this.allUserAccounts.length;
             this.filteredUserAccounts = this.allUserAccounts;
             this.onChangeTable(this.config);
+            this.sharedService.updateMarketDropdownEnabledState(true);
         });
     }
 
 
     public ngOnInit(): void {
+    }
+
+    setupSubscriptions() {
+        this.sharedService.marketUpdated.subscribe((market) => {
+            this.getData();
+        });
     }
 
     public changePage(page: any, data: Array<any> = this.filteredUserAccounts): Array<any> {
@@ -170,12 +179,12 @@ export class UserAccountManagementComponent extends BaseComponent {
         if (data.column === 'actionEdit') {
             this.editUser(data.row);
         } else if (data.column === 'actionDelete') {
-            console.log(data.row.id);
+            this.deleteUser(data.row);
         }
     }
 
-    public editUser(user: UserAccount = new UserAccount()) {
-        user = new UserAccount(user);
+    public editUser(user: UserTemplate = new UserTemplate()) {
+        user = new UserTemplate(user);
         let inputs = { model: user, title: user.id === 0 ? 'Create User' : 'Edit User' };
         var modelData = EditUser;
 
@@ -185,19 +194,37 @@ export class UserAccountManagementComponent extends BaseComponent {
         };
     }
 
-    public updateUser(user: UserAccount) {
+    public deleteUser(user: UserTemplate = new UserTemplate()) {
+        this.confirmBox.confirm()
+            .size('sm')
+            .showClose(false)
+            .title('Delete')
+            .body("Are you sure you want to delete " + user.firstName + " " + user.lastName + "?")
+            .okBtn('Confirm')
+                .cancelBtn('Cancel')
+                .open()
+            .catch((err: any) => console.log('ERROR: ' + err))
+            .then((dialog: any) => { return dialog.result })
+            .then((result: any) => {
+                console.log(user);
+            })
+            .catch((err: any) => { });
+    }
+
+    public updateUser(user: UserTemplate) {
         this.attachUserProperties(user);
         var index = this.filteredUserAccounts.indexOf(user);
-        if (index > -1) 
+        if (index > -1)
             this.filteredUserAccounts.splice(index, 1, user);
-         else
+        else
             this.filteredUserAccounts.unshift(user);
     }
 
     public attachUserProperties(user: any) {
         user.userAvatar = '<i class="material-icons table-avatar">person</i>';
-        user.firstName_region = user.firstName + '<p class="sub-data">' + user.region + '</p>';
-        user.email_zone = user.email + '<p class="sub-data">' + user.zone + '</p>';
+        user.dealershipName_code = user.dealershipName + ' (' + user.dealershipCode + ')';
+        user.firstName_region = user.firstName + '<p class="sub-data">' + user.regionName + '</p>';
+        user.email_zone = user.email + '<p class="sub-data">' + user.areaName + '</p>';
         user.actionEdit = '<a class="action-btn remove" data-toggle="modal" data-target="#edit-user"><i class="material-icons">edit</i><p>Edit</p></a>';
         user.actionDelete = '<a class="action-btn remove"><i class="material-icons">delete</i><p>Delete</p></a>';
         return user;

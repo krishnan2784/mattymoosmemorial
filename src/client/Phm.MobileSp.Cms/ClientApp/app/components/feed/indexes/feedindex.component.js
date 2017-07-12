@@ -32,18 +32,22 @@ var Copytomarketcomponent = require("../modals/copytomarket.component");
 var tabnavmenu_component_1 = require("../../navmenu/tabnavmenu.component");
 var FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
 var CopiedElementTypeEnum = Enums.CopiedElementTypeEnum;
+var angular2_modal_1 = require("angular2-modal");
+var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var FeedIndexComponent = (function (_super) {
     __extends(FeedIndexComponent, _super);
-    function FeedIndexComponent(route, router, feedDataService, sharedService) {
+    function FeedIndexComponent(route, router, feedDataService, sharedService, overlay, vcRef, confirmBox) {
         var _this = _super.call(this, sharedService, '', true, '', tabnavmenu_component_1.DefaultTabNavs.feedIndexTabs) || this;
         _this.route = route;
         _this.router = router;
         _this.feedDataService = feedDataService;
+        _this.confirmBox = confirmBox;
         _this.feedFormData = null;
         _this.modalData = null;
         _this.feedTypes = FeedTypeEnum;
         _this.feedCats = FeedCategoryEnum;
         _this.setupSubscriptions();
+        overlay.defaultViewContainer = vcRef;
         return _this;
     }
     FeedIndexComponent.prototype.setupSubscriptions = function () {
@@ -72,9 +76,10 @@ var FeedIndexComponent = (function (_super) {
         });
     };
     FeedIndexComponent.prototype.ngOnDestroy = function () {
-        if (this.id_sub) {
+        if (this.id_sub)
             this.id_sub.unsubscribe();
-        }
+        if (this.getFeedItemsSub)
+            this.getFeedItemsSub.unsubscribe();
     };
     FeedIndexComponent.prototype.setPageTitle = function () {
         if (!this.filteredFeed) {
@@ -86,20 +91,28 @@ var FeedIndexComponent = (function (_super) {
     };
     FeedIndexComponent.prototype.getData = function () {
         var _this = this;
+        if (this.getFeedItemsSub)
+            this.getFeedItemsSub.unsubscribe();
+        this.sharedService.updateMarketDropdownEnabledState(false);
         if (!this.filteredFeed) {
-            this.feedDataService.getFeeditems().subscribe(function (result) {
+            this.getFeedItemsSub = this.feedDataService.getFeeditems().subscribe(function (result) {
                 _this.feedItems = _this.sortFeed(result);
+                _this.sharedService.updateMarketDropdownEnabledState(true);
             });
         }
         else {
-            this.feedDataService.getFeeditemsByCat(this.catId).subscribe(function (result) {
+            this.getFeedItemsSub = this.feedDataService.getFeeditemsByCat(this.catId).subscribe(function (result) {
                 _this.feedItems = _this.sortFeed(result);
+                _this.sharedService.updateMarketDropdownEnabledState(true);
             });
         }
     };
-    FeedIndexComponent.prototype.sortFeed = function (feedItem) {
+    FeedIndexComponent.prototype.sortFeed = function (feedItems) {
+        if (feedItems === void 0) { feedItems = []; }
         // basic ordering by Id descending, will need to replace with a more robust sorting mechanism / index management facility 
-        return feedItem.sort(function (a, b) {
+        if (!feedItems)
+            return feedItems;
+        return feedItems.sort(function (a, b) {
             if (a.id > b.id)
                 return -1;
             if (a.id < b.id)
@@ -139,10 +152,12 @@ var FeedIndexComponent = (function (_super) {
             this.updatePageTitle("New Learning Content Form");
         }
         this.updateMarketDropdownVisibility(false);
+        this.updateTabNavItems();
         form.prototype.feedUpdated = new core_1.EventEmitter();
         form.prototype.feedUpdated.subscribe(function (feedItemResponse) {
             _this.setPageTitle();
             _this.updateMarketDropdownVisibility(true);
+            _this.updateTabNavItems(tabnavmenu_component_1.DefaultTabNavs.feedIndexTabs);
             _this.feedFormData = null;
         });
         this.feedFormData = {
@@ -160,12 +175,23 @@ var FeedIndexComponent = (function (_super) {
     };
     FeedIndexComponent.prototype.deleteFeeditem = function (feedItem) {
         var _this = this;
-        if (confirm("Are you sure to delete " + feedItem.title + '?')) {
-            this.feedDataService.deleteFeeditem(feedItem.id).subscribe(function (result) {
+        this.confirmBox.confirm()
+            .size('sm')
+            .showClose(false)
+            .title('Delete')
+            .body("Are you sure to delete " + feedItem.title + '?')
+            .okBtn('Confirm')
+            .cancelBtn('Cancel')
+            .open()
+            .catch(function (err) { return console.log('ERROR: ' + err); })
+            .then(function (dialog) { return dialog.result; })
+            .then(function (result) {
+            _this.feedDataService.deleteFeeditem(feedItem.id).subscribe(function (result) {
                 if (result)
                     _this.updateFeedItem(feedItem, true);
             });
-        }
+        })
+            .catch(function (err) { });
     };
     FeedIndexComponent.prototype.publishFeedItemTolive = function (feedItem) {
         var _this = this;
@@ -176,8 +202,18 @@ var FeedIndexComponent = (function (_super) {
         else {
             confirmText = "Are you sure to publish " + feedItem.title + "?";
         }
-        if (confirm(confirmText)) {
-            this.feedDataService.publishContentToLive(feedItem.id).subscribe(function (result) {
+        this.confirmBox.confirm()
+            .size('sm')
+            .showClose(false)
+            .title('Publish')
+            .body(confirmText)
+            .okBtn('Confirm')
+            .cancelBtn('Cancel')
+            .open()
+            .catch(function (err) { return console.log('ERROR: ' + err); })
+            .then(function (dialog) { return dialog.result; })
+            .then(function (result) {
+            _this.feedDataService.publishContentToLive(feedItem.id).subscribe(function (result) {
                 if (result) {
                     _this.feedDataService.getFeeditem(feedItem.id).subscribe(function (result) {
                         if (result)
@@ -185,7 +221,8 @@ var FeedIndexComponent = (function (_super) {
                     });
                 }
             });
-        }
+        })
+            .catch(function (err) { });
     };
     return FeedIndexComponent;
 }(base_component_1.BaseComponent));
@@ -195,10 +232,7 @@ FeedIndexComponent = __decorate([
         template: require('./feedindex.component.html'),
         styles: [require('./feedindex.component.css')]
     }),
-    __metadata("design:paramtypes", [router_1.ActivatedRoute,
-        router_1.Router,
-        feeddataservice_1.FeedDataService,
-        shareservice_1.ShareService])
+    __metadata("design:paramtypes", [router_1.ActivatedRoute, router_1.Router, feeddataservice_1.FeedDataService, shareservice_1.ShareService, angular2_modal_1.Overlay, core_1.ViewContainerRef, bootstrap_1.Modal])
 ], FeedIndexComponent);
 exports.FeedIndexComponent = FeedIndexComponent;
 //# sourceMappingURL=feedindex.component.js.map

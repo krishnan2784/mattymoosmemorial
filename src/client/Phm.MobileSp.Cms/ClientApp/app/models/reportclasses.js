@@ -64,4 +64,38 @@ var QuizFeedResult = (function (_super) {
     return QuizFeedResult;
 }(BaseModel));
 exports.QuizFeedResult = QuizFeedResult;
+var SurveyItemSummary = (function (_super) {
+    __extends(SurveyItemSummary, _super);
+    function SurveyItemSummary(options) {
+        if (options === void 0) { options = {}; }
+        var _this = _super.call(this, options) || this;
+        _this.surveyFeedResults = options["surveyQuestionSummaries"] || [{
+                surveyQuestionSummaryId: 124,
+                surverQuestionAnwerId: 247,
+                percentage: 40
+            }, {
+                surveyQuestionSummaryId: 124,
+                surverQuestionAnwerId: 248,
+                percentage: 60
+            }];
+        _this.surveyFeedId = options["surveyFeedId"] || 10;
+        return _this;
+    }
+    return SurveyItemSummary;
+}(FeedItemSummary));
+exports.SurveyItemSummary = SurveyItemSummary;
+var SurveyFeedResult = (function (_super) {
+    __extends(SurveyFeedResult, _super);
+    function SurveyFeedResult(options) {
+        if (options === void 0) { options = {}; }
+        var _this = _super.call(this, options) || this;
+        _this.surverQuestionAnwerId = options['surverQuestionAnwerId'] || 0;
+        _this.surveyQuestionSummaryId = options['surveyQuestionSummaryId'] || 0;
+        _this.totalSelected = options['totalSelected'] || 0;
+        _this.percentage = options['percentage'] || 0;
+        return _this;
+    }
+    return SurveyFeedResult;
+}(BaseModel));
+exports.SurveyFeedResult = SurveyFeedResult;
 //# sourceMappingURL=reportclasses.js.map

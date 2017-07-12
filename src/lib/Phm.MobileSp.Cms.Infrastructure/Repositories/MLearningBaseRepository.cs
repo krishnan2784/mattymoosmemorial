@@ -9,7 +9,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
         private new IBaseRequest BaseRequest => base.BaseRequest;
         private new IBaseCriteria BaseRequestCriteria => base.BaseRequestCriteria;
 
-        protected MLearningBaseRepository(IBaseRequest baseRequest, IBaseCriteria baseRBaseCriteria) :base(baseRequest, baseRBaseCriteria)
+        protected MLearningBaseRepository(IBaseRequest baseRequest, IBaseCriteria baseCriteria) :base(baseRequest, baseCriteria)
         {
         }
 

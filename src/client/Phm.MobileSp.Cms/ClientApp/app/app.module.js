@@ -46,7 +46,7 @@ var BaseModalComponent = Basemodalcomponent.BaseModalComponent;
 var Copytomarketcomponent = require("./components/feed/modals/copytomarket.component");
 var FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
 var feedreportindex_component_1 = require("./components/reports/indexes/feedreportindex.component");
-var feeditemreport_component_1 = require("./components/reports/feeditemreport.component");
+var quizfeeditemreport_component_1 = require("./components/reports/quizfeeditemreport.component");
 var Barchartcomponent = require("./components/charts/barchart.component");
 var BarChart = Barchartcomponent.BarChart;
 var Basefeeditemreportcomponent = require("./components/reports/basefeeditemreport.component");
@@ -68,6 +68,10 @@ var lbexecutivestable_component_1 = require("./components/reports/leaderboards/l
 var lbrefine_component_1 = require("./components/reports/leaderboards/lbrefine/lbrefine.component");
 var leaderboard_component_1 = require("./components/reports/leaderboards/leaderboard/leaderboard.component");
 var tabnavmenu_component_1 = require("./components/navmenu/tabnavmenu.component");
+var dynamicchartformats_component_1 = require("./components/reports/dynamicchartformats/dynamicchartformats.component");
+var surveyfeeditemreport_component_1 = require("./components/reports/surveyfeeditemreport.component");
+var angular2_modal_1 = require("angular2-modal");
+var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -103,7 +107,8 @@ AppModule = __decorate([
             // reporting
             feedreportindex_component_1.FeedReportIndexComponent,
             FeedItemReportContainerComponent,
-            feeditemreport_component_1.FeedItemReport,
+            quizfeeditemreport_component_1.QuizFeedItemReport,
+            surveyfeeditemreport_component_1.SurveyFeedItemReport,
             //leaderbaord
             leaderboardcontainer_component_1.LeaderboardContainer,
             leaderboard_component_1.LeaderboardComponent,
@@ -116,6 +121,7 @@ AppModule = __decorate([
             BarChart,
             GaugeChart,
             DonutChart,
+            dynamicchartformats_component_1.DynamicChartFormatsComponent,
             //modals
             FeedItemCopyToMarket,
             //shared
@@ -129,9 +135,9 @@ AppModule = __decorate([
             ng2_nouislider_1.NouisliderModule,
             forms_1.ReactiveFormsModule,
             ng2_table_1.Ng2TableModule,
-            //IonRangeSliderModule,
             ngx_bootstrap_1.PaginationModule.forRoot(),
-            //CalendarModule,
+            angular2_modal_1.ModalModule.forRoot(),
+            bootstrap_1.BootstrapModalModule,
             router_1.RouterModule.forRoot([
                 { path: '', redirectTo: 'home', pathMatch: 'full' },
                 { path: 'home', component: home_component_1.HomeComponent },

@@ -122,3 +122,6 @@
 .search-filter input {
      background-color: #fff;
  }
+.loader {
+    margin: 0 40%;
+}

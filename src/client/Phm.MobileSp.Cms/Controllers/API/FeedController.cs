@@ -9,6 +9,7 @@ using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Helpers.Attributes;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 using System;
+using Phm.MobileSp.Cms.Core.Models.Interfaces;
 
 namespace Phm.MobileSp.Cms.Controllers.API
 {
@@ -19,8 +20,9 @@ namespace Phm.MobileSp.Cms.Controllers.API
     {
         private readonly IFeedRepository _feedRepository;
 
-        public FeedController(IMemoryCache memoryCache, IFeedRepository feedRepository, IUserRepository userRepository, IMarketRepository marketRepository) 
-            : base(memoryCache, userRepository, marketRepository)
+        public FeedController(IMemoryCache memoryCache, IFeedRepository feedRepository, IUserRepository userRepository, IMarketRepository marketRepository, 
+            IBaseRequest baseRequest, IBaseCriteria baseCriteria) 
+            : base(memoryCache, userRepository, marketRepository, baseRequest, baseCriteria)
         {
             _feedRepository = feedRepository;
         }
@@ -124,29 +126,26 @@ namespace Phm.MobileSp.Cms.Controllers.API
 
         [HttpGet("[action]")]
         [JsonResponseWrapper]
-        public async Task<JsonResult> GetFeedItemSummary(int feedItemId)
+        public async Task<JsonResult> GetQuizFeedSummaries(int feedItemId)
         {
-            var feedItemResponse = await _feedRepository.GetFeedItemSummary(feedItemId);
-            var success = feedItemResponse != null;
-            return Json(new BaseResponse(success, success ? "" : "Failed to get a report for this feed item", feedItemResponse));
+            var feedItemResponse = await _feedRepository.GetQuizFeedSummaries(feedItemId);
+            return Json(new BaseResponse(feedItemResponse));
         }
 
         [HttpGet("[action]")]
         [JsonResponseWrapper]
-        public async Task<JsonResult> GetFeedItemResultList(int feedItemId, decimal lowerBoundary = 0, decimal higherBoundary = 0, int userGroupId = 0)
+        public async Task<JsonResult> GetQuizResultsSummariesEX(int feedItemId, decimal lowerBoundary = 0, decimal higherBoundary = 0, int userGroupId = 0)
         {
-            var feedItemResponse = await _feedRepository.GetFeedItemResultList(feedItemId, lowerBoundary, higherBoundary, userGroupId);
-            var success = feedItemResponse != null;
-            return Json(new BaseResponse(success, success ? "" : "Failed to get a report for this feed item", feedItemResponse));
+            var feedItemResponse = await _feedRepository.GetQuizResultsSummariesEX(feedItemId, lowerBoundary, higherBoundary, userGroupId);
+            return Json(new BaseResponse(feedItemResponse));
         }
-
 
         [HttpGet("[action]")]
         [JsonResponseWrapper]
-        public async Task<JsonResult> GetQuizSummaryFilters()
+        public async Task<JsonResult> GetSurveyFeedSummaries(int feedItemId)
         {
-            var response = await _feedRepository.GetQuizSummaryFilters(CurrentMarketId);
-            return Json(new BaseResponse(response));
+            var feedItemResponse = await _feedRepository.GetSurveyFeedSummaries(feedItemId);
+            return Json(new BaseResponse(feedItemResponse));
         }
 
         [HttpGet("[action]")]
@@ -154,6 +153,14 @@ namespace Phm.MobileSp.Cms.Controllers.API
         public async Task<JsonResult> GetLeaderBoard(DateTime? startDate = null, DateTime? endDate = null)
         {
             var response = await _feedRepository.GetLeaderBoard(CurrentMarketId, startDate, endDate);
+            return Json(new BaseResponse(response));
+        }
+
+        [HttpGet("[action]")]
+        [JsonResponseWrapper]
+        public async Task<JsonResult> GetUserPointsHistory(int userId, DateTime? startDate = null, DateTime? endDate = null)
+        {
+            var response = await _feedRepository.GetUserPointsHistory(userId, startDate, endDate);
             return Json(new BaseResponse(response));
         }
 

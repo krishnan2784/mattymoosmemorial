@@ -6,13 +6,16 @@ import { BaseComponent} from "../../base.component";
 import { ShareService } from "../../../services/helpers/shareservice";
 import { UserMarket } from "../../../models/userclasses";
 import { DefaultTabNavs } from "../../navmenu/tabnavmenu.component";
+import { MarketDataService } from "../../../services/marketdataservice";
+
+declare var $: any;
 
 @Component({
     selector: 'leaderboardcontainer',
     template: require('./leaderboardcontainer.component.html'),
     styles: [require('./leaderboardcontainer.component.css')]
 })
-export class LeaderboardContainer extends BaseComponent {
+export class LeaderboardContainer extends BaseComponent implements OnDestroy {
     public leaderBoard: any;
     public myUpdatedData: any;
     public loading = true;
@@ -49,11 +52,28 @@ export class LeaderboardContainer extends BaseComponent {
             ]
         }
     ];
+    public reportData = null;
+    backSub = null;
 
-    constructor(public feedDataService: FeedDataService,sharedService: ShareService) {
-        super(sharedService, 'Leaderboard', true, '', DefaultTabNavs.reportsTabs);
+    constructor(public feedDataService: FeedDataService, sharedService: ShareService, public marketDataService: MarketDataService) {
+        super(sharedService, 'Reports', true, '', DefaultTabNavs.reportsTabs);
         this.setupSubscriptions();
         this.getData();
+    }
+
+    ngOnDestroy() {
+        while ($('#tooltip').length > 0) {
+            $('#tooltip').each((index, element) => {
+                $(element).remove();
+            });
+        }
+    }
+
+    setupPageVariables() {
+        this.updatePageTitle('Reports');
+        this.updateMarketDropdownVisibility(true);
+        this.updateBackText();
+        this.updateTabNavItems(DefaultTabNavs.reportsTabs);
     }
 
     setupSubscriptions() {
@@ -200,6 +220,35 @@ export class LeaderboardContainer extends BaseComponent {
                 this.leaderBoard = result;
             this.loading = false;
         });
+        this.marketDataService.getMarketUserFilters().subscribe((result) => {
+            if (result && (result.regions.length > 0 || result.zones.length > 0)) {
+                this.refineGroups = [];
+                if (result.regions.length > 0) {
+                    let regions = [];
+                    result.regions.forEach((group) => {
+                        regions.push({ id: group.replace(" ", ""), name: group });
+                    });
+                    this.refineGroups.push({
+                        groupName: "Regions",
+                        groupId: "regions",
+                        height: "202px",
+                        items: regions
+                    });
+                }
+                if (result.zones.length > 0) {
+                    let zones = [];
+                    result.zones.forEach((zone) => {
+                        zones.push({ id: zone.replace(" ", ""), name: zone });
+                    });
+                    this.refineGroups.push({
+                        groupName: "Zones",
+                        groupId: "zones",
+                        height: "145px",
+                        items: zones
+                    });
+                }
+            }
+        });
     }
 
     getUpdateData(curDate1=null, curDate2=null) {
@@ -254,11 +303,25 @@ export class LeaderboardContainer extends BaseComponent {
     }
 
     getNewDataFromServer(event) {
-        console.log(event);
         this.getUpdateData(event.date1, event.date2); 
     }
 
     handleReport(event) {
 
     }
+
+    viewUserBreakdown(event) {
+        this.updatePageTitle('');
+        this.updateMarketDropdownVisibility(false);
+        this.updateBackText('Learners stats');
+        this.updateTabNavItems();
+        this.backSub = this.sharedService.goBackEvent.subscribe(() => {
+            this.setupPageVariables();
+            this.backSub = null;
+        });
+        this.feedDataService.getUserPointsHistory(event.userId, event.date1, event.date2).subscribe(result => {            
+            this.reportData = result;
+        });
+    }
+
 }

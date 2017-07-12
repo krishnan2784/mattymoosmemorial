@@ -21,9 +21,13 @@ var MarketDropdown = (function () {
         this.sharedService = sharedService;
         this.marketUpdated = new core_1.EventEmitter();
         this.userMarkets = [];
+        this.enabled = true;
         this.userDataService.getUserMarkets().subscribe(function (result) {
             _this.userMarkets = result;
             _this.setCurrentMarketId();
+        });
+        this.sharedService.marketDropdownEnabledUpdated.subscribe(function (enabled) {
+            _this.enabled = enabled;
         });
     }
     MarketDropdown.prototype.ngAfterViewInit = function () {

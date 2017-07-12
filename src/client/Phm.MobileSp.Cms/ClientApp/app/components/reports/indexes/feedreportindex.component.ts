@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FeedDataService } from "../../../services/feeddataservice";
 import { IFeedItem} from "../../../interfaces/models/IFeedModel";
@@ -9,10 +9,11 @@ import { BaseComponent} from "../../base.component";
 import { ShareService } from "../../../services/helpers/shareservice";
 import Userclasses = require("../../../models/userclasses");
 import UserMarket = Userclasses.UserMarket;
-import Feeditemreportcomponent = require("../feeditemreport.component");
-import FeedItemReport = Feeditemreportcomponent.FeedItemReport;
+import QuizFeeditemreportcomponent = require("../quizfeeditemreport.component");
+import QuizFeedItemReport = QuizFeeditemreportcomponent.QuizFeedItemReport;
 import Feeddataservice = require("../../../services/feeddataservice");
 import { DefaultTabNavs } from "../../navmenu/tabnavmenu.component";
+import { SurveyFeedItemReport } from "../surveyfeeditemreport.component";
 
 declare var $: any;
 declare var Materialize: any;
@@ -20,7 +21,8 @@ declare var Materialize: any;
 @Component({
     selector: 'feedreportindex',
     template: require('./feedreportindex.component.html'),
-    styles: [require('./feedreportindex.component.css')]
+    styles: [require('./feedreportindex.component.css')],
+    encapsulation: ViewEncapsulation.None
 })
 export class FeedReportIndexComponent extends BaseComponent implements OnInit, OnDestroy {
     public feedItems: IFeedItem[];
@@ -98,20 +100,27 @@ export class FeedReportIndexComponent extends BaseComponent implements OnInit, O
     
     viewFeedItemDetails(feedItem: IFeedItem = null) {
         let inputs = { model: feedItem, pageTitle: '' };
-        var report = FeedItemReport;
+        var report;
+        if (feedItem.feedType === FeedTypeEnum.Quiz)
+            report = QuizFeedItemReport;
+        if (feedItem.feedType === FeedTypeEnum.Survey)
+            report = SurveyFeedItemReport;
+        
         this.updateMarketDropdownVisibility(false);
-        this.updateBackText('Back to Reports Index');
-        this.updatePageTitle(Enums.FeedTypeEnum[feedItem.feedType] + ' Analytics Reports');
+        this.updateTabNavItems();
+        this.updateBackText(Enums.FeedTypeEnum[feedItem.feedType] + ' Reports');
+        this.updatePageTitle('');
 
         report.prototype.onBackEvent = new EventEmitter();
         report.prototype.onBackEvent.subscribe(() => {
             this.setPageTitle();
             this.updateMarketDropdownVisibility(true);
             this.updateBackText('');
+            this.updateTabNavItems(DefaultTabNavs.reportsTabs);
             this.selectedItem = null;
         });
         this.selectedItem = {
-            reportContent: FeedItemReport,
+            reportContent: report,
             inputs: inputs
         };
     }
