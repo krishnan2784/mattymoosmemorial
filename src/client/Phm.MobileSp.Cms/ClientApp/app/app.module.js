@@ -72,6 +72,8 @@ var dynamicchartformats_component_1 = require("./components/reports/dynamicchart
 var surveyfeeditemreport_component_1 = require("./components/reports/surveyfeeditemreport.component");
 var angular2_modal_1 = require("angular2-modal");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
+var quizuserresults_component_1 = require("./components/reports/quizuserresults/quizuserresults.component");
+var learnerstat_component_1 = require("./components/reports/leaderboards/learnerstat/learnerstat.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -109,6 +111,8 @@ AppModule = __decorate([
             FeedItemReportContainerComponent,
             quizfeeditemreport_component_1.QuizFeedItemReport,
             surveyfeeditemreport_component_1.SurveyFeedItemReport,
+            quizuserresults_component_1.QuizUserResultsComponent,
+            learnerstat_component_1.LearnerStatComponent,
             //leaderbaord
             leaderboardcontainer_component_1.LeaderboardContainer,
             leaderboard_component_1.LeaderboardComponent,

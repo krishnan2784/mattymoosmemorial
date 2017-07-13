@@ -35,6 +35,7 @@ var LeaderboardComponent = (function () {
         this.useUpdatedData = false;
     }
     LeaderboardComponent.prototype.ngOnInit = function () {
+        this.data = [];
         this.formatDataset();
     };
     LeaderboardComponent.prototype.ngOnChanges = function (changes) {

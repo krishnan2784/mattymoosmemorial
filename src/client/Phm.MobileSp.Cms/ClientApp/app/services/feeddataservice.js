@@ -41,10 +41,10 @@ var FeedDataService = (function (_super) {
         var _this = this;
         return Observable_1.Observable.create(function (observer) {
             _this.getFeeditems().subscribe(function (result) {
-                if (result.length) {
-                    var response = result.filter(function (x) { return x.feedCategory === selectedCat; });
-                    observer.next(response);
+                if (result && result.length > 0) {
+                    result = result.filter(function (x) { return x.feedCategory === selectedCat; });
                 }
+                observer.next(result);
                 observer.complete();
             });
         });
@@ -53,10 +53,10 @@ var FeedDataService = (function (_super) {
         var _this = this;
         return Observable_1.Observable.create(function (observer) {
             _this.getFeeditems().subscribe(function (result) {
-                if (result.length) {
-                    var response = result.filter(function (x) { return x.feedType === selectedType; });
-                    observer.next(response);
+                if (result && result.length > 0) {
+                    result = result.filter(function (x) { return x.feedType === selectedType; });
                 }
+                observer.next(result);
                 observer.complete();
             });
         });

@@ -148,6 +148,6 @@
         </div>
     </div>
     <div *ngIf="selectedQuizResult">
-        <div class="loader"></div>
+        <quizuserresults [quiz]="model" [results]="selectedQuizResult"></quizuserresults>
     </div>
 </div>

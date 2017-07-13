@@ -29,10 +29,10 @@ export class FeedDataService extends RequestHelper implements IFeedDataService, 
     public getFeeditemsByCat(selectedCat: Enums.FeedCategoryEnum): Observable<FeedItem[]> {
         return Observable.create(observer => {
             this.getFeeditems().subscribe((result) => {
-                if (result.length) {
-                    let response = result.filter(x => x.feedCategory === selectedCat);
-                    observer.next(response);
+                if (result && result.length > 0) {
+                    result = result.filter(x => x.feedCategory === selectedCat);
                 }
+                observer.next(result);
                 observer.complete();
             });
         });
@@ -41,10 +41,10 @@ export class FeedDataService extends RequestHelper implements IFeedDataService, 
     public getFeeditemsByType(selectedType: Enums.FeedTypeEnum): Observable<FeedItem[]> {
         return Observable.create(observer => {
             this.getFeeditems().subscribe((result) => {
-                if (result.length) {
-                    let response = result.filter(x => x.feedType === selectedType);
-                    observer.next(response);
+                if (result && result.length > 0) {
+                    result = result.filter(x => x.feedType === selectedType);
                 }
+                observer.next(result);
                 observer.complete();
             });
         });
