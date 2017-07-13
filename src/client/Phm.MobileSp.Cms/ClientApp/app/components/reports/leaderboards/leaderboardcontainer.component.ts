@@ -235,9 +235,9 @@ export class LeaderboardContainer extends BaseComponent implements OnDestroy {
                         items: regions
                     });
                 }
-                if (result.zones.length > 0) {
+                if (result.areas.length > 0) {
                     let zones = [];
-                    result.zones.forEach((zone) => {
+                    result.areas.forEach((zone) => {
                         zones.push({ id: zone.replace(" ", ""), name: zone });
                     });
                     this.refineGroups.push({

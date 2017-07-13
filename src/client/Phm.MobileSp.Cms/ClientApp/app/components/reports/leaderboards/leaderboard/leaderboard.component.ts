@@ -235,8 +235,6 @@ export class LeaderboardComponent implements OnInit, OnChanges {
                     i--;
                 }
             }
-            console.log(this.filter);
-            console.log(list);
 
             for (let i = 0; i < list.length; i++) {
                 if (!this.isInfilteredZone(list[i].zone)) {

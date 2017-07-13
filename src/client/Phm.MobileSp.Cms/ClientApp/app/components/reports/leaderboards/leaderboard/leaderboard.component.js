@@ -229,8 +229,6 @@ var LeaderboardComponent = (function () {
                     i--;
                 }
             }
-            console.log(this.filter);
-            console.log(list);
             for (var i = 0; i < list.length; i++) {
                 if (!this.isInfilteredZone(list[i].zone)) {
                     list.splice(i, 1);
