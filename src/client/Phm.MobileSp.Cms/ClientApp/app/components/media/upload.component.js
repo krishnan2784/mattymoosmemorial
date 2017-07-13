@@ -11,24 +11,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var Mediaservice = require("../../services/mediaservice");
+var mediainfoclasses_1 = require("../../models/mediainfoclasses");
 var MediaDataService = Mediaservice.MediaDataService;
 var UploadMediaComponent = (function () {
     function UploadMediaComponent(mediaService) {
         this.mediaService = mediaService;
         this.showPreview = true;
+        this.selectedMedia = null;
         this.files = [];
         this.uploading = false;
         this.mediaUploaded = new core_1.EventEmitter();
     }
+    UploadMediaComponent.prototype.ngOnInit = function () {
+        if (this.selectedMedia)
+            this.setPreviewImage();
+        console.log(this.selectedMedia);
+    };
     UploadMediaComponent.prototype.uploadFile = function () {
         if (!this.files)
             return;
         this.uploading = true;
+        this.imagePreviewUrl = '';
         for (var _i = 0, _a = this.files; _i < _a.length; _i++) {
             var file = _a[_i];
             switch (file.type) {
-                case 'jpg':
-                case 'png':
+                case 'image/jpeg':
+                case 'image/png':
                     this.uploadImage(file);
                     return;
                 default:
@@ -50,11 +58,16 @@ var UploadMediaComponent = (function () {
         });
     };
     UploadMediaComponent.prototype.processUploadResponse = function (media) {
+        media = new mediainfoclasses_1.MediaInfo(media);
         this.uploading = false;
+        this.selectedMedia = media;
         if (media) {
-            this.imagePreviewUrl = media.path + media.name;
+            this.setPreviewImage();
             this.mediaUploaded.emit(media);
         }
+    };
+    UploadMediaComponent.prototype.setPreviewImage = function () {
+        this.imagePreviewUrl = this.selectedMedia.path + this.selectedMedia.name;
     };
     UploadMediaComponent.prototype.filesSelectHandler = function (fileInput) {
         var FileList = fileInput.target.files;
@@ -68,6 +81,14 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Boolean)
 ], UploadMediaComponent.prototype, "showPreview", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", mediainfoclasses_1.MediaInfo)
+], UploadMediaComponent.prototype, "selectedMedia", void 0);
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", core_1.EventEmitter)
+], UploadMediaComponent.prototype, "mediaUploaded", void 0);
 UploadMediaComponent = __decorate([
     core_1.Injectable(),
     core_1.Component({

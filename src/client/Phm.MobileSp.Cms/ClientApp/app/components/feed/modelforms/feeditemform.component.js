@@ -29,6 +29,7 @@ var ShareService = Datashareservice.ShareService;
 var Observationfeeditemcomponent = require("./observationfeeditem.component");
 var enums_1 = require("../../../enums");
 var imagefeeditem_component_1 = require("./imagefeeditem.component");
+var videofeeditem_component_1 = require("./videofeeditem.component");
 var ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationFeedItemFormComponent;
 var FeedItemForm = (function () {
     function FeedItemForm(fb, http, route, router, feedDataService, injector, sharedService) {
@@ -80,7 +81,7 @@ var FeedItemForm = (function () {
                 additionalText: step.additionalText
             });
         });
-        this.navbarData[0].selected = true;
+        this.navbarData[this.feedFormSteps.currentStepIndex()].selected = true;
     };
     FeedItemForm.prototype.initialiseForm = function () {
         this.form = this._fb.group({
@@ -139,23 +140,24 @@ var FeedItemForm = (function () {
                 return ObservationFeedItemFormComponent;
             case Enums.FeedTypeEnum.Image:
                 return imagefeeditem_component_1.ImageFeedItemFormComponent;
+            case Enums.FeedTypeEnum.Video:
+                return videofeeditem_component_1.VideoFeedItemFormComponent;
             default:
                 return textfeeditem_component_1.TextFeedItemFormComponent;
         }
     };
     FeedItemForm.prototype.attachMedia = function (media) {
-        console.log(media);
         if (media.mediaType == enums_1.MediaTypes.Image) {
             var model = new Feedclasses.ImageFeed(this.model);
             model.mainImage = media;
-            this.model.feedType = Enums.FeedTypeEnum.Image;
+            this.model = model;
             this.swapForm(imagefeeditem_component_1.ImageFeedItemFormComponent, this.model.feedCategory);
         }
         else if (media.mediaType == enums_1.MediaTypes.Video) {
             var model = new Feedclasses.VideoFeed(this.model);
             model.mainVideo = media;
-            this.model.feedType = Enums.FeedTypeEnum.Video;
-            this.swapForm(imagefeeditem_component_1.ImageFeedItemFormComponent, this.model.feedCategory);
+            this.model = model;
+            this.swapForm(videofeeditem_component_1.VideoFeedItemFormComponent, this.model.feedCategory);
         }
     };
     FeedItemForm.prototype.save = function (feedItem, isValid) {

@@ -25,36 +25,36 @@ var Enums = require("../../../enums");
 var FeedTypeEnum = Enums.FeedTypeEnum;
 var Feedclasses = require("../../../models/feedclasses");
 var basepartialfeeditem_component_1 = require("./basepartialfeeditem.component");
-var ImageFeedItemFormComponent = (function (_super) {
-    __extends(ImageFeedItemFormComponent, _super);
-    function ImageFeedItemFormComponent(injector) {
-        return _super.call(this, injector, Feedclasses.ImageFeed, '/api/Feed/UpdateImageFeedItem', FeedTypeEnum.Image) || this;
+var VideoFeedItemFormComponent = (function (_super) {
+    __extends(VideoFeedItemFormComponent, _super);
+    function VideoFeedItemFormComponent(injector) {
+        return _super.call(this, injector, Feedclasses.VideoFeed, '/api/Feed/UpdateVideoFeedItem', FeedTypeEnum.Video) || this;
     }
-    ImageFeedItemFormComponent.prototype.addFormControls = function () {
-        this.form.addControl('imageDescription', new forms_1.FormControl(this.model.imageDescription, []));
-        this.form.addControl('mainImage', new forms_1.FormGroup({
-            id: new forms_1.FormControl(this.model.mainImage.id, []),
-            masterId: new forms_1.FormControl(this.model.mainImage.masterId, []),
-            marketId: new forms_1.FormControl(this.model.mainImage.marketId, []),
-            path: new forms_1.FormControl(this.model.mainImage.path, []),
-            name: new forms_1.FormControl(this.model.mainImage.name, []),
-            mediaType: new forms_1.FormControl(this.model.mainImage.mediaType, [])
+    VideoFeedItemFormComponent.prototype.addFormControls = function () {
+        this.form.addControl('videoDescription', new forms_1.FormControl(this.model.videoDescription, []));
+        this.form.addControl('mainVideo', new forms_1.FormGroup({
+            id: new forms_1.FormControl(this.model.mainVideo.id, []),
+            masterId: new forms_1.FormControl(this.model.mainVideo.masterId, []),
+            marketId: new forms_1.FormControl(this.model.mainVideo.marketId, []),
+            path: new forms_1.FormControl(this.model.mainVideo.path, []),
+            name: new forms_1.FormControl(this.model.mainVideo.name, []),
+            mediaType: new forms_1.FormControl(this.model.mainVideo.mediaType, [])
         }));
     };
     ;
-    ImageFeedItemFormComponent.prototype.removeFormControls = function () {
-        this.form.removeControl('imageDescription');
-        this.form.removeControl('mainImage');
+    VideoFeedItemFormComponent.prototype.removeFormControls = function () {
+        this.form.removeControl('videoDescription');
+        this.form.removeControl('mainVideo');
     };
     ;
-    return ImageFeedItemFormComponent;
+    return VideoFeedItemFormComponent;
 }(basepartialfeeditem_component_1.BasePartialItemFormComponent));
-ImageFeedItemFormComponent = __decorate([
+VideoFeedItemFormComponent = __decorate([
     core_1.Component({
-        selector: 'imagefeeditem',
-        template: require('./imagefeeditem.component.html')
+        selector: 'videofeeditem',
+        template: require('./videofeeditem.component.html')
     }),
     __metadata("design:paramtypes", [core_1.Injector])
-], ImageFeedItemFormComponent);
-exports.ImageFeedItemFormComponent = ImageFeedItemFormComponent;
-//# sourceMappingURL=imagefeeditem.component.js.map
+], VideoFeedItemFormComponent);
+exports.VideoFeedItemFormComponent = VideoFeedItemFormComponent;
+//# sourceMappingURL=videofeeditem.component.js.map

@@ -72,6 +72,7 @@ import { SurveyFeedItemReport } from "./components/reports/surveyfeeditemreport.
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { ImageFeedItemFormComponent } from "./components/feed/modelforms/imagefeeditem.component";
+import { VideoFeedItemFormComponent } from "./components/feed/modelforms/videofeeditem.component";
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -97,6 +98,7 @@ import { ImageFeedItemFormComponent } from "./components/feed/modelforms/imagefe
         FeedItemForm,
         TextFeedItemFormComponent,
         ImageFeedItemFormComponent,
+        VideoFeedItemFormComponent,
         QuizFeedItemFormComponent,
         SurveyFeedItemFormComponent,
         ObservationFeedItemFormComponent,

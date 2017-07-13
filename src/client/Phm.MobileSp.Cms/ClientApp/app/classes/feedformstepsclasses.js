@@ -12,8 +12,9 @@ var FeedFormSteps = (function () {
     }
     FeedFormSteps.prototype.ngOnInit = function () {
     };
-    FeedFormSteps.prototype.setupSteps = function () {
+    FeedFormSteps.prototype.setupSteps = function (selectedIndex) {
         var _this = this;
+        if (selectedIndex === void 0) { selectedIndex = 0; }
         this.steps = Observable_1.Observable.create(function (observer) {
             var steps = [];
             steps.push(new FeedFormStep(FeedFormStepType.Category, 0, "Category"));
@@ -35,13 +36,13 @@ var FeedFormSteps = (function () {
         this.steps.subscribe(function (result) {
             if (result.length) {
                 _this.visibleSteps = result;
-                _this.currentStep = result[0];
+                _this.currentStep = result[selectedIndex];
             }
         });
     };
     FeedFormSteps.prototype.setFormType = function (newFormType) {
         this.formType = newFormType;
-        this.setupSteps();
+        this.setupSteps(this.currentStepIndex());
     };
     FeedFormSteps.prototype.isPreviousButtonVisible = function () {
         var _this = this;
@@ -67,13 +68,14 @@ var FeedFormSteps = (function () {
         this.currentStep = this.visibleSteps.find(function (x) { return x.type === selectedStep; });
         setTimeout(function () {
             Materialize.updateTextFields();
-            $('.datepicker').pickadate({
-                selectMonths: true,
-                selectYears: 5,
-                format: 'dddd, dd mmm, yyyy',
-                formatSubmit: 'yyyy/mm/dd'
-            });
         }, 1);
+    };
+    FeedFormSteps.prototype.currentStepIndex = function () {
+        var currentStep = 0;
+        if (this.currentStep) {
+            currentStep = this.visibleSteps.indexOf(this.currentStep);
+        }
+        return currentStep;
     };
     return FeedFormSteps;
 }());

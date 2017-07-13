@@ -73,6 +73,7 @@ var surveyfeeditemreport_component_1 = require("./components/reports/surveyfeedi
 var angular2_modal_1 = require("angular2-modal");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var imagefeeditem_component_1 = require("./components/feed/modelforms/imagefeeditem.component");
+var videofeeditem_component_1 = require("./components/feed/modelforms/videofeeditem.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -101,6 +102,7 @@ AppModule = __decorate([
             feeditemform_component_1.FeedItemForm,
             textfeeditem_component_1.TextFeedItemFormComponent,
             imagefeeditem_component_1.ImageFeedItemFormComponent,
+            videofeeditem_component_1.VideoFeedItemFormComponent,
             quizfeeditem_component_1.QuizFeedItemFormComponent,
             surveyfeeditem_component_1.SurveyFeedItemFormComponent,
             observationfeeditem_component_1.ObservationFeedItemFormComponent,
