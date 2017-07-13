@@ -62,14 +62,12 @@
     clear: both;
 }
 
-/*.feed-item-form-container label {
-    font-size: 1.24rem;
-    font-weight: 200;
-}*/
+.feed-item-form-container {
+padding: 20px;
+}
 
 .feed-item-form-buttons {
     float: right;
-    margin-right: 20px;
 }
 
 .feed-form-navigation {

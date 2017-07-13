@@ -13,7 +13,7 @@ export class QuizQuestion extends Baseclasses.BaseModel {
         super(options);
         this.answers = options['Answers'];
         this.order = options['Order'] || 0;
-        this.question = options['Question'] || '';
+        this.question = options['Question']  || '';
         this.questionType = options['QuestionType'] || Enums.QuizQuestionTypeEnum.Single;
         this.quizFeedId = options['QuizFeedId'] || 0;
         if (!this.answers) {

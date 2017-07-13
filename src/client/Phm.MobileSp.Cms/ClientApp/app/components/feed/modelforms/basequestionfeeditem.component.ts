@@ -32,7 +32,7 @@ export class BaseQuestionFeedItemFormComponent extends BasePartialItemFormCompon
             order: new FormControl(question.order, []),
             enabled: new FormControl(question.enabled, []),
             published: new FormControl(question.published, []),
-            question: new FormControl(question.question, [<any>Validators.required]),
+            question: new FormControl(question.question ? question.question : '', [<any>Validators.required]),
             questionType: new FormControl(question.questionType, [<any>Validators.required]),
             answers: formArray
         });

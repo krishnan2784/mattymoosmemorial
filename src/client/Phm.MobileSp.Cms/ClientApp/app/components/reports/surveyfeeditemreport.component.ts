@@ -52,7 +52,6 @@ export class SurveyFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
         this.model = this.injector.get('model');
         this.pageTitle = this.injector.get('pageTitle');
         this.feedTypeString = Enums.FeedTypeEnum[this.model.feedType];
-        console.log(this.model);
         this.sharedService.goBackEvent.subscribe(() => {
             this.onBackEvent.emit();
         });
@@ -80,8 +79,6 @@ export class SurveyFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
             this.updateGaugeData();
             this.updateBarData();
             this.updateListData();
-            console.log(this.summaryData);
-
         });
     }
 
@@ -139,14 +136,11 @@ export class SurveyFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
                         label: x.answer
                     });
                 });
-                console.log(data);
                 this.listData.push({
                     title: question.question,
                     data: data
                 });
             };
-            console.log(this.listData);
-
         }
     }
 

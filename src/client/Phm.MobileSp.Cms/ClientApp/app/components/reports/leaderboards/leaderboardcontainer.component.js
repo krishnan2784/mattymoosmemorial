@@ -43,7 +43,7 @@ var LeaderboardContainer = (function (_super) {
                         name: "Region 1"
                     },
                     {
-                        id: 'r2',
+                        id: 'region2',
                         name: "Region 2"
                     }
                 ]
@@ -58,7 +58,7 @@ var LeaderboardContainer = (function (_super) {
                         name: "Zone 1"
                     },
                     {
-                        id: 'z2',
+                        id: 'zone2',
                         name: "Zone 2"
                     }
                 ]

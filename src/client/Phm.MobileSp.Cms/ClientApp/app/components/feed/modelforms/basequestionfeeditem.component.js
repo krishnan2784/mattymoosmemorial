@@ -45,7 +45,7 @@ var BaseQuestionFeedItemFormComponent = (function (_super) {
             order: new forms_1.FormControl(question.order, []),
             enabled: new forms_1.FormControl(question.enabled, []),
             published: new forms_1.FormControl(question.published, []),
-            question: new forms_1.FormControl(question.question, [forms_1.Validators.required]),
+            question: new forms_1.FormControl(question.question ? question.question : '', [forms_1.Validators.required]),
             questionType: new forms_1.FormControl(question.questionType, [forms_1.Validators.required]),
             answers: formArray
         });

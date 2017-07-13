@@ -31,7 +31,7 @@ export class LeaderboardContainer extends BaseComponent implements OnDestroy {
                     name: "Region 1"
                 },
                 {
-                    id: 'r2',
+                    id: 'region2',
                     name: "Region 2"
                 }
             ]
@@ -46,7 +46,7 @@ export class LeaderboardContainer extends BaseComponent implements OnDestroy {
                     name: "Zone 1"
                 },
                 {
-                    id: 'z2',
+                    id: 'zone2',
                     name: "Zone 2"
                 }
             ]
