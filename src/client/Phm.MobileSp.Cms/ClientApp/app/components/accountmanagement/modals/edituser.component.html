@@ -31,7 +31,7 @@
 
             <div class="input-field">
                 <label [class.active]="form.controls.dealershipCode.value.length>0">Dealership Code</label>
-                <input type="text" formControlName="dealershipCode" class="autocomplete" list="dealershipNames">
+                <input type="text" formControlName="dealershipCode" class="autocomplete" list="dealershipCodes">
             </div>
 
             <div class="input-field">
@@ -55,7 +55,10 @@
 </form>
 
 <datalist id="dealershipNames">
-    <option *ngFor="let x of dealerships" value="{{x}}">
+    <option *ngFor="let x of dealershipNames" value="{{x}}">
+</datalist>
+<datalist id="dealershipCodes">
+    <option *ngFor="let x of dealershipCodes" value="{{x}}">
 </datalist>
 <datalist id="zones">
     <option *ngFor="let x of zones" value="{{x}}">

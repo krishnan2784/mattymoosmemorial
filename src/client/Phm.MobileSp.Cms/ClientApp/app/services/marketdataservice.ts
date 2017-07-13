@@ -51,14 +51,18 @@ export class MarketDataService extends RequestHelper implements IMarketDataServi
         });
     }
 
-    getMarketUserFilters(): Observable<{ userGroupNames: string[], dealershipNames: string[], regions: string[], zones: string[], areas: string[] }> {
+    getMarketUserFilters(): Observable<{
+        userGroupNames: string[], dealershipNames: string[], dealershipCodes: string[],
+        regions: string[], zones: string[], areas: string[]
+    }> {
         return Observable.create(observer => {
             this.getRequestBase('/api/Market/GetMarketUserFilters').subscribe((result) => {
                 if (result) {
                     let response = {
                         userGroupNames: result.userGroupNames,
                         dealershipNames: result.dealershipNames,
-                        regions: result.areas,
+                        dealershipCodes: result.dealershipCodes,
+                        regions: result.regions,
                         zones: result.zones,
                         areas: result.areas
                     };

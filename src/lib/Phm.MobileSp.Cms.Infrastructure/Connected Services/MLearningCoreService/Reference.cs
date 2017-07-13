@@ -384,11 +384,15 @@ namespace MLearningCoreService
         
         private System.Nullable<int> IdField;
         
+        private System.Nullable<bool> IsCompletedField;
+        
         private System.Nullable<bool> IsFavouriteField;
         
         private System.Nullable<System.DateTime> LastUpdateField;
         
         private System.Nullable<int> MarketIdField;
+        
+        private System.Nullable<int> ParentIdField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Nullable<System.DateTime> Day
@@ -443,6 +447,19 @@ namespace MLearningCoreService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsCompleted
+        {
+            get
+            {
+                return this.IsCompletedField;
+            }
+            set
+            {
+                this.IsCompletedField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Nullable<bool> IsFavourite
         {
             get
@@ -480,6 +497,19 @@ namespace MLearningCoreService
                 this.MarketIdField = value;
             }
         }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> ParentId
+        {
+            get
+            {
+                return this.ParentIdField;
+            }
+            set
+            {
+                this.ParentIdField = value;
+            }
+        }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -505,6 +535,8 @@ namespace MLearningCoreService
         
         private MLearningCoreService.FeedTypeEnumDto FeedTypeField;
         
+        private bool IsCompletedField;
+        
         private bool IsFavouriteField;
         
         private string LegalInformationField;
@@ -524,6 +556,8 @@ namespace MLearningCoreService
         private System.Nullable<System.DateTime> PublishedLiveAtField;
         
         private int ReadingTimeField;
+        
+        private System.Nullable<int> SecObjectIdField;
         
         private string ShortDescriptionField;
         
@@ -595,6 +629,19 @@ namespace MLearningCoreService
             set
             {
                 this.FeedTypeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsCompleted
+        {
+            get
+            {
+                return this.IsCompletedField;
+            }
+            set
+            {
+                this.IsCompletedField = value;
             }
         }
         
@@ -725,6 +772,19 @@ namespace MLearningCoreService
             set
             {
                 this.ReadingTimeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> SecObjectId
+        {
+            get
+            {
+                return this.SecObjectIdField;
+            }
+            set
+            {
+                this.SecObjectIdField = value;
             }
         }
         
@@ -1848,10 +1908,6 @@ namespace MLearningCoreService
         
         private System.TimeSpan AverageTimeField;
         
-        private int FailedField;
-        
-        private int PassedField;
-        
         private System.Collections.Generic.Dictionary<System.DateTime, int> SubmissionsField;
         
         private int SubmittedField;
@@ -1859,6 +1915,8 @@ namespace MLearningCoreService
         private int SurveyFeedIdField;
         
         private System.Collections.Generic.List<MLearningCoreService.SurveyQuestionSummaryDto> SurveyQuestionSummariesField;
+        
+        private int TotalRecipentsField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public System.TimeSpan AverageTime
@@ -1870,32 +1928,6 @@ namespace MLearningCoreService
             set
             {
                 this.AverageTimeField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Failed
-        {
-            get
-            {
-                return this.FailedField;
-            }
-            set
-            {
-                this.FailedField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Passed
-        {
-            get
-            {
-                return this.PassedField;
-            }
-            set
-            {
-                this.PassedField = value;
             }
         }
         
@@ -1948,6 +1980,19 @@ namespace MLearningCoreService
             set
             {
                 this.SurveyQuestionSummariesField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TotalRecipents
+        {
+            get
+            {
+                return this.TotalRecipentsField;
+            }
+            set
+            {
+                this.TotalRecipentsField = value;
             }
         }
     }
@@ -3325,6 +3370,8 @@ namespace MLearningCoreService
         
         private System.Collections.Generic.List<string> AreasField;
         
+        private System.Collections.Generic.List<string> DealershipCodesField;
+        
         private System.Collections.Generic.List<string> DealershipNamesField;
         
         private System.Collections.Generic.List<string> RegionsField;
@@ -3343,6 +3390,19 @@ namespace MLearningCoreService
             set
             {
                 this.AreasField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<string> DealershipCodes
+        {
+            get
+            {
+                return this.DealershipCodesField;
+            }
+            set
+            {
+                this.DealershipCodesField = value;
             }
         }
         
@@ -3755,7 +3815,11 @@ namespace MLearningCoreService
         {
             if ((endpointConfiguration == EndpointConfiguration.MLearningCoreServiceEndpoint))
             {
+#if DEBUG
                 return new System.ServiceModel.EndpointAddress("http://mobilespapi.phm.co.uk/MLearningCoreService.svc");
+#else
+                return new System.ServiceModel.EndpointAddress("http://mobilespapi-staging.azurewebsites.net/MLearningCoreService.svc");
+#endif
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }

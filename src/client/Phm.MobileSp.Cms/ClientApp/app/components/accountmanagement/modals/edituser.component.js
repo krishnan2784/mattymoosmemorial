@@ -37,7 +37,8 @@ var EditUser = (function (_super) {
         _this.roles = [];
         _this.regions = ['Region 1', 'Region 2', 'Region 3'];
         _this.zones = ['Zone 1', 'Zone 2', 'Zone 3'];
-        _this.dealerships = ['Dealership 1', 'Dealership 2', 'Dealership 3'];
+        _this.dealershipNames = ['Dealership 1', 'Dealership 2', 'Dealership 3'];
+        _this.dealershipCodes = ['0001', '0002', '0003'];
         if (injector) {
             _this.model = injector.get('model');
         }
@@ -69,8 +70,9 @@ var EditUser = (function (_super) {
         var _this = this;
         this.marketDataService.getMarketUserFilters().subscribe(function (result) {
             if (result) {
-                _this.dealerships = result.dealershipNames;
-                _this.zones = result.areas;
+                _this.dealershipNames = result.dealershipNames;
+                _this.dealershipCodes = result.dealershipCodes;
+                _this.zones = result.zones;
                 _this.regions = result.regions;
             }
         });

@@ -28,7 +28,8 @@ export class EditUser extends BaseModalContent implements OnInit, AfterViewInit,
 
     public regions : string[] = [ 'Region 1', 'Region 2' , 'Region 3'];
     public zones: string[] =['Zone 1', 'Zone 2', 'Zone 3'];
-    public dealerships: string[] = ['Dealership 1', 'Dealership 2', 'Dealership 3'];
+    public dealershipNames: string[] = ['Dealership 1', 'Dealership 2', 'Dealership 3'];
+    public dealershipCodes: string[] = ['0001', '0002', '0003'];
 
     constructor(private injector: Injector, private userDataService: UserDataService,
         private fb: FormBuilder, public marketDataService: MarketDataService) {
@@ -66,8 +67,9 @@ export class EditUser extends BaseModalContent implements OnInit, AfterViewInit,
     getAutoCompleteData() {
         this.marketDataService.getMarketUserFilters().subscribe((result) => {
             if (result) {
-                this.dealerships = result.dealershipNames;
-                this.zones = result.areas;
+                this.dealershipNames = result.dealershipNames;
+                this.dealershipCodes = result.dealershipCodes;
+                this.zones = result.zones;
                 this.regions = result.regions;
             }
         });

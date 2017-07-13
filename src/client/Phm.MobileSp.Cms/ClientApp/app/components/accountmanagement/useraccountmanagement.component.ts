@@ -224,7 +224,7 @@ export class UserAccountManagementComponent extends BaseComponent {
         user.userAvatar = '<i class="material-icons table-avatar">person</i>';
         user.dealershipName_code = user.dealershipName + ' (' + user.dealershipCode + ')';
         user.firstName_region = user.firstName + '<p class="sub-data">' + user.regionName + '</p>';
-        user.email_zone = user.email + '<p class="sub-data">' + user.areaName + '</p>';
+        user.email_zone = user.email + '<p class="sub-data">' + user.zoneName + '</p>';
         user.actionEdit = '<a class="action-btn remove" data-toggle="modal" data-target="#edit-user"><i class="material-icons">edit</i><p>Edit</p></a>';
         user.actionDelete = '<a class="action-btn remove"><i class="material-icons">delete</i><p>Delete</p></a>';
         return user;
@@ -233,11 +233,10 @@ export class UserAccountManagementComponent extends BaseComponent {
     filterUpdate(criteria: UserFilters) {
         this.filterCriteria = criteria;
         var data = Object.assign([], this.allUserAccounts);
-
         if (this.filterCriteria.zoneFilters.length > 0)
-            data = data.filter(x => this.filterCriteria.zoneFilters.filter(y => y.text === x.zone).length > 0);
+            data = data.filter(x => this.filterCriteria.zoneFilters.filter(y => y.text === x.zoneName).length > 0);
         if (this.filterCriteria.regionFilters.length > 0)
-            data = data.filter(x => this.filterCriteria.regionFilters.filter(y => y.text === x.region).length > 0);
+            data = data.filter(x => this.filterCriteria.regionFilters.filter(y => y.text === x.regionName).length > 0);
 
         this.filteredUserAccounts = data;
         this.config.filtering.filterString = criteria.searchString;

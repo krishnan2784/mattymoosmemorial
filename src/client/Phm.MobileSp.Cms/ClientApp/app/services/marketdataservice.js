@@ -72,7 +72,8 @@ var MarketDataService = (function (_super) {
                     var response = {
                         userGroupNames: result.userGroupNames,
                         dealershipNames: result.dealershipNames,
-                        regions: result.areas,
+                        dealershipCodes: result.dealershipCodes,
+                        regions: result.regions,
                         zones: result.zones,
                         areas: result.areas
                     };
