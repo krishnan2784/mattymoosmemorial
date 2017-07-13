@@ -1,0 +1,163 @@
+.learnerStatContents {
+  min-width: 950px;
+  position: relative; }
+  .learnerStatContents .dbHeader {
+    font-weight: bold;
+    height: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px; }
+    .learnerStatContents .dbHeader .dateRange {
+      margin-top: -20px;
+      font-weight: normal; }
+      .learnerStatContents .dbHeader .dateRange .rangeTxt {
+        float: left;
+        width: 60px;
+        text-align: center; }
+      .learnerStatContents .dbHeader .dateRange input {
+        width: 150px;
+        float: left;
+        margin-top: -12px; }
+  .learnerStatContents .detailBar {
+    height: 5px;
+    background-color: #21b7a2;
+    width: 80px;
+    position: absolute;
+    top: 0px;
+    left: 0px; }
+  .learnerStatContents .chart {
+    background-color: white;
+    width: 100%;
+    min-height: 310px;
+    position: relative;
+    overflow: hidden; }
+  .learnerStatContents .headerFull {
+    background-color: white;
+    height: 70px;
+    padding: 10px; }
+    .learnerStatContents .headerFull button {
+      background-color: #06a2d1;
+      color: white;
+      border: none;
+      width: 80px;
+      height: 36px;
+      border-radius: 2px;
+      margin-top: -16px; }
+    .learnerStatContents .headerFull .icon {
+      float: left;
+      margin-right: 10px; }
+      .learnerStatContents .headerFull .icon i {
+        font-size: 30px; }
+    .learnerStatContents .headerFull .user {
+      margin-top: 10px;
+      float: left; }
+  .learnerStatContents .dashboard {
+    margin-top: 20px; }
+  .learnerStatContents .chartActivity .graphWrapper {
+    height: 225px;
+    width: 100%;
+    padding: 10px;
+    position: relative;
+    margin-top: 30px; }
+    .learnerStatContents .chartActivity .graphWrapper .axisY {
+      height: 225px;
+      width: 60px;
+      position: absolute;
+      top: 24px; }
+      .learnerStatContents .chartActivity .graphWrapper .axisY .numbers {
+        font-size: 10px;
+        text-align: right;
+        height: 22.1px;
+        width: 90%; }
+      .learnerStatContents .chartActivity .graphWrapper .axisY .activityLabel {
+        -ms-transform: rotate(-90deg);
+        -webkit-transform: rotate(-90deg);
+        transform: rotate(-90deg);
+        position: absolute;
+        top: 115px; }
+    .learnerStatContents .chartActivity .graphWrapper .bars {
+      height: 225px;
+      width: calc(100% - 80px);
+      position: absolute;
+      right: 10px;
+      top: 30px;
+      border-left: 1px solid lightgray;
+      border-bottom: 1px solid lightgray; }
+      .learnerStatContents .chartActivity .graphWrapper .bars .dataBar {
+        position: absolute;
+        float: left;
+        bottom: 0px; }
+      .learnerStatContents .chartActivity .graphWrapper .bars .lines {
+        width: 100%;
+        background-color: lightgray;
+        position: absolute;
+        left: 0px;
+        height: 1px; }
+    .learnerStatContents .chartActivity .graphWrapper .dates {
+      height: 50px;
+      width: calc(100% - 57px);
+      position: absolute;
+      top: 256px;
+      left: 65px; }
+      .learnerStatContents .chartActivity .graphWrapper .dates .dateRow {
+        float: left;
+        width: 100%;
+        height: 50px;
+        text-align: center;
+        font-size: 11px;
+        position: relative; }
+      .learnerStatContents .chartActivity .graphWrapper .dates .dateDiv {
+        -ms-transform: rotate(-30deg);
+        -webkit-transform: rotate(-30deg);
+        transform: rotate(-30deg);
+        width: 60px;
+        text-align: center; }
+      .learnerStatContents .chartActivity .graphWrapper .dates .dateDivFirst {
+        position: absolute;
+        left: -45px;
+        top: 17px; }
+      .learnerStatContents .chartActivity .graphWrapper .dates .dateDivLast {
+        position: absolute;
+        right: 18px;
+        top: 17px; }
+      .learnerStatContents .chartActivity .graphWrapper .dates .dateDivOthers {
+        position: absolute;
+        left: calc(50% - 60px);
+        top: 17px; }
+  .learnerStatContents .chartActivity .legends {
+    margin-top: 86px;
+    padding: 10px;
+    height: 44px;
+    margin-left: 82px; }
+    .learnerStatContents .chartActivity .legends .legRow {
+      width: 20%;
+      float: left; }
+      .learnerStatContents .chartActivity .legends .legRow .legColor {
+        width: 15px;
+        height: 5px;
+        float: left;
+        margin-right: 10px;
+        margin-top: 8px; }
+  .learnerStatContents .points .chart .chartPlacer {
+    position: relative;
+    padding: 10px;
+    height: 200px;
+    width: 300px;
+    margin-left: 100px;
+    margin-top: 41px;
+    font-size: 5px; }
+  .learnerStatContents .points .leg2 {
+    width: 400px;
+    min-height: 60px;
+    position: relative;
+    margin-top: -150px;
+    margin-left: calc(100% - 480px); }
+    .learnerStatContents .points .leg2 .legRow2 {
+      width: 50%;
+      float: left;
+      padding: 10px; }
+    .learnerStatContents .points .leg2 .legColorRound {
+      width: 20px;
+      height: 20px;
+      float: left;
+      margin-right: 10px;
+      border-radius: 10px; }

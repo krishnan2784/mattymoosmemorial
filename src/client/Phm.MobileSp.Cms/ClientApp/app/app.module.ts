@@ -71,6 +71,8 @@ import { SurveyFeedItemReport } from "./components/reports/surveyfeeditemreport.
 
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
+import { QuizUserResultsComponent } from "./components/reports/quizuserresults/quizuserresults.component";
+import { LearnerStatComponent } from "./components/reports/leaderboards/learnerstat/learnerstat.component";
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -106,7 +108,9 @@ import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
         FeedItemReportContainerComponent,
         QuizFeedItemReport,
         SurveyFeedItemReport,
-        
+        QuizUserResultsComponent,
+        LearnerStatComponent,
+
         //leaderbaord
         LeaderboardContainer,
         LeaderboardComponent,

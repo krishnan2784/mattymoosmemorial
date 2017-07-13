@@ -4,11 +4,11 @@
         <div class="clearfix"></div>
     </div>
     <div class="filter-container">
-        <div class="filter-header filter-block">
+        <div class="filter-header filter-block" *ngIf="renderPointRange || criteria.allRegionFilters > 0 || criteria.allZoneFilters > 0 || criteria.allDealershipFilters > 0 || criteria.allUserGroupFilters > 0">
             <p>Refine by: <a class="right" (click)="clearFilters();broadcastChanges();">Clear all</a>
             </p>
         </div>
-        <div class="filter-block" *ngIf="renderUserGroupFilter">
+        <div class="filter-block" *ngIf="renderUserGroupFilter && this.criteria.allUserGroupFilters > 0">
             <p>Role <a class="right" (click)="clearUserFilters();broadcastChanges();">Clear</a>
             </p>
             <div class="loader" *ngIf="!this.criteria.allUserGroupFilters"></div>
@@ -18,7 +18,7 @@
                 </div>
             </div>
         </div>
-        <div class="filter-block" *ngIf="renderDealershipFilter">
+        <div class="filter-block" *ngIf="renderDealershipFilter && this.criteria.allDealershipFilters > 0">
             <p>Dealership <a class="right" (click)="clearDealerFilters();broadcastChanges();">Clear</a>
             </p>
             <div class="filter-block">
@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-        <div class="filter-block" *ngIf="renderZoneFilter">
+        <div class="filter-block" *ngIf="renderZoneFilter && this.criteria.allZoneFilters > 0">
             <p>Zone <a class="right" (click)="clearZoneFilters();broadcastChanges();">Clear</a>
             </p>
             <div class="filter-block">
@@ -42,7 +42,7 @@
                 </div>
             </div>
         </div>
-        <div class="filter-block" *ngIf="renderRegionFilter">
+        <div class="filter-block" *ngIf="renderRegionFilter && this.criteria.allRegionFilters > 0">
             <p>Region <a class="right" (click)="clearRegionFilters();broadcastChanges();">Clear</a>
             </p>
             <div class="filter-block">

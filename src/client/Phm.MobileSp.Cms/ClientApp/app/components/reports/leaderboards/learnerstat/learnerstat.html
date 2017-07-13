@@ -1,0 +1,77 @@
+<div class="learnerStatContents" *ngIf="data">
+  <div [ngClass]="{headerMin: headerMin , headerFull : !headerMin}">
+    <div class="icon">
+      <i class="material-icons">account_circle</i><br>
+    </div>
+    <div class="user">
+      {{user.currentUser.firstName}} {{user.currentUser.lastName}}<br>
+      {{user.roleName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{user.regionName}}
+    </div>
+    <div class="points">
+      Total points: <b>{{user.totalMLearningPoints}}</b>
+    </div>
+    <button class="right" (click)="raiseExport()">Export</button>
+  </div>
+  <div class="dashboard">
+    <div class="activity">
+      <div class="dbHeader">
+        <div>Activity Breakdown</div>
+        <div class="dateRange right">
+          <div class="rangeTxt">from:</div>
+          <input type="date" placeholder="Select date" [(ngModel)]="date1" (change)="raiseDatesChanged();">
+          <div class="rangeTxt">to:</div>
+          <input type="date" placeholder="Select date" [(ngModel)]="date2" (change)="raiseDatesChanged();">
+        </div>
+      </div>
+      <div class="chart chartActivity">
+        <div class="detailBar"></div>
+        <div class="graphWrapper">
+          <div class="axisY">
+            <div class="numbers" *ngFor="let d of dummyArray(11)">
+              {{10 - d}}
+            </div>
+            <div class="activityLabel">Activity</div>
+          </div>
+          <div class="bars">
+            <div class="lines" *ngFor="let d of dummyArray(10)" [style.top]="((d +1) * 10) +'%'"></div>
+            <div ngClass="dataBar" *ngFor="let d of data; let i = index;"
+                 [style.width]="(100 / data.length) + '%'"
+                 [style.height]="(d.points / max) * 100 + '%'"
+                 [style.backgroundColor]="colors[d.userPointType]"
+                 [style.left]="((100 / data.length) * i) +'%'">
+              <!--{{(d.points / max) * 100}} = {{d.points}} of {{max}}-->
+            </div>
+          </div>
+          <div class="dates" *ngIf="dDates">
+            <div *ngFor="let d of dDates ; let i = index" [style.width]="(100 / dDates.length) +'%'" class="dateRow">
+              <div *ngIf="d" [ngClass]="{dateDivFirst : i < 2, dateDivLast : i > dDates.length -3, dateDivOthers: !(i < 2) && !(i > dDates.length -3) }" class="dateDiv">
+                {{d.getDate()}}/{{d.getMonth() + 1}}/{{d.getFullYear()}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="legends">
+          <div *ngFor="let l of types; let i = index" class="legRow">
+            <div class="legColor" [style.backgroundColor]="colors[i]"></div>
+            {{l.text}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="points">
+      <div class="dbHeader">
+        <div>Points Breakdown</div>
+      </div>
+      <div class="chart chartPoints">
+        <div class="detailBar"></div>
+        <div class="chartPlacer"><div #containerPieChart></div></div>
+        <div class="leg2">
+          <div *ngFor="let l of types; let i = index" class="legRow2">
+            <div class="legColorRound" [style.backgroundColor]="colors[i]"></div>
+            {{l.text}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -34,6 +34,7 @@ export class LeaderboardComponent implements OnInit, OnChanges {
     pageStep = 0;
     useUpdatedData = false;
     ngOnInit() {
+        this.data = [];
         this.formatDataset();
     }
     ngOnChanges(changes) {

@@ -82,8 +82,8 @@ var FeedReportIndexComponent = (function (_super) {
         this.feedDataService.getFeeditemsByType(this.feedTypeId).subscribe(function (result) {
             if (result && result.length > 0) {
                 result = result.filter(function (x) { return x.publishedLiveAt; });
-                _this.feedItems = _this.sortFeed(result);
             }
+            _this.feedItems = _this.sortFeed(result);
         });
     };
     FeedReportIndexComponent.prototype.sortFeed = function (feedItem) {
