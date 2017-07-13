@@ -25,26 +25,36 @@ var Enums = require("../../../enums");
 var FeedTypeEnum = Enums.FeedTypeEnum;
 var Feedclasses = require("../../../models/feedclasses");
 var basepartialfeeditem_component_1 = require("./basepartialfeeditem.component");
-var TextFeedItemFormComponent = (function (_super) {
-    __extends(TextFeedItemFormComponent, _super);
-    function TextFeedItemFormComponent(injector) {
-        return _super.call(this, injector, Feedclasses.TextFeed, '/api/Feed/UpdateTextFeedItem', FeedTypeEnum.Text) || this;
+var ImageFeedItemFormComponent = (function (_super) {
+    __extends(ImageFeedItemFormComponent, _super);
+    function ImageFeedItemFormComponent(injector) {
+        return _super.call(this, injector, Feedclasses.ImageFeed, '/api/Feed/UpdateImageFeedItem', FeedTypeEnum.Image) || this;
     }
-    TextFeedItemFormComponent.prototype.addFormControls = function () {
-        this.form.addControl('bodyText', new forms_1.FormControl(this.model.bodyText, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
+    ImageFeedItemFormComponent.prototype.addFormControls = function () {
+        this.form.addControl('imageDescription', new forms_1.FormControl(this.model.imageDescription, []));
+        this.form.addControl('mainImage', new forms_1.FormGroup({
+            id: new forms_1.FormControl(this.model.mainImage.id, []),
+            masterId: new forms_1.FormControl(this.model.mainImage.masterId, []),
+            marketId: new forms_1.FormControl(this.model.mainImage.marketId, []),
+            path: new forms_1.FormControl(this.model.mainImage.path, []),
+            name: new forms_1.FormControl(this.model.mainImage.name, []),
+            mediaType: new forms_1.FormControl(this.model.mainImage.mediaType, [])
+        }));
     };
     ;
-    TextFeedItemFormComponent.prototype.removeFormControls = function () {
-        this.form.removeControl('bodyText');
+    ImageFeedItemFormComponent.prototype.removeFormControls = function () {
+        this.form.removeControl('imageDescription');
+        this.form.removeControl('mainImage');
     };
     ;
-    return TextFeedItemFormComponent;
+    return ImageFeedItemFormComponent;
 }(basepartialfeeditem_component_1.BasePartialItemFormComponent));
-TextFeedItemFormComponent = __decorate([
+ImageFeedItemFormComponent = __decorate([
     core_1.Component({
-        selector: 'textfeeditem', template: ''
+        selector: 'imagefeeditem',
+        template: require('./imagefeeditem.component.html')
     }),
     __metadata("design:paramtypes", [core_1.Injector])
-], TextFeedItemFormComponent);
-exports.TextFeedItemFormComponent = TextFeedItemFormComponent;
-//# sourceMappingURL=textfeeditem.component.js.map
+], ImageFeedItemFormComponent);
+exports.ImageFeedItemFormComponent = ImageFeedItemFormComponent;
+//# sourceMappingURL=imagefeeditem.component.js.map

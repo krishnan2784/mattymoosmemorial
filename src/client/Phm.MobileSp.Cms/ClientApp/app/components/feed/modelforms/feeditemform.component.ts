@@ -22,6 +22,10 @@ import SurveyFeedItemFormComponent = Surveyfeeditemcomponent.SurveyFeedItemFormC
 import Datashareservice = require("../../../services/helpers/shareservice");
 import ShareService = Datashareservice.ShareService;
 import Observationfeeditemcomponent = require("./observationfeeditem.component");
+import { MediaInfo } from "../../../models/mediainfoclasses";
+import { MediaTypes } from "../../../enums";
+import { ImageFeedItemFormComponent } from "./imagefeeditem.component";
+import { VideoFeedItemFormComponent } from "./videofeeditem.component";
 import ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationFeedItemFormComponent;
 import BaseFeed = Feedclasses.BaseFeed;
 declare var $: any;
@@ -110,7 +114,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
                 additionalText: step.additionalText
             });
         });
-        this.navbarData[0].selected = true;
+        this.navbarData[this.feedFormSteps.currentStepIndex()].selected = true;
 
     }
 
@@ -172,8 +176,26 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
                 return SurveyFeedItemFormComponent;
             case Enums.FeedTypeEnum.Observation:
                 return ObservationFeedItemFormComponent;
+            case Enums.FeedTypeEnum.Image:
+                return ImageFeedItemFormComponent;
+            case Enums.FeedTypeEnum.Video:
+                return VideoFeedItemFormComponent;
             default:
                 return TextFeedItemFormComponent;
+        }
+    }
+
+    attachMedia(media: MediaInfo) {
+        if (media.mediaType == MediaTypes.Image) {
+            let model = new Feedclasses.ImageFeed(this.model);
+            model.mainImage = media;
+            this.model = model;
+            this.swapForm(ImageFeedItemFormComponent, this.model.feedCategory)
+        } else if (media.mediaType == MediaTypes.Video) {
+            let model = new Feedclasses.VideoFeed(this.model);
+            model.mainVideo = media;
+            this.model = model;
+            this.swapForm(VideoFeedItemFormComponent, this.model.feedCategory)
         }
     }
 

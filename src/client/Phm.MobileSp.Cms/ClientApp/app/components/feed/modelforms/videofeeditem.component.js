@@ -25,26 +25,36 @@ var Enums = require("../../../enums");
 var FeedTypeEnum = Enums.FeedTypeEnum;
 var Feedclasses = require("../../../models/feedclasses");
 var basepartialfeeditem_component_1 = require("./basepartialfeeditem.component");
-var TextFeedItemFormComponent = (function (_super) {
-    __extends(TextFeedItemFormComponent, _super);
-    function TextFeedItemFormComponent(injector) {
-        return _super.call(this, injector, Feedclasses.TextFeed, '/api/Feed/UpdateTextFeedItem', FeedTypeEnum.Text) || this;
+var VideoFeedItemFormComponent = (function (_super) {
+    __extends(VideoFeedItemFormComponent, _super);
+    function VideoFeedItemFormComponent(injector) {
+        return _super.call(this, injector, Feedclasses.VideoFeed, '/api/Feed/UpdateVideoFeedItem', FeedTypeEnum.Video) || this;
     }
-    TextFeedItemFormComponent.prototype.addFormControls = function () {
-        this.form.addControl('bodyText', new forms_1.FormControl(this.model.bodyText, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
+    VideoFeedItemFormComponent.prototype.addFormControls = function () {
+        this.form.addControl('videoDescription', new forms_1.FormControl(this.model.videoDescription, []));
+        this.form.addControl('mainVideo', new forms_1.FormGroup({
+            id: new forms_1.FormControl(this.model.mainVideo.id, []),
+            masterId: new forms_1.FormControl(this.model.mainVideo.masterId, []),
+            marketId: new forms_1.FormControl(this.model.mainVideo.marketId, []),
+            path: new forms_1.FormControl(this.model.mainVideo.path, []),
+            name: new forms_1.FormControl(this.model.mainVideo.name, []),
+            mediaType: new forms_1.FormControl(this.model.mainVideo.mediaType, [])
+        }));
     };
     ;
-    TextFeedItemFormComponent.prototype.removeFormControls = function () {
-        this.form.removeControl('bodyText');
+    VideoFeedItemFormComponent.prototype.removeFormControls = function () {
+        this.form.removeControl('videoDescription');
+        this.form.removeControl('mainVideo');
     };
     ;
-    return TextFeedItemFormComponent;
+    return VideoFeedItemFormComponent;
 }(basepartialfeeditem_component_1.BasePartialItemFormComponent));
-TextFeedItemFormComponent = __decorate([
+VideoFeedItemFormComponent = __decorate([
     core_1.Component({
-        selector: 'textfeeditem', template: ''
+        selector: 'videofeeditem',
+        template: require('./videofeeditem.component.html')
     }),
     __metadata("design:paramtypes", [core_1.Injector])
-], TextFeedItemFormComponent);
-exports.TextFeedItemFormComponent = TextFeedItemFormComponent;
-//# sourceMappingURL=textfeeditem.component.js.map
+], VideoFeedItemFormComponent);
+exports.VideoFeedItemFormComponent = VideoFeedItemFormComponent;
+//# sourceMappingURL=videofeeditem.component.js.map

@@ -15,21 +15,31 @@ import FeedModel = require("../../../interfaces/models/IFeedModel");
 import { BasePartialItemFormComponent } from "./basepartialfeeditem.component";
 
 @Component({
-    selector: 'textfeeditem', template: ''
+    selector: 'videofeeditem', 
+    template: require('./videofeeditem.component.html')
 })
-export class TextFeedItemFormComponent extends BasePartialItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
-    model: Feedclasses.TextFeed;
+export class VideoFeedItemFormComponent extends BasePartialItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
+    model: Feedclasses.VideoFeed;
 
     constructor(injector: Injector) {
-        super(injector, Feedclasses.TextFeed, '/api/Feed/UpdateTextFeedItem', FeedTypeEnum.Text);
+        super(injector, Feedclasses.VideoFeed, '/api/Feed/UpdateVideoFeedItem', FeedTypeEnum.Video);
     } 
 
     addFormControls() {
-        this.form.addControl('bodyText', new FormControl(this.model.bodyText, [<any>Validators.required, <any>Validators.minLength(5)]));
+        this.form.addControl('videoDescription', new FormControl(this.model.videoDescription, []));
+        this.form.addControl('mainVideo', new FormGroup({
+            id: new FormControl(this.model.mainVideo.id, []),
+            masterId: new FormControl(this.model.mainVideo.masterId, []),
+            marketId: new FormControl(this.model.mainVideo.marketId, []),
+            path: new FormControl(this.model.mainVideo.path, []),
+            name: new FormControl(this.model.mainVideo.name, []),
+            mediaType: new FormControl(this.model.mainVideo.mediaType, [])
+        }));
     };
 
     removeFormControls() {
-        this.form.removeControl('bodyText');
+        this.form.removeControl('videoDescription');
+        this.form.removeControl('mainVideo');
     };
     
 }
