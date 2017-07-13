@@ -163,7 +163,7 @@
 <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Media)" class="col-md-8">
     <h5>Select from Media Library or Upload new files</h5>
     <p>Information here about file format recommendations.</p>
-    <upload></upload>
+    <upload (mediaUploaded)="attachMedia($event)"></upload>
 
 </div>
 

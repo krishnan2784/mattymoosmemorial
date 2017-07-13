@@ -15,31 +15,59 @@ var MediaDataService = Mediaservice.MediaDataService;
 var UploadMediaComponent = (function () {
     function UploadMediaComponent(mediaService) {
         this.mediaService = mediaService;
+        this.showPreview = true;
         this.files = [];
+        this.uploading = false;
+        this.mediaUploaded = new core_1.EventEmitter();
     }
     UploadMediaComponent.prototype.uploadFile = function () {
         if (!this.files)
             return;
-        this.mediaService.uploadFile(this.files).subscribe(function (response) {
+        this.uploading = true;
+        for (var _i = 0, _a = this.files; _i < _a.length; _i++) {
+            var file = _a[_i];
+            switch (file.type) {
+                case 'jpg':
+                case 'png':
+                    this.uploadImage(file);
+                    return;
+                default:
+                    this.uploadVideo(file);
+                    return;
+            }
+        }
+    };
+    UploadMediaComponent.prototype.uploadVideo = function (file) {
+        var _this = this;
+        this.mediaService.uploadFile(file).subscribe(function (response) {
+            _this.processUploadResponse(response);
         });
     };
-    UploadMediaComponent.prototype.uploadImage = function () {
+    UploadMediaComponent.prototype.uploadImage = function (file) {
         var _this = this;
-        if (!this.files)
-            return;
-        this.mediaService.uploadImage(this.files[0]).subscribe(function (response) {
-            _this.imagePreviewUrl = response.path + response.name;
+        this.mediaService.uploadImage(file).subscribe(function (response) {
+            _this.processUploadResponse(response);
         });
+    };
+    UploadMediaComponent.prototype.processUploadResponse = function (media) {
+        this.uploading = false;
+        if (media) {
+            this.imagePreviewUrl = media.path + media.name;
+            this.mediaUploaded.emit(media);
+        }
     };
     UploadMediaComponent.prototype.filesSelectHandler = function (fileInput) {
         var FileList = fileInput.target.files;
         for (var i = 0, length_1 = FileList.length; i < length_1; i++) {
             this.files.push(FileList.item(i));
         }
-        //this.progressBarVisibility = true;
     };
     return UploadMediaComponent;
 }());
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Boolean)
+], UploadMediaComponent.prototype, "showPreview", void 0);
 UploadMediaComponent = __decorate([
     core_1.Injectable(),
     core_1.Component({

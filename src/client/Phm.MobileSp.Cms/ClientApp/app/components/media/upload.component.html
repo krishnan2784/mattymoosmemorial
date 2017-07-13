@@ -3,6 +3,9 @@
     <input type="file" accept="image/*" (change)="filesSelectHandler($event)" />
 </div>
 <span class="input-group-btn">
-    <button class="btn btn-primary btn-save" (click)="uploadImage()">Upload</button>
+    <button class="btn btn-primary btn-save" (click)="uploadFile()">Upload</button>
 </span>
-<img src="{{imagePreviewUrl}}" *ngIf="imagePreviewUrl" class="preview-image" />
+<div *ngIf="showPreview" class="preview-container">
+    <img src="{{imagePreviewUrl}}" *ngIf="imagePreviewUrl" class="preview-image" />
+    <div *ngIf="uploading" class="loader"></div>
+</div>

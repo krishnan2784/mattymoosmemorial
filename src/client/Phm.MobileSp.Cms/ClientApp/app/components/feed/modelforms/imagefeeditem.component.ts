@@ -15,21 +15,31 @@ import FeedModel = require("../../../interfaces/models/IFeedModel");
 import { BasePartialItemFormComponent } from "./basepartialfeeditem.component";
 
 @Component({
-    selector: 'textfeeditem', template: ''
+    selector: 'imagefeeditem', 
+    template: require('./iamgefeeditem.component.html')
 })
-export class TextFeedItemFormComponent extends BasePartialItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
-    model: Feedclasses.TextFeed;
+export class ImageFeedItemFormComponent extends BasePartialItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
+    model: Feedclasses.ImageFeed;
 
     constructor(injector: Injector) {
-        super(injector, Feedclasses.TextFeed, '/api/Feed/UpdateTextFeedItem', FeedTypeEnum.Text);
+        super(injector, Feedclasses.ImageFeed, '/api/Feed/UpdateImageFeedItem', FeedTypeEnum.Image);
     } 
 
     addFormControls() {
-        this.form.addControl('bodyText', new FormControl(this.model.bodyText, [<any>Validators.required, <any>Validators.minLength(5)]));
+        this.form.addControl('imageDescription', new FormControl(this.model.imageDescription, []));
+        this.form.addControl('mainImage', new FormGroup({
+            id: new FormControl(this.model.mainImage.id, []),
+            masterId: new FormControl(this.model.mainImage.masterId, []),
+            marketId: new FormControl(this.model.mainImage.marketId, []),
+            path: new FormControl(this.model.mainImage.path, []),
+            name: new FormControl(this.model.mainImage.name, []),
+            mediaType: new FormControl(this.model.mainImage.mediaType, [])
+        }));
     };
 
     removeFormControls() {
-        this.form.removeControl('bodyText');
+        this.form.removeControl('imageDescription');
+        this.form.removeControl('mainImage');
     };
     
 }

@@ -27,6 +27,8 @@ var SurveyFeedItemFormComponent = Surveyfeeditemcomponent.SurveyFeedItemFormComp
 var Datashareservice = require("../../../services/helpers/shareservice");
 var ShareService = Datashareservice.ShareService;
 var Observationfeeditemcomponent = require("./observationfeeditem.component");
+var enums_1 = require("../../../enums");
+var imagefeeditem_component_1 = require("./imagefeeditem.component");
 var ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationFeedItemFormComponent;
 var FeedItemForm = (function () {
     function FeedItemForm(fb, http, route, router, feedDataService, injector, sharedService) {
@@ -135,8 +137,25 @@ var FeedItemForm = (function () {
                 return SurveyFeedItemFormComponent;
             case Enums.FeedTypeEnum.Observation:
                 return ObservationFeedItemFormComponent;
+            case Enums.FeedTypeEnum.Image:
+                return imagefeeditem_component_1.ImageFeedItemFormComponent;
             default:
                 return textfeeditem_component_1.TextFeedItemFormComponent;
+        }
+    };
+    FeedItemForm.prototype.attachMedia = function (media) {
+        console.log(media);
+        if (media.mediaType == enums_1.MediaTypes.Image) {
+            var model = new Feedclasses.ImageFeed(this.model);
+            model.mainImage = media;
+            this.model.feedType = Enums.FeedTypeEnum.Image;
+            this.swapForm(imagefeeditem_component_1.ImageFeedItemFormComponent, this.model.feedCategory);
+        }
+        else if (media.mediaType == enums_1.MediaTypes.Video) {
+            var model = new Feedclasses.VideoFeed(this.model);
+            model.mainVideo = media;
+            this.model.feedType = Enums.FeedTypeEnum.Video;
+            this.swapForm(imagefeeditem_component_1.ImageFeedItemFormComponent, this.model.feedCategory);
         }
     };
     FeedItemForm.prototype.save = function (feedItem, isValid) {

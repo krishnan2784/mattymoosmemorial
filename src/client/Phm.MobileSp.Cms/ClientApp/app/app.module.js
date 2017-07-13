@@ -72,6 +72,7 @@ var dynamicchartformats_component_1 = require("./components/reports/dynamicchart
 var surveyfeeditemreport_component_1 = require("./components/reports/surveyfeeditemreport.component");
 var angular2_modal_1 = require("angular2-modal");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
+var imagefeeditem_component_1 = require("./components/feed/modelforms/imagefeeditem.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -99,6 +100,7 @@ AppModule = __decorate([
             feeditemcontainer_component_1.FeedItemContainerComponent,
             feeditemform_component_1.FeedItemForm,
             textfeeditem_component_1.TextFeedItemFormComponent,
+            imagefeeditem_component_1.ImageFeedItemFormComponent,
             quizfeeditem_component_1.QuizFeedItemFormComponent,
             surveyfeeditem_component_1.SurveyFeedItemFormComponent,
             observationfeeditem_component_1.ObservationFeedItemFormComponent,

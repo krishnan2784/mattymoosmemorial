@@ -22,6 +22,9 @@ import SurveyFeedItemFormComponent = Surveyfeeditemcomponent.SurveyFeedItemFormC
 import Datashareservice = require("../../../services/helpers/shareservice");
 import ShareService = Datashareservice.ShareService;
 import Observationfeeditemcomponent = require("./observationfeeditem.component");
+import { MediaInfo } from "../../../models/mediainfoclasses";
+import { MediaTypes } from "../../../enums";
+import { ImageFeedItemFormComponent } from "./imagefeeditem.component";
 import ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationFeedItemFormComponent;
 import BaseFeed = Feedclasses.BaseFeed;
 declare var $: any;
@@ -162,8 +165,26 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
                 return SurveyFeedItemFormComponent;
             case Enums.FeedTypeEnum.Observation:
                 return ObservationFeedItemFormComponent;
+            case Enums.FeedTypeEnum.Image:
+                return ImageFeedItemFormComponent;
+
             default:
                 return TextFeedItemFormComponent;
+        }
+    }
+
+    attachMedia(media: MediaInfo) {
+        console.log(media);
+        if (media.mediaType == MediaTypes.Image) {
+            let model = new Feedclasses.ImageFeed(this.model);
+            model.mainImage = media;
+            this.model.feedType = Enums.FeedTypeEnum.Image;
+            this.swapForm(ImageFeedItemFormComponent, this.model.feedCategory)
+        } else if (media.mediaType == MediaTypes.Video) {
+            let model = new Feedclasses.VideoFeed(this.model);
+            model.mainVideo = media;
+            this.model.feedType = Enums.FeedTypeEnum.Video;
+            this.swapForm(ImageFeedItemFormComponent, this.model.feedCategory)
         }
     }
 
