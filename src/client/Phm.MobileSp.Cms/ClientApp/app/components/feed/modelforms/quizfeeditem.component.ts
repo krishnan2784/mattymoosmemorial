@@ -31,6 +31,9 @@ export class QuizFeedItemFormComponent extends BaseQuestionFeedItemFormComponent
 
     removeFormControls() {
         this.form.removeControl('questions');
+        this.form.removeControl('onBoardingMessage');
+        this.form.removeControl('successMessage');
+        this.form.removeControl('failMessage');
     };
 
     initQuestion(question: QuizClasses.QuizQuestion = new QuizClasses.QuizQuestion()) {

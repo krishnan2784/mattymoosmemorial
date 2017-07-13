@@ -31,6 +31,9 @@ export class BaseFeed extends Baseclasses.BaseModel implements FeedModel.IFeedIt
     points: number;
     mainIcon: Mediainfoclasses.MediaInfo;
     marketId: string;
+    webUrlLink: string;
+    callToActionText: string;
+    callToActionUrl: string;
 
     constructor(options: {} = {}) {
         super(options);
@@ -50,6 +53,9 @@ export class BaseFeed extends Baseclasses.BaseModel implements FeedModel.IFeedIt
         this.startDate = options['startDate'];
         this.endDate = options['endDate'];
         this.publishedLiveAt = options['publishedLiveAt'];
+        this.webUrlLink = options['webUrlLink'] || '';
+        this.callToActionText = options['callToActionText'] || '';
+        this.callToActionUrl = options['callToActionUrl'] || '';
 
         this.formatFeedItemDates();
     }

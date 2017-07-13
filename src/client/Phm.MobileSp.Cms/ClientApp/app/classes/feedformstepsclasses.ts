@@ -75,16 +75,8 @@ export class FeedFormSteps implements OnInit {
 
     public navigateToSelectedStep(selectedStep: FeedFormStepType) {
         this.currentStep = this.visibleSteps.find(x => x.type === selectedStep);
-        setTimeout(function() {
-            Materialize.updateTextFields();
-            $('.datepicker').pickadate({
-                selectMonths: true,
-                selectYears: 5,
-                format: 'dddd, dd mmm, yyyy',
-                formatSubmit: 'yyyy/mm/dd'
-            });
-        }, 1);     
     }
+
 }
 
 export class FeedFormStep {

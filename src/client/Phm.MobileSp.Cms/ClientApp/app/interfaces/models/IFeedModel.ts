@@ -22,4 +22,7 @@ export interface IFeedItem {
     endDate: string;
     publishedLiveAt: Date;
     shortDescription: string;
+    webUrlLink: string;
+    callToActionText: string;
+    callToActionUrl: string;
 }
