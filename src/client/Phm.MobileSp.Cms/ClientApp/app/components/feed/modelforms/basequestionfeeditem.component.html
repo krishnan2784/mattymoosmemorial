@@ -25,43 +25,44 @@
     
 
     <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.QuizScore)">
-        <div class="input-field">
-            <input id="onBoardingMessage" type="text" formControlName="onBoardingMessage">
-            <label for="onBoardingMessage" [class.active]="form.controls.onBoardingMessage.value.length>0">Welcome message</label>
+        <div class="rich-text-box">
+            <label>Welcome message</label>
+            <editor [elementId]="'onBoardingMessage'" [value]="model.onBoardingMessage" [formGroup]="form"></editor>
             <small [class.active-warning]="!form.controls.onBoardingMessage.valid && submitted">
                 e.g: Welcome to the Quiz
             </small>
         </div>
 
-        <div class="input-field">
-            <input id="successMessage" type="text" formControlName="successMessage">
-            <label for="successMessage" [class.active]="form.controls.successMessage.value.length>0">Congratulate your learners with an engaging message</label>
+        <div class="rich-text-box">
+            <label>Congratulate your learners with an engaging message</label>
+            <editor [elementId]="'successMessage'" [value]="model.successMessage" [formGroup]="form"></editor>
             <small [class.active-warning]="!form.controls.successMessage.valid && submitted">
                 e.g: Congratulations! Your skills are improving
             </small>
         </div>
 
-        <div class="input-field">
-            <input id="failMessage" type="text" formControlName="failMessage">
-            <label for="failMessage" [class.active]="form.controls.failMessage.value.length>0">Let your learners know what with wrong with a positive message</label>
+        <div class="rich-text-box">
+            <label>Let your learners know what with wrong with a positive message</label>
+            <editor [elementId]="'failMessage'" [value]="model.failMessage" [formGroup]="form"></editor>
             <small [class.active-warning]="!form.controls.failMessage.valid && submitted">
                 e.g: oooh Unlucky! You will get it next time!
             </small>
         </div>
+
     </div>
     
     <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.SurveyScore)">
-        <div class="input-field">
-            <input id="surveyDescription" type="text" formControlName="surveyDescription">
-            <label for="surveyDescription" [class.active]="form.controls.surveyDescription.value.length>0">Welcome message</label>
+        <div class="rich-text-box">
+            <label>Welcome message</label>
+            <editor [elementId]="'surveyDescription'" [value]="model.surveyDescription" [formGroup]="form"></editor>
             <small [class.active-warning]="!form.controls.surveyDescription.valid && submitted">
                 e.g: Welcome to the Survey
             </small>
         </div>
 
-        <div class="input-field">
-            <input id="completionMessage" type="text" formControlName="completionMessage">
-            <label for="completionMessage" [class.active]="form.controls.completionMessage.value.length>0">Completion message</label>
+        <div class="rich-text-box">
+            <label>Completion message</label>
+            <editor [elementId]="'completionMessage'" [value]="model.completionMessage" [formGroup]="form"></editor>
             <small [class.active-warning]="!form.controls.completionMessage.valid && submitted">
                 e.g: Thank you for taking part!
             </small>

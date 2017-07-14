@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using System.Net.Http;
 using System.Net;
 using Phm.MobileSp.Cms.Core.Models.Interfaces;
+using Phm.MobileSp.Cms.Core.Models;
 
 namespace Phm.MobileSp.Cms.Controllers
 {
@@ -49,6 +50,14 @@ namespace Phm.MobileSp.Cms.Controllers
 #endif
 
             base.OnActionExecuting(context);
+        }
+
+        [HttpGet("[action]")]
+        [JsonResponseWrapper]
+        [ResponseCache(CacheProfileName = "NoCache")]
+        public JsonResult GetAuthToken()
+        {
+            return Json(new BaseResponse(AuthToken));
         }
 
         [HttpGet]

@@ -74,6 +74,9 @@ var angular2_modal_1 = require("angular2-modal");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var quizuserresults_component_1 = require("./components/reports/quizuserresults/quizuserresults.component");
 var learnerstat_component_1 = require("./components/reports/leaderboards/learnerstat/learnerstat.component");
+var imagefeeditem_component_1 = require("./components/feed/modelforms/imagefeeditem.component");
+var videofeeditem_component_1 = require("./components/feed/modelforms/videofeeditem.component");
+var editor_component_1 = require("./components/common/editor/editor.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -101,6 +104,8 @@ AppModule = __decorate([
             feeditemcontainer_component_1.FeedItemContainerComponent,
             feeditemform_component_1.FeedItemForm,
             textfeeditem_component_1.TextFeedItemFormComponent,
+            imagefeeditem_component_1.ImageFeedItemFormComponent,
+            videofeeditem_component_1.VideoFeedItemFormComponent,
             quizfeeditem_component_1.QuizFeedItemFormComponent,
             surveyfeeditem_component_1.SurveyFeedItemFormComponent,
             observationfeeditem_component_1.ObservationFeedItemFormComponent,
@@ -130,6 +135,7 @@ AppModule = __decorate([
             FeedItemCopyToMarket,
             //shared
             UserFilter,
+            editor_component_1.RichTextEditorComponent,
             UploadMediaComponent
         ],
         imports: [

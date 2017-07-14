@@ -22,10 +22,15 @@ import SurveyFeedItemFormComponent = Surveyfeeditemcomponent.SurveyFeedItemFormC
 import Datashareservice = require("../../../services/helpers/shareservice");
 import ShareService = Datashareservice.ShareService;
 import Observationfeeditemcomponent = require("./observationfeeditem.component");
+import { MediaInfo } from "../../../models/mediainfoclasses";
+import { MediaTypes } from "../../../enums";
+import { ImageFeedItemFormComponent } from "./imagefeeditem.component";
+import { VideoFeedItemFormComponent } from "./videofeeditem.component";
 import ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationFeedItemFormComponent;
 import BaseFeed = Feedclasses.BaseFeed;
 declare var $: any;
 declare var Materialize: any;
+declare var tinymce: any;
 
 @Component({
     selector: 'feeditemform',
@@ -76,20 +81,25 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     public swapForm<TFormType extends any>(newFormType: TFormType, feedCategory: FeedCategoryEnum) {
         let newForm = (new newFormType()) as IFeedItemComponents.IFeedItemPartialForm;
 
-        if (this.form && this.subForm) {
-            this.subForm = null;
-        }
-        
-        this.model = new newForm.feedModelType(this.model);
+        if (!this.subForm || this.subForm.feedType != newForm.feedType) {
+            if (this.form) {
+                this.subForm = null;
+            } 
 
-        this.feedFormData = {
-            feedFormComponent: newFormType,
-            inputs: { form: this.form, feedFormSteps: this.feedFormSteps, model: this.model }
-        };
+            this.model = new newForm.feedModelType(this.model);
 
-        this.subForm = newForm;
-        this.model.feedType = this.subForm.feedType;
+            this.feedFormData = {
+                feedFormComponent: newFormType,
+                inputs: { form: this.form, feedFormSteps: this.feedFormSteps, model: this.model }
+            };
+
+            this.subForm = newForm;
+
+        }        
+
+        this.model.feedType = newForm.feedType;
         this.model.feedCategory = feedCategory;
+
         this.feedFormSteps.setFormType(newForm.feedType);
         this.setupFormSteps();
 
@@ -105,7 +115,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
                 additionalText: step.additionalText
             });
         });
-        this.navbarData[0].selected = true;
+        this.navbarData[this.feedFormSteps.currentStepIndex()].selected = true;
 
     }
 
@@ -125,10 +135,12 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             makeTitleWidgetLink: ['', []],
             permissions: ['', []],
             readingTime: ['', []],
+            callToActionText: ['', []],
+            callToActionUrl: ['', []],
             startDate: ['', [<any>Validators.required]],
             endDate: ['', [<any>Validators.required]]
         });
-    }
+    } 
 
     getModel() {
         if (this.model) {
@@ -140,6 +152,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             this.updateForm();
             this.setupFormSteps();
         }
+        this.model.webUrlLink.indexOf('http://')
     };
 
     updateForm() {
@@ -164,8 +177,26 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
                 return SurveyFeedItemFormComponent;
             case Enums.FeedTypeEnum.Observation:
                 return ObservationFeedItemFormComponent;
+            case Enums.FeedTypeEnum.Image:
+                return ImageFeedItemFormComponent;
+            case Enums.FeedTypeEnum.Video:
+                return VideoFeedItemFormComponent;
             default:
                 return TextFeedItemFormComponent;
+        }
+    }
+
+    attachMedia(media: MediaInfo) {
+        if (media.mediaType == MediaTypes.Image) {
+            let model = new Feedclasses.ImageFeed(this.model);
+            model.mainImage = media;
+            this.model = model;
+            this.swapForm(ImageFeedItemFormComponent, this.model.feedCategory)
+        } else if (media.mediaType == MediaTypes.Video) {
+            let model = new Feedclasses.VideoFeed(this.model);
+            model.mainVideo = media;
+            this.model = model;
+            this.swapForm(VideoFeedItemFormComponent, this.model.feedCategory)
         }
     }
 
@@ -183,6 +214,20 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
                 this.feedUpdated.emit(result.content);    
             }
         });
+    }
+
+    public updateMaterialize() {
+        setTimeout(function () {
+            $('#bodyText').trigger('autoresize');
+
+            //Materialize.updateTextFields();
+            //$('.datepicker').pickadate({
+            //    selectMonths: true,
+            //    selectYears: 5,
+            //    format: 'dddd, dd mmm, yyyy',
+            //    formatSubmit: 'yyyy/mm/dd'
+            //});
+        }, 1);
     }
 
     goBack() {

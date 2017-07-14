@@ -9,7 +9,7 @@ declare var Materialize: any;
 @Component({
     selector: 'questionfeeditem',
     template: require('./basequestionfeeditem.component.html'),
-    styles: [require('./basequestionfeeditem.component.css')]
+    styles: [require('./feeditemform.component.css'), require('./basequestionfeeditem.component.css')]
 })
 export class BaseQuestionFeedItemFormComponent extends BasePartialItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
     public currentQuestion: number = 0;

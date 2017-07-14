@@ -14,7 +14,7 @@
     </div>
 
     <div class="feed-form-navigation col-md-8">
-        <navbar [data]="navbarData" (optionSelected)="this.feedFormSteps.navigateToSelectedStep($event)"></navbar>
+        <navbar [data]="navbarData" (optionSelected)="this.feedFormSteps.navigateToSelectedStep($event);updateMaterialize();"></navbar>
         <div class="clear-both"></div>
     </div>
 
@@ -134,42 +134,69 @@
     
 <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Main)"  class="col-md-8">
         
-    <div class="input-field">
-        <input id="title" type="text" formControlName="title">
-        <label for="title"[class.active]="form.controls.title.value.length>0">Enter Title</label>
+    <div class="rich-text-box">
+        <label>Enter Title</label>
+        <editor [elementId]="'title'" [value]="model.title" [formGroup]="form"></editor>
         <small [class.active-warning]="!form.controls.title.valid && submitted">
             Title is required (minimum 5 characters).
         </small>
     </div>
         
-    <div class="input-field">
-        <label [class.active]="form.controls.shortDescription.value.length>0">Short Description</label>
-        <input type="text" formControlName="shortDescription">
+    <div class="rich-text-box">
+        <label>Short Description</label>
+        <editor [elementId]="'shortDescription'" [value]="model.shortDescription" [formGroup]="form"></editor>
         <small [class.active-warning]="!form.controls.shortDescription.valid && submitted">
             Short description is required.
         </small>
     </div>
 
-    <div *ngIf="model.feedType == feedTypes.Text"  class="input-field">
-        <label [class.active]="form.controls.bodyText.value.length>0">Body Text</label>
-        <textarea formControlName="bodyText" class="materialize-textarea"></textarea>
+    <div class="rich-text-box" *ngIf="model.feedType == feedTypes.Text">
+        <label>Body Text</label>
+        <editor [elementId]="'bodyText'" [value]="model.bodyText" [formGroup]="form"></editor>
         <small [class.active-warning]="!form.controls.bodyText.valid && submitted">
-            Body text is required (minimum 5 characters).
+            Body text is required if you are not uploading an image or video (minimum 5 characters).
         </small> 
     </div>
         
 </div>
 
 <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Media)" class="col-md-8">
-    <h5>Select from Media Library or Upload new files</h5>
-    <p>Information here about file format recommendations.</p>
-    <upload></upload>
-
+    <h5>Upload an image or video</h5>
+    <p><!--Information here about file format recommendations.--></p>
+    <upload (mediaUploaded)="attachMedia($event)" *ngIf="model.feedType != feedTypes.Image && model.feedType != feedTypes.Video"></upload>
+    <upload (mediaUploaded)="attachMedia($event)" [selectedMedia]="model.mainImage" *ngIf="model.feedType == feedTypes.Image"></upload>
+    <upload (mediaUploaded)="attachMedia($event)" [selectedMedia]="model.mainVideo" *ngIf="model.feedType == feedTypes.Video"></upload>
+    <div *ngIf="feedFormData && (model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)">
+        <feed-form-component [feedFormData]="feedFormData"></feed-form-component>
+    </div>
 </div>
 
 <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Links)" class="col-md-8">
-
-
+    <h5>Call-To-Action</h5>
+    <div class="col-md-9">
+        <div class="col-md-4">
+            <div class="input-field">
+                <label [class.active]="form.controls.callToActionText.value.length>0">Button label</label>
+                <input type="text" formControlName="callToActionText">
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="input-field">
+                <label [class.active]="form.controls.callToActionUrl.value.length>0">Url</label>
+                <input type="text" formControlName="callToActionUrl">
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <small class="col-lg-12">
+            Use Call-To-Action to link the user to additional information
+        </small>
+    </div>
+    <div class="col-md-3">
+        <a class="button btn" *ngIf="form.controls.callToActionUrl.value.length>5" href="{{form.controls.callToActionUrl.value.indexOf('http') == 0 ? form.controls.callToActionUrl.value : 'http://' + form.controls.callToActionUrl.value}}" target="_blank">
+         <!--<span *ngIf="form.controls.callToActionText.value > 0">{{model.callToActionText}}</span>-->
+            <span>Test URL</span>
+        </a>
+    </div>
 </div>
 
     
@@ -204,7 +231,7 @@
             <input id="readingTime" type="text" formControlName="readingTime">
             <label for="readingTime" [class.active]="form.controls.readingTime.value>0">Reading Time (mins)</label>
             <small [class.active-warning]="!form.controls.readingTime.valid && submitted">
-                (Estimated time is mandatory)
+                Etimated time is mandatory
             </small>
         </div>
 
@@ -220,7 +247,7 @@
 
     </div>
 
-    <div *ngIf="feedFormData">
+    <div *ngIf="feedFormData && model.feedType != feedTypes.Image && model.feedType != feedTypes.Video">
         <feed-form-component [feedFormData]="feedFormData"></feed-form-component>
     </div>
    

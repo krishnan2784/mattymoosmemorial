@@ -27,6 +27,9 @@ var SurveyFeedItemFormComponent = Surveyfeeditemcomponent.SurveyFeedItemFormComp
 var Datashareservice = require("../../../services/helpers/shareservice");
 var ShareService = Datashareservice.ShareService;
 var Observationfeeditemcomponent = require("./observationfeeditem.component");
+var enums_1 = require("../../../enums");
+var imagefeeditem_component_1 = require("./imagefeeditem.component");
+var videofeeditem_component_1 = require("./videofeeditem.component");
 var ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationFeedItemFormComponent;
 var FeedItemForm = (function () {
     function FeedItemForm(fb, http, route, router, feedDataService, injector, sharedService) {
@@ -54,16 +57,18 @@ var FeedItemForm = (function () {
     }
     FeedItemForm.prototype.swapForm = function (newFormType, feedCategory) {
         var newForm = (new newFormType());
-        if (this.form && this.subForm) {
-            this.subForm = null;
+        if (!this.subForm || this.subForm.feedType != newForm.feedType) {
+            if (this.form) {
+                this.subForm = null;
+            }
+            this.model = new newForm.feedModelType(this.model);
+            this.feedFormData = {
+                feedFormComponent: newFormType,
+                inputs: { form: this.form, feedFormSteps: this.feedFormSteps, model: this.model }
+            };
+            this.subForm = newForm;
         }
-        this.model = new newForm.feedModelType(this.model);
-        this.feedFormData = {
-            feedFormComponent: newFormType,
-            inputs: { form: this.form, feedFormSteps: this.feedFormSteps, model: this.model }
-        };
-        this.subForm = newForm;
-        this.model.feedType = this.subForm.feedType;
+        this.model.feedType = newForm.feedType;
         this.model.feedCategory = feedCategory;
         this.feedFormSteps.setFormType(newForm.feedType);
         this.setupFormSteps();
@@ -79,7 +84,7 @@ var FeedItemForm = (function () {
                 additionalText: step.additionalText
             });
         });
-        this.navbarData[0].selected = true;
+        this.navbarData[this.feedFormSteps.currentStepIndex()].selected = true;
     };
     FeedItemForm.prototype.initialiseForm = function () {
         this.form = this._fb.group({
@@ -97,6 +102,8 @@ var FeedItemForm = (function () {
             makeTitleWidgetLink: ['', []],
             permissions: ['', []],
             readingTime: ['', []],
+            callToActionText: ['', []],
+            callToActionUrl: ['', []],
             startDate: ['', [forms_1.Validators.required]],
             endDate: ['', [forms_1.Validators.required]]
         });
@@ -112,6 +119,7 @@ var FeedItemForm = (function () {
             this.updateForm();
             this.setupFormSteps();
         }
+        this.model.webUrlLink.indexOf('http://');
     };
     ;
     FeedItemForm.prototype.updateForm = function () {
@@ -136,8 +144,26 @@ var FeedItemForm = (function () {
                 return SurveyFeedItemFormComponent;
             case Enums.FeedTypeEnum.Observation:
                 return ObservationFeedItemFormComponent;
+            case Enums.FeedTypeEnum.Image:
+                return imagefeeditem_component_1.ImageFeedItemFormComponent;
+            case Enums.FeedTypeEnum.Video:
+                return videofeeditem_component_1.VideoFeedItemFormComponent;
             default:
                 return textfeeditem_component_1.TextFeedItemFormComponent;
+        }
+    };
+    FeedItemForm.prototype.attachMedia = function (media) {
+        if (media.mediaType == enums_1.MediaTypes.Image) {
+            var model = new Feedclasses.ImageFeed(this.model);
+            model.mainImage = media;
+            this.model = model;
+            this.swapForm(imagefeeditem_component_1.ImageFeedItemFormComponent, this.model.feedCategory);
+        }
+        else if (media.mediaType == enums_1.MediaTypes.Video) {
+            var model = new Feedclasses.VideoFeed(this.model);
+            model.mainVideo = media;
+            this.model = model;
+            this.swapForm(videofeeditem_component_1.VideoFeedItemFormComponent, this.model.feedCategory);
         }
     };
     FeedItemForm.prototype.save = function (feedItem, isValid) {
@@ -153,6 +179,18 @@ var FeedItemForm = (function () {
                 _this.feedUpdated.emit(result.content);
             }
         });
+    };
+    FeedItemForm.prototype.updateMaterialize = function () {
+        setTimeout(function () {
+            $('#bodyText').trigger('autoresize');
+            //Materialize.updateTextFields();
+            //$('.datepicker').pickadate({
+            //    selectMonths: true,
+            //    selectYears: 5,
+            //    format: 'dddd, dd mmm, yyyy',
+            //    formatSubmit: 'yyyy/mm/dd'
+            //});
+        }, 1);
     };
     FeedItemForm.prototype.goBack = function () {
         this.feedUpdated.emit(null);

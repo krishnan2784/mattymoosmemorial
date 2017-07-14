@@ -16,15 +16,15 @@ var MediaInfo = (function (_super) {
     function MediaInfo(options) {
         if (options === void 0) { options = {}; }
         var _this = _super.call(this, options) || this;
-        _this.extension = options['Extension'] || '';
-        _this.marketId = options['MarketId'];
-        _this.mediaId = options['MediaId'];
-        _this.mediaType = options['MediaType'];
-        _this.mediaVersion = options['MediaVersion'];
-        _this.name = options['Name'];
-        _this.path = options['Path'];
-        _this.preview1Path = options['Preview1Path'];
-        _this.size = options['Size'];
+        _this.extension = options['extension'] || '';
+        _this.marketId = options['marketId'];
+        _this.mediaId = options['mediaId'];
+        _this.mediaType = options['mediaType'];
+        _this.mediaVersion = options['mediaVersion'];
+        _this.name = options['name'];
+        _this.path = options['path'];
+        _this.preview1Path = options['preview1Path'];
+        _this.size = options['size'];
         return _this;
     }
     return MediaInfo;

@@ -14,14 +14,14 @@ export class MediaInfo extends Baseclasses.BaseModel {
 
     constructor(options: {} = {}) {
         super(options);
-        this.extension = options['Extension'] || '';
-        this.marketId = options['MarketId'];
-        this.mediaId = options['MediaId'];
-        this.mediaType = options['MediaType'];
-        this.mediaVersion = options['MediaVersion'];
-        this.name = options['Name'];
-        this.path = options['Path'];
-        this.preview1Path = options['Preview1Path'];
-        this.size = options['Size'];
+        this.extension = options['extension'] || '';
+        this.marketId = options['marketId'];
+        this.mediaId = options['mediaId'];
+        this.mediaType = options['mediaType'];
+        this.mediaVersion = options['mediaVersion'];
+        this.name = options['name'];
+        this.path = options['path'];
+        this.preview1Path = options['preview1Path'];
+        this.size = options['size'];
     }
 }

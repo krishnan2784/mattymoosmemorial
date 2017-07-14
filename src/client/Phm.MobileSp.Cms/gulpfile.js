@@ -40,9 +40,9 @@ gulp.task('less', function () {
 
 gulp.task('css', function () {
 
-    return gulp.src('./css/**/*.css')
-      .pipe(changed('./wwwroot/css'))
-      .pipe(gulp.dest('./wwwroot/css'));
+    gulp.src('./css/**/*.css')
+        .pipe(changed('./wwwroot/css'))
+        .pipe(gulp.dest('./wwwroot/css'));
 
 });
 
@@ -55,9 +55,13 @@ gulp.task('typescript', function () {
 });
 
 gulp.task('javascript', function () {
-    return gulp.src('./scripts/**/*.js')
+    gulp.src('./scripts/**/*.js')
       .pipe(changed('./wwwroot/scripts'))
-      .pipe(gulp.dest('./wwwroot/scripts'));
+        .pipe(gulp.dest('./wwwroot/scripts'));
+
+    gulp.src('./scripts/tinymce/**/*.*')
+        .pipe(changed('./wwwroot/scripts'))
+        .pipe(gulp.dest('./wwwroot/scripts/tinymce'));
 });
 
 gulp.task('watch-assets', function () {
