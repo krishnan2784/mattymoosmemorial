@@ -30,6 +30,7 @@ import ObservationFeedItemFormComponent = Observationfeeditemcomponent.Observati
 import BaseFeed = Feedclasses.BaseFeed;
 declare var $: any;
 declare var Materialize: any;
+declare var tinymce: any;
 
 @Component({
     selector: 'feeditemform',
@@ -218,6 +219,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     public updateMaterialize() {
         setTimeout(function () {
             $('#bodyText').trigger('autoresize');
+
             //Materialize.updateTextFields();
             //$('.datepicker').pickadate({
             //    selectMonths: true,

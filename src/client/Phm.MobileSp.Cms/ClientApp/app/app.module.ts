@@ -75,6 +75,7 @@ import { QuizUserResultsComponent } from "./components/reports/quizuserresults/q
 import { LearnerStatComponent } from "./components/reports/leaderboards/learnerstat/learnerstat.component";
 import { ImageFeedItemFormComponent } from "./components/feed/modelforms/imagefeeditem.component";
 import { VideoFeedItemFormComponent } from "./components/feed/modelforms/videofeeditem.component";
+import { RichTextEditorComponent } from "./components/common/editor/editor.component";
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -136,7 +137,7 @@ import { VideoFeedItemFormComponent } from "./components/feed/modelforms/videofe
 
         //shared
         UserFilter,
-
+        RichTextEditorComponent,
         UploadMediaComponent
     ],
     imports: [

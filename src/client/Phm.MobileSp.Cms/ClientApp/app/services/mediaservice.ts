@@ -45,25 +45,25 @@ export class MediaDataService extends RequestHelper implements IMediaDataService
                     observer.complete();
                 });
                 
-                //let headers = new Headers({ 'Content-Type': 'multipart/form-data' });
-                //headers.append("Authorization", authtoken);
-                //headers.append("Accept", 'application/json');
-                //headers.append("Accept-Language", 'en-gb');
-                //headers.append("Content-Type", 'multipart/form-data');
-                //headers.append("Access-Control-Allow-Origin", '*');
+                let headers = new Headers({ 'Content-Type': 'multipart/form-data' });
+                headers.append("Authorization", authtoken);
+                headers.append("Accept", 'application/json');
+                headers.append("Accept-Language", 'en-gb');
+                headers.append("Content-Type", 'multipart/form-data');
+                headers.append("Access-Control-Allow-Origin", '*');
                 
-                //let input = new FormData();
-                //input.append("file", files);
-                //console.log(input, files, headers);
-                //var request = this.http.post('http://mobilespapi.phm.co.uk/api/AzureMedia', files, headers).subscribe(
-                //    (result) => {
-                //        console.log(result);
-                //        let response = ResponseHelper.getResponse(result);
-                //        observer.next(response);
-                //        observer.complete();
-                //    }
-                //);
-                //console.log(request);
+                let input = new FormData();
+                input.append("file", files);
+                console.log(input, files, headers);
+                var request = this.http.post('http://mobilespapi.phm.co.uk/api/AzureMedia', files, headers).subscribe(
+                    (result) => {
+                        console.log(result);
+                        let response = ResponseHelper.getResponse(result);
+                        observer.next(response);
+                        observer.complete();
+                    }
+                );
+                console.log(request);
             });
         });
     }

@@ -57,24 +57,22 @@ var MediaDataService = (function (_super) {
                     observer.next(response.content);
                     observer.complete();
                 });
-                //let headers = new Headers({ 'Content-Type': 'multipart/form-data' });
-                //headers.append("Authorization", authtoken);
-                //headers.append("Accept", 'application/json');
-                //headers.append("Accept-Language", 'en-gb');
-                //headers.append("Content-Type", 'multipart/form-data');
-                //headers.append("Access-Control-Allow-Origin", '*');
-                //let input = new FormData();
-                //input.append("file", files);
-                //console.log(input, files, headers);
-                //var request = this.http.post('http://mobilespapi.phm.co.uk/api/AzureMedia', files, headers).subscribe(
-                //    (result) => {
-                //        console.log(result);
-                //        let response = ResponseHelper.getResponse(result);
-                //        observer.next(response);
-                //        observer.complete();
-                //    }
-                //);
-                //console.log(request);
+                var headers = new http_1.Headers({ 'Content-Type': 'multipart/form-data' });
+                headers.append("Authorization", authtoken);
+                headers.append("Accept", 'application/json');
+                headers.append("Accept-Language", 'en-gb');
+                headers.append("Content-Type", 'multipart/form-data');
+                headers.append("Access-Control-Allow-Origin", '*');
+                var input = new FormData();
+                input.append("file", files);
+                console.log(input, files, headers);
+                var request = _this.http.post('http://mobilespapi.phm.co.uk/api/AzureMedia', files, headers).subscribe(function (result) {
+                    console.log(result);
+                    var response = responsehelper_1.ResponseHelper.getResponse(result);
+                    observer.next(response);
+                    observer.complete();
+                });
+                console.log(request);
             });
         });
     };

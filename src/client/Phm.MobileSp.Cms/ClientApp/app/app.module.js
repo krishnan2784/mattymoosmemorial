@@ -76,6 +76,7 @@ var quizuserresults_component_1 = require("./components/reports/quizuserresults/
 var learnerstat_component_1 = require("./components/reports/leaderboards/learnerstat/learnerstat.component");
 var imagefeeditem_component_1 = require("./components/feed/modelforms/imagefeeditem.component");
 var videofeeditem_component_1 = require("./components/feed/modelforms/videofeeditem.component");
+var editor_component_1 = require("./components/common/editor/editor.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -134,6 +135,7 @@ AppModule = __decorate([
             FeedItemCopyToMarket,
             //shared
             UserFilter,
+            editor_component_1.RichTextEditorComponent,
             UploadMediaComponent
         ],
         imports: [
