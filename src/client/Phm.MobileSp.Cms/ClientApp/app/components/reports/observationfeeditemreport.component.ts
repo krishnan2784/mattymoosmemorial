@@ -28,11 +28,11 @@ declare var Materialize: any;
 declare var noUiSlider: any;
 
 @Component({
-    selector: 'surveyfeeditemreport',
-    template: require('./surveyfeeditemreport.component.html'),
-    styles: [require('./quizfeeditemreport.component.css'), require('./surveyfeeditemreport.component.css')]
+    selector: 'observationfeeditemreport',
+    template: require('./observationfeeditemreport.component.html'),
+    styles: [require('./quizfeeditemreport.component.css'), require('./observationfeeditemreport.component.css')]
 })
-export class SurveyFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
+export class ObservationFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     @Output()
     public onBackEvent: EventEmitter<any>;
 

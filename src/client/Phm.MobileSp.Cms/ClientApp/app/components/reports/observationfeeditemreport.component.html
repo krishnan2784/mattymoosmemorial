@@ -8,10 +8,10 @@
 
 
 <div class="loader" *ngIf="!this.summaryData"></div>
-<div *ngIf="summaryData && summaryData.surveyFeedId == 0">
+<div *ngIf="summaryData && summaryData.observationFeedId == 0">
     No submissions have been received for this {{feedTypeString}}.
 </div>
-<div *ngIf="this.summaryData && summaryData.surveyFeedId > 0">
+<div *ngIf="this.summaryData && summaryData.observationFeedId > 0">
     <div>
         <div class="col-md-6 stat-container animate-bottom">
             <p class="container-header">Reach</p>

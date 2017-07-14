@@ -26,7 +26,7 @@ import ObservationFeedItemFormComponent = Observationfeeditemcomponent.Observati
 import BaseFeed = Feedclasses.BaseFeed;
 declare var $: any;
 declare var Materialize: any;
-
+declare var tinymce: any;
 @Component({
     selector: 'feeditemform',
     template: require('./feeditemform.component.html'),
@@ -94,6 +94,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         this.setupFormSteps();
 
         this.updateForm();
+        tinymce.init({ selector: 'textarea' });
     }
 
     public setupFormSteps() {

@@ -85,6 +85,9 @@
     <None Update="ClientApp\app\classes\feedformstepsclasses.js">
       <DependentUpon>feedformstepsclasses.ts</DependentUpon>
     </None>
+    <None Update="ClientApp\app\components\reports\observationfeeditemreport.component.ts">
+      <DependentUpon>observationfeeditemreport.component.html</DependentUpon>
+    </None>
     <None Update="ClientApp\app\models\reportclasses.js">
       <DependentUpon>reportclasses.ts</DependentUpon>
     </None>

@@ -73,6 +73,7 @@ import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { QuizUserResultsComponent } from "./components/reports/quizuserresults/quizuserresults.component";
 import { LearnerStatComponent } from "./components/reports/leaderboards/learnerstat/learnerstat.component";
+import { ObservationFeedItemReport } from "./components/reports/observationfeeditemreport.component";
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -109,6 +110,7 @@ import { LearnerStatComponent } from "./components/reports/leaderboards/learners
         QuizFeedItemReport,
         SurveyFeedItemReport,
         QuizUserResultsComponent,
+        ObservationFeedItemReport,
         LearnerStatComponent,
 
         //leaderbaord

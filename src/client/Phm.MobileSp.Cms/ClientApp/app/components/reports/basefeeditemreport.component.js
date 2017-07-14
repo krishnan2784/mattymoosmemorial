@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var Feeditemreportcomponent = require("./quizfeeditemreport.component");
 var surveyfeeditemreport_component_1 = require("./surveyfeeditemreport.component");
+var observationfeeditemreport_component_1 = require("./observationfeeditemreport.component");
 var QuizFeedItemReport = Feeditemreportcomponent.QuizFeedItemReport;
 var FeedItemReportContainerComponent = (function () {
     function FeedItemReportContainerComponent(resolver) {
@@ -51,7 +52,7 @@ __decorate([
 FeedItemReportContainerComponent = __decorate([
     core_1.Component({
         selector: 'feed-report-component',
-        entryComponents: [QuizFeedItemReport, surveyfeeditemreport_component_1.SurveyFeedItemReport],
+        entryComponents: [QuizFeedItemReport, surveyfeeditemreport_component_1.SurveyFeedItemReport, observationfeeditemreport_component_1.ObservationFeedItemReport],
         template: require('./basefeeditemreport.component.html'),
         styles: [require('./basefeeditemreport.component.css')],
     }),

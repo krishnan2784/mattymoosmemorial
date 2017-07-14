@@ -68,6 +68,7 @@ var FeedItemForm = (function () {
         this.feedFormSteps.setFormType(newForm.feedType);
         this.setupFormSteps();
         this.updateForm();
+        tinymce.init({ selector: 'textarea' });
     };
     FeedItemForm.prototype.setupFormSteps = function () {
         var _this = this;
