@@ -51,8 +51,42 @@ var MediaDataService = (function (_super) {
     MediaDataService.prototype.uploadFile = function (files) {
         var _this = this;
         return Observable_1.Observable.create(function (observer) {
-            _this.fileUploadService.upload('/Media/UploadFile', files).then(function (response) {
-                observer.next(response.content);
+            _this.getAuthToken().subscribe(function (authtoken) {
+                //this.fileUploadService.upload('http://mobilespapi.phm.co.uk/api/AzureMedia', files, authtoken).then((response) => {
+                //    console.log(response);
+                //    observer.next(response.content);
+                //    observer.complete();
+                //});
+                var headers = new http_1.Headers({ 'Content-Type': 'multipart/form-data' });
+                headers.append("Authorization", authtoken);
+                headers.append("Accept", 'application/json');
+                headers.append("Accept-Language", 'en-gb');
+                var input = new FormData();
+                input.append("file", files);
+                console.log(input, files, headers);
+                var request = _this.http.post('http://mobilespapi.phm.co.uk/api/AzureMedia', input, headers).subscribe(function (result) {
+                    console.log(result);
+                    var response = responsehelper_1.ResponseHelper.getResponse(result);
+                    observer.next(response);
+                    observer.complete();
+                });
+                console.log(request);
+            });
+        });
+    };
+    //uploadFile(files): Observable<MediaInfo> {
+    //    return Observable.create(observer => {
+    //        this.fileUploadService.upload('/Media/UploadFile', files).then((response) => {
+    //            observer.next(response.content);
+    //            observer.complete();
+    //        });
+    //    });
+    //}
+    MediaDataService.prototype.getAuthToken = function () {
+        var _this = this;
+        return Observable_1.Observable.create(function (observer) {
+            _this.getRequestBase('/api/Market/GetAuthToken').subscribe(function (result) {
+                observer.next(result);
                 observer.complete();
             });
         });
@@ -88,8 +122,7 @@ var FileUploadService = (function () {
      * @param files
      * @returns {Promise<T>}
      */
-    FileUploadService.prototype.upload = function (url, files) {
-        var _this = this;
+    FileUploadService.prototype.upload = function (url, files, authToken) {
         return new Promise(function (resolve, reject) {
             var formData = new FormData(), xhr = new XMLHttpRequest();
             for (var i = 0; i < files.length; i++) {
@@ -98,8 +131,6 @@ var FileUploadService = (function () {
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
-                        // resolve(JSON.parse(xhr.response));
-                        // return ResponseHelper.getResponse(xhr.response);
                     }
                     else {
                         reject(xhr.response);
@@ -107,11 +138,14 @@ var FileUploadService = (function () {
                 }
             };
             FileUploadService.setUploadUpdateInterval(500);
-            xhr.upload.onprogress = function (event) {
-                _this.progress = Math.round(event.loaded / event.total * 100);
-                //this.progressObserver.next(this.progress);
-            };
+            //xhr.upload.onprogress = (event) => {
+            //    this.progress = Math.round(event.loaded / event.total * 100);
+            //    //this.progressObserver.next(this.progress);
+            //};
             xhr.open('POST', url, true);
+            xhr.setRequestHeader('Authorization', authToken);
+            xhr.setRequestHeader('Content-Type', 'multipart/form-data');
+            xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
             xhr.send(formData);
         });
     };

@@ -53,7 +53,7 @@ var UploadMediaComponent = (function () {
     };
     UploadMediaComponent.prototype.uploadImage = function (file) {
         var _this = this;
-        this.mediaService.uploadImage(file).subscribe(function (response) {
+        this.mediaService.uploadFile(file).subscribe(function (response) {
             _this.processUploadResponse(response);
         });
     };

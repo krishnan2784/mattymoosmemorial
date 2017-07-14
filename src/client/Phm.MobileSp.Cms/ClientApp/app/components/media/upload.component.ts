@@ -66,7 +66,7 @@ export class UploadMediaComponent implements OnInit {
     }
 
     uploadImage(file:File) {
-        this.mediaService.uploadImage(file).subscribe((response) => {
+        this.mediaService.uploadFile(file).subscribe((response) => {
             this.processUploadResponse(response);
         });
     }

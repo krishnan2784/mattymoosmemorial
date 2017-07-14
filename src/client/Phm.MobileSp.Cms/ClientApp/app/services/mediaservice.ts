@@ -38,8 +38,47 @@ export class MediaDataService extends RequestHelper implements IMediaDataService
 
     uploadFile(files): Observable<MediaInfo> {
         return Observable.create(observer => {
-            this.fileUploadService.upload('/Media/UploadFile', files).then((response) => {
-                observer.next(response.content);
+            this.getAuthToken().subscribe((authtoken) => {
+                //this.fileUploadService.upload('http://mobilespapi.phm.co.uk/api/AzureMedia', files, authtoken).then((response) => {
+                //    console.log(response);
+                //    observer.next(response.content);
+                //    observer.complete();
+                //});
+
+                let headers = new Headers({ 'Content-Type': 'multipart/form-data' });
+                headers.append("Authorization", authtoken);
+                headers.append("Accept", 'application/json');
+                headers.append("Accept-Language", 'en-gb');
+                let input = new FormData();
+                input.append("file", files);
+                console.log(input, files, headers);
+                var request = this.http.post('http://mobilespapi.phm.co.uk/api/AzureMedia', input, headers).subscribe(
+                    (result) => {
+                        console.log(result);
+                        let response = ResponseHelper.getResponse(result);
+                        observer.next(response);
+                        observer.complete();
+                    }
+                );
+                console.log(request);
+            });
+        });
+    }
+
+
+    //uploadFile(files): Observable<MediaInfo> {
+    //    return Observable.create(observer => {
+    //        this.fileUploadService.upload('/Media/UploadFile', files).then((response) => {
+    //            observer.next(response.content);
+    //            observer.complete();
+    //        });
+    //    });
+    //}
+
+    private getAuthToken(): Observable<string> {
+        return Observable.create(observer => {
+            this.getRequestBase('/api/Market/GetAuthToken').subscribe((result) => {
+                observer.next(result);
                 observer.complete();
             });
         });
@@ -79,7 +118,7 @@ export class FileUploadService {
      * @param files
      * @returns {Promise<T>}
      */
-    public upload(url: string, files: File[]): Promise<ApiResponse> {
+    public upload(url: string, files: File[], authToken: string): Promise<ApiResponse> {
         return new Promise((resolve, reject) => {
             let formData: FormData = new FormData(),
                 xhr: XMLHttpRequest = new XMLHttpRequest();
@@ -91,8 +130,6 @@ export class FileUploadService {
             xhr.onreadystatechange = () => {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
-                        // resolve(JSON.parse(xhr.response));
-                        // return ResponseHelper.getResponse(xhr.response);
                     } else {
                         reject(xhr.response);
                     }
@@ -101,13 +138,15 @@ export class FileUploadService {
 
             FileUploadService.setUploadUpdateInterval(500);
 
-            xhr.upload.onprogress = (event) => {
-                this.progress = Math.round(event.loaded / event.total * 100);
-
-                //this.progressObserver.next(this.progress);
-            };
+            //xhr.upload.onprogress = (event) => {
+            //    this.progress = Math.round(event.loaded / event.total * 100);
+            //    //this.progressObserver.next(this.progress);
+            //};
 
             xhr.open('POST', url, true);
+            xhr.setRequestHeader('Authorization', authToken);
+            xhr.setRequestHeader('Content-Type', 'multipart/form-data');
+            xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
             xhr.send(formData);
         });
     }
