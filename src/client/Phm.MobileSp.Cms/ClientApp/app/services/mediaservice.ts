@@ -39,28 +39,31 @@ export class MediaDataService extends RequestHelper implements IMediaDataService
     uploadFile(files): Observable<MediaInfo> {
         return Observable.create(observer => {
             this.getAuthToken().subscribe((authtoken) => {
-                //this.fileUploadService.upload('http://mobilespapi.phm.co.uk/api/AzureMedia', files, authtoken).then((response) => {
-                //    console.log(response);
-                //    observer.next(response.content);
-                //    observer.complete();
-                //});
-
-                let headers = new Headers({ 'Content-Type': 'multipart/form-data' });
-                headers.append("Authorization", authtoken);
-                headers.append("Accept", 'application/json');
-                headers.append("Accept-Language", 'en-gb');
-                let input = new FormData();
-                input.append("file", files);
-                console.log(input, files, headers);
-                var request = this.http.post('http://mobilespapi.phm.co.uk/api/AzureMedia', input, headers).subscribe(
-                    (result) => {
-                        console.log(result);
-                        let response = ResponseHelper.getResponse(result);
-                        observer.next(response);
-                        observer.complete();
-                    }
-                );
-                console.log(request);
+                this.fileUploadService.upload('http://mobilespapi.phm.co.uk/api/AzureMedia', files, authtoken).then((response) => {
+                    console.log(response);
+                    observer.next(response.content);
+                    observer.complete();
+                });
+                
+                //let headers = new Headers({ 'Content-Type': 'multipart/form-data' });
+                //headers.append("Authorization", authtoken);
+                //headers.append("Accept", 'application/json');
+                //headers.append("Accept-Language", 'en-gb');
+                //headers.append("Content-Type", 'multipart/form-data');
+                //headers.append("Access-Control-Allow-Origin", '*');
+                
+                //let input = new FormData();
+                //input.append("file", files);
+                //console.log(input, files, headers);
+                //var request = this.http.post('http://mobilespapi.phm.co.uk/api/AzureMedia', files, headers).subscribe(
+                //    (result) => {
+                //        console.log(result);
+                //        let response = ResponseHelper.getResponse(result);
+                //        observer.next(response);
+                //        observer.complete();
+                //    }
+                //);
+                //console.log(request);
             });
         });
     }
@@ -146,6 +149,8 @@ export class FileUploadService {
             xhr.open('POST', url, true);
             xhr.setRequestHeader('Authorization', authToken);
             xhr.setRequestHeader('Content-Type', 'multipart/form-data');
+            xhr.setRequestHeader("Accept", 'application/json');
+            xhr.setRequestHeader("Accept-Language", 'en-GB');
             xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
             xhr.send(formData);
         });
