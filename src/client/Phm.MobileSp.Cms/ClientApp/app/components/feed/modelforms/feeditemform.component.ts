@@ -76,20 +76,25 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     public swapForm<TFormType extends any>(newFormType: TFormType, feedCategory: FeedCategoryEnum) {
         let newForm = (new newFormType()) as IFeedItemComponents.IFeedItemPartialForm;
 
-        if (this.form && this.subForm) {
-            this.subForm = null;
-        }
-        
-        this.model = new newForm.feedModelType(this.model);
+        if (!this.subForm || this.subForm.feedType != newForm.feedType) {
+            if (this.form) {
+                this.subForm = null;
+            } 
 
-        this.feedFormData = {
-            feedFormComponent: newFormType,
-            inputs: { form: this.form, feedFormSteps: this.feedFormSteps, model: this.model }
-        };
+            this.model = new newForm.feedModelType(this.model);
 
-        this.subForm = newForm;
-        this.model.feedType = this.subForm.feedType;
+            this.feedFormData = {
+                feedFormComponent: newFormType,
+                inputs: { form: this.form, feedFormSteps: this.feedFormSteps, model: this.model }
+            };
+
+            this.subForm = newForm;
+
+        }        
+
+        this.model.feedType = newForm.feedType;
         this.model.feedCategory = feedCategory;
+
         this.feedFormSteps.setFormType(newForm.feedType);
         this.setupFormSteps();
 
@@ -125,10 +130,12 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             makeTitleWidgetLink: ['', []],
             permissions: ['', []],
             readingTime: ['', []],
+            callToActionText: ['', []],
+            callToActionUrl: ['', []],
             startDate: ['', [<any>Validators.required]],
             endDate: ['', [<any>Validators.required]]
         });
-    }
+    } 
 
     getModel() {
         if (this.model) {
@@ -140,6 +147,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             this.updateForm();
             this.setupFormSteps();
         }
+        this.model.webUrlLink.indexOf('http://')
     };
 
     updateForm() {
@@ -183,6 +191,19 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
                 this.feedUpdated.emit(result.content);    
             }
         });
+    }
+
+    public updateMaterialize() {
+        setTimeout(function () {
+            $('#bodyText').trigger('autoresize');
+            //Materialize.updateTextFields();
+            //$('.datepicker').pickadate({
+            //    selectMonths: true,
+            //    selectYears: 5,
+            //    format: 'dddd, dd mmm, yyyy',
+            //    formatSubmit: 'yyyy/mm/dd'
+            //});
+        }, 1);
     }
 
     goBack() {

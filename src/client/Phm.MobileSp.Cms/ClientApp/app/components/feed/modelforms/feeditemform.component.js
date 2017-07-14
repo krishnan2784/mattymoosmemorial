@@ -54,16 +54,18 @@ var FeedItemForm = (function () {
     }
     FeedItemForm.prototype.swapForm = function (newFormType, feedCategory) {
         var newForm = (new newFormType());
-        if (this.form && this.subForm) {
-            this.subForm = null;
+        if (!this.subForm || this.subForm.feedType != newForm.feedType) {
+            if (this.form) {
+                this.subForm = null;
+            }
+            this.model = new newForm.feedModelType(this.model);
+            this.feedFormData = {
+                feedFormComponent: newFormType,
+                inputs: { form: this.form, feedFormSteps: this.feedFormSteps, model: this.model }
+            };
+            this.subForm = newForm;
         }
-        this.model = new newForm.feedModelType(this.model);
-        this.feedFormData = {
-            feedFormComponent: newFormType,
-            inputs: { form: this.form, feedFormSteps: this.feedFormSteps, model: this.model }
-        };
-        this.subForm = newForm;
-        this.model.feedType = this.subForm.feedType;
+        this.model.feedType = newForm.feedType;
         this.model.feedCategory = feedCategory;
         this.feedFormSteps.setFormType(newForm.feedType);
         this.setupFormSteps();
@@ -97,6 +99,8 @@ var FeedItemForm = (function () {
             makeTitleWidgetLink: ['', []],
             permissions: ['', []],
             readingTime: ['', []],
+            callToActionText: ['', []],
+            callToActionUrl: ['', []],
             startDate: ['', [forms_1.Validators.required]],
             endDate: ['', [forms_1.Validators.required]]
         });
@@ -112,6 +116,7 @@ var FeedItemForm = (function () {
             this.updateForm();
             this.setupFormSteps();
         }
+        this.model.webUrlLink.indexOf('http://');
     };
     ;
     FeedItemForm.prototype.updateForm = function () {
@@ -153,6 +158,18 @@ var FeedItemForm = (function () {
                 _this.feedUpdated.emit(result.content);
             }
         });
+    };
+    FeedItemForm.prototype.updateMaterialize = function () {
+        setTimeout(function () {
+            $('#bodyText').trigger('autoresize');
+            //Materialize.updateTextFields();
+            //$('.datepicker').pickadate({
+            //    selectMonths: true,
+            //    selectYears: 5,
+            //    format: 'dddd, dd mmm, yyyy',
+            //    formatSubmit: 'yyyy/mm/dd'
+            //});
+        }, 1);
     };
     FeedItemForm.prototype.goBack = function () {
         this.feedUpdated.emit(null);

@@ -30,6 +30,8 @@ namespace Phm.MobileSp.Cms.Core.Models
         public virtual DateTime? StartDate { get; set; }
         public virtual DateTime? EndDate { get; set; }
         public virtual DateTime? PublishedLiveAt { get; set; }
-
+        public virtual string WebUrlLink { get; set; }
+        public virtual string CallToActionText { get; set; }
+        public virtual string CallToActionUrl { get; set; }
     }
 }

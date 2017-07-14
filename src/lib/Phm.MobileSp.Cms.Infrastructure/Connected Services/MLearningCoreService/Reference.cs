@@ -527,6 +527,10 @@ namespace MLearningCoreService
         
         private bool AllowFavouriteField;
         
+        private string CallToActionTextField;
+        
+        private string CallToActionUrlField;
+        
         private MLearningCoreService.CorporateAppDto CorporateAppField;
         
         private System.Nullable<System.DateTime> EndDateField;
@@ -577,6 +581,32 @@ namespace MLearningCoreService
             set
             {
                 this.AllowFavouriteField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CallToActionText
+        {
+            get
+            {
+                return this.CallToActionTextField;
+            }
+            set
+            {
+                this.CallToActionTextField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CallToActionUrl
+        {
+            get
+            {
+                return this.CallToActionUrlField;
+            }
+            set
+            {
+                this.CallToActionUrlField = value;
             }
         }
         
@@ -2488,9 +2518,24 @@ namespace MLearningCoreService
     public partial class SurveyFeedDto : MLearningCoreService.BaseFeedDto
     {
         
+        private string CompletionMessageField;
+        
         private System.Collections.Generic.List<MLearningCoreService.SurveyQuestionDto> QuestionsField;
         
         private string SurveyDescriptionField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CompletionMessage
+        {
+            get
+            {
+                return this.CompletionMessageField;
+            }
+            set
+            {
+                this.CompletionMessageField = value;
+            }
+        }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Collections.Generic.List<MLearningCoreService.SurveyQuestionDto> Questions
@@ -2687,6 +2732,9 @@ namespace MLearningCoreService
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Icon = 4,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        File = 5,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]

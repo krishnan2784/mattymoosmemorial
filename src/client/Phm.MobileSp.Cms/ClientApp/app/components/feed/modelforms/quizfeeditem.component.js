@@ -46,6 +46,9 @@ var QuizFeedItemFormComponent = (function (_super) {
     ;
     QuizFeedItemFormComponent.prototype.removeFormControls = function () {
         this.form.removeControl('questions');
+        this.form.removeControl('onBoardingMessage');
+        this.form.removeControl('successMessage');
+        this.form.removeControl('failMessage');
     };
     ;
     QuizFeedItemFormComponent.prototype.initQuestion = function (question) {

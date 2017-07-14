@@ -39,6 +39,9 @@ var BaseFeed = (function (_super) {
         _this.startDate = options['startDate'];
         _this.endDate = options['endDate'];
         _this.publishedLiveAt = options['publishedLiveAt'];
+        _this.webUrlLink = options['webUrlLink'] || '';
+        _this.callToActionText = options['callToActionText'] || '';
+        _this.callToActionUrl = options['callToActionUrl'] || '';
         _this.formatFeedItemDates();
         return _this;
     }
