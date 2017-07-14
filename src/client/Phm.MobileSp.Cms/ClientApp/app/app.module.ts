@@ -76,6 +76,7 @@ import { LearnerStatComponent } from "./components/reports/leaderboards/learners
 import { ImageFeedItemFormComponent } from "./components/feed/modelforms/imagefeeditem.component";
 import { VideoFeedItemFormComponent } from "./components/feed/modelforms/videofeeditem.component";
 import { RichTextEditorComponent } from "./components/common/editor/editor.component";
+import { ObservationFeedItemReport } from "./components/reports/observationfeeditemreport.component";
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -114,6 +115,7 @@ import { RichTextEditorComponent } from "./components/common/editor/editor.compo
         QuizFeedItemReport,
         SurveyFeedItemReport,
         QuizUserResultsComponent,
+        ObservationFeedItemReport,
         LearnerStatComponent,
 
         //leaderbaord

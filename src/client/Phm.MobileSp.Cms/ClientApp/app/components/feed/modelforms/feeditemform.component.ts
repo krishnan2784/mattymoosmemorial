@@ -104,6 +104,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         this.setupFormSteps();
 
         this.updateForm();
+        tinymce.init({ selector: 'textarea' });
     }
 
     public setupFormSteps() {

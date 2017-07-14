@@ -14,6 +14,7 @@ import QuizFeedItemReport = QuizFeeditemreportcomponent.QuizFeedItemReport;
 import Feeddataservice = require("../../../services/feeddataservice");
 import { DefaultTabNavs } from "../../navmenu/tabnavmenu.component";
 import { SurveyFeedItemReport } from "../surveyfeeditemreport.component";
+import { ObservationFeedItemReport } from "../observationfeeditemreport.component";
 
 declare var $: any;
 declare var Materialize: any;
@@ -106,6 +107,8 @@ export class FeedReportIndexComponent extends BaseComponent implements OnInit, O
             report = QuizFeedItemReport;
         if (feedItem.feedType === FeedTypeEnum.Survey)
             report = SurveyFeedItemReport;
+        if (feedItem.feedType === FeedTypeEnum.Observation)
+            report = ObservationFeedItemReport;
         
         this.updateMarketDropdownVisibility(false);
         this.updateTabNavItems();

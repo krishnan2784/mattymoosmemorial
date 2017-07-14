@@ -77,6 +77,7 @@ var learnerstat_component_1 = require("./components/reports/leaderboards/learner
 var imagefeeditem_component_1 = require("./components/feed/modelforms/imagefeeditem.component");
 var videofeeditem_component_1 = require("./components/feed/modelforms/videofeeditem.component");
 var editor_component_1 = require("./components/common/editor/editor.component");
+var observationfeeditemreport_component_1 = require("./components/reports/observationfeeditemreport.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -117,6 +118,7 @@ AppModule = __decorate([
             quizfeeditemreport_component_1.QuizFeedItemReport,
             surveyfeeditemreport_component_1.SurveyFeedItemReport,
             quizuserresults_component_1.QuizUserResultsComponent,
+            observationfeeditemreport_component_1.ObservationFeedItemReport,
             learnerstat_component_1.LearnerStatComponent,
             //leaderbaord
             leaderboardcontainer_component_1.LeaderboardContainer,

@@ -77,19 +77,15 @@ export class QuizFeedResult extends BaseModel
 
 export class SurveyItemSummary extends FeedItemSummary {
     public surveyFeedResults: SurveyFeedResult[];
+    public totalRecipents: number;
+    public submitted: number;
     public surveyFeedId: number;
     constructor(options: {} = {}) {
         super(options);
-        this.surveyFeedResults = options["surveyQuestionSummaries"] || [{
-            surveyQuestionSummaryId: 124,
-            surverQuestionAnwerId: 247,
-            percentage: 40
-        }, {
-            surveyQuestionSummaryId: 124,
-            surverQuestionAnwerId: 248,
-            percentage: 60
-        }];
-        this.surveyFeedId = options["surveyFeedId"] || 10;
+        this.surveyFeedResults = options["surveyQuestionSummaries"];
+        this.surveyFeedId = options["surveyFeedId"] || 0;
+        this.totalRecipents = options["totalRecipents"] || 0;
+        this.submitted = options["submitted"] || 0;
     }
 }
 
@@ -104,5 +100,13 @@ export class SurveyFeedResult extends BaseModel {
         this.surveyQuestionSummaryId = options['surveyQuestionSummaryId'] || 0;
         this.totalSelected = options['totalSelected'] || 0;
         this.percentage = options['percentage'] || 0;
+    }
+}
+
+export class ObservationItemSummary extends SurveyItemSummary {
+    public observationFeedId: number;
+    constructor(options: {} = {}) {
+        super(options);
+        this.observationFeedId = options["observationFeedId"] || 0;
     }
 }

@@ -22,8 +22,8 @@ var Reportclasses = require("../../models/reportclasses");
 var SurveyItemSummary = Reportclasses.SurveyItemSummary;
 var Date1 = require("../../classes/helpers/date");
 var DateEx = Date1.DateEx;
-var SurveyFeedItemReport = (function () {
-    function SurveyFeedItemReport(sharedService, feedDataService, injector) {
+var ObservationFeedItemReport = (function () {
+    function ObservationFeedItemReport(sharedService, feedDataService, injector) {
         var _this = this;
         this.sharedService = sharedService;
         this.feedDataService = feedDataService;
@@ -37,14 +37,14 @@ var SurveyFeedItemReport = (function () {
             _this.onBackEvent.emit();
         });
     }
-    SurveyFeedItemReport.prototype.ngOnInit = function () {
+    ObservationFeedItemReport.prototype.ngOnInit = function () {
         this.getData();
     };
-    SurveyFeedItemReport.prototype.ngAfterViewInit = function () {
+    ObservationFeedItemReport.prototype.ngAfterViewInit = function () {
     };
-    SurveyFeedItemReport.prototype.ngOnDestroy = function () {
+    ObservationFeedItemReport.prototype.ngOnDestroy = function () {
     };
-    SurveyFeedItemReport.prototype.getData = function () {
+    ObservationFeedItemReport.prototype.getData = function () {
         var _this = this;
         this.feedDataService.getSurveyFeedSummaries(this.model.id).subscribe(function (result) {
             if (result.content) {
@@ -60,7 +60,7 @@ var SurveyFeedItemReport = (function () {
             _this.updateListData();
         });
     };
-    SurveyFeedItemReport.prototype.updateGaugeData = function () {
+    ObservationFeedItemReport.prototype.updateGaugeData = function () {
         var gaugeData = new GaugeChartData({
             height: 150,
             showTooltip: true,
@@ -74,7 +74,7 @@ var SurveyFeedItemReport = (function () {
         });
         this.submissionRateData = gaugeData;
     };
-    SurveyFeedItemReport.prototype.updateBarData = function () {
+    ObservationFeedItemReport.prototype.updateBarData = function () {
         var dates = [];
         var _loop_1 = function (submission) {
             var formatted = DateEx.formatDate(new Date(submission), "dd/MM");
@@ -106,7 +106,7 @@ var SurveyFeedItemReport = (function () {
         });
         this.averageTimeData = barData;
     };
-    SurveyFeedItemReport.prototype.updateListData = function () {
+    ObservationFeedItemReport.prototype.updateListData = function () {
         var _this = this;
         if (this.model && this.summaryData) {
             for (var _i = 0, _a = this.model.questions; _i < _a.length; _i++) {
@@ -126,26 +126,26 @@ var SurveyFeedItemReport = (function () {
             ;
         }
     };
-    SurveyFeedItemReport.prototype.goBack = function () {
+    ObservationFeedItemReport.prototype.goBack = function () {
         this.pageTitle = null;
         this.model = null;
         this.averageTimeData = null;
         this.onBackEvent.emit();
     };
-    return SurveyFeedItemReport;
+    return ObservationFeedItemReport;
 }());
 __decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)
-], SurveyFeedItemReport.prototype, "onBackEvent", void 0);
-SurveyFeedItemReport = __decorate([
+], ObservationFeedItemReport.prototype, "onBackEvent", void 0);
+ObservationFeedItemReport = __decorate([
     core_1.Component({
-        selector: 'surveyfeeditemreport',
-        template: require('./surveyfeeditemreport.component.html'),
-        styles: [require('./quizfeeditemreport.component.css'), require('./surveyfeeditemreport.component.css')]
+        selector: 'observationfeeditemreport',
+        template: require('./observationfeeditemreport.component.html'),
+        styles: [require('./quizfeeditemreport.component.css'), require('./observationfeeditemreport.component.css')]
     }),
     __metadata("design:paramtypes", [ShareService, FeedDataService,
         core_1.Injector])
-], SurveyFeedItemReport);
-exports.SurveyFeedItemReport = SurveyFeedItemReport;
-//# sourceMappingURL=surveyfeeditemreport.component.js.map
+], ObservationFeedItemReport);
+exports.ObservationFeedItemReport = ObservationFeedItemReport;
+//# sourceMappingURL=observationfeeditemreport.component.js.map

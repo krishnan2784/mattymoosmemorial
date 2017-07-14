@@ -69,16 +69,10 @@ var SurveyItemSummary = (function (_super) {
     function SurveyItemSummary(options) {
         if (options === void 0) { options = {}; }
         var _this = _super.call(this, options) || this;
-        _this.surveyFeedResults = options["surveyQuestionSummaries"] || [{
-                surveyQuestionSummaryId: 124,
-                surverQuestionAnwerId: 247,
-                percentage: 40
-            }, {
-                surveyQuestionSummaryId: 124,
-                surverQuestionAnwerId: 248,
-                percentage: 60
-            }];
-        _this.surveyFeedId = options["surveyFeedId"] || 10;
+        _this.surveyFeedResults = options["surveyQuestionSummaries"];
+        _this.surveyFeedId = options["surveyFeedId"] || 0;
+        _this.totalRecipents = options["totalRecipents"] || 0;
+        _this.submitted = options["submitted"] || 0;
         return _this;
     }
     return SurveyItemSummary;
@@ -98,4 +92,15 @@ var SurveyFeedResult = (function (_super) {
     return SurveyFeedResult;
 }(BaseModel));
 exports.SurveyFeedResult = SurveyFeedResult;
+var ObservationItemSummary = (function (_super) {
+    __extends(ObservationItemSummary, _super);
+    function ObservationItemSummary(options) {
+        if (options === void 0) { options = {}; }
+        var _this = _super.call(this, options) || this;
+        _this.observationFeedId = options["observationFeedId"] || 0;
+        return _this;
+    }
+    return ObservationItemSummary;
+}(SurveyItemSummary));
+exports.ObservationItemSummary = ObservationItemSummary;
 //# sourceMappingURL=reportclasses.js.map
