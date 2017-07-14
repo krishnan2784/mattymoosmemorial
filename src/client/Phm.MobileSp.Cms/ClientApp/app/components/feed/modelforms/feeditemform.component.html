@@ -134,37 +134,41 @@
     
 <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Main)"  class="col-md-8">
         
-    <div class="input-field">
-        <input id="title" type="text" formControlName="title">
-        <label for="title"[class.active]="form.controls.title.value.length>0">Enter Title</label>
+    <div class="rich-text-box">
+        <label>Enter Title</label>
+        <editor [elementId]="'title'" [value]="model.title" [formGroup]="form"></editor>
         <small [class.active-warning]="!form.controls.title.valid && submitted">
             Title is required (minimum 5 characters).
         </small>
     </div>
         
-    <div class="input-field">
-        <label [class.active]="form.controls.shortDescription.value.length>0">Short Description</label>
-        <input type="text" formControlName="shortDescription">
+    <div class="rich-text-box">
+        <label>Short Description</label>
+        <editor [elementId]="'shortDescription'" [value]="model.shortDescription" [formGroup]="form"></editor>
         <small [class.active-warning]="!form.controls.shortDescription.valid && submitted">
             Short description is required.
         </small>
     </div>
 
-    <div *ngIf="model.feedType == feedTypes.Text"  class="input-field">
-        <label [class.active]="form.controls.bodyText.value.length>0">Body Text</label>
-        <textarea formControlName="bodyText" class="materialize-textarea" id="bodyText"></textarea>
+    <div class="rich-text-box" *ngIf="model.feedType == feedTypes.Text">
+        <label>Body Text</label>
+        <editor [elementId]="'bodyText'" [value]="model.bodyText" [formGroup]="form"></editor>
         <small [class.active-warning]="!form.controls.bodyText.valid && submitted">
-            Body text is required (minimum 5 characters).
+            Body text is required if you are not uploading an image or video (minimum 5 characters).
         </small> 
     </div>
         
 </div>
 
 <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Media)" class="col-md-8">
-    <h5>Select from Media Library or Upload new files</h5>
-    <p>Information here about file format recommendations.</p>
-    <upload></upload>
-
+    <h5>Upload an image or video</h5>
+    <p><!--Information here about file format recommendations.--></p>
+    <upload (mediaUploaded)="attachMedia($event)" *ngIf="model.feedType != feedTypes.Image && model.feedType != feedTypes.Video"></upload>
+    <upload (mediaUploaded)="attachMedia($event)" [selectedMedia]="model.mainImage" *ngIf="model.feedType == feedTypes.Image"></upload>
+    <upload (mediaUploaded)="attachMedia($event)" [selectedMedia]="model.mainVideo" *ngIf="model.feedType == feedTypes.Video"></upload>
+    <div *ngIf="feedFormData && (model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)">
+        <feed-form-component [feedFormData]="feedFormData"></feed-form-component>
+    </div>
 </div>
 
 <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Links)" class="col-md-8">
@@ -243,7 +247,7 @@
 
     </div>
 
-    <div *ngIf="feedFormData">
+    <div *ngIf="feedFormData && model.feedType != feedTypes.Image && model.feedType != feedTypes.Video">
         <feed-form-component [feedFormData]="feedFormData"></feed-form-component>
     </div>
    

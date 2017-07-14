@@ -2,6 +2,7 @@
 
 .item-title {
     padding-left: 15px;
+
 }
 
 .feed-cat-img {
@@ -10,6 +11,7 @@
 }
 
 .report-title {
+    height: 20px;
     margin-bottom: 20px;
 }
 

@@ -105,7 +105,7 @@ BaseQuestionFeedItemFormComponent = __decorate([
     core_1.Component({
         selector: 'questionfeeditem',
         template: require('./basequestionfeeditem.component.html'),
-        styles: [require('./basequestionfeeditem.component.css')]
+        styles: [require('./feeditemform.component.css'), require('./basequestionfeeditem.component.css')]
     }),
     __metadata("design:paramtypes", [core_1.Injector, Object, String, Number, Object])
 ], BaseQuestionFeedItemFormComponent);

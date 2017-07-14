@@ -73,6 +73,9 @@ import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { QuizUserResultsComponent } from "./components/reports/quizuserresults/quizuserresults.component";
 import { LearnerStatComponent } from "./components/reports/leaderboards/learnerstat/learnerstat.component";
+import { ImageFeedItemFormComponent } from "./components/feed/modelforms/imagefeeditem.component";
+import { VideoFeedItemFormComponent } from "./components/feed/modelforms/videofeeditem.component";
+import { RichTextEditorComponent } from "./components/common/editor/editor.component";
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -97,6 +100,8 @@ import { LearnerStatComponent } from "./components/reports/leaderboards/learners
         FeedItemContainerComponent,
         FeedItemForm,
         TextFeedItemFormComponent,
+        ImageFeedItemFormComponent,
+        VideoFeedItemFormComponent,
         QuizFeedItemFormComponent,
         SurveyFeedItemFormComponent,
         ObservationFeedItemFormComponent,
@@ -132,7 +137,7 @@ import { LearnerStatComponent } from "./components/reports/leaderboards/learners
 
         //shared
         UserFilter,
-
+        RichTextEditorComponent,
         UploadMediaComponent
     ],
     imports: [

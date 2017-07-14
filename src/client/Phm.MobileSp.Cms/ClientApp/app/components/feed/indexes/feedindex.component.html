@@ -21,9 +21,7 @@
                     <div class="col-md-11 no-pad">
                         <div class="col-md-8 no-pad">
                             <div class="col-md-12 feed-item-title">
-                                <h5>
-                                    {{ feedItem.title }}
-                                </h5>
+                                <h5 [innerHTML]="feedItem.title"></h5>
                             </div>
                             <div class="col-md-12 feed-item-markets">
                                 <div *ngIf="feedItem.markets">

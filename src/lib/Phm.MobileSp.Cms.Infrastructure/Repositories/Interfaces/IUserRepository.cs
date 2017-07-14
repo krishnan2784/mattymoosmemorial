@@ -16,6 +16,6 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
         Task<IEnumerable<IUserConfiguration>> GetUserConfigurationsByUserId(int userId);
         Task<BaseResponse> CreateUserAsync(UserTemplate user);
         Task<BaseResponse> UpdateUserAsync(UserTemplate user);
-        Task<BaseResponse> GetSecGroupsAsync();
+        Task<BaseResponse> GetSecGroupsAsync(int marketId);
     }
 }

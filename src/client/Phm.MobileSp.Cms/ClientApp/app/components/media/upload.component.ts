@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Injectable, OnInit, AfterViewInit, Input } from '@angular/core';
+import { Component, EventEmitter, Injectable, OnInit, AfterViewInit, Input, Output } from '@angular/core';
 import { MarketDataService } from "../../services/marketdataservice";
 import Userclasses = require("../../models/userclasses");
 import UserMarket = Userclasses.UserMarket;
@@ -8,6 +8,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import qq from 'fine-uploader';
 import Mediaservice = require("../../services/mediaservice");
+import { MediaInfo } from "../../models/mediainfoclasses";
 import MediaDataService = Mediaservice.MediaDataService;
 
 @Injectable()
@@ -16,39 +17,72 @@ import MediaDataService = Mediaservice.MediaDataService;
     template: require('./upload.component.html'),
     styles: [require('./upload.component.css')]
 })
-export class UploadMediaComponent {
+export class UploadMediaComponent implements OnInit {
 
-    //@Input()
-    //model;
-    //@Input()
-    //form;
+    @Input()
+    showPreview: boolean = true;
+    @Input()
+    selectedMedia: MediaInfo = null;
 
-    public photoForm: FormGroup;
-    public videoForm: FormGroup;
+    public files: File[] = [];
+    public uploading: boolean = false;
 
-    public files: any = [];
-    public isSubmitted: boolean;
     public imagePreviewUrl: string;
 
+    @Output()
+    public mediaUploaded: EventEmitter<any> = new EventEmitter();
+
     constructor(public mediaService: MediaDataService) {
+    }
+
+    ngOnInit() {
+        if (this.selectedMedia)
+            this.setPreviewImage();
+        console.log(this.selectedMedia);
     }
 
     uploadFile() {
         if (!this.files)
             return;
+        this.uploading = true;
+        this.imagePreviewUrl = '';
+        for (var file of this.files) {
+            switch (file.type) {
+                case 'image/jpeg':
+                case 'image/png':
+                    this.uploadImage(file);
+                    return;
+                default:
+                    this.uploadVideo(file);
+                    return;
+            }
+        }
+    }
 
-        this.mediaService.uploadFile(this.files).subscribe((response) => {
-
+    uploadVideo(file: File) {
+        this.mediaService.uploadFile(file).subscribe((response) => {
+            this.processUploadResponse(response);
         });
     }
 
-    uploadImage() {
-        if (!this.files)
-            return;
-
-        this.mediaService.uploadImage(this.files[0]).subscribe((response) => {
-            this.imagePreviewUrl = response.path + response.name;
+    uploadImage(file:File) {
+        this.mediaService.uploadFile(file).subscribe((response) => {
+            this.processUploadResponse(response);
         });
+    }
+
+    processUploadResponse(media: MediaInfo) {
+        media = new MediaInfo(media);
+        this.uploading = false;
+        this.selectedMedia = media;        
+        if (media) {
+            this.setPreviewImage();
+            this.mediaUploaded.emit(media);
+        }
+    }
+
+    setPreviewImage() {
+        this.imagePreviewUrl = this.selectedMedia.path + this.selectedMedia.name;
     }
 
     public filesSelectHandler(fileInput: any) {
@@ -57,8 +91,6 @@ export class UploadMediaComponent {
         for (let i = 0, length = FileList.length; i < length; i++) {
             this.files.push(FileList.item(i));
         }
-
-        //this.progressBarVisibility = true;
     }
     
 }

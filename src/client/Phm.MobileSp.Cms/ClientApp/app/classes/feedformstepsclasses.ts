@@ -21,7 +21,7 @@ export class FeedFormSteps implements OnInit {
 
     }
 
-    public setupSteps() {
+    public setupSteps(selectedIndex = 0) {
         this.steps = Observable.create(observer => {
             var steps: FeedFormStep[] = [];
             steps.push(new FeedFormStep(FeedFormStepType.Category, 0, "Category"));
@@ -42,14 +42,14 @@ export class FeedFormSteps implements OnInit {
         this.steps.subscribe((result) => {
             if (result.length) {
                 this.visibleSteps = result;
-                this.currentStep = result[0];
+                this.currentStep = result[selectedIndex];
             }
         });
     }
 
     public setFormType(newFormType: Enums.FeedTypeEnum) {
         this.formType = newFormType;
-        this.setupSteps();
+        this.setupSteps(this.currentStepIndex());
     }
 
     public isPreviousButtonVisible(): boolean {
@@ -75,8 +75,18 @@ export class FeedFormSteps implements OnInit {
 
     public navigateToSelectedStep(selectedStep: FeedFormStepType) {
         this.currentStep = this.visibleSteps.find(x => x.type === selectedStep);
+        setTimeout(function() {
+            Materialize.updateTextFields();
+        }, 1);     
     }
 
+    public currentStepIndex(): number {
+        let currentStep = 0;
+        if (this.currentStep) {
+            currentStep = this.visibleSteps.indexOf(this.currentStep);
+        }
+        return currentStep;
+    }
 }
 
 export class FeedFormStep {

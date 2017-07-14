@@ -15,8 +15,7 @@ import FeedModel = require("../../../interfaces/models/IFeedModel");
 import { BasePartialItemFormComponent } from "./basepartialfeeditem.component";
 
 @Component({
-    selector: 'textfeeditem',
-    template: require('./textfeeditem.component.html')
+    selector: 'textfeeditem', template: ''
 })
 export class TextFeedItemFormComponent extends BasePartialItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
     model: Feedclasses.TextFeed;

@@ -42,8 +42,7 @@ var TextFeedItemFormComponent = (function (_super) {
 }(basepartialfeeditem_component_1.BasePartialItemFormComponent));
 TextFeedItemFormComponent = __decorate([
     core_1.Component({
-        selector: 'textfeeditem',
-        template: require('./textfeeditem.component.html')
+        selector: 'textfeeditem', template: ''
     }),
     __metadata("design:paramtypes", [core_1.Injector])
 ], TextFeedItemFormComponent);

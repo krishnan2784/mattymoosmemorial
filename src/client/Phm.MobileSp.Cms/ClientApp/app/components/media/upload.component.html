@@ -1,8 +1,26 @@
-<div>
-    <p>Upload one or more photos using this form:</p>
-    <input type="file" accept="image/*" (change)="filesSelectHandler($event)" />
+<div class="upload-container">
+    <p *ngIf="!selectedMedia">Upload one or more photos using this form:</p>
+
+    <div class="file-field input-field">
+        <div class="btn">
+            <span>File</span>
+            <input type="file" (change)="filesSelectHandler($event)" [disabled]="uploading">
+        </div>
+        <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+        </div>
+    </div>
+    <span class="input-group-btn">
+        <button class="btn btn-primary btn-save" (click)="uploadFile()" [disabled]="uploading || !files || files.length==0">Upload</button>
+    </span>
+    <div *ngIf="showPreview" class="preview-container">
+        <div *ngIf="imagePreviewUrl" >
+            <h5 class="col-md-4">Preview</h5>
+            <img src="{{imagePreviewUrl}}" class="col-md-8 preview-image" />
+            <div class="clearfix"></div>
+            <hr />
+        </div>
+        <div *ngIf="uploading" class="loader"></div>
+    </div>
+    <div class="clearfix"></div>
 </div>
-<span class="input-group-btn">
-    <button class="btn btn-primary btn-save" (click)="uploadImage()">Upload</button>
-</span>
-<img src="{{imagePreviewUrl}}" *ngIf="imagePreviewUrl" class="preview-image" />

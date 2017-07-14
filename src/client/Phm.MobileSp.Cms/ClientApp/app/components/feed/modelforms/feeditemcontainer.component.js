@@ -17,6 +17,8 @@ var QuizFeedItemFormComponent = Quizfeeditemcomponent.QuizFeedItemFormComponent;
 var Surveyfeeditemcomponent = require("./surveyfeeditem.component");
 var SurveyFeedItemFormComponent = Surveyfeeditemcomponent.SurveyFeedItemFormComponent;
 var Observationfeeditemcomponent = require("./observationfeeditem.component");
+var imagefeeditem_component_1 = require("./imagefeeditem.component");
+var videofeeditem_component_1 = require("./videofeeditem.component");
 var ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationFeedItemFormComponent;
 var FeedItemContainerComponent = (function () {
     function FeedItemContainerComponent(resolver) {
@@ -56,7 +58,8 @@ __decorate([
 FeedItemContainerComponent = __decorate([
     core_1.Component({
         selector: 'feed-form-component',
-        entryComponents: [feeditemform_component_1.FeedItemForm, textfeeditem_component_1.TextFeedItemFormComponent, QuizFeedItemFormComponent, SurveyFeedItemFormComponent, ObservationFeedItemFormComponent],
+        entryComponents: [feeditemform_component_1.FeedItemForm, textfeeditem_component_1.TextFeedItemFormComponent, QuizFeedItemFormComponent, SurveyFeedItemFormComponent, ObservationFeedItemFormComponent,
+            imagefeeditem_component_1.ImageFeedItemFormComponent, videofeeditem_component_1.VideoFeedItemFormComponent],
         template: require('./feeditemcontainer.component.html'),
         styles: [require('./feeditemcontainer.component.css')],
     }),

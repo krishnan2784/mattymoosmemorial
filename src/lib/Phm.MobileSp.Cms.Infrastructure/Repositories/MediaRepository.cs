@@ -44,7 +44,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
                 var filename = Path.Combine(parsedContentDisposition.FileName.Trim('"'));
                 var blockBlob = container.GetBlockBlobReference(filename);
                 await blockBlob.UploadFromStreamAsync(image.OpenReadStream());
-                return new MediaInfo() { Name = filename, Path = $"{storageAccount.BlobStorageUri.PrimaryUri.AbsoluteUri}{containerRoot}/"};
+                return new MediaInfo() { Name = filename, Path = $"{storageAccount.BlobStorageUri.PrimaryUri.AbsoluteUri}{containerRoot}/", MediaType = MediaTypes.Image};
             } catch (Exception e)
             {
                 return null;

@@ -199,13 +199,17 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             }
         }
 
-        public async Task<BaseResponse> GetSecGroupsAsync()
+        public async Task<BaseResponse> GetSecGroupsAsync(int marketId)
         {
             try
             {
                 var request = new GetSecGroupsRequest()
                 {
-                    AccessToken = BaseRequest.AccessToken
+                    AccessToken = BaseRequest.AccessToken,
+                    Criteria = new SecGroupCriteriaDto()
+                    {
+                        MarketId = marketId
+                    }
                 };
                 var response = await _securityClient.GetSecGroupsAsync(request);
                 return new BaseResponse(response.SecGroups);
