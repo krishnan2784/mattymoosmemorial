@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnChanges } from '@angular/core';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 import { DateEx } from "../../../../classes/helpers/date";
+import { StringEx } from "../../../../classes/helpers/string";
 @Component({
     selector: 'leaderboard',
     template: require('./leaderboard.html'),
@@ -249,15 +250,7 @@ export class LeaderboardComponent implements OnInit, OnChanges {
                 }
             }
             if (this.searchString != "") {
-                for (let i = 0; i < list.length; i++) {
-                    let a = list[i].firstName.toLowerCase();
-                    let b = list[i].lastName.toLowerCase();
-                    let c = this.searchString.toLowerCase();
-                    if (a.indexOf(c) === -1 && b.indexOf(c) === -1) {
-                        list.splice(i, 1);
-                        i--;
-                    }
-                }
+                list = StringEx.searchArray(this.searchString, list, ['firstName', 'lastName']);
             }
         }
         if (list.length > 10 && isTop10) {
@@ -397,7 +390,7 @@ export class LeaderboardComponent implements OnInit, OnChanges {
         return r;
     }
     handleReport() {
-        let report[] = this.salesExecList.slice(0);
+        let report = this.salesExecList.slice(0);
         report.unshift({
             firstName: 'First Name',
             lastName: 'Last Name',

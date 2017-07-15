@@ -24,6 +24,7 @@ var FeedItemSummary = Reportclasses.FeedItemSummary;
 var Date1 = require("../../classes/helpers/date");
 var DateEx = Date1.DateEx;
 var Userfiltercomponent = require("../common/filters/userfilter.component");
+var string_1 = require("../../classes/helpers/string");
 var UserFilters = Userfiltercomponent.UserFilters;
 var QuizFeedItemReport = (function () {
     function QuizFeedItemReport(sharedService, feedDataService, injector) {
@@ -89,13 +90,11 @@ var QuizFeedItemReport = (function () {
             data = data.filter(function (x) { return _this.filterCriteria.userGroupFilters.filter(function (y) { return y.text === x.mainUserGroup; }).length > 0; });
         if (this.filterCriteria.dealershipFilters.length > 0)
             data = data.filter(function (x) { return _this.filterCriteria.dealershipFilters.filter(function (y) { return y.text === x.dealershipName; }).length > 0; });
-        if (this.searchString !== "") {
-            var search = this.searchString.toLowerCase();
-            data = data.filter(function (x) { return x.user.firstName.toLowerCase().indexOf(search) > -1
-                || x.user.lastName.toLowerCase().indexOf(search) > -1; });
-        }
         data = data.filter(function (x) { return x.resultPercentage >= _this.filterCriteria.pointsRangeBottom &&
             x.resultPercentage <= _this.filterCriteria.pointsRangeTop; });
+        if (this.searchString !== "") {
+            data = string_1.StringEx.searchArray(this.searchString, data, ['user.firstName', 'user.lastName']);
+        }
         this.filteredListData = data;
     };
     QuizFeedItemReport.prototype.updateReport = function () {

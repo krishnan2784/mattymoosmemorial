@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var Angular2_csv_1 = require("angular2-csv/Angular2-csv");
 var date_1 = require("../../../../classes/helpers/date");
+var string_1 = require("../../../../classes/helpers/string");
 var LeaderboardComponent = (function () {
     function LeaderboardComponent() {
         this.optionSelected = new core_1.EventEmitter();
@@ -241,15 +242,7 @@ var LeaderboardComponent = (function () {
                 }
             }
             if (this.searchString != "") {
-                for (var i = 0; i < list.length; i++) {
-                    var a_1 = list[i].firstName.toLowerCase();
-                    var b = list[i].lastName.toLowerCase();
-                    var c = this.searchString.toLowerCase();
-                    if (a_1.indexOf(c) === -1 && b.indexOf(c) === -1) {
-                        list.splice(i, 1);
-                        i--;
-                    }
-                }
+                list = string_1.StringEx.searchArray(this.searchString, list, ['firstName', 'lastName']);
             }
         }
         if (list.length > 10 && isTop10) {

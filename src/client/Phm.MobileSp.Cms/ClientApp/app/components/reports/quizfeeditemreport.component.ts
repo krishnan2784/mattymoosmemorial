@@ -23,6 +23,7 @@ import Date1 = require("../../classes/helpers/date");
 import DateEx = Date1.DateEx;
 import Userfiltercomponent = require("../common/filters/userfilter.component");
 import { QuizFeed } from "../../models/feedclasses";
+import { StringEx } from "../../classes/helpers/string";
 import UserFilters = Userfiltercomponent.UserFilters;
 
 declare var Materialize: any;
@@ -119,14 +120,12 @@ export class QuizFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
         if (this.filterCriteria.dealershipFilters.length > 0)
             data = data.filter(x => this.filterCriteria.dealershipFilters.filter(y => y.text === x.dealershipName).length > 0);
 
-        if (this.searchString !== "") {
-            var search = this.searchString.toLowerCase();
-            data = data.filter(x => x.user.firstName.toLowerCase().indexOf(search) > -1
-                || x.user.lastName.toLowerCase().indexOf(search) > -1);
-        }
-
         data = data.filter(x => x.resultPercentage >= this.filterCriteria.pointsRangeBottom &&
             x.resultPercentage <= this.filterCriteria.pointsRangeTop);
+
+        if (this.searchString !== "") {
+            data = StringEx.searchArray(this.searchString, data, ['user.firstName', 'user.lastName']);
+        }
 
         this.filteredListData = data;
     }
