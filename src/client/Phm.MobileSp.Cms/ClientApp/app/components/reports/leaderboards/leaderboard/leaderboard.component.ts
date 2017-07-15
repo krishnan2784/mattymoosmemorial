@@ -1,4 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnChanges } from '@angular/core';
+import { Angular2Csv } from 'angular2-csv/Angular2-csv';
+import { DateEx } from "../../../../classes/helpers/date";
 @Component({
     selector: 'leaderboard',
     template: require('./leaderboard.html'),
@@ -61,7 +63,8 @@ export class LeaderboardComponent implements OnInit, OnChanges {
                 points: e.totalMLearningPoints,
                 region: e.regionName,
                 zone: e.zoneName,
-                dealership: e.dealershipCode
+                dealership: e.dealershipCode,
+                dealershipName: e.dealershipName,
             };
             this.salesExecList.push(ins);
         });
@@ -126,6 +129,7 @@ export class LeaderboardComponent implements OnInit, OnChanges {
             out = this.insertUser(this.data[i].regionName,
                 this.data[i].zoneName,
                 this.data[i].dealershipCode,
+                this.data[i].dealershipName,
                 this.data[i].currentUser.firstName,
                 this.data[i].currentUser.lastName,
                 this.data[i].totalMLearningPoints, out);
@@ -140,7 +144,7 @@ export class LeaderboardComponent implements OnInit, OnChanges {
     cloneObject(source) {
         return JSON.parse(JSON.stringify(source));
     }
-    insertUser(region, zone, dealership, firstName, lastName, points, newDS) {
+    insertUser(region, zone, dealership, dealershipName, firstName, lastName, points, newDS) {
         for (let i = 0; i < newDS.regions.length; i++) {
             if (region === newDS.regions[i].name) {
                 for (let j = 0; j < newDS.regions[i].zones.length; j++) {
@@ -160,7 +164,8 @@ export class LeaderboardComponent implements OnInit, OnChanges {
                                     points: points,
                                     region: region,
                                     zone: zone,
-                                    dealership: dealership
+                                    dealership: dealership,
+                                    dealershipName: dealershipName
                                 };
                                 this.allUsers.push(ins);
                                 this.top10.push(ins);
@@ -392,16 +397,30 @@ export class LeaderboardComponent implements OnInit, OnChanges {
         return r;
     }
     handleReport() {
-        let rep = {
-            filter: this.filter,
-            originalDataset: this.data,
-            top10: this.top10,
-            transformedDataset: this.allUsers,
-            updatedDataFromServer: this.updatedData,
-            searchString: this.searchString,
-            refineGroups: this.refineGroups,
-            salesExecList: this.salesExecList
-        }
-        this.report.emit(rep);
+        let report[] = this.salesExecList.slice(0);
+        report.unshift({
+            firstName: 'First Name',
+            lastName: 'Last Name',
+            points: 'Points Earned',
+            region: 'Region',
+            zone: 'Zone',
+            dealership: 'Dealership Code',
+            ranke: 'Rank'
+        });
+
+
+        console.log(report);
+        new Angular2Csv(report, 'Leaderboard_' + DateEx.formatDate(new Date()));
+        //let rep = {
+        //    filter: this.filter,
+        //    originalDataset: this.data,
+        //    top10: this.top10,
+        //    transformedDataset: this.allUsers,
+        //    updatedDataFromServer: this.updatedData,
+        //    searchString: this.searchString,
+        //    refineGroups: this.refineGroups,
+        //    salesExecList: this.salesExecList
+        //}
+        //this.report.emit(rep);
     }
 }

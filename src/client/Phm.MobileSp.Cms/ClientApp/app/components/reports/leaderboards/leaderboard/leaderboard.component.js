@@ -10,6 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var Angular2_csv_1 = require("angular2-csv/Angular2-csv");
+var date_1 = require("../../../../classes/helpers/date");
 var LeaderboardComponent = (function () {
     function LeaderboardComponent() {
         this.optionSelected = new core_1.EventEmitter();
@@ -65,7 +67,8 @@ var LeaderboardComponent = (function () {
                 points: e.totalMLearningPoints,
                 region: e.regionName,
                 zone: e.zoneName,
-                dealership: e.dealershipCode
+                dealership: e.dealershipCode,
+                dealershipName: e.dealershipName,
             };
             _this.salesExecList.push(ins);
         });
@@ -123,7 +126,7 @@ var LeaderboardComponent = (function () {
             }
             var dealersM1 = out.regions[regionsCountM1].zones[zonesCountM1].dealerships.length - 1;
             this.graphData.children[regionsCountM1].children[zonesCountM1].children[dealersM1].size += this.data[i].totalMLearningPoints;
-            out = this.insertUser(this.data[i].regionName, this.data[i].zoneName, this.data[i].dealershipCode, this.data[i].currentUser.firstName, this.data[i].currentUser.lastName, this.data[i].totalMLearningPoints, out);
+            out = this.insertUser(this.data[i].regionName, this.data[i].zoneName, this.data[i].dealershipCode, this.data[i].dealershipName, this.data[i].currentUser.firstName, this.data[i].currentUser.lastName, this.data[i].totalMLearningPoints, out);
         }
         this.formatedData = out;
         this.commitList(this.top10, true, false);
@@ -135,7 +138,7 @@ var LeaderboardComponent = (function () {
     LeaderboardComponent.prototype.cloneObject = function (source) {
         return JSON.parse(JSON.stringify(source));
     };
-    LeaderboardComponent.prototype.insertUser = function (region, zone, dealership, firstName, lastName, points, newDS) {
+    LeaderboardComponent.prototype.insertUser = function (region, zone, dealership, dealershipName, firstName, lastName, points, newDS) {
         for (var i = 0; i < newDS.regions.length; i++) {
             if (region === newDS.regions[i].name) {
                 for (var j = 0; j < newDS.regions[i].zones.length; j++) {
@@ -153,7 +156,8 @@ var LeaderboardComponent = (function () {
                                     points: points,
                                     region: region,
                                     zone: zone,
-                                    dealership: dealership
+                                    dealership: dealership,
+                                    dealershipName: dealershipName
                                 };
                                 this.allUsers.push(ins);
                                 this.top10.push(ins);
@@ -400,17 +404,29 @@ var LeaderboardComponent = (function () {
         return r;
     };
     LeaderboardComponent.prototype.handleReport = function () {
-        var rep = {
-            filter: this.filter,
-            originalDataset: this.data,
-            top10: this.top10,
-            transformedDataset: this.allUsers,
-            updatedDataFromServer: this.updatedData,
-            searchString: this.searchString,
-            refineGroups: this.refineGroups,
-            salesExecList: this.salesExecList
-        };
-        this.report.emit(rep);
+        var report = this.salesExecList.slice(0);
+        report.unshift({
+            firstName: 'First Name',
+            lastName: 'Last Name',
+            points: 'Points Earned',
+            region: 'Region',
+            zone: 'Zone',
+            dealership: 'Dealership Code',
+            ranke: 'Rank'
+        });
+        console.log(report);
+        new Angular2_csv_1.Angular2Csv(report, 'Leaderboard_' + date_1.DateEx.formatDate(new Date()));
+        //let rep = {
+        //    filter: this.filter,
+        //    originalDataset: this.data,
+        //    top10: this.top10,
+        //    transformedDataset: this.allUsers,
+        //    updatedDataFromServer: this.updatedData,
+        //    searchString: this.searchString,
+        //    refineGroups: this.refineGroups,
+        //    salesExecList: this.salesExecList
+        //}
+        //this.report.emit(rep);
     };
     return LeaderboardComponent;
 }());
