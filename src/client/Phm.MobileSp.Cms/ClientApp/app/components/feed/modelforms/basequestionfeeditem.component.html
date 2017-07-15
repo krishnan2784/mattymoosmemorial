@@ -27,7 +27,7 @@
     <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.QuizScore)">
         <div class="rich-text-box">
             <label>Welcome message</label>
-            <editor [elementId]="'onBoardingMessage'" [value]="model.onBoardingMessage" [formGroup]="form"></editor>
+            <editor [elementId]="'onBoardingMessage'" [value]="form.controls.onBoardingMessage.value" [formGroup]="form"></editor>
             <small [class.active-warning]="!form.controls.onBoardingMessage.valid && submitted">
                 e.g: Welcome to the Quiz
             </small>
@@ -35,7 +35,7 @@
 
         <div class="rich-text-box">
             <label>Congratulate your learners with an engaging message</label>
-            <editor [elementId]="'successMessage'" [value]="model.successMessage" [formGroup]="form"></editor>
+            <editor [elementId]="'successMessage'" [value]="form.controls.successMessage.value" [formGroup]="form"></editor>
             <small [class.active-warning]="!form.controls.successMessage.valid && submitted">
                 e.g: Congratulations! Your skills are improving
             </small>
@@ -43,7 +43,7 @@
 
         <div class="rich-text-box">
             <label>Let your learners know what with wrong with a positive message</label>
-            <editor [elementId]="'failMessage'" [value]="model.failMessage" [formGroup]="form"></editor>
+            <editor [elementId]="'failMessage'" [value]="form.controls.failMessage.value" [formGroup]="form"></editor>
             <small [class.active-warning]="!form.controls.failMessage.valid && submitted">
                 e.g: oooh Unlucky! You will get it next time!
             </small>
@@ -54,7 +54,7 @@
     <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.SurveyScore)">
         <div class="rich-text-box">
             <label>Welcome message</label>
-            <editor [elementId]="'surveyDescription'" [value]="model.surveyDescription" [formGroup]="form"></editor>
+            <editor [elementId]="'surveyDescription'" [value]="form.controls.surveyDescription.value" [formGroup]="form"></editor>
             <small [class.active-warning]="!form.controls.surveyDescription.valid && submitted">
                 e.g: Welcome to the Survey
             </small>
@@ -62,7 +62,7 @@
 
         <div class="rich-text-box">
             <label>Completion message</label>
-            <editor [elementId]="'completionMessage'" [value]="model.completionMessage" [formGroup]="form"></editor>
+            <editor [elementId]="'completionMessage'" [value]="form.controls.completionMessage.value" [formGroup]="form"></editor>
             <small [class.active-warning]="!form.controls.completionMessage.valid && submitted">
                 e.g: Thank you for taking part!
             </small>
