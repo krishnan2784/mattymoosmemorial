@@ -14,6 +14,7 @@ export class LeaderboardComponent implements OnInit, OnChanges {
     @Output() optionSelected: EventEmitter<any> = new EventEmitter();
     @Output() datesChanged: EventEmitter<any> = new EventEmitter();
     @Output() report: EventEmitter<any> = new EventEmitter();
+    @Output() userSelected: EventEmitter<any> = new EventEmitter();
     pagCap = 14;
     curPage = 0;
     totPages = 2;
@@ -59,6 +60,7 @@ export class LeaderboardComponent implements OnInit, OnChanges {
         this.salesExecList = [];
         this.updatedData.forEach((e) => {
             let ins = {
+                user: e,
                 firstName: e.currentUser.firstName,
                 lastName: e.currentUser.lastName,
                 points: e.totalMLearningPoints,
@@ -127,7 +129,8 @@ export class LeaderboardComponent implements OnInit, OnChanges {
             }
             let dealersM1 = out.regions[regionsCountM1].zones[zonesCountM1].dealerships.length - 1;
             this.graphData.children[regionsCountM1].children[zonesCountM1].children[dealersM1].size += this.data[i].totalMLearningPoints;
-            out = this.insertUser(this.data[i].regionName,
+            out = this.insertUser(this.data[i],
+                this.data[i].regionName,
                 this.data[i].zoneName,
                 this.data[i].dealershipCode,
                 this.data[i].dealershipName,
@@ -145,7 +148,7 @@ export class LeaderboardComponent implements OnInit, OnChanges {
     cloneObject(source) {
         return JSON.parse(JSON.stringify(source));
     }
-    insertUser(region, zone, dealership, dealershipName, firstName, lastName, points, newDS) {
+    insertUser(user, region, zone, dealership, dealershipName, firstName, lastName, points, newDS) {
         for (let i = 0; i < newDS.regions.length; i++) {
             if (region === newDS.regions[i].name) {
                 for (let j = 0; j < newDS.regions[i].zones.length; j++) {
@@ -160,6 +163,7 @@ export class LeaderboardComponent implements OnInit, OnChanges {
                                     }
                                 );
                                 let ins = {
+                                    user: user,
                                     firstName: firstName,
                                     lastName: lastName,
                                     points: points,
@@ -399,10 +403,7 @@ export class LeaderboardComponent implements OnInit, OnChanges {
             zone: 'Zone',
             dealership: 'Dealership Code',
             ranke: 'Rank'
-        });
-
-
-        console.log(report);
+        });        
         new Angular2Csv(report, 'Leaderboard_' + DateEx.formatDate(new Date()));
         //let rep = {
         //    filter: this.filter,
@@ -415,5 +416,8 @@ export class LeaderboardComponent implements OnInit, OnChanges {
         //    salesExecList: this.salesExecList
         //}
         //this.report.emit(rep);
+    }
+    public viewUserBreakdown(e) {
+        this.userSelected.emit(e);
     }
 }

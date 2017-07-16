@@ -27,6 +27,7 @@ var RichTextEditorComponent = (function () {
                     var content = editor.getContent();
                     _this.value = content;
                     _this.formGroup.controls[_this.elementId].patchValue(content, {});
+                    _this.formGroup.markAsDirty();
                     _this.onEditorKeyup.emit({ id: _this.elementId, val: content });
                 });
             },

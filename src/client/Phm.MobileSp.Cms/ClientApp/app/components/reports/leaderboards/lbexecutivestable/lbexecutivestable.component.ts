@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges} from '@angular/core';
+import { Component, Input, OnChanges, Output, EventEmitter} from '@angular/core';
 @Component({
     selector: 'lbexecutivestable',
     template: require('./lbexecutivestable.html'),
@@ -9,6 +9,7 @@ export class LbExecutivesTableComponent implements OnChanges {
   @Input() page: number;
   @Input() pageSize: number;
   @Input() busy: boolean;
+  @Output() userSelected: EventEmitter<any> = new EventEmitter();
   pagedData;
   ngOnChanges(changes) {
     if (changes['page'] === undefined && changes['data'] === undefined) {
@@ -21,5 +22,8 @@ export class LbExecutivesTableComponent implements OnChanges {
         this.pagedData.push(this.data[i]);
       }
     }
+  }
+  viewUserBreakdown(e) {
+      this.userSelected.emit(e);
   }
 }

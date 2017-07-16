@@ -1,10 +1,13 @@
-<div class="loader" *ngIf="!leaderBoard"></div>
+<div class="loader" *ngIf="!leaderBoard || (selectedUser && !reportData)"></div>
 
-<leaderboard *ngIf="leaderBoard"
+<leaderboard *ngIf="leaderBoard && !reportData"
              [data]="leaderBoard"
              [updatedData]="myUpdatedData"
              [refineGroups]="refineGroups"
              (datesChanged)="getNewDataFromServer($event)"
              (report)="handleReport($event)"
+             (userSelected)="viewUserBreakdown($event)"
              class="animate-bottom">
 </leaderboard>
+
+<learnerstat *ngIf="reportData" [data]="reportData" [user]="selectedUser"></learnerstat>

@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var LbExecutivesTableComponent = (function () {
     function LbExecutivesTableComponent() {
+        this.userSelected = new core_1.EventEmitter();
     }
     LbExecutivesTableComponent.prototype.ngOnChanges = function (changes) {
         if (changes['page'] === undefined && changes['data'] === undefined) {
@@ -24,6 +25,9 @@ var LbExecutivesTableComponent = (function () {
                 this.pagedData.push(this.data[i]);
             }
         }
+    };
+    LbExecutivesTableComponent.prototype.viewUserBreakdown = function (e) {
+        this.userSelected.emit(e);
     };
     return LbExecutivesTableComponent;
 }());
@@ -43,6 +47,10 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Boolean)
 ], LbExecutivesTableComponent.prototype, "busy", void 0);
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", core_1.EventEmitter)
+], LbExecutivesTableComponent.prototype, "userSelected", void 0);
 LbExecutivesTableComponent = __decorate([
     core_1.Component({
         selector: 'lbexecutivestable',

@@ -3,7 +3,7 @@
     <div class="topAreaHeader">
       <div class="ta1 ta">Bilevel partition</div>
       <div class="ta2 ta">Top 10</div>
-      <button (click)="handleReport()">Report</button>
+      <button (click)="handleReport()">Export</button>
     </div>
     <div class="graphArea">
       <div class="borderDetail"></div>
@@ -28,14 +28,14 @@
     <div class="top10">
       <div class="borderDetail"></div>
         <div class="divTop10Table">
-          <lbexecutivestable [data]="top10" [page]="0" [pageSize]="10"></lbexecutivestable>
+          <lbexecutivestable [data]="top10" [page]="0" [pageSize]="10" (userSelected)="viewUserBreakdown($event)"></lbexecutivestable>
         </div>
     </div>
   </div>
   <div class="bottomArea">
     <div class="bottomHeader">
       <div class="areaTitle">
-        All sales executive
+        Learners Stats
       </div>
     </div>
     <div class="refine">
@@ -61,7 +61,7 @@
         </div>
       </div>
       <div class="tableAll">
-        <lbexecutivestable [data]="salesExecList" [page]="curPage" [pageSize]="pagCap"></lbexecutivestable>
+        <lbexecutivestable [data]="salesExecList" [page]="curPage" [pageSize]="pagCap" (userSelected)="viewUserBreakdown($event)"></lbexecutivestable>
       </div>
     </div>
   </div>

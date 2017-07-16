@@ -18,6 +18,7 @@ var LeaderboardComponent = (function () {
         this.optionSelected = new core_1.EventEmitter();
         this.datesChanged = new core_1.EventEmitter();
         this.report = new core_1.EventEmitter();
+        this.userSelected = new core_1.EventEmitter();
         this.pagCap = 14;
         this.curPage = 0;
         this.totPages = 2;
@@ -63,6 +64,7 @@ var LeaderboardComponent = (function () {
         this.salesExecList = [];
         this.updatedData.forEach(function (e) {
             var ins = {
+                user: e,
                 firstName: e.currentUser.firstName,
                 lastName: e.currentUser.lastName,
                 points: e.totalMLearningPoints,
@@ -127,7 +129,7 @@ var LeaderboardComponent = (function () {
             }
             var dealersM1 = out.regions[regionsCountM1].zones[zonesCountM1].dealerships.length - 1;
             this.graphData.children[regionsCountM1].children[zonesCountM1].children[dealersM1].size += this.data[i].totalMLearningPoints;
-            out = this.insertUser(this.data[i].regionName, this.data[i].zoneName, this.data[i].dealershipCode, this.data[i].dealershipName, this.data[i].currentUser.firstName, this.data[i].currentUser.lastName, this.data[i].totalMLearningPoints, out);
+            out = this.insertUser(this.data[i], this.data[i].regionName, this.data[i].zoneName, this.data[i].dealershipCode, this.data[i].dealershipName, this.data[i].currentUser.firstName, this.data[i].currentUser.lastName, this.data[i].totalMLearningPoints, out);
         }
         this.formatedData = out;
         this.commitList(this.top10, true, false);
@@ -139,7 +141,7 @@ var LeaderboardComponent = (function () {
     LeaderboardComponent.prototype.cloneObject = function (source) {
         return JSON.parse(JSON.stringify(source));
     };
-    LeaderboardComponent.prototype.insertUser = function (region, zone, dealership, dealershipName, firstName, lastName, points, newDS) {
+    LeaderboardComponent.prototype.insertUser = function (user, region, zone, dealership, dealershipName, firstName, lastName, points, newDS) {
         for (var i = 0; i < newDS.regions.length; i++) {
             if (region === newDS.regions[i].name) {
                 for (var j = 0; j < newDS.regions[i].zones.length; j++) {
@@ -152,6 +154,7 @@ var LeaderboardComponent = (function () {
                                     points: points
                                 });
                                 var ins = {
+                                    user: user,
                                     firstName: firstName,
                                     lastName: lastName,
                                     points: points,
@@ -407,7 +410,6 @@ var LeaderboardComponent = (function () {
             dealership: 'Dealership Code',
             ranke: 'Rank'
         });
-        console.log(report);
         new Angular2_csv_1.Angular2Csv(report, 'Leaderboard_' + date_1.DateEx.formatDate(new Date()));
         //let rep = {
         //    filter: this.filter,
@@ -420,6 +422,9 @@ var LeaderboardComponent = (function () {
         //    salesExecList: this.salesExecList
         //}
         //this.report.emit(rep);
+    };
+    LeaderboardComponent.prototype.viewUserBreakdown = function (e) {
+        this.userSelected.emit(e);
     };
     return LeaderboardComponent;
 }());
@@ -447,6 +452,10 @@ __decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)
 ], LeaderboardComponent.prototype, "report", void 0);
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", core_1.EventEmitter)
+], LeaderboardComponent.prototype, "userSelected", void 0);
 LeaderboardComponent = __decorate([
     core_1.Component({
         selector: 'leaderboard',

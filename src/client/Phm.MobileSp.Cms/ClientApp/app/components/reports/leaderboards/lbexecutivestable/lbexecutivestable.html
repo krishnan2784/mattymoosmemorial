@@ -6,8 +6,9 @@
     <thead>
     <tr>
       <th class="rank">Rank</th>
-      <th>Sales Executive Name</th>
-      <th class="reputation">Reputation Points</th>
+      <th>Name</th>
+      <th class="reputation">Points</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -15,6 +16,11 @@
       <td class="rank">{{d.rank}}</td>
       <td><i class="material-icons">account_circle</i> {{d.firstName}} {{d.lastName}}<!-- / {{d.region}}:{{d.zone}}--></td>
       <td class="reputation">{{d.points}}</td>
+        <td>
+            <a (click)="viewUserBreakdown(d.user)">
+                <i class="material-icons right">keyboard_arrow_right</i>
+            </a>    
+        </td>
     </tr>
     </tbody>
   </table>

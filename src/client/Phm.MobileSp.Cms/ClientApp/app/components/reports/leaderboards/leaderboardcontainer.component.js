@@ -34,6 +34,7 @@ var LeaderboardContainer = (function (_super) {
         _this.loading = true;
         _this.refineGroups = [];
         _this.reportData = null;
+        _this.selectedUser = null;
         _this.backSub = null;
         _this.setupSubscriptions();
         _this.getData();
@@ -126,8 +127,11 @@ var LeaderboardContainer = (function (_super) {
         this.backSub = this.sharedService.goBackEvent.subscribe(function () {
             _this.setupPageVariables();
             _this.backSub = null;
+            _this.selectedUser = null;
+            _this.reportData = null;
         });
-        this.feedDataService.getUserPointsHistory(event.userId, event.date1, event.date2).subscribe(function (result) {
+        this.selectedUser = event;
+        this.feedDataService.getUserPointsHistory(event.currentUser.id).subscribe(function (result) {
             _this.reportData = result;
         });
     };

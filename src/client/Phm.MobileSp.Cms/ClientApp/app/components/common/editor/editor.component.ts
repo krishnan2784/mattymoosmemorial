@@ -27,7 +27,8 @@ export class RichTextEditorComponent implements  AfterViewInit, OnDestroy {
         editor.on('keyup', () => {
             const content = editor.getContent();
             this.value = content;
-            this.formGroup.controls[this.elementId].patchValue(content, {  });
+            this.formGroup.controls[this.elementId].patchValue(content, {});
+            this.formGroup.markAsDirty();
             this.onEditorKeyup.emit({ id: this.elementId, val: content });
         });
       },

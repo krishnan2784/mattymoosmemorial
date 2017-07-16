@@ -22,6 +22,7 @@ export class LeaderboardContainer extends BaseComponent implements OnDestroy {
     public currentMarket: UserMarket;
     refineGroups = [];
     public reportData = null;
+    public selectedUser = null;
     backSub = null;
 
     constructor(public feedDataService: FeedDataService, sharedService: ShareService, public marketDataService: MarketDataService) {
@@ -120,8 +121,11 @@ export class LeaderboardContainer extends BaseComponent implements OnDestroy {
         this.backSub = this.sharedService.goBackEvent.subscribe(() => {
             this.setupPageVariables();
             this.backSub = null;
+            this.selectedUser = null;
+            this.reportData = null;
         });
-        this.feedDataService.getUserPointsHistory(event.userId, event.date1, event.date2).subscribe(result => {            
+        this.selectedUser = event;
+        this.feedDataService.getUserPointsHistory(event.currentUser.id).subscribe(result => {  
             this.reportData = result;
         });
     }
