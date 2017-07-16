@@ -1,5 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit, ViewChild, AfterViewInit, ElementRef} from '@angular/core';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
+import { DateEx } from "../../../../classes/helpers/date";
+
 import * as D3 from 'd3';
 @Component({
   selector: 'learnerstat',
@@ -183,7 +185,7 @@ export class LearnerStatComponent implements OnInit, AfterViewInit {
 
   }
   raiseExport() {
-        let report = this.originalData.slice(0);    
+        let report = this.data.slice(0);    
         new Angular2Csv(report, this.user.currentUser.firstName + this.user.currentUser.lastName + DateEx.formatDate(new Date()));
   }
 }
