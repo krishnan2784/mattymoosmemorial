@@ -1,3 +1,5 @@
+<h5>Upload an image or video</h5>
+<p>Images must be jpeg or png format. Videos must be mp4.</p>
 <div class="upload-container">
     <p *ngIf="!selectedMedia">Upload one or more photos using this form:</p>
 
@@ -14,9 +16,10 @@
         <button class="btn btn-primary btn-save" (click)="uploadFile()" [disabled]="uploading || !files || files.length==0">Upload</button>
     </span>
     <div *ngIf="showPreview" class="preview-container">
-        <div *ngIf="imagePreviewUrl" >
+        <div *ngIf="imagePreviewUrl || videoPreviewUrl" >
             <h5 class="col-md-4">Preview</h5>
-            <img src="{{imagePreviewUrl}}" class="col-md-8 preview-image" />
+            <img *ngIf="imagePreviewUrl" src="{{imagePreviewUrl}}" class="col-md-8 preview-image" />
+            <video *ngIf="videoPreviewUrl" controls class="col-md-8 preview-image"><source src="{{videoPreviewUrl}}" type="video/mp4"></video>
             <div class="clearfix"></div>
             <hr />
         </div>

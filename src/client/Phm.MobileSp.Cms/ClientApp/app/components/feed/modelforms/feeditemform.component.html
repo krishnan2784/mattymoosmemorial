@@ -20,7 +20,14 @@
 
     <div class="clear-both"></div>
 
-    <div class="col-md-8 no-pad" *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Category)">
+    
+<div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Category) ||
+     feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Main) || 
+     feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Media) || 
+     feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Links)"  class="col-md-8">
+
+
+    <div class="no-pad" *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Category)">
         <div>
             <div class="col-md-12 no-pad">
                 <div class="col-md-6">
@@ -29,7 +36,8 @@
                         <h5>LEARNING</h5>
                         <p>Create informal, fun learning and competition. Small modules with an optional Quiz to test engagement. Embrace competition with Leaderboards and track user's progress with Reports.</p>
                         <div class="btn-holder">
-                            <a (click)="swapForm(this.textForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3 waves-effect waves-light" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Text" [class.disabled]="model.id>0">
+                            <a (click)="swapForm(this.textForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3 waves-effect waves-light"
+                               [class.active-type]="model.feedCategory == feedCats.Learning && (model.feedType == feedTypes.Text || model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)" [class.disabled]="model.id>0">
                                 Module
                             </a>
                             <a (click)="swapForm(this.quizForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3 waves-effect waves-light" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Quiz" [class.disabled]="model.id>0">
@@ -49,7 +57,8 @@
                         <h5>CAMPAIGN</h5>
                         <p>Campaign helps make your marketing strategy stronger. You will be able to add media, and additional links. Even better, get insights by sending a survey.</p>
                         <div class="btn-holder">
-                            <a (click)="swapForm(this.textForm, feedCats.Campaign)" class="btn btn-primary col-md-6 btn-2 waves-effect waves-light" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Text" [class.disabled]="model.id>0">
+                            <a (click)="swapForm(this.textForm, feedCats.Campaign)" class="btn btn-primary col-md-6 btn-2 waves-effect waves-light"
+                               [class.active-type]="model.feedCategory == feedCats.Campaign && (model.feedType == feedTypes.Text || model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)" [class.disabled]="model.id>0">
                                 Module
                             </a>
                             <a (click)="swapForm(this.surveyForm, feedCats.Campaign)" class="btn btn-primary col-md-6 btn-2 waves-effect waves-light" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Survey" [class.disabled]="model.id>0">
@@ -68,7 +77,8 @@
                         <h5>ANNOUNCEMENT</h5>
                         <p>Announcement allows you to create content including rich media and additional links to websites and our other apps.</p>
                         <div class="btn-holder">
-                            <a (click)="swapForm(this.textForm, feedCats.Announcement)" class="btn btn-primary col-md-12 waves-effect waves-light" [class.active-type]="model.feedCategory == feedCats.Announcement && model.feedType == feedTypes.Text" [class.disabled]="model.id>0">
+                            <a (click)="swapForm(this.textForm, feedCats.Announcement)" class="btn btn-primary col-md-12 waves-effect waves-light"
+                               [class.active-type]="model.feedCategory == feedCats.Announcement && (model.feedType == feedTypes.Text || model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)" [class.disabled]="model.id>0">
                                 Module
                             </a>
                         </div>
@@ -81,7 +91,7 @@
                         <h5>NEWS</h5>
                         <p>Keep everyone updated. News gives you the flexibility of using media and additional links.</p>
                         <div class="btn-holder">
-                            <a (click)="swapForm(this.textForm, feedCats.News)" class="btn btn-primary col-md-12 waves-effect waves-light" [class.active-type]="model.feedCategory == feedCats.News && model.feedType == feedTypes.Text" [class.disabled]="model.id>0">
+                            <a (click)="swapForm(this.textForm, feedCats.News)" class="btn btn-primary col-md-12 waves-effect waves-light" [class.active-type]="model.feedCategory == feedCats.News && (model.feedType == feedTypes.Text || model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)" [class.disabled]="model.id>0">
                                 Module
                             </a>
                         </div>
@@ -94,7 +104,7 @@
                         <h5>ARTICLE</h5>
                         <p>Article enables you to include and image and PDF link.</p>
                         <div class="btn-holder">
-                            <a (click)="swapForm(this.textForm, feedCats.Article)" class="btn btn-primary col-md-12 waves-effect waves-light" [class.active-type]="model.feedCategory == feedCats.Article && model.feedType == feedTypes.Text" [class.disabled]="model.id>0">
+                            <a (click)="swapForm(this.textForm, feedCats.Article)" class="btn btn-primary col-md-12 waves-effect waves-light" [class.active-type]="model.feedCategory == feedCats.Article && (model.feedType == feedTypes.Text || model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)" [class.disabled]="model.id>0">
                                 Module
                             </a>
                         </div>
@@ -102,7 +112,7 @@
                     <div class="clear-both"></div>
                 </div>
                 <div class="clearfix"></div>
-            </div>     
+            </div>
         </div>
         <div>
             <div class="col-md-12 no-pad">
@@ -111,13 +121,13 @@
                 </div>
                 <div>
                     <p class="observation-text">
-                        The following category has specific privileges, and is connected to Reports and Analytics.<br/>
+                        The following category has specific privileges, and is connected to Reports and Analytics.<br />
                         This feed item will only be seen by Sales Managers to report to back to their NSC.
                     </p>
                 </div>
                 <div class="col-md-4">
                     <div class="feed-cat-container" [class.active-cat]="model.feedType == feedTypes.Observation">
-                        <img src="assets/images/Icon-Observation-b.png" class="feed-cat-img"/>
+                        <img src="assets/images/Icon-Observation-b.png" class="feed-cat-img" />
                         <h5>OBSERVATION</h5>
                         <p>Observations are surveys allowing Sales Managers to report the progress of their staff to the NSC.</p>
                         <div class="btn-holder">
@@ -131,76 +141,76 @@
             </div>
         </div>
     </div>
-    
-<div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Main)"  class="col-md-8">
-        
-    <div class="rich-text-box">
-        <label>Enter Title</label>
-        <editor [elementId]="'title'" [value]="form.controls.title.value" [formGroup]="form"></editor>
-        <small [class.active-warning]="!form.controls.title.valid && submitted">
-            Title is required (minimum 5 characters).
-        </small>
-    </div>
-        
-    <div class="rich-text-box">
-        <label>Short Description</label>
-        <editor [elementId]="'shortDescription'" [value]="form.controls.shortDescription.value" [formGroup]="form"></editor>
-        <small [class.active-warning]="!form.controls.shortDescription.valid && submitted">
-            Short description is required.
-        </small>
-    </div>
 
-    <div class="rich-text-box" *ngIf="model.feedType == feedTypes.Text">
-        <label>Body Text</label>
-        <editor [elementId]="'bodyText'" [value]="form.controls.bodyText.value" [formGroup]="form"></editor>
-        <small [class.active-warning]="!form.controls.bodyText.valid && submitted">
-            Body text is required if you are not uploading an image or video (minimum 5 characters).
-        </small> 
-    </div>
-        
-</div>
 
-<div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Media)" class="col-md-8">
-    <h5>Upload an image or video</h5>
-    <p><!--Information here about file format recommendations.--></p>
-    <upload (mediaUploaded)="attachMedia($event)" *ngIf="model.feedType != feedTypes.Image && model.feedType != feedTypes.Video"></upload>
-    <upload (mediaUploaded)="attachMedia($event)" [selectedMedia]="model.mainImage" *ngIf="model.feedType == feedTypes.Image"></upload>
-    <upload (mediaUploaded)="attachMedia($event)" [selectedMedia]="model.mainVideo" *ngIf="model.feedType == feedTypes.Video"></upload>
+
+     <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Main)">
+
+         <div class="rich-text-box">
+             <label>Enter Title</label>
+             <editor [elementId]="'title'" [value]="form.controls.title.value" [formGroup]="form"></editor>
+             <small [class.active-warning]="!form.controls.title.valid && submitted">
+                 Title is required (minimum 5 characters).
+             </small>
+         </div>
+
+         <div class="rich-text-box">
+             <label>Short Description</label>
+             <editor [elementId]="'shortDescription'" [value]="form.controls.shortDescription.value" [formGroup]="form"></editor>
+             <small [class.active-warning]="!form.controls.shortDescription.valid && submitted">
+                 Short description is required.
+             </small>
+         </div>
+
+         <div class="rich-text-box" *ngIf="model.feedType == feedTypes.Text">
+             <label>Body Text</label>
+             <editor [elementId]="'bodyText'" [value]="form.controls.bodyText.value" [formGroup]="form"></editor>
+             <small [class.active-warning]="!form.controls.bodyText.valid && submitted">
+                 Body text is required if you are not uploading an image or video (minimum 5 characters).
+             </small>
+         </div>
+     </div>
+        
+    <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Media)">
+        <upload (mediaUploaded)="attachMedia($event)" *ngIf="model.feedType != feedTypes.Image && model.feedType != feedTypes.Video"></upload>
+        <upload (mediaUploaded)="attachMedia($event)" [selectedMedia]="model.mainImage" *ngIf="model.feedType == feedTypes.Image"></upload>
+        <upload (mediaUploaded)="attachMedia($event)" [selectedMedia]="model.mainVideo" *ngIf="model.feedType == feedTypes.Video"></upload>
+
+    </div>
     <div *ngIf="feedFormData && (model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)">
         <feed-form-component [feedFormData]="feedFormData"></feed-form-component>
     </div>
-</div>
 
-<div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Links)" class="col-md-8">
-    <h5>Call-To-Action</h5>
-    <div class="col-md-9">
-        <div class="col-md-4">
-            <div class="input-field">
-                <label [class.active]="form.controls.callToActionText.value.length>0">Button label</label>
-                <input type="text" formControlName="callToActionText">
+    <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Links)">
+        <h5>Call-To-Action</h5>
+        <div class="col-md-9">
+            <div class="col-md-4">
+                <div class="input-field">
+                    <label [class.active]="form.controls.callToActionText.value.length>0">Button label</label>
+                    <input type="text" formControlName="callToActionText">
+                </div>
             </div>
-        </div>
-        <div class="col-md-8">
-            <div class="input-field">
-                <label [class.active]="form.controls.callToActionUrl.value.length>0">Url</label>
-                <input type="text" formControlName="callToActionUrl">
+            <div class="col-md-8">
+                <div class="input-field">
+                    <label [class.active]="form.controls.callToActionUrl.value.length>0">Url</label>
+                    <input type="text" formControlName="callToActionUrl">
+                </div>
             </div>
+            <div class="clearfix"></div>
+            <small class="col-lg-12">
+                Use Call-To-Action to link the user to additional information
+            </small>
         </div>
-        <div class="clearfix"></div>
-        <small class="col-lg-12">
-            Use Call-To-Action to link the user to additional information
-        </small>
+        <div class="col-md-3">
+            <a class="button btn" *ngIf="form.controls.callToActionUrl.value.length>5" href="{{form.controls.callToActionUrl.value.indexOf('http') == 0 ? form.controls.callToActionUrl.value : 'http://' + form.controls.callToActionUrl.value}}" target="_blank">
+                <!--<span *ngIf="form.controls.callToActionText.value > 0">{{model.callToActionText}}</span>-->
+                <span>Test URL</span>
+            </a>
+        </div>
     </div>
-    <div class="col-md-3">
-        <a class="button btn" *ngIf="form.controls.callToActionUrl.value.length>5" href="{{form.controls.callToActionUrl.value.indexOf('http') == 0 ? form.controls.callToActionUrl.value : 'http://' + form.controls.callToActionUrl.value}}" target="_blank">
-         <!--<span *ngIf="form.controls.callToActionText.value > 0">{{model.callToActionText}}</span>-->
-            <span>Test URL</span>
-        </a>
-    </div>
-</div>
 
+</div>
     
-
 <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Category) || 
          feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Main) || 
          feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Media) || 

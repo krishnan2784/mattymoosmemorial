@@ -31,30 +31,30 @@ namespace Phm.MobileSp.Cms.Controllers.API
             _mediaRepository = mediaRepository;
         }
 
+        //[HttpPost]
+        //[DisableFormValueModelBinding]
+        //public async Task<JsonResult> UploadFiles()
+        //{
+        //    FormValueProvider formModel;
+        //    using (var stream = System.IO.File.Create("c:\\temp\\myfile.temp"))
+        //    {
+        //        formModel = await Request.StreamFile(stream);
+        //    }
+
+        //    var viewModel = new MediaInfo();
+
+        //    var bindingSuccessful = await TryUpdateModelAsync(viewModel, prefix: "",
+        //        valueProvider: formModel);
+
+        //    if (!bindingSuccessful)
+        //    {
+        //    }
+        //    return Json(new BaseResponse(bindingSuccessful, "", viewModel));
+        //}
+
         [HttpPost]
-        [DisableFormValueModelBinding]
-        public async Task<JsonResult> UploadFiles()
-        {
-            FormValueProvider formModel;
-            using (var stream = System.IO.File.Create("c:\\temp\\myfile.temp"))
-            {
-                formModel = await Request.StreamFile(stream);
-            }
-
-            var viewModel = new MediaInfo();
-
-            var bindingSuccessful = await TryUpdateModelAsync(viewModel, prefix: "",
-                valueProvider: formModel);
-
-            if (!bindingSuccessful)
-            {
-            }
-            return Json(new BaseResponse(bindingSuccessful, "", viewModel));
-        }
-
-        [HttpPost]
-        public async Task<JsonResult> UploadImage(IFormFile file) {
-            var response = await _mediaRepository.UploadImage(file);
+        public async Task<JsonResult> UploadFile(IFormFile file) {
+            var response = await _mediaRepository.UploadFile(file);
             return Json(new BaseResponse(response));
         }
 

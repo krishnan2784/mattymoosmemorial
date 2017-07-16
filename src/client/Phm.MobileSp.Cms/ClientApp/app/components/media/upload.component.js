@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var Mediaservice = require("../../services/mediaservice");
 var mediainfoclasses_1 = require("../../models/mediainfoclasses");
+var enums_1 = require("../../enums");
 var MediaDataService = Mediaservice.MediaDataService;
 var UploadMediaComponent = (function () {
     function UploadMediaComponent(mediaService) {
@@ -25,49 +26,38 @@ var UploadMediaComponent = (function () {
     UploadMediaComponent.prototype.ngOnInit = function () {
         if (this.selectedMedia)
             this.setPreviewImage();
-        console.log(this.selectedMedia);
     };
     UploadMediaComponent.prototype.uploadFile = function () {
+        var _this = this;
         if (!this.files)
             return;
         this.uploading = true;
         this.imagePreviewUrl = '';
         for (var _i = 0, _a = this.files; _i < _a.length; _i++) {
             var file = _a[_i];
-            switch (file.type) {
-                case 'image/jpeg':
-                case 'image/png':
-                    this.uploadImage(file);
-                    return;
-                default:
-                    this.uploadVideo(file);
-                    return;
-            }
+            this.mediaService.uploadFile(file).subscribe(function (response) {
+                _this.processUploadResponse(response);
+            });
         }
-    };
-    UploadMediaComponent.prototype.uploadVideo = function (file) {
-        var _this = this;
-        this.mediaService.uploadFile(file).subscribe(function (response) {
-            _this.processUploadResponse(response);
-        });
-    };
-    UploadMediaComponent.prototype.uploadImage = function (file) {
-        var _this = this;
-        this.mediaService.uploadFile(file).subscribe(function (response) {
-            _this.processUploadResponse(response);
-        });
     };
     UploadMediaComponent.prototype.processUploadResponse = function (media) {
-        media = new mediainfoclasses_1.MediaInfo(media);
         this.uploading = false;
-        this.selectedMedia = media;
+        var mediaModel = new mediainfoclasses_1.MediaInfo(media);
         if (media) {
             this.setPreviewImage();
-            this.mediaUploaded.emit(media);
+            this.mediaUploaded.emit(mediaModel);
         }
+        else
+            Materialize.toast("Please upload a valid media type.", 5000, 'red');
+        this.selectedMedia = mediaModel;
     };
     UploadMediaComponent.prototype.setPreviewImage = function () {
-        this.imagePreviewUrl = this.selectedMedia.path + this.selectedMedia.name;
+        if (!this.selectedMedia)
+            return;
+        if (this.selectedMedia.mediaType == enums_1.MediaTypes.Image)
+            this.imagePreviewUrl = this.selectedMedia.path + this.selectedMedia.name;
+        else if (this.selectedMedia.mediaType == enums_1.MediaTypes.Video)
+            this.videoPreviewUrl = this.selectedMedia.path + this.selectedMedia.name;
     };
     UploadMediaComponent.prototype.filesSelectHandler = function (fileInput) {
         var FileList = fileInput.target.files;

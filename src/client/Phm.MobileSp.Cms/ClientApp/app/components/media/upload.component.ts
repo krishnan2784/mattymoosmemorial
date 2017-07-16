@@ -9,8 +9,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import qq from 'fine-uploader';
 import Mediaservice = require("../../services/mediaservice");
 import { MediaInfo } from "../../models/mediainfoclasses";
+import { MediaTypes } from "../../enums";
 import MediaDataService = Mediaservice.MediaDataService;
 
+declare var Materialize: any;
 @Injectable()
 @Component({
     selector: 'upload',
@@ -28,6 +30,7 @@ export class UploadMediaComponent implements OnInit {
     public uploading: boolean = false;
 
     public imagePreviewUrl: string;
+    public videoPreviewUrl: string;
 
     @Output()
     public mediaUploaded: EventEmitter<any> = new EventEmitter();
@@ -38,7 +41,6 @@ export class UploadMediaComponent implements OnInit {
     ngOnInit() {
         if (this.selectedMedia)
             this.setPreviewImage();
-        console.log(this.selectedMedia);
     }
 
     uploadFile() {
@@ -47,42 +49,32 @@ export class UploadMediaComponent implements OnInit {
         this.uploading = true;
         this.imagePreviewUrl = '';
         for (var file of this.files) {
-            switch (file.type) {
-                case 'image/jpeg':
-                case 'image/png':
-                    this.uploadImage(file);
-                    return;
-                default:
-                    this.uploadVideo(file);
-                    return;
-            }
+            this.mediaService.uploadFile(file).subscribe((response) => {
+                this.processUploadResponse(response);
+            });
         }
-    }
-
-    uploadVideo(file: File) {
-        this.mediaService.uploadFile(file).subscribe((response) => {
-            this.processUploadResponse(response);
-        });
-    }
-
-    uploadImage(file:File) {
-        this.mediaService.uploadFile(file).subscribe((response) => {
-            this.processUploadResponse(response);
-        });
-    }
+    }    
 
     processUploadResponse(media: MediaInfo) {
-        media = new MediaInfo(media);
         this.uploading = false;
-        this.selectedMedia = media;        
+        let mediaModel = new MediaInfo(media);
         if (media) {
             this.setPreviewImage();
-            this.mediaUploaded.emit(media);
-        }
+            this.mediaUploaded.emit(mediaModel);
+        } else
+            Materialize.toast("Please upload a valid media type.", 5000, 'red');
+
+        this.selectedMedia = mediaModel;                  
     }
 
     setPreviewImage() {
-        this.imagePreviewUrl = this.selectedMedia.path + this.selectedMedia.name;
+        if (!this.selectedMedia)
+            return;
+
+        if (this.selectedMedia.mediaType == MediaTypes.Image)
+            this.imagePreviewUrl = this.selectedMedia.path + this.selectedMedia.name;
+        else if (this.selectedMedia.mediaType == MediaTypes.Video)
+            this.videoPreviewUrl = this.selectedMedia.path + this.selectedMedia.name;
     }
 
     public filesSelectHandler(fileInput: any) {

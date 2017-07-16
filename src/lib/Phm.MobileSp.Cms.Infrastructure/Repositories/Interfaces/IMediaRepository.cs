@@ -9,6 +9,6 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
 {
     public interface IMediaRepository : ICoreBaseRepository
     {
-        Task<MediaInfo> UploadImage(IFormFile image);
+        Task<MediaInfo> UploadFile(IFormFile file);
     }
 }

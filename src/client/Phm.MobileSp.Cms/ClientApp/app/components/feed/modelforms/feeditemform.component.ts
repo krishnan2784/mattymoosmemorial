@@ -81,7 +81,8 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     public swapForm<TFormType extends any>(newFormType: TFormType, feedCategory: FeedCategoryEnum) {
         let newForm = (new newFormType()) as IFeedItemComponents.IFeedItemPartialForm;
 
-        if (!this.subForm || this.subForm.feedType != newForm.feedType) {
+        if (!this.subForm || this.subForm.feedType != newForm.feedType && (newForm.feedType != Enums.FeedTypeEnum.Text
+            || (this.subForm.feedType != Enums.FeedTypeEnum.Image && this.subForm.feedType != Enums.FeedTypeEnum.Video))) {
             if (this.form) {
                 this.subForm = null;
             } 
@@ -94,10 +95,10 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             };
 
             this.subForm = newForm;
+            this.model.feedType = newForm.feedType;
 
         }        
 
-        this.model.feedType = newForm.feedType;
         this.model.feedCategory = feedCategory;
 
         this.feedFormSteps.setFormType(newForm.feedType);

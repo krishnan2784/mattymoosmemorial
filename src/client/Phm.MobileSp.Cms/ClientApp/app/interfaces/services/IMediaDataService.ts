@@ -7,5 +7,5 @@ import Mediainfoclasses = require("../../models/mediainfoclasses");
 import MediaInfo = Mediainfoclasses.MediaInfo;
 
 export interface IMediaDataService {
-    uploadFile(files: any): Observable<MediaInfo>;
+    uploadFile(file: any): Observable<MediaInfo>;
 }

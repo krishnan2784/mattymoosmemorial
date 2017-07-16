@@ -30,8 +30,21 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             _config = builder.Build();
         }
 
-        public async Task<MediaInfo> UploadImage(IFormFile image)
+        public async Task<MediaInfo> UploadFile(IFormFile file)
         {
+            MediaTypes type = MediaTypes.Image;
+            switch (file.ContentType)
+            {
+                case "video/mp4":
+                    type = MediaTypes.Video;
+                    break;
+                case "image/jpeg":
+                case "image/png":
+                    type = MediaTypes.Image;
+                    break;
+                default:
+                    return new MediaInfo();
+            }
             try
             {
                 var connectionString = _config["MicrosoftAzureStorage:mobilespstagingstorage_AzureStorageConnectionString"];
@@ -40,14 +53,17 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
                 var blobClient = storageAccount.CreateCloudBlobClient();
                 var container = blobClient.GetContainerReference(containerRoot);
                 var parsedContentDisposition =
-                    ContentDispositionHeaderValue.Parse(image.ContentDisposition);
+                    ContentDispositionHeaderValue.Parse(file.ContentDisposition);
                 var filename = Path.Combine(parsedContentDisposition.FileName.Trim('"'));
                 var blockBlob = container.GetBlockBlobReference(filename);
-                await blockBlob.UploadFromStreamAsync(image.OpenReadStream());
-                return new MediaInfo() { Name = filename, Path = $"{storageAccount.BlobStorageUri.PrimaryUri.AbsoluteUri}{containerRoot}/", MediaType = MediaTypes.Image};
+                await blockBlob.UploadFromStreamAsync(file.OpenReadStream());
+
+                return new MediaInfo() { Name = filename,
+                    Path = $"{storageAccount.BlobStorageUri.PrimaryUri.AbsoluteUri}{containerRoot}/",
+                    MediaType = type};
             } catch (Exception e)
             {
-                return null;
+                return new MediaInfo();
             }
         }
     }

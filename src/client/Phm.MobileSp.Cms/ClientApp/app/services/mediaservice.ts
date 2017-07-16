@@ -22,11 +22,11 @@ export class MediaDataService extends RequestHelper implements IMediaDataService
         this.fileUploadService = new FileUploadService();
     }
 
-    uploadImage(image): Observable<MediaInfo> {
+    uploadFile(file): Observable<MediaInfo> {
         let input = new FormData();
-        input.append("file", image);
+        input.append("file", file);
         return Observable.create(observer => {
-            this.http.post('/Media/UploadImage', input).subscribe(
+            this.http.post('/Media/UploadFile', input).subscribe(
                 (result) => {
                     let response = ResponseHelper.getResponse(result);
                     observer.next(response.content);
@@ -36,37 +36,36 @@ export class MediaDataService extends RequestHelper implements IMediaDataService
         });
     }
 
-    uploadFile(files): Observable<MediaInfo> {
-        return Observable.create(observer => {
-            this.getAuthToken().subscribe((authtoken) => {
-                this.fileUploadService.upload('http://mobilespapi.phm.co.uk/api/AzureMedia', files, authtoken).then((response) => {
-                    console.log(response);
-                    observer.next(response.content);
-                    observer.complete();
-                });
+    //uploadFile(files): Observable<MediaInfo> {
+    //    return Observable.create(observer => {
+    //        this.getAuthToken().subscribe((authtoken) => {
+    //            this.fileUploadService.upload('/Media/UploadFiles', files, authtoken).then((response) => {
+    //                console.log(response);
+    //                observer.next(response.content);
+    //                observer.complete();
+    //            });
                 
-                let headers = new Headers({ 'Content-Type': 'multipart/form-data' });
-                headers.append("Authorization", authtoken);
-                headers.append("Accept", 'application/json');
-                headers.append("Accept-Language", 'en-gb');
-                headers.append("Content-Type", 'multipart/form-data');
-                headers.append("Access-Control-Allow-Origin", '*');
+    //            //let headers = new Headers({ 'Content-Type': 'multipart/form-data' });
+    //            //headers.append("Authorization", authtoken);
+    //            //headers.append("Accept", 'application/json');
+    //            //headers.append("Accept-Language", 'en-gb');
+    //            //headers.append("Access-Control-Allow-Origin", '*');
                 
-                let input = new FormData();
-                input.append("file", files);
-                console.log(input, files, headers);
-                var request = this.http.post('http://mobilespapi.phm.co.uk/api/AzureMedia', files, headers).subscribe(
-                    (result) => {
-                        console.log(result);
-                        let response = ResponseHelper.getResponse(result);
-                        observer.next(response);
-                        observer.complete();
-                    }
-                );
-                console.log(request);
-            });
-        });
-    }
+    //            //let input = new FormData();
+    //            //input.append("file", files);
+    //            //console.log(input, files, headers);
+    //            //var request = this.http.post('http://mobilespapi.phm.co.uk/api/AzureMedia', files, headers).subscribe(
+    //            //    (result) => {
+    //            //        console.log(result);
+    //            //        let response = ResponseHelper.getResponse(result);
+    //            //        observer.next(response);
+    //            //        observer.complete();
+    //            //    }
+    //            //);
+    //            //console.log(request);
+    //        });
+    //    });
+    //}
 
 
     //uploadFile(files): Observable<MediaInfo> {
@@ -148,7 +147,6 @@ export class FileUploadService {
 
             xhr.open('POST', url, true);
             xhr.setRequestHeader('Authorization', authToken);
-            xhr.setRequestHeader('Content-Type', 'multipart/form-data');
             xhr.setRequestHeader("Accept", 'application/json');
             xhr.setRequestHeader("Accept-Language", 'en-GB');
             xhr.setRequestHeader('Access-Control-Allow-Origin', '*');

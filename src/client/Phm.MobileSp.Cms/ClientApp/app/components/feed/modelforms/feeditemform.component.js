@@ -57,7 +57,8 @@ var FeedItemForm = (function () {
     }
     FeedItemForm.prototype.swapForm = function (newFormType, feedCategory) {
         var newForm = (new newFormType());
-        if (!this.subForm || this.subForm.feedType != newForm.feedType) {
+        if (!this.subForm || this.subForm.feedType != newForm.feedType && (newForm.feedType != Enums.FeedTypeEnum.Text
+            || (this.subForm.feedType != Enums.FeedTypeEnum.Image && this.subForm.feedType != Enums.FeedTypeEnum.Video))) {
             if (this.form) {
                 this.subForm = null;
             }
@@ -67,8 +68,8 @@ var FeedItemForm = (function () {
                 inputs: { form: this.form, feedFormSteps: this.feedFormSteps, model: this.model }
             };
             this.subForm = newForm;
+            this.model.feedType = newForm.feedType;
         }
-        this.model.feedType = newForm.feedType;
         this.model.feedCategory = feedCategory;
         this.feedFormSteps.setFormType(newForm.feedType);
         this.setupFormSteps();
