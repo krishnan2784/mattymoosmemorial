@@ -120,7 +120,7 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
     }
 
     updateFeedItem(feedItem: IFeedItem = null, remove: boolean = false) {
-        if (feedItem != null) {
+        if (feedItem != null && this.feedItems != null) {
             let origFeedItem = this.feedItems.find(x => x.id === feedItem.id);
             let index = this.feedItems.indexOf(origFeedItem);
 

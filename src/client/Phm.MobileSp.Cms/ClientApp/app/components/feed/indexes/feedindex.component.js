@@ -123,7 +123,7 @@ var FeedIndexComponent = (function (_super) {
     FeedIndexComponent.prototype.updateFeedItem = function (feedItem, remove) {
         if (feedItem === void 0) { feedItem = null; }
         if (remove === void 0) { remove = false; }
-        if (feedItem != null) {
+        if (feedItem != null && this.feedItems != null) {
             var origFeedItem = this.feedItems.find(function (x) { return x.id === feedItem.id; });
             var index = this.feedItems.indexOf(origFeedItem);
             if (!remove && (!this.filteredFeed || feedItem.feedCategory == this.catId)) {
