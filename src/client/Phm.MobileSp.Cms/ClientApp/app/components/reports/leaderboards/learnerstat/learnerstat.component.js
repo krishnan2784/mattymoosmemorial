@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var Angular2_csv_1 = require("angular2-csv/Angular2-csv");
 var D3 = require("d3");
 var LearnerStatComponent = (function () {
     function LearnerStatComponent() {
@@ -22,7 +23,7 @@ var LearnerStatComponent = (function () {
         this.export = new core_1.EventEmitter();
         this.types = [
             {
-                text: "Unknow",
+                text: "Unknown",
                 value: 0
             },
             {
@@ -175,12 +176,8 @@ var LearnerStatComponent = (function () {
         });
     };
     LearnerStatComponent.prototype.raiseExport = function () {
-        this.export.emit({
-            originalData: this.data,
-            date1: this.date1,
-            date2: this.date2,
-            groupedData: this.groupBy
-        });
+        var report = this.originalData.slice(0);
+        new Angular2_csv_1.Angular2Csv(report, this.user.currentUser.firstName + this.user.currentUser.lastName + DateEx.formatDate(new Date()));
     };
     return LearnerStatComponent;
 }());
