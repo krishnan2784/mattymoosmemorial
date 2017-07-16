@@ -104,7 +104,6 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         this.setupFormSteps();
 
         this.updateForm();
-        tinymce.init({ selector: 'textarea' });
     }
 
     public setupFormSteps() {
@@ -168,6 +167,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             this.form.controls['startDate'].patchValue(this.model.startDate, { onlySelf: true });
             this.form.controls['endDate'].patchValue(this.model.endDate, { onlySelf: true });
         }
+        this.form.updateValueAndValidity();
     }
 
     getFeedType(feedType: Enums.FeedTypeEnum) : any {

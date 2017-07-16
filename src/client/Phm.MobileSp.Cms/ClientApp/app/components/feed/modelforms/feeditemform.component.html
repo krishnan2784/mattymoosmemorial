@@ -10,7 +10,7 @@
 
     <div class="feed-item-form-buttons">
         <a (click)="goBack()" class="btn btn-primary">Cancel</a>
-        <button type="submit" class="btn btn-primary btn-save" [disabled]="!form.valid">Save</button>
+        <button type="submit" class="btn btn-primary btn-save" [disabled]="!form.valid || !form.dirty">Save</button>
     </div>
 
     <div class="feed-form-navigation col-md-8">

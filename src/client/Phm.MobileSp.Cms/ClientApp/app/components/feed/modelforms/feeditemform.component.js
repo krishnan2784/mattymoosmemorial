@@ -73,7 +73,6 @@ var FeedItemForm = (function () {
         this.feedFormSteps.setFormType(newForm.feedType);
         this.setupFormSteps();
         this.updateForm();
-        tinymce.init({ selector: 'textarea' });
     };
     FeedItemForm.prototype.setupFormSteps = function () {
         var _this = this;
@@ -136,6 +135,7 @@ var FeedItemForm = (function () {
             this.form.controls['startDate'].patchValue(this.model.startDate, { onlySelf: true });
             this.form.controls['endDate'].patchValue(this.model.endDate, { onlySelf: true });
         }
+        this.form.updateValueAndValidity();
     };
     FeedItemForm.prototype.getFeedType = function (feedType) {
         switch (feedType) {
