@@ -78,6 +78,8 @@ var imagefeeditem_component_1 = require("./components/feed/modelforms/imagefeedi
 var videofeeditem_component_1 = require("./components/feed/modelforms/videofeeditem.component");
 var editor_component_1 = require("./components/common/editor/editor.component");
 var observationfeeditemreport_component_1 = require("./components/reports/observationfeeditemreport.component");
+var gaugegraph_component_1 = require("./components/charts/gaugegraph/gaugegraph.component");
+var monobargraph_component_1 = require("./components/charts/monobargraph/monobargraph.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -133,6 +135,8 @@ AppModule = __decorate([
             GaugeChart,
             DonutChart,
             dynamicchartformats_component_1.DynamicChartFormatsComponent,
+            monobargraph_component_1.MonobarGraphComponent,
+            gaugegraph_component_1.GaugeGraphComponent,
             //modals
             FeedItemCopyToMarket,
             //shared

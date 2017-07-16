@@ -33,7 +33,7 @@
                         <div class="stat-body">
                             <div class="loader" *ngIf="!passRatioData"></div>
                             <div *ngIf="passRatioData">
-                                <gaugechart [chartData]="passRatioData" [id]="'passRatioChart'"></gaugechart>
+                                <gaugegraph [percent]="passRatioData"></gaugegraph>
                                 <h5 *ngIf="summaryData">
                                     <b>{{summaryData.submitted}} <span>submitted / </span></b>
                                     {{summaryData.passed}} <span> passed</span>
@@ -69,7 +69,8 @@
                         <div class="stat-body">
                             <div class="loader" *ngIf="!averageTimeData"></div>
                             <div *ngIf="averageTimeData">
-                                <barchart [chartData]="averageTimeData" [id]="'averageTimeChart'"></barchart>
+                                <monobargraph [data]="averageTimeData"></monobargraph>
+                                <!--<barchart [chartData]="averageTimeData" [id]="'averageTimeChart'"></barchart>-->
                             </div>
                         </div>
                     </div>

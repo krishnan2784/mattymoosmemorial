@@ -23,6 +23,7 @@ import DateEx = Date1.DateEx;
 import Userfiltercomponent = require("../common/filters/userfilter.component");
 import { SurveyFeed } from "../../models/feedclasses";
 import UserFilters = Userfiltercomponent.UserFilters;
+import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 
 declare var Materialize: any;
 declare var noUiSlider: any;
@@ -44,8 +45,8 @@ export class SurveyFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     public summaryData: SurveyItemSummary;
     public listData = [];
     
-    public submissionRateData: GaugeChartData;
-    public averageTimeData: BarChartData;
+    public submissionRateData;
+    public averageTimeData;
 
     constructor(private sharedService: ShareService, public feedDataService: FeedDataService,
         private injector: Injector) { 
@@ -83,51 +84,66 @@ export class SurveyFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public updateGaugeData() {
-        var gaugeData = new GaugeChartData({
-            height: 150,
-            showTooltip: true,
-            chartData: [
-                {
-                    name: 'Submitted',
-                    colour: '#9F378E',
-                    data: (this.summaryData.submitted / this.summaryData.totalRecipents) * 100
-                }
-            ]
-        });
-        this.submissionRateData = gaugeData;
+        //var gaugeData = new GaugeChartData({
+        //    height: 150,
+        //    showTooltip: true,
+        //    chartData: [
+        //        {
+        //            name: 'Submitted',
+        //            colour: '#9F378E',
+        //            data: (this.summaryData.submitted / this.summaryData.totalRecipents) * 100
+        //        }
+        //    ]
+        //});
+        this.submissionRateData = (this.summaryData.submitted / this.summaryData.totalRecipents) * 100;
     }
 
     public updateBarData() {
-        let dates: { x: string, y: number }[] = [];
+        let dates: { label: string, percent: number }[] = [];
         for (let submission in this.summaryData.submissions) {
             let formatted = DateEx.formatDate(new Date(submission), "dd/MM");
-            let existing = dates.find(x => x.x === formatted);
+            let existing = dates.find(x => x.label === formatted);
             if (existing) {
-                dates.splice(dates.indexOf(existing), 1, { x: formatted, y: existing.y + 1 });
+                dates.splice(dates.indexOf(existing), 1, { label: formatted, percent: existing.percent + 1 });
             } else {
-                dates.push({ x: formatted, y: 1 });
+                dates.push({ label: formatted, percent: 1 });
             }
         }
-        if (dates.length == 0) {
-            dates.push({ x: "11/07", y: 2 });
-            dates.push({ x: "12/07", y: 4 });
+        this.averageTimeData = {
+            legendText: "Submissions",
+            footerText: "Allocated time (days)",
+            data: dates
         }
-        var barData = new BarChartData({
-            width: 500,
-            showTooltip: true,
-            showYAxis: false,
-            showXAxis: true,
-            chartData: [{
-                name: 'Allocated time (days)',
-                colour: '#9F378E',
-                data: dates
-            }]
-        });
-        this.averageTimeData = barData;
+        //let dates: { x: string, y: number }[] = [];
+        //for (let submission in this.summaryData.submissions) {
+        //    let formatted = DateEx.formatDate(new Date(submission), "dd/MM");
+        //    let existing = dates.find(x => x.x === formatted);
+        //    if (existing) {
+        //        dates.splice(dates.indexOf(existing), 1, { x: formatted, y: existing.y + 1 });
+        //    } else {
+        //        dates.push({ x: formatted, y: 1 });
+        //    }
+        //}
+        //if (dates.length == 0) {
+        //    dates.push({ x: "11/07", y: 2 });
+        //    dates.push({ x: "12/07", y: 4 });
+        //}
+        //var barData = new BarChartData({
+        //    width: 500,
+        //    showTooltip: true,
+        //    showYAxis: false,
+        //    showXAxis: true,
+        //    chartData: [{
+        //        name: 'Allocated time (days)',
+        //        colour: '#9F378E',
+        //        data: dates
+        //    }]
+        //});
+        //this.averageTimeData = barData;
     }
 
     public updateListData() {
-        if (this.model && this.summaryData) {
+        if (this.model && this.summaryData && this.summaryData.surveyFeedResults) {
             for (let question of this.model.questions) {
                 var data = []
                 question.answers.forEach(x => {
@@ -142,6 +158,9 @@ export class SurveyFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
                 });
             };
         }
+    }
+    handleReport() {
+        new Angular2Csv(this.summaryData, this.model.title + DateEx.formatDate(new Date()));
     }
 
     public goBack() {

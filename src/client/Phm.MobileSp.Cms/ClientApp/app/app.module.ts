@@ -77,6 +77,8 @@ import { ImageFeedItemFormComponent } from "./components/feed/modelforms/imagefe
 import { VideoFeedItemFormComponent } from "./components/feed/modelforms/videofeeditem.component";
 import { RichTextEditorComponent } from "./components/common/editor/editor.component";
 import { ObservationFeedItemReport } from "./components/reports/observationfeeditemreport.component";
+import { GaugeGraphComponent } from "./components/charts/gaugegraph/gaugegraph.component";
+import { MonobarGraphComponent } from "./components/charts/monobargraph/monobargraph.component";
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -133,6 +135,8 @@ import { ObservationFeedItemReport } from "./components/reports/observationfeedi
         GaugeChart,
         DonutChart,
         DynamicChartFormatsComponent,
+        MonobarGraphComponent,
+        GaugeGraphComponent,
 
         //modals
         FeedItemCopyToMarket,

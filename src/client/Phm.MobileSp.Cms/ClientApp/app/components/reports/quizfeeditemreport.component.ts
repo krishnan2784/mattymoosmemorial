@@ -47,10 +47,9 @@ export class QuizFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     public listData: FeedItemSummaryEx[];
     public filteredListData: FeedItemSummaryEx[];
     
-    public passRatioData: GaugeChartData;
+    public passRatioData;
     public averageScoreData: DonutChartData;
-    public averageTimeData: BarChartData;
-
+    public averageTimeData;
     public filterCriteria: UserFilters = new UserFilters();
     public searchString = '';
 
@@ -137,18 +136,18 @@ export class QuizFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public updateGaugeData() {
-        var gaugeData = new GaugeChartData({
-            height: 150,
-            showTooltip: true,
-            chartData: [
-                {
-                    name: 'Passed',
-                    colour: '#9F378E',
-                    data: (this.summaryData.passed / this.summaryData.submitted) * 100
-                }
-            ]
-        });
-        this.passRatioData = gaugeData;
+        //var gaugeData = new GaugeChartData({
+        //    height: 150,
+        //    showTooltip: true,
+        //    chartData: [
+        //        {
+        //            name: 'Passed',
+        //            colour: '#9F378E',
+        //            data: (this.summaryData.passed / this.summaryData.submitted) * 100
+        //        }
+        //    ]
+        //});
+        this.passRatioData = (this.summaryData.passed / this.summaryData.submitted) * 100;
     }
 
     public updateDonutData() {
@@ -171,28 +170,35 @@ export class QuizFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public updateBarData() {
-        let dates: { x: string, y: number }[] = [];
+        let dates: { label: string, percent: number }[] = [];
         for (let submission in this.summaryData.submissions) {
             let formatted = DateEx.formatDate(new Date(submission), "dd/MM");
-            let existing = dates.find(x => x.x === formatted);
+            let existing = dates.find(x => x.label === formatted);
             if (existing) {
-                dates.splice(dates.indexOf(existing), 1, { x: formatted, y: existing.y + 1 });
+                dates.splice(dates.indexOf(existing), 1, { label: formatted, percent: existing.percent + 1 });
             } else {
-                dates.push({ x: formatted, y: 1 });
+                dates.push({ label: formatted, percent: 1 });
             }
         }
-        var barData = new BarChartData({
-            width: 500,
-            showTooltip: true,
-            showYAxis: false,
-            showXAxis: true,
-            chartData: [{
-                name: 'Allocated time (days)',
-                colour: '#9F378E',
-                data: dates
-            }]
-        });
-        this.averageTimeData = barData;
+        //var barData = new BarChartData({
+        //    width: 500,
+        //    showTooltip: true,
+        //    showYAxis: false,
+        //    showXAxis: true,
+        //    chartData: [{
+        //        name: 'Allocated time (days)',
+        //        colour: '#9F378E',
+        //        data: dates
+        //    }]
+        //});
+        //this.averageTimeData = barData;
+
+        this.averageTimeData = {
+            legendText: "Submissions",
+            footerText: "Allocated time (days)",
+            data: dates
+        }
+    
     }
 
     public goBack() {

@@ -1,6 +1,6 @@
 <div class="survey-header-container">
     <div class="col-md-8 survey-title" [innerHTML]="model.title"></div>
-    <div class="col-md-4">
+    <div class="col-md-4" *ngIf="this.summaryData && summaryData.surveyFeedId > 0">
         <button (click)="handleReport()" class="right">Report</button>
     </div>
     <div class="clearfix"></div>
@@ -31,7 +31,7 @@
                 <div class="stat-body">
                     <div class="loader" *ngIf="!submissionRateData"></div>
                     <div *ngIf="submissionRateData">
-                        <gaugechart [chartData]="submissionRateData" [id]="'submissionRatioChart'"></gaugechart>
+                        <gaugegraph [percent]="submissionRateData"></gaugegraph>
                         <h5 *ngIf="summaryData">
                             <b>{{summaryData.submitted}} <span>submitted / </span></b>
                             {{summaryData.totalRecipents}} <span> total</span>
@@ -49,7 +49,9 @@
                 <div class="stat-body">
                     <div class="loader" *ngIf="!averageTimeData"></div>
                     <div *ngIf="averageTimeData">
-                        <barchart [chartData]="averageTimeData" [id]="'averageTimeChart'"></barchart>
+                        <monobargraph [data]="averageTimeData"></monobargraph>
+
+                        <!--<barchart [chartData]="averageTimeData" [id]="'averageTimeChart'"></barchart>-->
                     </div>
                 </div>
             </div>

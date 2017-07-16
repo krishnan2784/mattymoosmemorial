@@ -1,0 +1,22 @@
+<div class="ggContent">
+  <div class="circles">
+    <div class="circle1">
+      <div class="circleFiller" [style.transform]="deg">
+        <!--<div class="pointerTil50" [style.marginLeft]="perc < 50 ? '-50px' : (-50 - (50 -perc)) +'px'"></div>-->
+        <div class="pointerTil50"></div>
+      </div>
+    </div>
+    <div class="circle2"></div>
+  </div>
+  <div class="pointerWrapper" [style.transform]="deg2">
+    <div class="pointer">
+      <div class="xCircle1"></div>
+      <div class="xCircle2"></div>
+      <div class="xTriangle"></div>
+    </div>
+    <div class="yCircle1"></div>
+    <div class="yCircle2"></div>
+    <div class="yText">{{percText}}%</div>
+  </div>
+  <div class="bar"></div>
+</div>

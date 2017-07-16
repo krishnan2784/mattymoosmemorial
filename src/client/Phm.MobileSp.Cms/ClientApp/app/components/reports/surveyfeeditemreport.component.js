@@ -15,13 +15,11 @@ var ShareService = Datashareservice.ShareService;
 var Enums = require("../../enums");
 var Feeddataservice = require("../../services/feeddataservice");
 var FeedDataService = Feeddataservice.FeedDataService;
-var Chartclasses = require("../../models/chartclasses");
-var BarChartData = Chartclasses.BarChartData;
-var GaugeChartData = Chartclasses.GaugeChartData;
 var Reportclasses = require("../../models/reportclasses");
 var SurveyItemSummary = Reportclasses.SurveyItemSummary;
 var Date1 = require("../../classes/helpers/date");
 var DateEx = Date1.DateEx;
+var Angular2_csv_1 = require("angular2-csv/Angular2-csv");
 var SurveyFeedItemReport = (function () {
     function SurveyFeedItemReport(sharedService, feedDataService, injector) {
         var _this = this;
@@ -61,54 +59,69 @@ var SurveyFeedItemReport = (function () {
         });
     };
     SurveyFeedItemReport.prototype.updateGaugeData = function () {
-        var gaugeData = new GaugeChartData({
-            height: 150,
-            showTooltip: true,
-            chartData: [
-                {
-                    name: 'Submitted',
-                    colour: '#9F378E',
-                    data: (this.summaryData.submitted / this.summaryData.totalRecipents) * 100
-                }
-            ]
-        });
-        this.submissionRateData = gaugeData;
+        //var gaugeData = new GaugeChartData({
+        //    height: 150,
+        //    showTooltip: true,
+        //    chartData: [
+        //        {
+        //            name: 'Submitted',
+        //            colour: '#9F378E',
+        //            data: (this.summaryData.submitted / this.summaryData.totalRecipents) * 100
+        //        }
+        //    ]
+        //});
+        this.submissionRateData = (this.summaryData.submitted / this.summaryData.totalRecipents) * 100;
     };
     SurveyFeedItemReport.prototype.updateBarData = function () {
         var dates = [];
         var _loop_1 = function (submission) {
             var formatted = DateEx.formatDate(new Date(submission), "dd/MM");
-            var existing = dates.find(function (x) { return x.x === formatted; });
+            var existing = dates.find(function (x) { return x.label === formatted; });
             if (existing) {
-                dates.splice(dates.indexOf(existing), 1, { x: formatted, y: existing.y + 1 });
+                dates.splice(dates.indexOf(existing), 1, { label: formatted, percent: existing.percent + 1 });
             }
             else {
-                dates.push({ x: formatted, y: 1 });
+                dates.push({ label: formatted, percent: 1 });
             }
         };
         for (var submission in this.summaryData.submissions) {
             _loop_1(submission);
         }
-        if (dates.length == 0) {
-            dates.push({ x: "11/07", y: 2 });
-            dates.push({ x: "12/07", y: 4 });
-        }
-        var barData = new BarChartData({
-            width: 500,
-            showTooltip: true,
-            showYAxis: false,
-            showXAxis: true,
-            chartData: [{
-                    name: 'Allocated time (days)',
-                    colour: '#9F378E',
-                    data: dates
-                }]
-        });
-        this.averageTimeData = barData;
+        this.averageTimeData = {
+            legendText: "Submissions",
+            footerText: "Allocated time (days)",
+            data: dates
+        };
+        //let dates: { x: string, y: number }[] = [];
+        //for (let submission in this.summaryData.submissions) {
+        //    let formatted = DateEx.formatDate(new Date(submission), "dd/MM");
+        //    let existing = dates.find(x => x.x === formatted);
+        //    if (existing) {
+        //        dates.splice(dates.indexOf(existing), 1, { x: formatted, y: existing.y + 1 });
+        //    } else {
+        //        dates.push({ x: formatted, y: 1 });
+        //    }
+        //}
+        //if (dates.length == 0) {
+        //    dates.push({ x: "11/07", y: 2 });
+        //    dates.push({ x: "12/07", y: 4 });
+        //}
+        //var barData = new BarChartData({
+        //    width: 500,
+        //    showTooltip: true,
+        //    showYAxis: false,
+        //    showXAxis: true,
+        //    chartData: [{
+        //        name: 'Allocated time (days)',
+        //        colour: '#9F378E',
+        //        data: dates
+        //    }]
+        //});
+        //this.averageTimeData = barData;
     };
     SurveyFeedItemReport.prototype.updateListData = function () {
         var _this = this;
-        if (this.model && this.summaryData) {
+        if (this.model && this.summaryData && this.summaryData.surveyFeedResults) {
             for (var _i = 0, _a = this.model.questions; _i < _a.length; _i++) {
                 var question = _a[_i];
                 var data = [];
@@ -125,6 +138,9 @@ var SurveyFeedItemReport = (function () {
             }
             ;
         }
+    };
+    SurveyFeedItemReport.prototype.handleReport = function () {
+        new Angular2_csv_1.Angular2Csv(this.summaryData, this.model.title + DateEx.formatDate(new Date()));
     };
     SurveyFeedItemReport.prototype.goBack = function () {
         this.pageTitle = null;
