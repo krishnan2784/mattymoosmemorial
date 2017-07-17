@@ -39,6 +39,7 @@ export class UploadMediaComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log(this.selectedMedia);
         if (this.selectedMedia)
             this.setPreviewImage();
     }
@@ -57,14 +58,13 @@ export class UploadMediaComponent implements OnInit {
 
     processUploadResponse(media: MediaInfo) {
         this.uploading = false;
-        let mediaModel = new MediaInfo(media);
-        if (media) {
+        media = new MediaInfo(media);
+        this.selectedMedia = media;     
+        if (media.id > 0) {
             this.setPreviewImage();
-            this.mediaUploaded.emit(mediaModel);
+            this.mediaUploaded.emit(media);
         } else
-            Materialize.toast("Please upload a valid media type.", 5000, 'red');
-
-        this.selectedMedia = mediaModel;                  
+            Materialize.toast("Please upload a valid media type.", 5000, 'red');       
     }
 
     setPreviewImage() {
@@ -72,9 +72,9 @@ export class UploadMediaComponent implements OnInit {
             return;
 
         if (this.selectedMedia.mediaType == MediaTypes.Image)
-            this.imagePreviewUrl = this.selectedMedia.path + this.selectedMedia.name;
+            this.imagePreviewUrl = this.selectedMedia.azureUrl;
         else if (this.selectedMedia.mediaType == MediaTypes.Video)
-            this.videoPreviewUrl = this.selectedMedia.path + this.selectedMedia.name;
+            this.videoPreviewUrl = this.selectedMedia.azureUrl;
     }
 
     public filesSelectHandler(fileInput: any) {

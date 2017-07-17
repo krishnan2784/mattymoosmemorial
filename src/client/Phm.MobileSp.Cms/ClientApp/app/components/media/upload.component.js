@@ -24,6 +24,7 @@ var UploadMediaComponent = (function () {
         this.mediaUploaded = new core_1.EventEmitter();
     }
     UploadMediaComponent.prototype.ngOnInit = function () {
+        console.log(this.selectedMedia);
         if (this.selectedMedia)
             this.setPreviewImage();
     };
@@ -42,22 +43,22 @@ var UploadMediaComponent = (function () {
     };
     UploadMediaComponent.prototype.processUploadResponse = function (media) {
         this.uploading = false;
-        var mediaModel = new mediainfoclasses_1.MediaInfo(media);
-        if (media) {
+        media = new mediainfoclasses_1.MediaInfo(media);
+        this.selectedMedia = media;
+        if (media.id > 0) {
             this.setPreviewImage();
-            this.mediaUploaded.emit(mediaModel);
+            this.mediaUploaded.emit(media);
         }
         else
             Materialize.toast("Please upload a valid media type.", 5000, 'red');
-        this.selectedMedia = mediaModel;
     };
     UploadMediaComponent.prototype.setPreviewImage = function () {
         if (!this.selectedMedia)
             return;
         if (this.selectedMedia.mediaType == enums_1.MediaTypes.Image)
-            this.imagePreviewUrl = this.selectedMedia.path + this.selectedMedia.name;
+            this.imagePreviewUrl = this.selectedMedia.azureUrl;
         else if (this.selectedMedia.mediaType == enums_1.MediaTypes.Video)
-            this.videoPreviewUrl = this.selectedMedia.path + this.selectedMedia.name;
+            this.videoPreviewUrl = this.selectedMedia.azureUrl;
     };
     UploadMediaComponent.prototype.filesSelectHandler = function (fileInput) {
         var FileList = fileInput.target.files;

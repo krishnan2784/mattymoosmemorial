@@ -47,7 +47,7 @@ var MarketDataService = (function (_super) {
     MarketDataService.prototype.getCurrentMarketId = function () {
         var _this = this;
         return Observable_1.Observable.create(function (observer) {
-            _this.http.get('/api/Market/GetCurrentMarket').subscribe(function (result) {
+            _this.http.get('/api/Market/GetCurrentMarketId').subscribe(function (result) {
                 var response = responsehelper_1.ResponseHelper.getResponse(result);
                 observer.next(response.content);
                 observer.complete();

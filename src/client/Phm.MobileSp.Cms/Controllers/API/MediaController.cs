@@ -16,19 +16,19 @@ using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Helpers;
 using Phm.MobileSp.Cms.Helpers.Attributes;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
+using Phm.MobileSp.Cms.Core.Models.Interfaces;
 
 namespace Phm.MobileSp.Cms.Controllers.API
 {
     [AiHandleError]
-    public class MediaController : Controller
+    public class MediaController : BaseController
     {
-        public override void OnActionExecuted(ActionExecutedContext context)
-        {
-            base.OnActionExecuted(context);
-        }
         private readonly IMediaRepository _mediaRepository;
-        public MediaController(IMediaRepository mediaRepository){
+        private readonly IMarketRepository _marketRepository;
+        public MediaController(IMediaRepository mediaRepository, IMemoryCache memoryCache, IMarketRepository marketRepository,
+         IBaseRequest baseRequest, IBaseCriteria baseCriteria) : base(memoryCache, baseRequest, baseCriteria){
             _mediaRepository = mediaRepository;
+            _marketRepository = marketRepository;
         }
 
         //[HttpPost]
@@ -54,7 +54,8 @@ namespace Phm.MobileSp.Cms.Controllers.API
 
         [HttpPost]
         public async Task<JsonResult> UploadFile(IFormFile file) {
-            var response = await _mediaRepository.UploadFile(file);
+            var markets = await _marketRepository.GetMarketsAsync();
+            var response = await _mediaRepository.UploadFile(file, markets.FirstOrDefault(x => x.Id == CurrentMarketId));
             return Json(new BaseResponse(response));
         }
 

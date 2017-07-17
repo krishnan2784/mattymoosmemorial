@@ -62,9 +62,18 @@ namespace Phm.MobileSp.Cms.Controllers
         [HttpGet("[action]")]
         [JsonResponseWrapper]
         [ResponseCache(CacheProfileName = "NoCache")]
-        public JsonResult GetCurrentMarket()
+        public JsonResult GetCurrentMarketId()
         {
             return Json(CurrentMarketId);
+        }
+
+        [HttpGet("[action]")]
+        [JsonResponseWrapper]
+        [ResponseCache(CacheProfileName = "NoCache")]
+        public async Task<Market> GetCurrentMarket()
+        {
+            var markets = await _marketRepository.GetMarketsAsync();
+            return markets.FirstOrDefault(x => x.Id == CurrentMarketId);
         }
 
         [HttpGet("[action]")]

@@ -21,6 +21,7 @@ namespace MobileSPCoreService
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.UpdateUserRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.CreateRoleRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.GetRolesRequest))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.GetAllRolesRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.CreateLtrOperationRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.UpdateLtrOperationRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.GetLtrOperationsRequest))]
@@ -37,6 +38,7 @@ namespace MobileSPCoreService
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.GetImportConflictsRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.FixImportConflictsRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.GetLayoutstatusesRequest))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.DeleteVEDBandGroupRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.GetVEDBandsRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.CreateVEDBandRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.UpdateVEDBandRequest))]
@@ -164,7 +166,6 @@ namespace MobileSPCoreService
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.IsUserInRoleRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.GetRolesForUserRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.RoleExistsRequest))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.GetUsersInRoleRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.GetUsersByNameRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.GetUsersByEmailRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.UpdateUserAndConfigurationsRequest))]
@@ -197,6 +198,7 @@ namespace MobileSPCoreService
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.GetMediaInfosByNameRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.UpdateMediaInfoRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.DeleteMediaInfoRequest))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.CreateMediaInfoRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.GetLanguagesRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.GetCountriesRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.GetBodyColorSectionsRequest))]
@@ -284,8 +286,7 @@ namespace MobileSPCoreService
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.GetVEDBandGroupsRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.CreateVEDBandGroupRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.UpdateVEDBandGroupRequest))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.DeleteVEDBandGroupRequest))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.GetAllRolesRequest))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MobileSPCoreService.GetUsersInRoleRequest))]
     public partial class RequestBase : object
     {
         
@@ -495,6 +496,13 @@ namespace MobileSPCoreService
                 this.CriteriaField = value;
             }
         }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="GetAllRolesRequest", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
+    public partial class GetAllRolesRequest : MobileSPCoreService.RequestBase
+    {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -875,6 +883,43 @@ namespace MobileSPCoreService
             set
             {
                 this.CriteriaField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DeleteVEDBandGroupRequest", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
+    public partial class DeleteVEDBandGroupRequest : MobileSPCoreService.RequestBase
+    {
+        
+        private bool ForceDeleteField;
+        
+        private int VEDBandGroupIdField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool ForceDelete
+        {
+            get
+            {
+                return this.ForceDeleteField;
+            }
+            set
+            {
+                this.ForceDeleteField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int VEDBandGroupId
+        {
+            get
+            {
+                return this.VEDBandGroupIdField;
+            }
+            set
+            {
+                this.VEDBandGroupIdField = value;
             }
         }
     }
@@ -4365,28 +4410,6 @@ namespace MobileSPCoreService
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="GetUsersInRoleRequest", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
-    public partial class GetUsersInRoleRequest : MobileSPCoreService.RequestBase
-    {
-        
-        private string RoleNameField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string RoleName
-        {
-            get
-            {
-                return this.RoleNameField;
-            }
-            set
-            {
-                this.RoleNameField = value;
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="GetUsersByNameRequest", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
     public partial class GetUsersByNameRequest : MobileSPCoreService.RequestBase
     {
@@ -5295,6 +5318,28 @@ namespace MobileSPCoreService
             set
             {
                 this.MediaInfoIdField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CreateMediaInfoRequest", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
+    public partial class CreateMediaInfoRequest : MobileSPCoreService.RequestBase
+    {
+        
+        private MobileSPCoreService.MediaInfoDto CurrentMediInfoField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MobileSPCoreService.MediaInfoDto CurrentMediInfo
+        {
+            get
+            {
+                return this.CurrentMediInfoField;
+            }
+            set
+            {
+                this.CurrentMediInfoField = value;
             }
         }
     }
@@ -7515,46 +7560,24 @@ namespace MobileSPCoreService
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="DeleteVEDBandGroupRequest", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
-    public partial class DeleteVEDBandGroupRequest : MobileSPCoreService.RequestBase
+    [System.Runtime.Serialization.DataContractAttribute(Name="GetUsersInRoleRequest", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
+    public partial class GetUsersInRoleRequest : MobileSPCoreService.RequestBase
     {
         
-        private bool ForceDeleteField;
-        
-        private int VEDBandGroupIdField;
+        private string RoleNameField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool ForceDelete
+        public string RoleName
         {
             get
             {
-                return this.ForceDeleteField;
+                return this.RoleNameField;
             }
             set
             {
-                this.ForceDeleteField = value;
+                this.RoleNameField = value;
             }
         }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int VEDBandGroupId
-        {
-            get
-            {
-                return this.VEDBandGroupIdField;
-            }
-            set
-            {
-                this.VEDBandGroupIdField = value;
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="GetAllRolesRequest", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
-    public partial class GetAllRolesRequest : MobileSPCoreService.RequestBase
-    {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -7890,6 +7913,10 @@ namespace MobileSPCoreService
         
         private bool AllowFavouriteField;
         
+        private string CallToActionTextField;
+        
+        private string CallToActionUrlField;
+        
         private MobileSPCoreService.CorporateAppDto CorporateAppField;
         
         private System.Nullable<System.DateTime> EndDateField;
@@ -7897,6 +7924,8 @@ namespace MobileSPCoreService
         private MobileSPCoreService.FeedCategoryEnumDto FeedCategoryField;
         
         private MobileSPCoreService.FeedTypeEnumDto FeedTypeField;
+        
+        private bool IsCompletedField;
         
         private bool IsFavouriteField;
         
@@ -7918,6 +7947,8 @@ namespace MobileSPCoreService
         
         private int ReadingTimeField;
         
+        private System.Nullable<int> SecObjectIdField;
+        
         private string ShortDescriptionField;
         
         private System.Nullable<System.DateTime> StartDateField;
@@ -7936,6 +7967,32 @@ namespace MobileSPCoreService
             set
             {
                 this.AllowFavouriteField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CallToActionText
+        {
+            get
+            {
+                return this.CallToActionTextField;
+            }
+            set
+            {
+                this.CallToActionTextField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CallToActionUrl
+        {
+            get
+            {
+                return this.CallToActionUrlField;
+            }
+            set
+            {
+                this.CallToActionUrlField = value;
             }
         }
         
@@ -7988,6 +8045,19 @@ namespace MobileSPCoreService
             set
             {
                 this.FeedTypeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsCompleted
+        {
+            get
+            {
+                return this.IsCompletedField;
+            }
+            set
+            {
+                this.IsCompletedField = value;
             }
         }
         
@@ -8118,6 +8188,19 @@ namespace MobileSPCoreService
             set
             {
                 this.ReadingTimeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> SecObjectId
+        {
+            get
+            {
+                return this.SecObjectIdField;
+            }
+            set
+            {
+                this.SecObjectIdField = value;
             }
         }
         
@@ -8732,9 +8815,24 @@ namespace MobileSPCoreService
     public partial class SurveyFeedDto : MobileSPCoreService.BaseFeedDto
     {
         
+        private string CompletionMessageField;
+        
         private System.Collections.Generic.List<MobileSPCoreService.SurveyQuestionDto> QuestionsField;
         
         private string SurveyDescriptionField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CompletionMessage
+        {
+            get
+            {
+                return this.CompletionMessageField;
+            }
+            set
+            {
+                this.CompletionMessageField = value;
+            }
+        }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Collections.Generic.List<MobileSPCoreService.SurveyQuestionDto> Questions
@@ -16579,6 +16677,9 @@ namespace MobileSPCoreService
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Icon = 4,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        File = 5,
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
@@ -25484,6 +25585,28 @@ namespace MobileSPCoreService
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DeleteVEDBandGroupResponse", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
+    public partial class DeleteVEDBandGroupResponse : object
+    {
+        
+        private bool DeletedField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Deleted
+        {
+            get
+            {
+                return this.DeletedField;
+            }
+            set
+            {
+                this.DeletedField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="GetVEDBandsResponse", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
     public partial class GetVEDBandsResponse : object
     {
@@ -29749,6 +29872,28 @@ namespace MobileSPCoreService
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CreateMediaInfoResponse", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
+    public partial class CreateMediaInfoResponse : object
+    {
+        
+        private MobileSPCoreService.MediaInfoDto CurrentMediInfoField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public MobileSPCoreService.MediaInfoDto CurrentMediInfo
+        {
+            get
+            {
+                return this.CurrentMediInfoField;
+            }
+            set
+            {
+                this.CurrentMediInfoField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="GetLanguagesResponse", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
     public partial class GetLanguagesResponse : object
     {
@@ -32010,32 +32155,14 @@ namespace MobileSPCoreService
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="DeleteVEDBandGroupResponse", Namespace="http://schemas.datacontract.org/2004/07/Phm.Ccesg2.CoreSvc.Api.Data")]
-    public partial class DeleteVEDBandGroupResponse : object
-    {
-        
-        private bool DeletedField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool Deleted
-        {
-            get
-            {
-                return this.DeletedField;
-            }
-            set
-            {
-                this.DeletedField = value;
-            }
-        }
-    }
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MobileSPCoreService.ICoreContract")]
     public interface ICoreContract
     {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICoreContract/GetUsersInRole", ReplyAction="http://tempuri.org/ICoreContract/GetUsersInRoleResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(MobileSPCoreService.BaseError), Action="http://tempuri.org/ICoreContract/GetUsersInRoleBaseErrorFault", Name="BaseError", Namespace="http://www.phm.co.uk/types/common/")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<string>> GetUsersInRoleAsync(MobileSPCoreService.GetUsersInRoleRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICoreContract/GetAllRoles", ReplyAction="http://tempuri.org/ICoreContract/GetAllRolesResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(MobileSPCoreService.BaseError), Action="http://tempuri.org/ICoreContract/GetAllRolesBaseErrorFault", Name="BaseError", Namespace="http://www.phm.co.uk/types/common/")]
@@ -32106,6 +32233,10 @@ namespace MobileSPCoreService
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICoreContract/GetLayoutstatuses", ReplyAction="http://tempuri.org/ICoreContract/GetLayoutstatusesResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(MobileSPCoreService.BaseError), Action="http://tempuri.org/ICoreContract/GetLayoutstatusesBaseErrorFault", Name="BaseError", Namespace="http://www.phm.co.uk/types/common/")]
         System.Threading.Tasks.Task<MobileSPCoreService.GetLayoutstatusesResponse> GetLayoutstatusesAsync(MobileSPCoreService.GetLayoutstatusesRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICoreContract/DeleteVEDBandGroup", ReplyAction="http://tempuri.org/ICoreContract/DeleteVEDBandGroupResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(MobileSPCoreService.BaseError), Action="http://tempuri.org/ICoreContract/DeleteVEDBandGroupBaseErrorFault", Name="BaseError", Namespace="http://www.phm.co.uk/types/common/")]
+        System.Threading.Tasks.Task<MobileSPCoreService.DeleteVEDBandGroupResponse> DeleteVEDBandGroupAsync(MobileSPCoreService.DeleteVEDBandGroupRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICoreContract/GetVEDBands", ReplyAction="http://tempuri.org/ICoreContract/GetVEDBandsResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(MobileSPCoreService.BaseError), Action="http://tempuri.org/ICoreContract/GetVEDBandsBaseErrorFault", Name="BaseError", Namespace="http://www.phm.co.uk/types/common/")]
@@ -32631,10 +32762,6 @@ namespace MobileSPCoreService
         [System.ServiceModel.FaultContractAttribute(typeof(MobileSPCoreService.BaseError), Action="http://tempuri.org/ICoreContract/RoleExistsBaseErrorFault", Name="BaseError", Namespace="http://www.phm.co.uk/types/common/")]
         System.Threading.Tasks.Task<bool> RoleExistsAsync(MobileSPCoreService.RoleExistsRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICoreContract/GetUsersInRole", ReplyAction="http://tempuri.org/ICoreContract/GetUsersInRoleResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(MobileSPCoreService.BaseError), Action="http://tempuri.org/ICoreContract/GetUsersInRoleBaseErrorFault", Name="BaseError", Namespace="http://www.phm.co.uk/types/common/")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<string>> GetUsersInRoleAsync(MobileSPCoreService.GetUsersInRoleRequest request);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICoreContract/ValidateUser", ReplyAction="http://tempuri.org/ICoreContract/ValidateUserResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(MobileSPCoreService.BaseError), Action="http://tempuri.org/ICoreContract/ValidateUserBaseErrorFault", Name="BaseError", Namespace="http://www.phm.co.uk/types/common/")]
         System.Threading.Tasks.Task<MobileSPCoreService.ValidateUserResponse> ValidateUserAsync(MobileSPCoreService.ValidateUserRequest request);
@@ -32794,6 +32921,10 @@ namespace MobileSPCoreService
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICoreContract/DeleteMediaInfo", ReplyAction="http://tempuri.org/ICoreContract/DeleteMediaInfoResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(MobileSPCoreService.BaseError), Action="http://tempuri.org/ICoreContract/DeleteMediaInfoBaseErrorFault", Name="BaseError", Namespace="http://www.phm.co.uk/types/common/")]
         System.Threading.Tasks.Task<MobileSPCoreService.DeleteMediaInfoResponse> DeleteMediaInfoAsync(MobileSPCoreService.DeleteMediaInfoRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICoreContract/CreateMediaInfo", ReplyAction="http://tempuri.org/ICoreContract/CreateMediaInfoResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(MobileSPCoreService.BaseError), Action="http://tempuri.org/ICoreContract/CreateMediaInfoBaseErrorFault", Name="BaseError", Namespace="http://www.phm.co.uk/types/common/")]
+        System.Threading.Tasks.Task<MobileSPCoreService.CreateMediaInfoResponse> CreateMediaInfoAsync(MobileSPCoreService.CreateMediaInfoRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICoreContract/GetLanguages", ReplyAction="http://tempuri.org/ICoreContract/GetLanguagesResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(MobileSPCoreService.BaseError), Action="http://tempuri.org/ICoreContract/GetLanguagesBaseErrorFault", Name="BaseError", Namespace="http://www.phm.co.uk/types/common/")]
@@ -33148,10 +33279,6 @@ namespace MobileSPCoreService
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICoreContract/UpdateVEDBandGroup", ReplyAction="http://tempuri.org/ICoreContract/UpdateVEDBandGroupResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(MobileSPCoreService.BaseError), Action="http://tempuri.org/ICoreContract/UpdateVEDBandGroupBaseErrorFault", Name="BaseError", Namespace="http://www.phm.co.uk/types/common/")]
         System.Threading.Tasks.Task<MobileSPCoreService.UpdateVEDBandGroupResponse> UpdateVEDBandGroupAsync(MobileSPCoreService.UpdateVEDBandGroupRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICoreContract/DeleteVEDBandGroup", ReplyAction="http://tempuri.org/ICoreContract/DeleteVEDBandGroupResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(MobileSPCoreService.BaseError), Action="http://tempuri.org/ICoreContract/DeleteVEDBandGroupBaseErrorFault", Name="BaseError", Namespace="http://www.phm.co.uk/types/common/")]
-        System.Threading.Tasks.Task<MobileSPCoreService.DeleteVEDBandGroupResponse> DeleteVEDBandGroupAsync(MobileSPCoreService.DeleteVEDBandGroupRequest request);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "0.5.0.0")]
@@ -33202,6 +33329,11 @@ namespace MobileSPCoreService
         public CoreContractClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress)
         {
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<string>> GetUsersInRoleAsync(MobileSPCoreService.GetUsersInRoleRequest request)
+        {
+            return base.Channel.GetUsersInRoleAsync(request);
         }
         
         public System.Threading.Tasks.Task<System.Collections.Generic.List<string>> GetAllRolesAsync(MobileSPCoreService.GetAllRolesRequest request)
@@ -33287,6 +33419,11 @@ namespace MobileSPCoreService
         public System.Threading.Tasks.Task<MobileSPCoreService.GetLayoutstatusesResponse> GetLayoutstatusesAsync(MobileSPCoreService.GetLayoutstatusesRequest request)
         {
             return base.Channel.GetLayoutstatusesAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<MobileSPCoreService.DeleteVEDBandGroupResponse> DeleteVEDBandGroupAsync(MobileSPCoreService.DeleteVEDBandGroupRequest request)
+        {
+            return base.Channel.DeleteVEDBandGroupAsync(request);
         }
         
         public System.Threading.Tasks.Task<MobileSPCoreService.GetVEDBandsResponse> GetVEDBandsAsync(MobileSPCoreService.GetVEDBandsRequest request)
@@ -33924,11 +34061,6 @@ namespace MobileSPCoreService
             return base.Channel.RoleExistsAsync(request);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<string>> GetUsersInRoleAsync(MobileSPCoreService.GetUsersInRoleRequest request)
-        {
-            return base.Channel.GetUsersInRoleAsync(request);
-        }
-        
         public System.Threading.Tasks.Task<MobileSPCoreService.ValidateUserResponse> ValidateUserAsync(MobileSPCoreService.ValidateUserRequest request)
         {
             return base.Channel.ValidateUserAsync(request);
@@ -34127,6 +34259,11 @@ namespace MobileSPCoreService
         public System.Threading.Tasks.Task<MobileSPCoreService.DeleteMediaInfoResponse> DeleteMediaInfoAsync(MobileSPCoreService.DeleteMediaInfoRequest request)
         {
             return base.Channel.DeleteMediaInfoAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<MobileSPCoreService.CreateMediaInfoResponse> CreateMediaInfoAsync(MobileSPCoreService.CreateMediaInfoRequest request)
+        {
+            return base.Channel.CreateMediaInfoAsync(request);
         }
         
         public System.Threading.Tasks.Task<MobileSPCoreService.GetLanguagesResponse> GetLanguagesAsync(MobileSPCoreService.GetLanguagesRequest request)
@@ -34564,11 +34701,6 @@ namespace MobileSPCoreService
             return base.Channel.UpdateVEDBandGroupAsync(request);
         }
         
-        public System.Threading.Tasks.Task<MobileSPCoreService.DeleteVEDBandGroupResponse> DeleteVEDBandGroupAsync(MobileSPCoreService.DeleteVEDBandGroupRequest request)
-        {
-            return base.Channel.DeleteVEDBandGroupAsync(request);
-        }
-        
         public virtual System.Threading.Tasks.Task OpenAsync()
         {
             return System.Threading.Tasks.Task.Factory.FromAsync(((System.ServiceModel.ICommunicationObject)(this)).BeginOpen(null, null), new System.Action<System.IAsyncResult>(((System.ServiceModel.ICommunicationObject)(this)).EndOpen));
@@ -34595,7 +34727,7 @@ namespace MobileSPCoreService
         
         private static System.ServiceModel.EndpointAddress GetEndpointAddress(EndpointConfiguration endpointConfiguration)
         {
-            if ((endpointConfiguration == EndpointConfiguration.CoreServiceEndpoint))
+            if (endpointConfiguration == EndpointConfiguration.CoreServiceEndpoint)
             {
 #if DEBUG
                 return new System.ServiceModel.EndpointAddress("http://mobilespapi.phm.co.uk/CoreService.svc");

@@ -90,18 +90,18 @@ namespace Phm.MobileSp.Cms.Controllers
                 claimsPrinciple = new ClaimsPrincipal(id);
                 //tracking.TrackTrace("ClaimsPrinciple", SeverityLevel.Information, new Dictionary<string, string> { { "ClaimsPrinciple", JsonConvert.SerializeObject(claimsPrinciple) } });
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 tracking.TrackException(ex);
                 Console.WriteLine(ex);
                 return View(loginDetails);
             }
 
-            await this.HttpContext.Authentication.SignInAsync("MobileSPAuthCookie", claimsPrinciple);
+            await HttpContext.Authentication.SignInAsync("MobileSPAuthCookie", claimsPrinciple);
 
             CookieHelper.StoreLoginDetails(HttpContext, loginDetails);
 
-            return this.LocalRedirect(returnUrl);
+            return LocalRedirect(returnUrl);
         }
 
         /// <summary>

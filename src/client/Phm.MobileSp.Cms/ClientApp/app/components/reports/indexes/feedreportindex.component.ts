@@ -83,7 +83,7 @@ export class FeedReportIndexComponent extends BaseComponent implements OnInit, O
 
     getData() {
         this.feedDataService.getFeeditemsByType(this.feedTypeId).subscribe((result) => {
-            if (result && result.length > 0) {
+            if (!this.sharedService.currentMarket.isLive && result && result.length > 0) {
                 result = result.filter(x => x.publishedLiveAt);
             }
             this.feedItems = this.sortFeed(result);

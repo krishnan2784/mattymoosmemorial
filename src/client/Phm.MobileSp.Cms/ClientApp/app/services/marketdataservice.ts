@@ -33,7 +33,7 @@ export class MarketDataService extends RequestHelper implements IMarketDataServi
 
     getCurrentMarketId(): Observable<number> {
         return Observable.create(observer => {
-            this.http.get('/api/Market/GetCurrentMarket').subscribe(result => {
+            this.http.get('/api/Market/GetCurrentMarketId').subscribe(result => {
                 let response = ResponseHelper.getResponse(result);
                 observer.next(response.content);
                 observer.complete();

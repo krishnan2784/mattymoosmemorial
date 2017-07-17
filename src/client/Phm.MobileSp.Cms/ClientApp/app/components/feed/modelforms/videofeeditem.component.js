@@ -32,19 +32,20 @@ var VideoFeedItemFormComponent = (function (_super) {
     }
     VideoFeedItemFormComponent.prototype.addFormControls = function () {
         this.form.addControl('videoDescription', new forms_1.FormControl(this.model.videoDescription, []));
-        this.form.addControl('mainVideo', new forms_1.FormGroup({
-            id: new forms_1.FormControl(this.model.mainVideo.id, []),
-            masterId: new forms_1.FormControl(this.model.mainVideo.masterId, []),
-            marketId: new forms_1.FormControl(this.model.mainVideo.marketId, []),
-            path: new forms_1.FormControl(this.model.mainVideo.path, []),
-            name: new forms_1.FormControl(this.model.mainVideo.name, []),
-            mediaType: new forms_1.FormControl(this.model.mainVideo.mediaType, [])
-        }));
+        this.form.addControl('mainVideoId', new forms_1.FormControl(this.model.mainVideoId, []));
+        //this.form.addControl('mainVideo', new FormGroup({
+        //    id: new FormControl(this.model.mainVideo.id, []),
+        //    masterId: new FormControl(this.model.mainVideo.masterId, []),
+        //    marketId: new FormControl(this.model.mainVideo.marketId, []),
+        //    path: new FormControl(this.model.mainVideo.path, []),
+        //    name: new FormControl(this.model.mainVideo.name, []),
+        //    mediaType: new FormControl(this.model.mainVideo.mediaType, [])
+        //}));
     };
     ;
     VideoFeedItemFormComponent.prototype.removeFormControls = function () {
         this.form.removeControl('videoDescription');
-        this.form.removeControl('mainVideo');
+        this.form.removeControl('mainVideoId');
     };
     ;
     return VideoFeedItemFormComponent;

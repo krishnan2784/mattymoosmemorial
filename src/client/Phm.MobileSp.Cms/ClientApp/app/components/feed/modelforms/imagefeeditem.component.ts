@@ -27,19 +27,22 @@ export class ImageFeedItemFormComponent extends BasePartialItemFormComponent imp
 
     addFormControls() {
         this.form.addControl('imageDescription', new FormControl(this.model.imageDescription, []));
-        this.form.addControl('mainImage', new FormGroup({
-            id: new FormControl(this.model.mainImage.id, []),
-            masterId: new FormControl(this.model.mainImage.masterId, []),
-            marketId: new FormControl(this.model.mainImage.marketId, []),
-            path: new FormControl(this.model.mainImage.path, []),
-            name: new FormControl(this.model.mainImage.name, []),
-            mediaType: new FormControl(this.model.mainImage.mediaType, [])
-        }));
+        this.form.addControl('mainImageId', new FormControl(this.model.mainImageId, []));
+
+        //this.form.addControl('mainImage', new FormGroup({
+        //    id: new FormControl(this.model.mainImage.id, []),
+        //    masterId: new FormControl(this.model.mainImage.masterId, []),
+        //    marketId: new FormControl(this.model.mainImage.marketId, []),
+        //    path: new FormControl(this.model.mainImage.path, []),
+        //    name: new FormControl(this.model.mainImage.name, []),
+        //    mediaType: new FormControl(this.model.mainImage.mediaType, [])
+        //}));
     };
 
     removeFormControls() {
         this.form.removeControl('imageDescription');
-        this.form.removeControl('mainImage');
+        this.form.removeControl('mainImageId');
+        //this.form.removeControl('mainImage');
     };
     
 }

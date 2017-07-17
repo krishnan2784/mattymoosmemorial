@@ -27,19 +27,21 @@ export class VideoFeedItemFormComponent extends BasePartialItemFormComponent imp
 
     addFormControls() {
         this.form.addControl('videoDescription', new FormControl(this.model.videoDescription, []));
-        this.form.addControl('mainVideo', new FormGroup({
-            id: new FormControl(this.model.mainVideo.id, []),
-            masterId: new FormControl(this.model.mainVideo.masterId, []),
-            marketId: new FormControl(this.model.mainVideo.marketId, []),
-            path: new FormControl(this.model.mainVideo.path, []),
-            name: new FormControl(this.model.mainVideo.name, []),
-            mediaType: new FormControl(this.model.mainVideo.mediaType, [])
-        }));
+        this.form.addControl('mainVideoId', new FormControl(this.model.mainVideoId, []));
+
+        //this.form.addControl('mainVideo', new FormGroup({
+        //    id: new FormControl(this.model.mainVideo.id, []),
+        //    masterId: new FormControl(this.model.mainVideo.masterId, []),
+        //    marketId: new FormControl(this.model.mainVideo.marketId, []),
+        //    path: new FormControl(this.model.mainVideo.path, []),
+        //    name: new FormControl(this.model.mainVideo.name, []),
+        //    mediaType: new FormControl(this.model.mainVideo.mediaType, [])
+        //}));
     };
 
     removeFormControls() {
         this.form.removeControl('videoDescription');
-        this.form.removeControl('mainVideo');
+        this.form.removeControl('mainVideoId');
     };
     
 }

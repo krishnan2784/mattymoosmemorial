@@ -32,19 +32,21 @@ var ImageFeedItemFormComponent = (function (_super) {
     }
     ImageFeedItemFormComponent.prototype.addFormControls = function () {
         this.form.addControl('imageDescription', new forms_1.FormControl(this.model.imageDescription, []));
-        this.form.addControl('mainImage', new forms_1.FormGroup({
-            id: new forms_1.FormControl(this.model.mainImage.id, []),
-            masterId: new forms_1.FormControl(this.model.mainImage.masterId, []),
-            marketId: new forms_1.FormControl(this.model.mainImage.marketId, []),
-            path: new forms_1.FormControl(this.model.mainImage.path, []),
-            name: new forms_1.FormControl(this.model.mainImage.name, []),
-            mediaType: new forms_1.FormControl(this.model.mainImage.mediaType, [])
-        }));
+        this.form.addControl('mainImageId', new forms_1.FormControl(this.model.mainImageId, []));
+        //this.form.addControl('mainImage', new FormGroup({
+        //    id: new FormControl(this.model.mainImage.id, []),
+        //    masterId: new FormControl(this.model.mainImage.masterId, []),
+        //    marketId: new FormControl(this.model.mainImage.marketId, []),
+        //    path: new FormControl(this.model.mainImage.path, []),
+        //    name: new FormControl(this.model.mainImage.name, []),
+        //    mediaType: new FormControl(this.model.mainImage.mediaType, [])
+        //}));
     };
     ;
     ImageFeedItemFormComponent.prototype.removeFormControls = function () {
         this.form.removeControl('imageDescription');
-        this.form.removeControl('mainImage');
+        this.form.removeControl('mainImageId');
+        //this.form.removeControl('mainImage');
     };
     ;
     return ImageFeedItemFormComponent;

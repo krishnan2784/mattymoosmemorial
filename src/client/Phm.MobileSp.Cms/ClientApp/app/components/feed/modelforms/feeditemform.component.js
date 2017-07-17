@@ -157,13 +157,13 @@ var FeedItemForm = (function () {
     FeedItemForm.prototype.attachMedia = function (media) {
         if (media.mediaType == enums_1.MediaTypes.Image) {
             var model = new Feedclasses.ImageFeed(this.model);
-            model.mainImage = media;
+            model.mainImageId = media.id;
             this.model = model;
             this.swapForm(imagefeeditem_component_1.ImageFeedItemFormComponent, this.model.feedCategory);
         }
         else if (media.mediaType == enums_1.MediaTypes.Video) {
             var model = new Feedclasses.VideoFeed(this.model);
-            model.mainVideo = media;
+            model.mainVideoId = media.id;
             this.model = model;
             this.swapForm(videofeeditem_component_1.VideoFeedItemFormComponent, this.model.feedCategory);
         }

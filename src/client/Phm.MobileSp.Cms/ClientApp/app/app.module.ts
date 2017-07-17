@@ -79,6 +79,7 @@ import { RichTextEditorComponent } from "./components/common/editor/editor.compo
 import { ObservationFeedItemReport } from "./components/reports/observationfeeditemreport.component";
 import { GaugeGraphComponent } from "./components/charts/gaugegraph/gaugegraph.component";
 import { MonobarGraphComponent } from "./components/charts/monobargraph/monobargraph.component";
+import { DatepickerComponent } from "./components/common/datepicker/datepicker.component";
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -90,6 +91,7 @@ import { MonobarGraphComponent } from "./components/charts/monobargraph/monobarg
         TabNavMenuComponent,
         FooterComponent,
         MarketDropdown,
+        DatepickerComponent,
         //DateValueAccessor,
 
         // main naviation items

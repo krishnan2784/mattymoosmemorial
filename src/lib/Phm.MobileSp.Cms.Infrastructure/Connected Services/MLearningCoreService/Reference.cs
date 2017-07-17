@@ -3861,7 +3861,7 @@ namespace MLearningCoreService
         
         private static System.ServiceModel.EndpointAddress GetEndpointAddress(EndpointConfiguration endpointConfiguration)
         {
-            if ((endpointConfiguration == EndpointConfiguration.MLearningCoreServiceEndpoint))
+            if (endpointConfiguration == EndpointConfiguration.MLearningCoreServiceEndpoint)
             {
 #if DEBUG
                 return new System.ServiceModel.EndpointAddress("http://mobilespapi.phm.co.uk/MLearningCoreService.svc");

@@ -80,6 +80,7 @@ var editor_component_1 = require("./components/common/editor/editor.component");
 var observationfeeditemreport_component_1 = require("./components/reports/observationfeeditemreport.component");
 var gaugegraph_component_1 = require("./components/charts/gaugegraph/gaugegraph.component");
 var monobargraph_component_1 = require("./components/charts/monobargraph/monobargraph.component");
+var datepicker_component_1 = require("./components/common/datepicker/datepicker.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -96,6 +97,7 @@ AppModule = __decorate([
             tabnavmenu_component_1.TabNavMenuComponent,
             footer_component_1.FooterComponent,
             marketdropdown_component_1.MarketDropdown,
+            datepicker_component_1.DatepickerComponent,
             //DateValueAccessor,
             // main naviation items
             counter_component_1.CounterComponent,

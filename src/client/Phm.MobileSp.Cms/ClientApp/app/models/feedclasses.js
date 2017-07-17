@@ -86,6 +86,7 @@ var ImageFeed = (function (_super) {
         _this.feedType = FeedTypeEnum.Image;
         _this.imageDescription = options['imageDescription'] || '';
         _this.mainImage = options['mainImage'];
+        _this.mainImageId = options['mainImageId'] || 0;
         return _this;
     }
     return ImageFeed;
@@ -161,6 +162,7 @@ var VideoFeed = (function (_super) {
         _this.feedType = FeedTypeEnum.Video;
         _this.videoDescription = options['videoDescription'] || '';
         _this.mainVideo = options['mainVideo'];
+        _this.mainVideoId = options['mainVideoId'] || 0;
         return _this;
     }
     return VideoFeed;

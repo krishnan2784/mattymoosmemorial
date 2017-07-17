@@ -25,6 +25,7 @@ var MediaInfo = (function (_super) {
         _this.path = options['path'];
         _this.preview1Path = options['preview1Path'];
         _this.size = options['size'];
+        _this.azureUrl = options['azureUrl'];
         return _this;
     }
     return MediaInfo;

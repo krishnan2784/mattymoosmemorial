@@ -91,11 +91,13 @@ export class CampaignFeed extends BaseFeed {
 export class ImageFeed extends BaseFeed {
     public imageDescription: string;
     public mainImage: MediaInfo;
+    public mainImageId: number;
     constructor(options: {} = {}) {
         super(options);
         this.feedType = FeedTypeEnum.Image;
         this.imageDescription = options['imageDescription'] || '';
         this.mainImage = options['mainImage'];
+        this.mainImageId = options['mainImageId'] || 0;
     }
 }
 
@@ -159,10 +161,14 @@ export class TextFeed extends BaseFeed {
 export class VideoFeed extends BaseFeed {
     public videoDescription: string;
     public mainVideo: MediaInfo;
+    public mainVideoId: number;
+
     constructor(options: {} = {}) {
         super(options);
         this.feedType = FeedTypeEnum.Video;
         this.videoDescription = options['videoDescription'] || '';
         this.mainVideo = options['mainVideo'];
+        this.mainVideoId = options['mainVideoId'] || 0;
+
     }
 }

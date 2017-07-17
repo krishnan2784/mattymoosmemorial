@@ -6,10 +6,8 @@ declare var tinymce: any;
   selector: 'editor',
   template: `
     <div [formGroup]="formGroup" *ngIf="formGroup">
-      <input type="hidden" formControlName="{{elementId}}" *ngIf="elementId" value={{value}}>
-    </div>
-    
-<textarea id="{{elementId}}">{{value}}</textarea>`
+      <textarea formControlName="{{elementId}}" *ngIf="elementId" value={{value}}></textarea>
+    </div>`
 })
 export class RichTextEditorComponent implements  AfterViewInit, OnDestroy {
     @Input() elementId: string;
@@ -39,3 +37,10 @@ export class RichTextEditorComponent implements  AfterViewInit, OnDestroy {
     tinymce.remove(this.editor);
   }
 }
+
+//`
+//    <div [formGroup]="formGroup" *ngIf="formGroup">
+//      <input type="hidden" formControlName="{{elementId}}" *ngIf="elementId" value={{value}}>
+//    </div>
+    
+//<textarea id="{{elementId}}">{{value}}</textarea>`

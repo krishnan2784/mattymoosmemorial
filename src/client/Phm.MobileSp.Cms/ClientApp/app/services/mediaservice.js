@@ -40,8 +40,10 @@ var MediaDataService = (function (_super) {
         var _this = this;
         var input = new FormData();
         input.append("file", file);
+        console.log(file);
         return Observable_1.Observable.create(function (observer) {
             _this.http.post('/Media/UploadFile', input).subscribe(function (result) {
+                console.log(result);
                 var response = responsehelper_1.ResponseHelper.getResponse(result);
                 observer.next(response.content);
                 observer.complete();

@@ -11,6 +11,7 @@ export class MediaInfo extends Baseclasses.BaseModel {
     public path: string;
     public preview1Path: string;
     public size: number;
+    public azureUrl: string;
 
     constructor(options: {} = {}) {
         super(options);
@@ -23,5 +24,6 @@ export class MediaInfo extends Baseclasses.BaseModel {
         this.path = options['path'];
         this.preview1Path = options['preview1Path'];
         this.size = options['size'];
+        this.azureUrl = options['azureUrl'];
     }
 }

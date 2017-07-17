@@ -4,14 +4,16 @@
             <input id="videoDescription" type="text" formControlName="videoDescription">
             <label for="videoDescription" [class.active]="form.controls.videoDescription.value.length>0">A caption for your video</label>
         </div>
+        <input type="hidden" formControlName="mainVideoId">
 
-        <div formGroupName="mainVideo">
+
+        <!--<div formGroupName="mainVideo">
             <input type="hidden" formControlName="id">
             <input type="hidden" formControlName="masterId">
             <input type="hidden" formControlName="marketId">
             <input type="hidden" formControlName="path">
             <input type="hidden" formControlName="name">
             <input type="hidden" formControlName="mediaType">
-        </div>
+        </div>-->
     </div>
 </div>

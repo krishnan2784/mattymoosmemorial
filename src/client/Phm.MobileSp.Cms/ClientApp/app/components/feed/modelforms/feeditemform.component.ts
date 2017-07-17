@@ -191,12 +191,12 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     attachMedia(media: MediaInfo) {
         if (media.mediaType == MediaTypes.Image) {
             let model = new Feedclasses.ImageFeed(this.model);
-            model.mainImage = media;
+            model.mainImageId = media.id;
             this.model = model;
             this.swapForm(ImageFeedItemFormComponent, this.model.feedCategory)
         } else if (media.mediaType == MediaTypes.Video) {
             let model = new Feedclasses.VideoFeed(this.model);
-            model.mainVideo = media;
+            model.mainVideoId = media.id;
             this.model = model;
             this.swapForm(VideoFeedItemFormComponent, this.model.feedCategory)
         }
