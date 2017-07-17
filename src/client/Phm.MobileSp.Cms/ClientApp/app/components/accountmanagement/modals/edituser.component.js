@@ -34,7 +34,6 @@ var EditUser = (function (_super) {
         _this.userDataService = userDataService;
         _this.fb = fb;
         _this.marketDataService = marketDataService;
-        _this.roles = [];
         _this.regions = ['Region 1', 'Region 2', 'Region 3'];
         _this.zones = ['Zone 1', 'Zone 2', 'Zone 3'];
         _this.dealershipNames = ['Dealership 1', 'Dealership 2', 'Dealership 3'];
@@ -78,6 +77,7 @@ var EditUser = (function (_super) {
         });
         this.userDataService.getUserGroups().subscribe(function (result) {
             if (result) {
+                _this.roles = [];
                 result.forEach(function (role) {
                     _this.roles.push({ id: role.id, name: role.name });
                 });

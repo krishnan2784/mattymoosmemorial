@@ -20,7 +20,7 @@
             </div>
 
             <label>Role</label>
-            <select id="role" formControlName="secGroup" materialize="material_select" [(ngModel)]="model.secGroup" class="browser-default">
+            <select id="role" formControlName="secGroup" materialize="material_select" [(ngModel)]="model.secGroup" class="browser-default" [disabled]="!roles">
                 <option *ngFor="let r of roles" [ngValue]="r">{{r.name}}</option>
             </select>
 
