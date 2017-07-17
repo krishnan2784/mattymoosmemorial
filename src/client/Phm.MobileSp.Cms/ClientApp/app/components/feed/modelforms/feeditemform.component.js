@@ -126,6 +126,7 @@ var FeedItemForm = (function () {
     FeedItemForm.prototype.updateForm = function () {
         if (this.model && this.model.id > 0) {
             (this.form).patchValue(this.model, { onlySelf: true });
+            this.setMinDate(new Date(this.model.startDate));
             setTimeout(function () {
                 Materialize.updateTextFields();
             }, 10);
@@ -193,6 +194,26 @@ var FeedItemForm = (function () {
             //    formatSubmit: 'yyyy/mm/dd'
             //});
         }, 1);
+    };
+    FeedItemForm.prototype.handleDate = function (e, startDate) {
+        console.log(e);
+        if (startDate) {
+            this.minDay = e.day;
+            this.minMonth = e.month;
+            this.minYear = e.year;
+            this.model.startDate = e.fullDate;
+            this.form.controls['startDate'].patchValue(this.model.startDate, { onlySelf: true });
+        }
+        else {
+            this.model.endDate = e.fullDate;
+            this.form.controls['endDate'].patchValue(this.model.endDate, { onlySelf: true });
+        }
+    };
+    FeedItemForm.prototype.setMinDate = function (date) {
+        console.log(date);
+        this.minDay = date.getDate();
+        this.minMonth = date.getMonth();
+        this.minYear = date.getYear();
     };
     FeedItemForm.prototype.goBack = function () {
         this.feedUpdated.emit(null);

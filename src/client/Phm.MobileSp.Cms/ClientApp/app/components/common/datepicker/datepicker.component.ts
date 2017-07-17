@@ -12,6 +12,7 @@ export class DatepickerComponent implements OnInit {
   @Input() minJsMonth: number;
   @Input() minYear: number;
   @Input() cannotSelectPast: boolean;
+  @Input() initialDate: Date;
   @Output() dateSelected: EventEmitter<any> = new EventEmitter();
   pastDays;
   selectedDay;
@@ -30,7 +31,7 @@ export class DatepickerComponent implements OnInit {
   longWeekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Friday', 'Saturday'];
   ngOnInit() {
       if(!this.day || !this.jsMonth || !this.year) {
-        let d = new Date();
+        let d = new Date(this.initialDate);
         this.selectedDay = d.getDate();
         this.selectedMonth = d.getMonth();
         this.selectedYear = d.getFullYear();

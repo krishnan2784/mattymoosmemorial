@@ -26,7 +26,7 @@ var DatepickerComponent = (function () {
     }
     DatepickerComponent.prototype.ngOnInit = function () {
         if (!this.day || !this.jsMonth || !this.year) {
-            var d = new Date();
+            var d = new Date(this.initialDate);
             this.selectedDay = d.getDate();
             this.selectedMonth = d.getMonth();
             this.selectedYear = d.getFullYear();
@@ -177,6 +177,10 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Boolean)
 ], DatepickerComponent.prototype, "cannotSelectPast", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Date)
+], DatepickerComponent.prototype, "initialDate", void 0);
 __decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)

@@ -65,6 +65,11 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
 
     public feedFormSteps: FeedFormSteps = new FeedFormSteps();
     public navbarData = [];
+
+    minDay;
+    minMonth;
+    minYear;
+
     constructor(fb: FormBuilder, public http: Http, public route: ActivatedRoute,
         private router: Router, public feedDataService: FeedDataService, private injector: Injector, public sharedService: ShareService) {
         
@@ -159,6 +164,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     updateForm() {
         if (this.model && this.model.id > 0) {
             (this.form).patchValue(this.model, { onlySelf: true });
+            this.setMinDate(new Date(this.model.startDate));
             setTimeout(() => {
                 Materialize.updateTextFields();
             }, 10);  
@@ -230,6 +236,28 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             //    formatSubmit: 'yyyy/mm/dd'
             //});
         }, 1);
+    }
+
+    handleDate(e, startDate) {
+        console.log(e);
+
+        if (startDate) {
+            this.minDay = e.day;
+            this.minMonth = e.month;
+            this.minYear = e.year;
+            this.model.startDate = e.fullDate;
+            this.form.controls['startDate'].patchValue(this.model.startDate, { onlySelf: true });
+        } else {
+            this.model.endDate = e.fullDate;
+            this.form.controls['endDate'].patchValue(this.model.endDate, { onlySelf: true });
+        }
+    }
+
+    setMinDate(date) {
+        console.log(date);
+        this.minDay = date.getDate();
+        this.minMonth = date.getMonth();
+        this.minYear = date.getYear();
     }
 
     goBack() {
