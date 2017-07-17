@@ -55,7 +55,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
 
     feedTypes: typeof Enums.FeedTypeEnum = Enums.FeedTypeEnum;
     feedCats: typeof FeedCategoryEnum = FeedCategoryEnum;
-
+    uploaderTypes: typeof Enums.UploaderType = Enums.UploaderType;
     public id_sub: Subscription;
 
     public textForm = TextFeedItemFormComponent;

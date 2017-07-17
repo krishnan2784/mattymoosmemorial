@@ -22,7 +22,8 @@ export enum MediaTypes {
     Font = 1,
     Image = 2,
     Video = 3,
-    Icon = 4
+    Icon = 4,
+    File = 5,
 }
 export enum QuizQuestionTypeEnum {
     Single = 0,
@@ -73,4 +74,11 @@ export enum PublishToTestObjectTypeEnum {
     CustomerQualificationQuestion = 18,
     CustomerQualificationAnswer = 19,
     VEDBandGroup = 20,
+}
+export enum UploaderType {
+    Any = 0,
+    Image = 1,
+    Video = 2,
+    ImageAndVideo = 3,
+    File = 4
 }

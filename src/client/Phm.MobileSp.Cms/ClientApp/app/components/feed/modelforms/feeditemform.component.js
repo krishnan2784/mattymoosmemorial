@@ -43,6 +43,7 @@ var FeedItemForm = (function () {
         this.selectedFeedCatId = 0;
         this.feedTypes = Enums.FeedTypeEnum;
         this.feedCats = FeedCategoryEnum;
+        this.uploaderTypes = Enums.UploaderType;
         this.textForm = textfeeditem_component_1.TextFeedItemFormComponent;
         this.quizForm = QuizFeedItemFormComponent;
         this.surveyForm = SurveyFeedItemFormComponent;

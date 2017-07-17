@@ -172,10 +172,12 @@
      </div>
         
     <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Media)">
-        <upload (mediaUploaded)="attachMedia($event)" *ngIf="model.feedType != feedTypes.Image && model.feedType != feedTypes.Video"></upload>
-        <upload (mediaUploaded)="attachMedia($event)" [selectedMedia]="model.mainImage" *ngIf="model.feedType == feedTypes.Image"></upload>
-        <upload (mediaUploaded)="attachMedia($event)" [selectedMedia]="model.mainVideo" *ngIf="model.feedType == feedTypes.Video"></upload>
-
+        <upload (mediaUploaded)="attachMedia($event)" *ngIf="model.id == 0 && model.feedType != feedTypes.Image && model.feedType != feedTypes.Video"></upload>
+        <upload (mediaUploaded)="attachMedia($event)" [uploaderType]="model.id > 0 ? uploaderTypes.Image : uploaderTypes.Any" [selectedMedia]="model.mainImage" *ngIf="model.feedType == feedTypes.Image"></upload>
+        <upload (mediaUploaded)="attachMedia($event)" [uploaderType]="model.id > 0 ? uploaderTypes.Video : uploaderTypes.Any" [selectedMedia]="model.mainVideo" *ngIf="model.feedType == feedTypes.Video"></upload>
+        <h5 *ngIf="model.id > 0 && model.feedType != feedTypes.Image && model.feedType != feedTypes.Video">
+            To upload and image or video please create a new feed item.
+        </h5>
     </div>
     <div *ngIf="feedFormData && (model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)">
         <feed-form-component [feedFormData]="feedFormData"></feed-form-component>

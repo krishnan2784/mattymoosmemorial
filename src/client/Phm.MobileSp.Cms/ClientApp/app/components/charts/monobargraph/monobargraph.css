@@ -1,7 +1,7 @@
 .mbg_content .type_7_or_more {
   position: relative;
   background-color: white;
-  min-height: 280px; }
+  min-height: 160px; }
   .mbg_content .type_7_or_more .legendX {
     width: 30px;
     height: 5px;
@@ -12,11 +12,11 @@
   .mbg_content .type_7_or_more .chartPlacer {
     position: relative;
     padding: 10px;
-    height: 200px;
+    height: 120px;
     width: 100%; }
   .mbg_content .type_7_or_more .bars {
     border-bottom: 1px solid gray;
-    height: 165px; }
+    height: 100px; }
   .mbg_content .type_7_or_more .bar7 {
     height: 100%;
     position: relative;
@@ -65,4 +65,5 @@
   .mbg_content .type_7_or_more .footerText {
     width: 100%;
     text-align: center;
-    font-weight: bold; }
+    font-weight: bold;
+    margin-top: 40px; }

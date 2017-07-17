@@ -28,6 +28,7 @@ var MediaTypes;
     MediaTypes[MediaTypes["Image"] = 2] = "Image";
     MediaTypes[MediaTypes["Video"] = 3] = "Video";
     MediaTypes[MediaTypes["Icon"] = 4] = "Icon";
+    MediaTypes[MediaTypes["File"] = 5] = "File";
 })(MediaTypes = exports.MediaTypes || (exports.MediaTypes = {}));
 var QuizQuestionTypeEnum;
 (function (QuizQuestionTypeEnum) {
@@ -84,4 +85,12 @@ var PublishToTestObjectTypeEnum;
     PublishToTestObjectTypeEnum[PublishToTestObjectTypeEnum["CustomerQualificationAnswer"] = 19] = "CustomerQualificationAnswer";
     PublishToTestObjectTypeEnum[PublishToTestObjectTypeEnum["VEDBandGroup"] = 20] = "VEDBandGroup";
 })(PublishToTestObjectTypeEnum = exports.PublishToTestObjectTypeEnum || (exports.PublishToTestObjectTypeEnum = {}));
+var UploaderType;
+(function (UploaderType) {
+    UploaderType[UploaderType["Any"] = 0] = "Any";
+    UploaderType[UploaderType["Image"] = 1] = "Image";
+    UploaderType[UploaderType["Video"] = 2] = "Video";
+    UploaderType[UploaderType["ImageAndVideo"] = 3] = "ImageAndVideo";
+    UploaderType[UploaderType["File"] = 4] = "File";
+})(UploaderType = exports.UploaderType || (exports.UploaderType = {}));
 //# sourceMappingURL=enums.js.map

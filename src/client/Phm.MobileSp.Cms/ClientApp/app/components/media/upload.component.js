@@ -19,8 +19,11 @@ var UploadMediaComponent = (function () {
         this.mediaService = mediaService;
         this.showPreview = true;
         this.selectedMedia = null;
+        this.uploaderType = enums_1.UploaderType.Any;
         this.files = [];
         this.uploading = false;
+        this.uploaderTypes = enums_1.UploaderType;
+        this.correctType = true;
         this.mediaUploaded = new core_1.EventEmitter();
     }
     UploadMediaComponent.prototype.ngOnInit = function () {
@@ -34,11 +37,15 @@ var UploadMediaComponent = (function () {
             return;
         this.uploading = true;
         this.imagePreviewUrl = '';
+        this.mediaUploaded.emit(new mediainfoclasses_1.MediaInfo());
         for (var _i = 0, _a = this.files; _i < _a.length; _i++) {
             var file = _a[_i];
-            this.mediaService.uploadFile(file).subscribe(function (response) {
-                _this.processUploadResponse(response);
-            });
+            if (this.fileTypeIsValid(file)) {
+                this.mediaService.uploadFile(file).subscribe(function (response) {
+                    _this.processUploadResponse(response);
+                    _this.files.splice(0);
+                });
+            }
         }
     };
     UploadMediaComponent.prototype.processUploadResponse = function (media) {
@@ -50,7 +57,10 @@ var UploadMediaComponent = (function () {
             this.mediaUploaded.emit(media);
         }
         else
-            Materialize.toast("Please upload a valid media type.", 5000, 'red');
+            Materialize.toast("An error occurred during the upload process.", 5000, 'red');
+    };
+    UploadMediaComponent.prototype.notValidAlert = function () {
+        Materialize.toast("Please select a valid media type.", 5000, 'red');
     };
     UploadMediaComponent.prototype.setPreviewImage = function () {
         if (!this.selectedMedia)
@@ -63,8 +73,28 @@ var UploadMediaComponent = (function () {
     UploadMediaComponent.prototype.filesSelectHandler = function (fileInput) {
         var FileList = fileInput.target.files;
         for (var i = 0, length_1 = FileList.length; i < length_1; i++) {
-            this.files.push(FileList.item(i));
+            if (this.fileTypeIsValid(FileList.item(i))) {
+                this.files.push(FileList.item(i));
+            }
+            else {
+                this.correctType = false;
+                this.notValidAlert();
+                this.files.splice(i, 1);
+            }
         }
+    };
+    UploadMediaComponent.prototype.fileTypeIsValid = function (file) {
+        switch (this.uploaderType) {
+            case enums_1.UploaderType.Any:
+                return true;
+            case enums_1.UploaderType.Image:
+                return file.type.indexOf('image') > -1;
+            case enums_1.UploaderType.Video:
+                return file.type.indexOf('video') > -1;
+            case enums_1.UploaderType.ImageAndVideo:
+                return file.type.indexOf('image') > -1 || file.type.indexOf('.ideo') > -1;
+        }
+        return false;
     };
     return UploadMediaComponent;
 }());
@@ -76,6 +106,10 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", mediainfoclasses_1.MediaInfo)
 ], UploadMediaComponent.prototype, "selectedMedia", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Number)
+], UploadMediaComponent.prototype, "uploaderType", void 0);
 __decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)

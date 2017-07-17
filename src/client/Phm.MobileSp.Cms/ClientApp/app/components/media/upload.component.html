@@ -1,12 +1,19 @@
-<h5>Upload an image or video</h5>
-<p>Images must be jpeg or png format. Videos must be mp4.</p>
+<h5>Upload 
+    <span *ngIf="uploaderType==uploaderTypes.Any">an image or video</span>
+    <span *ngIf="uploaderType==uploaderTypes.Image">an image</span>
+    <span *ngIf="uploaderType==uploaderTypes.Video">a video</span>
+</h5>
+<p [class.warning]="!correctType">
+    <span *ngIf="uploaderType==uploaderTypes.Any || uploaderType==uploaderTypes.Image">Images must be jpeg or png format. </span>
+    <span *ngIf="uploaderType==uploaderTypes.Any || uploaderType==uploaderTypes.Video">Videos must be mp4. </span>     
+</p>
 <div class="upload-container">
-    <p *ngIf="!selectedMedia">Upload one or more photos using this form:</p>
-
     <div class="file-field input-field">
         <div class="btn">
             <span>File</span>
-            <input type="file" (change)="filesSelectHandler($event)" [disabled]="uploading">
+            <input type="file" (change)="filesSelectHandler($event)" [disabled]="uploading" accept="video/mp4,image/png,image/jpg,image/jpeg" *ngIf="uploaderType==uploaderTypes.Any">
+            <input type="file" (change)="filesSelectHandler($event)" [disabled]="uploading" accept="image/png,image/jpg,image/jpeg" *ngIf="uploaderType==uploaderTypes.Image">
+            <input type="file" (change)="filesSelectHandler($event)" [disabled]="uploading" accept="video/mp4" *ngIf="uploaderType==uploaderTypes.Video">
         </div>
         <div class="file-path-wrapper">
             <input class="file-path validate" type="text">
