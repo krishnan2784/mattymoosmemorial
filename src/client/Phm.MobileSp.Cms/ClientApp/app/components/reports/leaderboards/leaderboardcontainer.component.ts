@@ -32,11 +32,7 @@ export class LeaderboardContainer extends BaseComponent implements OnDestroy {
     }
 
     ngOnDestroy() {
-        while ($('#tooltip').length > 0) {
-            $('#tooltip').each((index, element) => {
-                $(element).remove();
-            });
-        }
+        this.removeTooltip();
     }
 
     setupPageVariables() {
@@ -119,15 +115,30 @@ export class LeaderboardContainer extends BaseComponent implements OnDestroy {
         this.updateBackText('Learners stats');
         this.updateTabNavItems();
         this.backSub = this.sharedService.goBackEvent.subscribe(() => {
-            this.setupPageVariables();
-            this.backSub = null;
-            this.selectedUser = null;
-            this.reportData = null;
+            this.handleBack();
         });
         this.selectedUser = event;
+        this.removeTooltip();
         this.feedDataService.getUserPointsHistory(event.currentUser.id).subscribe(result => {  
-            this.reportData = result;
+            if (result && result.length > 0) {
+                this.reportData = result;
+            }
         });
+    }
+
+    handleBack(){
+        this.setupPageVariables();
+        this.backSub = null;
+        this.selectedUser = null;
+        this.reportData = null;
+    }
+
+    removeTooltip() {
+        while ($('#tooltip').length > 0) {
+            $('#tooltip').each((index, element) => {
+                $(element).remove();
+            });
+        }
     }
 
 }

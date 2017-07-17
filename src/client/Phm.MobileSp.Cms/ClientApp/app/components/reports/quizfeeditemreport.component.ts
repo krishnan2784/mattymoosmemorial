@@ -147,7 +147,9 @@ export class QuizFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
         //        }
         //    ]
         //});
+        console.log(this.summaryData);
         this.passRatioData = (this.summaryData.passed / this.summaryData.submitted) * 100;
+        console.log(this.passRatioData);
     }
 
     public updateDonutData() {

@@ -1,6 +1,6 @@
 <div class="loader" *ngIf="!leaderBoard || (selectedUser && !reportData)"></div>
 
-<leaderboard *ngIf="leaderBoard && !reportData"
+<leaderboard *ngIf="leaderBoard && !selectedUser"
              [data]="leaderBoard"
              [updatedData]="myUpdatedData"
              [refineGroups]="refineGroups"
