@@ -33,7 +33,10 @@
     box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.75);
     font-family: verdana;
     border-radius: 4px;
-    background-color: white; }
+    background-color: white;
+    z-index: 9999999;
+
+  }
     .dp_content .showCalendar .monthSelector {
       width: 160px;
       margin-left: calc(50% - 80px);

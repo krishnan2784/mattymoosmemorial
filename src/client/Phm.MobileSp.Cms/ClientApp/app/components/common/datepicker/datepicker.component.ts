@@ -35,6 +35,7 @@ export class DatepickerComponent implements OnInit {
         this.selectedDay = d.getDate();
         this.selectedMonth = d.getMonth();
         this.selectedYear = d.getFullYear();
+        this.displayDate = this.pad(this.selectedDay, 2) + '/' + this.pad(this.selectedMonth + 1, 2) + '/' + this.selectedYear;
         this.pastDays = this.dummyArrayGenerator(this.firstDayOfWeek(this.selectedMonth,this.selectedYear).index.uk);
       }
   }
@@ -122,10 +123,14 @@ export class DatepickerComponent implements OnInit {
   lastDayOfMonth(month, year) {
     return new Date(year, month, 0).getDate();
   }
-  select(d,m,y){
+  select(d, m, y) {
+      console.log(d, m, y);
     if(this.cannotSelectPast){
       let g = new Date(y,m,d);
-      if(this.isDayOnPast(g)) { return };
+      if (this.isDayOnPast(g)) {
+          console.log('yolo');
+          return
+      };
     }
     if(this.minDay && this.minJsMonth && this.minYear) {
       var a = new Date(y,m,d);
@@ -146,6 +151,8 @@ export class DatepickerComponent implements OnInit {
       longWeekDay : this.longWeekDays[x.getDay()],
       shortWeekDay : this.shortWeekDays[x.getDay()]
     };
+    console.log('yola');
+
     this.dateSelected.emit(dta);
     this.displayDate = this.pad(d,2) +'/' + this.pad(m + 1, 2) +'/' + y;
     this.show = false;

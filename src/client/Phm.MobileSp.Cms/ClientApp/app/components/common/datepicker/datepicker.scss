@@ -40,6 +40,7 @@
     font-family: verdana;
     border-radius: 4px;
     background-color: white;
+    z-index: 9999999;
     .monthSelector {
       width: 160px;
       margin-left: calc(50% - 80px);

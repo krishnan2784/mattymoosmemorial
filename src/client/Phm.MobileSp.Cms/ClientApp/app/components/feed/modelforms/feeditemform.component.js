@@ -195,22 +195,21 @@ var FeedItemForm = (function () {
             //});
         }, 1);
     };
-    FeedItemForm.prototype.handleDate = function (e, startDate) {
-        console.log(e);
-        if (startDate) {
-            this.minDay = e.day;
-            this.minMonth = e.month;
-            this.minYear = e.year;
-            this.model.startDate = e.fullDate;
-            this.form.controls['startDate'].patchValue(this.model.startDate, { onlySelf: true });
-        }
-        else {
-            this.model.endDate = e.fullDate;
-            this.form.controls['endDate'].patchValue(this.model.endDate, { onlySelf: true });
-        }
+    FeedItemForm.prototype.handleStartDate = function (e) {
+        this.minDay = e.day;
+        this.minMonth = e.month;
+        this.minYear = e.year;
+        this.model.startDate = e.fullDate;
+        this.form.controls['startDate'].patchValue(e.fullDate, { onlySelf: true });
+        this.form.controls['startDate'].markAsDirty();
+        this.form.markAsDirty();
+    };
+    FeedItemForm.prototype.handleEndDate = function (e) {
+        this.model.endDate = e.fullDate;
+        this.form.controls['endDate'].patchValue(e.fullDate, { onlySelf: true });
+        this.form.markAsDirty();
     };
     FeedItemForm.prototype.setMinDate = function (date) {
-        console.log(date);
         this.minDay = date.getDate();
         this.minMonth = date.getMonth();
         this.minYear = date.getYear();

@@ -238,23 +238,23 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         }, 1);
     }
 
-    handleDate(e, startDate) {
-        console.log(e);
+    handleStartDate(e) {
+        this.minDay = e.day;
+        this.minMonth = e.month;
+        this.minYear = e.year;
+        this.model.startDate = e.fullDate;
+        this.form.controls['startDate'].patchValue(e.fullDate, { onlySelf: true });
+        this.form.controls['startDate'].markAsDirty();
+        this.form.markAsDirty();
+    }
 
-        if (startDate) {
-            this.minDay = e.day;
-            this.minMonth = e.month;
-            this.minYear = e.year;
-            this.model.startDate = e.fullDate;
-            this.form.controls['startDate'].patchValue(this.model.startDate, { onlySelf: true });
-        } else {
-            this.model.endDate = e.fullDate;
-            this.form.controls['endDate'].patchValue(this.model.endDate, { onlySelf: true });
-        }
+    handleEndDate(e) {
+        this.model.endDate = e.fullDate;
+        this.form.controls['endDate'].patchValue(e.fullDate, { onlySelf: true });
+        this.form.markAsDirty();
     }
 
     setMinDate(date) {
-        console.log(date);
         this.minDay = date.getDate();
         this.minMonth = date.getMonth();
         this.minYear = date.getYear();

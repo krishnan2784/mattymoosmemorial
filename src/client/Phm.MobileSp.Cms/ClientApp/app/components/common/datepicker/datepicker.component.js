@@ -30,6 +30,7 @@ var DatepickerComponent = (function () {
             this.selectedDay = d.getDate();
             this.selectedMonth = d.getMonth();
             this.selectedYear = d.getFullYear();
+            this.displayDate = this.pad(this.selectedDay, 2) + '/' + this.pad(this.selectedMonth + 1, 2) + '/' + this.selectedYear;
             this.pastDays = this.dummyArrayGenerator(this.firstDayOfWeek(this.selectedMonth, this.selectedYear).index.uk);
         }
     };
@@ -117,9 +118,11 @@ var DatepickerComponent = (function () {
         return new Date(year, month, 0).getDate();
     };
     DatepickerComponent.prototype.select = function (d, m, y) {
+        console.log(d, m, y);
         if (this.cannotSelectPast) {
             var g = new Date(y, m, d);
             if (this.isDayOnPast(g)) {
+                console.log('yolo');
                 return;
             }
             ;
@@ -143,6 +146,7 @@ var DatepickerComponent = (function () {
             longWeekDay: this.longWeekDays[x.getDay()],
             shortWeekDay: this.shortWeekDays[x.getDay()]
         };
+        console.log('yola');
         this.dateSelected.emit(dta);
         this.displayDate = this.pad(d, 2) + '/' + this.pad(m + 1, 2) + '/' + y;
         this.show = false;
