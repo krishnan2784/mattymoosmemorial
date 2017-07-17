@@ -64,21 +64,21 @@ var UserFilter = (function () {
         this.marketDataService.getMarketUserFilters().subscribe(function (result) {
             if (result) {
                 _this.emptyAllFilters();
-                if (_this.renderDealershipFilter && result.dealershipNames) {
+                if (_this.renderDealershipFilter && result.dealershipNames.length > 0) {
                     result.dealershipNames.forEach(function (group) {
                         _this.criteria.allDealershipFilters.push({ id: group.replace(" ", ""), text: group, checked: false });
                     });
                 }
                 else
                     _this.renderDealershipFilter = false;
-                if (_this.renderRegionFilter && result.regions) {
+                if (_this.renderRegionFilter && result.regions.length > 0) {
                     result.regions.forEach(function (group) {
                         _this.criteria.allRegionFilters.push({ id: group.replace(" ", ""), text: group, checked: false });
                     });
                 }
                 else
                     _this.renderRegionFilter = false;
-                if (_this.renderZoneFilter && result.zones) {
+                if (_this.renderZoneFilter && result.zones.length > 0) {
                     result.zones.forEach(function (group) {
                         _this.criteria.allZoneFilters.push({ id: group.replace(" ", ""), text: group, checked: false });
                     });

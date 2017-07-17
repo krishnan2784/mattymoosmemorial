@@ -79,6 +79,8 @@ export class EditUser extends BaseModalContent implements OnInit, AfterViewInit,
                 result.forEach((role) => {
                     this.roles.push({ id: role.id, name: role.name });
                 });
+                if (this.roles && this.roles.length > 0 && this.model && this.model.secGroup && this.model.secGroup.id > 0)
+                    this.model.secGroup = this.roles.find(x => x.id == this.model.secGroup.id);
             }
         });
     }

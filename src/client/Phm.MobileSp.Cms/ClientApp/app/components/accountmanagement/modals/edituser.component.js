@@ -81,6 +81,8 @@ var EditUser = (function (_super) {
                 result.forEach(function (role) {
                     _this.roles.push({ id: role.id, name: role.name });
                 });
+                if (_this.roles && _this.roles.length > 0 && _this.model && _this.model.secGroup && _this.model.secGroup.id > 0)
+                    _this.model.secGroup = _this.roles.find(function (x) { return x.id == _this.model.secGroup.id; });
             }
         });
     };

@@ -74,19 +74,19 @@ export class UserFilter implements AfterViewInit, OnDestroy {
         this.marketDataService.getMarketUserFilters().subscribe((result) => {
             if (result) {
                 this.emptyAllFilters();
-                if (this.renderDealershipFilter && result.dealershipNames) {
+                if (this.renderDealershipFilter && result.dealershipNames.length > 0) {
                     result.dealershipNames.forEach((group) => {
                         this.criteria.allDealershipFilters.push({ id: group.replace(" ", ""), text: group, checked: false });
                     });
                 } else
                     this.renderDealershipFilter = false;
-                if (this.renderRegionFilter && result.regions) {
+                if (this.renderRegionFilter && result.regions.length > 0) {
                     result.regions.forEach((group) => {
                         this.criteria.allRegionFilters.push({ id: group.replace(" ", ""), text: group, checked: false });
                     });
                 } else
                     this.renderRegionFilter = false;
-                if (this.renderZoneFilter && result.zones) {
+                if (this.renderZoneFilter && result.zones.length > 0) {
                     result.zones.forEach((group) => {
                         this.criteria.allZoneFilters.push({ id: group.replace(" ", ""), text: group, checked: false });
                     });
