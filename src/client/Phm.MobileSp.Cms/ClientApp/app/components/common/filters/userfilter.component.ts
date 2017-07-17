@@ -73,31 +73,41 @@ export class UserFilter implements AfterViewInit, OnDestroy {
     getMarketFilters() {
         this.marketDataService.getMarketUserFilters().subscribe((result) => {
             if (result) {
+                console.log(result);
                 this.emptyAllFilters();
                 if (this.renderDealershipFilter && result.dealershipNames) {
                     result.dealershipNames.forEach((group) => {
                         this.criteria.allDealershipFilters.push({ id: group.replace(" ", ""), text: group, checked: false });
                     });
-                }
+                } else
+                    this.renderDealershipFilter = false;
                 if (this.renderRegionFilter && result.regions) {
                     result.regions.forEach((group) => {
                         this.criteria.allRegionFilters.push({ id: group.replace(" ", ""), text: group, checked: false });
                     });
-                }
+                } else
+                    this.renderRegionFilter = false;
                 if (this.renderZoneFilter && result.zones) {
                     result.zones.forEach((group) => {
                         this.criteria.allZoneFilters.push({ id: group.replace(" ", ""), text: group, checked: false });
                     });
-                }
+                } else
+                    this.renderZoneFilter = false;
+            } else {
+                this.renderRegionFilter = false;
+                this.renderDealershipFilter = false;
+                this.renderZoneFilter = false;
             }
         });
         if (this.renderUserGroupFilter) {
             this.userDataService.getUserGroups().subscribe((result) => {
                 this.criteria.allUserGroupFilters = [];
-                if (result) {
+                if (result && result.userGroupNames && result.userGroupNames.length > 0) {
                     result.userGroupNames.forEach((group) => {
                         this.criteria.allUserGroupFilters.push({ id: group.id, text: group.name, checked: false });
                     });
+                } else {
+                    this.renderUserGroupFilter = false;
                 }
             });
         }

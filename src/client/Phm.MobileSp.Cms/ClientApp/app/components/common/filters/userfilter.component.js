@@ -63,31 +63,46 @@ var UserFilter = (function () {
         var _this = this;
         this.marketDataService.getMarketUserFilters().subscribe(function (result) {
             if (result) {
+                console.log(result);
                 _this.emptyAllFilters();
                 if (_this.renderDealershipFilter && result.dealershipNames) {
                     result.dealershipNames.forEach(function (group) {
                         _this.criteria.allDealershipFilters.push({ id: group.replace(" ", ""), text: group, checked: false });
                     });
                 }
+                else
+                    _this.renderDealershipFilter = false;
                 if (_this.renderRegionFilter && result.regions) {
                     result.regions.forEach(function (group) {
                         _this.criteria.allRegionFilters.push({ id: group.replace(" ", ""), text: group, checked: false });
                     });
                 }
+                else
+                    _this.renderRegionFilter = false;
                 if (_this.renderZoneFilter && result.zones) {
                     result.zones.forEach(function (group) {
                         _this.criteria.allZoneFilters.push({ id: group.replace(" ", ""), text: group, checked: false });
                     });
                 }
+                else
+                    _this.renderZoneFilter = false;
+            }
+            else {
+                _this.renderRegionFilter = false;
+                _this.renderDealershipFilter = false;
+                _this.renderZoneFilter = false;
             }
         });
         if (this.renderUserGroupFilter) {
             this.userDataService.getUserGroups().subscribe(function (result) {
                 _this.criteria.allUserGroupFilters = [];
-                if (result) {
+                if (result && result.userGroupNames && result.userGroupNames.length > 0) {
                     result.userGroupNames.forEach(function (group) {
                         _this.criteria.allUserGroupFilters.push({ id: group.id, text: group.name, checked: false });
                     });
+                }
+                else {
+                    _this.renderUserGroupFilter = false;
                 }
             });
         }

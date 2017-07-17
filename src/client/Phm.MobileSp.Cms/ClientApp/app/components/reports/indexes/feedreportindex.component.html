@@ -22,7 +22,9 @@
                             </div>
                             <div class="col-md-12 feed-item-dates">
                                 <div class="col-md-12 no-pad">
-                                    Date posted: {{ feedItem.publishedLiveAt | date:'d/M/y, hh:mm a' }}
+                                    Date posted: 
+                                    <span *ngIf=!sharedService.currentMarket.isLive>{{ feedItem.publishedLiveAt | date:'d/M/y, hh:mm a' }}</span>
+                                    <span *ngIf=sharedService.currentMarket.isLive>{{ feedItem.createdAt | date:'d/M/y, hh:mm a' }}</span>
                                 </div>
                             </div>
                         </div>
