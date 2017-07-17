@@ -23,7 +23,7 @@ export class EditUser extends BaseModalContent implements OnInit, AfterViewInit,
 
     title: string;
     model: UserTemplate;
-    roles: {id: number, name:string}[] = [];
+    roles: {id: number, name:string}[];
     public form: FormGroup;
 
     public regions : string[] = [ 'Region 1', 'Region 2' , 'Region 3'];
@@ -75,6 +75,7 @@ export class EditUser extends BaseModalContent implements OnInit, AfterViewInit,
         });
         this.userDataService.getUserGroups().subscribe((result) => {
             if (result) {
+                this.roles = [];
                 result.forEach((role) => {
                     this.roles.push({ id: role.id, name: role.name });
                 });

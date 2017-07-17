@@ -2,7 +2,10 @@
   width: 334px;
   height: 200px;
   position: relative;
-  background-color: white; }
+  background-color: transparent; 
+  margin-left: 15%;
+  margin-top: -45px;
+}
   .ggContent .circles {
     width: calc(100% - 60px);
     background-color: white;

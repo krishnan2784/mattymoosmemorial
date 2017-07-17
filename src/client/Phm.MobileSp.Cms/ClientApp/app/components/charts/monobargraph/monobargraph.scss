@@ -2,7 +2,7 @@
   .type_7_or_more {
     position: relative;
     background-color: white;
-    min-height: 280px;
+    min-height: 180px;
     .legendX{
       width: 30px;
       height: 5px;
@@ -14,13 +14,13 @@
     .chartPlacer {
       position: relative;
       padding: 10px;
-      height: 200px;
+      height: 120px;
       width: 100%;
       //background-color: blueviolet;
     }
     .bars {
       border-bottom: 1px solid gray;
-      height: 165px;
+      height: 100px;
     }
     .bar7 {
       height: 100%;
@@ -79,6 +79,7 @@
       width: 100%;
       text-align: center;
       font-weight: bold;
+      margin-top: 40px;
     }
   }
 }

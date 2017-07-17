@@ -394,7 +394,17 @@ export class LeaderboardComponent implements OnInit, OnChanges {
         return r;
     }
     handleReport() {
-        let report = this.salesExecList.slice(0);
+        let report = this.salesExecList.map((s, index, array) => {
+            return {
+                firstName: s.firstName,
+                lastName: s.lastName,
+                points: s.points,
+                region: s.region,
+                zone: s.zone,
+                dealership: s.dealership,
+                rank: index + 1
+            };
+        });
         report.unshift({
             firstName: 'First Name',
             lastName: 'Last Name',
@@ -402,7 +412,7 @@ export class LeaderboardComponent implements OnInit, OnChanges {
             region: 'Region',
             zone: 'Zone',
             dealership: 'Dealership Code',
-            ranke: 'Rank'
+            rank: 'Rank'
         });        
         new Angular2Csv(report, 'Leaderboard_' + DateEx.formatDate(new Date()));
         //let rep = {

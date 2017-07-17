@@ -168,6 +168,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             this.form.controls['startDate'].patchValue(this.model.startDate, { onlySelf: true });
             this.form.controls['endDate'].patchValue(this.model.endDate, { onlySelf: true });
         }
+        console.log('button');
         this.form.updateValueAndValidity();
     }
 
@@ -189,14 +190,17 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     }
 
     attachMedia(media: MediaInfo) {
+        this.form.markAsDirty();
         if (media.mediaType == MediaTypes.Image) {
             let model = new Feedclasses.ImageFeed(this.model);
             model.mainImageId = media.id;
+            model.mainImage = media;
             this.model = model;
             this.swapForm(ImageFeedItemFormComponent, this.model.feedCategory)
         } else if (media.mediaType == MediaTypes.Video) {
             let model = new Feedclasses.VideoFeed(this.model);
             model.mainVideoId = media.id;
+            model.mainVideo = media;
             this.model = model;
             this.swapForm(VideoFeedItemFormComponent, this.model.feedCategory)
         }
@@ -220,7 +224,9 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
 
     public updateMaterialize() {
         setTimeout(function () {
-            $('#bodyText').trigger('autoresize');
+            $('.materialize-textarea').each(function () {
+                $(this).trigger('autoresize');
+            });
 
             //Materialize.updateTextFields();
             //$('.datepicker').pickadate({

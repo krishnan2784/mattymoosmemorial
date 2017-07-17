@@ -400,7 +400,17 @@ var LeaderboardComponent = (function () {
         return r;
     };
     LeaderboardComponent.prototype.handleReport = function () {
-        var report = this.salesExecList.slice(0);
+        var report = this.salesExecList.map(function (s, index, array) {
+            return {
+                firstName: s.firstName,
+                lastName: s.lastName,
+                points: s.points,
+                region: s.region,
+                zone: s.zone,
+                dealership: s.dealership,
+                rank: index + 1
+            };
+        });
         report.unshift({
             firstName: 'First Name',
             lastName: 'Last Name',
@@ -408,7 +418,7 @@ var LeaderboardComponent = (function () {
             region: 'Region',
             zone: 'Zone',
             dealership: 'Dealership Code',
-            ranke: 'Rank'
+            rank: 'Rank'
         });
         new Angular2_csv_1.Angular2Csv(report, 'Leaderboard_' + date_1.DateEx.formatDate(new Date()));
         //let rep = {

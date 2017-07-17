@@ -41,11 +41,7 @@ var LeaderboardContainer = (function (_super) {
         return _this;
     }
     LeaderboardContainer.prototype.ngOnDestroy = function () {
-        while ($('#tooltip').length > 0) {
-            $('#tooltip').each(function (index, element) {
-                $(element).remove();
-            });
-        }
+        this.removeTooltip();
     };
     LeaderboardContainer.prototype.setupPageVariables = function () {
         this.updatePageTitle('Reports');
@@ -125,15 +121,28 @@ var LeaderboardContainer = (function (_super) {
         this.updateBackText('Learners stats');
         this.updateTabNavItems();
         this.backSub = this.sharedService.goBackEvent.subscribe(function () {
-            _this.setupPageVariables();
-            _this.backSub = null;
-            _this.selectedUser = null;
-            _this.reportData = null;
+            _this.handleBack();
         });
         this.selectedUser = event;
+        this.removeTooltip();
         this.feedDataService.getUserPointsHistory(event.currentUser.id).subscribe(function (result) {
-            _this.reportData = result;
+            if (result && result.length > 0) {
+                _this.reportData = result;
+            }
         });
+    };
+    LeaderboardContainer.prototype.handleBack = function () {
+        this.setupPageVariables();
+        this.backSub = null;
+        this.selectedUser = null;
+        this.reportData = null;
+    };
+    LeaderboardContainer.prototype.removeTooltip = function () {
+        while ($('#tooltip').length > 0) {
+            $('#tooltip').each(function (index, element) {
+                $(element).remove();
+            });
+        }
     };
     return LeaderboardContainer;
 }(base_component_1.BaseComponent));

@@ -6,7 +6,7 @@ declare var tinymce: any;
   selector: 'editor',
   template: `
     <div [formGroup]="formGroup" *ngIf="formGroup">
-      <textarea formControlName="{{elementId}}" *ngIf="elementId" value={{value}}></textarea>
+      <textarea formControlName="{{elementId}}" *ngIf="elementId" value={{value}} class="materialize-textarea"></textarea>
     </div>`
 })
 export class RichTextEditorComponent implements  AfterViewInit, OnDestroy {
