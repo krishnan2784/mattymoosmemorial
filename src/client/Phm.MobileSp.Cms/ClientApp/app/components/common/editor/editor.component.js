@@ -57,7 +57,7 @@ __decorate([
 RichTextEditorComponent = __decorate([
     core_1.Component({
         selector: 'editor',
-        template: "\n    <div [formGroup]=\"formGroup\" *ngIf=\"formGroup\">\n      <textarea formControlName=\"{{elementId}}\" *ngIf=\"elementId\" value={{value}}></textarea>\n    </div>"
+        template: "\n    <div [formGroup]=\"formGroup\" *ngIf=\"formGroup\">\n      <textarea formControlName=\"{{elementId}}\" *ngIf=\"elementId\" value={{value}} class=\"materialize-textarea\"></textarea>\n    </div>"
     })
 ], RichTextEditorComponent);
 exports.RichTextEditorComponent = RichTextEditorComponent;

@@ -13,5 +13,6 @@ namespace Phm.MobileSp.Cms.Core.Models
         public virtual string Path { get; set; }
         public virtual string Preview1Path { get; set; }
         public virtual long Size { get; set; }
+        public virtual string AzureUrlField { get; set; }
     }
 }

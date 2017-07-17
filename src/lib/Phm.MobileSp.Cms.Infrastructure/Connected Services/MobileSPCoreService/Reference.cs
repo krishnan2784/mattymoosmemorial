@@ -12686,7 +12686,7 @@ namespace MobileSPCoreService
         
         private bool IsCommercialVehiclesField;
         
-        private System.Nullable<bool> IsLiveField;
+        private bool IsLiveField;
         
         private bool IsMasterField;
         
@@ -12747,7 +12747,7 @@ namespace MobileSPCoreService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<bool> IsLive
+        public bool IsLive
         {
             get
             {
@@ -18134,9 +18134,9 @@ namespace MobileSPCoreService
         
         private string OrdetByField;
         
-        private int PageNumberField;
+        private System.Nullable<int> PageNumberField;
         
-        private int PageSizeField;
+        private System.Nullable<int> PageSizeField;
         
         private System.Nullable<bool> PublishedField;
         
@@ -18184,7 +18184,7 @@ namespace MobileSPCoreService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int PageNumber
+        public System.Nullable<int> PageNumber
         {
             get
             {
@@ -18197,7 +18197,7 @@ namespace MobileSPCoreService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int PageSize
+        public System.Nullable<int> PageSize
         {
             get
             {
@@ -34735,6 +34735,7 @@ namespace MobileSPCoreService
                 return new System.ServiceModel.EndpointAddress("http://mobilespapi-staging.azurewebsites.net/CoreService.svc");
 #endif
             }
+
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }
         

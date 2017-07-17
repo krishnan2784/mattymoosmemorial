@@ -112,9 +112,7 @@ var QuizFeedItemReport = (function () {
         //        }
         //    ]
         //});
-        console.log(this.summaryData);
         this.passRatioData = (this.summaryData.passed / this.summaryData.submitted) * 100;
-        console.log(this.passRatioData);
     };
     QuizFeedItemReport.prototype.updateDonutData = function () {
         var donutData = new DonutChartData({

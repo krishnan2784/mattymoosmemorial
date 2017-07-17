@@ -2829,9 +2829,9 @@ namespace MLearningCoreService
         
         private string OrdetByField;
         
-        private int PageNumberField;
+        private System.Nullable<int> PageNumberField;
         
-        private int PageSizeField;
+        private System.Nullable<int> PageSizeField;
         
         private System.Nullable<bool> PublishedField;
         
@@ -2879,7 +2879,7 @@ namespace MLearningCoreService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int PageNumber
+        public System.Nullable<int> PageNumber
         {
             get
             {
@@ -2892,7 +2892,7 @@ namespace MLearningCoreService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int PageSize
+        public System.Nullable<int> PageSize
         {
             get
             {

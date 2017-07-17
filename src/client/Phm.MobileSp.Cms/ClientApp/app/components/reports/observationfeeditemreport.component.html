@@ -29,8 +29,8 @@
                 </div>
 
                 <div class="stat-body">
-                    <div class="loader" *ngIf="!submissionRateData"></div>
-                    <div *ngIf="submissionRateData">
+                    <div class="loader" *ngIf="submissionRateData == null"></div>
+                    <div *ngIf="submissionRateData != null">
                         <gaugegraph [percent]="submissionRateData"></gaugegraph>
                         <h5 *ngIf="summaryData">
                             <b>{{summaryData.submitted}} <span>submitted / </span></b>

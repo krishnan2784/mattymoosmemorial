@@ -136,6 +136,7 @@ var FeedItemForm = (function () {
             this.form.controls['startDate'].patchValue(this.model.startDate, { onlySelf: true });
             this.form.controls['endDate'].patchValue(this.model.endDate, { onlySelf: true });
         }
+        console.log('button');
         this.form.updateValueAndValidity();
     };
     FeedItemForm.prototype.getFeedType = function (feedType) {
@@ -155,15 +156,18 @@ var FeedItemForm = (function () {
         }
     };
     FeedItemForm.prototype.attachMedia = function (media) {
+        this.form.markAsDirty();
         if (media.mediaType == enums_1.MediaTypes.Image) {
             var model = new Feedclasses.ImageFeed(this.model);
             model.mainImageId = media.id;
+            model.mainImage = media;
             this.model = model;
             this.swapForm(imagefeeditem_component_1.ImageFeedItemFormComponent, this.model.feedCategory);
         }
         else if (media.mediaType == enums_1.MediaTypes.Video) {
             var model = new Feedclasses.VideoFeed(this.model);
             model.mainVideoId = media.id;
+            model.mainVideo = media;
             this.model = model;
             this.swapForm(videofeeditem_component_1.VideoFeedItemFormComponent, this.model.feedCategory);
         }
@@ -184,7 +188,9 @@ var FeedItemForm = (function () {
     };
     FeedItemForm.prototype.updateMaterialize = function () {
         setTimeout(function () {
-            $('#bodyText').trigger('autoresize');
+            $('.materialize-textarea').each(function () {
+                $(this).trigger('autoresize');
+            });
             //Materialize.updateTextFields();
             //$('.datepicker').pickadate({
             //    selectMonths: true,

@@ -63,7 +63,6 @@ var UserFilter = (function () {
         var _this = this;
         this.marketDataService.getMarketUserFilters().subscribe(function (result) {
             if (result) {
-                console.log(result);
                 _this.emptyAllFilters();
                 if (_this.renderDealershipFilter && result.dealershipNames) {
                     result.dealershipNames.forEach(function (group) {

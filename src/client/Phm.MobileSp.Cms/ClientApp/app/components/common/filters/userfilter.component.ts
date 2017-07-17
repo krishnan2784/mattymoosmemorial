@@ -73,7 +73,6 @@ export class UserFilter implements AfterViewInit, OnDestroy {
     getMarketFilters() {
         this.marketDataService.getMarketUserFilters().subscribe((result) => {
             if (result) {
-                console.log(result);
                 this.emptyAllFilters();
                 if (this.renderDealershipFilter && result.dealershipNames) {
                     result.dealershipNames.forEach((group) => {
