@@ -34727,15 +34727,10 @@ namespace MobileSPCoreService
         
         private static System.ServiceModel.EndpointAddress GetEndpointAddress(EndpointConfiguration endpointConfiguration)
         {
-            if (endpointConfiguration == EndpointConfiguration.CoreServiceEndpoint)
+            if ((endpointConfiguration == EndpointConfiguration.CoreServiceEndpoint))
             {
-#if DEBUG
                 return new System.ServiceModel.EndpointAddress("http://mobilespapi.phm.co.uk/CoreService.svc");
-#else
-                return new System.ServiceModel.EndpointAddress("http://mobilespapi-staging.azurewebsites.net/CoreService.svc");
-#endif
             }
-
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }
         

@@ -1252,6 +1252,9 @@ namespace SecurityService
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Icon = 4,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        File = 5,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -1267,9 +1270,9 @@ namespace SecurityService
         
         private string OrdetByField;
         
-        private int PageNumberField;
+        private System.Nullable<int> PageNumberField;
         
-        private int PageSizeField;
+        private System.Nullable<int> PageSizeField;
         
         private System.Nullable<bool> PublishedField;
         
@@ -1317,7 +1320,7 @@ namespace SecurityService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int PageNumber
+        public System.Nullable<int> PageNumber
         {
             get
             {
@@ -1330,7 +1333,7 @@ namespace SecurityService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int PageSize
+        public System.Nullable<int> PageSize
         {
             get
             {
@@ -1388,10 +1391,10 @@ namespace SecurityService
     public partial class GetSecGroupsResponse : object
     {
         
-        private System.Collections.Generic.List<SecurityService.SecGroupDto> SecGroupsField;
+        private SecurityService.SecGroupDto[] SecGroupsField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<SecurityService.SecGroupDto> SecGroups
+        public SecurityService.SecGroupDto[] SecGroups
         {
             get
             {
@@ -1414,7 +1417,7 @@ namespace SecurityService
         
         private string DescriptionField;
         
-        private System.Collections.Generic.List<string> ParametersField;
+        private string[] ParametersField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string Code
@@ -1443,7 +1446,7 @@ namespace SecurityService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<string> Parameters
+        public string[] Parameters
         {
             get
             {
@@ -1572,10 +1575,10 @@ namespace SecurityService
     public partial class GetUsersInSecGroupResponse : object
     {
         
-        private System.Collections.Generic.List<SecurityService.UserDto> UsersField;
+        private SecurityService.UserDto[] UsersField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<SecurityService.UserDto> Users
+        public SecurityService.UserDto[] Users
         {
             get
             {
@@ -1638,10 +1641,10 @@ namespace SecurityService
     public partial class GetUserTemplates1Response : object
     {
         
-        private System.Collections.Generic.List<SecurityService.UserTemplate1Dto> UserTemplates1Field;
+        private SecurityService.UserTemplate1Dto[] UserTemplates1Field;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<SecurityService.UserTemplate1Dto> UserTemplates1
+        public SecurityService.UserTemplate1Dto[] UserTemplates1
         {
             get
             {

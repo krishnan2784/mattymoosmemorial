@@ -3,13 +3,15 @@ using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 {
-    public abstract class CoreBaseRepository : BaseRepository, ICoreBaseRepository
+    public abstract class CoreBaseRepository : ICoreBaseRepository
     {
-        private new IBaseRequest BaseRequest => base.BaseRequest;
-        private new IBaseCriteria BaseRequestCriteria => base.BaseRequestCriteria;
+        public IBaseRepository _baseRepo { get; set; }
+        public IBaseRequest BaseRequest => _baseRepo.BaseRequest;
+        public IBaseCriteria BaseRequestCriteria => _baseRepo.BaseRequestCriteria;
 
-        protected CoreBaseRepository(IBaseRequest baseRequest, IBaseCriteria baseCriteria) : base(baseRequest, baseCriteria)
+        protected CoreBaseRepository(IBaseRepository baseRepo)
         {
+            _baseRepo = baseRepo;
         }
 
         public TRequestBase GetRequest<TRequestBase>(TRequestBase request) where TRequestBase : MobileSPCoreService.RequestBase

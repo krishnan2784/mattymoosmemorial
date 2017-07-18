@@ -62,14 +62,11 @@ namespace Phm.MobileSp.Cms
 
             services.AddDistributedMemoryCache();
             
-            services.AddSingleton<IMLearningCoreContract, MLearningCoreContractClient>();
-            services.AddSingleton<ICoreContract, CoreContractClient>();
-            services.AddSingleton<ISecurityContract, SecurityContractClient>();
-            
-            services.AddSingleton<IApplicationUser, ApplicationUser>();
+            services.AddTransient<IMLearningCoreContract, MLearningCoreContractClient>();
+            services.AddTransient<ICoreContract, CoreContractClient>();
+            services.AddTransient<ISecurityContract, SecurityContractClient>();
 
-            services.AddSingleton<IBaseRequest, BaseRequest>();
-            services.AddSingleton<IBaseCriteria, BaseCriteria>();
+            services.AddTransient<IBaseRepository, BaseRepository>();
             
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IMarketRepository, MarketRepository>();

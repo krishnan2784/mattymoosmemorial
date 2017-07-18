@@ -15,8 +15,8 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
     {
         private readonly ICoreContract _proxyCoreClient;
         private readonly IMLearningCoreContract _proxyClient;
-        public MarketRepository(ICoreContract proxyCoreClient, IMLearningCoreContract proxyClient, IBaseRequest baseRequest, IBaseCriteria baseCriteria)
-            : base(baseRequest, baseCriteria)
+        public MarketRepository(IBaseRepository baseRepo, ICoreContract proxyCoreClient, IMLearningCoreContract proxyClient)
+            : base(baseRepo)
         {
             _proxyCoreClient = proxyCoreClient;
             _proxyClient = proxyClient;

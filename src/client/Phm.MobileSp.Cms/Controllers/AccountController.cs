@@ -65,7 +65,6 @@ namespace Phm.MobileSp.Cms.Controllers
             var tracking = new TelemetryClient();
             ClaimsPrincipal claimsPrinciple;
             ViewData["ReturnUrl"] = returnUrl;
-            userRepository.SetAuthToken(Constants.CstAccesstoken);
             var response = await userRepository.GetUserAsync(loginDetails);
             var user = response.Item1;
             
@@ -73,8 +72,7 @@ namespace Phm.MobileSp.Cms.Controllers
                 TempData["ErrorMessage"] = response.Item2;
                 return View(loginDetails);
             }
-
-            SetupRepositories(user);
+            
             var claims = new List<Claim>
                              {
                                  new Claim("sessionguid", user.SessionGuid),
@@ -102,18 +100,6 @@ namespace Phm.MobileSp.Cms.Controllers
             CookieHelper.StoreLoginDetails(HttpContext, loginDetails);
 
             return LocalRedirect(returnUrl);
-        }
-
-        /// <summary>
-        /// The setup repositories.
-        /// </summary>
-        /// <param name="applicationUser">
-        /// The application user.
-        /// </param>
-        private void SetupRepositories(IApplicationUser applicationUser)
-        {
-            this.userRepository.SetAuthToken(applicationUser.SessionGuid);
-            this.userRepository.SetMarketId(applicationUser.UserDetails.DefaultMarketId);
         }
 
         [AiHandleError]

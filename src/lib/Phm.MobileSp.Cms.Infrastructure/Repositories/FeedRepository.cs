@@ -15,9 +15,8 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
         private readonly IMLearningCoreContract _proxyClient;
         private readonly MobileSPCoreService.ICoreContract _proxyCoreClient;
 
-        public FeedRepository(IMLearningCoreContract proxyClient, MobileSPCoreService.ICoreContract proxyCoreClient, IBaseRequest baseRequest,
-            IBaseCriteria baseCriteria)
-            : base(baseRequest, baseCriteria)
+        public FeedRepository(IBaseRepository baseRepo, IMLearningCoreContract proxyClient, MobileSPCoreService.ICoreContract proxyCoreClient)
+            : base(baseRepo)
         {
             _proxyClient = proxyClient;
             _proxyCoreClient = proxyCoreClient;

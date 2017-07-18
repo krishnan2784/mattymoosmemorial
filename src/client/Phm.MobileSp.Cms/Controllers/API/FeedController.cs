@@ -20,10 +20,10 @@ namespace Phm.MobileSp.Cms.Controllers.API
     {
         private readonly IFeedRepository _feedRepository;
 
-        public FeedController(IMemoryCache memoryCache, IFeedRepository feedRepository, IUserRepository userRepository, IMarketRepository marketRepository, 
-            IBaseRequest baseRequest, IBaseCriteria baseCriteria) 
-            : base(memoryCache, userRepository, marketRepository, baseRequest, baseCriteria)
+        public FeedController(IBaseRepository baseRepo, IMemoryCache memoryCache, IFeedRepository feedRepository, IUserRepository userRepository, IMarketRepository marketRepository) 
+            : base(baseRepo, memoryCache, userRepository, marketRepository)
         {
+            feedRepository._baseRepo = _baseRepo;
             _feedRepository = feedRepository;
         }
 

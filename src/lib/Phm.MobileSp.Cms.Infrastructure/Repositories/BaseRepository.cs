@@ -1,14 +1,19 @@
-﻿using Phm.MobileSp.Cms.Core.Models.Interfaces;
+﻿using Phm.MobileSp.Cms.Core.Models;
+using Phm.MobileSp.Cms.Core.Models.Interfaces;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 {
-    public abstract class BaseRepository : IBaseRepository
+    public class BaseRepository : IBaseRepository
     {
-        protected IBaseRequest BaseRequest;
-        protected IBaseCriteria BaseRequestCriteria;
+        public BaseRequest BaseRequest { get; }
+        public BaseCriteria BaseRequestCriteria { get; }
 
-        protected BaseRepository(IBaseRequest baseRequest, IBaseCriteria baseCriteria)
+        public BaseRepository() {
+            BaseRequest = new BaseRequest();
+            BaseRequestCriteria = new BaseCriteria();
+        }
+        public BaseRepository(BaseRequest baseRequest, BaseCriteria baseCriteria)
         {
             BaseRequest = baseRequest;
             BaseRequestCriteria = baseCriteria;

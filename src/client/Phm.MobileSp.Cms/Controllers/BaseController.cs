@@ -11,6 +11,8 @@ using System.Net.Http;
 using System.Net;
 using Phm.MobileSp.Cms.Core.Models.Interfaces;
 using Phm.MobileSp.Cms.Core.Models;
+using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
+using Phm.MobileSp.Cms.Infrastructure.Repositories;
 
 namespace Phm.MobileSp.Cms.Controllers
 {
@@ -23,15 +25,20 @@ namespace Phm.MobileSp.Cms.Controllers
         private static int _CurrentMarketId { get; set; }
         private static int _UserId { get; set; }
 
-        private static IBaseRequest baseRequest;
-        private static IBaseCriteria baseCriteria;
+        private static BaseRequest baseRequest;
+        private static BaseCriteria baseCriteria;
+        public IBaseRepository _baseRepo { get; }
+        public static BaseRequest _baseRequest { get { return baseRequest; } }
+        public static BaseCriteria _baseCriteria { get { return baseCriteria; } }
 
-        public static IBaseRequest _baseRequest { get { return baseRequest; } }
-        public static IBaseCriteria _baseCriteria { get { return baseCriteria; } }
-
-        public BaseController(IMemoryCache memoryCache, IBaseRequest request, IBaseCriteria criteria) :base(memoryCache){
-            baseCriteria = criteria;
-            baseRequest = request;
+        public BaseController(IBaseRepository baseRepo, IMemoryCache memoryCache) :base(memoryCache){
+            baseCriteria = new BaseCriteria {
+                MarketId = CurrentMarketId
+            };
+            baseRequest = new BaseRequest {
+                AccessToken = AuthToken
+            };
+            _baseRepo = new BaseRepository(baseRequest, baseCriteria);
         }
 
         public override void OnActionExecuting(ActionExecutingContext context)
@@ -83,7 +90,7 @@ namespace Phm.MobileSp.Cms.Controllers
             {
                 if (string.IsNullOrEmpty(_AuthToken))
                 {
-                    _AuthToken = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "sessionguid").Value;
+                    _AuthToken = HttpContext?.User.Claims.FirstOrDefault(x => x.Type == "sessionguid").Value;
                 }
                 return _AuthToken;
             }
@@ -94,7 +101,7 @@ namespace Phm.MobileSp.Cms.Controllers
             get {
                 if (string.IsNullOrEmpty(_UserName))
                 {
-                    _UserName = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "name").Value;
+                    _UserName = HttpContext?.User.Claims.FirstOrDefault(x => x.Type == "name").Value;
                 }
                 return _UserName;
             }
@@ -106,7 +113,7 @@ namespace Phm.MobileSp.Cms.Controllers
             {
                 if (_CurrentMarketId == 0)
                 {
-                    _CurrentMarketId = Convert.ToInt16(HttpContext.User.Claims.FirstOrDefault(x => x.Type == "currentmarketid").Value);
+                    _CurrentMarketId = Convert.ToInt16(HttpContext?.User.Claims.FirstOrDefault(x => x.Type == "currentmarketid").Value);
                 }
                 return _CurrentMarketId;
             }
