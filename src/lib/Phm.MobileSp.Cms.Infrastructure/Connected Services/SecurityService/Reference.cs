@@ -1268,7 +1268,9 @@ namespace SecurityService
         
         private System.Nullable<bool> EnabledField;
         
-        private string OrdetByField;
+        private System.Nullable<System.Guid> MasterIdField;
+        
+        private string OrderByField;
         
         private System.Nullable<int> PageNumberField;
         
@@ -1307,15 +1309,28 @@ namespace SecurityService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string OrdetBy
+        public System.Nullable<System.Guid> MasterId
         {
             get
             {
-                return this.OrdetByField;
+                return this.MasterIdField;
             }
             set
             {
-                this.OrdetByField = value;
+                this.MasterIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string OrderBy
+        {
+            get
+            {
+                return this.OrderByField;
+            }
+            set
+            {
+                this.OrderByField = value;
             }
         }
         
@@ -1391,10 +1406,10 @@ namespace SecurityService
     public partial class GetSecGroupsResponse : object
     {
         
-        private SecurityService.SecGroupDto[] SecGroupsField;
+        private System.Collections.Generic.List<SecurityService.SecGroupDto> SecGroupsField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public SecurityService.SecGroupDto[] SecGroups
+        public System.Collections.Generic.List<SecurityService.SecGroupDto> SecGroups
         {
             get
             {
@@ -1417,7 +1432,7 @@ namespace SecurityService
         
         private string DescriptionField;
         
-        private string[] ParametersField;
+        private System.Collections.Generic.List<string> ParametersField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string Code
@@ -1446,7 +1461,7 @@ namespace SecurityService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string[] Parameters
+        public System.Collections.Generic.List<string> Parameters
         {
             get
             {
@@ -1575,10 +1590,10 @@ namespace SecurityService
     public partial class GetUsersInSecGroupResponse : object
     {
         
-        private SecurityService.UserDto[] UsersField;
+        private System.Collections.Generic.List<SecurityService.UserDto> UsersField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public SecurityService.UserDto[] Users
+        public System.Collections.Generic.List<SecurityService.UserDto> Users
         {
             get
             {
@@ -1641,10 +1656,10 @@ namespace SecurityService
     public partial class GetUserTemplates1Response : object
     {
         
-        private SecurityService.UserTemplate1Dto[] UserTemplates1Field;
+        private System.Collections.Generic.List<SecurityService.UserTemplate1Dto> UserTemplates1Field;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public SecurityService.UserTemplate1Dto[] UserTemplates1
+        public System.Collections.Generic.List<SecurityService.UserTemplate1Dto> UserTemplates1
         {
             get
             {
@@ -1951,9 +1966,14 @@ namespace SecurityService
         
         private static System.ServiceModel.EndpointAddress GetEndpointAddress(EndpointConfiguration endpointConfiguration)
         {
-            if ((endpointConfiguration == EndpointConfiguration.BasicHttpBinding_ISecurityContract))
+            if (endpointConfiguration == EndpointConfiguration.BasicHttpBinding_ISecurityContract)
             {
+#if DEBUG
                 return new System.ServiceModel.EndpointAddress("http://mobilespapi.phm.co.uk/SecurityService.svc");
+
+#else
+                return new System.ServiceModel.EndpointAddress("http://mobilespapi-staging.azurewebsites.net/SecurityService.svc");
+#endif
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }
