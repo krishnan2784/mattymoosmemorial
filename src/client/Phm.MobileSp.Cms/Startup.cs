@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
+using System.ServiceModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -42,50 +43,6 @@ namespace Phm.MobileSp.Cms
 
         public IConfigurationRoot Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
-            services.AddNodeServices();
-            services.AddMvc(options =>
-            {
-                options.CacheProfiles.Add("NoCache",
-                    new CacheProfile()
-                    {
-                        Location = ResponseCacheLocation.None,
-                        NoStore = true
-                    });
-
-                    options.Filters.Add(new AiHandleErrorAttribute());
-                   });
-            services.AddScoped<AiHandleErrorAttribute>();
-
-            services.AddDistributedMemoryCache();
-            
-            services.AddSingleton<IMLearningCoreContract, MLearningCoreContractClient>();
-            services.AddSingleton<ICoreContract, CoreContractClient>();
-            services.AddSingleton<ISecurityContract, SecurityContractClient>();
-            
-            services.AddSingleton<IApplicationUser, ApplicationUser>();
-
-            services.AddSingleton<IBaseRequest, BaseRequest>();
-            services.AddSingleton<IBaseCriteria, BaseCriteria>();
-            
-            services.AddTransient<IUserRepository, UserRepository>();
-            services.AddTransient<IMarketRepository, MarketRepository>();
-            services.AddTransient<IFeedRepository, FeedRepository>();
-
-            services.AddTransient<IMediaRepository, MediaRepository>();
-
-            services.AddSession(options =>
-            {
-                options.IdleTimeout = TimeSpan.FromHours(1);
-                options.CookieName = ".MobileSP.Session";
-                options.CookieHttpOnly = true;
-            });
-            services.AddApplicationInsightsTelemetry(Configuration);
-        }
-
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
@@ -117,14 +74,15 @@ namespace Phm.MobileSp.Cms
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions {
+                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+                {
                     HotModuleReplacement = true
                 });
-			}
+            }
             else
             {
                 //app.UseExceptionHandler("/Home/Error");
-				app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage();
 
             }
 
@@ -148,5 +106,74 @@ namespace Phm.MobileSp.Cms
                     defaults: new { controller = "Home", action = "Index" });
             });
         }
+
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
+            services.AddNodeServices();
+
+
+            services.AddMvc(options =>
+            {
+                options.CacheProfiles.Add("NoCache",
+                    new CacheProfile()
+                    {
+                        Location = ResponseCacheLocation.None,
+                        NoStore = true
+                    });
+
+                options.Filters.Add(new AiHandleErrorAttribute());
+            });
+            services.AddScoped<AiHandleErrorAttribute>();
+            services.AddSingleton<IConfiguration>(Configuration);
+            services.AddDistributedMemoryCache();
+
+            services.AddTransient<IMLearningCoreContract>(provider =>
+            {
+                var mLearningCoreServices = Configuration["WcfServices:MLearningCoreService:EndpointUrl"];
+                Console.WriteLine(mLearningCoreServices);
+                var client = new MLearningCoreContractClient();
+                client.Endpoint.Address = new EndpointAddress(mLearningCoreServices);
+                return client;
+            });
+
+            services.AddTransient<ISecurityContract>(provider =>
+            {
+                var securityServices = Configuration["WcfServices:SecurityService:EndpointUrl"];
+                Console.WriteLine(securityServices);
+                var client = new SecurityContractClient();
+                client.Endpoint.Address = new EndpointAddress(securityServices);
+                return client;
+            });
+
+            services.AddTransient<ICoreContract>(provider =>
+            {
+                var mLearningCoreService = Configuration["WcfServices:MLearningCoreService:EndpointUrl"];
+                Console.WriteLine(mLearningCoreService);
+                var client = new CoreContractClient();
+                client.Endpoint.Address = new EndpointAddress(mLearningCoreService);
+                return client;
+            });
+
+            services.AddSingleton<IApplicationUser, ApplicationUser>();
+            services.AddSingleton<IBaseRequest, BaseRequest>();
+            services.AddSingleton<IBaseCriteria, BaseCriteria>();
+
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IMarketRepository, MarketRepository>();
+            services.AddTransient<IFeedRepository, FeedRepository>();
+
+            services.AddTransient<IMediaRepository, MediaRepository>();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromHours(1);
+                options.CookieName = ".MobileSP.Session";
+                options.CookieHttpOnly = true;
+            });
+            services.AddApplicationInsightsTelemetry(Configuration);
+        }
+
     }
 }
