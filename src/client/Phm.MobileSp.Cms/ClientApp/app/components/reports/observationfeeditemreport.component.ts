@@ -105,13 +105,19 @@ export class ObservationFeedItemReport implements OnInit, AfterViewInit, OnDestr
 
     public updateListData() {
         if (this.model && this.summaryData && this.summaryData.surveyFeedResults) {
+            console.log(this.summaryData.surveyFeedResults);
+
             for (let question of this.model.questions) {
-                var data = []
+                var data = [];
                 question.answers.forEach(x => {
-                    data.push({
-                        percent: this.summaryData.surveyFeedResults.filter(y => y.surverQuestionAnwerId == x.id)[0].percentage,
-                        label: x.answer
-                    });
+                    try {
+                        data.push({
+                            percent: this.summaryData.surveyFeedResults.find(y => y.surveyQuestionId == question.id).surveyAnswerSummaries.find(y => y.surverQuestionAnwerId == x.id).percentage,
+                            label: x.answer
+                        });
+                    } catch (e) {
+                        console.log(e);
+                    }
                 });
                 this.listData.push({
                     title: question.question,

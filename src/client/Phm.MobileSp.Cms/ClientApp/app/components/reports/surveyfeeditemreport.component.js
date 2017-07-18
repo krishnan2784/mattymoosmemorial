@@ -121,10 +121,8 @@ var SurveyFeedItemReport = (function () {
     SurveyFeedItemReport.prototype.updateListData = function () {
         var _this = this;
         if (this.model && this.summaryData && this.summaryData.surveyFeedResults) {
-            console.log(this.summaryData.surveyFeedResults);
             var _loop_2 = function (question) {
                 data = [];
-                console.log(question);
                 question.answers.forEach(function (x) {
                     try {
                         data.push({

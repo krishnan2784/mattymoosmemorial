@@ -145,11 +145,8 @@ export class SurveyFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
 
     public updateListData() {
         if (this.model && this.summaryData && this.summaryData.surveyFeedResults) {
-            console.log(this.summaryData.surveyFeedResults);
-
             for (let question of this.model.questions) {
                 var data = []
-                console.log(question);
                 question.answers.forEach(x => {
                     try {
                         data.push({
@@ -167,6 +164,7 @@ export class SurveyFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
             };
         }
     }
+
     handleReport() {
         new Angular2Csv(this.summaryData, this.model.title + DateEx.formatDate(new Date()));
     }
