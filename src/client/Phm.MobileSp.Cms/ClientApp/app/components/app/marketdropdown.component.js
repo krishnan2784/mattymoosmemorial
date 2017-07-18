@@ -44,7 +44,7 @@ var MarketDropdown = (function () {
     MarketDropdown.prototype.updateCurrentMarket = function (newMarket) {
         var _this = this;
         this.marketDataService.updateCurrentMarketId(this.currentMarket.id).subscribe(function (result) {
-            if (result) {
+            if (result && _this.userMarkets != null) {
                 _this.currentMarket = _this.userMarkets.find(function (x) { return x.id === newMarket.id; });
                 _this.sharedService.updateMarket(_this.currentMarket);
             }

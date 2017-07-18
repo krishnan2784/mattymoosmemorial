@@ -13,9 +13,20 @@ var core_1 = require("@angular/core");
 var MonobarGraphComponent = (function () {
     function MonobarGraphComponent() {
         this.ani = 1;
+        this.heightRatio = 1;
     }
     MonobarGraphComponent.prototype.ngOnInit = function () {
         this.bar7H = 100 / this.data.data.length;
+        var maxHeight = Math.max(this.data.data.map(function (x) { return x.percent; }));
+        var minHeight = Math.min(this.data.data.map(function (x) { return x.percent; }));
+        if (maxHeight > 0) {
+            if (minHeight < 0)
+                maxHeight = maxHeight + Math.abs(minHeight);
+        }
+        else if (maxHeight < 0)
+            maxHeight = Math.abs(minHeight);
+        if (maxHeight > 0)
+            this.heightRatio = 100 / maxHeight;
     };
     return MonobarGraphComponent;
 }());
