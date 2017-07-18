@@ -90,6 +90,10 @@ export class FeedDataService extends RequestHelper implements IFeedDataService, 
         return this.getRequestFull('/api/Feed/GetSurveyFeedSummaries?feedItemId=' + feedItemId);
     }
 
+    public getObservationFeedSummaries(feedItemId: number): Observable<any> {
+        return this.getRequestFull('/api/Feed/GetObservationFeedSummaries?feedItemId=' + feedItemId);
+    }
+
     public getLeaderBoard(startDate: string = null, endDate: string = null) {
         var requestUrl = '/api/Feed/GetLeaderBoard';
         if (startDate || endDate) {

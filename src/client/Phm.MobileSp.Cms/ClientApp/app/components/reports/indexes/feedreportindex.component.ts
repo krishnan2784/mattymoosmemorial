@@ -108,7 +108,7 @@ export class FeedReportIndexComponent extends BaseComponent implements OnInit, O
         if (feedItem.feedType === FeedTypeEnum.Survey)
             report = SurveyFeedItemReport;
         if (feedItem.feedType === FeedTypeEnum.Observation)
-            report = ObservationFeedItemReport;
+            report = SurveyFeedItemReport;
         
         this.updateMarketDropdownVisibility(false);
         this.updateTabNavItems();

@@ -15,11 +15,10 @@ var ShareService = Datashareservice.ShareService;
 var Enums = require("../../enums");
 var Feeddataservice = require("../../services/feeddataservice");
 var FeedDataService = Feeddataservice.FeedDataService;
-var Reportclasses = require("../../models/reportclasses");
-var SurveyItemSummary = Reportclasses.SurveyItemSummary;
 var Date1 = require("../../classes/helpers/date");
 var DateEx = Date1.DateEx;
 var Angular2_csv_1 = require("angular2-csv/Angular2-csv");
+var reportclasses_1 = require("../../models/reportclasses");
 var SurveyFeedItemReport = (function () {
     function SurveyFeedItemReport(sharedService, feedDataService, injector) {
         var _this = this;
@@ -46,13 +45,13 @@ var SurveyFeedItemReport = (function () {
         var _this = this;
         this.feedDataService.getSurveyFeedSummaries(this.model.id).subscribe(function (result) {
             if (result.content) {
-                _this.summaryData = new SurveyItemSummary(result.content);
+                _this.summaryData = new reportclasses_1.ObservationItemSummary(result.content);
                 _this.updateGaugeData();
                 _this.updateBarData();
                 _this.updateListData();
             }
             else
-                _this.summaryData = new SurveyItemSummary();
+                _this.summaryData = new reportclasses_1.ObservationItemSummary();
             _this.updateGaugeData();
             _this.updateBarData();
             _this.updateListData();

@@ -15,11 +15,10 @@ var ShareService = Datashareservice.ShareService;
 var Enums = require("../../enums");
 var Feeddataservice = require("../../services/feeddataservice");
 var FeedDataService = Feeddataservice.FeedDataService;
-var Reportclasses = require("../../models/reportclasses");
-var SurveyItemSummary = Reportclasses.SurveyItemSummary;
 var Date1 = require("../../classes/helpers/date");
 var DateEx = Date1.DateEx;
 var Angular2_csv_1 = require("angular2-csv/Angular2-csv");
+var reportclasses_1 = require("../../models/reportclasses");
 var ObservationFeedItemReport = (function () {
     function ObservationFeedItemReport(sharedService, feedDataService, injector) {
         var _this = this;
@@ -44,32 +43,21 @@ var ObservationFeedItemReport = (function () {
     };
     ObservationFeedItemReport.prototype.getData = function () {
         var _this = this;
-        this.feedDataService.getSurveyFeedSummaries(this.model.id).subscribe(function (result) {
+        this.feedDataService.getObservationFeedSummaries(this.model.id).subscribe(function (result) {
             if (result.content) {
-                _this.summaryData = new SurveyItemSummary(result.content);
+                _this.summaryData = new reportclasses_1.ObservationItemSummary(result.content);
                 _this.updateGaugeData();
                 _this.updateBarData();
                 _this.updateListData();
             }
             else
-                _this.summaryData = new SurveyItemSummary();
+                _this.summaryData = new reportclasses_1.ObservationItemSummary();
             _this.updateGaugeData();
             _this.updateBarData();
             _this.updateListData();
         });
     };
     ObservationFeedItemReport.prototype.updateGaugeData = function () {
-        //var gaugeData = new GaugeChartData({
-        //    height: 150,
-        //    showTooltip: true,
-        //    chartData: [
-        //        {
-        //            name: 'Submitted',
-        //            colour: '#9F378E',
-        //            data: (this.summaryData.submitted / this.summaryData.totalRecipents) * 100
-        //        }
-        //    ]
-        //});
         this.submissionRateData = (this.summaryData.submitted / this.summaryData.totalRecipents) * 100;
     };
     ObservationFeedItemReport.prototype.updateBarData = function () {
@@ -92,18 +80,6 @@ var ObservationFeedItemReport = (function () {
             footerText: "Allocated time (days)",
             data: dates
         };
-        //var barData = new BarChartData({
-        //    width: 500,
-        //    showTooltip: true,
-        //    showYAxis: false,
-        //    showXAxis: true,
-        //    chartData: [{
-        //        name: 'Allocated time (days)',
-        //        colour: '#9F378E',
-        //        data: dates
-        //    }]
-        //});
-        //this.averageTimeData = barData;
     };
     ObservationFeedItemReport.prototype.updateListData = function () {
         var _this = this;

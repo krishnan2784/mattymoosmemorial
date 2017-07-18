@@ -95,6 +95,9 @@ var FeedDataService = (function (_super) {
     FeedDataService.prototype.getSurveyFeedSummaries = function (feedItemId) {
         return this.getRequestFull('/api/Feed/GetSurveyFeedSummaries?feedItemId=' + feedItemId);
     };
+    FeedDataService.prototype.getObservationFeedSummaries = function (feedItemId) {
+        return this.getRequestFull('/api/Feed/GetObservationFeedSummaries?feedItemId=' + feedItemId);
+    };
     FeedDataService.prototype.getLeaderBoard = function (startDate, endDate) {
         if (startDate === void 0) { startDate = null; }
         if (endDate === void 0) { endDate = null; }

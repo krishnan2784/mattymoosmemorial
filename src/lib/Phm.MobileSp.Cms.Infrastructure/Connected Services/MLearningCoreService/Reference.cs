@@ -3861,13 +3861,9 @@ namespace MLearningCoreService
         
         private static System.ServiceModel.EndpointAddress GetEndpointAddress(EndpointConfiguration endpointConfiguration)
         {
-            if (endpointConfiguration == EndpointConfiguration.MLearningCoreServiceEndpoint)
+            if ((endpointConfiguration == EndpointConfiguration.MLearningCoreServiceEndpoint))
             {
-#if DEBUG
                 return new System.ServiceModel.EndpointAddress("http://mobilespapi.phm.co.uk/MLearningCoreService.svc");
-#else
-                return new System.ServiceModel.EndpointAddress("http://mobilespapi-staging.azurewebsites.net/MLearningCoreService.svc");
-#endif
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }

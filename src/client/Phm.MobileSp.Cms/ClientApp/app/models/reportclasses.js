@@ -97,7 +97,7 @@ var ObservationItemSummary = (function (_super) {
     function ObservationItemSummary(options) {
         if (options === void 0) { options = {}; }
         var _this = _super.call(this, options) || this;
-        _this.observationFeedId = options["observationFeedId"] || 0;
+        _this.observationFeedId = options["surveyFeedId"] || 0;
         return _this;
     }
     return ObservationItemSummary;

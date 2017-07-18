@@ -150,6 +150,14 @@ namespace Phm.MobileSp.Cms.Controllers.API
 
         [HttpGet("[action]")]
         [JsonResponseWrapper]
+        public async Task<JsonResult> GetObservationFeedSummaries(int feedItemId)
+        {
+            var feedItemResponse = await _feedRepository.GetObservationFeedSummaries(feedItemId);
+            return Json(new BaseResponse(feedItemResponse));
+        }
+
+        [HttpGet("[action]")]
+        [JsonResponseWrapper]
         public async Task<JsonResult> GetLeaderBoard(DateTime? startDate = null, DateTime? endDate = null)
         {
             var response = await _feedRepository.GetLeaderBoard(CurrentMarketId, startDate, endDate);

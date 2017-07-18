@@ -22,4 +22,6 @@ export interface IFeedDataService {
     getFeedItemResultList(feedItemId: number, lowerBoundary: number, higherBoundary: number, userGroupId: number);
 
     getSurveyFeedSummaries(feedItemId: number): Observable<any>
+
+    getObservationFeedSummaries(feedItemId: number): Observable<any>
 }

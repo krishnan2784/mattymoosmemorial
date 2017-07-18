@@ -127,6 +127,19 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             return response.SurveySummaries.FirstOrDefault();
         }
 
+        public async Task<dynamic> GetObservationFeedSummaries(int feedItemId)
+        {
+            var request = GetRequest(new GetSurveyFeedSummariesRequest
+            {
+                Criteria = GetCriteria(new SurveyFeedSummaryCriteriaDto()
+                {
+                    SurveyFeedId = feedItemId
+                })
+            });
+            var response = await _proxyClient.GetSurveyFeedSummariesAsync(request);
+            return response.SurveySummaries.FirstOrDefault();
+        }
+
         public async Task<bool> CopyFeedItemToMarketAsync(int feedItemId, List<int> marketIds)
         {
 
