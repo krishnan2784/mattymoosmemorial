@@ -40,7 +40,10 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             }
             catch (Exception ex)
             {
-                message = $"An error occurred while attempting to access MobileSP. Please try again. <span class=\"hidden\">{ex.Message}</span>";
+                if (ex.Message == "Managed Exception")
+                    message = "Your username or password is incorrect. Please try again.";
+                else
+                    message = $"An error occurred while attempting to access MobileSP. Please try again. <span class=\"hidden\">{ex.Message}</span>";
             }
 
             if (applicationUser.ValidUser)
