@@ -57,7 +57,8 @@ export class BaseQuestionFeedItemFormComponent extends BasePartialItemFormCompon
     addQuestion() {
         const control = <FormArray>this.form.controls['questions'];
         control.push(this.initQuestion());
-        this.displayQuestion(control.length-1);
+        this.displayQuestion(control.length - 1);
+
     }
 
     removeQuestion(index: number) {
@@ -65,6 +66,7 @@ export class BaseQuestionFeedItemFormComponent extends BasePartialItemFormCompon
         if (this.currentQuestion > 0)
             this.displayQuestion(this.currentQuestion - 1);
         questions.removeAt(index);
+        this.form.markAsDirty();
     }
 
     addAnswer() {
@@ -75,6 +77,8 @@ export class BaseQuestionFeedItemFormComponent extends BasePartialItemFormCompon
     removeAnswer(index: number) {
         const control = this.currQuestion().controls['answers'];
         control.removeAt(index);
+        this.form.markAsDirty();
+
     }
 
     displayQuestion(index: number) {

@@ -81,6 +81,7 @@ var BaseQuestionFeedItemFormComponent = (function (_super) {
         if (this.currentQuestion > 0)
             this.displayQuestion(this.currentQuestion - 1);
         questions.removeAt(index);
+        this.form.markAsDirty();
     };
     BaseQuestionFeedItemFormComponent.prototype.addAnswer = function () {
         var control = this.currQuestion().controls['answers'];
@@ -89,6 +90,7 @@ var BaseQuestionFeedItemFormComponent = (function (_super) {
     BaseQuestionFeedItemFormComponent.prototype.removeAnswer = function (index) {
         var control = this.currQuestion().controls['answers'];
         control.removeAt(index);
+        this.form.markAsDirty();
     };
     BaseQuestionFeedItemFormComponent.prototype.displayQuestion = function (index) {
         var questions = this.form.controls['questions'];
