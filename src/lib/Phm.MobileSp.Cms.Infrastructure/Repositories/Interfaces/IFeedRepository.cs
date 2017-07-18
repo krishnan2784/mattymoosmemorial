@@ -18,6 +18,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
         Task<dynamic> GetQuizFeedSummaries(int feedItemId);
         Task<IEnumerable<dynamic>> GetQuizResultsSummariesEX(int feedItemId, decimal lowerBoundary, decimal higherBoundary, int userGroupId);
         Task<dynamic> GetSurveyFeedSummaries(int feedItemId);
+        Task<dynamic> GetObservationFeedSummaries(int feedItemId);
         Task<bool> CopyFeedItemToMarketAsync(int feedItemId, List<int> marketIds);
         Task<dynamic> GetLeaderBoard(int currentMarketId, DateTime? startDate, DateTime? endDate);
         Task<dynamic> GetUserPointsHistory(int userId, DateTime? startDate, DateTime? endDate);

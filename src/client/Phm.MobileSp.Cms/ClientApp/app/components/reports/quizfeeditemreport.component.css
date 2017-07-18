@@ -124,6 +124,9 @@
 .result-list-content-row:not(:last-child) .border-bottom {
     border-bottom: #EFEFEF 1px solid;
     padding-top: 4px;
+    overflow:hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 #scoreRange {
     margin-top: 45px;

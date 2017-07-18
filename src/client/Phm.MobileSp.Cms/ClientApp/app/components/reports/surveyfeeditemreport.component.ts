@@ -24,6 +24,7 @@ import Userfiltercomponent = require("../common/filters/userfilter.component");
 import { SurveyFeed } from "../../models/feedclasses";
 import UserFilters = Userfiltercomponent.UserFilters;
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
+import { ObservationItemSummary } from "../../models/reportclasses";
 
 declare var Materialize: any;
 declare var noUiSlider: any;
@@ -71,12 +72,12 @@ export class SurveyFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     private getData() {
         this.feedDataService.getSurveyFeedSummaries(this.model.id).subscribe(result => {
             if (result.content) {
-                this.summaryData = new SurveyItemSummary(result.content);
+                this.summaryData = new ObservationItemSummary(result.content);
                 this.updateGaugeData();
                 this.updateBarData();
                 this.updateListData();
             } else
-                this.summaryData = new SurveyItemSummary();
+                this.summaryData = new ObservationItemSummary();
             this.updateGaugeData();
             this.updateBarData();
             this.updateListData();

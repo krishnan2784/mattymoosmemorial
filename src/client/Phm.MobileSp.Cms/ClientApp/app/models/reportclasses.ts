@@ -107,6 +107,6 @@ export class ObservationItemSummary extends SurveyItemSummary {
     public observationFeedId: number;
     constructor(options: {} = {}) {
         super(options);
-        this.observationFeedId = options["observationFeedId"] || 0;
+        this.observationFeedId = options["surveyFeedId"] || 0;
     }
 }
