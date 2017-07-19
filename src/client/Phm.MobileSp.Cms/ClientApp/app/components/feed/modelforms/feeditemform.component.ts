@@ -26,6 +26,7 @@ import { MediaInfo } from "../../../models/mediainfoclasses";
 import { MediaTypes } from "../../../enums";
 import { ImageFeedItemFormComponent } from "./imagefeeditem.component";
 import { VideoFeedItemFormComponent } from "./videofeeditem.component";
+import { DateEx } from "../../../classes/helpers/date";
 import ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationFeedItemFormComponent;
 import BaseFeed = Feedclasses.BaseFeed;
 declare var $: any;
@@ -212,6 +213,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         this.submitted = true;
         if (!isValid)
             return;
+        console.log(this.form);
 
         feedItem = new this.subForm.feedModelType(feedItem);
 
@@ -242,15 +244,17 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         this.minDay = e.day;
         this.minMonth = e.month;
         this.minYear = e.year;
-        this.model.startDate = e.fullDate;
-        this.form.controls['startDate'].patchValue(e.fullDate, { onlySelf: true });
-        this.form.controls['startDate'].markAsDirty();
+        var date = DateEx.formatDate(e.fullDate, 'yyyy-MM-dd').toString();
+        this.model.startDate = date;
+        this.form.controls['startDate'].setValue(date);
         this.form.markAsDirty();
+        console.log(date);
+        console.log(this.form.value);
     }
 
     handleEndDate(e) {
         this.model.endDate = e.fullDate;
-        this.form.controls['endDate'].patchValue(e.fullDate, { onlySelf: true });
+        this.form.controls['endDate'].setValue(e.fullDate);
         this.form.markAsDirty();
     }
 

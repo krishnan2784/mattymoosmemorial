@@ -30,6 +30,7 @@ var Observationfeeditemcomponent = require("./observationfeeditem.component");
 var enums_1 = require("../../../enums");
 var imagefeeditem_component_1 = require("./imagefeeditem.component");
 var videofeeditem_component_1 = require("./videofeeditem.component");
+var date_1 = require("../../../classes/helpers/date");
 var ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationFeedItemFormComponent;
 var FeedItemForm = (function () {
     function FeedItemForm(fb, http, route, router, feedDataService, injector, sharedService) {
@@ -174,6 +175,7 @@ var FeedItemForm = (function () {
         this.submitted = true;
         if (!isValid)
             return;
+        console.log(this.form);
         feedItem = new this.subForm.feedModelType(feedItem);
         this.feedDataService.updateFeeditem(this.subForm.updateUrl, feedItem).subscribe(function (result) {
             if (result.success) {
@@ -199,14 +201,16 @@ var FeedItemForm = (function () {
         this.minDay = e.day;
         this.minMonth = e.month;
         this.minYear = e.year;
-        this.model.startDate = e.fullDate;
-        this.form.controls['startDate'].patchValue(e.fullDate, { onlySelf: true });
-        this.form.controls['startDate'].markAsDirty();
+        var date = date_1.DateEx.formatDate(e.fullDate, 'yyyy-MM-dd').toString();
+        this.model.startDate = date;
+        this.form.controls['startDate'].setValue(date);
         this.form.markAsDirty();
+        console.log(date);
+        console.log(this.form.value);
     };
     FeedItemForm.prototype.handleEndDate = function (e) {
         this.model.endDate = e.fullDate;
-        this.form.controls['endDate'].patchValue(e.fullDate, { onlySelf: true });
+        this.form.controls['endDate'].setValue(e.fullDate);
         this.form.markAsDirty();
     };
     FeedItemForm.prototype.setMinDate = function (date) {
