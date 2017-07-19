@@ -48,7 +48,6 @@ var SurveyFeedItemReport = (function () {
                 _this.summaryData = new reportclasses_1.ObservationItemSummary(result.content);
                 _this.updateGaugeData();
                 _this.updateBarData();
-                _this.updateListData();
             }
             else
                 _this.summaryData = new reportclasses_1.ObservationItemSummary();
@@ -120,6 +119,7 @@ var SurveyFeedItemReport = (function () {
     };
     SurveyFeedItemReport.prototype.updateListData = function () {
         var _this = this;
+        this.listData = [];
         if (this.model && this.summaryData && this.summaryData.surveyFeedResults) {
             var _loop_2 = function (question) {
                 data = [];

@@ -30,8 +30,6 @@ var UserFilter = (function () {
         this.renderDealershipFilter = false;
         this.criteriaChanged = new core_1.EventEmitter();
         this.criteria = new UserFilters();
-        this.getMarketFilters();
-        this.setupSubscriptions();
     }
     UserFilter.prototype.ngAfterViewInit = function () {
         var _this = this;
@@ -39,6 +37,8 @@ var UserFilter = (function () {
             setTimeout(function () {
                 _this.setupRangeSlider();
             }, 10);
+        this.getMarketFilters();
+        this.setupSubscriptions();
     };
     UserFilter.prototype.ngOnDestroy = function () {
     };

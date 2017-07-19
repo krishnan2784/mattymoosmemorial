@@ -75,7 +75,6 @@ export class SurveyFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
                 this.summaryData = new ObservationItemSummary(result.content);
                 this.updateGaugeData();
                 this.updateBarData();
-                this.updateListData();
             } else
                 this.summaryData = new ObservationItemSummary();
             this.updateGaugeData();
@@ -144,6 +143,7 @@ export class SurveyFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public updateListData() {
+        this.listData = [];
         if (this.model && this.summaryData && this.summaryData.surveyFeedResults) {
             for (let question of this.model.questions) {
                 var data = []
