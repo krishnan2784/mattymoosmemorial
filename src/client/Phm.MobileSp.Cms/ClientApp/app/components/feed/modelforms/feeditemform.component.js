@@ -204,9 +204,10 @@ var FeedItemForm = (function () {
         var date = date_1.DateEx.formatDate(e.fullDate, 'yyyy-MM-dd').toString();
         this.model.startDate = date;
         this.form.controls['startDate'].setValue(date);
+        if (new Date(this.model.endDate) < e.fullDate) {
+            this.handleEndDate(e);
+        }
         this.form.markAsDirty();
-        console.log(date);
-        console.log(this.form.value);
     };
     FeedItemForm.prototype.handleEndDate = function (e) {
         this.model.endDate = e.fullDate;

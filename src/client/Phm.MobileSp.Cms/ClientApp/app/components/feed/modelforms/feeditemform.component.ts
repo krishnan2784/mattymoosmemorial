@@ -247,9 +247,10 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         var date = DateEx.formatDate(e.fullDate, 'yyyy-MM-dd').toString();
         this.model.startDate = date;
         this.form.controls['startDate'].setValue(date);
+        if (new Date(this.model.endDate) < e.fullDate) {
+            this.handleEndDate(e);
+        }
         this.form.markAsDirty();
-        console.log(date);
-        console.log(this.form.value);
     }
 
     handleEndDate(e) {

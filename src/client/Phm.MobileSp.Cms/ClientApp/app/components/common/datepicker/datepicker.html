@@ -3,7 +3,7 @@
   <div class="inputRow">
     <div class="fakeInput" (click)="show = !show">
       <div class="input">
-        {{displayDate}}
+        {{initialDate | date:'dd/MM/y'}}
       </div>
       <div class="icon">
         <i class="material-icons">today</i>
