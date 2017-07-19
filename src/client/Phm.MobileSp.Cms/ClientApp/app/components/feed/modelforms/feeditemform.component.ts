@@ -28,9 +28,6 @@ import { ImageFeedItemFormComponent } from "./imagefeeditem.component";
 import { VideoFeedItemFormComponent } from "./videofeeditem.component";
 import ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationFeedItemFormComponent;
 import BaseFeed = Feedclasses.BaseFeed;
-declare var $: any;
-declare var Materialize: any;
-declare var tinymce: any;
 
 @Component({
     selector: 'feeditemform',
@@ -159,16 +156,12 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     updateForm() {
         if (this.model && this.model.id > 0) {
             (this.form).patchValue(this.model, { onlySelf: true });
-            setTimeout(() => {
-                Materialize.updateTextFields();
-            }, 10);  
         } else {
             this.form.controls['feedType'].patchValue(this.model.feedType, { onlySelf: true });
             this.form.controls['feedCategory'].patchValue(this.model.feedCategory, { onlySelf: true });
             this.form.controls['startDate'].patchValue(this.model.startDate, { onlySelf: true });
             this.form.controls['endDate'].patchValue(this.model.endDate, { onlySelf: true });
         }
-        console.log('button');
         this.form.updateValueAndValidity();
     }
 
@@ -212,6 +205,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             return;
 
         feedItem = new this.subForm.feedModelType(feedItem);
+        feedItem.callToActionUrl = feedItem.callToActionUrl.indexOf('http') == 0 ? feedItem.callToActionUrl : 'http://' + feedItem.callToActionUrl;
 
         this.feedDataService.updateFeeditem(this.subForm.updateUrl, feedItem).subscribe(result => {
             if (result.success) {
@@ -221,23 +215,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             }
         });
     }
-
-    public updateMaterialize() {
-        setTimeout(function () {
-            $('.materialize-textarea').each(function () {
-                $(this).trigger('autoresize');
-            });
-
-            //Materialize.updateTextFields();
-            //$('.datepicker').pickadate({
-            //    selectMonths: true,
-            //    selectYears: 5,
-            //    format: 'dddd, dd mmm, yyyy',
-            //    formatSubmit: 'yyyy/mm/dd'
-            //});
-        }, 1);
-    }
-
+    
     goBack() {
         this.feedUpdated.emit(null);    
     }

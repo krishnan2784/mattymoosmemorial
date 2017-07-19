@@ -97,9 +97,6 @@ var BaseQuestionFeedItemFormComponent = (function (_super) {
         if (index < 0 || index > (questions.length - 1))
             return;
         this.currentQuestion = index;
-        setTimeout(function () {
-            Materialize.updateTextFields();
-        }, 10);
     };
     return BaseQuestionFeedItemFormComponent;
 }(basepartialfeeditem_component_1.BasePartialItemFormComponent));

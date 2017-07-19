@@ -17,21 +17,21 @@ var RichTextEditorComponent = (function () {
         this.onEditorKeyup = new core_1.EventEmitter();
     }
     RichTextEditorComponent.prototype.ngAfterViewInit = function () {
-        var _this = this;
-        tinymce.init({
-            selector: '#' + this.elementId,
-            plugins: ['link', 'paste', 'table', 'autoresize'],
-            setup: function (editor) {
-                _this.editor = editor;
-                editor.on('keyup', function () {
-                    var content = editor.getContent();
-                    _this.value = content;
-                    _this.formGroup.controls[_this.elementId].patchValue(content, {});
-                    _this.formGroup.markAsDirty();
-                    _this.onEditorKeyup.emit({ id: _this.elementId, val: content });
-                });
-            },
-        });
+        //tinymce.init({
+        //  selector: '#' + this.elementId,
+        //  plugins: ['link', 'paste', 'table','autoresize'],
+        //  setup: editor => {
+        //    this.editor = editor;
+        //    editor.on('keyup', () => {
+        //        const content = editor.getContent();
+        //        this.value = content;
+        //        this.formGroup.controls[this.elementId].patchValue(content, {});
+        //        this.formGroup.markAsDirty();
+        //        this.onEditorKeyup.emit({ id: this.elementId, val: content });
+        //    });
+        //  },
+        //  });
+        $('#' + this.elementId).trigger('autoresize');
     };
     RichTextEditorComponent.prototype.ngOnDestroy = function () {
         tinymce.remove(this.editor);
@@ -57,7 +57,7 @@ __decorate([
 RichTextEditorComponent = __decorate([
     core_1.Component({
         selector: 'editor',
-        template: "\n    <div [formGroup]=\"formGroup\" *ngIf=\"formGroup\">\n      <textarea formControlName=\"{{elementId}}\" *ngIf=\"elementId\" value={{value}} class=\"materialize-textarea\"></textarea>\n    </div>"
+        template: "\n    <div [formGroup]=\"formGroup\" *ngIf=\"formGroup\">\n      <textarea id=\"{{elementId}}\" formControlName=\"{{elementId}}\" *ngIf=\"elementId\" value={{value}} class=\"materialize-textarea\"></textarea>\n    </div>"
     })
 ], RichTextEditorComponent);
 exports.RichTextEditorComponent = RichTextEditorComponent;

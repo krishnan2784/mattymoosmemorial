@@ -6,7 +6,7 @@ declare var tinymce: any;
   selector: 'editor',
   template: `
     <div [formGroup]="formGroup" *ngIf="formGroup">
-      <textarea formControlName="{{elementId}}" *ngIf="elementId" value={{value}} class="materialize-textarea"></textarea>
+      <textarea id="{{elementId}}" formControlName="{{elementId}}" *ngIf="elementId" value={{value}} class="materialize-textarea"></textarea>
     </div>`
 })
 export class RichTextEditorComponent implements  AfterViewInit, OnDestroy {
@@ -17,20 +17,22 @@ export class RichTextEditorComponent implements  AfterViewInit, OnDestroy {
   editor;
   ngAfterViewInit()
   {
-    tinymce.init({
-      selector: '#' + this.elementId,
-      plugins: ['link', 'paste', 'table','autoresize'],
-      setup: editor => {
-        this.editor = editor;
-        editor.on('keyup', () => {
-            const content = editor.getContent();
-            this.value = content;
-            this.formGroup.controls[this.elementId].patchValue(content, {});
-            this.formGroup.markAsDirty();
-            this.onEditorKeyup.emit({ id: this.elementId, val: content });
-        });
-      },
-    });
+    //tinymce.init({
+    //  selector: '#' + this.elementId,
+    //  plugins: ['link', 'paste', 'table','autoresize'],
+    //  setup: editor => {
+    //    this.editor = editor;
+    //    editor.on('keyup', () => {
+    //        const content = editor.getContent();
+    //        this.value = content;
+    //        this.formGroup.controls[this.elementId].patchValue(content, {});
+    //        this.formGroup.markAsDirty();
+    //        this.onEditorKeyup.emit({ id: this.elementId, val: content });
+    //    });
+    //  },
+    //  });
+        $('#' + this.elementId).trigger('autoresize');
+
   }
 
   ngOnDestroy() {

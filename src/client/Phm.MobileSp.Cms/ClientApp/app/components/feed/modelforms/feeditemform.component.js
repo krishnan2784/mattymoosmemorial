@@ -127,9 +127,6 @@ var FeedItemForm = (function () {
     FeedItemForm.prototype.updateForm = function () {
         if (this.model && this.model.id > 0) {
             (this.form).patchValue(this.model, { onlySelf: true });
-            setTimeout(function () {
-                Materialize.updateTextFields();
-            }, 10);
         }
         else {
             this.form.controls['feedType'].patchValue(this.model.feedType, { onlySelf: true });
@@ -137,7 +134,6 @@ var FeedItemForm = (function () {
             this.form.controls['startDate'].patchValue(this.model.startDate, { onlySelf: true });
             this.form.controls['endDate'].patchValue(this.model.endDate, { onlySelf: true });
         }
-        console.log('button');
         this.form.updateValueAndValidity();
     };
     FeedItemForm.prototype.getFeedType = function (feedType) {
@@ -179,6 +175,7 @@ var FeedItemForm = (function () {
         if (!isValid)
             return;
         feedItem = new this.subForm.feedModelType(feedItem);
+        feedItem.callToActionUrl = feedItem.callToActionUrl.indexOf('http') == 0 ? feedItem.callToActionUrl : 'http://' + feedItem.callToActionUrl;
         this.feedDataService.updateFeeditem(this.subForm.updateUrl, feedItem).subscribe(function (result) {
             if (result.success) {
                 _this.model = result.content;
@@ -186,20 +183,6 @@ var FeedItemForm = (function () {
                 _this.feedUpdated.emit(result.content);
             }
         });
-    };
-    FeedItemForm.prototype.updateMaterialize = function () {
-        setTimeout(function () {
-            $('.materialize-textarea').each(function () {
-                $(this).trigger('autoresize');
-            });
-            //Materialize.updateTextFields();
-            //$('.datepicker').pickadate({
-            //    selectMonths: true,
-            //    selectYears: 5,
-            //    format: 'dddd, dd mmm, yyyy',
-            //    formatSubmit: 'yyyy/mm/dd'
-            //});
-        }, 1);
     };
     FeedItemForm.prototype.goBack = function () {
         this.feedUpdated.emit(null);

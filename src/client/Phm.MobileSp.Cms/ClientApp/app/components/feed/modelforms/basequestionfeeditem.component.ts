@@ -4,8 +4,6 @@ import * as IFeedItemComponents from "../../../interfaces/components/IFeedItemCo
 import Enums = require("../../../enums");
 import { BasePartialItemFormComponent } from "./basepartialfeeditem.component";
 
-declare var Materialize: any;
-
 @Component({
     selector: 'questionfeeditem',
     template: require('./basequestionfeeditem.component.html'),
@@ -86,8 +84,5 @@ export class BaseQuestionFeedItemFormComponent extends BasePartialItemFormCompon
         if (index < 0 || index > (questions.length - 1))
             return;
         this.currentQuestion = index;
-        setTimeout(function () {
-            Materialize.updateTextFields();
-        }, 10);  
     }
 }

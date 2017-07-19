@@ -14,7 +14,7 @@
     </div>
 
     <div class="feed-form-navigation col-md-8">
-        <navbar [data]="navbarData" (optionSelected)="this.feedFormSteps.navigateToSelectedStep($event);updateMaterialize();"></navbar>
+        <navbar [data]="navbarData" (optionSelected)="this.feedFormSteps.navigateToSelectedStep($event);"></navbar>
         <div class="clear-both"></div>
     </div>
 
@@ -187,16 +187,14 @@
         <h5>Call-To-Action</h5>
         <div class="col-md-9">
             <div class="col-md-4">
-                <div class="input-field">
-                    <label [class.active]="form.controls.callToActionText.value.length>0">Button label</label>
-                    <input type="text" formControlName="callToActionText">
-                </div>
+                <textinput [form]="form" [formSubmitted]="submitted"
+                           [formControlId]="'callToActionText'"
+                           [label]="'Button label'"></textinput>
             </div>
             <div class="col-md-8">
-                <div class="input-field">
-                    <label [class.active]="form.controls.callToActionUrl.value.length>0">Url</label>
-                    <input type="text" formControlName="callToActionUrl">
-                </div>
+                <textinput [form]="form" [formSubmitted]="submitted"
+                           [formControlId]="'callToActionUrl'"
+                           [label]="'Url'"></textinput>
             </div>
             <div class="clearfix"></div>
             <small class="col-lg-12">
@@ -204,7 +202,10 @@
             </small>
         </div>
         <div class="col-md-3">
-            <a class="button btn" *ngIf="form.controls.callToActionUrl.value.length>5" href="{{form.controls.callToActionUrl.value.indexOf('http') == 0 ? form.controls.callToActionUrl.value : 'http://' + form.controls.callToActionUrl.value}}" target="_blank">
+            <a class="button btn" *ngIf="form.controls.callToActionUrl.value.length>5" 
+               href="{{form.controls.callToActionUrl.value.indexOf('http') == 0 ? form.controls.callToActionUrl.value : 'http://' + form.controls.callToActionUrl.value}}" target="_blank">
+               <!--(click)="form.controls.callToActionUrl.value = form.controls.callToActionUrl.value.indexOf('http') == 0 ? form.controls.callToActionUrl.value : 'http://' + form.controls.callToActionUrl.value"--> 
+
                 <!--<span *ngIf="form.controls.callToActionText.value > 0">{{model.callToActionText}}</span>-->
                 <span>Test URL</span>
             </a>
@@ -218,15 +219,13 @@
          feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Media) || 
          feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Links)"  class="col-md-4">
         <h5>Options</h5>
-        <hr/>
-        
-        <div class="input-field" [class.hidden]="model.feedType == feedTypes.Observation">
-            <input id="points" type="text" formControlName="points">
-            <label for="points" [class.active]="form.controls.points.value>0">Reward Points</label>
-            <small [class.active-warning]="!form.controls.points.valid && submitted">
-                Reward points are requiered.
-            </small>
-        </div>
+        <hr/>   
+    
+    <textinput [form]="form" [formSubmitted]="submitted"
+               [formControlId]="'points'"
+               [label]="'Reward Points'"
+               [validationMessage]="'Reward points are requiered.'" 
+               [class.hidden]="model.feedType == feedTypes.Observation"></textinput>
 
         <div class="input-field">
             <label for="allowFavourite">Allow Favourite</label>
@@ -239,13 +238,10 @@
             </div>
         </div>
 
-        <div class="input-field">
-            <input id="readingTime" type="text" formControlName="readingTime">
-            <label for="readingTime" [class.active]="form.controls.readingTime.value>0">Reading Time (mins)</label>
-            <small [class.active-warning]="!form.controls.readingTime.valid && submitted">
-                Etimated time is mandatory
-            </small>
-        </div>
+    <textinput [form]="form" [formSubmitted]="submitted"
+               [formControlId]="'readingTime'"
+               [label]="'Reading Time (mins)'"
+               [validationMessage]="'Etimated time is required'" ></textinput>
 
         <div>
             <label>Start Date</label>
