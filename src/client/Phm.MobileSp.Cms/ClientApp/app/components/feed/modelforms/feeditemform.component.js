@@ -127,6 +127,10 @@ var FeedItemForm = (function () {
     FeedItemForm.prototype.updateForm = function () {
         if (this.model && this.model.id > 0) {
             (this.form).patchValue(this.model, { onlySelf: true });
+            this.setMinDate(new Date(this.model.startDate));
+            setTimeout(function () {
+                Materialize.updateTextFields();
+            }, 10);
         }
         else {
             this.form.controls['feedType'].patchValue(this.model.feedType, { onlySelf: true });
@@ -183,6 +187,39 @@ var FeedItemForm = (function () {
                 _this.feedUpdated.emit(result.content);
             }
         });
+    };
+    FeedItemForm.prototype.updateMaterialize = function () {
+        setTimeout(function () {
+            $('#bodyText').trigger('autoresize');
+            //Materialize.updateTextFields();
+            //$('.datepicker').pickadate({
+            //    selectMonths: true,
+            //    selectYears: 5,
+            //    format: 'dddd, dd mmm, yyyy',
+            //    formatSubmit: 'yyyy/mm/dd'
+            //});
+        }, 1);
+    };
+    FeedItemForm.prototype.handleStartDate = function (e) {
+        this.minDay = e.day;
+        this.minMonth = e.month;
+        this.minYear = e.year;
+        this.model.startDate = e.serverAcceptedDate;
+        this.form.controls['startDate'].setValue(e.serverAcceptedDate);
+        if (new Date(this.model.endDate) < e.fullDate) {
+            this.handleEndDate(e);
+        }
+        this.form.markAsDirty();
+    };
+    FeedItemForm.prototype.handleEndDate = function (e) {
+        this.model.endDate = e.fullDate;
+        this.form.controls['endDate'].setValue(e.fullDate);
+        this.form.markAsDirty();
+    };
+    FeedItemForm.prototype.setMinDate = function (date) {
+        this.minDay = date.getDate();
+        this.minMonth = date.getMonth();
+        this.minYear = date.getFullYear();
     };
     FeedItemForm.prototype.goBack = function () {
         this.feedUpdated.emit(null);

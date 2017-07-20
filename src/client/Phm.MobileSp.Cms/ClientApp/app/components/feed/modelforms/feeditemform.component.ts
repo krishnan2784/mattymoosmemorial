@@ -26,8 +26,12 @@ import { MediaInfo } from "../../../models/mediainfoclasses";
 import { MediaTypes } from "../../../enums";
 import { ImageFeedItemFormComponent } from "./imagefeeditem.component";
 import { VideoFeedItemFormComponent } from "./videofeeditem.component";
+import { DateEx } from "../../../classes/helpers/date";
 import ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationFeedItemFormComponent;
 import BaseFeed = Feedclasses.BaseFeed;
+declare var $: any;
+declare var Materialize: any;
+declare var tinymce: any;
 
 @Component({
     selector: 'feeditemform',
@@ -62,6 +66,11 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
 
     public feedFormSteps: FeedFormSteps = new FeedFormSteps();
     public navbarData = [];
+
+    minDay;
+    minMonth;
+    minYear;
+
     constructor(fb: FormBuilder, public http: Http, public route: ActivatedRoute,
         private router: Router, public feedDataService: FeedDataService, private injector: Injector, public sharedService: ShareService) {
         
@@ -156,6 +165,10 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     updateForm() {
         if (this.model && this.model.id > 0) {
             (this.form).patchValue(this.model, { onlySelf: true });
+            this.setMinDate(new Date(this.model.startDate));
+            setTimeout(() => {
+                Materialize.updateTextFields();
+            }, 10);  
         } else {
             this.form.controls['feedType'].patchValue(this.model.feedType, { onlySelf: true });
             this.form.controls['feedCategory'].patchValue(this.model.feedCategory, { onlySelf: true });
@@ -215,7 +228,45 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             }
         });
     }
-    
+
+    public updateMaterialize() {
+        setTimeout(function () {
+            $('#bodyText').trigger('autoresize');
+
+            //Materialize.updateTextFields();
+            //$('.datepicker').pickadate({
+            //    selectMonths: true,
+            //    selectYears: 5,
+            //    format: 'dddd, dd mmm, yyyy',
+            //    formatSubmit: 'yyyy/mm/dd'
+            //});
+        }, 1);
+    }
+
+    handleStartDate(e) {
+        this.minDay = e.day;
+        this.minMonth = e.month;
+        this.minYear = e.year;
+        this.model.startDate = e.serverAcceptedDate;
+        this.form.controls['startDate'].setValue(e.serverAcceptedDate);
+        if (new Date(this.model.endDate) < e.fullDate) {
+            this.handleEndDate(e);
+        }
+        this.form.markAsDirty();
+    }
+
+    handleEndDate(e) {
+        this.model.endDate = e.fullDate;
+        this.form.controls['endDate'].setValue(e.fullDate);
+        this.form.markAsDirty();
+    }
+
+    setMinDate(date) {
+        this.minDay = date.getDate();
+        this.minMonth = date.getMonth();
+        this.minYear = date.getFullYear();
+    }
+
     goBack() {
         this.feedUpdated.emit(null);    
     }

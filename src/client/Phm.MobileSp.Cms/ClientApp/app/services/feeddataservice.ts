@@ -12,6 +12,7 @@ import FeedItem = FeedModel.IFeedItem;
 import Feedclasses = require("../models/feedclasses");
 import Apiresponse = require("../models/apiresponse");
 import MarketContentService = require("../interfaces/services/IMarketContentService");
+import { DateEx } from "../classes/helpers/date";
 import IMarketContentService = MarketContentService.IMarketContentService;
 import CopiedElementTypeEnum = Enums.CopiedElementTypeEnum;
 
@@ -96,11 +97,12 @@ export class FeedDataService extends RequestHelper implements IFeedDataService, 
 
     public getLeaderBoard(startDate: string = null, endDate: string = null) {
         var requestUrl = '/api/Feed/GetLeaderBoard';
+        console.log(startDate, endDate);
         if (startDate || endDate) {
             requestUrl = requestUrl + '?'
-                + (startDate ? 'startDate=' + startDate : '')
+                + (startDate ? 'startDate=' + DateEx.formatDate(startDate) : '')
                 + (startDate && endDate ? '&' : '')
-                + (endDate ? 'endDate=' + endDate : '');
+                + (endDate ? 'endDate=' + DateEx.formatDate(endDate) : '');
         }
         return this.getRequestBase(requestUrl);
     }

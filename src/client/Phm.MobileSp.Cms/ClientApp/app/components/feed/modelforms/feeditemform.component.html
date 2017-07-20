@@ -243,15 +243,19 @@
                [label]="'Reading Time (mins)'"
                [validationMessage]="'Etimated time is required'" ></textinput>
 
-        <div>
-            <label>Start Date</label>
-            <input id="startDate" type="date" formControlName="startDate" [value]="model.startDate">
-        </div>
 
-        <div>
-            <label>End Date</label>
-            <input id="endDate" type="date" formControlName="endDate" [value]="model.endDate">
-        </div>
+    <div>
+        <label>Start Date</label>
+        <datepicker (dateSelected)="handleStartDate($event);" [initialDate]="model.startDate" [cannotSelectPast]="model.id==0" [minDay]="1" [minJsMonth]="2" [minYear]="2017"></datepicker>
+    </div>
+
+    <div>
+        <label>End Date</label>
+        <datepicker (dateSelected)="handleEndDate($event);" [initialDate]="model.endDate" [cannotSelectPast]="model.id==0" [minDay]="minDay" [minJsMonth]="minMonth" [minYear]="minYear"></datepicker>
+    </div>
+
+    <input type="hidden" formControlName="startDate">
+    <input type="hidden" formControlName="endDate">
 
     </div>
 
