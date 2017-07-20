@@ -248,12 +248,12 @@
 
     <div>
         <label>Start Date</label>
-        <datepicker (dateSelected)="handleStartDate($event);" [initialDate]="model.startDate" [cannotSelectPast]="true" [minDay]="1" [minJsMonth]="2" [minYear]="2017"></datepicker>
+        <datepicker (dateSelected)="handleStartDate($event);" [initialDate]="model.startDate" [cannotSelectPast]="model.id==0" [minDay]="1" [minJsMonth]="2" [minYear]="2017"></datepicker>
     </div>
 
     <div>
         <label>End Date</label>
-        <datepicker (dateSelected)="handleEndDate($event);" [initialDate]="model.endDate" [cannotSelectPast]="true" [minDay]="minDay" [minJsMonth]="minMonth" [minYear]="minYear"></datepicker>
+        <datepicker (dateSelected)="handleEndDate($event);" [initialDate]="model.endDate" [cannotSelectPast]="model.id==0" [minDay]="minDay" [minJsMonth]="minMonth" [minYear]="minYear"></datepicker>
     </div>
 
     <input type="hidden" formControlName="startDate">

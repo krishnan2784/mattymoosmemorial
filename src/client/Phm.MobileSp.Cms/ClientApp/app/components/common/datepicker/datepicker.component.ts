@@ -1,10 +1,11 @@
-import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import { Component, Input, OnInit, OnChanges, Output, EventEmitter, SimpleChange } from '@angular/core';
+import { DateEx } from "../../../classes/helpers/date";
 @Component({
   selector: 'datepicker',
       template: require('./datepicker.html'),
       styles: [require('./datepicker.css')]
 })
-export class DatepickerComponent implements OnInit {
+export class DatepickerComponent implements OnInit, OnChanges {
   @Input() day: number;
   @Input() jsMonth: number;
   @Input() year: number;
@@ -18,10 +19,11 @@ export class DatepickerComponent implements OnInit {
   selectedDay;
   selectedMonth;
   selectedYear;
-  displayDate;
+  selectedDate: Date;
   show = false;
   hidePastDays = false;
   today = new Date();
+  displayDate: string = 'dd/mm/yyyy';
   thisDay = this.today.getDate();
   thisMonth = this.today.getMonth();
   thisYear = this.today.getFullYear();
@@ -30,14 +32,51 @@ export class DatepickerComponent implements OnInit {
   longMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   longWeekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Friday', 'Saturday'];
   ngOnInit() {
-      if(!this.day || !this.jsMonth || !this.year) {
-        let d = new Date(this.initialDate);
-        this.selectedDay = d.getDate();
-        this.selectedMonth = d.getMonth();
-        this.selectedYear = d.getFullYear();
-        this.displayDate = this.pad(this.selectedDay, 2) + '/' + this.pad(this.selectedMonth + 1, 2) + '/' + this.selectedYear;
-        this.pastDays = this.dummyArrayGenerator(this.firstDayOfWeek(this.selectedMonth,this.selectedYear).index.uk);
+      if (this.initialDate) {
+          this.selectedDate = new Date(this.initialDate);
+          this.updateDisplayDate();
+      } else
+          this.selectedDate = new Date();
+
+      if (!this.day || !this.jsMonth || !this.year) {
+          this.selectedDay = this.selectedDate.getDate();
+          this.selectedMonth = this.selectedDate.getMonth();
+          this.selectedYear = this.selectedDate.getFullYear();
       }
+      if (!this.selectedMonth || !this.selectedYear) {
+          let d = new Date();
+          this.selectedMonth = d.getMonth();
+          this.selectedYear = d.getFullYear();
+      }
+      this.pastDays = this.dummyArrayGenerator(this.firstDayOfWeek(this.selectedMonth, this.selectedYear).index.uk);
+
+  }
+  ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
+      let log: string[] = [];
+      if (changes['initialDate']) {
+          let initDate = changes['initialDate'];
+          if (!initDate.isFirstChange()) {
+              console.log(this.initialDate);
+              if (this.initialDate) {
+                  this.selectedDate = new Date(this.initialDate);
+                  this.updateDisplayDate();
+              } else {
+                  this.reset();
+              }
+              this.selectedDay = this.selectedDate.getDate();
+          }
+      }
+  }
+  reset() {
+      this.selectedDate = new Date();
+      this.displayDate = 'dd/mm/yyyy';
+      this.clearMinDate();
+  }
+  clearMinDate() {
+      this.minDay = null;
+      this.minJsMonth = null;
+      this.minYear = null;
+      this.selectedDay = null;
   }
   pad(num: string, size: number) {
     var s = num + "";
@@ -51,10 +90,17 @@ export class DatepickerComponent implements OnInit {
     }
     return array;
   }
-  checkPastDay(d){
+  checkPastDay(d) {
+      if (!this.cannotSelectPast)
+          return false;
     let g = new Date(this.selectedYear,this.selectedMonth,d);
     let x = this.isDayOnPast(g);
     return x;
+  }
+  isSelectedDay(d) {
+      if (!this.selectedDate || !this.selectedDay || this.selectedDay != d)
+          return false;
+      return this.selectedMonth == this.selectedDate.getMonth() && this.selectedYear == this.selectedDate.getFullYear();
   }
   normalizeDate(d) {
     let a = this.pad(d.getMonth() + 1, 2) + '/ ' + this.pad(d.getDate(), 2) + "/" + "/" + d.getFullYear();
@@ -124,37 +170,41 @@ export class DatepickerComponent implements OnInit {
     return new Date(year, month, 0).getDate();
   }
   select(d, m, y) {
-      console.log(d, m, y);
     if(this.cannotSelectPast){
       let g = new Date(y,m,d);
       if (this.isDayOnPast(g)) {
-          console.log('yolo');
           return
       };
     }
-    if(this.minDay && this.minJsMonth && this.minYear) {
+    if (this.minDay && this.minJsMonth && this.minYear) {
       var a = new Date(y,m,d);
       var b = new Date(this.minYear, this.minJsMonth, this.minDay);
+
       if (a < b) {
-        alert('Please choose a date later than ' + this.minDay +'/' + (this.minJsMonth +1) +'/' + this.minYear );
+          alert('Please choose a date later than ' + DateEx.formatDate(b, 'dd/MM/yyyy') );
         return;
       }
     }
-    let x = new Date(y,m,d);
+    let x = new Date(y, m, d);
     let dta = {
       day: d,
       month: m,
       year: y,
       fullDate: x,
+      serverAcceptedDate: DateEx.formatDate(x, 'yyyy-MM-dd'),
       longMonth: this.longMonths[m],
       shortMonth: this.shortMonths[m],
       longWeekDay : this.longWeekDays[x.getDay()],
       shortWeekDay : this.shortWeekDays[x.getDay()]
     };
-    console.log('yola');
-
     this.dateSelected.emit(dta);
-    this.displayDate = this.pad(d,2) +'/' + this.pad(m + 1, 2) +'/' + y;
+    this.selectedDay = d;
+    this.selectedDate = x;
+    this.updateDisplayDate();
     this.show = false;
+  }
+  updateDisplayDate() {
+      if (this.selectedDate)
+          this.displayDate = DateEx.formatDate(this.selectedDate, 'dd/MM/yyyy');
   }
 }

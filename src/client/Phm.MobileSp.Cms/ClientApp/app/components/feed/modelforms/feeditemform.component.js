@@ -30,7 +30,6 @@ var Observationfeeditemcomponent = require("./observationfeeditem.component");
 var enums_1 = require("../../../enums");
 var imagefeeditem_component_1 = require("./imagefeeditem.component");
 var videofeeditem_component_1 = require("./videofeeditem.component");
-var date_1 = require("../../../classes/helpers/date");
 var ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationFeedItemFormComponent;
 var FeedItemForm = (function () {
     function FeedItemForm(fb, http, route, router, feedDataService, injector, sharedService) {
@@ -201,9 +200,8 @@ var FeedItemForm = (function () {
         this.minDay = e.day;
         this.minMonth = e.month;
         this.minYear = e.year;
-        var date = date_1.DateEx.formatDate(e.fullDate, 'yyyy-MM-dd').toString();
-        this.model.startDate = date;
-        this.form.controls['startDate'].setValue(date);
+        this.model.startDate = e.serverAcceptedDate;
+        this.form.controls['startDate'].setValue(e.serverAcceptedDate);
         if (new Date(this.model.endDate) < e.fullDate) {
             this.handleEndDate(e);
         }
@@ -217,7 +215,7 @@ var FeedItemForm = (function () {
     FeedItemForm.prototype.setMinDate = function (date) {
         this.minDay = date.getDate();
         this.minMonth = date.getMonth();
-        this.minYear = date.getYear();
+        this.minYear = date.getFullYear();
     };
     FeedItemForm.prototype.goBack = function () {
         this.feedUpdated.emit(null);

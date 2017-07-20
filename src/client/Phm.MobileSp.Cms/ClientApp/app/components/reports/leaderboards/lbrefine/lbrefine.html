@@ -4,16 +4,8 @@
     <div class="right pointer" (click)="clearAll();broadcastChanges();">Clear all</div>
   </div>
   <div class="dates" *ngIf="!hideDates">
-    <div class="selectDate">
-      <div>from</div>
-      <input type="date" placeholder="Select date range" [(ngModel)]="date1" (change)="broadcastChanges();">
-      <i class="material-icons">today</i>
-    </div>
-    <div class="selectDate">
-      <div>to</div>
-      <input type="date" placeholder="Select date range" [(ngModel)]="date2" (change)="broadcastChanges();">
-      <i class="material-icons">today</i>
-    </div>
+      <datepicker (dateSelected)="handleStartDate($event);broadcastChanges();" [initialDate]="date1" [cannotSelectPast]="false"></datepicker>
+      <datepicker (dateSelected)="handleEndDate($event);broadcastChanges();" [initialDate]="date2" [cannotSelectPast]="false" [minDay]="minDay" [minJsMonth]="minMonth" [minYear]="minYear"></datepicker>
   </div>
   <div *ngFor="let g of groups; let a = index">
     <div class="sectionRow groupBy">

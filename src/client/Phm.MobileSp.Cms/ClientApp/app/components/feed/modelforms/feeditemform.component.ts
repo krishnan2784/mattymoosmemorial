@@ -244,9 +244,8 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         this.minDay = e.day;
         this.minMonth = e.month;
         this.minYear = e.year;
-        var date = DateEx.formatDate(e.fullDate, 'yyyy-MM-dd').toString();
-        this.model.startDate = date;
-        this.form.controls['startDate'].setValue(date);
+        this.model.startDate = e.serverAcceptedDate;
+        this.form.controls['startDate'].setValue(e.serverAcceptedDate);
         if (new Date(this.model.endDate) < e.fullDate) {
             this.handleEndDate(e);
         }
@@ -262,7 +261,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     setMinDate(date) {
         this.minDay = date.getDate();
         this.minMonth = date.getMonth();
-        this.minYear = date.getYear();
+        this.minYear = date.getFullYear();
     }
 
     goBack() {

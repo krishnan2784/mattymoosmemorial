@@ -10,12 +10,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var date_1 = require("../../../classes/helpers/date");
 var DatepickerComponent = (function () {
     function DatepickerComponent() {
         this.dateSelected = new core_1.EventEmitter();
         this.show = false;
         this.hidePastDays = false;
         this.today = new Date();
+        this.displayDate = 'dd/mm/yyyy';
         this.thisDay = this.today.getDate();
         this.thisMonth = this.today.getMonth();
         this.thisYear = this.today.getFullYear();
@@ -25,14 +27,51 @@ var DatepickerComponent = (function () {
         this.longWeekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Friday', 'Saturday'];
     }
     DatepickerComponent.prototype.ngOnInit = function () {
+        if (this.initialDate) {
+            this.selectedDate = new Date(this.initialDate);
+            this.updateDisplayDate();
+        }
+        else
+            this.selectedDate = new Date();
         if (!this.day || !this.jsMonth || !this.year) {
-            var d = new Date(this.initialDate);
-            this.selectedDay = d.getDate();
+            this.selectedDay = this.selectedDate.getDate();
+            this.selectedMonth = this.selectedDate.getMonth();
+            this.selectedYear = this.selectedDate.getFullYear();
+        }
+        if (!this.selectedMonth || !this.selectedYear) {
+            var d = new Date();
             this.selectedMonth = d.getMonth();
             this.selectedYear = d.getFullYear();
-            this.displayDate = this.pad(this.selectedDay, 2) + '/' + this.pad(this.selectedMonth + 1, 2) + '/' + this.selectedYear;
-            this.pastDays = this.dummyArrayGenerator(this.firstDayOfWeek(this.selectedMonth, this.selectedYear).index.uk);
         }
+        this.pastDays = this.dummyArrayGenerator(this.firstDayOfWeek(this.selectedMonth, this.selectedYear).index.uk);
+    };
+    DatepickerComponent.prototype.ngOnChanges = function (changes) {
+        var log = [];
+        if (changes['initialDate']) {
+            var initDate = changes['initialDate'];
+            if (!initDate.isFirstChange()) {
+                console.log(this.initialDate);
+                if (this.initialDate) {
+                    this.selectedDate = new Date(this.initialDate);
+                    this.updateDisplayDate();
+                }
+                else {
+                    this.reset();
+                }
+                this.selectedDay = this.selectedDate.getDate();
+            }
+        }
+    };
+    DatepickerComponent.prototype.reset = function () {
+        this.selectedDate = new Date();
+        this.displayDate = 'dd/mm/yyyy';
+        this.clearMinDate();
+    };
+    DatepickerComponent.prototype.clearMinDate = function () {
+        this.minDay = null;
+        this.minJsMonth = null;
+        this.minYear = null;
+        this.selectedDay = null;
     };
     DatepickerComponent.prototype.pad = function (num, size) {
         var s = num + "";
@@ -48,9 +87,16 @@ var DatepickerComponent = (function () {
         return array;
     };
     DatepickerComponent.prototype.checkPastDay = function (d) {
+        if (!this.cannotSelectPast)
+            return false;
         var g = new Date(this.selectedYear, this.selectedMonth, d);
         var x = this.isDayOnPast(g);
         return x;
+    };
+    DatepickerComponent.prototype.isSelectedDay = function (d) {
+        if (!this.selectedDate || !this.selectedDay || this.selectedDay != d)
+            return false;
+        return this.selectedMonth == this.selectedDate.getMonth() && this.selectedYear == this.selectedDate.getFullYear();
     };
     DatepickerComponent.prototype.normalizeDate = function (d) {
         var a = this.pad(d.getMonth() + 1, 2) + '/ ' + this.pad(d.getDate(), 2) + "/" + "/" + d.getFullYear();
@@ -118,11 +164,9 @@ var DatepickerComponent = (function () {
         return new Date(year, month, 0).getDate();
     };
     DatepickerComponent.prototype.select = function (d, m, y) {
-        console.log(d, m, y);
         if (this.cannotSelectPast) {
             var g = new Date(y, m, d);
             if (this.isDayOnPast(g)) {
-                console.log('yolo');
                 return;
             }
             ;
@@ -131,7 +175,7 @@ var DatepickerComponent = (function () {
             var a = new Date(y, m, d);
             var b = new Date(this.minYear, this.minJsMonth, this.minDay);
             if (a < b) {
-                alert('Please choose a date later than ' + this.minDay + '/' + (this.minJsMonth + 1) + '/' + this.minYear);
+                alert('Please choose a date later than ' + date_1.DateEx.formatDate(b, 'dd/MM/yyyy'));
                 return;
             }
         }
@@ -141,15 +185,21 @@ var DatepickerComponent = (function () {
             month: m,
             year: y,
             fullDate: x,
+            serverAcceptedDate: date_1.DateEx.formatDate(x, 'yyyy-MM-dd'),
             longMonth: this.longMonths[m],
             shortMonth: this.shortMonths[m],
             longWeekDay: this.longWeekDays[x.getDay()],
             shortWeekDay: this.shortWeekDays[x.getDay()]
         };
-        console.log('yola');
         this.dateSelected.emit(dta);
-        this.displayDate = this.pad(d, 2) + '/' + this.pad(m + 1, 2) + '/' + y;
+        this.selectedDay = d;
+        this.selectedDate = x;
+        this.updateDisplayDate();
         this.show = false;
+    };
+    DatepickerComponent.prototype.updateDisplayDate = function () {
+        if (this.selectedDate)
+            this.displayDate = date_1.DateEx.formatDate(this.selectedDate, 'dd/MM/yyyy');
     };
     return DatepickerComponent;
 }());

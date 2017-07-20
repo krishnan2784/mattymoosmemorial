@@ -25,22 +25,23 @@
         padding: 4px; }
   .dp_content .showCalendar {
     width: 316px;
-    height: 366px;
     padding: 10px;
     position: relative;
     -webkit-box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.75);
     font-family: verdana;
-    border-radius: 4px;
     background-color: white;
     z-index: 9999999;
 
   }
     .dp_content .showCalendar .monthSelector {
-      width: 160px;
-      margin-left: calc(50% - 80px);
-      height: 31px; }
+      font-size:2em;
+        text-align:center;
+        background-color: #4F3A9F!important;
+      color: white;
+
+    }
       .dp_content .showCalendar .monthSelector div {
         float: left;
         padding: 3px; }
@@ -164,7 +165,9 @@
     float: left;
     background-color: white;
     margin-right: 2px;
-    margin-top: 2px; }
+    margin-top: 2px; 
+    cursor: pointer;
+  }
   .dp_content .sdayTop {
     width: 40px;
     height: 40px;
@@ -206,3 +209,24 @@
     margin-bottom: 16px;
     margin-left: 6px;
     width: 314px; }
+
+      .chMS{
+        cursor: pointer;
+        margin-top: 4px;
+
+    }
+.selectedDay,.sday:hover{
+      box-shadow: 0px 0 5px rgba(0, 0, 0, 0.349019);
+
+  }
+.selectedDay{
+      background-color: #4F3A9F!important;
+      color: white!important;
+  }
+    .calendarHeader{
+              background-color: #4F3A9F!important;
+      color: white;
+          margin: -10px -10px 0;
+          padding:10px;
+
+    }

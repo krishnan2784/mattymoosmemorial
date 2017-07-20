@@ -69,6 +69,21 @@ var LbrefineComponent = (function () {
         this.rangeTo = 100;
         this.broadcastChanges();
     };
+    LbrefineComponent.prototype.handleStartDate = function (e) {
+        this.date1 = e.fullDate;
+        this.setMinDate(e.fullDate);
+        if (this.date2 && new Date(this.date2) < e.fullDate) {
+            this.handleEndDate(e);
+        }
+    };
+    LbrefineComponent.prototype.handleEndDate = function (e) {
+        this.date2 = e.fullDate;
+    };
+    LbrefineComponent.prototype.setMinDate = function (date) {
+        this.minDay = date.getDate();
+        this.minMonth = date.getMonth();
+        this.minYear = date.getFullYear();
+    };
     return LbrefineComponent;
 }());
 __decorate([

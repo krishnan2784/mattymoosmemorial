@@ -59,6 +59,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
         public async Task<JsonResult> UpdateFeedItem<TFeedItem,TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed
             where TDestinationDto : BaseFeedDto
         {
+            feedItem.EndDate = feedItem.EndDate?.AddDays(1).AddSeconds(-1);
             if (feedItem.Id == 0)
                 return await CreateFeedItem<TFeedItem, TDestinationDto>(feedItem);
             
@@ -152,6 +153,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
         [JsonResponseWrapper]
         public async Task<JsonResult> GetLeaderBoard(DateTime? startDate = null, DateTime? endDate = null)
         {
+            endDate = endDate?.AddDays(1);
             var response = await _feedRepository.GetLeaderBoard(CurrentMarketId, startDate, endDate);
             return Json(new BaseResponse(response));
         }

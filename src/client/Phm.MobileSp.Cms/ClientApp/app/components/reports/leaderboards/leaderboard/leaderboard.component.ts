@@ -292,6 +292,7 @@ export class LeaderboardComponent implements OnInit, OnChanges {
         this.commitList(this.top10, true, false);
     }
     handleRefine(e) {
+        console.log(e);
         if (e.selectedDate1 != this.curDate1 || e.selectedDate2 != this.curDate2) {
             this.datesChanged.emit({
                 date1: e.selectedDate1,
