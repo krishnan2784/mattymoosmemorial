@@ -10,12 +10,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var date_1 = require("../../../classes/helpers/date");
 var DatepickerComponent = (function () {
-    function DatepickerComponent() {
+    function DatepickerComponent(_eref) {
+        this._eref = _eref;
         this.dateSelected = new core_1.EventEmitter();
         this.show = false;
         this.hidePastDays = false;
         this.today = new Date();
+        this.displayDate = 'dd/mm/yyyy';
         this.thisDay = this.today.getDate();
         this.thisMonth = this.today.getMonth();
         this.thisYear = this.today.getFullYear();
@@ -23,15 +26,76 @@ var DatepickerComponent = (function () {
         this.shortWeekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         this.longMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         this.longWeekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Friday', 'Saturday'];
+        this.toggle = this.toggleDisplay.bind(this);
     }
     DatepickerComponent.prototype.ngOnInit = function () {
+        if (this.initialDate) {
+            this.selectedDate = new Date(this.initialDate);
+            this.updateDisplayDate();
+        }
+        else
+            this.selectedDate = new Date();
         if (!this.day || !this.jsMonth || !this.year) {
+            this.selectedDay = this.selectedDate.getDate();
+            this.selectedMonth = this.selectedDate.getMonth();
+            this.selectedYear = this.selectedDate.getFullYear();
+        }
+        if (!this.selectedMonth || !this.selectedYear) {
             var d = new Date();
-            this.selectedDay = d.getDate();
             this.selectedMonth = d.getMonth();
             this.selectedYear = d.getFullYear();
-            this.pastDays = this.dummyArrayGenerator(this.firstDayOfWeek(this.selectedMonth, this.selectedYear).index.uk);
         }
+        this.pastDays = this.dummyArrayGenerator(this.firstDayOfWeek(this.selectedMonth, this.selectedYear).index.uk);
+    };
+    DatepickerComponent.prototype.ngOnChanges = function (changes) {
+        var log = [];
+        if (changes['initialDate']) {
+            var initDate = changes['initialDate'];
+            if (!initDate.isFirstChange()) {
+                if (this.initialDate) {
+                    this.selectedDate = new Date(this.initialDate);
+                    this.updateDisplayDate();
+                }
+                else {
+                    this.reset();
+                }
+                this.selectedDay = this.selectedDate.getDate();
+                this.selectedMonth = this.selectedDate.getMonth();
+                this.selectedYear = this.selectedDate.getFullYear();
+            }
+        }
+    };
+    DatepickerComponent.prototype.ngOnDestroy = function () {
+        document.removeEventListener('click', this.toggle);
+    };
+    DatepickerComponent.prototype.toggleDisplay = function (event) {
+        if (event === void 0) { event = null; }
+        if (event) {
+            if (!this._eref.nativeElement.contains(event.target)) {
+                this.show = false;
+            }
+        }
+        else
+            this.show = !this.show;
+        if (this.show) {
+            document.addEventListener('click', this.toggle);
+        }
+        else {
+            this.selectedMonth = this.selectedDate.getMonth();
+            this.selectedYear = this.selectedDate.getFullYear();
+            document.removeEventListener('click', this.toggle);
+        }
+    };
+    DatepickerComponent.prototype.reset = function () {
+        this.selectedDate = new Date();
+        this.displayDate = 'dd/mm/yyyy';
+        this.clearMinDate();
+    };
+    DatepickerComponent.prototype.clearMinDate = function () {
+        this.minDay = null;
+        this.minJsMonth = null;
+        this.minYear = null;
+        this.selectedDay = null;
     };
     DatepickerComponent.prototype.pad = function (num, size) {
         var s = num + "";
@@ -47,9 +111,28 @@ var DatepickerComponent = (function () {
         return array;
     };
     DatepickerComponent.prototype.checkPastDay = function (d) {
+        if (!this.cannotSelectPast)
+            return false;
         var g = new Date(this.selectedYear, this.selectedMonth, d);
         var x = this.isDayOnPast(g);
         return x;
+    };
+    DatepickerComponent.prototype.isDayAboveMin = function (d, m, y) {
+        if (y === void 0) { y = this.selectedYear; }
+        if (!this.minYear && !this.minJsMonth && !this.minDay)
+            return true;
+        if (m == -1) {
+            m = 11;
+            y--;
+        }
+        var a = new Date(y, m, d);
+        var b = new Date(this.minYear, this.minJsMonth, this.minDay);
+        return a >= b;
+    };
+    DatepickerComponent.prototype.isSelectedDay = function (d) {
+        if (!this.selectedDate || !this.selectedDay || this.selectedDay != d)
+            return false;
+        return this.selectedMonth == this.selectedDate.getMonth() && this.selectedYear == this.selectedDate.getFullYear();
     };
     DatepickerComponent.prototype.normalizeDate = function (d) {
         var a = this.pad(d.getMonth() + 1, 2) + '/ ' + this.pad(d.getDate(), 2) + "/" + "/" + d.getFullYear();
@@ -90,18 +173,22 @@ var DatepickerComponent = (function () {
         };
     };
     DatepickerComponent.prototype.prevMonth = function () {
-        if (this.selectedMonth == 0) {
-            this.selectedMonth = 11;
-            this.selectedYear--;
+        var m = this.selectedMonth;
+        var y = this.selectedYear;
+        if (m == 0) {
+            m = 11;
+            y--;
         }
         else {
-            this.selectedMonth--;
+            m--;
         }
-        if ((this.selectedMonth < this.thisMonth && this.selectedYear == this.thisYear) && this.cannotSelectPast) {
-            this.selectedMonth = this.thisMonth;
-            this.selectedYear = this.thisYear;
+        if (this.checkPastDay(this.minDay) || !this.isDayAboveMin(this.minDay, m)) {
+            return;
         }
+        this.selectedMonth = m;
+        this.selectedYear = y;
         this.pastDays = this.dummyArrayGenerator(this.firstDayOfWeek(this.selectedMonth, this.selectedYear).index.uk);
+        return;
     };
     DatepickerComponent.prototype.nextMonth = function () {
         if (this.selectedMonth == 11) {
@@ -124,28 +211,29 @@ var DatepickerComponent = (function () {
             }
             ;
         }
-        if (this.minDay && this.minJsMonth && this.minYear) {
-            var a = new Date(y, m, d);
-            var b = new Date(this.minYear, this.minJsMonth, this.minDay);
-            if (a < b) {
-                alert('Please choose a date later than ' + this.minDay + '/' + (this.minJsMonth + 1) + '/' + this.minYear);
-                return;
-            }
-        }
+        if (!this.isDayAboveMin(d, m, y))
+            return;
         var x = new Date(y, m, d);
         var dta = {
             day: d,
             month: m,
             year: y,
             fullDate: x,
+            serverAcceptedDate: date_1.DateEx.formatDate(x, 'yyyy-MM-dd'),
             longMonth: this.longMonths[m],
             shortMonth: this.shortMonths[m],
             longWeekDay: this.longWeekDays[x.getDay()],
             shortWeekDay: this.shortWeekDays[x.getDay()]
         };
         this.dateSelected.emit(dta);
-        this.displayDate = this.pad(d, 2) + '/' + this.pad(m + 1, 2) + '/' + y;
-        this.show = false;
+        this.selectedDay = d;
+        this.selectedDate = x;
+        this.updateDisplayDate();
+        this.toggleDisplay();
+    };
+    DatepickerComponent.prototype.updateDisplayDate = function () {
+        if (this.selectedDate)
+            this.displayDate = date_1.DateEx.formatDate(this.selectedDate, 'dd/MM/yyyy');
     };
     return DatepickerComponent;
 }());
@@ -178,6 +266,10 @@ __decorate([
     __metadata("design:type", Boolean)
 ], DatepickerComponent.prototype, "cannotSelectPast", void 0);
 __decorate([
+    core_1.Input(),
+    __metadata("design:type", Date)
+], DatepickerComponent.prototype, "initialDate", void 0);
+__decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)
 ], DatepickerComponent.prototype, "dateSelected", void 0);
@@ -186,7 +278,8 @@ DatepickerComponent = __decorate([
         selector: 'datepicker',
         template: require('./datepicker.html'),
         styles: [require('./datepicker.css')]
-    })
+    }),
+    __metadata("design:paramtypes", [core_1.ElementRef])
 ], DatepickerComponent);
 exports.DatepickerComponent = DatepickerComponent;
 //# sourceMappingURL=datepicker.component.js.map
