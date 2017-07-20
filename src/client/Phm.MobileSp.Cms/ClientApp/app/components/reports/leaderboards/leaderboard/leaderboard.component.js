@@ -290,7 +290,6 @@ var LeaderboardComponent = (function () {
         this.commitList(this.top10, true, false);
     };
     LeaderboardComponent.prototype.handleRefine = function (e) {
-        console.log(e);
         if (e.selectedDate1 != this.curDate1 || e.selectedDate2 != this.curDate2) {
             this.datesChanged.emit({
                 date1: e.selectedDate1,

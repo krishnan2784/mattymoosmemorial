@@ -88,6 +88,8 @@ var FeedReportIndexComponent = (function (_super) {
         });
     };
     FeedReportIndexComponent.prototype.sortFeed = function (feedItem) {
+        if (!feedItem)
+            return [];
         // basic ordering by Id descending, will need to replace with a more robust sorting mechanism / index management facility 
         return feedItem.sort(function (a, b) {
             if (a.id > b.id)

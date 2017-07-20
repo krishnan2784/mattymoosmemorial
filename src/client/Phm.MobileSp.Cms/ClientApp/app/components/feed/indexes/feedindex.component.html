@@ -45,11 +45,11 @@
                         <div class="col-md-4 feed-index-controls">
                             <div class="feed-control col-md-3">
                                 <!--<div>
-                                    <a onclick="alert('Feature coming soon.');">
-                                        <i class="material-icons">smartphone</i>
-                                        <p>Preview</p>
-                                    </a>
-                                </div>-->
+                            <a onclick="alert('Feature coming soon.');">
+                                <i class="material-icons">smartphone</i>
+                                <p>Preview</p>
+                            </a>
+                        </div>-->
                             </div>
                             <div class="feed-control col-md-3" [class.col-md-offset-3]="currentMarket && currentMarket.isLive">
                                 <div>
@@ -86,12 +86,13 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
+                <pagination-controls (pageChange)="page = $event" id="1"
+                                     maxSize="20"
+                                     directionLinks="true"
+                                     autoHide="true">
+                </pagination-controls>
             </div>
-            <pagination-controls (pageChange)="page = $event" id="1"
-                                 maxSize="20"
-                                 directionLinks="true"
-                                 autoHide="true">
-            </pagination-controls>
+
         </div>
         
 

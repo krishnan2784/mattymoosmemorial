@@ -20,8 +20,10 @@
         float: left;
         width: 32px;
         height: 100%;
-        background-color: grey;
+        background-color: #4F3A9F;
         color: white;
+        cursor: pointer;
+
         padding: 4px; }
   .dp_content .showCalendar {
     width: 316px;
@@ -32,22 +34,27 @@
     box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.75);
     font-family: verdana;
     background-color: white;
-    z-index: 9999999;
-
-  }
-    .dp_content .showCalendar .monthSelector {
-      font-size:2em;
-        text-align:center;
-        background-color: #4F3A9F!important;
+    z-index: 9999999; }
+    .dp_content .showCalendar .calendarHeader {
+      background-color: #4F3A9F !important;
       color: white;
-
-    }
+      margin: -10px -10px 0;
+      padding: 10px; }
+    .dp_content .showCalendar .monthSelector {
+      font-size: 2em;
+      text-align: center; }
+       .dp_content .showCalendar .monthSelector .disabled{
+          color: grey;
+      }
       .dp_content .showCalendar .monthSelector div {
         float: left;
         padding: 3px; }
       .dp_content .showCalendar .monthSelector .txtMs {
         text-align: center;
         width: 150px; }
+    .dp_content .showCalendar .weekDays {
+      background-color: #4F3A9F !important;
+      color: white; }
   .dp_content .content {
     height: 378px;
     width: 314px;
@@ -70,6 +77,8 @@
     position: absolute; }
   .dp_content .monthSelector {
     cursor: pointer;
+    background-color: #4F3A9F !important;
+    color: white;
     margin-bottom: 20px; }
     .dp_content .monthSelector div {
       float: left;
@@ -77,6 +86,11 @@
       margin-right: 3px; }
     .dp_content .monthSelector .txt {
       width: 85px; }
+    .dp_content .monthSelector .chMS {
+      margin-top: 4px; }    
+    .dp_content .monthSelector .chMS:not(.disabled){
+        cursor: pointer;
+    }
   .dp_content .todayButton {
     position: absolute;
     top: 10px;
@@ -165,9 +179,17 @@
     float: left;
     background-color: white;
     margin-right: 2px;
-    margin-top: 2px; 
+    margin-top: 2px; }
+  .dp_content .selectedDay, .dp_content .selectableDay:not(.dayInThePast):hover {
+    box-shadow: 0px 0 5px rgba(0, 0, 0, 0.349019);
+    -webkit-box-shadow: 0px 0 5px rgba(0, 0, 0, 0.349019);
+    -moz-box-shadow: 0px 0 5px rgba(0, 0, 0, 0.349019); }
+  .dp_content .selectedDay {
+    background-color: #4F3A9F !important;
+    color: white !important; }
+  .dp_content .selectableDay:hover{
     cursor: pointer;
-  }
+}
   .dp_content .sdayTop {
     width: 40px;
     height: 40px;
@@ -181,7 +203,7 @@
     background-color: white !important;
     color: lightgray !important;
     cursor: default !important; }
-  .dp_content .dayNonToday {
+  .dp_content .selectableDay {
     background-color: white;
     color: black;
     cursor: pointer; }
@@ -209,24 +231,3 @@
     margin-bottom: 16px;
     margin-left: 6px;
     width: 314px; }
-
-      .chMS{
-        cursor: pointer;
-        margin-top: 4px;
-
-    }
-.selectedDay,.sday:hover{
-      box-shadow: 0px 0 5px rgba(0, 0, 0, 0.349019);
-
-  }
-.selectedDay{
-      background-color: #4F3A9F!important;
-      color: white!important;
-  }
-    .calendarHeader{
-              background-color: #4F3A9F!important;
-      color: white;
-          margin: -10px -10px 0;
-          padding:10px;
-
-    }
