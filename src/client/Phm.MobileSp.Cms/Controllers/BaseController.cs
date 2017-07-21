@@ -17,6 +17,7 @@ using Phm.MobileSp.Cms.Infrastructure.Repositories;
 namespace Phm.MobileSp.Cms.Controllers
 {
     [Authorize]
+    [ApiRequestWrapper]
     [AiHandleError]
     public class BaseController : CacheController
     {
@@ -24,40 +25,8 @@ namespace Phm.MobileSp.Cms.Controllers
         private static string _UserName { get; set; }
         private static int _CurrentMarketId { get; set; }
         private static int _UserId { get; set; }
-
-        private static BaseRequest baseRequest;
-        private static BaseCriteria baseCriteria;
-        public IBaseRepository _baseRepo { get; }
-        public static BaseRequest _baseRequest { get { return baseRequest; } }
-        public static BaseCriteria _baseCriteria { get { return baseCriteria; } }
-
-        public BaseController(IBaseRepository baseRepo, IMemoryCache memoryCache) :base(memoryCache){
-            baseCriteria = new BaseCriteria {
-                MarketId = CurrentMarketId
-            };
-            baseRequest = new BaseRequest {
-                AccessToken = AuthToken
-            };
-            _baseRepo = new BaseRepository(baseRequest, baseCriteria);
-        }
-
-        public override void OnActionExecuting(ActionExecutingContext context)
-        {
-#if DEBUG
-            if (string.IsNullOrEmpty(baseRequest.AccessToken))
-            {
-                if (!string.IsNullOrEmpty(AuthToken))
-                    baseRequest.AccessToken = AuthToken;
-                else
-                    throw new HttpRequestException("401");
-            }
-            if (baseCriteria.MarketId == null && CurrentMarketId != 0)
-                baseCriteria.MarketId = CurrentMarketId;
-
-#endif
-
-            base.OnActionExecuting(context);
-        }
+        
+        public BaseController(IMemoryCache memoryCache) :base(memoryCache){}
 
         [HttpGet("[action]")]
         [JsonResponseWrapper]

@@ -25,33 +25,10 @@ namespace Phm.MobileSp.Cms.Controllers.API
     {
         private readonly IMediaRepository _mediaRepository;
         private readonly IMarketRepository _marketRepository;
-        public MediaController(IBaseRepository baseRepo, IMediaRepository mediaRepository, IMemoryCache memoryCache, IMarketRepository marketRepository) : base(baseRepo, memoryCache){
-            mediaRepository._baseRepo = _baseRepo;
-            marketRepository._baseRepo = _baseRepo;
+        public MediaController(IMediaRepository mediaRepository, IMemoryCache memoryCache, IMarketRepository marketRepository) : base(memoryCache){
             _mediaRepository = mediaRepository;
             _marketRepository = marketRepository;
         }
-
-        //[HttpPost]
-        //[DisableFormValueModelBinding]
-        //public async Task<JsonResult> UploadFiles()
-        //{
-        //    FormValueProvider formModel;
-        //    using (var stream = System.IO.File.Create("c:\\temp\\myfile.temp"))
-        //    {
-        //        formModel = await Request.StreamFile(stream);
-        //    }
-
-        //    var viewModel = new MediaInfo();
-
-        //    var bindingSuccessful = await TryUpdateModelAsync(viewModel, prefix: "",
-        //        valueProvider: formModel);
-
-        //    if (!bindingSuccessful)
-        //    {
-        //    }
-        //    return Json(new BaseResponse(bindingSuccessful, "", viewModel));
-        //}
 
         [HttpPost]
         public async Task<JsonResult> UploadFile(IFormFile file) {

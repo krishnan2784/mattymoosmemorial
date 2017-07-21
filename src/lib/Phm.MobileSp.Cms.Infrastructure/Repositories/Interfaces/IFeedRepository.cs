@@ -6,7 +6,7 @@ using System;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
 {
-    public interface IFeedRepository : IMLearningBaseRepository
+    public interface IFeedRepository : IBaseRepository
     {
         Task<dynamic> GetFeedItemAsync(int feedItemId);
         Task<IEnumerable<dynamic>> GetFeedItemsAsync();

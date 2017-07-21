@@ -12,23 +12,19 @@ using System.Net.Http.Headers;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 {
-    public class MediaRepository : CoreBaseRepository, IMediaRepository
+    public class MediaRepository : BaseRepository, IMediaRepository
     {
-        private readonly ICoreContract _proxyClient;
-        private readonly IConfigurationRoot _config;
-        public MediaRepository(IBaseRepository baseRepo, ICoreContract proxyClient)
-            : base(baseRepo)
+        private MicrosoftAzureStorage _azureConnStrings{ get;}
+        public MediaRepository(IOptions<ConnectionStrings> connStrings, IOptions<MicrosoftAzureStorage> azureConnStrings, IBaseRequest baseRequest, IBaseCriteria baseCriteria)
+            : base(connStrings, baseRequest, baseCriteria, "")
         {
-            _proxyClient = proxyClient;
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(AppContext.BaseDirectory)
-                .AddJsonFile("config.json")
-                .AddEnvironmentVariables();
-            _config = builder.Build();
+            _azureConnStrings = azureConnStrings.Value;
         }
+        
 
         public async Task<MediaInfoDto> UploadFile(IFormFile file, Market currentMarket)
         {
@@ -36,9 +32,8 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             {
                 var marketName = currentMarket.Name.Replace(" ", "_").Replace("(", "_").Replace(")", "_");
 
-                var connectionString = _config["MicrosoftAzureStorage:mobilespstagingstorage_AzureStorageConnectionString"];
-                var containerRoot = _config["MicrosoftAzureStorage:containerRoot"];
-                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
+                var containerRoot = _azureConnStrings.ContainerRoot;
+                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(_azureConnStrings.ConnectionString);
                 var blobClient = storageAccount.CreateCloudBlobClient();
                 var container = blobClient.GetContainerReference($"{containerRoot}/FordGlobal/{marketName}");
                 var parsedContentDisposition =

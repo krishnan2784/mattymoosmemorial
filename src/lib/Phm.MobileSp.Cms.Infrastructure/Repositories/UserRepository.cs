@@ -8,20 +8,14 @@ using Phm.MobileSp.Cms.Core.Models.Interfaces;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 using SecurityService;
 using AutoMapper;
+using Microsoft.Extensions.Options;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 {
-    public class UserRepository : CoreBaseRepository, IUserRepository
+    public class UserRepository : BaseRepository, IUserRepository
     {
-        private readonly ICoreContract _proxyClient;
-        private readonly ISecurityContract _securityClient;
-
-        public UserRepository(IBaseRepository baseRepo, ICoreContract proxyClient, ISecurityContract securityClient)
-            : base(baseRepo)
-        {
-            _proxyClient = proxyClient;
-            _securityClient = securityClient;
-        }
+        public UserRepository(IOptions<ConnectionStrings> connStrings, IBaseRequest baseRequest, IBaseCriteria baseCriteria)
+            : base(connStrings, baseRequest, baseCriteria, "Users") {        }
 
         
         public async Task<dynamic> GetCurrentUser() {

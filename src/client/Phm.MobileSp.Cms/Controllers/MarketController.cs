@@ -11,6 +11,7 @@ using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Helpers.Attributes;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 using Phm.MobileSp.Cms.Core.Models.Interfaces;
+using Phm.MobileSp.Cms.Infrastructure.Repositories;
 
 namespace Phm.MobileSp.Cms.Controllers
 {
@@ -22,14 +23,12 @@ namespace Phm.MobileSp.Cms.Controllers
         private readonly IUserRepository _userRepository;
         private readonly IMarketRepository _marketRepository;
 
-        public MarketController(IBaseRepository baseRepo,  IMemoryCache memoryCache, IUserRepository userRepository, IMarketRepository marketRepository) : base(baseRepo, memoryCache)
+        public MarketController(IMemoryCache memoryCache, IUserRepository userRepository, IMarketRepository marketRepository) : base(memoryCache)
         {
-            userRepository._baseRepo = _baseRepo;
-            marketRepository._baseRepo = _baseRepo;
             _userRepository = userRepository;
             _marketRepository = marketRepository;
         }
-
+        
         [HttpGet("[action]")]
         [JsonResponseWrapper]
         [ResponseCache(CacheProfileName = "NoCache")]

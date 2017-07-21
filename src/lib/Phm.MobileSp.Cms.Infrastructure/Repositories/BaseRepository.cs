@@ -1,32 +1,97 @@
-﻿using Phm.MobileSp.Cms.Core.Models;
+﻿using Microsoft.Extensions.Options;
+using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Core.Models.Interfaces;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
+using System;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 {
     public class BaseRepository : IBaseRepository
     {
-        public BaseRequest BaseRequest { get; }
-        public BaseCriteria BaseRequestCriteria { get; }
-
-        public BaseRepository() {
-            BaseRequest = new BaseRequest();
-            BaseRequestCriteria = new BaseCriteria();
+        private string _connString {
+            get { return _client.BaseAddress.ToString(); }
+            set { _client.BaseAddress = new Uri($"{_connStrings.API}{value}/".Trim('/')); }
         }
-        public BaseRepository(BaseRequest baseRequest, BaseCriteria baseCriteria)
+        private HttpClient _client = new HttpClient();
+        private ConnectionStrings _connStrings;
+        private IBaseRequest _baseRequest;
+        private IBaseCriteria _baseCriteria;
+
+        protected BaseRepository(IOptions<ConnectionStrings> connStrings, IBaseRequest baseRequest, IBaseCriteria baseCriteria,  string repoUrl)
         {
-            BaseRequest = baseRequest;
-            BaseRequestCriteria = baseCriteria;
+            _connStrings = connStrings.Value;
+            _connString = $"{_connStrings.API}{repoUrl}".Trim('/');
+            _client.DefaultRequestHeaders.Accept.Clear();
+            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _baseRequest = baseRequest;
+            _baseCriteria = baseCriteria;
+        }
+        
+        public async Task<dynamic> GetAsync(string request)
+        {
+            ValidateRquest();
+            dynamic model = null;
+            HttpResponseMessage response = await _client.GetAsync(request);
+            if (response.IsSuccessStatusCode)
+            {
+                model = await response.Content.ReadAsStreamAsync();
+            }
+            return model;
+        }
+
+        public async Task<dynamic> CreateAsync(string request, dynamic model)
+        {
+            ValidateRquest();
+            HttpResponseMessage response = await _client.PutAsync($"{request}", model);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadAsStreamAsync();
+        }
+        public async Task<dynamic> PostAsync(string request, dynamic model)
+        {
+            ValidateRquest();
+            HttpResponseMessage response = await _client.PostAsync($"{request}", model);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadAsStreamAsync();
+        }
+
+        public async Task<dynamic> UpdateAsync(string request, dynamic model)
+        {
+            try
+            {
+                ValidateRquest();
+                HttpResponseMessage response = await _client.PostAsync($"/{model.Id}", model);
+                response.EnsureSuccessStatusCode();            
+                model = await response.Content.ReadAsStreamAsync();
+                return model;
+            } catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+        public async Task<bool> DeleteAsync(string request, int id)
+        {
+            ValidateRquest();
+            HttpResponseMessage response = await _client.DeleteAsync($"{request}/{id}");
+            return response.StatusCode == HttpStatusCode.OK;
+        }
+
+        private void ValidateRquest()
+        {
+            if (!string.IsNullOrWhiteSpace(_baseRequest.AccessToken))
+            {
+                _client.DefaultRequestHeaders.Add("Authorization", _baseRequest.AccessToken);
+                _client.DefaultRequestHeaders.Add("AccessToken", _baseRequest.AccessToken);
+            }
         }
 
         public void SetAuthToken(string authToken)
         {
-            BaseRequest.AccessToken = authToken;
-        }
-
-        public void SetMarketId(int marketId)
-        {
-            BaseRequestCriteria.MarketId = marketId;
+            _authToken = authToken;
         }
     }
 }

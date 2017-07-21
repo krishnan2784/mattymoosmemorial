@@ -61,17 +61,22 @@ namespace Phm.MobileSp.Cms
             services.AddScoped<AiHandleErrorAttribute>();
 
             services.AddDistributedMemoryCache();
-            
+
+            services.AddSingleton(Configuration);
+            services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
+            services.Configure<MicrosoftAzureStorage>(Configuration.GetSection("MicrosoftAzureStorage"));
+
+            services.AddScoped<ApiRequestWrapperAttribute>();
+            services.AddScoped<IBaseRequest, BaseRequest>();
+            services.AddScoped<IBaseCriteria, BaseCriteria>();
+
             services.AddTransient<IMLearningCoreContract, MLearningCoreContractClient>();
             services.AddTransient<ICoreContract, CoreContractClient>();
             services.AddTransient<ISecurityContract, SecurityContractClient>();
 
-            services.AddTransient<IBaseRepository, BaseRepository>();
-            
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IMarketRepository, MarketRepository>();
             services.AddTransient<IFeedRepository, FeedRepository>();
-
             services.AddTransient<IMediaRepository, MediaRepository>();
 
             services.AddSession(options =>

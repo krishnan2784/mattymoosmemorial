@@ -8,18 +8,16 @@ using Phm.MobileSp.Cms.Core.Models.Interfaces;
 using Phm.MobileSp.Cms.Infrastructure;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 using MLearningCoreService;
+using Microsoft.Extensions.Options;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 {
-    public class MarketRepository : CoreBaseRepository, IMarketRepository
+    public class MarketRepository : BaseRepository, IMarketRepository
     {
-        private readonly ICoreContract _proxyCoreClient;
-        private readonly IMLearningCoreContract _proxyClient;
-        public MarketRepository(IBaseRepository baseRepo, ICoreContract proxyCoreClient, IMLearningCoreContract proxyClient)
-            : base(baseRepo)
+        public MarketRepository(IOptions<ConnectionStrings> connStrings, IBaseRequest baseRequest, IBaseCriteria baseCriteria)
+            : base(connStrings, baseRequest, baseCriteria, "Markets")
         {
-            _proxyCoreClient = proxyCoreClient;
-            _proxyClient = proxyClient;
+
         }
 
         public async Task<IEnumerable<Market>> GetMarketsAsync()

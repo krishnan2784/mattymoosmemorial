@@ -6,7 +6,7 @@ using Phm.MobileSp.Cms.Core.Models;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
 {
-    public interface IUserRepository : ICoreBaseRepository
+    public interface IUserRepository : IBaseRepository
     {
         Task<dynamic> GetCurrentUser();
         Task<Tuple<ApplicationUser, string>> GetUserAsync(ILoginDetails userDetails);
