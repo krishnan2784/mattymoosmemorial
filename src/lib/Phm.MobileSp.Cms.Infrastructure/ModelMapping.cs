@@ -4,9 +4,48 @@ using System.Reflection;
 using AutoMapper;
 using MLearningCoreService;
 using Phm.MobileSp.Cms.Core.Models;
+using Microsoft.Extensions.DependencyInjection;
+using AutoMapper.Configuration;
 
 namespace Phm.MobileSp.Cms.Infrastructure
 {
+    public class MobileSpDefaultMapper : Profile
+    {
+        public MobileSpDefaultMapper()
+        {
+            CreateMap<MediaInfoDto, MediaInfo>().ReverseMap();
+            CreateMap<CorporateAppDto, CorporateApp>().ReverseMap();
+            CreateMap<ImageFeedDto, ImageFeed>().ReverseMap();
+            CreateMap<TextFeedDto, TextFeed>().ReverseMap();
+            CreateMap<VideoFeedDto, VideoFeed>().ReverseMap();
+            CreateMap<QuizFeedDto, QuizFeed>().ReverseMap();
+            CreateMap<QuizQuestionDto, QuizQuestion>().ReverseMap();
+            CreateMap<QuizQuestionAnswerDto, QuizQuestionAnswer>().ReverseMap();
+            CreateMap<SurveyFeedDto, SurveyFeed>().ReverseMap();
+            CreateMap<SurveyQuestionDto, SurveyQuestion>().ReverseMap();
+            CreateMap<SurveyQuestionAnswerDto, SurveyQuestionAnswer>().ReverseMap();
+            CreateMap<ObservationFeedDto, ObservationFeed>().ReverseMap();
+            CreateMap<UserObservationDto, UserObservation>().ReverseMap();
+            CreateMap<UserDto, User>().ReverseMap();
+            CreateMap<BaseFeedDto, BaseFeed>().ReverseMap();
+            CreateMap<MobileSPCoreService.MarketDto, Market>().ReverseMap();
+            CreateMap<MobileSPCoreService.UserConfigurationDto, UserConfiguration>().ReverseMap();
+        }
+        
+    }
+
+    public static class AutoMapperConfiguration
+    {
+        public static void SetConfiguration(ref IServiceCollection services)
+        {
+            var config = new MapperConfiguration(cfg => {
+                cfg.AddProfiles("Phm.MobileSp.Cms.Infrastructure");
+            });
+            services.AddSingleton(config.CreateMapper());
+        }        
+    }
+
+
     public class AutoMapperGenericsHelper<TSource, TDestination>
     {
         public AutoMapperGenericsHelper()
@@ -94,124 +133,124 @@ namespace Phm.MobileSp.Cms.Infrastructure
         }
     }
 
-    #region ConcreteModelMapping
+    //#region ConcreteModelMapping
 
-    #region Feed
+    //#region Feed
 
-    public static class FeedMapper
-    {
-        public static IEnumerable<TFeedDestination> MapFeed<TFeedSource,TFeedDestination>(this List<TFeedSource> sourceFeed) 
-        {
-            var mapper = FeedMap<TFeedSource, TFeedDestination>();
-            return mapper.Map<IList<TFeedDestination>>(sourceFeed);
-        }
+    //public static class FeedMapper
+    //{
+    //    public static IEnumerable<TFeedDestination> MapFeed<TFeedSource,TFeedDestination>(this List<TFeedSource> sourceFeed) 
+    //    {
+    //        var mapper = FeedMap<TFeedSource, TFeedDestination>();
+    //        return mapper.Map<IList<TFeedDestination>>(sourceFeed);
+    //    }
 
-        public static TFeedItemDestination MapFeedItem<TFeedItemSource, TFeedItemDestination>(this TFeedItemSource feedItemSource)
-        {
-            var mapper = FeedMap<TFeedItemSource, TFeedItemDestination>();
-            return mapper.Map<TFeedItemDestination>(feedItemSource);
-        }
+    //    public static TFeedItemDestination MapFeedItem<TFeedItemSource, TFeedItemDestination>(this TFeedItemSource feedItemSource)
+    //    {
+    //        var mapper = FeedMap<TFeedItemSource, TFeedItemDestination>();
+    //        return mapper.Map<TFeedItemDestination>(feedItemSource);
+    //    }
 
-        public static TFeedItemDestination ConvertUnpopulatedFieldsToModel<TFeedItemSource, TFeedItemDestination>(TFeedItemSource sourceModel, TFeedItemDestination destinationModel) where TFeedItemDestination : BaseFeed
-        {
-            try
-            {
-                var config = new MapperConfiguration(cfg =>
-                {
-                    cfg.CreateMap<MediaInfoDto, MediaInfo>()
-                            .IgnorePopulatedDestinationFields(destinationModel.MainIcon)
-                            .ReverseMap();
-                    cfg.CreateMap<CorporateAppDto, CorporateApp>()
-                            .IgnorePopulatedDestinationFields(destinationModel.CorporateApp)
-                            .ReverseMap();
+    //    public static TFeedItemDestination ConvertUnpopulatedFieldsToModel<TFeedItemSource, TFeedItemDestination>(TFeedItemSource sourceModel, TFeedItemDestination destinationModel) where TFeedItemDestination : BaseFeed
+    //    {
+    //        try
+    //        {
+    //            var config = new MapperConfiguration(cfg =>
+    //            {
+    //                cfg.CreateMap<MediaInfoDto, MediaInfo>()
+    //                        .IgnorePopulatedDestinationFields(destinationModel.MainIcon)
+    //                        .ReverseMap();
+    //                cfg.CreateMap<CorporateAppDto, CorporateApp>()
+    //                        .IgnorePopulatedDestinationFields(destinationModel.CorporateApp)
+    //                        .ReverseMap();
 
 
-                    var quizFeedItem = destinationModel as QuizFeed;
-                    var surveyFeedItem = destinationModel as SurveyFeed;
-                    if (quizFeedItem != null)
-                    {
-                        foreach (var question in quizFeedItem.Questions){
-                            cfg.CreateMap<QuizQuestionDto, QuizQuestion>()
-                                .IgnorePopulatedDestinationFields(question)
-                                .ReverseMap();
+    //                var quizFeedItem = destinationModel as QuizFeed;
+    //                var surveyFeedItem = destinationModel as SurveyFeed;
+    //                if (quizFeedItem != null)
+    //                {
+    //                    foreach (var question in quizFeedItem.Questions){
+    //                        cfg.CreateMap<QuizQuestionDto, QuizQuestion>()
+    //                            .IgnorePopulatedDestinationFields(question)
+    //                            .ReverseMap();
 
-                            question.Answers.ForEach(x => cfg.CreateMap<QuizQuestionAnswerDto, QuizQuestionAnswer>()
-                                .IgnorePopulatedDestinationFields(x)
-                                .ReverseMap());
-                        }
-                    } else if (surveyFeedItem != null){
-                        foreach (var question in surveyFeedItem.Questions)
-                        {
-                            cfg.CreateMap<SurveyQuestionDto, SurveyQuestion>()
-                                .IgnorePopulatedDestinationFields(question)
-                                .ReverseMap();
+    //                        question.Answers.ForEach(x => cfg.CreateMap<QuizQuestionAnswerDto, QuizQuestionAnswer>()
+    //                            .IgnorePopulatedDestinationFields(x)
+    //                            .ReverseMap());
+    //                    }
+    //                } else if (surveyFeedItem != null){
+    //                    foreach (var question in surveyFeedItem.Questions)
+    //                    {
+    //                        cfg.CreateMap<SurveyQuestionDto, SurveyQuestion>()
+    //                            .IgnorePopulatedDestinationFields(question)
+    //                            .ReverseMap();
 
-                            question.Answers.ForEach(x => cfg.CreateMap<SurveyQuestionAnswerDto, SurveyQuestionAnswer>()
-                                .IgnorePopulatedDestinationFields(x)
-                                .ReverseMap());
-                        }
-                        if (surveyFeedItem is ObservationFeed)
-                        {
-                            var users = ((ObservationFeed)surveyFeedItem).UserObservations;
-                            foreach (var user in users)
-                            {
-                                cfg.CreateMap<UserObservationDto, UserObservation>()
-                                    .IgnorePopulatedDestinationFields(user)
-                                    .ReverseMap();
-                            }
-                        }
-                    }              
-                    cfg.CreateMap<TFeedItemSource, TFeedItemDestination>()
-                            .IgnorePopulatedDestinationFields(destinationModel)
-                            .ReverseMap();
-                });
+    //                        question.Answers.ForEach(x => cfg.CreateMap<SurveyQuestionAnswerDto, SurveyQuestionAnswer>()
+    //                            .IgnorePopulatedDestinationFields(x)
+    //                            .ReverseMap());
+    //                    }
+    //                    if (surveyFeedItem is ObservationFeed)
+    //                    {
+    //                        var users = ((ObservationFeed)surveyFeedItem).UserObservations;
+    //                        foreach (var user in users)
+    //                        {
+    //                            cfg.CreateMap<UserObservationDto, UserObservation>()
+    //                                .IgnorePopulatedDestinationFields(user)
+    //                                .ReverseMap();
+    //                        }
+    //                    }
+    //                }              
+    //                cfg.CreateMap<TFeedItemSource, TFeedItemDestination>()
+    //                        .IgnorePopulatedDestinationFields(destinationModel)
+    //                        .ReverseMap();
+    //            });
 
-                var mapper = config.CreateMapper();
-                return mapper.Map(sourceModel, destinationModel);
-            }
-            catch (Exception e)
-            {
-                return destinationModel;
-            }
-        }
+    //            var mapper = config.CreateMapper();
+    //            return mapper.Map(sourceModel, destinationModel);
+    //        }
+    //        catch (Exception e)
+    //        {
+    //            return destinationModel;
+    //        }
+    //    }
 
-        public static TFeedItemDestination ConvertUnpopulatedFieldsToDto<TFeedItemSource, TFeedItemDestination>(TFeedItemSource sourceModel, TFeedItemDestination destinationModel) where TFeedItemDestination : BaseFeedDto
-        {
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<TFeedItemSource, TFeedItemDestination>().IgnorePopulatedDestinationFields(destinationModel).ReverseMap();
-                cfg.CreateMap<MediaInfo, MediaInfoDto>().IgnorePopulatedDestinationFields(destinationModel.MainIcon).ReverseMap();
-            });
-            var mapper = config.CreateMapper();
-            return mapper.Map(sourceModel, destinationModel);
-        }
+    //    public static TFeedItemDestination ConvertUnpopulatedFieldsToDto<TFeedItemSource, TFeedItemDestination>(TFeedItemSource sourceModel, TFeedItemDestination destinationModel) where TFeedItemDestination : BaseFeedDto
+    //    {
+    //        var config = new MapperConfiguration(cfg =>
+    //        {
+    //            cfg.CreateMap<TFeedItemSource, TFeedItemDestination>().IgnorePopulatedDestinationFields(destinationModel).ReverseMap();
+    //            cfg.CreateMap<MediaInfo, MediaInfoDto>().IgnorePopulatedDestinationFields(destinationModel.MainIcon).ReverseMap();
+    //        });
+    //        var mapper = config.CreateMapper();
+    //        return mapper.Map(sourceModel, destinationModel);
+    //    }
 
-        public static IMapper FeedMap<TSource, TDestination>()
-        {
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<MediaInfoDto, MediaInfo>().ReverseMap();
-                cfg.CreateMap<CorporateAppDto, CorporateApp>().ReverseMap();
-                cfg.CreateMap<ImageFeedDto, ImageFeed>().ReverseMap();
-                cfg.CreateMap<TextFeedDto, TextFeed>().ReverseMap();
-                cfg.CreateMap<VideoFeedDto, VideoFeed>().ReverseMap();
-                cfg.CreateMap<QuizFeedDto, QuizFeed>().ReverseMap();
-                cfg.CreateMap<QuizQuestionDto, QuizQuestion>().ReverseMap();
-                cfg.CreateMap<QuizQuestionAnswerDto, QuizQuestionAnswer>().ReverseMap();
-                cfg.CreateMap<SurveyFeedDto, SurveyFeed>().ReverseMap();
-                cfg.CreateMap<SurveyQuestionDto, SurveyQuestion>().ReverseMap();
-                cfg.CreateMap<SurveyQuestionAnswerDto, SurveyQuestionAnswer>().ReverseMap();
-                cfg.CreateMap<ObservationFeed, ObservationFeedDto>().ReverseMap();
-                cfg.CreateMap<UserObservation, UserObservationDto>().ReverseMap();
-                cfg.CreateMap<User, UserDto>().ReverseMap();
-                cfg.CreateMap<BaseFeedDto, BaseFeed>().ReverseMap();
-                cfg.CreateMap<TSource, TDestination>().ReverseMap();
-            });
-            return config.CreateMapper();
-        }
-    }
+    //    public static IMapper FeedMap<TSource, TDestination>()
+    //    {
+    //        var config = new MapperConfiguration(cfg =>
+    //        {
+    //            cfg.CreateMap<MediaInfoDto, MediaInfo>().ReverseMap();
+    //            cfg.CreateMap<CorporateAppDto, CorporateApp>().ReverseMap();
+    //            cfg.CreateMap<ImageFeedDto, ImageFeed>().ReverseMap();
+    //            cfg.CreateMap<TextFeedDto, TextFeed>().ReverseMap();
+    //            cfg.CreateMap<VideoFeedDto, VideoFeed>().ReverseMap();
+    //            cfg.CreateMap<QuizFeedDto, QuizFeed>().ReverseMap();
+    //            cfg.CreateMap<QuizQuestionDto, QuizQuestion>().ReverseMap();
+    //            cfg.CreateMap<QuizQuestionAnswerDto, QuizQuestionAnswer>().ReverseMap();
+    //            cfg.CreateMap<SurveyFeedDto, SurveyFeed>().ReverseMap();
+    //            cfg.CreateMap<SurveyQuestionDto, SurveyQuestion>().ReverseMap();
+    //            cfg.CreateMap<SurveyQuestionAnswerDto, SurveyQuestionAnswer>().ReverseMap();
+    //            cfg.CreateMap<ObservationFeed, ObservationFeedDto>().ReverseMap();
+    //            cfg.CreateMap<UserObservation, UserObservationDto>().ReverseMap();
+    //            cfg.CreateMap<User, UserDto>().ReverseMap();
+    //            cfg.CreateMap<BaseFeedDto, BaseFeed>().ReverseMap();
+    //            cfg.CreateMap<TSource, TDestination>().ReverseMap();
+    //        });
+    //        return config.CreateMapper();
+    //    }
+    //}
 
-    #endregion
+    //#endregion
 
-    #endregion
+    //#endregion
 }

@@ -22,7 +22,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
         }
 
 
-        public async Task<Tuple<ApplicationUser, string>> GetUserAsync(ILoginDetails loginDetails)
+        public async Task<Tuple<ApplicationUser, string>> GetUserAsync(LoginDetails loginDetails)
         {
             var applicationUser = new ApplicationUser();
             string message = string.Empty;

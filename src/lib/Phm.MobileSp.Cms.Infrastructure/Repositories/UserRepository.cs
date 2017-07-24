@@ -14,8 +14,12 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 {
     public class UserRepository : BaseRepository, IUserRepository
     {
-        public UserRepository(IOptions<ConnectionStrings> connStrings, IBaseRequest baseRequest, IBaseCriteria baseCriteria)
-            : base(connStrings, baseRequest, baseCriteria, "Users") {        }
+        private readonly IMarketRepository _marketRepo;
+        public UserRepository(IOptions<ConnectionStrings> connStrings, IBaseRequest baseRequest, IBaseCriteria baseCriteria,
+            IMarketRepository marketRepo)
+            : base(connStrings, baseRequest, baseCriteria, "Users") {
+            _marketRepo = marketRepo;
+        }
 
         
         public async Task<dynamic> GetCurrentUser() {
@@ -24,7 +28,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             return response.CurretUser;            
         }
         
-        public async Task<IEnumerable<IUserConfiguration>> GetUserConfigurationsByUserId(int userId)
+        public async Task<IEnumerable<UserConfiguration>> GetUserConfigurationsByUserId(int userId)
         {
             var request = GetRequest(new GetUserConfigurationsRequest
             {
@@ -42,13 +46,13 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             return list;
         }
 
-        public async Task<IEnumerable<IUserMarket>> GetUserMarkets(IMarketRepository marketRepo, int userId)
+        public async Task<IEnumerable<UserMarket>> GetUserMarkets(int userId)
         {
-            var list = new List<IUserMarket>();
+            var list = new List<UserMarket>();
 
             var configs = await GetUserConfigurationsByUserId(userId);
             
-            var markets = await marketRepo.GetMarketsAsync();
+            var markets = await _marketRepo.GetMarketsAsync();
 
             foreach (var config in configs)
             {

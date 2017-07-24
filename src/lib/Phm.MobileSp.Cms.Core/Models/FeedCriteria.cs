@@ -2,7 +2,7 @@
 
 namespace Phm.MobileSp.Cms.Core.Models
 {
-    public class FeedCriteria : ReadCriteria, IFeedCriteria
+    public class FeedCriteria : ReadCriteria
     {
         public virtual int? Day { get; set; }
     }

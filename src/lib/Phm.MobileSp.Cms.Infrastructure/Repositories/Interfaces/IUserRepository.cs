@@ -10,8 +10,8 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
     {
         Task<dynamic> GetCurrentUser();
         Task<dynamic> GetUsersAsync(int marketId, int? userId);
-        Task<IEnumerable<IUserMarket>> GetUserMarkets(IMarketRepository marketRepo, int userId);
-        Task<IEnumerable<IUserConfiguration>> GetUserConfigurationsByUserId(int userId);
+        Task<IEnumerable<UserMarket>> GetUserMarkets(int userId);
+        Task<IEnumerable<UserConfiguration>> GetUserConfigurationsByUserId(int userId);
         Task<BaseResponse> CreateUserAsync(UserTemplate user);
         Task<BaseResponse> UpdateUserAsync(UserTemplate user);
         Task<BaseResponse> GetSecGroupsAsync(int marketId);

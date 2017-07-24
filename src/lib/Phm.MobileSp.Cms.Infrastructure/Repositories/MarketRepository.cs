@@ -22,24 +22,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 
         public async Task<IEnumerable<Market>> GetMarketsAsync()
         {
-            try
-            {
-                var request = GetRequest(new GetMarketRequest
-                {
-                    Criteria = new MarketCriteriaDto()
-                });
-
-                var response = await _proxyCoreClient.GetMarketsAsync(request);
-
-                var mapper = new AutoMapperGenericsHelper<MarketDto, Market>();
-                var markets = mapper.ConvertToDbEntity(response.Markets);
-
-                return markets;
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
+            return await GetAsync("");
         }
 
         public async Task<IEnumerable<Market>> GetMarketsByMasterIdAsync(CopiedElementTypeEnum contentType, Guid masterId)

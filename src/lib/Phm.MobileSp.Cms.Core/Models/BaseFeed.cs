@@ -11,7 +11,7 @@ namespace Phm.MobileSp.Cms.Core.Models
     [KnownType(typeof(QuizFeed))]
     [KnownType(typeof(SurveyFeed))]
     [KnownType(typeof(CampaignFeed))]
-    public class BaseFeed : BaseModel, IBaseFeed
+    public class BaseFeed : BaseModel
     {
         public virtual FeedCategoryEnum FeedCategory { get; set; }
         public virtual FeedTypeEnum FeedType { get; set; }

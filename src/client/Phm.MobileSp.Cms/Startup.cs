@@ -20,6 +20,8 @@ using Phm.MobileSp.Cms.Helpers.Attributes;
 using Phm.MobileSp.Cms.Infrastructure.Repositories;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 using SecurityService;
+using AutoMapper;
+using Phm.MobileSp.Cms.Infrastructure;
 
 namespace Phm.MobileSp.Cms
 {
@@ -65,6 +67,7 @@ namespace Phm.MobileSp.Cms
             services.AddSingleton(Configuration);
             services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
             services.Configure<MicrosoftAzureStorage>(Configuration.GetSection("MicrosoftAzureStorage"));
+            AutoMapperConfiguration.SetConfiguration(ref services);
 
             services.AddScoped<ApiRequestWrapperAttribute>();
             services.AddScoped<IBaseRequest, BaseRequest>();
@@ -78,8 +81,7 @@ namespace Phm.MobileSp.Cms
             services.AddTransient<IMarketRepository, MarketRepository>();
             services.AddTransient<IFeedRepository, FeedRepository>();
             services.AddTransient<IMediaRepository, MediaRepository>();
-            services.AddTransient<ISessionsRepository, SessionsRepository>();
-
+            services.AddTransient<ISessionsRepository, SessionsRepository>();            
             
             services.AddSession(options =>
             {

@@ -8,6 +8,6 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
 {
     public interface ISessionsRepository : IBaseRepository
     {
-        Task<Tuple<ApplicationUser, string>> GetUserAsync(ILoginDetails userDetails);
+        Task<Tuple<ApplicationUser, string>> GetUserAsync(LoginDetails userDetails);
     }
 }
