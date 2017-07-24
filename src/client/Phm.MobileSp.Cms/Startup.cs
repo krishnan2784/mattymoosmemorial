@@ -78,7 +78,9 @@ namespace Phm.MobileSp.Cms
             services.AddTransient<IMarketRepository, MarketRepository>();
             services.AddTransient<IFeedRepository, FeedRepository>();
             services.AddTransient<IMediaRepository, MediaRepository>();
+            services.AddTransient<ISessionsRepository, SessionsRepository>();
 
+            
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromHours(1);

@@ -23,62 +23,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             var response = await _proxyClient.GetCurrentUserAsync(request);
             return response.CurretUser;            
         }
-
-        public async Task<Tuple<ApplicationUser, string>> GetUserAsync(ILoginDetails loginDetails)
-        {
-            var applicationUser = new ApplicationUser();
-            string message = string.Empty;
-            try
-            {
-                applicationUser = await ValidateUser(loginDetails.UserName, loginDetails.Password);
-            }
-            catch (Exception ex)
-            {
-                if (ex.Message == "Managed Exception")
-                    message = "Your username or password is incorrect. Please try again.";
-                else
-                    message = $"An error occurred while attempting to access MobileSP. Please try again. <span class=\"hidden\">{ex.Message}</span>";
-            }
-
-            if (applicationUser.ValidUser)
-            {
-                _baseRepo.SetAuthToken(applicationUser.SessionGuid);
-                applicationUser.UserRoles = await GetUserRoles(applicationUser);
-                applicationUser.UserConfigurations = await GetUserConfigurationsByUserId(applicationUser.UserDetails.Id);
-                applicationUser.UserDetails.DefaultMarketId = applicationUser.UserConfigurations.FirstOrDefault(x=>x.IsDefault).MarketId;
-            } else if (string.IsNullOrEmpty(message))
-            {
-                message = "Your username or password is incorrect. Please try again.";
-            }
-
-            return Tuple.Create(applicationUser, message);
-        }
-
-        private async Task<ApplicationUser> ValidateUser(string username, string password)
-        {
-            var applicationUser = new ApplicationUser();
-
-            var request = GetRequest(new ValidateUserRequest
-            {
-                UserName = username,
-                Password = password
-            });
-            var response = await _proxyClient.ValidateUserAsync(request);
-
-            applicationUser.SessionGuid = response.SessionGUID;
-            var mapper = new AutoMapperGenericsHelper<MobileSPCoreService.UserDto, MLearningUser>();
-            applicationUser.UserDetails = mapper.ConvertToDbEntity(response.CurrentUser);
-
-            return applicationUser;
-        }
-
-        public async Task<IEnumerable<string>> GetUserRoles(ApplicationUser user)
-        {
-            // not yet implemented 
-            var list = new List<string>();
-            return list;
-        }
-
+        
         public async Task<IEnumerable<IUserConfiguration>> GetUserConfigurationsByUserId(int userId)
         {
             var request = GetRequest(new GetUserConfigurationsRequest

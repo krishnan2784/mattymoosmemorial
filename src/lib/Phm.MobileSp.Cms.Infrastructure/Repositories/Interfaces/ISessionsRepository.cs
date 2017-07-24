@@ -6,7 +6,7 @@ using Phm.MobileSp.Cms.Core.Models;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
 {
-    public interface SessionsRepository : IBaseRepository
+    public interface ISessionsRepository : IBaseRepository
     {
         Task<Tuple<ApplicationUser, string>> GetUserAsync(ILoginDetails userDetails);
     }

@@ -9,14 +9,17 @@ using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 using SecurityService;
 using AutoMapper;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 {
     public class SessionsRepository : BaseRepository, ISessionsRepository
     {
         private readonly IUserRepository _userRepository;
-        public SessionsRepository(IOptions<ConnectionStrings> connStrings, IBaseRequest baseRequest, IBaseCriteria baseCriteria, IUserRepository userRepository)
-            : base(connStrings, baseRequest, baseCriteria, "Sessions") {        }
+        public SessionsRepository(IOptions<ConnectionStrings> connStrings, IBaseRequest baseRequest, IBaseCriteria baseCriteria, 
+            IUserRepository userRepository) : base(connStrings, baseRequest, baseCriteria, "Sessions") {
+            _userRepository = userRepository;
+        }
 
 
         public async Task<Tuple<ApplicationUser, string>> GetUserAsync(ILoginDetails loginDetails)
@@ -39,7 +42,6 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             {
 
                 _userRepository.SetAuthToken(applicationUser.SessionGuid);
-                applicationUser.UserRoles = await _userRepository.GetUserRoles(applicationUser);
                 applicationUser.UserConfigurations = await _userRepository.GetUserConfigurationsByUserId(applicationUser.UserDetails.Id);
                 applicationUser.UserDetails.DefaultMarketId = applicationUser.UserConfigurations.FirstOrDefault(x=>x.IsDefault).MarketId;
             } else if (string.IsNullOrEmpty(message))
@@ -52,20 +54,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 
         private async Task<ApplicationUser> ValidateUser(string username, string password)
         {
-            var applicationUser = new ApplicationUser();
-
-            var request = GetRequest(new ValidateUserRequest
-            {
-                UserName = username,
-                Password = password
-            });
-            var response = await _proxyClient.ValidateUserAsync(request);
-
-            applicationUser.SessionGuid = response.SessionGUID;
-            var mapper = new AutoMapperGenericsHelper<MobileSPCoreService.UserDto, MLearningUser>();
-            applicationUser.UserDetails = mapper.ConvertToDbEntity(response.CurrentUser);
-
-            return applicationUser;
+            return await PostAsync("", new { credentials = new { username, password } });
         }
     }
 }
