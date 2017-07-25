@@ -15,10 +15,10 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 {
     public class SessionsRepository : BaseRepository, ISessionsRepository
     {
-        private readonly IUserRepository _userRepository;
-        public SessionsRepository(IOptions<ConnectionStrings> connStrings, IBaseRequest baseRequest, IBaseCriteria baseCriteria, 
-            IUserRepository userRepository) : base(connStrings, baseRequest, baseCriteria, "Sessions") {
-            _userRepository = userRepository;
+        private readonly IUserConfigurationRepository _userConfigRepository;
+        public SessionsRepository(IOptions<ConnectionStrings> connStrings, IBaseRequest baseRequest, IBaseCriteria baseCriteria,
+            IUserConfigurationRepository userConfigRepository) : base(connStrings, baseRequest, baseCriteria, "Sessions") {
+            _userConfigRepository = userConfigRepository;
         }
 
 
@@ -41,8 +41,8 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             if (applicationUser.ValidUser)
             {
 
-                _userRepository.SetAuthToken(applicationUser.SessionGuid);
-                applicationUser.UserConfigurations = await _userRepository.GetUserConfigurationsByUserId(applicationUser.UserDetails.Id);
+                _userConfigRepository.SetAuthToken(applicationUser.SessionGuid);
+                applicationUser.UserConfigurations = await _userConfigRepository.GetUserConfigurationsByUserId(applicationUser.UserDetails.Id);
                 applicationUser.UserDetails.DefaultMarketId = applicationUser.UserConfigurations.FirstOrDefault(x=>x.IsDefault).MarketId;
             } else if (string.IsNullOrEmpty(message))
             {
@@ -54,7 +54,8 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 
         private async Task<ApplicationUser> ValidateUser(string username, string password)
         {
-            return await PostAsync("", new { credentials = new { username, password } });
+            var response = await GetAsync(new { credentials = new { username, password } });
+            return response?.Content;
         }
     }
 }

@@ -7,11 +7,14 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
 {
     public interface IBaseRepository
     {
-        Task<dynamic> GetAsync(string request);
-        Task<dynamic> PostAsync(string request, dynamic model);
-        Task<dynamic> CreateAsync(string request, dynamic model);
-        Task<dynamic> UpdateAsync(string request, dynamic model);
-        Task<bool> DeleteAsync(string request, int id);
+        Task<BaseResponse> GetAsync();
+        Task<BaseResponse> GetAsync(int id);
+        Task<BaseResponse> GetAsync(dynamic criteria);
+        Task<BaseResponse> CreateAsync(dynamic model);
+        Task<BaseResponse> UpdateAsync(dynamic model);
+        Task<BaseResponse> DeleteAsync(int id);
+        Task<BaseResponse> PostAsync(dynamic model, string request);
+        Task<BaseResponse> PutAsync(dynamic model, string request);
         void SetAuthToken(string authToken);
     }
 }

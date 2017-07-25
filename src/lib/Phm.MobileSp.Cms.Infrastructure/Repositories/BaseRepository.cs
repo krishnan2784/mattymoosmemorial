@@ -23,65 +23,74 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
         private ConnectionStrings _connStrings;
         private IBaseRequest _baseRequest;
         private IBaseCriteria _baseCriteria;
-
-        protected BaseRepository(IOptions<ConnectionStrings> connStrings, IBaseRequest baseRequest, IBaseCriteria baseCriteria,  string repoUrl)
+        private string _repoUrl;
+        protected BaseRepository(IOptions<ConnectionStrings> connStrings, IBaseRequest baseRequest, IBaseCriteria baseCriteria,  
+            string repoUrl)
         {
             _connStrings = connStrings.Value;
-            _connString = $"{_connStrings.API}{repoUrl}".Trim('/');
+            _connString = _connStrings.API.Trim('/');
+            _repoUrl = repoUrl;
             _client.DefaultRequestHeaders.Accept.Clear();
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             _baseRequest = baseRequest;
             _baseCriteria = baseCriteria;
         }
-        
-        public async Task<dynamic> GetAsync(string request)
+
+        public async Task<BaseResponse> GetAsync()
         {
             ValidateRquest();
-            dynamic model = null;
-            HttpResponseMessage response = await _client.GetAsync(request);
-            if (response.IsSuccessStatusCode)
-            {
-                model = await response.Content.ReadAsStreamAsync();
-            }
-            return model;
+            HttpResponseMessage response = await _client.GetAsync($"/{_repoUrl}");
+            return await GetResponse(response);
         }
 
-        public async Task<dynamic> CreateAsync(string request, dynamic model)
+        public async Task<BaseResponse> GetAsync(int id)
         {
             ValidateRquest();
-            HttpResponseMessage response = await _client.PutAsync($"{request}", model);
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadAsStreamAsync();
+            HttpResponseMessage response = await _client.GetAsync($"/{_repoUrl}/{ id}");
+            return await GetResponse(response, false);
         }
-        public async Task<dynamic> PostAsync(string request, dynamic model)
+
+        public async Task<BaseResponse> GetAsync(dynamic criteria)
         {
             ValidateRquest();
-
-            HttpResponseMessage response = await _client.PostAsync($"{request}", GetRequestBody(model));
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadAsStreamAsync();
+            HttpResponseMessage response = await _client.GetAsync($"/{_repoUrl}", GetRequestBody(criteria));
+            return await GetResponse(response, false);
         }
 
-        public async Task<dynamic> UpdateAsync(string request, dynamic model)
-        {
-            try
-            {
-                ValidateRquest();
-                HttpResponseMessage response = await _client.PostAsync($"/{model.Id}", GetRequestBody(model));
-                response.EnsureSuccessStatusCode();            
-                model = await response.Content.ReadAsStreamAsync();
-                return model;
-            } catch (Exception e)
-            {
-                return null;
-            }
-        }
-
-        public async Task<bool> DeleteAsync(string request, int id)
+        public async Task<BaseResponse> CreateAsync(dynamic model)
         {
             ValidateRquest();
-            HttpResponseMessage response = await _client.DeleteAsync($"{request}/{id}");
-            return response.StatusCode == HttpStatusCode.OK;
+            HttpResponseMessage response = await _client.PostAsync($"/{_repoUrl}", model);
+            return await GetResponse(response);
+        }
+
+        public async Task<BaseResponse> UpdateAsync(dynamic model)
+        {
+            ValidateRquest();
+            HttpResponseMessage response = await _client.PutAsync($"/{_repoUrl}/{model.Id}", GetRequestBody(model));
+            return await GetResponse(response);
+        }
+
+        public async Task<BaseResponse> DeleteAsync(int id)
+        {
+            ValidateRquest();
+            HttpResponseMessage response = await _client.DeleteAsync($"/{_repoUrl}/{id}");
+            return await GetResponse(response);
+        }
+
+        public async Task<BaseResponse> PostAsync(dynamic model, string request)
+        {
+            ValidateRquest();
+            HttpResponseMessage response = await _client.PostAsync(request, GetRequestBody(model));
+            return await GetResponse(response);
+        }
+
+        public async Task<BaseResponse> PutAsync(dynamic model, string request)
+        {
+  
+            ValidateRquest();
+            HttpResponseMessage response = await _client.PutAsync($"{request}/{model.Id}", GetRequestBody(model));
+            return await GetResponse(response);
         }
 
         private void ValidateRquest()
@@ -91,6 +100,20 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
                 _client.DefaultRequestHeaders.Add("Authorization", _baseRequest.AccessToken);
                 _client.DefaultRequestHeaders.Add("AccessToken", _baseRequest.AccessToken);
             }
+        }
+
+        private async Task<BaseResponse> GetResponse(HttpResponseMessage response, bool ensureSuccess = true)
+        {
+            if (ensureSuccess)
+                response.EnsureSuccessStatusCode();
+
+            dynamic model = null;
+            var success = response.IsSuccessStatusCode;
+            if (success)
+            {
+                model = await response.Content.ReadAsStreamAsync();
+            }
+            return new BaseResponse(success, "", model);
         }
 
         public JsonContent GetRequestBody(dynamic model)

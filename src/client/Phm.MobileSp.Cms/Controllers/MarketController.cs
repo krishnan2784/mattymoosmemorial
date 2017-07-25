@@ -20,10 +20,10 @@ namespace Phm.MobileSp.Cms.Controllers
     [AiHandleError]
     public class MarketController : BaseController
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUsersRepository _userRepository;
         private readonly IMarketRepository _marketRepository;
 
-        public MarketController(IMemoryCache memoryCache, IUserRepository userRepository, IMarketRepository marketRepository) : base(memoryCache)
+        public MarketController(IMemoryCache memoryCache, IUsersRepository userRepository, IMarketRepository marketRepository) : base(memoryCache)
         {
             _userRepository = userRepository;
             _marketRepository = marketRepository;

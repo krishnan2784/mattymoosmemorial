@@ -18,56 +18,60 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 
         public async Task<dynamic> GetFeedItemAsync(int feedItemId)
         {
-            var response = await GetAsync($"/{feedItemId}");
-            return response?.First();
+            var response = await GetAsync(feedItemId);
+            return response?.Content?.First();
         }
         
         public async Task<IEnumerable<dynamic>> GetFeedItemsAsync() 
         {
-            return await GetAsync("");
+            var response = await GetAsync();
+            return response?.Content();
         }
 
         public async Task<TFeedItem> CreateFeedItemAsync<TFeedItem, TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed
             where TDestinationDto : BaseFeedDto
         {
-            return await CreateAsync("/Create", feedItem);
+            var response = await CreateAsync(feedItem);
+            return response?.Content;
         }
 
 
         public async Task<TFeedItem> UpdateFeedItemAsync<TFeedItem, TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed
             where TDestinationDto : BaseFeedDto
         {
-            return await UpdateAsync("/Patch", feedItem);
+            var response = await UpdateAsync(feedItem);
+            return response?.Content;
         }
 
 
         public async Task<bool> DeleteFeedItemAsync(int feedItemId)
         {
-            return await DeleteAsync("/Delete", feedItemId);
+            var response = await DeleteAsync(feedItemId);
+            return response.Success;
         }
 
         public async Task<dynamic> GetQuizFeedSummaries(int feedItemId)
         {
             var response = await GetAsync($"/GetQuizFeedSummariesAsync/{feedItemId}");
-            return response?.First();
+            return response?.Content.First();
         }
 
         public async Task<IEnumerable<dynamic>> GetQuizResultsSummariesEX(int feedItemId, decimal lowerBoundary, decimal higherBoundary, int userGroupId)
         {
             var response = await GetAsync($"/GetQuizResultsSummariesEXAsync/{feedItemId}");
-            return response?.First();
+            return response?.Content.First();
         }
 
         public async Task<dynamic> GetSurveyFeedSummaries(int feedItemId)
         {
             var response = await GetAsync($"/GetSurveyFeedSummariesAsync/{feedItemId}");
-            return response?.First();
+            return response?.Content.First();
         }
 
         public async Task<dynamic> GetObservationFeedSummaries(int feedItemId)
         {
             var response = await GetAsync($"/GetSurveyFeedSummariesAsync/{feedItemId}");
-            return response?.First();
+            return response?.Content.First();
         }
 
         public async Task<bool> CopyFeedItemToMarketAsync(int feedItemId, List<int> marketIds)
@@ -77,21 +81,21 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
                 m += $"MarketIds[{i}]={marketIds[i]}";
 
             var response = await PostAsync($"/CopyFeedToMarketAsync?BaseFeedId={feedItemId}{m}", null);
-            return response?.First();
+            return response?.Content.First();
         }
 
         public async Task<dynamic> GetLeaderBoard(int currentMarketId, DateTime? startDate = null, DateTime? endDate = null)
         {
             var d = (startDate == null ? "" : "&startDate=" + startDate) + (endDate == null ? "" : "&endDate=" + endDate);
             var response = await GetAsync($"/GetLeaderBoardDataAsync?MarketId={currentMarketId}{d}");
-            return response?.First();
+            return response?.Content.First();
         }
 
         public async Task<dynamic> GetUserPointsHistory(int userId, DateTime? startDate = null, DateTime? endDate = null)
         {
             var d = (startDate == null ? "" : "&startDate=" + startDate) + (endDate == null ? "" : "&endDate=" + endDate);
             var response = await GetAsync($"/GetUserPointsHistoryAsync?UserId={userId}{d}");
-            return response?.First();
+            return response?.Content.First();
         }
 
     }
