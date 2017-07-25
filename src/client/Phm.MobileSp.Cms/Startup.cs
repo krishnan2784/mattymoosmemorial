@@ -63,9 +63,32 @@ namespace Phm.MobileSp.Cms
 
             services.AddDistributedMemoryCache();
             
-            services.AddTransient<IMLearningCoreContract, MLearningCoreContractClient>();
-            services.AddTransient<ICoreContract, CoreContractClient>();
-            services.AddTransient<ISecurityContract, SecurityContractClient>();
+            services.AddTransient<IMLearningCoreContract>(provider =>
+            {
+                var mLearningCoreServices = Configuration["WcfServices:MLearningCoreService:EndpointUrl"];
+                Console.WriteLine(mLearningCoreServices);
+                var client = new MLearningCoreContractClient();
+                client.Endpoint.Address = new EndpointAddress(mLearningCoreServices);
+                return client;
+            });
+
+            services.AddTransient<ISecurityContract>(provider =>
+            {
+                var securityServices = Configuration["WcfServices:SecurityService:EndpointUrl"];
+                Console.WriteLine(securityServices);
+                var client = new SecurityContractClient();
+                client.Endpoint.Address = new EndpointAddress(securityServices);
+                return client;
+            });
+
+            services.AddTransient<ICoreContract>(provider =>
+            {
+                var mLearningCoreService = Configuration["WcfServices:MLearningCoreService:EndpointUrl"];
+                Console.WriteLine(mLearningCoreService);
+                var client = new CoreContractClient();
+                client.Endpoint.Address = new EndpointAddress(mLearningCoreService);
+                return client;
+            });
 
             services.AddTransient<IBaseRepository, BaseRepository>();
             
@@ -148,73 +171,7 @@ namespace Phm.MobileSp.Cms
             });
         }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
-            services.AddNodeServices();
-
-
-            services.AddMvc(options =>
-            {
-                options.CacheProfiles.Add("NoCache",
-                    new CacheProfile()
-                    {
-                        Location = ResponseCacheLocation.None,
-                        NoStore = true
-                    });
-
-                options.Filters.Add(new AiHandleErrorAttribute());
-            });
-            services.AddScoped<AiHandleErrorAttribute>();
-            services.AddSingleton<IConfiguration>(Configuration);
-            services.AddDistributedMemoryCache();
-
-            services.AddTransient<IMLearningCoreContract>(provider =>
-            {
-                var mLearningCoreServices = Configuration["WcfServices:MLearningCoreService:EndpointUrl"];
-                Console.WriteLine(mLearningCoreServices);
-                var client = new MLearningCoreContractClient();
-                client.Endpoint.Address = new EndpointAddress(mLearningCoreServices);
-                return client;
-            });
-
-            services.AddTransient<ISecurityContract>(provider =>
-            {
-                var securityServices = Configuration["WcfServices:SecurityService:EndpointUrl"];
-                Console.WriteLine(securityServices);
-                var client = new SecurityContractClient();
-                client.Endpoint.Address = new EndpointAddress(securityServices);
-                return client;
-            });
-
-            services.AddTransient<ICoreContract>(provider =>
-            {
-                var mLearningCoreService = Configuration["WcfServices:MLearningCoreService:EndpointUrl"];
-                Console.WriteLine(mLearningCoreService);
-                var client = new CoreContractClient();
-                client.Endpoint.Address = new EndpointAddress(mLearningCoreService);
-                return client;
-            });
-
-            services.AddSingleton<IApplicationUser, ApplicationUser>();
-            services.AddSingleton<IBaseRequest, BaseRequest>();
-            services.AddSingleton<IBaseCriteria, BaseCriteria>();
-
-            services.AddTransient<IUserRepository, UserRepository>();
-            services.AddTransient<IMarketRepository, MarketRepository>();
-            services.AddTransient<IFeedRepository, FeedRepository>();
-
-            services.AddTransient<IMediaRepository, MediaRepository>();
-
-            services.AddSession(options =>
-            {
-                options.IdleTimeout = TimeSpan.FromHours(1);
-                options.CookieName = ".MobileSP.Session";
-                options.CookieHttpOnly = true;
-            });
-            services.AddApplicationInsightsTelemetry(Configuration);
-        }
+        
 
     }
 }
