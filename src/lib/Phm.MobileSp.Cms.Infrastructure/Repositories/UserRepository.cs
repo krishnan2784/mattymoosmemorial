@@ -43,7 +43,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             if (applicationUser.ValidUser)
             {
                 _baseRequest.AccessToken = applicationUser.SessionGuid;
-                applicationUser.UserConfigurations = await _userConfigRepo.GetUserConfigurationsByUserId(applicationUser.UserDetails.Id);
+                applicationUser.UserConfigurations = await _userConfigRepo.GetUserConfigurationsByUserId(applicationUser.UserId);
                 applicationUser.UserDetails.DefaultMarketId = applicationUser.UserConfigurations.FirstOrDefault(x => x.IsDefault).MarketId;
             }
             else if (string.IsNullOrEmpty(message))
@@ -55,20 +55,16 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
         }
 
         private async Task<ApplicationUser> ValidateUser(string username, string password)
-        {
-            try
-            {
-                var response = await PostAsync(new { Username = username, Password = password });
-                return response?.Content;
-            } catch(Exception e)
-            {
-                return null;
-            }
+        {  
+            var response = await PostAsync<ApplicationUser>(new { Username = username, Password = password });
+            if (response?.Content == null)
+                return new ApplicationUser();
+            response.Content.UserDetails = new MLearningUser();
+            return response.Content;
         }
-
-
+        
         public async Task<dynamic> GetCurrentUser() {
-            return await GetAsync("CurrentUser");   
+            return await GetAsync<User>("CurrentUser");   
         }
 
         public async Task<IEnumerable<UserMarket>> GetUserMarkets(int userId)

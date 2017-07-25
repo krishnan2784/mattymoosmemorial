@@ -19,7 +19,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 
         public async Task<dynamic> GetLeaderBoard(int currentMarketId, DateTime? startDate = null, DateTime? endDate = null)
         {
-            var response = await GetAsync(
+            var response = await GetAsync<dynamic>(
                 new {
                     MarketId = currentMarketId,
                     StartDate = startDate,

@@ -19,20 +19,20 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 
         public async Task<dynamic> GetQuizFeedSummaries(int feedItemId)
         {
-            var response = await GetAsync(new { feedItemId, ItemType = FeedTypeEnum.Quiz });
+            var response = await GetAsync<QuizSummaryDto>(new { feedItemId, ItemType = FeedTypeEnum.Quiz });
             return response?.Content.First();
         }
 
         public async Task<dynamic> GetSurveyFeedSummaries(int feedItemId)
         {
-            var response = await GetAsync(new { feedItemId, ItemType = FeedTypeEnum.Survey });
+            var response = await GetAsync<SurveySummaryDto>(new { feedItemId, ItemType = FeedTypeEnum.Survey });
             return response?.Content.First();
         }
 
         public async Task<dynamic> GetObservationFeedSummaries(int feedItemId)
         {
             // TODO: Currently using survey call, observation call needs fixing in API.
-            var response = await GetAsync(new { feedItemId, ItemType = FeedTypeEnum.Survey });
+            var response = await GetAsync<SurveySummaryDto>(new { feedItemId, ItemType = FeedTypeEnum.Survey });
             return response?.Content.First();
         }
 

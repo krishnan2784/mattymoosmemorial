@@ -15,7 +15,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 
         public async Task<MediaInfo> CreateMediaInfo(MediaInfo file)
         {
-            var response = await CreateAsync(file);
+            var response = await CreateAsync<MediaInfo>(file);
             return response?.Content.First();
         }        
 

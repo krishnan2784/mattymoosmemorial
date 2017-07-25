@@ -23,7 +23,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 
         public async Task<dynamic> GetUsersAsync(int MarketId, int? UserId)
         {
-            return await GetAsync(new { MarketId, UserId });
+            return await GetAsync<dynamic>(new { MarketId, UserId });
         }
 
         public async Task<BaseResponse> CreateUserAsync(UserTemplate user)
@@ -32,7 +32,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             try
             {
                 user.UserName = user.FirstName + user.LastName;
-                var response = await CreateAsync(user);
+                var response = await CreateAsync<UserTemplate>(user);
                 return new BaseResponse(response.Success, "Succesfully created " + user.FirstName, response.Content);
             }
             catch (Exception ex)
@@ -45,7 +45,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
         {
             try
             {
-                var response = await UpdateAsync(user);
+                var response = await UpdateAsync<UserTemplate>(user);
                 return new BaseResponse(response.Success, "Succesfully updated " + user.FirstName, response.Content);
             }
             catch (Exception ex)

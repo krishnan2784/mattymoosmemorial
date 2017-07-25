@@ -25,7 +25,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 
         public async Task<BaseResponse> GetSecGroupsAsync(int MarketId)
         {
-            return await GetAsync(new { MarketId });
+            return await GetAsync<dynamic>(new { MarketId });
         }
     }
 }

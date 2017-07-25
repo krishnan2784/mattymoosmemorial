@@ -8,6 +8,6 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
 {
     public interface IUserConfigurationRepository
     {
-        Task<IEnumerable<UserConfiguration>> GetUserConfigurationsByUserId(int userId);
+        Task<List<UserConfiguration>> GetUserConfigurationsByUserId(int userId);
     }
 }

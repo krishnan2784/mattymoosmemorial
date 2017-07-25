@@ -18,20 +18,20 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 
         public async Task<dynamic> GetFeedItemAsync(int feedItemId)
         {
-            var response = await GetAsync(feedItemId);
+            var response = await GetAsync<dynamic>(feedItemId);
             return response?.Content?.First();
         }
         
         public async Task<IEnumerable<dynamic>> GetFeedItemsAsync() 
         {
-            var response = await GetAsync();
+            var response = await GetAsync<dynamic>();
             return response?.Content();
         }
 
         public async Task<TFeedItem> CreateFeedItemAsync<TFeedItem, TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed
             where TDestinationDto : BaseFeedDto
         {
-            var response = await CreateAsync(feedItem);
+            var response = await CreateAsync<TFeedItem>(feedItem);
             return response?.Content;
         }
 
@@ -39,21 +39,21 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
         public async Task<TFeedItem> UpdateFeedItemAsync<TFeedItem, TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed
             where TDestinationDto : BaseFeedDto
         {
-            var response = await UpdateAsync(feedItem);
+            var response = await UpdateAsync<TFeedItem>(feedItem);
             return response?.Content;
         }
 
 
         public async Task<bool> DeleteFeedItemAsync(int feedItemId)
         {
-            var response = await DeleteAsync(feedItemId);
+            var response = await DeleteAsync<dynamic>(feedItemId);
             return response.Success;
         }
 
         public async Task<bool> CopyFeedItemToMarketAsync(int feedItemId, List<int> marketIds)
         {
 
-            var response = await PutAsync(new {
+            var response = await PutAsync<dynamic>(new {
                 BaseFeedId = feedItemId,
                 MarketIds = marketIds
             });

@@ -42,23 +42,23 @@ namespace Phm.MobileSp.Cms.Controllers
         [ResponseCache(CacheProfileName = "NoCache")]
         public async Task<JsonResult> ChangeMarket(int marketId)
         {
-            var configs = await _userConfigRepository.GetUserConfigurationsByUserId(UserId);
-            var isUserMarket = configs.FirstOrDefault(x => x.MarketId == marketId);
+            //var configs = await _userConfigRepository.GetUserConfigurationsByUserId(UserId);
+            //var isUserMarket = configs.FirstOrDefault(x => x.MarketId == marketId);
 
-            if (isUserMarket == null || isUserMarket.MarketId == 0)
-            {
-                var markets = await _marketRepository.GetMarketsAsync();
-                var isLiveMarket = markets.FirstOrDefault(x => (bool)x.IsLive && x.Id == marketId);
-                if (isLiveMarket != null && isLiveMarket.Id > 0)
-                {
-                    var baseMarket = markets.FirstOrDefault(x => !(bool)x.IsLive
-                    && x.MasterId == isLiveMarket.MasterId);
+            //if (isUserMarket == null || isUserMarket.MarketId == 0)
+            //{
+            //    var markets = await _marketRepository.GetMarketsAsync();
+            //    var isLiveMarket = markets.FirstOrDefault(x => (bool)x.IsLive && x.Id == marketId);
+            //    if (isLiveMarket != null && isLiveMarket.Id > 0)
+            //    {
+            //        var baseMarket = markets.FirstOrDefault(x => !(bool)x.IsLive
+            //        && x.MasterId == isLiveMarket.MasterId);
 
-                    if (baseMarket != null && configs.Where(x => x.MarketId == baseMarket.Id).Count() > 0)
-                        goto ValidMarket;
-                }
-                return new JsonResult(false);
-            }
+            //        if (baseMarket != null && configs.Where(x => x.MarketId == baseMarket.Id).Count() > 0)
+            //            goto ValidMarket;
+            //    }
+            //    return new JsonResult(false);
+            //}
 
             ValidMarket:
             ClearMarketCache();

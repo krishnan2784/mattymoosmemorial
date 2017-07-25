@@ -16,10 +16,11 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             _marketRepo = marketRepo;
         }
 
-        public async Task<IEnumerable<UserConfiguration>> GetUserConfigurationsByUserId(int UserId)
+        public async Task<List<UserConfiguration>> GetUserConfigurationsByUserId(int UserId)
         {
-            var response = await GetAsync(new { UserId });
-            return response.Content;
+            var response = await PostAsync<dynamic>(new { Criteria = new{ UserId } });
+            return response.Content?.UserConfigurations != null ? response.Content.UserConfigurations.ToObject<List<UserConfiguration>>() : new List<UserConfiguration>();
         }
     }
+
 }

@@ -22,7 +22,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 
         public async Task<BaseResponse> PublishContentToLive(CopiedElementTypeEnum contentType, int id)
         {
-            var response = await PostAsync(new
+            var response = await PostAsync<dynamic>(new
             {
                 ContentType = (CopiedElementTypeEnumDto)contentType,
                 ParentId = id

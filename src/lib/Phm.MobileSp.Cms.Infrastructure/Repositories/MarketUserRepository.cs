@@ -21,7 +21,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
         }
         public async Task<dynamic> GetMarketUserFilters(int marketId)
         {
-            return (await GetAsync(marketId)).Content;
+            return (await GetAsync<dynamic>(marketId)).Content;
         }
     }
 }

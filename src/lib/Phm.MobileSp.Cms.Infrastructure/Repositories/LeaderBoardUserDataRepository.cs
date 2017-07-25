@@ -18,7 +18,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 
         public async Task<dynamic> GetUserPointsHistory(int userId, DateTime? startDate = null, DateTime? endDate = null)
         {
-            var response = await GetAsync(
+            var response = await GetAsync<dynamic>(
                 new
                 {
                     UserId = userId,

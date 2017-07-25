@@ -7,6 +7,7 @@ namespace Phm.MobileSp.Cms.Core.Models
     {
         public bool ValidUser => SessionGuid != null;
         public string SessionGuid { get; set; }
+        public int UserId { get; set; }
         public MLearningUser UserDetails { get; set; }
         public IEnumerable<string> UserRoles { get; set; }
         public IEnumerable<UserConfiguration> UserConfigurations { get; set; }

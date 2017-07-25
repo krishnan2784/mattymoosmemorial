@@ -19,7 +19,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 
         public async Task<IEnumerable<dynamic>> GetQuizResultsSummariesEX(int feedItemId, decimal lowerBoundary, decimal higherBoundary, int userGroupId)
         {
-            var response = await GetAsync(new { QuizFeedId = feedItemId, LowerBoundary = lowerBoundary, HigherBoundary = higherBoundary, UserGroupId = userGroupId });
+            var response = await GetAsync<dynamic>(new { QuizFeedId = feedItemId, LowerBoundary = lowerBoundary, HigherBoundary = higherBoundary, UserGroupId = userGroupId });
             return response?.Content.First();
         }
 

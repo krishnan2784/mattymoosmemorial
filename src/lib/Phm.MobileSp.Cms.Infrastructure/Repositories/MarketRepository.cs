@@ -22,12 +22,12 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 
         public async Task<IEnumerable<Market>> GetMarketsAsync()
         {
-            return (await GetAsync())?.Content;
+            return (await GetAsync<Market>())?.Content;
         }
 
         public async Task<IEnumerable<Market>> GetMarketsByMasterIdAsync(CopiedElementTypeEnum contentType, Guid masterId)
         {
-            return (await GetAsync("MasterMarket", new {
+            return (await GetAsync<Market>("MasterMarket", new {
                 ContentType = (CopiedElementTypeEnumDto)contentType,
                 MasterId = masterId
             }))?.Content;
