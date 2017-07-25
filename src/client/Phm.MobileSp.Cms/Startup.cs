@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
+using System.ServiceModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -62,9 +63,32 @@ namespace Phm.MobileSp.Cms
 
             services.AddDistributedMemoryCache();
             
-            services.AddTransient<IMLearningCoreContract, MLearningCoreContractClient>();
-            services.AddTransient<ICoreContract, CoreContractClient>();
-            services.AddTransient<ISecurityContract, SecurityContractClient>();
+            services.AddTransient<IMLearningCoreContract>(provider =>
+            {
+                var mLearningCoreServices = Configuration["WcfServices:MLearningCoreService:EndpointUrl"];
+                Console.WriteLine(mLearningCoreServices);
+                var client = new MLearningCoreContractClient();
+                client.Endpoint.Address = new EndpointAddress(mLearningCoreServices);
+                return client;
+            });
+
+            services.AddTransient<ISecurityContract>(provider =>
+            {
+                var securityServices = Configuration["WcfServices:SecurityService:EndpointUrl"];
+                Console.WriteLine(securityServices);
+                var client = new SecurityContractClient();
+                client.Endpoint.Address = new EndpointAddress(securityServices);
+                return client;
+            });
+
+            services.AddTransient<ICoreContract>(provider =>
+            {
+                var mLearningCoreService = Configuration["WcfServices:MLearningCoreService:EndpointUrl"];
+                Console.WriteLine(mLearningCoreService);
+                var client = new CoreContractClient();
+                client.Endpoint.Address = new EndpointAddress(mLearningCoreService);
+                return client;
+            });
 
             services.AddTransient<IBaseRepository, BaseRepository>();
             
@@ -114,14 +138,15 @@ namespace Phm.MobileSp.Cms
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions {
+                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+                {
                     HotModuleReplacement = true
                 });
-			}
+            }
             else
             {
                 //app.UseExceptionHandler("/Home/Error");
-				app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage();
 
             }
 
@@ -145,5 +170,8 @@ namespace Phm.MobileSp.Cms
                     defaults: new { controller = "Home", action = "Index" });
             });
         }
+
+        
+
     }
 }
