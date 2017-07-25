@@ -27,55 +27,11 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 
         public async Task<IEnumerable<Market>> GetMarketsByMasterIdAsync(CopiedElementTypeEnum contentType, Guid masterId)
         {
-            try
-            {
-                var request = GetRequest(new GetMarketsByMasterIdRequest()
-                {
-                    ContentType = (CopiedElementTypeEnumDto)contentType,
-                    MasterId = masterId
-                });
-
-                var response = await _proxyCoreClient.GetMarketsByMasterIdAsync(request);
-
-                var mapper = new AutoMapperGenericsHelper<MarketDto, Market>();
-                var markets = mapper.ConvertToDbEntity(response.Markets);
-
-                return markets;
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
+            return (await GetAsync("MasterMarket", new {
+                ContentType = (CopiedElementTypeEnumDto)contentType,
+                MasterId = masterId
+            }))?.Content;
         }
-
-        public async Task<BaseResponse> PublishContentToLive(CopiedElementTypeEnum contentType, int id)
-        {
-            try
-            {
-                var request = GetRequest(new PublishContentsRequest
-                {
-                    ContentType = (CopiedElementTypeEnumDto)contentType,
-                    ParentId = id
-                });
-
-                var response = await _proxyCoreClient.PublishContentsAsync(request);
-                return new BaseResponse(response.Published, 
-                    response.Published ? "Item published to live" : "Item could not be published to live", response.Published);
-            }
-            catch (Exception e)
-            {
-                return new BaseResponse(false, e.Message, false);
-            }
-        }
-
-        public async Task<dynamic> GetMarketUserFilters(int marketId)
-        {
-            var request = new GetMarketUserFiltersRequest() {
-                AccessToken = BaseRequest.AccessToken,
-                MarketId = marketId
-            };
-            var response = await _proxyClient.GetMarketUserFiltersAsync(request);
-            return response;
-        }
+       
     }
 }

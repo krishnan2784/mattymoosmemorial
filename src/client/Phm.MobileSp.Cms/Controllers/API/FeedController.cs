@@ -20,8 +20,10 @@ namespace Phm.MobileSp.Cms.Controllers.API
     {
         private readonly IFeedRepository _feedRepository;
 
-        public FeedController(IMemoryCache memoryCache, IFeedRepository feedRepository, IUsersRepository userRepository, IMarketRepository marketRepository) 
-            : base(memoryCache, userRepository, marketRepository)
+        public FeedController(IMemoryCache memoryCache, IFeedRepository feedRepository, IUserRepository userRepository, IMarketRepository marketRepository,
+            IUserConfigurationRepository userConfigRepository, IMarketUserRepository marketUserRepository,
+            IContentRepository contentRepository) 
+            : base(memoryCache, userRepository, marketRepository, userConfigRepository, marketUserRepository, contentRepository)
         {
             _feedRepository = feedRepository;
         }
@@ -93,6 +95,24 @@ namespace Phm.MobileSp.Cms.Controllers.API
         [JsonResponseWrapper]
         public async Task<JsonResult> UpdateObservationFeedItem([FromBody]ObservationFeed feedItem) => await UpdateFeedItem<ObservationFeed, ObservationFeedDto>(feedItem);
 
+
+
+        [HttpPost("[action]")]
+        [JsonResponseWrapper]
+        public async Task<JsonResult> DeleteFeedItem([FromBody]int feedItemId)
+        {
+            var feedItemResponse = await _feedRepository.DeleteFeedItemAsync(feedItemId);
+            return Json(new BaseResponse(feedItemResponse, feedItemResponse ? "Feed item successfuly deleted" : "Failed to delete feed item", feedItemResponse));
+        }
+        
+        [HttpPost("[action]")]
+        [JsonResponseWrapper]
+        public async Task<JsonResult> CopyFeedItemToMarket(int id, List<int> marketIds)
+        {
+            var feedItemResponse = await _feedRepository.CopyFeedItemToMarketAsync(id, marketIds);
+            return Json(new BaseResponse(feedItemResponse, feedItemResponse ? "Feed item successfuly copied" : "Failed to copy feed item", feedItemResponse));
+        }
+
         //[JsonResponseWrapper]
         //public async Task<JsonResult> UpdateTextFeedItem([FromBody] JToken feedItem)
         //{
@@ -107,71 +127,5 @@ namespace Phm.MobileSp.Cms.Controllers.API
         //    }
         //    return null;
         //}
-
-        [HttpPost("[action]")]
-        [JsonResponseWrapper]
-        public async Task<JsonResult> CopyFeedItemToMarket(int id, List<int> marketIds)
-        {
-            var feedItemResponse = await _feedRepository.CopyFeedItemToMarketAsync(id, marketIds);
-            return Json(new BaseResponse(feedItemResponse, feedItemResponse ? "Feed item successfuly copied" : "Failed to copy feed item", feedItemResponse));
-        }
-
-        [HttpPost("[action]")]
-        [JsonResponseWrapper]
-        public async Task<JsonResult> DeleteFeedItem([FromBody]int feedItemId)
-        {
-            var feedItemResponse = await _feedRepository.DeleteFeedItemAsync(feedItemId);
-            return Json(new BaseResponse(feedItemResponse, feedItemResponse ? "Feed item successfuly deleted" : "Failed to delete feed item", feedItemResponse));
-        }
-
-        [HttpGet("[action]")]
-        [JsonResponseWrapper]
-        public async Task<JsonResult> GetQuizFeedSummaries(int feedItemId)
-        {
-            var feedItemResponse = await _feedRepository.GetQuizFeedSummaries(feedItemId);
-            return Json(new BaseResponse(feedItemResponse));
-        }
-
-        [HttpGet("[action]")]
-        [JsonResponseWrapper]
-        public async Task<JsonResult> GetQuizResultsSummariesEX(int feedItemId, decimal lowerBoundary = 0, decimal higherBoundary = 0, int userGroupId = 0)
-        {
-            var feedItemResponse = await _feedRepository.GetQuizResultsSummariesEX(feedItemId, lowerBoundary, higherBoundary, userGroupId);
-            return Json(new BaseResponse(feedItemResponse));
-        }
-
-        [HttpGet("[action]")]
-        [JsonResponseWrapper]
-        public async Task<JsonResult> GetSurveyFeedSummaries(int feedItemId)
-        {
-            var feedItemResponse = await _feedRepository.GetSurveyFeedSummaries(feedItemId);
-            return Json(new BaseResponse(feedItemResponse));
-        }
-
-        [HttpGet("[action]")]
-        [JsonResponseWrapper]
-        public async Task<JsonResult> GetObservationFeedSummaries(int feedItemId)
-        {
-            var feedItemResponse = await _feedRepository.GetObservationFeedSummaries(feedItemId);
-            return Json(new BaseResponse(feedItemResponse));
-        }
-
-        [HttpGet("[action]")]
-        [JsonResponseWrapper]
-        public async Task<JsonResult> GetLeaderBoard(DateTime? startDate = null, DateTime? endDate = null)
-        {
-            endDate = endDate?.AddDays(1);
-            var response = await _feedRepository.GetLeaderBoard(CurrentMarketId, startDate, endDate);
-            return Json(new BaseResponse(response));
-        }
-
-        [HttpGet("[action]")]
-        [JsonResponseWrapper]
-        public async Task<JsonResult> GetUserPointsHistory(int userId, DateTime? startDate = null, DateTime? endDate = null)
-        {
-            var response = await _feedRepository.GetUserPointsHistory(userId, startDate, endDate);
-            return Json(new BaseResponse(response));
-        }
-
     }
 }

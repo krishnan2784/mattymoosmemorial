@@ -9,12 +9,13 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
     {
         Task<BaseResponse> GetAsync();
         Task<BaseResponse> GetAsync(int id);
+        Task<BaseResponse> GetAsync(string request);
         Task<BaseResponse> GetAsync(dynamic criteria);
+        Task<BaseResponse> GetAsync(string request, dynamic criteria);
         Task<BaseResponse> CreateAsync(dynamic model);
         Task<BaseResponse> UpdateAsync(dynamic model);
         Task<BaseResponse> DeleteAsync(int id);
-        Task<BaseResponse> PostAsync(dynamic model, string request);
-        Task<BaseResponse> PutAsync(dynamic model, string request);
-        void SetAuthToken(string authToken);
+        Task<BaseResponse> PostAsync(string request, dynamic model);
+        Task<BaseResponse> PutAsync(string request, dynamic model);
     }
 }

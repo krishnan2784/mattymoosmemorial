@@ -28,7 +28,7 @@ namespace Phm.MobileSp.Cms.Controllers
         /// <summary>
         /// The user repository.
         /// </summary>
-        private readonly ISessionsRepository _sessionsRepository;
+        private readonly IUserRepository _userRepository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountController"/> class.
@@ -39,9 +39,9 @@ namespace Phm.MobileSp.Cms.Controllers
         /// <param name="userRepository">
         /// The user repository.
         /// </param>
-        public AccountController(IMemoryCache memoryCache, ISessionsRepository sessionsRepository) : base(memoryCache)
+        public AccountController(IMemoryCache memoryCache, IUserRepository userRepository) : base(memoryCache)
         {
-            this._sessionsRepository = sessionsRepository;
+            _userRepository = userRepository;
         }
 
         [AiHandleError]
@@ -65,7 +65,7 @@ namespace Phm.MobileSp.Cms.Controllers
             var tracking = new TelemetryClient();
             ClaimsPrincipal claimsPrinciple;
             ViewData["ReturnUrl"] = returnUrl;
-            var response = await _sessionsRepository.GetUserAsync(loginDetails);
+            var response = await _userRepository.GetUserAsync(loginDetails);
             var user = response.Item1;
             
             if (!user.ValidUser){

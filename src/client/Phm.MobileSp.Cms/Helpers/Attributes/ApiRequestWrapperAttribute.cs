@@ -23,13 +23,10 @@ namespace Phm.MobileSp.Cms.Helpers.Attributes
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            _baseRequest.AccessToken = context.HttpContext?.User.Claims.FirstOrDefault(x => x.Type == "sessionguid").Value;
-            _baseCriteria.MarketId = Convert.ToInt16(context.HttpContext?.User.Claims.FirstOrDefault(x => x.Type == "currentmarketid").Value);
-
-#if DEBUG
-            if (string.IsNullOrEmpty(_baseRequest.AccessToken))
-                throw new HttpRequestException("401");
-#endif
+            if (_baseRequest!=null)
+                _baseRequest.AccessToken = context.HttpContext?.User.Claims.FirstOrDefault(x => x.Type == "sessionguid").Value;
+            if (_baseCriteria != null)
+                _baseCriteria.MarketId = Convert.ToInt16(context.HttpContext?.User.Claims.FirstOrDefault(x => x.Type == "currentmarketid").Value);
 
             base.OnActionExecuting(context);
         }

@@ -14,7 +14,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
     public class FeedRepository : BaseRepository, IFeedRepository
     {
         public FeedRepository(IOptions<ConnectionStrings> connStrings, IBaseRequest baseRequest, IBaseCriteria baseCriteria)
-            : base(connStrings, baseRequest, baseCriteria, "Feeds") {       }
+            : base(connStrings, baseRequest, baseCriteria, "Feed") {       }
 
         public async Task<dynamic> GetFeedItemAsync(int feedItemId)
         {
@@ -50,51 +50,13 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             return response.Success;
         }
 
-        public async Task<dynamic> GetQuizFeedSummaries(int feedItemId)
-        {
-            var response = await GetAsync($"/GetQuizFeedSummariesAsync/{feedItemId}");
-            return response?.Content.First();
-        }
-
-        public async Task<IEnumerable<dynamic>> GetQuizResultsSummariesEX(int feedItemId, decimal lowerBoundary, decimal higherBoundary, int userGroupId)
-        {
-            var response = await GetAsync($"/GetQuizResultsSummariesEXAsync/{feedItemId}");
-            return response?.Content.First();
-        }
-
-        public async Task<dynamic> GetSurveyFeedSummaries(int feedItemId)
-        {
-            var response = await GetAsync($"/GetSurveyFeedSummariesAsync/{feedItemId}");
-            return response?.Content.First();
-        }
-
-        public async Task<dynamic> GetObservationFeedSummaries(int feedItemId)
-        {
-            var response = await GetAsync($"/GetSurveyFeedSummariesAsync/{feedItemId}");
-            return response?.Content.First();
-        }
-
         public async Task<bool> CopyFeedItemToMarketAsync(int feedItemId, List<int> marketIds)
         {
-            var m = string.Empty;
-            for (var i = 0; i < marketIds.Count; i++)
-                m += $"MarketIds[{i}]={marketIds[i]}";
 
-            var response = await PostAsync($"/CopyFeedToMarketAsync?BaseFeedId={feedItemId}{m}", null);
-            return response?.Content.First();
-        }
-
-        public async Task<dynamic> GetLeaderBoard(int currentMarketId, DateTime? startDate = null, DateTime? endDate = null)
-        {
-            var d = (startDate == null ? "" : "&startDate=" + startDate) + (endDate == null ? "" : "&endDate=" + endDate);
-            var response = await GetAsync($"/GetLeaderBoardDataAsync?MarketId={currentMarketId}{d}");
-            return response?.Content.First();
-        }
-
-        public async Task<dynamic> GetUserPointsHistory(int userId, DateTime? startDate = null, DateTime? endDate = null)
-        {
-            var d = (startDate == null ? "" : "&startDate=" + startDate) + (endDate == null ? "" : "&endDate=" + endDate);
-            var response = await GetAsync($"/GetUserPointsHistoryAsync?UserId={userId}{d}");
+            var response = await PutAsync(new {
+                BaseFeedId = feedItemId,
+                MarketIds = marketIds
+            });
             return response?.Content.First();
         }
 

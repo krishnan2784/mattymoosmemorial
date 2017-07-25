@@ -77,14 +77,22 @@ namespace Phm.MobileSp.Cms
             services.AddTransient<ICoreContract, CoreContractClient>();
             services.AddTransient<ISecurityContract, SecurityContractClient>();
 
-            services.AddTransient<IUsersRepository, UsersRepository>();
-            services.AddTransient<IUserRepository, UserRepository>();
-            services.AddTransient<IMarketRepository, MarketRepository>();
+            services.AddTransient<IContentRepository, ContentRepository>();
             services.AddTransient<IFeedRepository, FeedRepository>();
+            services.AddTransient<IFeedSummariesRepository, FeedSummariesRepository>();
+            services.AddTransient<ILeaderBoardDataRepository, LeaderBoardDataRepository>();
+            services.AddTransient<ILeaderBoardUserDataRepository, LeaderBoardUserDataRepository>();
+            services.AddTransient<IMarketRepository, MarketRepository>();
+            services.AddTransient<IMediaInfoRepository, MediaInfoRepository>();
             services.AddTransient<IMediaRepository, MediaRepository>();
-            services.AddTransient<ISessionsRepository, SessionsRepository>();
+            services.AddTransient<ISecurityGroupsRepository, SecurityGroupsRepository>();
+            services.AddTransient<IUserConfigurationRepository, UserConfigurationRepository>();
+            services.AddTransient<IUserQuizResultsRepository, UserQuizResultsRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUserTemplateRepository, UserTemplateRepository>();
-            
+
+
+
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromHours(1);

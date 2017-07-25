@@ -76,11 +76,11 @@ export class FeedDataService extends RequestHelper implements IFeedDataService, 
     }
 
     public getQuizFeedItemReport(feedItemId: number): Observable<any> {
-        return this.getRequestFull('/api/Feed/GetQuizFeedSummaries?feedItemId=' + feedItemId);
+        return this.getRequestFull('/api/FeedSummaries/GetQuizFeedSummaries?feedItemId=' + feedItemId);
     }
 
     public getFeedItemResultList(feedItemId: number, lowerBoundary: number, higherBoundary: number, userGroupId: number) {
-        var requestUrl = '/api/Feed/GetQuizResultsSummariesEX?feedItemId=' + feedItemId
+        var requestUrl = '/api/FeedSummaries/GetQuizResultsSummariesEX?feedItemId=' + feedItemId
             + '&lowerBoundary=' + lowerBoundary
             + '&higherBoundary=' + higherBoundary
             + '&userGroupId=' + userGroupId;
@@ -88,15 +88,15 @@ export class FeedDataService extends RequestHelper implements IFeedDataService, 
     }
 
     public getSurveyFeedSummaries(feedItemId: number): Observable<any> {
-        return this.getRequestFull('/api/Feed/GetSurveyFeedSummaries?feedItemId=' + feedItemId);
+        return this.getRequestFull('/api/FeedSummaries/GetSurveyFeedSummaries?feedItemId=' + feedItemId);
     }
 
     public getObservationFeedSummaries(feedItemId: number): Observable<any> {
-        return this.getRequestFull('/api/Feed/GetObservationFeedSummaries?feedItemId=' + feedItemId);
+        return this.getRequestFull('/api/FeedSummaries/GetObservationFeedSummaries?feedItemId=' + feedItemId);
     }
 
     public getLeaderBoard(startDate: string = null, endDate: string = null) {
-        var requestUrl = '/api/Feed/GetLeaderBoard';
+        var requestUrl = '/api/Leaderboard/GetLeaderBoard';
         console.log(startDate, endDate);
         if (startDate || endDate) {
             requestUrl = requestUrl + '?'
@@ -108,7 +108,7 @@ export class FeedDataService extends RequestHelper implements IFeedDataService, 
     }
 
     public getUserPointsHistory(userId: number, startDate: string = null, endDate: string = null) {
-        var requestUrl = '/api/Feed/GetUserPointsHistory?userId=' + userId
+        var requestUrl = '/api/Leaderboard/GetUserPointsHistory?userId=' + userId
                 + (startDate ? '&startDate=' + startDate : '')
                 + (endDate ? '&endDate=' + endDate : '');
         return this.getRequestBase(requestUrl);

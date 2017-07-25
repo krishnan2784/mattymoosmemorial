@@ -6,7 +6,7 @@ using Phm.MobileSp.Cms.Core.Models;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
 {
-    public interface IUserConfigurationRepository : IBaseRepository
+    public interface IUserConfigurationRepository
     {
         Task<IEnumerable<UserConfiguration>> GetUserConfigurationsByUserId(int userId);
     }

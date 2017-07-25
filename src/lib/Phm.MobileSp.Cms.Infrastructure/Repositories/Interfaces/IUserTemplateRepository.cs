@@ -6,7 +6,7 @@ using Phm.MobileSp.Cms.Core.Models;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
 {
-    public interface IUserTemplateRepository : IBaseRepository
+    public interface IUserTemplateRepository
     {
         Task<dynamic> GetUsersAsync(int marketId, int? userId);
         Task<BaseResponse> CreateUserAsync(UserTemplate user);
