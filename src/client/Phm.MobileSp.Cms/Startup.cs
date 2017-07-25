@@ -83,7 +83,7 @@ namespace Phm.MobileSp.Cms
 
             services.AddTransient<ICoreContract>(provider =>
             {
-                var mLearningCoreService = Configuration["WcfServices:MLearningCoreService:EndpointUrl"];
+                var mLearningCoreService = Configuration["WcfServices:MobileSPCoreService:EndpointUrl"];
                 Console.WriteLine(mLearningCoreService);
                 var client = new CoreContractClient();
                 client.Endpoint.Address = new EndpointAddress(mLearningCoreService);
@@ -147,7 +147,10 @@ namespace Phm.MobileSp.Cms
             {
                 //app.UseExceptionHandler("/Home/Error");
                 app.UseDeveloperExceptionPage();
-
+                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+                {
+                    HotModuleReplacement = true
+                });
             }
 
             app.UseStaticFiles();
