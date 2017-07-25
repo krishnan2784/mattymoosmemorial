@@ -31,6 +31,9 @@
 .question-question-container, .answer-answer-container {
     padding-left: 0;
 }
+.answer-answer-container{
+    margin-top:0;
+}
 
 .btn-add-answer {
     margin: 10px 0 10px 50px;

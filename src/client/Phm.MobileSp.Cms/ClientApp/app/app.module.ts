@@ -80,6 +80,7 @@ import { ObservationFeedItemReport } from "./components/reports/observationfeedi
 import { GaugeGraphComponent } from "./components/charts/gaugegraph/gaugegraph.component";
 import { MonobarGraphComponent } from "./components/charts/monobargraph/monobargraph.component";
 import { DatepickerComponent } from "./components/common/datepicker/datepicker.component";
+import { TextInputComponent } from "./components/common/editor/textbox.component";
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -146,6 +147,7 @@ import { DatepickerComponent } from "./components/common/datepicker/datepicker.c
         //shared
         UserFilter,
         RichTextEditorComponent,
+        TextInputComponent,
         UploadMediaComponent
     ],
     imports: [

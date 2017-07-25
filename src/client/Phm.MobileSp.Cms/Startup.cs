@@ -43,6 +43,47 @@ namespace Phm.MobileSp.Cms
 
         public IConfigurationRoot Configuration { get; }
 
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
+            services.AddNodeServices();
+            services.AddMvc(options =>
+            {
+                options.CacheProfiles.Add("NoCache",
+                    new CacheProfile()
+                    {
+                        Location = ResponseCacheLocation.None,
+                        NoStore = true
+                    });
+
+                    options.Filters.Add(new AiHandleErrorAttribute());
+                   });
+            services.AddScoped<AiHandleErrorAttribute>();
+
+            services.AddDistributedMemoryCache();
+            
+            services.AddTransient<IMLearningCoreContract, MLearningCoreContractClient>();
+            services.AddTransient<ICoreContract, CoreContractClient>();
+            services.AddTransient<ISecurityContract, SecurityContractClient>();
+
+            services.AddTransient<IBaseRepository, BaseRepository>();
+            
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IMarketRepository, MarketRepository>();
+            services.AddTransient<IFeedRepository, FeedRepository>();
+
+            services.AddTransient<IMediaRepository, MediaRepository>();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromHours(1);
+                options.CookieName = ".MobileSP.Session";
+                options.CookieHttpOnly = true;
+            });
+            services.AddApplicationInsightsTelemetry(Configuration);
+        }
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {

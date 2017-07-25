@@ -127,6 +127,7 @@ var FeedItemForm = (function () {
     FeedItemForm.prototype.updateForm = function () {
         if (this.model && this.model.id > 0) {
             (this.form).patchValue(this.model, { onlySelf: true });
+            this.setMinDate(new Date(this.model.startDate));
             setTimeout(function () {
                 Materialize.updateTextFields();
             }, 10);
@@ -137,7 +138,6 @@ var FeedItemForm = (function () {
             this.form.controls['startDate'].patchValue(this.model.startDate, { onlySelf: true });
             this.form.controls['endDate'].patchValue(this.model.endDate, { onlySelf: true });
         }
-        console.log('button');
         this.form.updateValueAndValidity();
     };
     FeedItemForm.prototype.getFeedType = function (feedType) {
@@ -179,6 +179,7 @@ var FeedItemForm = (function () {
         if (!isValid)
             return;
         feedItem = new this.subForm.feedModelType(feedItem);
+        feedItem.callToActionUrl = feedItem.callToActionUrl.indexOf('http') == 0 ? feedItem.callToActionUrl : 'http://' + feedItem.callToActionUrl;
         this.feedDataService.updateFeeditem(this.subForm.updateUrl, feedItem).subscribe(function (result) {
             if (result.success) {
                 _this.model = result.content;
@@ -189,9 +190,7 @@ var FeedItemForm = (function () {
     };
     FeedItemForm.prototype.updateMaterialize = function () {
         setTimeout(function () {
-            $('.materialize-textarea').each(function () {
-                $(this).trigger('autoresize');
-            });
+            $('#bodyText').trigger('autoresize');
             //Materialize.updateTextFields();
             //$('.datepicker').pickadate({
             //    selectMonths: true,
@@ -200,6 +199,27 @@ var FeedItemForm = (function () {
             //    formatSubmit: 'yyyy/mm/dd'
             //});
         }, 1);
+    };
+    FeedItemForm.prototype.handleStartDate = function (e) {
+        this.minDay = e.day;
+        this.minMonth = e.month;
+        this.minYear = e.year;
+        this.model.startDate = e.serverAcceptedDate;
+        this.form.controls['startDate'].setValue(e.serverAcceptedDate);
+        if (new Date(this.model.endDate) < e.fullDate) {
+            this.handleEndDate(e);
+        }
+        this.form.markAsDirty();
+    };
+    FeedItemForm.prototype.handleEndDate = function (e) {
+        this.model.endDate = e.fullDate;
+        this.form.controls['endDate'].setValue(e.fullDate);
+        this.form.markAsDirty();
+    };
+    FeedItemForm.prototype.setMinDate = function (date) {
+        this.minDay = date.getDate();
+        this.minMonth = date.getMonth();
+        this.minYear = date.getFullYear();
     };
     FeedItemForm.prototype.goBack = function () {
         this.feedUpdated.emit(null);

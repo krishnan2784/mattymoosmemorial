@@ -92,6 +92,8 @@ export class FeedReportIndexComponent extends BaseComponent implements OnInit, O
     }
 
     sortFeed(feedItem: IFeedItem[]): IFeedItem[] {
+        if (!feedItem)
+            return [];
         // basic ordering by Id descending, will need to replace with a more robust sorting mechanism / index management facility 
         return feedItem.sort((a, b) => {
             if (a.id > b.id) return -1;
@@ -108,7 +110,7 @@ export class FeedReportIndexComponent extends BaseComponent implements OnInit, O
         if (feedItem.feedType === FeedTypeEnum.Survey)
             report = SurveyFeedItemReport;
         if (feedItem.feedType === FeedTypeEnum.Observation)
-            report = ObservationFeedItemReport;
+            report = SurveyFeedItemReport;
         
         this.updateMarketDropdownVisibility(false);
         this.updateTabNavItems();

@@ -15,11 +15,10 @@ var ShareService = Datashareservice.ShareService;
 var Enums = require("../../enums");
 var Feeddataservice = require("../../services/feeddataservice");
 var FeedDataService = Feeddataservice.FeedDataService;
-var Reportclasses = require("../../models/reportclasses");
-var SurveyItemSummary = Reportclasses.SurveyItemSummary;
 var Date1 = require("../../classes/helpers/date");
 var DateEx = Date1.DateEx;
 var Angular2_csv_1 = require("angular2-csv/Angular2-csv");
+var reportclasses_1 = require("../../models/reportclasses");
 var ObservationFeedItemReport = (function () {
     function ObservationFeedItemReport(sharedService, feedDataService, injector) {
         var _this = this;
@@ -44,32 +43,21 @@ var ObservationFeedItemReport = (function () {
     };
     ObservationFeedItemReport.prototype.getData = function () {
         var _this = this;
-        this.feedDataService.getSurveyFeedSummaries(this.model.id).subscribe(function (result) {
+        this.feedDataService.getObservationFeedSummaries(this.model.id).subscribe(function (result) {
             if (result.content) {
-                _this.summaryData = new SurveyItemSummary(result.content);
+                _this.summaryData = new reportclasses_1.ObservationItemSummary(result.content);
                 _this.updateGaugeData();
                 _this.updateBarData();
                 _this.updateListData();
             }
             else
-                _this.summaryData = new SurveyItemSummary();
+                _this.summaryData = new reportclasses_1.ObservationItemSummary();
             _this.updateGaugeData();
             _this.updateBarData();
             _this.updateListData();
         });
     };
     ObservationFeedItemReport.prototype.updateGaugeData = function () {
-        //var gaugeData = new GaugeChartData({
-        //    height: 150,
-        //    showTooltip: true,
-        //    chartData: [
-        //        {
-        //            name: 'Submitted',
-        //            colour: '#9F378E',
-        //            data: (this.summaryData.submitted / this.summaryData.totalRecipents) * 100
-        //        }
-        //    ]
-        //});
         this.submissionRateData = (this.summaryData.submitted / this.summaryData.totalRecipents) * 100;
     };
     ObservationFeedItemReport.prototype.updateBarData = function () {
@@ -92,35 +80,33 @@ var ObservationFeedItemReport = (function () {
             footerText: "Allocated time (days)",
             data: dates
         };
-        //var barData = new BarChartData({
-        //    width: 500,
-        //    showTooltip: true,
-        //    showYAxis: false,
-        //    showXAxis: true,
-        //    chartData: [{
-        //        name: 'Allocated time (days)',
-        //        colour: '#9F378E',
-        //        data: dates
-        //    }]
-        //});
-        //this.averageTimeData = barData;
     };
     ObservationFeedItemReport.prototype.updateListData = function () {
         var _this = this;
         if (this.model && this.summaryData && this.summaryData.surveyFeedResults) {
-            for (var _i = 0, _a = this.model.questions; _i < _a.length; _i++) {
-                var question = _a[_i];
-                var data = [];
+            console.log(this.summaryData.surveyFeedResults);
+            var _loop_2 = function (question) {
+                data = [];
                 question.answers.forEach(function (x) {
-                    data.push({
-                        percent: _this.summaryData.surveyFeedResults.filter(function (y) { return y.surverQuestionAnwerId == x.id; })[0].percentage,
-                        label: x.answer
-                    });
+                    try {
+                        data.push({
+                            percent: _this.summaryData.surveyFeedResults.find(function (y) { return y.surveyQuestionId == question.id; }).surveyAnswerSummaries.find(function (y) { return y.surverQuestionAnwerId == x.id; }).percentage,
+                            label: x.answer
+                        });
+                    }
+                    catch (e) {
+                        console.log(e);
+                    }
                 });
-                this.listData.push({
+                this_1.listData.push({
                     title: question.question,
                     data: data
                 });
+            };
+            var this_1 = this, data;
+            for (var _i = 0, _a = this.model.questions; _i < _a.length; _i++) {
+                var question = _a[_i];
+                _loop_2(question);
             }
             ;
         }

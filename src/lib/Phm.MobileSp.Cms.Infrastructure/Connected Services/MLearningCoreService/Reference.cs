@@ -2827,7 +2827,9 @@ namespace MLearningCoreService
         
         private System.Nullable<bool> EnabledField;
         
-        private string OrdetByField;
+        private System.Nullable<System.Guid> MasterIdField;
+        
+        private string OrderByField;
         
         private System.Nullable<int> PageNumberField;
         
@@ -2866,15 +2868,28 @@ namespace MLearningCoreService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string OrdetBy
+        public System.Nullable<System.Guid> MasterId
         {
             get
             {
-                return this.OrdetByField;
+                return this.MasterIdField;
             }
             set
             {
-                this.OrdetByField = value;
+                this.MasterIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string OrderBy
+        {
+            get
+            {
+                return this.OrderByField;
+            }
+            set
+            {
+                this.OrderByField = value;
             }
         }
         

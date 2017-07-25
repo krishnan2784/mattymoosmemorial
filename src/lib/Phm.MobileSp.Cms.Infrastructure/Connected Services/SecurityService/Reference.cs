@@ -1252,6 +1252,9 @@ namespace SecurityService
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Icon = 4,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        File = 5,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -1265,11 +1268,13 @@ namespace SecurityService
         
         private System.Nullable<bool> EnabledField;
         
-        private string OrdetByField;
+        private System.Nullable<System.Guid> MasterIdField;
         
-        private int PageNumberField;
+        private string OrderByField;
         
-        private int PageSizeField;
+        private System.Nullable<int> PageNumberField;
+        
+        private System.Nullable<int> PageSizeField;
         
         private System.Nullable<bool> PublishedField;
         
@@ -1304,20 +1309,33 @@ namespace SecurityService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string OrdetBy
+        public System.Nullable<System.Guid> MasterId
         {
             get
             {
-                return this.OrdetByField;
+                return this.MasterIdField;
             }
             set
             {
-                this.OrdetByField = value;
+                this.MasterIdField = value;
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int PageNumber
+        public string OrderBy
+        {
+            get
+            {
+                return this.OrderByField;
+            }
+            set
+            {
+                this.OrderByField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> PageNumber
         {
             get
             {
@@ -1330,7 +1348,7 @@ namespace SecurityService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int PageSize
+        public System.Nullable<int> PageSize
         {
             get
             {
@@ -1948,9 +1966,14 @@ namespace SecurityService
         
         private static System.ServiceModel.EndpointAddress GetEndpointAddress(EndpointConfiguration endpointConfiguration)
         {
-            if ((endpointConfiguration == EndpointConfiguration.BasicHttpBinding_ISecurityContract))
+            if (endpointConfiguration == EndpointConfiguration.BasicHttpBinding_ISecurityContract)
             {
+#if DEBUG
                 return new System.ServiceModel.EndpointAddress("http://mobilespapi.phm.co.uk/SecurityService.svc");
+
+#else
+                return new System.ServiceModel.EndpointAddress("http://mobilespapi-staging.azurewebsites.net/SecurityService.svc");
+#endif
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }

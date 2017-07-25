@@ -4,8 +4,6 @@ import * as IFeedItemComponents from "../../../interfaces/components/IFeedItemCo
 import Enums = require("../../../enums");
 import { BasePartialItemFormComponent } from "./basepartialfeeditem.component";
 
-declare var Materialize: any;
-
 @Component({
     selector: 'questionfeeditem',
     template: require('./basequestionfeeditem.component.html'),
@@ -57,7 +55,8 @@ export class BaseQuestionFeedItemFormComponent extends BasePartialItemFormCompon
     addQuestion() {
         const control = <FormArray>this.form.controls['questions'];
         control.push(this.initQuestion());
-        this.displayQuestion(control.length-1);
+        this.displayQuestion(control.length - 1);
+
     }
 
     removeQuestion(index: number) {
@@ -65,6 +64,7 @@ export class BaseQuestionFeedItemFormComponent extends BasePartialItemFormCompon
         if (this.currentQuestion > 0)
             this.displayQuestion(this.currentQuestion - 1);
         questions.removeAt(index);
+        this.form.markAsDirty();
     }
 
     addAnswer() {
@@ -75,6 +75,8 @@ export class BaseQuestionFeedItemFormComponent extends BasePartialItemFormCompon
     removeAnswer(index: number) {
         const control = this.currQuestion().controls['answers'];
         control.removeAt(index);
+        this.form.markAsDirty();
+
     }
 
     displayQuestion(index: number) {
@@ -82,8 +84,5 @@ export class BaseQuestionFeedItemFormComponent extends BasePartialItemFormCompon
         if (index < 0 || index > (questions.length - 1))
             return;
         this.currentQuestion = index;
-        setTimeout(function () {
-            Materialize.updateTextFields();
-        }, 10);  
     }
 }

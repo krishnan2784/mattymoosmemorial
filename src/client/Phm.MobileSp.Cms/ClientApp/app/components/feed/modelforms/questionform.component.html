@@ -8,8 +8,10 @@
     <input type="hidden" formControlName="published">
 
     <div class="input-field col-md-10 question-question-container">
-        <input id="questions-{{index}}-question" type="text" formControlName="question">
-        <label htmlFor="questions-{{index}}-question" [class.active]="form.controls.question.value.length>0">Question</label>
+        <textinput [form]="form" [formSubmitted]="submitted"
+                   [elementId]="'questions-' + index + '-question'"
+                   [formControlId]="'question'"
+                   [label]="'Question'"></textinput>
     </div>
     
     <div class="question-answer-container col-md-10">
@@ -54,9 +56,11 @@
                     </div>
                     
                     <div class="answer-answer-container input-field col-md-9">
-                        <input type="text" id="questions-{{index}}-answer-{{i}}-answer" formControlName="answer">
-                        <label htmlFor="questions-{{index}}-answer-{{i}}-answer" [class.active]="answer.controls.answer.value.length>0">Enter here</label>
+                        <textinput [form]="answer" [formSubmitted]="submitted" [elementId]="'questions-' + index + '-answer-' + i + '-answer'"
+                                   [formControlId]="'answer'"
+                                   [label]="'Enter here'"></textinput>
                     </div>
+
                     <a (click)="this.removeAnswer.emit(i)" [class.disabled]="form.controls.answers.controls.length < 3" class="btn">Delete Answer</a>
                 </div>
             </div>

@@ -18132,7 +18132,9 @@ namespace MobileSPCoreService
         
         private System.Nullable<bool> EnabledField;
         
-        private string OrdetByField;
+        private System.Nullable<System.Guid> MasterIdField;
+        
+        private string OrderByField;
         
         private System.Nullable<int> PageNumberField;
         
@@ -18171,15 +18173,28 @@ namespace MobileSPCoreService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string OrdetBy
+        public System.Nullable<System.Guid> MasterId
         {
             get
             {
-                return this.OrdetByField;
+                return this.MasterIdField;
             }
             set
             {
-                this.OrdetByField = value;
+                this.MasterIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string OrderBy
+        {
+            get
+            {
+                return this.OrderByField;
+            }
+            set
+            {
+                this.OrderByField = value;
             }
         }
         
@@ -34731,11 +34746,11 @@ namespace MobileSPCoreService
             {
 #if DEBUG
                 return new System.ServiceModel.EndpointAddress("http://mobilespapi.phm.co.uk/CoreService.svc");
+
 #else
                 return new System.ServiceModel.EndpointAddress("http://mobilespapi-staging.azurewebsites.net/CoreService.svc");
 #endif
             }
-
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }
         

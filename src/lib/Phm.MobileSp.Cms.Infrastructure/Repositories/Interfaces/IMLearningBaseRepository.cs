@@ -1,7 +1,9 @@
 ﻿namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
 {
-    public interface IMLearningBaseRepository : IBaseRepository
+    public interface IMLearningBaseRepository
     {
+        IBaseRepository _baseRepo { get; set; }
+
         TRequestBase GetRequest<TRequestBase>(TRequestBase request)
             where TRequestBase : MLearningCoreService.RequestBase;
 

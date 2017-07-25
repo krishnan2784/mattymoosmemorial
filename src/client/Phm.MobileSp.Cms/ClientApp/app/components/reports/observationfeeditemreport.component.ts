@@ -23,10 +23,8 @@ import DateEx = Date1.DateEx;
 import Userfiltercomponent = require("../common/filters/userfilter.component");
 import { SurveyFeed } from "../../models/feedclasses";
 import { Angular2Csv } from "angular2-csv/Angular2-csv";
+import { ObservationItemSummary } from "../../models/reportclasses";
 import UserFilters = Userfiltercomponent.UserFilters;
-
-declare var Materialize: any;
-declare var noUiSlider: any;
 
 @Component({
     selector: 'observationfeeditemreport',
@@ -69,14 +67,14 @@ export class ObservationFeedItemReport implements OnInit, AfterViewInit, OnDestr
     }
 
     private getData() {
-        this.feedDataService.getSurveyFeedSummaries(this.model.id).subscribe(result => {
+        this.feedDataService.getObservationFeedSummaries(this.model.id).subscribe(result => {
             if (result.content) {
-                this.summaryData = new SurveyItemSummary(result.content);
+                this.summaryData = new ObservationItemSummary(result.content);
                 this.updateGaugeData();
                 this.updateBarData();
                 this.updateListData();
             } else
-                this.summaryData = new SurveyItemSummary();
+                this.summaryData = new ObservationItemSummary();
             this.updateGaugeData();
             this.updateBarData();
             this.updateListData();
@@ -84,17 +82,6 @@ export class ObservationFeedItemReport implements OnInit, AfterViewInit, OnDestr
     }
 
     public updateGaugeData() {
-        //var gaugeData = new GaugeChartData({
-        //    height: 150,
-        //    showTooltip: true,
-        //    chartData: [
-        //        {
-        //            name: 'Submitted',
-        //            colour: '#9F378E',
-        //            data: (this.summaryData.submitted / this.summaryData.totalRecipents) * 100
-        //        }
-        //    ]
-        //});
         this.submissionRateData = (this.summaryData.submitted / this.summaryData.totalRecipents) * 100;
     }
 
@@ -114,31 +101,23 @@ export class ObservationFeedItemReport implements OnInit, AfterViewInit, OnDestr
             footerText: "Allocated time (days)",
             data: dates
         }
-
-
-        //var barData = new BarChartData({
-        //    width: 500,
-        //    showTooltip: true,
-        //    showYAxis: false,
-        //    showXAxis: true,
-        //    chartData: [{
-        //        name: 'Allocated time (days)',
-        //        colour: '#9F378E',
-        //        data: dates
-        //    }]
-        //});
-        //this.averageTimeData = barData;
     }
 
     public updateListData() {
         if (this.model && this.summaryData && this.summaryData.surveyFeedResults) {
+            console.log(this.summaryData.surveyFeedResults);
+
             for (let question of this.model.questions) {
-                var data = []
+                var data = [];
                 question.answers.forEach(x => {
-                    data.push({
-                        percent: this.summaryData.surveyFeedResults.filter(y => y.surverQuestionAnwerId == x.id)[0].percentage,
-                        label: x.answer
-                    });
+                    try {
+                        data.push({
+                            percent: this.summaryData.surveyFeedResults.find(y => y.surveyQuestionId == question.id).surveyAnswerSummaries.find(y => y.surverQuestionAnwerId == x.id).percentage,
+                            label: x.answer
+                        });
+                    } catch (e) {
+                        console.log(e);
+                    }
                 });
                 this.listData.push({
                     title: question.question,

@@ -25,8 +25,9 @@ namespace Phm.MobileSp.Cms.Controllers.API
     {
         private readonly IMediaRepository _mediaRepository;
         private readonly IMarketRepository _marketRepository;
-        public MediaController(IMediaRepository mediaRepository, IMemoryCache memoryCache, IMarketRepository marketRepository,
-         IBaseRequest baseRequest, IBaseCriteria baseCriteria) : base(memoryCache, baseRequest, baseCriteria){
+        public MediaController(IBaseRepository baseRepo, IMediaRepository mediaRepository, IMemoryCache memoryCache, IMarketRepository marketRepository) : base(baseRepo, memoryCache){
+            mediaRepository._baseRepo = _baseRepo;
+            marketRepository._baseRepo = _baseRepo;
             _mediaRepository = mediaRepository;
             _marketRepository = marketRepository;
         }

@@ -22,9 +22,10 @@ namespace Phm.MobileSp.Cms.Controllers
         private readonly IUserRepository _userRepository;
         private readonly IMarketRepository _marketRepository;
 
-        public MarketController(IMemoryCache memoryCache, IUserRepository userRepository, IMarketRepository marketRepository,
-         IBaseRequest baseRequest, IBaseCriteria baseCriteria) : base(memoryCache, baseRequest, baseCriteria)
+        public MarketController(IBaseRepository baseRepo,  IMemoryCache memoryCache, IUserRepository userRepository, IMarketRepository marketRepository) : base(baseRepo, memoryCache)
         {
+            userRepository._baseRepo = _baseRepo;
+            marketRepository._baseRepo = _baseRepo;
             _userRepository = userRepository;
             _marketRepository = marketRepository;
         }
@@ -55,7 +56,6 @@ namespace Phm.MobileSp.Cms.Controllers
             ValidMarket:
             ClearMarketCache();
             CurrentMarketId = marketId;
-            _userRepository.SetMarketId(marketId);
             return new JsonResult(true);
         }
 

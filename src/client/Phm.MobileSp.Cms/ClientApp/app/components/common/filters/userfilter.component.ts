@@ -39,8 +39,7 @@ export class UserFilter implements AfterViewInit, OnDestroy {
     public criteria: UserFilters = new UserFilters();
 
     constructor(private sharedService: ShareService, public marketDataService: MarketDataService, public userDataService: UserDataService) { 
-        this.getMarketFilters();
-        this.setupSubscriptions();
+
     }
     
     ngAfterViewInit() {
@@ -48,6 +47,8 @@ export class UserFilter implements AfterViewInit, OnDestroy {
             setTimeout(() => {
                 this.setupRangeSlider();
             }, 10);
+        this.getMarketFilters();
+        this.setupSubscriptions();
     }
 
     ngOnDestroy() {
@@ -105,11 +106,12 @@ export class UserFilter implements AfterViewInit, OnDestroy {
                     result.userGroupNames.forEach((group) => {
                         this.criteria.allUserGroupFilters.push({ id: group.id, text: group.name, checked: false });
                     });
+
                 } else {
                     this.renderUserGroupFilter = false;
                 }
             });
-        }
+        } 
 
     }
 

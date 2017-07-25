@@ -43,7 +43,7 @@ export class MarketDropdown implements AfterViewInit {
 
     updateCurrentMarket(newMarket: UserMarket) {
         this.marketDataService.updateCurrentMarketId(this.currentMarket.id).subscribe((result) => {
-            if (result) {
+            if (result && this.userMarkets!=null) {
                 this.currentMarket = this.userMarkets.find(x => x.id === newMarket.id);
                 this.sharedService.updateMarket(this.currentMarket);
             }

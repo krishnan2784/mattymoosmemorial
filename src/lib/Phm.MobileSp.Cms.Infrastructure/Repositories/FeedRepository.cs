@@ -15,9 +15,8 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
         private readonly IMLearningCoreContract _proxyClient;
         private readonly MobileSPCoreService.ICoreContract _proxyCoreClient;
 
-        public FeedRepository(IMLearningCoreContract proxyClient, MobileSPCoreService.ICoreContract proxyCoreClient, IBaseRequest baseRequest,
-            IBaseCriteria baseCriteria)
-            : base(baseRequest, baseCriteria)
+        public FeedRepository(IBaseRepository baseRepo, IMLearningCoreContract proxyClient, MobileSPCoreService.ICoreContract proxyCoreClient)
+            : base(baseRepo)
         {
             _proxyClient = proxyClient;
             _proxyCoreClient = proxyCoreClient;
@@ -115,6 +114,19 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
         }
 
         public async Task<dynamic> GetSurveyFeedSummaries(int feedItemId)
+        {
+            var request = GetRequest(new GetSurveyFeedSummariesRequest
+            {
+                Criteria = GetCriteria(new SurveyFeedSummaryCriteriaDto()
+                {
+                    SurveyFeedId = feedItemId
+                })
+            });
+            var response = await _proxyClient.GetSurveyFeedSummariesAsync(request);
+            return response.SurveySummaries.FirstOrDefault();
+        }
+
+        public async Task<dynamic> GetObservationFeedSummaries(int feedItemId)
         {
             var request = GetRequest(new GetSurveyFeedSummariesRequest
             {

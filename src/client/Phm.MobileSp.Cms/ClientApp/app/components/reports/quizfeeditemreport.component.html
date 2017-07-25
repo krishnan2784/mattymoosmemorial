@@ -96,13 +96,13 @@
                                     Users
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 Role
                             </div>
                             <div class="col-md-3">
                                 Dealership
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <span class="center">
                                     Status
                                 </span>
@@ -119,13 +119,13 @@
                                 <div class="col-md-3 border-bottom">
                                     {{quizResult.user.firstName}} {{quizResult.user.lastName}}
                                 </div>
-                                <div class="col-md-2 border-bottom">
+                                <div class="col-md-3 border-bottom">
                                     {{ quizResult.mainUserGroup }}
                                 </div>
                                 <div class="col-md-3 border-bottom">
                                     {{ quizResult.dealershipName }}
                                 </div>
-                                <div class="col-md-2 border-bottom">
+                                <div class="col-md-1 border-bottom">
                                     <img src="assets/images/Icon-Leaderboard-b.png" class="leaderboard-icon" *ngIf="quizResult.resultPercentage===100" />
                                     <span *ngIf="quizResult.resultPercentage!==100">{{ quizResult.resultPercentage }}%</span>
                                 </div>

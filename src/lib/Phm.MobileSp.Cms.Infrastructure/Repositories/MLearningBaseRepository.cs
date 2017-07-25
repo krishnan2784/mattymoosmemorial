@@ -4,13 +4,15 @@ using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 {
-    public abstract class MLearningBaseRepository : BaseRepository, IMLearningBaseRepository
+    public abstract class MLearningBaseRepository : IMLearningBaseRepository
     {
-        private new IBaseRequest BaseRequest => base.BaseRequest;
-        private new IBaseCriteria BaseRequestCriteria => base.BaseRequestCriteria;
+        public IBaseRepository _baseRepo { get; set; }
+        public IBaseRequest BaseRequest => _baseRepo.BaseRequest;
+        public IBaseCriteria BaseRequestCriteria => _baseRepo.BaseRequestCriteria;
 
-        protected MLearningBaseRepository(IBaseRequest baseRequest, IBaseCriteria baseCriteria) :base(baseRequest, baseCriteria)
+        protected MLearningBaseRepository(IBaseRepository baseRepo) 
         {
+            _baseRepo = baseRepo;
         }
 
         public TRequestBase GetRequest<TRequestBase>(TRequestBase request) where TRequestBase : MLearningCoreService.RequestBase

@@ -31,7 +31,6 @@ var QuizFeeditemreportcomponent = require("../quizfeeditemreport.component");
 var QuizFeedItemReport = QuizFeeditemreportcomponent.QuizFeedItemReport;
 var tabnavmenu_component_1 = require("../../navmenu/tabnavmenu.component");
 var surveyfeeditemreport_component_1 = require("../surveyfeeditemreport.component");
-var observationfeeditemreport_component_1 = require("../observationfeeditemreport.component");
 var FeedReportIndexComponent = (function (_super) {
     __extends(FeedReportIndexComponent, _super);
     function FeedReportIndexComponent(route, router, feedDataService, sharedService) {
@@ -88,6 +87,8 @@ var FeedReportIndexComponent = (function (_super) {
         });
     };
     FeedReportIndexComponent.prototype.sortFeed = function (feedItem) {
+        if (!feedItem)
+            return [];
         // basic ordering by Id descending, will need to replace with a more robust sorting mechanism / index management facility 
         return feedItem.sort(function (a, b) {
             if (a.id > b.id)
@@ -107,7 +108,7 @@ var FeedReportIndexComponent = (function (_super) {
         if (feedItem.feedType === FeedTypeEnum.Survey)
             report = surveyfeeditemreport_component_1.SurveyFeedItemReport;
         if (feedItem.feedType === FeedTypeEnum.Observation)
-            report = observationfeeditemreport_component_1.ObservationFeedItemReport;
+            report = surveyfeeditemreport_component_1.SurveyFeedItemReport;
         this.updateMarketDropdownVisibility(false);
         this.updateTabNavItems();
         this.updateBackText(Enums.FeedTypeEnum[feedItem.feedType] + ' Reports');

@@ -24,6 +24,7 @@ import Userfiltercomponent = require("../common/filters/userfilter.component");
 import { SurveyFeed } from "../../models/feedclasses";
 import UserFilters = Userfiltercomponent.UserFilters;
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
+import { ObservationItemSummary } from "../../models/reportclasses";
 
 declare var Materialize: any;
 declare var noUiSlider: any;
@@ -71,12 +72,11 @@ export class SurveyFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     private getData() {
         this.feedDataService.getSurveyFeedSummaries(this.model.id).subscribe(result => {
             if (result.content) {
-                this.summaryData = new SurveyItemSummary(result.content);
+                this.summaryData = new ObservationItemSummary(result.content);
                 this.updateGaugeData();
                 this.updateBarData();
-                this.updateListData();
             } else
-                this.summaryData = new SurveyItemSummary();
+                this.summaryData = new ObservationItemSummary();
             this.updateGaugeData();
             this.updateBarData();
             this.updateListData();
@@ -143,14 +143,19 @@ export class SurveyFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public updateListData() {
+        this.listData = [];
         if (this.model && this.summaryData && this.summaryData.surveyFeedResults) {
             for (let question of this.model.questions) {
                 var data = []
                 question.answers.forEach(x => {
-                    data.push({
-                        percent: this.summaryData.surveyFeedResults.filter(y => y.surverQuestionAnwerId == x.id)[0].percentage,
-                        label: x.answer
-                    });
+                    try {
+                        data.push({
+                            percent: this.summaryData.surveyFeedResults.find(y => y.surveyQuestionId == question.id).surveyAnswerSummaries.find(y => y.surverQuestionAnwerId == x.id).percentage,
+                            label: x.answer
+                        });
+                    } catch (e) {
+                       console.log(e);
+                    }
                 });
                 this.listData.push({
                     title: question.question,
@@ -159,6 +164,7 @@ export class SurveyFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
             };
         }
     }
+
     handleReport() {
         new Angular2Csv(this.summaryData, this.model.title + DateEx.formatDate(new Date()));
     }

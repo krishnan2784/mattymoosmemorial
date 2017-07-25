@@ -90,6 +90,18 @@ export class SurveyItemSummary extends FeedItemSummary {
 }
 
 export class SurveyFeedResult extends BaseModel {
+    public surveyAnswerSummaries: SurveyFeedAnswerResult[];
+    public surveyQuestionId: number;
+    public surveySummaryId: number;
+    constructor(options: {} = {}) {
+        super(options);
+        this.surveyAnswerSummaries = options['surveyAnswerSummaries'];
+        this.surveyQuestionId = options['surveyQuestionId'] || 0;
+        this.surveySummaryId = options['surveySummaryId'] || 0;
+    }
+}
+
+export class SurveyFeedAnswerResult extends BaseModel {
     public surverQuestionAnwerId: number;
     public surveyQuestionSummaryId: number;
     public totalSelected: number;
@@ -107,6 +119,6 @@ export class ObservationItemSummary extends SurveyItemSummary {
     public observationFeedId: number;
     constructor(options: {} = {}) {
         super(options);
-        this.observationFeedId = options["observationFeedId"] || 0;
+        this.observationFeedId = options["surveyFeedId"] || 0;
     }
 }

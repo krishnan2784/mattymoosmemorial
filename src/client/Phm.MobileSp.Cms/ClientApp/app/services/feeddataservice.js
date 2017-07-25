@@ -26,6 +26,7 @@ require("rxjs/add/operator/map");
 require("rxjs/add/operator/publishReplay");
 var requesthelper_1 = require("./helpers/requesthelper");
 var Enums = require("../enums");
+var date_1 = require("../classes/helpers/date");
 var CopiedElementTypeEnum = Enums.CopiedElementTypeEnum;
 var FeedDataService = (function (_super) {
     __extends(FeedDataService, _super);
@@ -95,15 +96,19 @@ var FeedDataService = (function (_super) {
     FeedDataService.prototype.getSurveyFeedSummaries = function (feedItemId) {
         return this.getRequestFull('/api/Feed/GetSurveyFeedSummaries?feedItemId=' + feedItemId);
     };
+    FeedDataService.prototype.getObservationFeedSummaries = function (feedItemId) {
+        return this.getRequestFull('/api/Feed/GetObservationFeedSummaries?feedItemId=' + feedItemId);
+    };
     FeedDataService.prototype.getLeaderBoard = function (startDate, endDate) {
         if (startDate === void 0) { startDate = null; }
         if (endDate === void 0) { endDate = null; }
         var requestUrl = '/api/Feed/GetLeaderBoard';
+        console.log(startDate, endDate);
         if (startDate || endDate) {
             requestUrl = requestUrl + '?'
-                + (startDate ? 'startDate=' + startDate : '')
+                + (startDate ? 'startDate=' + date_1.DateEx.formatDate(startDate) : '')
                 + (startDate && endDate ? '&' : '')
-                + (endDate ? 'endDate=' + endDate : '');
+                + (endDate ? 'endDate=' + date_1.DateEx.formatDate(endDate) : '');
         }
         return this.getRequestBase(requestUrl);
     };

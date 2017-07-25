@@ -19,8 +19,8 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
     {
         private readonly ICoreContract _proxyClient;
         private readonly IConfigurationRoot _config;
-        public MediaRepository(ICoreContract proxyClient, IBaseRequest baseRequest, IBaseCriteria baseCriteria)
-            : base(baseRequest, baseCriteria)
+        public MediaRepository(IBaseRepository baseRepo, ICoreContract proxyClient)
+            : base(baseRepo)
         {
             _proxyClient = proxyClient;
             var builder = new ConfigurationBuilder()

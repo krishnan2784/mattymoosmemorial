@@ -26,6 +26,7 @@ import { MediaInfo } from "../../../models/mediainfoclasses";
 import { MediaTypes } from "../../../enums";
 import { ImageFeedItemFormComponent } from "./imagefeeditem.component";
 import { VideoFeedItemFormComponent } from "./videofeeditem.component";
+import { DateEx } from "../../../classes/helpers/date";
 import ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationFeedItemFormComponent;
 import BaseFeed = Feedclasses.BaseFeed;
 declare var $: any;
@@ -65,6 +66,11 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
 
     public feedFormSteps: FeedFormSteps = new FeedFormSteps();
     public navbarData = [];
+
+    minDay;
+    minMonth;
+    minYear;
+
     constructor(fb: FormBuilder, public http: Http, public route: ActivatedRoute,
         private router: Router, public feedDataService: FeedDataService, private injector: Injector, public sharedService: ShareService) {
         
@@ -159,6 +165,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     updateForm() {
         if (this.model && this.model.id > 0) {
             (this.form).patchValue(this.model, { onlySelf: true });
+            this.setMinDate(new Date(this.model.startDate));
             setTimeout(() => {
                 Materialize.updateTextFields();
             }, 10);  
@@ -168,7 +175,6 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             this.form.controls['startDate'].patchValue(this.model.startDate, { onlySelf: true });
             this.form.controls['endDate'].patchValue(this.model.endDate, { onlySelf: true });
         }
-        console.log('button');
         this.form.updateValueAndValidity();
     }
 
@@ -212,6 +218,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             return;
 
         feedItem = new this.subForm.feedModelType(feedItem);
+        feedItem.callToActionUrl = feedItem.callToActionUrl.indexOf('http') == 0 ? feedItem.callToActionUrl : 'http://' + feedItem.callToActionUrl;
 
         this.feedDataService.updateFeeditem(this.subForm.updateUrl, feedItem).subscribe(result => {
             if (result.success) {
@@ -224,9 +231,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
 
     public updateMaterialize() {
         setTimeout(function () {
-            $('.materialize-textarea').each(function () {
-                $(this).trigger('autoresize');
-            });
+            $('#bodyText').trigger('autoresize');
 
             //Materialize.updateTextFields();
             //$('.datepicker').pickadate({
@@ -236,6 +241,30 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             //    formatSubmit: 'yyyy/mm/dd'
             //});
         }, 1);
+    }
+
+    handleStartDate(e) {
+        this.minDay = e.day;
+        this.minMonth = e.month;
+        this.minYear = e.year;
+        this.model.startDate = e.serverAcceptedDate;
+        this.form.controls['startDate'].setValue(e.serverAcceptedDate);
+        if (new Date(this.model.endDate) < e.fullDate) {
+            this.handleEndDate(e);
+        }
+        this.form.markAsDirty();
+    }
+
+    handleEndDate(e) {
+        this.model.endDate = e.fullDate;
+        this.form.controls['endDate'].setValue(e.fullDate);
+        this.form.markAsDirty();
+    }
+
+    setMinDate(date) {
+        this.minDay = date.getDate();
+        this.minMonth = date.getMonth();
+        this.minYear = date.getFullYear();
     }
 
     goBack() {

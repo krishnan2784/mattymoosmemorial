@@ -17,6 +17,9 @@ export class LbrefineComponent implements AfterViewInit {
   date2;
   rangeFrom = 0;
   rangeTo = 100;
+  minDay;
+  minMonth;
+  minYear;
   ngAfterViewInit() {
       $("#sliderElement").ionRangeSlider({
           type:"double",
@@ -68,5 +71,20 @@ export class LbrefineComponent implements AfterViewInit {
       this.rangeFrom = 0;
       this.rangeTo = 100;
       this.broadcastChanges();
+  }
+  handleStartDate(e) {
+      this.date1 = e.fullDate;
+      this.setMinDate(e.fullDate);
+      if (this.date2 && new Date(this.date2) < e.fullDate) {
+          this.handleEndDate(e);
+      }
+  }
+  handleEndDate(e) {
+      this.date2 = e.fullDate;
+  }
+  setMinDate(date) {
+      this.minDay = date.getDate();
+      this.minMonth = date.getMonth();
+      this.minYear = date.getFullYear();
   }
 }

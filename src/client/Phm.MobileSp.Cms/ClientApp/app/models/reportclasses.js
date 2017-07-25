@@ -83,21 +83,34 @@ var SurveyFeedResult = (function (_super) {
     function SurveyFeedResult(options) {
         if (options === void 0) { options = {}; }
         var _this = _super.call(this, options) || this;
+        _this.surveyAnswerSummaries = options['surveyAnswerSummaries'];
+        _this.surveyQuestionId = options['surveyQuestionId'] || 0;
+        _this.surveySummaryId = options['surveySummaryId'] || 0;
+        return _this;
+    }
+    return SurveyFeedResult;
+}(BaseModel));
+exports.SurveyFeedResult = SurveyFeedResult;
+var SurveyFeedAnswerResult = (function (_super) {
+    __extends(SurveyFeedAnswerResult, _super);
+    function SurveyFeedAnswerResult(options) {
+        if (options === void 0) { options = {}; }
+        var _this = _super.call(this, options) || this;
         _this.surverQuestionAnwerId = options['surverQuestionAnwerId'] || 0;
         _this.surveyQuestionSummaryId = options['surveyQuestionSummaryId'] || 0;
         _this.totalSelected = options['totalSelected'] || 0;
         _this.percentage = options['percentage'] || 0;
         return _this;
     }
-    return SurveyFeedResult;
+    return SurveyFeedAnswerResult;
 }(BaseModel));
-exports.SurveyFeedResult = SurveyFeedResult;
+exports.SurveyFeedAnswerResult = SurveyFeedAnswerResult;
 var ObservationItemSummary = (function (_super) {
     __extends(ObservationItemSummary, _super);
     function ObservationItemSummary(options) {
         if (options === void 0) { options = {}; }
         var _this = _super.call(this, options) || this;
-        _this.observationFeedId = options["observationFeedId"] || 0;
+        _this.observationFeedId = options["surveyFeedId"] || 0;
         return _this;
     }
     return ObservationItemSummary;

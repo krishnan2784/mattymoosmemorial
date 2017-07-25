@@ -16,8 +16,8 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
         private readonly ICoreContract _proxyClient;
         private readonly ISecurityContract _securityClient;
 
-        public UserRepository(ICoreContract proxyClient, ISecurityContract securityClient, IBaseRequest baseRequest, IBaseCriteria baseCriteria)
-            : base(baseRequest, baseCriteria)
+        public UserRepository(IBaseRepository baseRepo, ICoreContract proxyClient, ISecurityContract securityClient)
+            : base(baseRepo)
         {
             _proxyClient = proxyClient;
             _securityClient = securityClient;
@@ -40,11 +40,15 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             }
             catch (Exception ex)
             {
-                message = $"An error occurred while attempting to access MobileSP. Please try again. <span class=\"hidden\">{ex.Message}</span>";
+                if (ex.Message == "Managed Exception")
+                    message = "Your username or password is incorrect. Please try again.";
+                else
+                    message = $"An error occurred while attempting to access MobileSP. Please try again. <span class=\"hidden\">{ex.Message}</span>";
             }
 
             if (applicationUser.ValidUser)
             {
+                _baseRepo.SetAuthToken(applicationUser.SessionGuid);
                 applicationUser.UserRoles = await GetUserRoles(applicationUser);
                 applicationUser.UserConfigurations = await GetUserConfigurationsByUserId(applicationUser.UserDetails.Id);
                 applicationUser.UserDetails.DefaultMarketId = applicationUser.UserConfigurations.FirstOrDefault(x=>x.IsDefault).MarketId;
@@ -74,7 +78,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             return applicationUser;
         }
 
-        public async Task<IEnumerable<string>> GetUserRoles(IApplicationUser user)
+        public async Task<IEnumerable<string>> GetUserRoles(ApplicationUser user)
         {
             // not yet implemented 
             var list = new List<string>();

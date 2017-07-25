@@ -10,6 +10,12 @@ export class GaugeGraphComponent implements  OnChanges, OnInit {
   deg2;
   percText = this.percent;
   ngOnInit() {
+      if (typeof this.percent === "string")
+          this.percent = parseFloat(this.percent).toFixed(2);
+
+      if (typeof this.percent === "number")
+          this.percent = this.percent.toFixed(2);
+
     this.percText = this.percent;
     this.deg = "rotate(" + this.percToRotate(this.percent) +"deg)";
     this.deg2 = "rotate(" + (-90 + (this.percToRotate(this.percent))) +"deg)";
