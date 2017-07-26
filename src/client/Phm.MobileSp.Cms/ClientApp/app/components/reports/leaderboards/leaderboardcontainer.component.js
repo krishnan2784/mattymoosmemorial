@@ -52,6 +52,7 @@ var LeaderboardContainer = (function (_super) {
     LeaderboardContainer.prototype.setupSubscriptions = function () {
         var _this = this;
         this.sharedService.marketUpdated.subscribe(function (market) {
+            _this.removeTooltip();
             if (_this.loading)
                 return;
             _this.updateMarket();
