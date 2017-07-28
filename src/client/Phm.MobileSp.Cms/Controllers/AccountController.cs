@@ -1,43 +1,34 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.ApplicationInsights;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
+using Newtonsoft.Json;
+using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Helpers;
+using Phm.MobileSp.Cms.Helpers.Attributes;
+using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 
 namespace Phm.MobileSp.Cms.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Security.Claims;
-    using System.Threading.Tasks;
-
-    using Microsoft.ApplicationInsights;
-    using Microsoft.ApplicationInsights.DataContracts;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Caching.Memory;
-
-    using Newtonsoft.Json;
-
-    using Phm.MobileSp.Cms.Core.Models;
-    using Phm.MobileSp.Cms.Core.Models.Interfaces;
-    using Phm.MobileSp.Cms.Helpers.Attributes;
-    using Phm.MobileSp.Cms.Infrastructure;
-    using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
-
     [AiHandleError]
     public class AccountController : CacheController
     {
         /// <summary>
-        /// The user repository.
+        ///     The user repository.
         /// </summary>
         private readonly IUserRepository userRepository;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AccountController"/> class.
+        ///     Initializes a new instance of the <see cref="AccountController" /> class.
         /// </summary>
         /// <param name="memoryCache">
-        /// The memory cache.
+        ///     The memory cache.
         /// </param>
         /// <param name="userRepository">
-        /// The user repository.
+        ///     The user repository.
         /// </param>
         public AccountController(IMemoryCache memoryCache, IUserRepository userRepository) : base(memoryCache)
         {
@@ -67,19 +58,20 @@ namespace Phm.MobileSp.Cms.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             var response = await userRepository.GetUserAsync(loginDetails);
             var user = response.Item1;
-            
-            if (!user.ValidUser){
+
+            if (!user.ValidUser)
+            {
                 TempData["ErrorMessage"] = response.Item2;
                 return View(loginDetails);
             }
-            
+
             var claims = new List<Claim>
-                             {
-                                 new Claim("sessionguid", user.SessionGuid),
-                                 new Claim("userid", user.UserDetails.Id.ToString()),
-                                 new Claim("currentmarketid", user.UserDetails.DefaultMarketId.ToString()),
-                                 new Claim("name", user.UserDetails.Email)
-                             };
+            {
+                new Claim("sessionguid", user.SessionGuid),
+                new Claim("userid", user.UserDetails.Id.ToString()),
+                new Claim("currentmarketid", user.UserDetails.DefaultMarketId.ToString()),
+                new Claim("name", user.UserDetails.Email)
+            };
 
             try
             {

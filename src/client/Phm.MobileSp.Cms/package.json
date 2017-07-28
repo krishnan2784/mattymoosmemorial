@@ -1,5 +1,5 @@
 {
-  "name": "MobileSP-CMS",
+  "name": "mobilesp-cms",
   "version": "0.0.0",
   "dependencies": {
     "@angular/common": "2.0.0",
@@ -73,6 +73,13 @@
     "del": "^2.2.2",
     "grunt-contrib-less": "^1.4.0",
     "gulp": "^3.9.1",
+    "gulp-sass": "latest",
+    "gulp-less": "latest",
+    "gulp-rename": "latest",
+    "path": "latest",
+    "gulp-changed": "latest",
+    "gulp-typescript": "latest",
+    "gulp-clean": "latest",
     "webpack": "^1.15.0"
   },
   "engines": {

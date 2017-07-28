@@ -13,6 +13,7 @@
     <ApplicationIcon />
     <OutputTypeEx>exe</OutputTypeEx>
     <StartupObject />
+    <UserSecretsId>110a4d00-ce4c-4253-b287-798b16cc806c</UserSecretsId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AzureStaging|AnyCPU' ">
     <IntermediateOutputPath>obj\AzureStaging</IntermediateOutputPath>
@@ -23,6 +24,9 @@
     <NoWarn></NoWarn>
     <NoStdLib>false</NoStdLib>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Remove="package-lock.json" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="wwwroot\assets\images\Icon-Leaderboard-b.png" />
   </ItemGroup>
