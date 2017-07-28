@@ -224,7 +224,6 @@
     <textinput [form]="form" [formSubmitted]="submitted"
                [formControlId]="'points'"
                [(ngModel)]="model.points"
-               [required]
                [label]="'Reward Points'"
                [validationMessage]="'Reward points are required.'" 
                [class.hidden]="model.feedType == feedTypes.Observation"></textinput>
@@ -243,7 +242,6 @@
     <textinput [form]="form" [formSubmitted]="submitted"
                [formControlId]="'readingTime'"
                [label]="'Reading Time (mins)'"
-               [required]
                [(ngModel)]="model.readingTime"
                [validationMessage]="'Estimated time is required'" ></textinput>
 
