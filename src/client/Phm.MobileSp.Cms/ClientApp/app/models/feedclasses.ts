@@ -8,6 +8,7 @@ import Quizclasses = require("./quizclasses");
 import Surveyclasses = require("./surveyclasses");
 import Baseclasses = require("./baseclasses");
 import Corporateappclasses = require("./corporateappclasses");
+import CorporateApp = Corporateappclasses.CorporateApp;
 import Observationclasses = require("./observationclasses");
 import UserObservation = Observationclasses.UserObservation;
 import Date1 = require("../classes/helpers/date");
