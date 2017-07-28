@@ -31,7 +31,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
         public async Task<JsonResult> GetQuizFeedSummaries(int feedItemId)
         {
             var feedItemResponse = await _feedSummaryRepository.GetQuizFeedSummaries(feedItemId);
-            return Json(new BaseResponse(feedItemResponse));
+            return Json(new BaseResponse<dynamic>(feedItemResponse));
         }
 
         [HttpGet("[action]")]
@@ -39,7 +39,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
         public async Task<JsonResult> GetQuizResultsSummariesEX(int feedItemId, decimal lowerBoundary = 0, decimal higherBoundary = 0, int userGroupId = 0)
         {
             var feedItemResponse = await _quizSummaryRepository.GetQuizResultsSummariesEX(feedItemId, lowerBoundary, higherBoundary, userGroupId);
-            return Json(new BaseResponse(feedItemResponse));
+            return Json(new BaseResponse<dynamic>(feedItemResponse));
         }
 
         [HttpGet("[action]")]
@@ -47,7 +47,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
         public async Task<JsonResult> GetSurveyFeedSummaries(int feedItemId)
         {
             var feedItemResponse = await _feedSummaryRepository.GetSurveyFeedSummaries(feedItemId);
-            return Json(new BaseResponse(feedItemResponse));
+            return Json(new BaseResponse<dynamic>(feedItemResponse));
         }
 
         [HttpGet("[action]")]
@@ -55,7 +55,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
         public async Task<JsonResult> GetObservationFeedSummaries(int feedItemId)
         {
             var feedItemResponse = await _feedSummaryRepository.GetObservationFeedSummaries(feedItemId);
-            return Json(new BaseResponse(feedItemResponse));
+            return Json(new BaseResponse<dynamic>(feedItemResponse));
         }
 
     }

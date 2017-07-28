@@ -16,16 +16,15 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
     {
         private readonly IMarketRepository _marketRepo;
         private readonly IUserConfigurationRepository _userConfigRepo;
-        public SecurityGroupsRepository(IOptions<ConnectionStrings> connStrings, IBaseRequest baseRequest, IBaseCriteria baseCriteria,
-            IMarketRepository marketRepo, IUserConfigurationRepository userConfigRepo)
-            : base(connStrings, baseRequest, baseCriteria, "SecurityGroups") {
+        public SecurityGroupsRepository(IHttpClientService client, IMarketRepository marketRepo, IUserConfigurationRepository userConfigRepo)
+            : base(client, "SecurityGroups") {
             _marketRepo = marketRepo;
             _userConfigRepo = userConfigRepo;
         }
 
-        public async Task<BaseResponse> GetSecGroupsAsync(int MarketId)
+        public async Task<BaseResponse<dynamic>> GetSecGroupsAsync(int MarketId)
         {
-            return await GetAsync<dynamic>(new { MarketId });
+            return GetAPIResponse<dynamic>(await GetAsync(new { MarketId }));
         }
     }
 }

@@ -6,6 +6,8 @@ using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using Newtonsoft.Json;
+using System.Net.Http;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 {
@@ -13,14 +15,11 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
     {
         private readonly IMarketRepository _marketRepo;
         private readonly IUserConfigurationRepository _userConfigRepo;
-        private IBaseRequest _baseRequest;
 
-        public UserRepository(IOptions<ConnectionStrings> connStrings, IBaseRequest baseRequest, IBaseCriteria baseCriteria,
-            IMarketRepository marketRepo, IUserConfigurationRepository userConfigRepo)
-            : base(connStrings, baseRequest, baseCriteria, "User") {
+        public UserRepository(IHttpClientService client, IMarketRepository marketRepo, IUserConfigurationRepository userConfigRepo)
+            : base(client, "User") {
             _marketRepo = marketRepo;
             _userConfigRepo = userConfigRepo;
-            _baseRequest = baseRequest;
         }
 
 
@@ -42,7 +41,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 
             if (applicationUser.ValidUser)
             {
-                _baseRequest.AccessToken = applicationUser.SessionGuid;
+                _clientService.SetAuthToken(applicationUser.SessionGuid);
                 applicationUser.UserConfigurations = await _userConfigRepo.GetUserConfigurationsByUserId(applicationUser.UserId);
                 applicationUser.UserDetails.DefaultMarketId = applicationUser.UserConfigurations.FirstOrDefault(x => x.IsDefault).MarketId;
             }
@@ -56,15 +55,18 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 
         private async Task<ApplicationUser> ValidateUser(string username, string password)
         {  
-            var response = await PostAsync<ApplicationUser>(new { Username = username, Password = password });
-            if (response?.Content == null)
-                return new ApplicationUser();
-            response.Content.UserDetails = new MLearningUser();
-            return response.Content;
+            var response = GetResponseModel<dynamic>(await PostAsync(new { Username = username, Password = password }));
+            var user = new ApplicationUser()
+            {
+                SessionGuid = response.SessionGUID.ToObject<string>(),
+                UserDetails = response.CurrentUser.ToObject<MLearningUser>()
+            };
+            return user; ;
         }
         
         public async Task<dynamic> GetCurrentUser() {
-            return await GetAsync<User>("CurrentUser");   
+            var response = await GetAsync("CurrentUser");
+            return GetResponseModel<User>(response);
         }
 
         public async Task<IEnumerable<UserMarket>> GetUserMarkets(int userId)

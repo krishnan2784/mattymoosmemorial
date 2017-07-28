@@ -13,6 +13,7 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using System.Net.Http;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 {
@@ -20,9 +21,9 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
     {
         private MicrosoftAzureStorage _azureConnStrings{ get;}
         private readonly IMediaInfoRepository _mediaInfoRepo;
-        public MediaRepository(IOptions<ConnectionStrings> connStrings, IOptions<MicrosoftAzureStorage> azureConnStrings, 
-            IBaseRequest baseRequest, IBaseCriteria baseCriteria, IMediaInfoRepository mediaInfoRepo)
-            : base(connStrings, baseRequest, baseCriteria, "")
+        public MediaRepository(IOptions<MicrosoftAzureStorage> azureConnStrings,
+            IHttpClientService client, IMediaInfoRepository mediaInfoRepo)
+            : base(client, "")
         {
             _azureConnStrings = azureConnStrings.Value;
             _mediaInfoRepo = mediaInfoRepo;

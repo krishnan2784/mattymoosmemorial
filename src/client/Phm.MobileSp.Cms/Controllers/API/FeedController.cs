@@ -53,7 +53,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
             feedItem.MarketId = CurrentMarketId;
             var feedItemResponse = await _feedRepository.CreateFeedItemAsync<TFeedItem, TDestinationDto>(feedItem);
             var success = feedItemResponse != null;
-            return Json(new BaseResponse(success, success ? "Feed item successfuly created" : "Failed to create feed item", feedItemResponse));
+            return Json(new BaseResponse<TFeedItem>(success, success ? "Feed item successfuly created" : "Failed to create feed item", feedItemResponse));
         }
 
         [HttpPost("[action]")]
@@ -66,7 +66,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
             
             var feedItemResponse = await _feedRepository.UpdateFeedItemAsync<TFeedItem, TDestinationDto>(feedItem);
             var success = feedItemResponse != null;
-            return Json(new BaseResponse(success, success ? "Feed item successfuly updated" : "Failed to update feed item", feedItemResponse));
+            return Json(new BaseResponse<TFeedItem>(success, success ? "Feed item successfuly updated" : "Failed to update feed item", feedItemResponse));
         }
 
         
@@ -102,7 +102,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
         public async Task<JsonResult> DeleteFeedItem([FromBody]int feedItemId)
         {
             var feedItemResponse = await _feedRepository.DeleteFeedItemAsync(feedItemId);
-            return Json(new BaseResponse(feedItemResponse, feedItemResponse ? "Feed item successfuly deleted" : "Failed to delete feed item", feedItemResponse));
+            return Json(new BaseResponse<bool>(feedItemResponse, feedItemResponse ? "Feed item successfuly deleted" : "Failed to delete feed item", feedItemResponse));
         }
         
         [HttpPost("[action]")]
@@ -110,7 +110,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
         public async Task<JsonResult> CopyFeedItemToMarket(int id, List<int> marketIds)
         {
             var feedItemResponse = await _feedRepository.CopyFeedItemToMarketAsync(id, marketIds);
-            return Json(new BaseResponse(feedItemResponse, feedItemResponse ? "Feed item successfuly copied" : "Failed to copy feed item", feedItemResponse));
+            return Json(new BaseResponse<bool>(feedItemResponse, feedItemResponse ? "Feed item successfuly copied" : "Failed to copy feed item", feedItemResponse));
         }
 
         //[JsonResponseWrapper]

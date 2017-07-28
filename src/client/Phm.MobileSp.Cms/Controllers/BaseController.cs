@@ -17,7 +17,6 @@ using Phm.MobileSp.Cms.Infrastructure.Repositories;
 namespace Phm.MobileSp.Cms.Controllers
 {
     [Authorize]
-    [ApiRequestWrapper]
     [AiHandleError]
     public class BaseController : CacheController
     {
@@ -33,7 +32,7 @@ namespace Phm.MobileSp.Cms.Controllers
         [ResponseCache(CacheProfileName = "NoCache")]
         public JsonResult GetAuthToken()
         {
-            return Json(new BaseResponse(AuthToken));
+            return Json(new BaseResponse<string>(AuthToken));
         }
 
         [HttpGet]

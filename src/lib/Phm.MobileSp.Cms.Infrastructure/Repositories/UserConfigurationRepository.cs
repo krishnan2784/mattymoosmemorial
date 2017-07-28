@@ -10,16 +10,15 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
     public class UserConfigurationRepository : BaseRepository, IUserConfigurationRepository
     {
         private readonly IMarketRepository _marketRepo;
-        public UserConfigurationRepository(IOptions<ConnectionStrings> connStrings, IBaseRequest baseRequest, IBaseCriteria baseCriteria,
-            IMarketRepository marketRepo)
-            : base(connStrings, baseRequest, baseCriteria, "UserConfiguration") {
+        public UserConfigurationRepository(IHttpClientService client, IMarketRepository marketRepo)
+            : base(client, "UserConfiguration") {
             _marketRepo = marketRepo;
         }
 
         public async Task<List<UserConfiguration>> GetUserConfigurationsByUserId(int UserId)
         {
-            var response = await PostAsync<dynamic>(new { Criteria = new{ UserId } });
-            return response.Content?.UserConfigurations != null ? response.Content.UserConfigurations.ToObject<List<UserConfiguration>>() : new List<UserConfiguration>();
+            var response = GetResponseModel<List<UserConfiguration>>(await PostAsync(new { Criteria = new{ UserId } }));
+            return response;
         }
     }
 

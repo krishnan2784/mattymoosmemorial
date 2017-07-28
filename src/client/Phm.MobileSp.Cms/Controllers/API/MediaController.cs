@@ -13,10 +13,8 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Caching.Memory;
 using Phm.MobileSp.Cms.Core.Models;
-using Phm.MobileSp.Cms.Helpers;
 using Phm.MobileSp.Cms.Helpers.Attributes;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
-using Phm.MobileSp.Cms.Core.Models.Interfaces;
 
 namespace Phm.MobileSp.Cms.Controllers.API
 {
@@ -34,7 +32,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
         public async Task<JsonResult> UploadFile(IFormFile file) {
             var markets = await _marketRepository.GetMarketsAsync();
             var response = await _mediaRepository.UploadFile(file, markets.FirstOrDefault(x => x.Id == CurrentMarketId));
-            return Json(new BaseResponse(response));
+            return Json(new BaseResponse<MediaInfo>(response));
         }
 
     }

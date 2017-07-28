@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Phm.MobileSp.Cms.Core.Models;
@@ -15,144 +16,130 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 {
     public class BaseRepository : IBaseRepository
     {
-        private HttpClient _client = new HttpClient();
-        private ConnectionStrings _connStrings;
-        private IBaseRequest _baseRequest;
-        private IBaseCriteria _baseCriteria;
+        public IHttpClientService _clientService;
+        private HttpClient _client { get { return _clientService._client; } }
         private string _repoUrl;
 
-        protected BaseRepository(IOptions<ConnectionStrings> connStrings, IBaseRequest baseRequest, IBaseCriteria baseCriteria,  
-            string repoUrl)
+        protected BaseRepository(IHttpClientService clientService, string repoUrl)
         {
-            _connStrings = connStrings.Value;
+            _clientService = clientService;
             _repoUrl = repoUrl;
-            _client.DefaultRequestHeaders.Accept.Clear();
-            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            _client.BaseAddress = new Uri(_connStrings.API);
-            _baseRequest = baseRequest;
-            _baseCriteria = baseCriteria;
         }
 
-        public async Task<BaseResponse> GetAsync<T>()
+        public async Task<BaseRepoResponse> GetAsync()
         {
-            ValidateRquest();
             HttpResponseMessage response = await _client.GetAsync(_repoUrl);
-            return await GetResponse<T>(response);
+            return await GetResponse(response);
         }
 
-        public async Task<BaseResponse> GetAsync<T>(int id)
+        public async Task<BaseRepoResponse> GetAsync(int id)
         {
-            ValidateRquest();
             HttpResponseMessage response = await _client.GetAsync($"{_repoUrl}/{ id}");
-            return await GetResponse<T>(response, false);
+            return await GetResponse(response, false);
         }
 
-        public async Task<BaseResponse> GetAsync<T>(string request)
+        public async Task<BaseRepoResponse> GetAsync(string request)
         {
-            ValidateRquest();
             HttpResponseMessage response = await _client.GetAsync(request);
-            return await GetResponse<T>(response, false);
+            return await GetResponse(response, false);
         }
 
-        public async Task<BaseResponse> GetAsync<T>(dynamic criteria)
+        public async Task<BaseRepoResponse> GetAsync(dynamic criteria)
         {
-            ValidateRquest();
             HttpResponseMessage response = await _client.PostAsync(_repoUrl, GetRequestBody(criteria));
-            return await GetResponse<T>(response, false);
+            return await GetResponse(response, false);
         }
 
-        public async Task<BaseResponse> GetAsync<T>(string request, dynamic criteria)
+        public async Task<BaseRepoResponse> GetAsync(string request, dynamic criteria)
         {
-            ValidateRquest();
             HttpResponseMessage response = await _client.PostAsync(request, GetRequestBody(criteria));
-            return await GetResponse<T>(response, false);
+            return await GetResponse(response, false);
         }
         
-        public async Task<BaseResponse> CreateAsync<T>(dynamic model)
+        public async Task<BaseRepoResponse> CreateAsync(dynamic model)
         {
-            ValidateRquest();
             HttpResponseMessage response = await _client.PostAsync(_repoUrl, model);
-            return await GetResponse<T>(response);
+            return await GetResponse(response);
         }
 
-        public async Task<BaseResponse> UpdateAsync<T>(dynamic model)
+        public async Task<BaseRepoResponse> UpdateAsync(dynamic model)
         {
-            ValidateRquest();
             HttpResponseMessage response = await _client.PutAsync($"{_repoUrl}/{model.Id}", GetRequestBody(model));
-            return await GetResponse<T>(response);
+            return await GetResponse(response);
         }
 
-        public async Task<BaseResponse> DeleteAsync<T>(int id)
+        public async Task<BaseRepoResponse> DeleteAsync(int id)
         {
-            ValidateRquest();
             HttpResponseMessage response = await _client.DeleteAsync($"{_repoUrl}/{id}");
-            return await GetResponse<T>(response);
+            return await GetResponse(response);
         }
 
-        public async Task<BaseResponse> PostAsync<T>(dynamic model)
+        public async Task<BaseRepoResponse> PostAsync(dynamic model)
         {
-            ValidateRquest();
             HttpResponseMessage response = await _client.PostAsync(_repoUrl, GetRequestBody(model));
-            return await GetResponse<T>(response);
+            return await GetResponse(response);
         }
 
-        public async Task<BaseResponse> PostAsync<T>(string request, dynamic model)
+        public async Task<BaseRepoResponse> PostAsync(string request, dynamic model)
         {
-            ValidateRquest();
             HttpResponseMessage response = await _client.PostAsync(request, GetRequestBody(model));
-            return await GetResponse<T>(response);
+            return await GetResponse(response);
         }
 
-        public async Task<BaseResponse> PutAsync<T>(dynamic model)
+        public async Task<BaseRepoResponse> PutAsync(dynamic model)
         {
-            ValidateRquest();
             HttpResponseMessage response = await _client.PutAsync($"{_repoUrl}/{model.Id}", GetRequestBody(model));
-            return await GetResponse<T>(response);
+            return await GetResponse(response);
         }
 
-        public async Task<BaseResponse> PutAsync<T>(string request, dynamic model)
+        public async Task<BaseRepoResponse> PutAsync(string request, dynamic model)
         {
-            ValidateRquest();
             HttpResponseMessage response = await _client.PutAsync($"{request}/{model.Id}", GetRequestBody(model));
-            return await GetResponse<T>(response);
+            return await GetResponse(response);
         }
 
-        private void ValidateRquest()
-        {
-            if (!string.IsNullOrWhiteSpace(_baseRequest.AccessToken))
-            {
-                _client.DefaultRequestHeaders.Add("Authorization", _baseRequest.AccessToken);
-                _client.DefaultRequestHeaders.Add("AccessToken", _baseRequest.AccessToken);
-            }
-        }
-
-        private async Task<BaseResponse> GetResponse<T>(HttpResponseMessage response, bool ensureSuccess = true)
+        private async Task<BaseRepoResponse> GetResponse(HttpResponseMessage response, bool ensureSuccess = true)
         {
             //if (ensureSuccess)
             //    response.EnsureSuccessStatusCode();
-
-            dynamic model = null;
+            
             var success = response.IsSuccessStatusCode;
             string message = "";
 
             var responseString = await response.Content.ReadAsStringAsync();
-            if (success)
+            if (!success && !string.IsNullOrEmpty(responseString))
             {
-                model = JsonConvert.DeserializeObject<T>(responseString);
-            }
-            else
-            {
-                if (!string.IsNullOrEmpty(responseString))
+                try
                 {
-                    try
-                    {
-                        message = ((dynamic)JsonConvert.DeserializeObject(responseString)).Message;
-                    } catch (Exception e)
-                    {
-                    }
+                    message = ((dynamic)JsonConvert.DeserializeObject(responseString)).Message;
+                } catch (Exception e)
+                {
                 }
             }
-            return new BaseResponse(success, message, model);
+            return new BaseRepoResponse(success, message, responseString);
+        }
+
+        public T GetResponseModel<T>(BaseRepoResponse response)
+        {
+            if (!response.Success)
+                return (T)Activator.CreateInstance(typeof(T));
+            else
+                return JsonConvert.DeserializeObject<T>(response.StringifiedObject);
+        }
+
+        public BaseResponse<T> GetAPIResponse<T>(BaseRepoResponse response)
+        {
+            return new BaseResponse<T>(response.Success, response.Message, GetResponseModel<T>(response));
+        }
+
+        public BaseResponse<T> GetAPIResponse<T>(BaseRepoResponse response, string successMessage="", string failMessage="")
+        {
+            if (response.Success && !string.IsNullOrEmpty(successMessage))
+                response.Message = successMessage;
+            else if (!string.IsNullOrEmpty(failMessage))
+                response.Message = successMessage;
+
+            return new BaseResponse<T>(response.Success, response.Message, GetResponseModel<T>(response));
         }
 
         public dynamic GetRequestBody(dynamic model)

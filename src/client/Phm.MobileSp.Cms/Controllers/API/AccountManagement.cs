@@ -39,7 +39,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
         public async Task<JsonResult> GetCurrentUser()
         {
             var response = await _userRepository.GetCurrentUser();
-            return Json(new BaseResponse(response));
+            return Json(new BaseResponse<User>(response));
         }
 
         [HttpGet("[action]")]
@@ -48,7 +48,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
         public async Task<JsonResult> GetUsers(int? userId = null)
         {
             var response = await _userTemplateRepository.GetUsersAsync(CurrentMarketId, userId);
-            return Json(new BaseResponse(response));
+            return Json(new BaseResponse<dynamic>(response));
         }
         
         [HttpGet("[action]")]

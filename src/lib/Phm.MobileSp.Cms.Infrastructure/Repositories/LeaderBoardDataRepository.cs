@@ -13,18 +13,17 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 {
     public class LeaderBoardDataRepository : BaseRepository, ILeaderBoardDataRepository
     {
-        public LeaderBoardDataRepository(IOptions<ConnectionStrings> connStrings, IBaseRequest baseRequest, IBaseCriteria baseCriteria)
-            : base(connStrings, baseRequest, baseCriteria, "LeaderBoardData") {       }
+        public LeaderBoardDataRepository(IHttpClientService client) : base(client, "LeaderBoardData") {       }
 
 
         public async Task<dynamic> GetLeaderBoard(int currentMarketId, DateTime? startDate = null, DateTime? endDate = null)
         {
-            var response = await GetAsync<dynamic>(
+            var response = GetResponseModel<dynamic>(await GetAsync(
                 new {
                     MarketId = currentMarketId,
                     StartDate = startDate,
                     EndDate = endDate
-                });
+                }));
             return response?.Content.First();
         }        
 

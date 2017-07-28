@@ -9,48 +9,47 @@ using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 using SecurityService;
 using AutoMapper;
 using Microsoft.Extensions.Options;
+using System.Net.Http;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 {
     public class UserTemplateRepository : BaseRepository, IUserTemplateRepository
     {
         private readonly IMarketRepository _marketRepo;
-        public UserTemplateRepository(IOptions<ConnectionStrings> connStrings, IBaseRequest baseRequest, IBaseCriteria baseCriteria,
-            IMarketRepository marketRepo)
-            : base(connStrings, baseRequest, baseCriteria, "UserTemplate") {
+        public UserTemplateRepository(IHttpClientService client, IMarketRepository marketRepo) : base(client, "UserTemplate") {
             _marketRepo = marketRepo;
         }
 
         public async Task<dynamic> GetUsersAsync(int MarketId, int? UserId)
         {
-            return await GetAsync<dynamic>(new { MarketId, UserId });
+            return GetResponseModel<dynamic>(await GetAsync(new { MarketId, UserId }));
         }
 
-        public async Task<BaseResponse> CreateUserAsync(UserTemplate user)
+        public async Task<BaseResponse<UserTemplate>> CreateUserAsync(UserTemplate user)
         {
 
             try
             {
                 user.UserName = user.FirstName + user.LastName;
-                var response = await CreateAsync<UserTemplate>(user);
-                return new BaseResponse(response.Success, "Succesfully created " + user.FirstName, response.Content);
+                var response = await CreateAsync(user);
+                return GetAPIResponse<UserTemplate>(response, "Succesfully created " + user.FirstName);
             }
             catch (Exception ex)
             {
-                return new BaseResponse(false, ex.Message);
+                return new BaseResponse<UserTemplate>(false, ex.Message);
             }
         }
 
-        public async Task<BaseResponse> UpdateUserAsync(UserTemplate user)
+        public async Task<BaseResponse<UserTemplate>> UpdateUserAsync(UserTemplate user)
         {
             try
             {
-                var response = await UpdateAsync<UserTemplate>(user);
-                return new BaseResponse(response.Success, "Succesfully updated " + user.FirstName, response.Content);
+                var response = await UpdateAsync(user);
+                return GetAPIResponse<UserTemplate>(response, "Succesfully updated " + user.FirstName);
             }
             catch (Exception ex)
             {
-                return new BaseResponse(false, ex.Message);
+                return new BaseResponse<UserTemplate>(false, ex.Message);
             }
         }
     }

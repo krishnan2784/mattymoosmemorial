@@ -9,31 +9,42 @@ using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 using System;
 using Microsoft.Extensions.Options;
 using Phm.MobileSp.Cms.Core.Enumerations;
+using System.Net.Http;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 {
     public class FeedSummariesRepository : BaseRepository, IFeedSummariesRepository
     {
-        public FeedSummariesRepository(IOptions<ConnectionStrings> connStrings, IBaseRequest baseRequest, IBaseCriteria baseCriteria)
-            : base(connStrings, baseRequest, baseCriteria, "FeedSummaries") { }
+        public FeedSummariesRepository(IHttpClientService client) : base(client, "FeedSummaries") { }
 
         public async Task<dynamic> GetQuizFeedSummaries(int feedItemId)
         {
-            var response = await GetAsync<QuizSummaryDto>(new { feedItemId, ItemType = FeedTypeEnum.Quiz });
-            return response?.Content.First();
+            var response = GetResponseModel<IEnumerable<QuizSummaryDto>>(await GetAsync(new
+            {
+                feedItemId,
+                ItemType = FeedTypeEnum.Quiz
+            }));
+            return response?.First();
         }
 
         public async Task<dynamic> GetSurveyFeedSummaries(int feedItemId)
         {
-            var response = await GetAsync<SurveySummaryDto>(new { feedItemId, ItemType = FeedTypeEnum.Survey });
-            return response?.Content.First();
+            var response = GetResponseModel<IEnumerable<SurveySummaryDto>>(await GetAsync(new
+            {
+                feedItemId,
+                ItemType = FeedTypeEnum.Survey
+            }));
+            return response?.First();
         }
 
         public async Task<dynamic> GetObservationFeedSummaries(int feedItemId)
         {
             // TODO: Currently using survey call, observation call needs fixing in API.
-            var response = await GetAsync<SurveySummaryDto>(new { feedItemId, ItemType = FeedTypeEnum.Survey });
-            return response?.Content.First();
+            var response = GetResponseModel<IEnumerable<SurveySummaryDto>>(await GetAsync(new {
+                feedItemId,
+                ItemType = FeedTypeEnum.Survey
+            }));
+            return response.First();
         }
 
     }

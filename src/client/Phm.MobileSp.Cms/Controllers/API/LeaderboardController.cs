@@ -34,7 +34,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
         {
             endDate = endDate?.AddDays(1);
             var response = await _leaderboardRepo.GetLeaderBoard(CurrentMarketId, startDate, endDate);
-            return Json(new BaseResponse(response));
+            return Json(new BaseResponse<dynamic>(response));
         }
 
         [HttpGet("[action]")]
@@ -42,7 +42,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
         public async Task<JsonResult> GetUserPointsHistory(int userId, DateTime? startDate = null, DateTime? endDate = null)
         {
             var response = await _leaderboardUserRepo.GetUserPointsHistory(userId, startDate, endDate);
-            return Json(new BaseResponse(response));
+            return Json(new BaseResponse<dynamic>(response));
         }
 
     }

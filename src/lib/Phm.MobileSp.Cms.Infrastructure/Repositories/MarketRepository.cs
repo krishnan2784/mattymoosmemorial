@@ -9,28 +9,31 @@ using Phm.MobileSp.Cms.Infrastructure;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 using MLearningCoreService;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using System.Net.Http;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 {
     public class MarketRepository : BaseRepository, IMarketRepository
     {
-        public MarketRepository(IOptions<ConnectionStrings> connStrings, IBaseRequest baseRequest, IBaseCriteria baseCriteria)
-            : base(connStrings, baseRequest, baseCriteria, "Markets")
+        public MarketRepository(IHttpClientService client)
+            : base(client, "Markets")
         {
 
         }
 
         public async Task<IEnumerable<Market>> GetMarketsAsync()
         {
-            return (await GetAsync<Market>())?.Content;
+            var response = await GetAsync();
+            return GetResponseModel<IEnumerable<Market>>(response);
         }
 
         public async Task<IEnumerable<Market>> GetMarketsByMasterIdAsync(CopiedElementTypeEnum contentType, Guid masterId)
         {
-            return (await GetAsync<Market>("MasterMarket", new {
+            return GetResponseModel<List<Market>>(await GetAsync("MasterMarket", new {
                 ContentType = (CopiedElementTypeEnumDto)contentType,
                 MasterId = masterId
-            }))?.Content;
+            }));
         }
        
     }

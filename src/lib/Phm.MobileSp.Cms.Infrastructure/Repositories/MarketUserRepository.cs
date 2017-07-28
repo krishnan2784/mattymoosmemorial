@@ -14,14 +14,14 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 {
     public class MarketUserRepository : BaseRepository, IMarketUserRepository
     {
-        public MarketUserRepository(IOptions<ConnectionStrings> connStrings, IBaseRequest baseRequest, IBaseCriteria baseCriteria)
-            : base(connStrings, baseRequest, baseCriteria, "MarketUser")
+        public MarketUserRepository(IHttpClientService client)
+            : base(client, "MarketUser")
         {
 
         }
         public async Task<dynamic> GetMarketUserFilters(int marketId)
         {
-            return (await GetAsync<dynamic>(marketId)).Content;
+            return GetResponseModel<dynamic>(await GetAsync(marketId));
         }
     }
 }

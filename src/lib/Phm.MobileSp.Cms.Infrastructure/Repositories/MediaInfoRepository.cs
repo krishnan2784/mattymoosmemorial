@@ -4,19 +4,18 @@ using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Core.Models.Interfaces;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 using Microsoft.Extensions.Options;
+using System.Net.Http;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 {
     public class MediaInfoRepository : BaseRepository, IMediaInfoRepository
     {
-        public MediaInfoRepository(IOptions<ConnectionStrings> connStrings, IBaseRequest baseRequest, IBaseCriteria baseCriteria)
-            : base(connStrings, baseRequest, baseCriteria, "MediaInfo") {       }
-
-
+        public MediaInfoRepository(IHttpClientService client): base(client, "MediaInfo") {       }
+        
         public async Task<MediaInfo> CreateMediaInfo(MediaInfo file)
         {
-            var response = await CreateAsync<MediaInfo>(file);
-            return response?.Content.First();
+            var response = await CreateAsync(file);
+            return GetResponseModel<MediaInfo>(response);
         }        
 
     }

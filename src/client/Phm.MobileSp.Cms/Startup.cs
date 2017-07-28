@@ -20,8 +20,8 @@ using Phm.MobileSp.Cms.Helpers.Attributes;
 using Phm.MobileSp.Cms.Infrastructure.Repositories;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 using SecurityService;
-using AutoMapper;
 using Phm.MobileSp.Cms.Infrastructure;
+using Phm.MobileSp.Cms.Helpers;
 
 namespace Phm.MobileSp.Cms
 {
@@ -69,20 +69,23 @@ namespace Phm.MobileSp.Cms
             services.Configure<MicrosoftAzureStorage>(Configuration.GetSection("MicrosoftAzureStorage"));
             AutoMapperConfiguration.SetConfiguration(ref services);
 
-            services.AddScoped<ApiRequestWrapperAttribute>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            
             services.AddScoped<IBaseRequest, BaseRequest>();
             services.AddScoped<IBaseCriteria, BaseCriteria>();
+            services.AddScoped<IHttpClientService, MobileSPHttpClient>();
 
             services.AddTransient<IMLearningCoreContract, MLearningCoreContractClient>();
             services.AddTransient<ICoreContract, CoreContractClient>();
             services.AddTransient<ISecurityContract, SecurityContractClient>();
-
+            
             services.AddTransient<IContentRepository, ContentRepository>();
             services.AddTransient<IFeedRepository, FeedRepository>();
             services.AddTransient<IFeedSummariesRepository, FeedSummariesRepository>();
             services.AddTransient<ILeaderBoardDataRepository, LeaderBoardDataRepository>();
             services.AddTransient<ILeaderBoardUserDataRepository, LeaderBoardUserDataRepository>();
             services.AddTransient<IMarketRepository, MarketRepository>();
+            services.AddTransient<IMarketUserRepository, MarketUserRepository>();
             services.AddTransient<IMediaInfoRepository, MediaInfoRepository>();
             services.AddTransient<IMediaRepository, MediaRepository>();
             services.AddTransient<ISecurityGroupsRepository, SecurityGroupsRepository>();
@@ -90,9 +93,7 @@ namespace Phm.MobileSp.Cms
             services.AddTransient<IUserQuizResultsRepository, UserQuizResultsRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUserTemplateRepository, UserTemplateRepository>();
-
-
-
+            
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromHours(1);

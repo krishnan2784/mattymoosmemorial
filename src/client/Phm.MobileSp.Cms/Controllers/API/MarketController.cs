@@ -12,6 +12,7 @@ using Phm.MobileSp.Cms.Helpers.Attributes;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 using Phm.MobileSp.Cms.Core.Models.Interfaces;
 using Phm.MobileSp.Cms.Infrastructure.Repositories;
+using System.Collections.Generic;
 
 namespace Phm.MobileSp.Cms.Controllers
 {
@@ -42,23 +43,23 @@ namespace Phm.MobileSp.Cms.Controllers
         [ResponseCache(CacheProfileName = "NoCache")]
         public async Task<JsonResult> ChangeMarket(int marketId)
         {
-            //var configs = await _userConfigRepository.GetUserConfigurationsByUserId(UserId);
-            //var isUserMarket = configs.FirstOrDefault(x => x.MarketId == marketId);
+            var configs = await _userConfigRepository.GetUserConfigurationsByUserId(UserId);
+            var isUserMarket = configs.FirstOrDefault(x => x.MarketId == marketId);
 
-            //if (isUserMarket == null || isUserMarket.MarketId == 0)
-            //{
-            //    var markets = await _marketRepository.GetMarketsAsync();
-            //    var isLiveMarket = markets.FirstOrDefault(x => (bool)x.IsLive && x.Id == marketId);
-            //    if (isLiveMarket != null && isLiveMarket.Id > 0)
-            //    {
-            //        var baseMarket = markets.FirstOrDefault(x => !(bool)x.IsLive
-            //        && x.MasterId == isLiveMarket.MasterId);
+            if (isUserMarket == null || isUserMarket.MarketId == 0)
+            {
+                var markets = await _marketRepository.GetMarketsAsync();
+                var isLiveMarket = markets.FirstOrDefault(x => (bool)x.IsLive && x.Id == marketId);
+                if (isLiveMarket != null && isLiveMarket.Id > 0)
+                {
+                    var baseMarket = markets.FirstOrDefault(x => !(bool)x.IsLive
+                    && x.MasterId == isLiveMarket.MasterId);
 
-            //        if (baseMarket != null && configs.Where(x => x.MarketId == baseMarket.Id).Count() > 0)
-            //            goto ValidMarket;
-            //    }
-            //    return new JsonResult(false);
-            //}
+                    if (baseMarket != null && configs.Where(x => x.MarketId == baseMarket.Id).Count() > 0)
+                        goto ValidMarket;
+                }
+                return new JsonResult(false);
+            }
 
             ValidMarket:
             ClearMarketCache();
@@ -90,7 +91,7 @@ namespace Phm.MobileSp.Cms.Controllers
         {
             Guid master = new Guid(masterId);
             var markets = await _marketRepository.GetMarketsByMasterIdAsync(contentType, master);
-            return Json(new BaseResponse(markets));
+            return Json(new BaseResponse<IEnumerable<Market>>(markets));
         }
 
         [HttpGet("[action]")]
@@ -99,7 +100,7 @@ namespace Phm.MobileSp.Cms.Controllers
         public async Task<JsonResult> GetMarketUserFilters()
         {
             var marketFilters = await _marketUserRepository.GetMarketUserFilters(CurrentMarketId);
-            return Json(new BaseResponse(marketFilters));
+            return Json(new BaseResponse<dynamic>(marketFilters));
         }
 
 
