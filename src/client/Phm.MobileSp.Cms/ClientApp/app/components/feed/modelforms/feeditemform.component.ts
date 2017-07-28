@@ -30,7 +30,7 @@ import { DateEx } from "../../../classes/helpers/date";
 import ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationFeedItemFormComponent;
 import BaseFeed = Feedclasses.BaseFeed;
 declare var $: any;
-declare var Materialize: any;
+declare var materialize: any;
 declare var tinymce: any;
 
 @Component({
@@ -159,7 +159,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             this.updateForm();
             this.setupFormSteps();
         }
-        this.model.webUrlLink.indexOf('http://')
+        this.model.webUrlLink.indexOf('http://');
     };
 
     updateForm() {
@@ -167,7 +167,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             (this.form).patchValue(this.model, { onlySelf: true });
             this.setMinDate(new Date(this.model.startDate));
             setTimeout(() => {
-                Materialize.updateTextFields();
+                materialize.updateTextFields();
             }, 10);  
         } else {
             this.form.controls['feedType'].patchValue(this.model.feedType, { onlySelf: true });
@@ -214,11 +214,14 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
 
     save(feedItem: FeedItem, isValid: boolean) {
         this.submitted = true;
-        if (!isValid)
+        if (!isValid) {
+            console.log(isValid);
             return;
+        }
+        
 
         feedItem = new this.subForm.feedModelType(feedItem);
-        feedItem.callToActionUrl = feedItem.callToActionUrl.indexOf('http') == 0 ? feedItem.callToActionUrl : 'http://' + feedItem.callToActionUrl;
+        feedItem.callToActionUrl = feedItem.callToActionUrl.indexOf('http') === 0 ? feedItem.callToActionUrl : 'http://' + feedItem.callToActionUrl;
 
         this.feedDataService.updateFeeditem(this.subForm.updateUrl, feedItem).subscribe(result => {
             if (result.success) {
@@ -230,7 +233,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     }
 
     public updateMaterialize() {
-        setTimeout(function () {
+        setTimeout(function() {
             $('#bodyText').trigger('autoresize');
 
             //Materialize.updateTextFields();

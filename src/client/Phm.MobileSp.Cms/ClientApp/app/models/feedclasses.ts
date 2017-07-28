@@ -122,7 +122,6 @@ export class QuizFeed extends BaseFeed {
     }
 }
 
-
 export class SurveyFeed extends BaseFeed {
     public questions: Surveyclasses.SurveyQuestion[];
     public surveyDescription: string;
