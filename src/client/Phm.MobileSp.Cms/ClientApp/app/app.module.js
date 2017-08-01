@@ -18,7 +18,6 @@ var ngx_bootstrap_1 = require("ngx-bootstrap");
 //import { IonRangeSliderModule } from "ng2-ion-range-slider";
 //import { CalendarModule } from 'primeng/primeng';
 //import { DateValueAccessor } from './classes/datevalueaccessor';
-var ng2_validation_1 = require("ng2-validation");
 require("rxjs/add/observable/throw");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/debounceTime");
@@ -84,6 +83,7 @@ var gaugegraph_component_1 = require("./components/charts/gaugegraph/gaugegraph.
 var monobargraph_component_1 = require("./components/charts/monobargraph/monobargraph.component");
 var datepicker_component_1 = require("./components/common/datepicker/datepicker.component");
 var textbox_component_1 = require("./components/common/editor/textbox.component");
+var numberrequiredtextbox_component_1 = require("./components/common/editor/numberrequiredtextbox.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -91,7 +91,7 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     core_1.NgModule({
-        bootstrap: [platform_browser_1.BrowserModule, forms_1.FormsModule, ng2_validation_1.CustomFormsModule, app_component_1.AppComponent],
+        bootstrap: [platform_browser_1.BrowserModule, forms_1.FormsModule, app_component_1.AppComponent],
         declarations: [
             app_component_1.AppComponent,
             base_component_1.BaseComponent,
@@ -148,6 +148,7 @@ AppModule = __decorate([
             UserFilter,
             editor_component_1.RichTextEditorComponent,
             textbox_component_1.TextInputComponent,
+            numberrequiredtextbox_component_1.NumberRequiredTextInputComponent,
             UploadMediaComponent
         ],
         imports: [

@@ -12,7 +12,6 @@ import { MaterializeModule } from 'angular2-materialize';
 //import { IonRangeSliderModule } from "ng2-ion-range-slider";
 //import { CalendarModule } from 'primeng/primeng';
 //import { DateValueAccessor } from './classes/datevalueaccessor';
-import { CustomFormsModule } from 'ng2-validation';
 
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
@@ -83,9 +82,11 @@ import { GaugeGraphComponent } from "./components/charts/gaugegraph/gaugegraph.c
 import { MonobarGraphComponent } from "./components/charts/monobargraph/monobargraph.component";
 import { DatepickerComponent } from "./components/common/datepicker/datepicker.component";
 import { TextInputComponent } from "./components/common/editor/textbox.component";
+import { NumberRequiredTextInputComponent } from "./components/common/editor/numberrequiredtextbox.component";
+
 
 @NgModule({
-    bootstrap: [BrowserModule, FormsModule, CustomFormsModule, AppComponent],
+    bootstrap: [BrowserModule, FormsModule, AppComponent],
     declarations: [
         AppComponent,
         BaseComponent,
@@ -150,6 +151,7 @@ import { TextInputComponent } from "./components/common/editor/textbox.component
         UserFilter,
         RichTextEditorComponent,
         TextInputComponent,
+        NumberRequiredTextInputComponent,
         UploadMediaComponent
     ],
     imports: [
