@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { UniversalModule } from 'angular2-universal';
 import { Ng2PaginationModule } from 'ng2-pagination';
-import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 import { D3Service } from 'd3-ng2-service';
 import { NouisliderModule } from 'ng2-nouislider';
 import { Ng2TableModule } from 'ng2-table/ng2-table';
@@ -29,20 +29,20 @@ import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { UserAccountManagementComponent } from './components/accountmanagement/useraccountmanagement.component';
 import { TextFeedItemFormComponent } from './components/feed/modelforms/textfeeditem.component';
-import { FeedIndexComponent } from "./components/feed/indexes/feedindex.component";
-import { FeedItemForm } from "./components/feed/modelforms/feeditemform.component";
-import { FeedItemContainerComponent } from "./components/feed/modelforms/feeditemcontainer.component";
+import { FeedIndexComponent } from './components/feed/indexes/feedindex.component';
+import { FeedItemForm } from './components/feed/modelforms/feeditemform.component';
+import { FeedItemContainerComponent } from './components/feed/modelforms/feeditemcontainer.component';
 
-import { QuizFeedItemFormComponent } from "./components/feed/modelforms/quizfeeditem.component";
-import { SurveyFeedItemFormComponent } from "./components/feed/modelforms/surveyfeeditem.component";
-import { ObservationFeedItemFormComponent } from "./components/feed/modelforms/observationfeeditem.component";
-import { QuestionFormComponent } from "./components/feed/modelforms/questionform.component";
+import { QuizFeedItemFormComponent } from './components/feed/modelforms/quizfeeditem.component';
+import { SurveyFeedItemFormComponent } from './components/feed/modelforms/surveyfeeditem.component';
+import { ObservationFeedItemFormComponent } from './components/feed/modelforms/observationfeeditem.component';
+import { QuestionFormComponent } from './components/feed/modelforms/questionform.component';
 import Basemodalcomponent = require("./components/modals/basemodal.component");
 import BaseModalComponent = Basemodalcomponent.BaseModalComponent;
 import Copytomarketcomponent = require("./components/feed/modals/copytomarket.component");
 import FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
-import { FeedReportIndexComponent } from "./components/reports/indexes/feedreportindex.component";
-import { QuizFeedItemReport } from "./components/reports/quizfeeditemreport.component";
+import { FeedReportIndexComponent } from './components/reports/indexes/feedreportindex.component';
+import { QuizFeedItemReport } from './components/reports/quizfeeditemreport.component';
 import Barchartcomponent = require("./components/charts/barchart.component");
 import BarChart = Barchartcomponent.BarChart;
 import Basefeeditemreportcomponent = require("./components/reports/basefeeditemreport.component");
@@ -50,7 +50,7 @@ import FeedItemReportContainerComponent = Basefeeditemreportcomponent.FeedItemRe
 import Gaugechartcomponent = require("./components/charts/gaugechart.component");
 import GaugeChart = Gaugechartcomponent.GaugeChart;
 import Donutchartcomponent = require("./components/charts/donutchart.component");
-import { NavBarComponent } from "./components/navbar/navbar.component";
+import { NavBarComponent } from './components/navbar/navbar.component';
 import DonutChart = Donutchartcomponent.DonutChart;
 import Editusercomponent = require("./components/accountmanagement/modals/edituser.component");
 import EditUser = Editusercomponent.EditUser;
@@ -58,32 +58,32 @@ import Userfiltercomponent = require("./components/common/filters/userfilter.com
 import UserFilter = Userfiltercomponent.UserFilter;
 import Uploadcomponent = require("./components/media/upload.component");
 import UploadMediaComponent = Uploadcomponent.UploadMediaComponent;
-import { LeaderboardContainer } from "./components/reports/leaderboards/leaderboardcontainer.component";
-import { PartitionComponent } from "./components/reports/leaderboards/partition/partition.component";
-import { LbExecutivesTableComponent } from "./components/reports/leaderboards/lbexecutivestable/lbexecutivestable.component";
-import { LbrefineComponent } from "./components/reports/leaderboards/lbrefine/lbrefine.component";
-import { LeaderboardComponent } from "./components/reports/leaderboards/leaderboard/leaderboard.component";
-import { TabNavMenuComponent } from "./components/navmenu/tabnavmenu.component";
-import { DynamicChartFormatsComponent } from "./components/reports/dynamicchartformats/dynamicchartformats.component";
-import { SurveyFeedItemReport } from "./components/reports/surveyfeeditemreport.component";
+import { LeaderboardContainer } from './components/reports/leaderboards/leaderboardcontainer.component';
+import { PartitionComponent } from './components/reports/leaderboards/partition/partition.component';
+import { LbExecutivesTableComponent } from './components/reports/leaderboards/lbexecutivestable/lbexecutivestable.component';
+import { LbrefineComponent } from './components/reports/leaderboards/lbrefine/lbrefine.component';
+import { LeaderboardComponent } from './components/reports/leaderboards/leaderboard/leaderboard.component';
+import { TabNavMenuComponent } from './components/navmenu/tabnavmenu.component';
+import { DynamicChartFormatsComponent } from './components/reports/dynamicchartformats/dynamicchartformats.component';
+import { SurveyFeedItemReport } from './components/reports/surveyfeeditemreport.component';
 
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
-import { QuizUserResultsComponent } from "./components/reports/quizuserresults/quizuserresults.component";
-import { LearnerStatComponent } from "./components/reports/leaderboards/learnerstat/learnerstat.component";
-import { ImageFeedItemFormComponent } from "./components/feed/modelforms/imagefeeditem.component";
-import { VideoFeedItemFormComponent } from "./components/feed/modelforms/videofeeditem.component";
-import { RichTextEditorComponent } from "./components/common/editor/editor.component";
-import { ObservationFeedItemReport } from "./components/reports/observationfeeditemreport.component";
-import { GaugeGraphComponent } from "./components/charts/gaugegraph/gaugegraph.component";
-import { MonobarGraphComponent } from "./components/charts/monobargraph/monobargraph.component";
-import { DatepickerComponent } from "./components/common/datepicker/datepicker.component";
-import { TextInputComponent } from "./components/common/editor/textbox.component";
-import { NumberRequiredTextInputComponent } from "./components/common/editor/numberrequiredtextbox.component";
+import { QuizUserResultsComponent } from './components/reports/quizuserresults/quizuserresults.component';
+import { LearnerStatComponent } from './components/reports/leaderboards/learnerstat/learnerstat.component';
+import { ImageFeedItemFormComponent } from './components/feed/modelforms/imagefeeditem.component';
+import { VideoFeedItemFormComponent } from './components/feed/modelforms/videofeeditem.component';
+import { RichTextEditorComponent } from './components/common/editor/editor.component';
+import { ObservationFeedItemReport } from './components/reports/observationfeeditemreport.component';
+import { GaugeGraphComponent } from './components/charts/gaugegraph/gaugegraph.component';
+import { MonobarGraphComponent } from './components/charts/monobargraph/monobargraph.component';
+import { DatepickerComponent } from './components/common/datepicker/datepicker.component';
+import { TextInputComponent } from './components/common/editor/textbox.component';
+import { NumberRequiredTextInputComponent } from './components/common/editor/numberrequiredtextbox.component';
 
 
 @NgModule({
-    bootstrap: [FormsModule, AppComponent],
+    bootstrap: [BrowserModule, FormsModule, AppComponent],
     declarations: [
         AppComponent,
         BaseComponent,
@@ -93,7 +93,7 @@ import { NumberRequiredTextInputComponent } from "./components/common/editor/num
         FooterComponent,
         MarketDropdown,
         DatepickerComponent,
-        //DateValueAccessor,
+       
 
         // main naviation items
         CounterComponent,
