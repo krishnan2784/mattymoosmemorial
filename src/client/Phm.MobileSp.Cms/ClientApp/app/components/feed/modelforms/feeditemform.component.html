@@ -221,12 +221,12 @@
         <hr />
 
         <numberrequiredtextinput [form]="form" [formSubmitted]="submitted"
-                   [formControlId]="'points'"
-                   [(ngModel)]="model.points"
-                   [required]="model.feedType == feedTypes.Observation"
-                   [label]="'Reward Points'"
-                   [validationMessage]="'Reward points are required.'"
-                   [class.hidden]="model.feedType == feedTypes.Observation"></numberrequiredtextinput>
+                                 [formControlId]="'points'"
+                                 [(ngModel)]="model.points"
+                                 [required]="model.feedType == feedTypes.Observation"
+                                 [label]="'Reward Points'"
+                                 [validationMessage]="'Reward points are required.'"
+                                 [class.hidden]="model.feedType == feedTypes.Observation"></numberrequiredtextinput>
         
         <div class="input-field">
             <label for="allowFavourite">Allow Favourite</label>

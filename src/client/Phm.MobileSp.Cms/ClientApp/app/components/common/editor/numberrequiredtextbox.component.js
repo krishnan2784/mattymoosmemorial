@@ -20,7 +20,7 @@ var NumberRequiredTextInputComponent = (function () {
         this.activeClass = '';
     }
     NumberRequiredTextInputComponent.prototype.ngOnInit = function () {
-        if (this.elementId == '')
+        if (this.elementId === '')
             this.elementId = this.formControlId;
         if (this.form && this.form.controls[this.formControlId]) {
             this.activeClass = this.form.controls[this.formControlId].value.toString().length > 0 ? "active" : "";
@@ -54,8 +54,8 @@ __decorate([
 ], NumberRequiredTextInputComponent.prototype, "formSubmitted", void 0);
 NumberRequiredTextInputComponent = __decorate([
     core_1.Component({
-        selector: 'requiredtextinput',
-        template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n        <div class=\"input-field\">\n            <input id=\"{{elementId}}\" type=\"text\" formControlName=\"{{formControlId}}\" number required>\n            <label [attr.for]=\"elementId\" class=\"{{activeClass}}\">{{label}}</label>\n            <small [class.active-warning]=\"!form.controls[formControlId].valid && formSubmitted\">\n                {{validationMessage}}\n            </small>\n        </div>\n        <div *ngIf=\"name.errors && (name.dirty || name.touched)\" class=\"alert alert-danger\">\n            <div [hidden]=\"!name.errors.required\">\n                {{formControlId}} is required\n            </div>\n            <div [hidden]=\"!name.errors.number\">\n                Please enter numeric values.\n            </div>\n        </div>\n    </div>\n"
+        selector: 'numberrequiredtextinput',
+        template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\" data-test=\"test123\">\n        <div class=\"input-field\">\n            <input id=\"{{elementId}}\" type=\"text\" formControlName=\"{{formControlId}}\" number required>\n            <label [attr.for]=\"elementId\" class=\"{{activeClass}}\">{{label}}</label>\n            <small [class.active-warning]=\"!form.controls[formControlId].valid && formSubmitted\">\n                {{validationMessage}}\n            </small>\n        </div>\n        <div *ngIf=\"formControlId.errors && (formControlId.dirty || formControlId.touched)\" class=\"alert alert-danger\">\n            <div [hidden]=\"!formControlId.errors.required\">\n                {{formControlId}} is required\n            </div>\n            <div [hidden]=\"!formControlId.errors.number\">\n                Please enter numeric values.\n            </div>\n        </div>\n    </div>\n"
     })
 ], NumberRequiredTextInputComponent);
 exports.NumberRequiredTextInputComponent = NumberRequiredTextInputComponent;

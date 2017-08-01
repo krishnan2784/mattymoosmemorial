@@ -9,9 +9,6 @@ import { NouisliderModule } from 'ng2-nouislider';
 import { Ng2TableModule } from 'ng2-table/ng2-table';
 import { PaginationModule } from 'ngx-bootstrap';
 import { MaterializeModule } from 'angular2-materialize';
-//import { IonRangeSliderModule } from "ng2-ion-range-slider";
-//import { CalendarModule } from 'primeng/primeng';
-//import { DateValueAccessor } from './classes/datevalueaccessor';
 
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
