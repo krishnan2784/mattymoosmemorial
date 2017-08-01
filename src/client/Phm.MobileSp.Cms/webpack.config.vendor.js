@@ -32,8 +32,7 @@ module.exports = {
             'es6-promise',
             'jquery',
             'zone.js',
-            'ng2-pagination',
-            'ng2-validation'
+            'ng2-pagination'
         ]
     },
     output: {
