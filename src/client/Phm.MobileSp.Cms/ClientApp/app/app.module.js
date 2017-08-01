@@ -10,7 +10,6 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var angular2_universal_1 = require("angular2-universal");
 var ng2_pagination_1 = require("ng2-pagination");
-var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
 var ng2_nouislider_1 = require("ng2-nouislider");
 var ng2_table_1 = require("ng2-table/ng2-table");
@@ -88,7 +87,7 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     core_1.NgModule({
-        bootstrap: [platform_browser_1.BrowserModule, forms_1.FormsModule, app_component_1.AppComponent],
+        bootstrap: [BrowserModule, forms_1.FormsModule, app_component_1.AppComponent],
         declarations: [
             app_component_1.AppComponent,
             base_component_1.BaseComponent,

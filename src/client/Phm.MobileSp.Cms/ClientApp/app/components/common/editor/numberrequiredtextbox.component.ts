@@ -4,7 +4,7 @@ import { FormGroup } from "@angular/forms";
 @Component({
     selector: 'numberrequiredtextinput',
     template: `
-    <div [formGroup]="form" *ngIf="form" data-test="test123">
+    <div [formGroup]="form" *ngIf="form" >
         <div class="input-field">
             <input id="{{elementId}}" type="text" formControlName="{{formControlId}}" number required>
             <label [attr.for]="elementId" class="{{activeClass}}">{{label}}</label>
@@ -23,6 +23,7 @@ import { FormGroup } from "@angular/forms";
     </div>
 `
 })
+
 export class NumberRequiredTextInputComponent implements OnInit {
     @Input() form: FormGroup;
     @Input() formControlId: string;
