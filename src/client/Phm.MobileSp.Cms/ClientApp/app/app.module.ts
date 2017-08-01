@@ -83,7 +83,7 @@ import { NumberRequiredTextInputComponent } from "./components/common/editor/num
 
 
 @NgModule({
-    bootstrap: [BrowserModule, FormsModule, AppComponent],
+    bootstrap: [FormsModule, AppComponent],
     declarations: [
         AppComponent,
         BaseComponent,
@@ -155,6 +155,7 @@ import { NumberRequiredTextInputComponent } from "./components/common/editor/num
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
         Ng2PaginationModule,
         FormsModule,
+        BrowserModule,
         NouisliderModule,
         ReactiveFormsModule,
         Ng2TableModule,
