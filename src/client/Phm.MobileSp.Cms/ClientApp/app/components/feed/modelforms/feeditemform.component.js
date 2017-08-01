@@ -129,7 +129,7 @@ var FeedItemForm = (function () {
             (this.form).patchValue(this.model, { onlySelf: true });
             this.setMinDate(new Date(this.model.startDate));
             setTimeout(function () {
-                materialize.updateTextFields();
+                Materialize.updateTextFields();
             }, 10);
         }
         else {
@@ -176,12 +176,10 @@ var FeedItemForm = (function () {
     FeedItemForm.prototype.save = function (feedItem, isValid) {
         var _this = this;
         this.submitted = true;
-        if (!isValid) {
-            console.log(isValid);
+        if (!isValid)
             return;
-        }
         feedItem = new this.subForm.feedModelType(feedItem);
-        feedItem.callToActionUrl = feedItem.callToActionUrl.indexOf('http') === 0 ? feedItem.callToActionUrl : 'http://' + feedItem.callToActionUrl;
+        feedItem.callToActionUrl = feedItem.callToActionUrl.indexOf('http') == 0 ? feedItem.callToActionUrl : 'http://' + feedItem.callToActionUrl;
         this.feedDataService.updateFeeditem(this.subForm.updateUrl, feedItem).subscribe(function (result) {
             if (result.success) {
                 _this.model = result.content;
