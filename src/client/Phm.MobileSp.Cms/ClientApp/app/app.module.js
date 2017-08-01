@@ -10,6 +10,7 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var angular2_universal_1 = require("angular2-universal");
 var ng2_pagination_1 = require("ng2-pagination");
+var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
 var ng2_nouislider_1 = require("ng2-nouislider");
 var ng2_table_1 = require("ng2-table/ng2-table");
@@ -17,6 +18,7 @@ var ngx_bootstrap_1 = require("ngx-bootstrap");
 //import { IonRangeSliderModule } from "ng2-ion-range-slider";
 //import { CalendarModule } from 'primeng/primeng';
 //import { DateValueAccessor } from './classes/datevalueaccessor';
+var ng2_validation_1 = require("ng2-validation");
 require("rxjs/add/observable/throw");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/debounceTime");
@@ -89,7 +91,7 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     core_1.NgModule({
-        bootstrap: [app_component_1.AppComponent],
+        bootstrap: [platform_browser_1.BrowserModule, forms_1.FormsModule, ng2_validation_1.CustomFormsModule, app_component_1.AppComponent],
         declarations: [
             app_component_1.AppComponent,
             base_component_1.BaseComponent,

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { UniversalModule } from 'angular2-universal';
 import { Ng2PaginationModule } from 'ng2-pagination';
+import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { D3Service } from 'd3-ng2-service';
 import { NouisliderModule } from 'ng2-nouislider';
@@ -11,6 +12,7 @@ import { MaterializeModule } from 'angular2-materialize';
 //import { IonRangeSliderModule } from "ng2-ion-range-slider";
 //import { CalendarModule } from 'primeng/primeng';
 //import { DateValueAccessor } from './classes/datevalueaccessor';
+import { CustomFormsModule } from 'ng2-validation';
 
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
@@ -83,7 +85,7 @@ import { DatepickerComponent } from "./components/common/datepicker/datepicker.c
 import { TextInputComponent } from "./components/common/editor/textbox.component";
 
 @NgModule({
-    bootstrap: [AppComponent],
+    bootstrap: [BrowserModule, FormsModule, CustomFormsModule, AppComponent],
     declarations: [
         AppComponent,
         BaseComponent,
