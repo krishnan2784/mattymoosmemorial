@@ -220,12 +220,12 @@
         <h5>Options</h5>
         <hr />
 
-        <numbertextinput [form]="form" [formSubmitted]="submitted"
+        <textinput [form]="form" [formSubmitted]="submitted"
                                  [formControlId]="'points'"
                                  [required]="model.feedType == feedTypes.Observation"
                                  [label]="'Reward Points'"
                                  [validationMessage]="'Reward points are required.'"
-                                 [class.hidden]="model.feedType == feedTypes.Observation"></numbertextinput>
+                                 [class.hidden]="model.feedType == feedTypes.Observation"></textinput>
         
         <div class="input-field">
             <label for="allowFavourite">Allow Favourite</label>
