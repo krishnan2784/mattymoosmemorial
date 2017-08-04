@@ -147,7 +147,6 @@ import { NumberRequiredTextInputComponent } from './components/common/editor/num
         UserFilter,
         RichTextEditorComponent,
         TextInputComponent,
-        NumberRequiredTextInputComponent,
         UploadMediaComponent
     ],
     imports: [

@@ -220,13 +220,13 @@
         <h5>Options</h5>
         <hr />
 
-        <numberrequiredtextinput [form]="form" [formSubmitted]="submitted"
+        <textinput [form]="form" [formSubmitted]="submitted"
                                  [formControlId]="'points'"
                                  [(ngModel)]="model.points"
                                  [required]="model.feedType == feedTypes.Observation"
                                  [label]="'Reward Points'"
                                  [validationMessage]="'Reward points are required.'"
-                                 [class.hidden]="model.feedType == feedTypes.Observation"></numberrequiredtextinput>
+                                 [class.hidden]="model.feedType == feedTypes.Observation"></textinput>
         
         <div class="input-field">
             <label for="allowFavourite">Allow Favourite</label>
