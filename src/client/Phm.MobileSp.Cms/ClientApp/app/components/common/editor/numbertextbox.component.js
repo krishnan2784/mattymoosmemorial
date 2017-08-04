@@ -54,7 +54,7 @@ __decorate([
 ], NumberTextInputComponent.prototype, "formSubmitted", void 0);
 NumberTextInputComponent = __decorate([
     core_1.Component({
-        selector: 'textinput',
+        selector: 'numbertextinput',
         template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n        <div class=\"input-field\">\n            <input id=\"{{elementId}}\" type=\"number\" formControlName=\"{{formControlId}}\">\n            <label [attr.for]=\"elementId\" class=\"{{activeClass}}\">{{label}}</label>\n            <small [class.active-warning]=\"!form.controls[formControlId].valid && formSubmitted\">\n                {{validationMessage}}\n            </small>\n        </div>\n    </div>\n"
     })
 ], NumberTextInputComponent);

@@ -2,7 +2,7 @@ import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { FormGroup } from "@angular/forms";
 
 @Component({
-  selector: 'textinput',
+  selector: 'numbertextinput',
   template: `
     <div [formGroup]="form" *ngIf="form">
         <div class="input-field">
