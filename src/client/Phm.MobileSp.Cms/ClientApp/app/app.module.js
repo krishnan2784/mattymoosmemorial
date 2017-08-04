@@ -14,6 +14,9 @@ var forms_1 = require("@angular/forms");
 var ng2_nouislider_1 = require("ng2-nouislider");
 var ng2_table_1 = require("ng2-table/ng2-table");
 var ngx_bootstrap_1 = require("ngx-bootstrap");
+//import { IonRangeSliderModule } from "ng2-ion-range-slider";
+//import { CalendarModule } from 'primeng/primeng';
+//import { DateValueAccessor } from './classes/datevalueaccessor';
 require("rxjs/add/observable/throw");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/debounceTime");
@@ -87,7 +90,7 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     core_1.NgModule({
-        bootstrap: [forms_1.FormsModule, app_component_1.AppComponent],
+        bootstrap: [app_component_1.AppComponent],
         declarations: [
             app_component_1.AppComponent,
             base_component_1.BaseComponent,
@@ -97,6 +100,7 @@ AppModule = __decorate([
             footer_component_1.FooterComponent,
             marketdropdown_component_1.MarketDropdown,
             datepicker_component_1.DatepickerComponent,
+            //DateValueAccessor,
             // main naviation items
             counter_component_1.CounterComponent,
             fetchdata_component_1.FetchDataComponent,
@@ -142,8 +146,8 @@ AppModule = __decorate([
             //shared
             UserFilter,
             editor_component_1.RichTextEditorComponent,
-            numbertextbox_component_1.NumberTextInputComponent,
             textbox_component_1.TextInputComponent,
+            numbertextbox_component_1.NumberTextInputComponent,
             UploadMediaComponent
         ],
         imports: [
