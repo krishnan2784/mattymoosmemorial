@@ -11,7 +11,6 @@ var router_1 = require("@angular/router");
 var angular2_universal_1 = require("angular2-universal");
 var ng2_pagination_1 = require("ng2-pagination");
 var forms_1 = require("@angular/forms");
-var platform_browser_1 = require("@angular/platform-browser");
 var ng2_nouislider_1 = require("ng2-nouislider");
 var ng2_table_1 = require("ng2-table/ng2-table");
 var ngx_bootstrap_1 = require("ngx-bootstrap");
@@ -88,7 +87,7 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     core_1.NgModule({
-        bootstrap: [platform_browser_1.BrowserModule, forms_1.FormsModule, app_component_1.AppComponent],
+        bootstrap: [forms_1.FormsModule, app_component_1.AppComponent],
         declarations: [
             app_component_1.AppComponent,
             base_component_1.BaseComponent,
@@ -151,7 +150,6 @@ AppModule = __decorate([
             angular2_universal_1.UniversalModule,
             ng2_pagination_1.Ng2PaginationModule,
             forms_1.FormsModule,
-            platform_browser_1.BrowserModule,
             ng2_nouislider_1.NouisliderModule,
             forms_1.ReactiveFormsModule,
             ng2_table_1.Ng2TableModule,

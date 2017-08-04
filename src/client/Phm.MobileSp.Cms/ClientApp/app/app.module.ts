@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 import { UniversalModule } from 'angular2-universal';
 import { Ng2PaginationModule } from 'ng2-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 import { D3Service } from 'd3-ng2-service';
 import { NouisliderModule } from 'ng2-nouislider';
 import { Ng2TableModule } from 'ng2-table/ng2-table';
@@ -83,7 +82,7 @@ import { NumberRequiredTextInputComponent } from './components/common/editor/num
 
 
 @NgModule({
-    bootstrap: [BrowserModule, FormsModule, AppComponent],
+    bootstrap: [FormsModule, AppComponent],
     declarations: [
         AppComponent,
         BaseComponent,
@@ -155,7 +154,6 @@ import { NumberRequiredTextInputComponent } from './components/common/editor/num
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
         Ng2PaginationModule,
         FormsModule,
-        BrowserModule,
         NouisliderModule,
         ReactiveFormsModule,
         Ng2TableModule,
