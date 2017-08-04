@@ -30,6 +30,7 @@ var Observationfeeditemcomponent = require("./observationfeeditem.component");
 var enums_1 = require("../../../enums");
 var imagefeeditem_component_1 = require("./imagefeeditem.component");
 var videofeeditem_component_1 = require("./videofeeditem.component");
+var util_1 = require("util");
 var ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationFeedItemFormComponent;
 var FeedItemForm = (function () {
     function FeedItemForm(fb, http, route, router, feedDataService, injector, sharedService) {
@@ -176,6 +177,11 @@ var FeedItemForm = (function () {
     FeedItemForm.prototype.save = function (feedItem, isValid) {
         var _this = this;
         this.submitted = true;
+        if (!util_1.isNumber(feedItem.points) || !util_1.isNumber(feedItem.readingTime)) {
+            console.log(feedItem.points);
+            console.log(feedItem.readingTime);
+            return;
+        }
         if (!isValid)
             return;
         feedItem = new this.subForm.feedModelType(feedItem);

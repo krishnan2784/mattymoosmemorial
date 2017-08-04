@@ -225,7 +225,7 @@
                [formControlId]="'points'"
                [label]="'Reward Points'"
                [validationMessage]="'Reward points are required.'" 
-               [class.hidden]="model.feedType == feedTypes.Observation"></numbertextinput>
+               [class.hidden]="model.feedType == feedTypes.Observation" required></numbertextinput>
 
     <div class="input-field">
         <label for="allowFavourite">Allow Favourite</label>
@@ -238,10 +238,10 @@
         </div>
     </div>
 
-    <textinput [form]="form" [formSubmitted]="submitted"
+    <numbertextinput [form]="form" [formSubmitted]="submitted"
                [formControlId]="'readingTime'"
                [label]="'Reading Time (mins)'"
-               [validationMessage]="'Estimated time is required'" ></textinput>
+               [validationMessage]="'Estimated time is required'" required></numbertextinput>
 
 
     <div>

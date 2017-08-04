@@ -21,12 +21,9 @@ declare var Materialize: any;
 })
 export class UploadMediaComponent implements OnInit {
 
-    @Input()
-    showPreview: boolean = true;
-    @Input()
-    selectedMedia: MediaInfo = null;
-    @Input()
-    uploaderType: UploaderType = UploaderType.Any;
+    @Input() showPreview: boolean = true;
+    @Input() selectedMedia: MediaInfo = null;
+    @Input() uploaderType: UploaderType = UploaderType.Any;
 
     public files: File[] = [];
     public uploading: boolean = false;
@@ -43,7 +40,7 @@ export class UploadMediaComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this.selectedMedia);
+       
         if (this.selectedMedia)
             this.setPreviewImage();
     }

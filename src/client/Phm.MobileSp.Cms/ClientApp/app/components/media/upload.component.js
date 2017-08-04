@@ -27,7 +27,6 @@ var UploadMediaComponent = (function () {
         this.mediaUploaded = new core_1.EventEmitter();
     }
     UploadMediaComponent.prototype.ngOnInit = function () {
-        console.log(this.selectedMedia);
         if (this.selectedMedia)
             this.setPreviewImage();
     };
