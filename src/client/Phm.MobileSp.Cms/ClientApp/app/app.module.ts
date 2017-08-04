@@ -78,7 +78,7 @@ import { GaugeGraphComponent } from './components/charts/gaugegraph/gaugegraph.c
 import { MonobarGraphComponent } from './components/charts/monobargraph/monobargraph.component';
 import { DatepickerComponent } from './components/common/datepicker/datepicker.component';
 import { TextInputComponent } from './components/common/editor/textbox.component';
-import { NumberRequiredTextInputComponent } from './components/common/editor/numberrequiredtextbox.component';
+import { NumberTextInputComponent } from './components/common/editor/numbertextbox.component';
 
 
 @NgModule({
@@ -146,6 +146,7 @@ import { NumberRequiredTextInputComponent } from './components/common/editor/num
         //shared
         UserFilter,
         RichTextEditorComponent,
+        NumberTextInputComponent ,
         TextInputComponent,
         UploadMediaComponent
     ],
