@@ -216,11 +216,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     save(feedItem: FeedItem, isValid: boolean) {
         
         this.submitted = true;
-        if (!isNumber(feedItem.points) || !isNumber(feedItem.readingTime)) {
-            console.log(feedItem.points);
-            console.log(feedItem.readingTime);
-            return;
-        }
+        
         if (!isValid)
             return;
 
