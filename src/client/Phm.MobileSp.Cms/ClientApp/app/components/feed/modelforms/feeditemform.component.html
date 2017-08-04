@@ -221,11 +221,12 @@
     <h5>Options</h5>
     <hr/>   
     
-    <numbertextinput [form]="form" [formSubmitted]="submitted"
-               [formControlId]="'points'"
-               [label]="'Reward Points'"
-               [validationMessage]="'Reward points are required.'" 
-               [class.hidden]="model.feedType == feedTypes.Observation" required></numbertextinput>
+    <numbertextinput [form]="form" 
+                     [formSubmitted]="submitted"
+                     [formControlId]="'points'"
+                     [label]="'Reward Points'"
+                     [validationMessage]="'Reward points are required.'" 
+                     [class.hidden]="model.feedType == feedTypes.Observation" required></numbertextinput>
 
     <div class="input-field">
         <label for="allowFavourite">Allow Favourite</label>
@@ -238,10 +239,12 @@
         </div>
     </div>
 
-    <numbertextinput [form]="form" [formSubmitted]="submitted"
-               [formControlId]="'readingTime'"
-               [label]="'Reading Time (mins)'"
-               [validationMessage]="'Estimated time is required'" required></numbertextinput>
+    <numbertextinput [form]="form" 
+                     [formSubmitted]="submitted"
+                     [formControlId]="'readingTime'"
+                     [label]="'Reading Time (mins)'"
+                     [validationMessage]="'Estimated time is required'" 
+                     [class.hidden]="model.feedType == feedTypes.Observation" required></numbertextinput>
 
 
     <div>
