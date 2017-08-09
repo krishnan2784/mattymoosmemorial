@@ -9,7 +9,8 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
     public interface IFeedRepository
     {
         Task<dynamic> GetFeedItemAsync(int feedItemId);
-        Task<IEnumerable<dynamic>> GetFeedItemsAsync();
+        Task<IEnumerable<dynamic>> GetMarketFeedItems(int marketId);
+        Task<IEnumerable<dynamic>> GetFeedItems(FeedCriteria criteria);
         Task<TFeedItem> CreateFeedItemAsync<TFeedItem, TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed
             where TDestinationDto : BaseFeedDto;
         Task<TFeedItem> UpdateFeedItemAsync<TFeedItem, TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed

@@ -33,7 +33,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
         [ResponseCache(CacheProfileName = "NoCache")]
         public async Task<JsonResult> GetFeedItems()
         {
-            var cachedFeed = await _cache.GetOrCreateAsync(CacheKeys.FEEDITEMS, entry => _feedRepository.GetFeedItemsAsync());
+            var cachedFeed = await _cache.GetOrCreateAsync(CacheKeys.FEEDITEMS, entry => _feedRepository.GetMarketFeedItems(CurrentMarketId));
             return Json(cachedFeed);
         }
 

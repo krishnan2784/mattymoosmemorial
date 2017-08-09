@@ -3,7 +3,7 @@ using Phm.MobileSp.Cms.Core.Models.Interfaces;
 
 namespace Phm.MobileSp.Cms.Core.Models
 {
-    public abstract class BaseModel
+    public abstract class BaseModel : object
     {
         public virtual DateTime? CreatedAt { get; set; }
         public virtual DateTime? DeletedAt { get; set; }

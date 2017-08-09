@@ -22,7 +22,7 @@ namespace Phm.MobileSp.Cms.Helpers
                 _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 _client.BaseAddress = new Uri(connStrings.Value.API);
 
-                var authToken = context.HttpContext?.User.Claims.FirstOrDefault(x => x.Type == "sessionguid").Value;
+                var authToken = context.HttpContext?.User.Claims?.FirstOrDefault(x => x.Type == "sessionguid")?.Value;
                 if (!string.IsNullOrEmpty(authToken))
                     SetAuthToken(authToken);
             }

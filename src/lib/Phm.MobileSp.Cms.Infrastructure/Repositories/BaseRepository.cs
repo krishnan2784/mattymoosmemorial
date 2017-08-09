@@ -46,13 +46,15 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 
         public async Task<BaseRepoResponse> GetAsync(dynamic criteria)
         {
-            HttpResponseMessage response = await _client.PostAsync(_repoUrl, GetRequestBody(criteria));
+            var requestString = await GetRequestUrl(_repoUrl, criteria);
+            HttpResponseMessage response = await _client.GetAsync(requestString);
             return await GetResponse(response, false);
         }
 
         public async Task<BaseRepoResponse> GetAsync(string request, dynamic criteria)
         {
-            HttpResponseMessage response = await _client.PostAsync(request, GetRequestBody(criteria));
+            var requestString = await GetRequestUrl(request, criteria);
+            HttpResponseMessage response = await _client.GetAsync(requestString);
             return await GetResponse(response, false);
         }
         
@@ -125,6 +127,17 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
                 return (T)Activator.CreateInstance(typeof(T));
             else
                 return JsonConvert.DeserializeObject<T>(response.StringifiedObject);
+        }
+
+        public async Task<string> GetRequestUrl(string baseUrl, object obj)
+        {
+            var queryString = string.Empty;
+            if (obj != null) {
+                var keyValueContent = obj.ToKeyValue();
+                var formUrlEncodedContent = new FormUrlEncodedContent(keyValueContent);
+                queryString = await formUrlEncodedContent.ReadAsStringAsync();
+            }
+            return string.IsNullOrEmpty(queryString) ? baseUrl : $"{baseUrl}?{queryString}"; 
         }
 
         public BaseResponse<T> GetAPIResponse<T>(BaseRepoResponse response)

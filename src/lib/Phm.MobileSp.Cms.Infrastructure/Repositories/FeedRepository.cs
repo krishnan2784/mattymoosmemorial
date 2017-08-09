@@ -21,11 +21,17 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             var response = GetResponseModel<List<dynamic>>(await GetAsync(feedItemId));
             return response.First();
         }
-        
-        public async Task<IEnumerable<dynamic>> GetFeedItemsAsync() 
+
+        public async Task<IEnumerable<dynamic>> GetFeedItems(FeedCriteria criteria)
         {
-            var response = GetResponseModel<List<dynamic>>(await GetAsync());
-            return response;
+            var response = await GetAsync(criteria);
+            var feeds = GetResponseModel<List<dynamic>>(response);
+            return feeds;
+        }
+
+        public async Task<IEnumerable<dynamic>> GetMarketFeedItems(int marketId)
+        {
+            return await GetFeedItems(new FeedCriteria() { MarketId = marketId });
         }
 
         public async Task<TFeedItem> CreateFeedItemAsync<TFeedItem, TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed

@@ -17,7 +17,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 
         public async Task<List<UserConfiguration>> GetUserConfigurationsByUserId(int UserId)
         {
-            var response = GetResponseModel<List<UserConfiguration>>(await PostAsync(new { Criteria = new{ UserId } }));
+            var response = GetResponseModel<List<UserConfiguration>>(await GetAsync(new { criteria = new{ UserId } }));
             return response;
         }
     }
