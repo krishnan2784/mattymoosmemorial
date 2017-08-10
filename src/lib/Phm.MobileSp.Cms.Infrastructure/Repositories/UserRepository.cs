@@ -42,7 +42,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             if (applicationUser.ValidUser)
             {
                 _clientService.SetAuthToken(applicationUser.SessionGuid);
-                applicationUser.UserConfigurations = await _userConfigRepo.GetUserConfigurationsByUserId(applicationUser.UserId);
+                applicationUser.UserConfigurations = await _userConfigRepo.GetUserConfigurationsByUserId((int)applicationUser.UserDetails?.Id);
                 applicationUser.UserDetails.DefaultMarketId = applicationUser.UserConfigurations.FirstOrDefault(x => x.IsDefault).MarketId;
             }
             else if (string.IsNullOrEmpty(message))

@@ -60,13 +60,17 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
         
         public async Task<BaseRepoResponse> CreateAsync(dynamic model)
         {
-            HttpResponseMessage response = await _client.PostAsync(_repoUrl, model);
+            HttpResponseMessage response = await _client.PostAsync(_repoUrl, GetRequestBody(model));
             return await GetResponse(response);
         }
 
         public async Task<BaseRepoResponse> UpdateAsync(dynamic model)
         {
-            HttpResponseMessage response = await _client.PutAsync($"{_repoUrl}/{model.Id}", GetRequestBody(model));
+            var method = new HttpMethod("PATCH");
+            var request = new HttpRequestMessage(method, _client.BaseAddress + _repoUrl) {
+                Content = GetRequestBody(model)
+            };
+            HttpResponseMessage response = await _client.SendAsync(request);
             return await GetResponse(response);
         }
 
@@ -90,13 +94,13 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 
         public async Task<BaseRepoResponse> PutAsync(dynamic model)
         {
-            HttpResponseMessage response = await _client.PutAsync($"{_repoUrl}/{model.Id}", GetRequestBody(model));
+            HttpResponseMessage response = await _client.PutAsync(_repoUrl, GetRequestBody(model));
             return await GetResponse(response);
         }
 
         public async Task<BaseRepoResponse> PutAsync(string request, dynamic model)
         {
-            HttpResponseMessage response = await _client.PutAsync($"{request}/{model.Id}", GetRequestBody(model));
+            HttpResponseMessage response = await _client.PutAsync(request, GetRequestBody(model));
             return await GetResponse(response);
         }
 
@@ -127,6 +131,15 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
                 return (T)Activator.CreateInstance(typeof(T));
             else
                 return JsonConvert.DeserializeObject<T>(response.StringifiedObject);
+        }
+
+
+        public dynamic GetResponseModel(BaseRepoResponse response, Type type)
+        {
+            if (!response.Success)
+                return null;
+            else
+                return JsonConvert.DeserializeObject(response.StringifiedObject, type);
         }
 
         public async Task<string> GetRequestUrl(string baseUrl, object obj)

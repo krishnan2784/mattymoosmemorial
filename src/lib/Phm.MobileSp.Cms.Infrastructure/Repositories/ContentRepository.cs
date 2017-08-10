@@ -17,11 +17,12 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 
         public async Task<BaseResponse<bool>> PublishContentToLive(CopiedElementTypeEnum contentType, int id)
         {
-            return GetAPIResponse<bool>(await PostAsync(new
+            var response = GetResponseModel<bool>(await PostAsync(new
             {
                 ContentType = contentType,
                 ParentId = id
-            }), "Item published to live", "Item could not be published to live");
+            }));
+            return new BaseResponse<bool>(response, response ? "Item published to live" : "Item could not be published to live", response);
         }
         
     }

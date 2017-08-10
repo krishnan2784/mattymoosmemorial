@@ -10,6 +10,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+var date_1 = require("../classes/helpers/date");
 var BaseModel = (function () {
     function BaseModel(options) {
         if (options === void 0) { options = {}; }
@@ -18,8 +19,14 @@ var BaseModel = (function () {
         this.published = options['published'] || false;
         this.masterId = options['masterId'];
         this.createdAt = options['createdAt'];
-        this.deletedAt = options['deletedAt'];
         this.updatedAt = options['updatedAt'];
+        var d = date_1.DateEx.formatDate(new Date());
+        if (!this.createdAt) {
+            this.createdAt = d;
+        }
+        if (!this.updatedAt) {
+            this.updatedAt = d;
+        }
     }
     return BaseModel;
 }());
