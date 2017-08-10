@@ -24,7 +24,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
                 feedItemId,
                 ItemType = FeedTypeEnum.Quiz
             }));
-            return response?.First();
+            return response?.FirstOrDefault();
         }
 
         public async Task<dynamic> GetSurveyFeedSummaries(int feedItemId)
@@ -34,7 +34,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
                 feedItemId,
                 ItemType = FeedTypeEnum.Survey
             }));
-            return response?.First();
+            return response?.FirstOrDefault();
         }
 
         public async Task<dynamic> GetObservationFeedSummaries(int feedItemId)
@@ -44,7 +44,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
                 feedItemId,
                 ItemType = FeedTypeEnum.Survey
             }));
-            return response.First();
+            return response.FirstOrDefault();
         }
 
     }

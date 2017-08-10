@@ -15,7 +15,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
     public class MarketUserRepository : BaseRepository, IMarketUserRepository
     {
         public MarketUserRepository(IHttpClientService client)
-            : base(client, "MarketUser")
+            : base(client, "MarketUserFilter")
         {
 
         }
