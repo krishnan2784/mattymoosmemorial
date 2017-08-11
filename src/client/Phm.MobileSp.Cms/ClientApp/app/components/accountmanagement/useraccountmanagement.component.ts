@@ -217,11 +217,7 @@ export class UserAccountManagementComponent extends BaseComponent {
 
             if (this.filteredUserAccounts != null) {
                 let originalUser = this.filteredUserAccounts.find(x => x.id === user.id);
-                console.log(originalUser);
                 let index = this.filteredUserAccounts.indexOf(originalUser);
-                console.log(originalUser);
-                console.log(user);
-
                 if (index > -1)
                     this.filteredUserAccounts.splice(index, 1, user);
                 else

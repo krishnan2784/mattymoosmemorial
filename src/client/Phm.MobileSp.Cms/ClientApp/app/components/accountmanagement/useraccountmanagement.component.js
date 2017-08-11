@@ -213,10 +213,7 @@ var UserAccountManagementComponent = (function (_super) {
             this.attachUserProperties(user);
             if (this.filteredUserAccounts != null) {
                 var originalUser = this.filteredUserAccounts.find(function (x) { return x.id === user.id; });
-                console.log(originalUser);
                 var index = this.filteredUserAccounts.indexOf(originalUser);
-                console.log(originalUser);
-                console.log(user);
                 if (index > -1)
                     this.filteredUserAccounts.splice(index, 1, user);
                 else
