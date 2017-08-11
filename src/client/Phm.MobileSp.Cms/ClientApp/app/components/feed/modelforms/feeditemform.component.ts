@@ -27,6 +27,7 @@ import { MediaTypes } from "../../../enums";
 import { ImageFeedItemFormComponent } from "./imagefeeditem.component";
 import { VideoFeedItemFormComponent } from "./videofeeditem.component";
 import { DateEx } from "../../../classes/helpers/date";
+import { isNumber } from "util";
 import ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationFeedItemFormComponent;
 import BaseFeed = Feedclasses.BaseFeed;
 declare var $: any;
@@ -210,12 +211,14 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             model.mainVideoId = media.id;
             model.mainVideo = media;
             this.model = model;
-            this.swapForm(VideoFeedItemFormComponent, this.model.feedCategory)
+            this.swapForm(VideoFeedItemFormComponent, this.model.feedCategory);
         }
     }
 
     save(feedItem: FeedItem, isValid: boolean) {
+        
         this.submitted = true;
+        
         if (!isValid)
             return;
 
@@ -226,7 +229,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             if (result.success) {
                 this.model = result.content;
                 this.sharedService.updateFeedItem(result.content);
-                this.feedUpdated.emit(result.content);    
+                this.feedUpdated.emit(result.content);
             }
         });
     }

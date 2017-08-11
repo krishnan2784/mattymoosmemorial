@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
+using System.ServiceModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -135,15 +136,15 @@ namespace Phm.MobileSp.Cms
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions {
+                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+                {
                     HotModuleReplacement = true
                 });
-			}
+            }
             else
             {
                 //app.UseExceptionHandler("/Home/Error");
-				app.UseDeveloperExceptionPage();
-
+                app.UseDeveloperExceptionPage();
             }
 
             app.UseStaticFiles();
@@ -166,5 +167,8 @@ namespace Phm.MobileSp.Cms
                     defaults: new { controller = "Home", action = "Index" });
             });
         }
+
+        
+
     }
 }

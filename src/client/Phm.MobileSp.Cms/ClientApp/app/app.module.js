@@ -82,6 +82,7 @@ var gaugegraph_component_1 = require("./components/charts/gaugegraph/gaugegraph.
 var monobargraph_component_1 = require("./components/charts/monobargraph/monobargraph.component");
 var datepicker_component_1 = require("./components/common/datepicker/datepicker.component");
 var textbox_component_1 = require("./components/common/editor/textbox.component");
+var numbertextbox_component_1 = require("./components/common/editor/numbertextbox.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -146,6 +147,7 @@ AppModule = __decorate([
             UserFilter,
             editor_component_1.RichTextEditorComponent,
             textbox_component_1.TextInputComponent,
+            numbertextbox_component_1.NumberTextInputComponent,
             UploadMediaComponent
         ],
         imports: [

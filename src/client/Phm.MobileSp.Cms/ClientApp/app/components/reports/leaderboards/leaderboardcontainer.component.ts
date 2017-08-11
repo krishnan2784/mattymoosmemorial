@@ -44,6 +44,7 @@ export class LeaderboardContainer extends BaseComponent implements OnDestroy {
 
     setupSubscriptions() {
         this.sharedService.marketUpdated.subscribe((market) => {
+            this.removeTooltip();
             if (this.loading)
                 return;
             this.updateMarket();

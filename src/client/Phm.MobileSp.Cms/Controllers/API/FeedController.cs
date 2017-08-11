@@ -51,6 +51,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
             where TDestinationDto : BaseFeedDto
         {
             feedItem.MarketId = CurrentMarketId;
+          
             var feedItemResponse = await _feedRepository.CreateFeedItemAsync<TFeedItem, TDestinationDto>(feedItem);
             var success = feedItemResponse != null;
             return Json(new BaseResponse<TFeedItem>(success, success ? "Feed item successfuly created" : "Failed to create feed item", feedItemResponse));

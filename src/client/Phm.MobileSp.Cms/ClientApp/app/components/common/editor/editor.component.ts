@@ -1,6 +1,7 @@
 import { Component, Input, Output, AfterViewInit, OnDestroy, EventEmitter } from '@angular/core';
 import { FormGroup } from "@angular/forms";
 declare var tinymce: any;
+declare var $: any;
 
 @Component({
   selector: 'editor',

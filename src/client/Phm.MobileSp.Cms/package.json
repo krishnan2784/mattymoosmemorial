@@ -1,5 +1,5 @@
 {
-  "name": "MobileSP-CMS",
+  "name": "mobilesp-cms",
   "version": "0.0.0",
   "dependencies": {
     "@angular/common": "2.0.0",
@@ -60,7 +60,6 @@
     "typescript": "2.2.2",
     "typings": "2.1.1",
     "url-loader": "^0.5.7",
-    "webpack": "^1.12.14",
     "webpack-externals-plugin": "^1.0.0",
     "webpack-hot-middleware": "^2.10.0",
     "webpack-merge": "^0.14.1",
@@ -73,6 +72,14 @@
     "del": "^2.2.2",
     "grunt-contrib-less": "^1.4.0",
     "gulp": "^3.9.1",
+    "gulp-changed": "latest",
+    "gulp-clean": "latest",
+    "gulp-less": "latest",
+    "gulp-rename": "latest",
+    "gulp-sass": "latest",
+    "gulp-typescript": "latest",
+    "npm-install-webpack-plugin": "^4.0.4",
+    "path": "latest",
     "webpack": "^1.15.0"
   },
   "engines": {

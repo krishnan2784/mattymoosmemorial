@@ -81,6 +81,8 @@ import { GaugeGraphComponent } from "./components/charts/gaugegraph/gaugegraph.c
 import { MonobarGraphComponent } from "./components/charts/monobargraph/monobargraph.component";
 import { DatepickerComponent } from "./components/common/datepicker/datepicker.component";
 import { TextInputComponent } from "./components/common/editor/textbox.component";
+import { NumberTextInputComponent } from "./components/common/editor/numbertextbox.component";
+
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -132,7 +134,7 @@ import { TextInputComponent } from "./components/common/editor/textbox.component
 
         // user management
         EditUser,
-        
+
         // charts
         BarChart,
         GaugeChart,
@@ -148,6 +150,7 @@ import { TextInputComponent } from "./components/common/editor/textbox.component
         UserFilter,
         RichTextEditorComponent,
         TextInputComponent,
+        NumberTextInputComponent,
         UploadMediaComponent
     ],
     imports: [
@@ -171,7 +174,7 @@ import { TextInputComponent } from "./components/common/editor/textbox.component
             { path: 'feeditem', component: FeedItemForm },
             { path: 'feeditem/:id', component: FeedItemForm },
             { path: 'feeditem/:feedCat', component: FeedItemForm },
-            { path: 'reports/leaderboard', component: LeaderboardContainer },          
+            { path: 'reports/leaderboard', component: LeaderboardContainer },
             { path: 'reports', component: FeedReportIndexComponent },
             { path: 'reports/:feedType', component: FeedReportIndexComponent },
             { path: '**', redirectTo: 'home' }

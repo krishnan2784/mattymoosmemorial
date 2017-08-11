@@ -12,17 +12,17 @@
     <input type="hidden" formControlName="createdAt">
     <input type="hidden" formControlName="updatedAt">
 
-    <div class="feed-item-form-buttons">
-        <a (click)="goBack()" class="btn btn-primary">Cancel</a>
-        <button type="submit" class="btn btn-primary btn-save" [disabled]="!form.valid || !form.dirty">Save</button>
-    </div>
+<div class="feed-item-form-buttons">
+    <a (click)="goBack()" class="btn btn-primary">Cancel</a>
+    <button type="submit" class="btn btn-primary btn-save" [disabled]="!form.valid || !form.dirty">Save</button>
+</div>
 
-    <div class="feed-form-navigation col-md-8">
-        <navbar [data]="navbarData" (optionSelected)="this.feedFormSteps.navigateToSelectedStep($event);"></navbar>
-        <div class="clear-both"></div>
-    </div>
-
+<div class="feed-form-navigation col-md-8">
+    <navbar [data]="navbarData" (optionSelected)="this.feedFormSteps.navigateToSelectedStep($event);"></navbar>
     <div class="clear-both"></div>
+</div>
+
+<div class="clear-both"></div>
 
     
 <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Category) ||
@@ -148,32 +148,32 @@
 
 
 
-     <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Main)">
+    <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Main)">
 
-         <div class="rich-text-box">
-             <label>Enter Title</label>
-             <editor [elementId]="'title'" [value]="form.controls.title.value" [formGroup]="form"></editor>
-             <small [class.active-warning]="!form.controls.title.valid && submitted">
-                 Title is required (minimum 5 characters).
-             </small>
-         </div>
+        <div class="rich-text-box">
+            <label>Enter Title</label>
+            <editor [elementId]="'title'" [value]="form.controls.title.value" [formGroup]="form"></editor>
+            <small [class.active-warning]="!form.controls.title.valid && submitted">
+                Title is required (minimum 5 characters).
+            </small>
+        </div>
 
-         <div class="rich-text-box">
-             <label>Short Description</label>
-             <editor [elementId]="'shortDescription'" [value]="form.controls.shortDescription.value" [formGroup]="form"></editor>
-             <small [class.active-warning]="!form.controls.shortDescription.valid && submitted">
-                 Short description is required.
-             </small>
-         </div>
+        <div class="rich-text-box">
+            <label>Short Description</label>
+            <editor [elementId]="'shortDescription'" [value]="form.controls.shortDescription.value" [formGroup]="form"></editor>
+            <small [class.active-warning]="!form.controls.shortDescription.valid && submitted">
+                Short description is required.
+            </small>
+        </div>
 
-         <div class="rich-text-box" *ngIf="model.feedType == feedTypes.Text">
-             <label>Body Text</label>
-             <editor [elementId]="'bodyText'" [value]="form.controls.bodyText.value" [formGroup]="form"></editor>
-             <small [class.active-warning]="!form.controls.bodyText.valid && submitted">
-                 Body text is required if you are not uploading an image or video (minimum 5 characters).
-             </small>
-         </div>
-     </div>
+        <div class="rich-text-box" *ngIf="model.feedType == feedTypes.Text">
+            <label>Body Text</label>
+            <editor [elementId]="'bodyText'" [value]="form.controls.bodyText.value" [formGroup]="form"></editor>
+            <small [class.active-warning]="!form.controls.bodyText.valid && submitted">
+                Body text is required if you are not uploading an image or video (minimum 5 characters).
+            </small>
+        </div>
+    </div>
         
     <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Media)">
         <upload (mediaUploaded)="attachMedia($event)" *ngIf="model.id == 0 && model.feedType != feedTypes.Image && model.feedType != feedTypes.Video"></upload>
@@ -208,7 +208,7 @@
         <div class="col-md-3">
             <a class="button btn" *ngIf="form.controls.callToActionUrl.value.length>5" 
                href="{{form.controls.callToActionUrl.value.indexOf('http') == 0 ? form.controls.callToActionUrl.value : 'http://' + form.controls.callToActionUrl.value}}" target="_blank">
-               <!--(click)="form.controls.callToActionUrl.value = form.controls.callToActionUrl.value.indexOf('http') == 0 ? form.controls.callToActionUrl.value : 'http://' + form.controls.callToActionUrl.value"--> 
+                <!--(click)="form.controls.callToActionUrl.value = form.controls.callToActionUrl.value.indexOf('http') == 0 ? form.controls.callToActionUrl.value : 'http://' + form.controls.callToActionUrl.value"--> 
 
                 <!--<span *ngIf="form.controls.callToActionText.value > 0">{{model.callToActionText}}</span>-->
                 <span>Test URL</span>
@@ -222,30 +222,33 @@
          feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Main) || 
          feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Media) || 
          feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Links)"  class="col-md-4">
-        <h5>Options</h5>
-        <hr/>   
+    <h5>Options</h5>
+    <hr/>   
     
-    <textinput [form]="form" [formSubmitted]="submitted"
-               [formControlId]="'points'"
-               [label]="'Reward Points'"
-               [validationMessage]="'Reward points are requiered.'" 
-               [class.hidden]="model.feedType == feedTypes.Observation"></textinput>
+    <numbertextinput [form]="form" 
+                     [formSubmitted]="submitted"
+                     [formControlId]="'points'"
+                     [label]="'Reward Points'"
+                     [validationMessage]="'Reward points are required.'" 
+                     [class.hidden]="model.feedType == feedTypes.Observation" required></numbertextinput>
 
-        <div class="input-field">
-            <label for="allowFavourite">Allow Favourite</label>
-            <div class="switch">
-                <label>                    
-                    <input formControlName="allowFavourite" type="checkbox" [checked]="model.allowFavourite">
-                    <span class="lever"></span>                    
-                </label>
-                <div class="clearboth"></div>
-            </div>
+    <div class="input-field">
+        <label for="allowFavourite">Allow Favourite</label>
+        <div class="switch">
+            <label>                    
+                <input formControlName="allowFavourite" type="checkbox" [checked]="model.allowFavourite">
+                <span class="lever"></span>                    
+            </label>
+            <div class="clearboth"></div>
         </div>
+    </div>
 
-    <textinput [form]="form" [formSubmitted]="submitted"
-               [formControlId]="'readingTime'"
-               [label]="'Reading Time (mins)'"
-               [validationMessage]="'Etimated time is required'" ></textinput>
+    <numbertextinput [form]="form" 
+                     [formSubmitted]="submitted"
+                     [formControlId]="'readingTime'"
+                     [label]="'Reading Time (mins)'"
+                     [validationMessage]="'Estimated time is required'" 
+                     [class.hidden]="model.feedType == feedTypes.Observation" required></numbertextinput>
 
 
     <div>
@@ -261,13 +264,13 @@
     <input type="hidden" formControlName="startDate">
     <input type="hidden" formControlName="endDate">
 
-    </div>
+</div>
 
-    <div *ngIf="feedFormData && model.feedType != feedTypes.Image && model.feedType != feedTypes.Video">
-        <feed-form-component [feedFormData]="feedFormData"></feed-form-component>
-    </div>
+<div *ngIf="feedFormData && model.feedType != feedTypes.Image && model.feedType != feedTypes.Video">
+    <feed-form-component [feedFormData]="feedFormData"></feed-form-component>
+</div>
    
-    <div class="clear-both"></div>
+<div class="clear-both"></div>
 </form>
             
 
