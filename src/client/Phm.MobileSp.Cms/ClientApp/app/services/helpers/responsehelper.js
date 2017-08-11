@@ -29,7 +29,7 @@ var ResponseHelper = (function () {
                 if (o.hasOwnProperty(origKey)) {
                     newKey = (origKey.charAt(0).toLowerCase() + origKey.slice(1) || origKey).toString();
                     value = o[origKey];
-                    if (value !== null && value.constructor === Object) {
+                    if (value !== null && (value.constructor === Object || value instanceof Array)) {
                         value = this.toCamel(value);
                     }
                     newO[newKey] = value;

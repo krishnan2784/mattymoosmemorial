@@ -25,7 +25,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
                     HigherBoundary = higherBoundary,
                     UserGroupId = userGroupId
                 }));
-            return response?.FirstOrDefault();
+            return response;
         }
 
     }

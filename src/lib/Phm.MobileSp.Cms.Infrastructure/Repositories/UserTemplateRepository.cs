@@ -44,7 +44,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
         {
             try
             {
-                var response = await UpdateAsync(user);
+                var response = await PutAsync(user);
                 return GetAPIResponse<UserTemplate>(response, "Succesfully updated " + user.FirstName);
             }
             catch (Exception ex)

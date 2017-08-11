@@ -24,7 +24,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
                     StartDate = startDate,
                     EndDate = endDate
                 }));
-            return response?.Content.First();
+            return response;
         }        
 
     }
