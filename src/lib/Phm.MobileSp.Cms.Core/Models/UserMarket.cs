@@ -2,7 +2,7 @@
 
 namespace Phm.MobileSp.Cms.Core.Models
 {
-    public class UserMarket : IUserMarket
+    public class UserMarket 
     {
         public virtual int Id { get; set; }
         public virtual string Name { get; set; }

@@ -7,5 +7,6 @@
         Image = 2,
         Video = 3,
         Icon = 4,
+        File = 5
     }
 }

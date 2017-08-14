@@ -7,193 +7,68 @@ using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Core.Models.Interfaces;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 using System;
+using Phm.MobileSp.Cms.Core.Enumerations;
+using Microsoft.Extensions.Options;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 {
-    public class FeedRepository : MLearningBaseRepository, IFeedRepository
+    public class FeedRepository : BaseRepository, IFeedRepository
     {
-        private readonly IMLearningCoreContract _proxyClient;
-        private readonly MobileSPCoreService.ICoreContract _proxyCoreClient;
-
-        public FeedRepository(IBaseRepository baseRepo, IMLearningCoreContract proxyClient, MobileSPCoreService.ICoreContract proxyCoreClient)
-            : base(baseRepo)
-        {
-            _proxyClient = proxyClient;
-            _proxyCoreClient = proxyCoreClient;
-        }
+        public FeedRepository(IHttpClientService client): base(client, "Feed") {       }
 
         public async Task<dynamic> GetFeedItemAsync(int feedItemId)
         {
-            var request = GetRequest(new GetFeedsRequest
-            {
-                Criteria = GetCriteria(new FeedCriteriaDto
-                {
-                    Id = feedItemId
-                })
-            });
+            var response = await GetAsync(feedItemId);
+            return GetResponseModel<List<dynamic>>(response).First();
 
-            var response = await _proxyClient.GetFeedsAsync(request);
-            return response.Feeds.FirstOrDefault();
+            //var type = Type.GetType($"Phm.MobileSp.Cms.Core.Models.{Enum.GetName(typeof(FeedTypeEnum),feed.FeedType)}Feed", true);
+            //var model = JsonConvert.DeserializeObject(feed, type);
+            //return response.StringifiedObject;
         }
-        
-        public async Task<IEnumerable<dynamic>> GetFeedItemsAsync() 
+
+        public async Task<dynamic> GetFeedItems(FeedCriteria criteria)
         {
-            var request = GetRequest(new GetFeedsRequest {
-                Criteria = GetCriteria(new FeedCriteriaDto())
-            });
-                
-            var response = await _proxyClient.GetFeedsAsync(request);
-            return response.Feeds;
+            var response = await GetAsync(criteria);
+            return JsonConvert.DeserializeObject(response.StringifiedObject);
+        }
+
+        public async Task<dynamic> GetMarketFeedItems(int marketId)
+        {
+            return await GetFeedItems(new FeedCriteria() { MarketId = marketId });
         }
 
         public async Task<TFeedItem> CreateFeedItemAsync<TFeedItem, TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed
             where TDestinationDto : BaseFeedDto
         {
-            var request = GetRequest(new CreateFeedRequest
-            {
-                CurrentFeed = feedItem.MapFeedItem<TFeedItem, TDestinationDto>()
-            });
-
-            var response = await _proxyClient.CreateFeedAsync(request);
-            return response.CurrentFeed.MapFeedItem<BaseFeedDto, TFeedItem>();
+            var response = await CreateAsync(feedItem);
+            return GetResponseModel<TFeedItem>(response);
         }
-
 
         public async Task<TFeedItem> UpdateFeedItemAsync<TFeedItem, TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed
             where TDestinationDto : BaseFeedDto
         {
-            // set it to null as we don't want this being overriden
-            feedItem.MarketId = null;
-            var originalFeedItem = await GetFeedItemAsync(feedItem.Id);
-            feedItem = FeedMapper.ConvertUnpopulatedFieldsToModel(originalFeedItem, feedItem);
-            feedItem.DeletedAt = null;
-            var request = GetRequest(new UpdateFeedRequest()
-            {
-                CurrentFeed = feedItem.MapFeedItem<TFeedItem, TDestinationDto>()
-            });
-
-            var response = await _proxyClient.UpdateFeedAsync(request);
-            return response.CurrentBaseFeed.MapFeedItem<BaseFeedDto, TFeedItem>(); 
+            var originalItem = await GetFeedItemAsync(feedItem.Id);
+            feedItem = FeedMapper.ConvertUnpopulatedFieldsToModel(originalItem, feedItem);
+            var response = await UpdateAsync(feedItem);
+            return GetResponseModel<TFeedItem>(response);
         }
-
 
         public async Task<bool> DeleteFeedItemAsync(int feedItemId)
         {
-            var request = GetRequest(new DeleteFeedRequest { FeedId = feedItemId });
-            var response = await _proxyClient.DeleteFeedAsync(request);
-            return response.Deleted;
-        }
-
-        public async Task<dynamic> GetQuizFeedSummaries(int feedItemId)
-        {
-            var request = GetRequest(new GetQuizFeedSummariesRequest
-            {
-                Criteria = GetCriteria(new QuizFeedSummaryCriteriaDto()
-                {
-                    QuizFeedId = feedItemId
-                })
-            });
-            var response = await _proxyClient.GetQuizFeedSummariesAsync(request);
-            return response.QuizSummaries.FirstOrDefault();
-        }
-
-        public async Task<IEnumerable<dynamic>> GetQuizResultsSummariesEX(int feedItemId, decimal lowerBoundary, decimal higherBoundary, int userGroupId)
-        {
-            var request = GetRequest(new GetQuizResultsSummariesEXRequest
-            {
-                Criteria = GetCriteria(new QuizResultsSummariesEXCriteriaDto()
-                {
-                    QuizFeedId = feedItemId,
-                    LowerBoundary = lowerBoundary,
-                    HigherBoundary = higherBoundary,
-                    UserGroupId = userGroupId
-                })
-            });
-            var response = await _proxyClient.GetQuizResultsSummariesEXAsync(request);
-            return response.QuizResultsSummaries;
-        }
-
-        public async Task<dynamic> GetSurveyFeedSummaries(int feedItemId)
-        {
-            var request = GetRequest(new GetSurveyFeedSummariesRequest
-            {
-                Criteria = GetCriteria(new SurveyFeedSummaryCriteriaDto()
-                {
-                    SurveyFeedId = feedItemId
-                })
-            });
-            var response = await _proxyClient.GetSurveyFeedSummariesAsync(request);
-            return response.SurveySummaries.FirstOrDefault();
-        }
-
-        public async Task<dynamic> GetObservationFeedSummaries(int feedItemId)
-        {
-            var request = GetRequest(new GetSurveyFeedSummariesRequest
-            {
-                Criteria = GetCriteria(new SurveyFeedSummaryCriteriaDto()
-                {
-                    SurveyFeedId = feedItemId
-                })
-            });
-            var response = await _proxyClient.GetSurveyFeedSummariesAsync(request);
-            return response.SurveySummaries.FirstOrDefault();
+            var response = await DeleteAsync(feedItemId);
+            return JsonConvert.DeserializeObject<dynamic>(response.StringifiedObject).Deleted;
         }
 
         public async Task<bool> CopyFeedItemToMarketAsync(int feedItemId, List<int> marketIds)
         {
-
-            var request = new MobileSPCoreService.CopyFeedToMarketRequest
-            {
+            var response = await PutAsync(new {
                 BaseFeedId = feedItemId,
-                AccessToken = BaseRequest.AccessToken,
                 MarketIds = marketIds
-            };
-            var response = await _proxyCoreClient.CopyFeedToMarketAsync(request);
-            return response.BaseFeeds?.Count == marketIds.Count;
-        }
-
-        public async Task<dynamic> GetLeaderBoard(int currentMarketId, DateTime? startDate = null, DateTime? endDate = null)
-        {
-            try
-            {
-                var request = GetRequest(new GetLeaderBoardDataRequest
-                {
-                    Criteria = GetCriteria(new LeaderBoardDataCriteriaDto()
-                    {
-                        MarketId = currentMarketId,
-                        StartDate = startDate,
-                        EndDate = endDate
-                    })
-                });
-                var response = await _proxyClient.GetLeaderBoardDataAsync(request);
-                return response.LeaderBoardData;   
-            }catch (Exception e)
-            {
-                return null;
-            }         
-        }
-
-        public async Task<dynamic> GetUserPointsHistory(int userId, DateTime? startDate = null, DateTime? endDate = null)
-        {
-            try
-            {
-                
-                   var request = GetRequest(new GetUserPointsHistoryRequest
-                   {
-                       Criteria = GetCriteria(new UserPointsCriteriaDto()
-                       {
-                           UserId = userId,
-                           StartDate = startDate,
-                           EndDate = endDate
-                       })
-                   });
-                var response = await _proxyClient.GetUserPointsHistoryAsync(request);
-                return response.UserPoints;
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
+            });
+            return response.Success;
+            // return JsonConvert.DeserializeObject<List<BaseFeed>>(response.StringifiedObject).Count == marketIds.Count;            
         }
 
     }

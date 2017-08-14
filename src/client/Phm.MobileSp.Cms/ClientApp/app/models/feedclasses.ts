@@ -47,8 +47,8 @@ export class BaseFeed extends Baseclasses.BaseModel implements FeedModel.IFeedIt
         this.allowFavourite = options['allowFavourite'] || true;
         this.corporateApp = options['corporateApp'];
         this.legalInformation = options['legalInformation'];
-        this.makeTitleWidgetLink = options['makeTitleWidgetLink'];
-        this.permissions = options['permissions'];
+        this.makeTitleWidgetLink = options['makeTitleWidgetLink'] || false;
+        this.permissions = options['permissions'] || 0;
         this.readingTime = options['readingTime'] || 0;
         this.startDate = options['startDate'];
         this.endDate = options['endDate'];

@@ -6,11 +6,9 @@ using Phm.MobileSp.Cms.Core.Models;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
 {
-    public interface IMarketRepository : ICoreBaseRepository
+    public interface IMarketRepository
     {
         Task<IEnumerable<Market>> GetMarketsAsync();
         Task<IEnumerable<Market>> GetMarketsByMasterIdAsync(CopiedElementTypeEnum contentType, Guid masterId);
-        Task<BaseResponse> PublishContentToLive(CopiedElementTypeEnum contentType, int id);
-        Task<dynamic> GetMarketUserFilters(int marketId);
     }
 }

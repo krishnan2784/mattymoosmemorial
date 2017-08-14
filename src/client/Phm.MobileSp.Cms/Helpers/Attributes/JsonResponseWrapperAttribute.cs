@@ -9,10 +9,10 @@ namespace Phm.MobileSp.Cms.Helpers.Attributes
         public override void OnActionExecuted(ActionExecutedContext context)
         {
             var response = context.Result as JsonResult;
-            var wrappedResponse = new BaseResponse();
+            var wrappedResponse = new BaseResponse<dynamic>();
 
             if (response != null) {
-                if (response.Value is BaseResponse)
+                if (response.Value is IBaseResponse)
                     return;
 
                 wrappedResponse.Content = response.Value;

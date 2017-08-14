@@ -11,7 +11,7 @@ export interface IFeedItem {
     enabled: boolean;
     published: boolean;
     marketId: string;
-    createdAt: Date;
+    createdAt: string;
     allowFavourite : boolean;
     corporateApp: CorporateApp;
     legalInformation: string;

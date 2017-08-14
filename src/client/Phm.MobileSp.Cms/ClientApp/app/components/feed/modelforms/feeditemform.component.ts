@@ -145,6 +145,8 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             readingTime: ['', []],
             callToActionText: ['', []],
             callToActionUrl: ['', []],
+            createdAt: ['', []],
+            updatedAt: ['', []],
             startDate: ['', [<any>Validators.required]],
             endDate: ['', [<any>Validators.required]]
         });

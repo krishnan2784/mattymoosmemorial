@@ -106,6 +106,8 @@ var FeedItemForm = (function () {
             readingTime: ['', []],
             callToActionText: ['', []],
             callToActionUrl: ['', []],
+            createdAt: ['', []],
+            updatedAt: ['', []],
             startDate: ['', [forms_1.Validators.required]],
             endDate: ['', [forms_1.Validators.required]]
         });

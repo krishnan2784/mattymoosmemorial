@@ -11,6 +11,8 @@ using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Helpers.Attributes;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 using Phm.MobileSp.Cms.Core.Models.Interfaces;
+using Phm.MobileSp.Cms.Infrastructure.Repositories;
+using System.Collections.Generic;
 
 namespace Phm.MobileSp.Cms.Controllers
 {
@@ -21,21 +23,27 @@ namespace Phm.MobileSp.Cms.Controllers
     {
         private readonly IUserRepository _userRepository;
         private readonly IMarketRepository _marketRepository;
+        private readonly IMarketUserRepository _marketUserRepository;
+        private readonly IUserConfigurationRepository _userConfigRepository;
+        private readonly IContentRepository _contentRepository;
 
-        public MarketController(IBaseRepository baseRepo,  IMemoryCache memoryCache, IUserRepository userRepository, IMarketRepository marketRepository) : base(baseRepo, memoryCache)
+        public MarketController(IMemoryCache memoryCache, IUserRepository userRepository, IMarketRepository marketRepository,
+            IUserConfigurationRepository userConfigRepository, IMarketUserRepository marketUserRepository,
+            IContentRepository contentRepository) : base(memoryCache)
         {
-            userRepository._baseRepo = _baseRepo;
-            marketRepository._baseRepo = _baseRepo;
             _userRepository = userRepository;
             _marketRepository = marketRepository;
+            _userConfigRepository = userConfigRepository;
+            _marketUserRepository = marketUserRepository;
+            _contentRepository = contentRepository;
         }
-
+        
         [HttpGet("[action]")]
         [JsonResponseWrapper]
         [ResponseCache(CacheProfileName = "NoCache")]
         public async Task<JsonResult> ChangeMarket(int marketId)
         {
-            var configs = await _userRepository.GetUserConfigurationsByUserId(UserId);
+            var configs = await _userConfigRepository.GetUserConfigurationsByUserId(UserId);
             var isUserMarket = configs.FirstOrDefault(x => x.MarketId == marketId);
 
             if (isUserMarket == null || isUserMarket.MarketId == 0)
@@ -83,7 +91,7 @@ namespace Phm.MobileSp.Cms.Controllers
         {
             Guid master = new Guid(masterId);
             var markets = await _marketRepository.GetMarketsByMasterIdAsync(contentType, master);
-            return Json(new BaseResponse(markets));
+            return Json(new BaseResponse<IEnumerable<Market>>(markets));
         }
 
         [HttpGet("[action]")]
@@ -91,8 +99,8 @@ namespace Phm.MobileSp.Cms.Controllers
         [ResponseCache(CacheProfileName = "NoCache")]
         public async Task<JsonResult> GetMarketUserFilters()
         {
-            var marketFilters = await _marketRepository.GetMarketUserFilters(CurrentMarketId);
-            return Json(new BaseResponse(marketFilters));
+            var marketFilters = await _marketUserRepository.GetMarketUserFilters(CurrentMarketId);
+            return Json(new BaseResponse<dynamic>(marketFilters));
         }
 
 
@@ -101,7 +109,7 @@ namespace Phm.MobileSp.Cms.Controllers
         [ResponseCache(CacheProfileName = "NoCache")]
         public async Task<JsonResult> PublishContentToLive(CopiedElementTypeEnum contentType, int contentId)
         {
-            var result = await _marketRepository.PublishContentToLive(contentType, contentId);
+            var result = await _contentRepository.PublishContentToLive(contentType, contentId);
             return Json(result);
         }
 

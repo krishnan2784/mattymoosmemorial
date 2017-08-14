@@ -8,8 +8,8 @@ using MobileSPCoreService;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
 {
-    public interface IMediaRepository : ICoreBaseRepository
+    public interface IMediaRepository 
     {
-        Task<MediaInfoDto> UploadFile(IFormFile file, Market currentMarket);
+        Task<MediaInfo> UploadFile(IFormFile file, Market currentMarket);
     }
 }

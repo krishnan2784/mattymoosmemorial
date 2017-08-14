@@ -21,6 +21,8 @@ using Phm.MobileSp.Cms.Helpers.Attributes;
 using Phm.MobileSp.Cms.Infrastructure.Repositories;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 using SecurityService;
+using Phm.MobileSp.Cms.Infrastructure;
+using Phm.MobileSp.Cms.Helpers;
 
 namespace Phm.MobileSp.Cms
 {
@@ -62,42 +64,38 @@ namespace Phm.MobileSp.Cms
             services.AddScoped<AiHandleErrorAttribute>();
 
             services.AddDistributedMemoryCache();
+
+            services.AddSingleton(Configuration);
+            services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
+            services.Configure<MicrosoftAzureStorage>(Configuration.GetSection("MicrosoftAzureStorage"));
+
+            AutoMapperConfiguration.SetConfiguration(ref services);
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             
-            services.AddTransient<IMLearningCoreContract>(provider =>
-            {
-                var mLearningCoreServices = Configuration["WcfServices:MLearningCoreService:EndpointUrl"];
-                Console.WriteLine(mLearningCoreServices);
-                var client = new MLearningCoreContractClient();
-                client.Endpoint.Address = new EndpointAddress(mLearningCoreServices);
-                return client;
-            });
+            services.AddScoped<IBaseRequest, BaseRequest>();
+            services.AddScoped<IBaseCriteria, BaseCriteria>();
+            services.AddScoped<IHttpClientService, MobileSPHttpClient>();
 
-            services.AddTransient<ISecurityContract>(provider =>
-            {
-                var securityServices = Configuration["WcfServices:SecurityService:EndpointUrl"];
-                Console.WriteLine(securityServices);
-                var client = new SecurityContractClient();
-                client.Endpoint.Address = new EndpointAddress(securityServices);
-                return client;
-            });
-
-            services.AddTransient<ICoreContract>(provider =>
-            {
-                var mLearningCoreService = Configuration["WcfServices:MobileSPCoreService:EndpointUrl"];
-                Console.WriteLine(mLearningCoreService);
-                var client = new CoreContractClient();
-                client.Endpoint.Address = new EndpointAddress(mLearningCoreService);
-                return client;
-            });
-
-            services.AddTransient<IBaseRepository, BaseRepository>();
+            services.AddTransient<IMLearningCoreContract, MLearningCoreContractClient>();
+            services.AddTransient<ICoreContract, CoreContractClient>();
+            services.AddTransient<ISecurityContract, SecurityContractClient>();
             
-            services.AddTransient<IUserRepository, UserRepository>();
-            services.AddTransient<IMarketRepository, MarketRepository>();
+            services.AddTransient<IContentRepository, ContentRepository>();
             services.AddTransient<IFeedRepository, FeedRepository>();
-
+            services.AddTransient<IFeedSummariesRepository, FeedSummariesRepository>();
+            services.AddTransient<ILeaderBoardDataRepository, LeaderBoardDataRepository>();
+            services.AddTransient<ILeaderBoardUserDataRepository, LeaderBoardUserDataRepository>();
+            services.AddTransient<IMarketRepository, MarketRepository>();
+            services.AddTransient<IMarketUserRepository, MarketUserRepository>();
+            services.AddTransient<IMediaInfoRepository, MediaInfoRepository>();
             services.AddTransient<IMediaRepository, MediaRepository>();
-
+            services.AddTransient<ISecurityGroupsRepository, SecurityGroupsRepository>();
+            services.AddTransient<IUserConfigurationRepository, UserConfigurationRepository>();
+            services.AddTransient<IUserQuizResultsRepository, UserQuizResultsRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IUserTemplateRepository, UserTemplateRepository>();
+            
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromHours(1);

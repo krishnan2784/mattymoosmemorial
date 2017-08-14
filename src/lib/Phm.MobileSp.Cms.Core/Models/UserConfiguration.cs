@@ -3,7 +3,7 @@
 namespace Phm.MobileSp.Cms.Core.Models
 {
 
-    public class UserConfiguration : IUserConfiguration
+    public class UserConfiguration 
     {
         public bool IsDefault { get; set; }
 

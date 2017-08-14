@@ -12,33 +12,32 @@ using System.Net.Http.Headers;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using System.Net.Http;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 {
-    public class MediaRepository : CoreBaseRepository, IMediaRepository
+    public class MediaRepository : BaseRepository, IMediaRepository
     {
-        private readonly ICoreContract _proxyClient;
-        private readonly IConfigurationRoot _config;
-        public MediaRepository(IBaseRepository baseRepo, ICoreContract proxyClient)
-            : base(baseRepo)
+        private MicrosoftAzureStorage _azureConnStrings{ get;}
+        private readonly IMediaInfoRepository _mediaInfoRepo;
+        public MediaRepository(IOptions<MicrosoftAzureStorage> azureConnStrings,
+            IHttpClientService client, IMediaInfoRepository mediaInfoRepo)
+            : base(client, "")
         {
-            _proxyClient = proxyClient;
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(AppContext.BaseDirectory)
-                .AddJsonFile("config.json")
-                .AddEnvironmentVariables();
-            _config = builder.Build();
+            _azureConnStrings = azureConnStrings.Value;
+            _mediaInfoRepo = mediaInfoRepo;
         }
+        
 
-        public async Task<MediaInfoDto> UploadFile(IFormFile file, Market currentMarket)
+        public async Task<MediaInfo> UploadFile(IFormFile file, Market currentMarket)
         {
             try
             {
                 var marketName = currentMarket.Name.Replace(" ", "_").Replace("(", "_").Replace(")", "_");
 
-                var connectionString = _config["MicrosoftAzureStorage:mobilespstagingstorage_AzureStorageConnectionString"];
-                var containerRoot = _config["MicrosoftAzureStorage:containerRoot"];
-                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
+                var containerRoot = _azureConnStrings.ContainerRoot;
+                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(_azureConnStrings.ConnectionString);
                 var blobClient = storageAccount.CreateCloudBlobClient();
                 var container = blobClient.GetContainerReference($"{containerRoot}/FordGlobal/{marketName}");
                 var parsedContentDisposition =
@@ -50,20 +49,17 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
                 var mediaInfoDto = GenerateMediaInfoDto(filename, storageAccount.BlobStorageUri.PrimaryUri.AbsoluteUri, containerRoot,
                     file.ContentType, "FordGlobal", marketName, currentMarket.Id, file.Length);
 
-                var response = await _proxyClient.CreateMediaInfoAsync(GetRequest(new CreateMediaInfoRequest
-                {
-                    CurrentMediInfo = mediaInfoDto
-                }));
+                var response = await _mediaInfoRepo.CreateMediaInfo(mediaInfoDto);
 
-                return response.CurrentMediInfo;
+                return response;
             } catch (Exception e)
             {
-                return new MediaInfoDto();
+                return new MediaInfo();
             }
         }
-        private MediaInfoDto GenerateMediaInfoDto(string fileName, string defaultUrl, string containerRoot, string contentType, string brandName, string marketName, int marketId, long fileSize)
+        private MediaInfo GenerateMediaInfoDto(string fileName, string defaultUrl, string containerRoot, string contentType, string brandName, string marketName, int marketId, long fileSize)
         {
-            var mediaItem = new MediaInfoDto
+            var mediaItem = new MediaInfo
             {
                 Name = fileName,
                 AzureUrl =
@@ -78,20 +74,20 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             };
             return mediaItem;
         }
-        private MediaTypesDto GetMediaType(string contentType)
+        private MediaTypes GetMediaType(string contentType)
         {
             switch (contentType.ToLower())
             {
                 case "image/png":
                 case "image/jpeg":
                 case "image/jpg":
-                    return MediaTypesDto.Image;
+                    return MediaTypes.Image;
                 case "video/mp4":
-                    return MediaTypesDto.Video;
+                    return MediaTypes.Video;
                 case "application/pdf":
-                    return MediaTypesDto.File;
+                    return MediaTypes.File;
                 default:
-                    return MediaTypesDto.Text;
+                    return MediaTypes.Text;
             }
         }
     }
