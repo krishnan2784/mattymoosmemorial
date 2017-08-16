@@ -70,7 +70,7 @@ var FeedItemForm = (function () {
             //var model = new newForm.feedModelType(this.form.value);
             //model.mainIcon = this.model.mainIcon;
             //this.model = model;
-            var model = new newForm.feedModelType(this.model);
+            this.model = new newForm.feedModelType(this.model);
             this.feedFormData = {
                 feedFormComponent: newFormType,
                 inputs: { form: this.form, feedFormSteps: this.feedFormSteps, model: this.model, submitted: this.submitted }
@@ -144,6 +144,7 @@ var FeedItemForm = (function () {
     };
     FeedItemForm.prototype.updateForm = function () {
         if (this.model && this.model.id > 0) {
+            console.log(this.model);
             (this.form).patchValue(this.model, { onlySelf: true });
             this.setMinDate(new Date(this.model.startDate));
             setTimeout(function () {
@@ -187,12 +188,11 @@ var FeedItemForm = (function () {
         }
         var fieldIdName = fieldName + "Id";
         var model = this.model;
-        if (fieldName == "mainImage") {
-            model = new Feedclasses.ImageFeed(this.form.value);
-        }
-        else if (fieldName == "mainVideo") {
-            model = new Feedclasses.VideoFeed(this.form.value);
-        }
+        //if (fieldName == "mainImage") {
+        //    model = new Feedclasses.ImageFeed(this.form.value);
+        //} else if (fieldName == "mainVideo") {
+        //    model = new Feedclasses.VideoFeed(this.form.value);
+        //}
         model[fieldIdName] = media.id;
         model[fieldName] = media;
         this.model = model;
@@ -202,9 +202,10 @@ var FeedItemForm = (function () {
         else if (fieldName == "mainVideo") {
             this.swapForm(videofeeditem_component_1.VideoFeedItemFormComponent, this.model.feedCategory);
         }
-        if (this.form.controls[fieldIdName] != null)
-            this.form.controls[fieldIdName].patchValue(this.model[fieldIdName], { onlySelf: true });
-        this.form.updateValueAndValidity();
+        console.log(this.model);
+        //if (this.form.controls[fieldIdName] != null)
+        //    this.form.controls[fieldIdName].patchValue(this.model[fieldIdName], { onlySelf: true });
+        //this.form.updateValueAndValidity();
     };
     FeedItemForm.prototype.save = function (feedItem, isValid) {
         var _this = this;

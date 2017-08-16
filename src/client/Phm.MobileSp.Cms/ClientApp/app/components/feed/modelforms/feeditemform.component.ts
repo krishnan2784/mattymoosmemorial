@@ -105,7 +105,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             //var model = new newForm.feedModelType(this.form.value);
             //model.mainIcon = this.model.mainIcon;
             //this.model = model;
-            var model = new newForm.feedModelType(this.model);
+            this.model = new newForm.feedModelType(this.model);
 
             this.feedFormData = {
                 feedFormComponent: newFormType,
@@ -186,6 +186,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
 
     updateForm() {
         if (this.model && this.model.id > 0) {
+            console.log(this.model);
             (this.form).patchValue(this.model, { onlySelf: true });
             this.setMinDate(new Date(this.model.startDate));
             setTimeout(() => {
@@ -233,15 +234,15 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
 
         let model = this.model;
 
-        if (fieldName == "mainImage") {
-            model = new Feedclasses.ImageFeed(this.form.value);
-        } else if (fieldName == "mainVideo") {
-            model = new Feedclasses.VideoFeed(this.form.value);
-        }
+        //if (fieldName == "mainImage") {
+        //    model = new Feedclasses.ImageFeed(this.form.value);
+        //} else if (fieldName == "mainVideo") {
+        //    model = new Feedclasses.VideoFeed(this.form.value);
+        //}
 
         model[fieldIdName] = media.id;
         model[fieldName] = media;
-
+        
         this.model = model;
 
         if (fieldName == "mainImage") {
@@ -250,9 +251,11 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             this.swapForm(VideoFeedItemFormComponent, this.model.feedCategory);
         } 
 
-        if (this.form.controls[fieldIdName] != null)
-            this.form.controls[fieldIdName].patchValue(this.model[fieldIdName], { onlySelf: true });
-        this.form.updateValueAndValidity();
+        console.log(this.model);
+
+        //if (this.form.controls[fieldIdName] != null)
+        //    this.form.controls[fieldIdName].patchValue(this.model[fieldIdName], { onlySelf: true });
+        //this.form.updateValueAndValidity();
     }
 
     save(feedItem: FeedItem, isValid: boolean) {

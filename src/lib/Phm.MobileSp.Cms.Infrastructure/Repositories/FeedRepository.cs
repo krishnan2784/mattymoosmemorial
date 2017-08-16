@@ -36,7 +36,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 
         public async Task<dynamic> GetMarketFeedItems(int marketId)
         {
-            return await GetFeedItems(new FeedCriteria() { MarketId = marketId });
+            return await GetFeedItems(new FeedCriteria() { MarketId = marketId, Enabled = null });
         }
 
         public async Task<TFeedItem> CreateFeedItemAsync<TFeedItem, TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed

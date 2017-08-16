@@ -222,15 +222,15 @@
 
     </div>
     
-    <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Media)">
-        <upload (mediaUploaded)="attachMedia($event, '')" *ngIf="model.id == 0" [title]="'Upload an image or video'"></upload>
+    <div [class.hidden]="!feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Media)">
+        <upload (mediaUploaded)="attachMedia($event, '')" *ngIf="model.id == 0 && model.feedType != feedTypes.Image && model.feedType != feedTypes.Video" [title]="'Upload an image or video'"></upload>
 
         <upload (mediaUploaded)="attachMedia($event, 'mainImage')" [uploaderType]="model.id > 0 ? uploaderTypes.Image : uploaderTypes.Any" 
-                [selectedMedia]="model.mainImage" *ngIf="model.id > 0 && model.feedType == feedTypes.Image" [title]="'Upload an image'"
+                [selectedMedia]="model.mainImage" *ngIf="model.feedType == feedTypes.Image" [title]="'Upload an image'"
                 [previewText]="'Main Image Preview'"></upload>
 
         <upload (mediaUploaded)="attachMedia($event, 'mainVideo')" [uploaderType]="model.id > 0 ? uploaderTypes.Video : uploaderTypes.Any" 
-                [selectedMedia]="model.mainVideo" *ngIf="model.id > 0 && model.feedType == feedTypes.Video" [title]="'Upload a video'"
+                [selectedMedia]="model.mainVideo" *ngIf="model.feedType == feedTypes.Video" [title]="'Upload a video'"
                 [previewText]="'Video Preview'"></upload>
 
         <h5 *ngIf="model.id > 0 && model.feedType != feedTypes.Image && model.feedType != feedTypes.Video">
