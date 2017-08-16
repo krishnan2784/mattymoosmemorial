@@ -58,7 +58,7 @@ export class UploadMediaComponent implements OnInit {
         this.uploading = true;
         this.imagePreviewUrl = '';
         this.mediaUploaded.emit(new MediaInfo());
-
+        console.log(this.files);
         for (var file of this.files) {
             this.mediaService.uploadFile(file, this.uploadUrl).subscribe((response) => {
                 this.processUploadResponse(response);
@@ -111,11 +111,6 @@ export class UploadMediaComponent implements OnInit {
                 };
             } else {
                 this.processFile(FileList.item(i), i);
-                if (this.fileIsValid(FileList.item(i))) {
-                    this.files.push(FileList.item(i));
-                } else {
-                    this.files.splice(i, 1);
-                }
             }
 
         }

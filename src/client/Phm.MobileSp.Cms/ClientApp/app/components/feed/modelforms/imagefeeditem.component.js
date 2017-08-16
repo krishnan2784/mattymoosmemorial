@@ -25,14 +25,23 @@ var Enums = require("../../../enums");
 var FeedTypeEnum = Enums.FeedTypeEnum;
 var Feedclasses = require("../../../models/feedclasses");
 var basepartialfeeditem_component_1 = require("./basepartialfeeditem.component");
+var mediaservice_1 = require("../../../services/mediaservice");
 var ImageFeedItemFormComponent = (function (_super) {
     __extends(ImageFeedItemFormComponent, _super);
-    function ImageFeedItemFormComponent(injector) {
-        return _super.call(this, injector, Feedclasses.ImageFeed, '/api/Feed/UpdateImageFeedItem', FeedTypeEnum.Image) || this;
+    function ImageFeedItemFormComponent(injector, mediaDataService) {
+        var _this = _super.call(this, injector, Feedclasses.ImageFeed, '/api/Feed/UpdateImageFeedItem', FeedTypeEnum.Image) || this;
+        _this.mediaDataService = mediaDataService;
+        return _this;
     }
     ImageFeedItemFormComponent.prototype.addFormControls = function () {
+        var _this = this;
         this.form.addControl('imageDescription', new forms_1.FormControl(this.model.imageDescription, []));
         this.form.addControl('mainImageId', new forms_1.FormControl(this.model.mainImageId, [forms_1.Validators.required]));
+        if (this.model && !this.model.mainImage && this.model.mainImageId > 0) {
+            this.mediaDataService.getMediaInfo(this.model.mainImageId).subscribe(function (result) {
+                _this.model.mainImage = result;
+            });
+        }
     };
     ;
     ImageFeedItemFormComponent.prototype.removeFormControls = function () {
@@ -47,7 +56,7 @@ ImageFeedItemFormComponent = __decorate([
         selector: 'imagefeeditem',
         template: require('./imagefeeditem.component.html')
     }),
-    __metadata("design:paramtypes", [core_1.Injector])
+    __metadata("design:paramtypes", [core_1.Injector, mediaservice_1.MediaDataService])
 ], ImageFeedItemFormComponent);
 exports.ImageFeedItemFormComponent = ImageFeedItemFormComponent;
 //# sourceMappingURL=imagefeeditem.component.js.map

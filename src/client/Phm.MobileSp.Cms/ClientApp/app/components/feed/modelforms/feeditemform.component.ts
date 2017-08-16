@@ -186,7 +186,6 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
 
     updateForm() {
         if (this.model && this.model.id > 0) {
-            console.log(this.model);
             (this.form).patchValue(this.model, { onlySelf: true });
             this.setMinDate(new Date(this.model.startDate));
             setTimeout(() => {
@@ -253,16 +252,17 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
 
         console.log(this.model);
 
-        //if (this.form.controls[fieldIdName] != null)
-        //    this.form.controls[fieldIdName].patchValue(this.model[fieldIdName], { onlySelf: true });
-        //this.form.updateValueAndValidity();
+        if (this.form.controls[fieldIdName] != null)
+            this.form.controls[fieldIdName].patchValue(this.model[fieldIdName], { onlySelf: true });
+        this.form.updateValueAndValidity();
     }
 
     save(feedItem: FeedItem, isValid: boolean) {
         
         this.submitted = true;
-        
-        if (!isValid || this.loading)
+        this.form.updateValueAndValidity();
+
+        if (!this.form.valid || this.loading)
             return;
         
         this.loading = true;

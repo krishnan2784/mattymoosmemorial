@@ -144,7 +144,6 @@ var FeedItemForm = (function () {
     };
     FeedItemForm.prototype.updateForm = function () {
         if (this.model && this.model.id > 0) {
-            console.log(this.model);
             (this.form).patchValue(this.model, { onlySelf: true });
             this.setMinDate(new Date(this.model.startDate));
             setTimeout(function () {
@@ -203,14 +202,15 @@ var FeedItemForm = (function () {
             this.swapForm(videofeeditem_component_1.VideoFeedItemFormComponent, this.model.feedCategory);
         }
         console.log(this.model);
-        //if (this.form.controls[fieldIdName] != null)
-        //    this.form.controls[fieldIdName].patchValue(this.model[fieldIdName], { onlySelf: true });
-        //this.form.updateValueAndValidity();
+        if (this.form.controls[fieldIdName] != null)
+            this.form.controls[fieldIdName].patchValue(this.model[fieldIdName], { onlySelf: true });
+        this.form.updateValueAndValidity();
     };
     FeedItemForm.prototype.save = function (feedItem, isValid) {
         var _this = this;
         this.submitted = true;
-        if (!isValid || this.loading)
+        this.form.updateValueAndValidity();
+        if (!this.form.valid || this.loading)
             return;
         this.loading = true;
         feedItem = new this.subForm.feedModelType(feedItem);
