@@ -32,7 +32,7 @@ var VideoFeedItemFormComponent = (function (_super) {
     }
     VideoFeedItemFormComponent.prototype.addFormControls = function () {
         this.form.addControl('videoDescription', new forms_1.FormControl(this.model.videoDescription, []));
-        this.form.addControl('mainVideoId', new forms_1.FormControl(this.model.mainVideoId, []));
+        this.form.addControl('mainVideoId', new forms_1.FormControl(this.model.mainVideoId, [forms_1.Validators.required]));
         //this.form.addControl('mainVideo', new FormGroup({
         //    id: new FormControl(this.model.mainVideo.id, []),
         //    masterId: new FormControl(this.model.mainVideo.masterId, []),

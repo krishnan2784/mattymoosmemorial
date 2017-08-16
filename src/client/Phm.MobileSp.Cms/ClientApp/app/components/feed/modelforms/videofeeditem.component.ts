@@ -27,7 +27,7 @@ export class VideoFeedItemFormComponent extends BasePartialItemFormComponent imp
 
     addFormControls() {
         this.form.addControl('videoDescription', new FormControl(this.model.videoDescription, []));
-        this.form.addControl('mainVideoId', new FormControl(this.model.mainVideoId, []));
+        this.form.addControl('mainVideoId', new FormControl(this.model.mainVideoId, [<any>Validators.required]));
 
         //this.form.addControl('mainVideo', new FormGroup({
         //    id: new FormControl(this.model.mainVideo.id, []),

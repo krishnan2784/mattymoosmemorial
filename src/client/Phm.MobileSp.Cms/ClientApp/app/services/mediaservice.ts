@@ -22,14 +22,27 @@ export class MediaDataService extends RequestHelper implements IMediaDataService
         this.fileUploadService = new FileUploadService();
     }
 
-    uploadFile(file): Observable<MediaInfo> {
-        let input = new FormData();
-        input.append("file", file);
+    getMediaInfo(id): Observable<MediaInfo> {
         return Observable.create(observer => {
-            this.http.post('/Media/UploadFile', input).subscribe(
+            this.http.get('/Media/GetMediaInfo?id=' + id).subscribe(
                 (result) => {
                     let response = ResponseHelper.getResponse(result);
                     observer.next(response.content);
+                    observer.complete();
+                }
+            );
+        });
+    }
+
+    uploadFile(file, uploadUrl): Observable<MediaInfo> {
+        let input = new FormData();
+        input.append("file", file);
+        return Observable.create(observer => {
+            this.http.post(uploadUrl, input).subscribe(
+                (result) => {
+                    let response = ResponseHelper.getResponse(result);
+                    var model = new MediaInfo(response.content);
+                    observer.next(model);
                     observer.complete();
                 }
             );

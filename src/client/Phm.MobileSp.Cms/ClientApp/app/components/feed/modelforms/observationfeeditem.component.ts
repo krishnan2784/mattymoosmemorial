@@ -27,16 +27,18 @@ export class ObservationFeedItemFormComponent extends BaseQuestionFeedItemFormCo
     }
     
     addFormControls() {
-        var formArray = new FormArray([]);
+        var formArray = new FormArray([], Validators.required);
         this.model.questions.forEach(x => formArray.push(this.initQuestion(x)));
         this.form.addControl('questions', formArray);
 
         var userFormArray = new FormArray([]);
         this.model.userObservations.forEach(x => userFormArray.push(this.initUserObservation(x)));
         this.form.addControl('userObservations', userFormArray);
-
         this.form.addControl('surveyDescription', new FormControl(this.model.surveyDescription, [<any>Validators.required, <any>Validators.minLength(5)]));
         this.form.addControl('completionMessage', new FormControl(this.model.completionMessage, [<any>Validators.required, <any>Validators.minLength(5)]));
+        this.form.controls['mainIconId'].setValidators(null);
+        this.form.controls['readingTime'].setValidators(Validators.required);
+        this.form.controls['points'].setValidators(Validators.required);
     };
     
     removeFormControls() {
@@ -44,6 +46,10 @@ export class ObservationFeedItemFormComponent extends BaseQuestionFeedItemFormCo
         this.form.removeControl('userObservations');
         this.form.removeControl('surveyDescription');
         this.form.removeControl('completionMessage');
+        this.form.controls['mainIconId'].setValidators(Validators.required);
+        this.form.controls['readingTime'].setValidators(null);
+        this.form.controls['points'].setValidators(null);
+
     };
 
     initUserObservation(userObservation: UserObservation = new UserObservation()) {

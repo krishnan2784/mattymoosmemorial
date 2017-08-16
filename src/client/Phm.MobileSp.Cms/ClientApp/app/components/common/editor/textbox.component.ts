@@ -8,7 +8,7 @@ import { FormGroup } from "@angular/forms";
         <div class="input-field">
             <input id="{{elementId}}" type="text" formControlName="{{formControlId}}">
             <label [attr.for]="elementId" class="{{activeClass}}">{{label}}</label>
-            <small [class.active-warning]="!form.controls[formControlId].valid && formSubmitted">
+            <small class="active-warning" [class.hidden]="form.controls[formControlId].valid || !formSubmitted">
                 {{validationMessage}}
             </small>
         </div>

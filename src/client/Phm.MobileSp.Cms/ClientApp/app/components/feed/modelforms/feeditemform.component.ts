@@ -28,6 +28,8 @@ import { ImageFeedItemFormComponent } from "./imagefeeditem.component";
 import { VideoFeedItemFormComponent } from "./videofeeditem.component";
 import { DateEx } from "../../../classes/helpers/date";
 import { isNumber } from "util";
+import { IMediaDataService } from "../../../interfaces/services/IMediaDataService";
+import { MediaDataService } from "../../../services/mediaservice";
 import ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationFeedItemFormComponent;
 import BaseFeed = Feedclasses.BaseFeed;
 declare var $: any;
@@ -68,12 +70,15 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     public feedFormSteps: FeedFormSteps = new FeedFormSteps();
     public navbarData = [];
 
+    public loading: boolean;
+
     minDay;
     minMonth;
     minYear;
 
     constructor(fb: FormBuilder, public http: Http, public route: ActivatedRoute,
-        private router: Router, public feedDataService: FeedDataService, private injector: Injector, public sharedService: ShareService) {
+        private router: Router, public feedDataService: FeedDataService,
+        private injector: Injector, public sharedService: ShareService, public mediaDataService: MediaDataService) {
         
         this._fb = fb;
 
@@ -86,24 +91,29 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     }
 
     public swapForm<TFormType extends any>(newFormType: TFormType, feedCategory: FeedCategoryEnum) {
+        this.submitted = false;
         let newForm = (new newFormType()) as IFeedItemComponents.IFeedItemPartialForm;
 
         if (!this.subForm || this.subForm.feedType != newForm.feedType && (newForm.feedType != Enums.FeedTypeEnum.Text
             || (this.subForm.feedType != Enums.FeedTypeEnum.Image && this.subForm.feedType != Enums.FeedTypeEnum.Video))) {
+
             if (this.form) {
                 this.subForm = null;
             } 
-
-            this.model = new newForm.feedModelType(this.model);
+            
+            //(this.form).patchValue(this.model, { onlySelf: true });
+            //var model = new newForm.feedModelType(this.form.value);
+            //model.mainIcon = this.model.mainIcon;
+            //this.model = model;
+            var model = new newForm.feedModelType(this.model);
 
             this.feedFormData = {
                 feedFormComponent: newFormType,
-                inputs: { form: this.form, feedFormSteps: this.feedFormSteps, model: this.model }
+                inputs: { form: this.form, feedFormSteps: this.feedFormSteps, model: this.model, submitted: this.submitted }
             };
 
             this.subForm = newForm;
-            this.model.feedType = newForm.feedType;
-
+            this.model.feedType = newForm.feedType;           
         }        
 
         this.model.feedCategory = feedCategory;
@@ -134,21 +144,22 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             shortDescription: ['', [<any>Validators.required, <any>Validators.minLength(10)]],
             feedType: ['', [<any>Validators.required]],
             feedCategory: ['', [<any>Validators.required]],
-            points: ['', []],
+            points: ['', [<any>Validators.required]],
             enabled: ['', []],
             published: ['', []],
-            mainIcon: ['', []],
             allowFavourite: ['', []],
             legalInformation: ['', []],
             makeTitleWidgetLink: ['', []],
             permissions: ['', []],
-            readingTime: ['', []],
+            readingTime: ['', [<any>Validators.required]],
             callToActionText: ['', []],
             callToActionUrl: ['', []],
             createdAt: ['', []],
             updatedAt: ['', []],
             startDate: ['', [<any>Validators.required]],
-            endDate: ['', [<any>Validators.required]]
+            endDate: ['', [<any>Validators.required]],
+            mainIconId: ['', [<any>Validators.required]],
+            bodyText: ['', []]
         });
     } 
 
@@ -156,14 +167,22 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         if (this.model) {
             let baseModel = new Feedclasses.BaseFeed();
             baseModel.formatFeedItemDates(this.model);
+            this.getIconModel();
             this.swapForm(this.getFeedType(this.model.feedType), this.model.feedCategory);
         } else {
             this.model = new Feedclasses.BaseFeed();
             this.updateForm();
             this.setupFormSteps();
         }
-        this.model.webUrlLink.indexOf('http://')
     };
+
+    public getIconModel() {
+        if (this.model && this.model.mainIconId > 0) {
+            this.mediaDataService.getMediaInfo(this.model.mainIconId).subscribe((result) => {
+                this.model.mainIcon = result;
+            });
+        }
+    }
 
     updateForm() {
         if (this.model && this.model.id > 0) {
@@ -177,6 +196,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             this.form.controls['feedCategory'].patchValue(this.model.feedCategory, { onlySelf: true });
             this.form.controls['startDate'].patchValue(this.model.startDate, { onlySelf: true });
             this.form.controls['endDate'].patchValue(this.model.endDate, { onlySelf: true });
+            this.form.controls['mainIconId'].patchValue(this.model.mainIconId, { onlySelf: true });
         }
         this.form.updateValueAndValidity();
     }
@@ -198,39 +218,62 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         }
     }
 
-    attachMedia(media: MediaInfo) {
-        this.form.markAsDirty();
-        if (media.mediaType == MediaTypes.Image) {
-            let model = new Feedclasses.ImageFeed(this.model);
-            model.mainImageId = media.id;
-            model.mainImage = media;
-            this.model = model;
-            this.swapForm(ImageFeedItemFormComponent, this.model.feedCategory)
-        } else if (media.mediaType == MediaTypes.Video) {
-            let model = new Feedclasses.VideoFeed(this.model);
-            model.mainVideoId = media.id;
-            model.mainVideo = media;
-            this.model = model;
-            this.swapForm(VideoFeedItemFormComponent, this.model.feedCategory);
+    attachMedia(media: MediaInfo, fieldName: string ='') {
+
+        if (fieldName == null || fieldName == '') {
+            if (media.mediaType == MediaTypes.Image)
+                fieldName = "mainImage";
+            else if (media.mediaType == MediaTypes.Video)
+                fieldName = "mainVideo";
+            else
+                return;
         }
+
+        var fieldIdName = fieldName + "Id";
+
+        let model = this.model;
+
+        if (fieldName == "mainImage") {
+            model = new Feedclasses.ImageFeed(this.form.value);
+        } else if (fieldName == "mainVideo") {
+            model = new Feedclasses.VideoFeed(this.form.value);
+        }
+
+        model[fieldIdName] = media.id;
+        model[fieldName] = media;
+
+        this.model = model;
+
+        if (fieldName == "mainImage") {
+            this.swapForm(ImageFeedItemFormComponent, this.model.feedCategory)
+        } else if (fieldName == "mainVideo") {
+            this.swapForm(VideoFeedItemFormComponent, this.model.feedCategory);
+        } 
+
+        if (this.form.controls[fieldIdName] != null)
+            this.form.controls[fieldIdName].patchValue(this.model[fieldIdName], { onlySelf: true });
+        this.form.updateValueAndValidity();
     }
 
     save(feedItem: FeedItem, isValid: boolean) {
         
         this.submitted = true;
         
-        if (!isValid)
+        if (!isValid || this.loading)
             return;
+        
+        this.loading = true;
 
         feedItem = new this.subForm.feedModelType(feedItem);
-        feedItem.callToActionUrl = feedItem.callToActionUrl.indexOf('http') == 0 ? feedItem.callToActionUrl : 'http://' + feedItem.callToActionUrl;
+        feedItem.callToActionUrl = feedItem.callToActionUrl.length == 0 || feedItem.callToActionUrl.indexOf('http') == 0 ? feedItem.callToActionUrl : 'http://' + feedItem.callToActionUrl;
 
         this.feedDataService.updateFeeditem(this.subForm.updateUrl, feedItem).subscribe(result => {
             if (result.success) {
                 this.model = result.content;
                 this.sharedService.updateFeedItem(result.content);
                 this.feedUpdated.emit(result.content);
-            }
+            } else 
+                this.loading = false;
         });
     }
 

@@ -32,21 +32,12 @@ var ImageFeedItemFormComponent = (function (_super) {
     }
     ImageFeedItemFormComponent.prototype.addFormControls = function () {
         this.form.addControl('imageDescription', new forms_1.FormControl(this.model.imageDescription, []));
-        this.form.addControl('mainImageId', new forms_1.FormControl(this.model.mainImageId, []));
-        //this.form.addControl('mainImage', new FormGroup({
-        //    id: new FormControl(this.model.mainImage.id, []),
-        //    masterId: new FormControl(this.model.mainImage.masterId, []),
-        //    marketId: new FormControl(this.model.mainImage.marketId, []),
-        //    path: new FormControl(this.model.mainImage.path, []),
-        //    name: new FormControl(this.model.mainImage.name, []),
-        //    mediaType: new FormControl(this.model.mainImage.mediaType, [])
-        //}));
+        this.form.addControl('mainImageId', new forms_1.FormControl(this.model.mainImageId, [forms_1.Validators.required]));
     };
     ;
     ImageFeedItemFormComponent.prototype.removeFormControls = function () {
         this.form.removeControl('imageDescription');
         this.form.removeControl('mainImageId');
-        //this.form.removeControl('mainImage');
     };
     ;
     return ImageFeedItemFormComponent;

@@ -8,7 +8,7 @@ import { FormGroup } from "@angular/forms";
         <div class="input-field">
             <input id="{{elementId}}" type="number" formControlName="{{formControlId}}">
             <label [attr.for]="elementId" class="{{activeClass}}">{{label}}</label>
-            <small [class.active-warning]="!form.controls[formControlId].valid && formSubmitted">
+            <small class="active-warning" [class.hidden]="form.controls[formControlId].valid || !formSubmitted">
                 {{validationMessage}}
             </small>
         </div>
@@ -27,7 +27,7 @@ export class NumberTextInputComponent implements OnInit {
         if (this.elementId == '')
             this.elementId = this.formControlId;
         if (this.form && this.form.controls[this.formControlId]) {
-            this.activeClass = this.form.controls[this.formControlId].value.toString().length > 0 ? "active" : "";
+            this.activeClass = this.form.controls[this.formControlId].value && this.form.controls[this.formControlId].value.toString().length > 0 ? "active" : "";
         }
     }
 }

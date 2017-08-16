@@ -20,6 +20,7 @@ var BasePartialItemFormComponent = (function () {
         if (injector) {
             this.form = injector.get('form');
             this.model = injector.get('model');
+            this.submitted = injector.get('submitted');
             this.feedFormSteps = injector.get('feedFormSteps');
         }
     }

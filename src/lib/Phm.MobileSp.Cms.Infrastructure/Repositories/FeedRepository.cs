@@ -58,7 +58,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
         public async Task<bool> DeleteFeedItemAsync(int feedItemId)
         {
             var response = await DeleteAsync(feedItemId);
-            return JsonConvert.DeserializeObject<dynamic>(response.StringifiedObject).Deleted;
+            return JsonConvert.DeserializeObject<dynamic>(response.StringifiedObject);
         }
 
         public async Task<bool> CopyFeedItemToMarketAsync(int feedItemId, List<int> marketIds)

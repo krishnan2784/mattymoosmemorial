@@ -155,7 +155,7 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
             this.updateTabNavItems(DefaultTabNavs.feedIndexTabs);
             this.feedFormData = null;
         });
-
+        
         this.feedFormData = {
             feedFormComponent: form,
             inputs: inputs

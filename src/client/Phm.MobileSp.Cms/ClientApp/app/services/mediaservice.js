@@ -27,7 +27,9 @@ require("rxjs/add/operator/map");
 require("rxjs/add/operator/publishReplay");
 var Requesthelper = require("./helpers/requesthelper");
 var RequestHelper = Requesthelper.RequestHelper;
+var Mediainfoclasses = require("../models/mediainfoclasses");
 var responsehelper_1 = require("./helpers/responsehelper");
+var MediaInfo = Mediainfoclasses.MediaInfo;
 var MediaDataService = (function (_super) {
     __extends(MediaDataService, _super);
     function MediaDataService(http) {
@@ -36,14 +38,25 @@ var MediaDataService = (function (_super) {
         _this.fileUploadService = new FileUploadService();
         return _this;
     }
-    MediaDataService.prototype.uploadFile = function (file) {
+    MediaDataService.prototype.getMediaInfo = function (id) {
+        var _this = this;
+        return Observable_1.Observable.create(function (observer) {
+            _this.http.get('/Media/GetMediaInfo?id=' + id).subscribe(function (result) {
+                var response = responsehelper_1.ResponseHelper.getResponse(result);
+                observer.next(response.content);
+                observer.complete();
+            });
+        });
+    };
+    MediaDataService.prototype.uploadFile = function (file, uploadUrl) {
         var _this = this;
         var input = new FormData();
         input.append("file", file);
         return Observable_1.Observable.create(function (observer) {
-            _this.http.post('/Media/UploadFile', input).subscribe(function (result) {
+            _this.http.post(uploadUrl, input).subscribe(function (result) {
                 var response = responsehelper_1.ResponseHelper.getResponse(result);
-                observer.next(response.content);
+                var model = new MediaInfo(response.content);
+                observer.next(model);
                 observer.complete();
             });
         });

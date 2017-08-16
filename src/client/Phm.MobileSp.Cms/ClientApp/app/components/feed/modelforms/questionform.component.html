@@ -11,7 +11,8 @@
         <textinput [form]="form" [formSubmitted]="submitted"
                    [elementId]="'questions-' + index + '-question'"
                    [formControlId]="'question'"
-                   [label]="'Question'"></textinput>
+                   [label]="'Question'"
+                   [validationMessage]="'A question is required.'"></textinput>
     </div>
     
     <div class="question-answer-container col-md-10">
@@ -56,9 +57,11 @@
                     </div>
                     
                     <div class="answer-answer-container input-field col-md-9">
-                        <textinput [form]="answer" [formSubmitted]="submitted" [elementId]="'questions-' + index + '-answer-' + i + '-answer'"
+                        <textinput [form]="answer" [formSubmitted]="submitted" 
+                                   [elementId]="'questions-' + index + '-answer-' + i + '-answer'"
                                    [formControlId]="'answer'"
-                                   [label]="'Enter here'"></textinput>
+                                   [label]="'Enter here'"
+                                   [validationMessage]="'An answer is required.'"></textinput>
                     </div>
 
                     <a (click)="this.removeAnswer.emit(i)" [class.disabled]="form.controls.answers.controls.length < 3" class="btn">Delete Answer</a>
