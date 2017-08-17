@@ -136,16 +136,19 @@ namespace Phm.MobileSp.Cms
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
-                {
-                    HotModuleReplacement = true
-                });
             }
             else
             {
                 //app.UseExceptionHandler("/Home/Error");
                 app.UseDeveloperExceptionPage();
             }
+
+#if DEBUG
+            app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+            {
+                HotModuleReplacement = true
+            });
+#endif
 
             app.UseStaticFiles();
 

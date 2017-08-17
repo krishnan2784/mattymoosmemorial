@@ -21,12 +21,14 @@ export class QuizFeedItemFormComponent extends BaseQuestionFeedItemFormComponent
     }
 
     addFormControls() {
-        var formArray = new FormArray([]);
+        var formArray = new FormArray([], Validators.required);
         this.model.questions.forEach(x=> formArray.push(this.initQuestion(x)));
         this.form.addControl('questions', formArray);
         this.form.addControl('onBoardingMessage', new FormControl(this.model.onBoardingMessage, [<any>Validators.required, <any>Validators.minLength(5)]));
         this.form.addControl('successMessage', new FormControl(this.model.successMessage, [<any>Validators.required, <any>Validators.minLength(5)]));
-        this.form.addControl('failMessage', new FormControl(this.model.failMessage, [<any>Validators.required, <any>Validators.minLength(5)]));       
+        this.form.addControl('failMessage', new FormControl(this.model.failMessage, [<any>Validators.required, <any>Validators.minLength(5)]));  
+        this.form.controls['mainIconId'].setValidators(null);
+
     };
 
     removeFormControls() {
@@ -34,6 +36,7 @@ export class QuizFeedItemFormComponent extends BaseQuestionFeedItemFormComponent
         this.form.removeControl('onBoardingMessage');
         this.form.removeControl('successMessage');
         this.form.removeControl('failMessage');
+        this.form.controls['mainIconId'].setValidators(Validators.required);
     };
 
     initQuestion(question: QuizClasses.QuizQuestion = new QuizClasses.QuizQuestion()) {

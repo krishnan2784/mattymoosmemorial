@@ -1,5 +1,6 @@
 ﻿import Enums = require("../../enums");
 import Corporateappclasses = require("../../models/corporateappclasses");
+import { MediaInfo } from "../../models/mediainfoclasses";
 import CorporateApp = Corporateappclasses.CorporateApp;
 
 export interface IFeedItem {
@@ -8,6 +9,8 @@ export interface IFeedItem {
     feedType: Enums.FeedTypeEnum;
     feedCategory: Enums.FeedCategoryEnum;
     points: number;
+    mainIcon: MediaInfo;
+    mainIconId: number;
     enabled: boolean;
     published: boolean;
     marketId: string;

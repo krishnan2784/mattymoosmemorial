@@ -36,7 +36,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 
         public async Task<dynamic> GetMarketFeedItems(int marketId)
         {
-            return await GetFeedItems(new FeedCriteria() { MarketId = marketId });
+            return await GetFeedItems(new FeedCriteria() { MarketId = marketId, Enabled = null });
         }
 
         public async Task<TFeedItem> CreateFeedItemAsync<TFeedItem, TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed
@@ -58,7 +58,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
         public async Task<bool> DeleteFeedItemAsync(int feedItemId)
         {
             var response = await DeleteAsync(feedItemId);
-            return JsonConvert.DeserializeObject<dynamic>(response.StringifiedObject).Deleted;
+            return JsonConvert.DeserializeObject<dynamic>(response.StringifiedObject);
         }
 
         public async Task<bool> CopyFeedItemToMarketAsync(int feedItemId, List<int> marketIds)

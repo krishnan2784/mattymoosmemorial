@@ -23,7 +23,7 @@ var NumberTextInputComponent = (function () {
         if (this.elementId == '')
             this.elementId = this.formControlId;
         if (this.form && this.form.controls[this.formControlId]) {
-            this.activeClass = this.form.controls[this.formControlId].value.toString().length > 0 ? "active" : "";
+            this.activeClass = this.form.controls[this.formControlId].value && this.form.controls[this.formControlId].value.toString().length > 0 ? "active" : "";
         }
     };
     return NumberTextInputComponent;
@@ -55,7 +55,7 @@ __decorate([
 NumberTextInputComponent = __decorate([
     core_1.Component({
         selector: 'numbertextinput',
-        template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n        <div class=\"input-field\">\n            <input id=\"{{elementId}}\" type=\"number\" formControlName=\"{{formControlId}}\">\n            <label [attr.for]=\"elementId\" class=\"{{activeClass}}\">{{label}}</label>\n            <small [class.active-warning]=\"!form.controls[formControlId].valid && formSubmitted\">\n                {{validationMessage}}\n            </small>\n        </div>\n    </div>\n"
+        template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n        <div class=\"input-field\">\n            <input id=\"{{elementId}}\" type=\"number\" formControlName=\"{{formControlId}}\">\n            <label [attr.for]=\"elementId\" class=\"{{activeClass}}\">{{label}}</label>\n            <small class=\"active-warning\" [class.hidden]=\"form.controls[formControlId].valid || !formSubmitted\">\n                {{validationMessage}}\n            </small>\n        </div>\n    </div>\n"
     })
 ], NumberTextInputComponent);
 exports.NumberTextInputComponent = NumberTextInputComponent;

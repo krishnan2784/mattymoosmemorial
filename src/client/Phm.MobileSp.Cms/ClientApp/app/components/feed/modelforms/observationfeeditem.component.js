@@ -41,7 +41,7 @@ var ObservationFeedItemFormComponent = (function (_super) {
     }
     ObservationFeedItemFormComponent.prototype.addFormControls = function () {
         var _this = this;
-        var formArray = new forms_1.FormArray([]);
+        var formArray = new forms_1.FormArray([], forms_1.Validators.required);
         this.model.questions.forEach(function (x) { return formArray.push(_this.initQuestion(x)); });
         this.form.addControl('questions', formArray);
         var userFormArray = new forms_1.FormArray([]);
@@ -49,6 +49,9 @@ var ObservationFeedItemFormComponent = (function (_super) {
         this.form.addControl('userObservations', userFormArray);
         this.form.addControl('surveyDescription', new forms_1.FormControl(this.model.surveyDescription, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
         this.form.addControl('completionMessage', new forms_1.FormControl(this.model.completionMessage, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
+        this.form.controls['mainIconId'].setValidators(null);
+        this.form.controls['readingTime'].setValidators(forms_1.Validators.required);
+        this.form.controls['points'].setValidators(forms_1.Validators.required);
     };
     ;
     ObservationFeedItemFormComponent.prototype.removeFormControls = function () {
@@ -56,6 +59,9 @@ var ObservationFeedItemFormComponent = (function (_super) {
         this.form.removeControl('userObservations');
         this.form.removeControl('surveyDescription');
         this.form.removeControl('completionMessage');
+        this.form.controls['mainIconId'].setValidators(forms_1.Validators.required);
+        this.form.controls['readingTime'].setValidators(null);
+        this.form.controls['points'].setValidators(null);
     };
     ;
     ObservationFeedItemFormComponent.prototype.initUserObservation = function (userObservation) {

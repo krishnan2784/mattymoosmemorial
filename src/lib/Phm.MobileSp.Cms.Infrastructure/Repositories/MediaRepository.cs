@@ -28,8 +28,36 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             _azureConnStrings = azureConnStrings.Value;
             _mediaInfoRepo = mediaInfoRepo;
         }
-        
 
+        public async Task<MediaInfo> UploadPreviewImage(IFormFile file, string fileName, Market currentMarket)
+        {
+            try
+            {
+                var marketName = currentMarket.Name.Replace(" ", "_").Replace("(", "_").Replace(")", "_") + "/Preview";
+
+                var containerRoot = _azureConnStrings.ContainerRoot;
+                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(_azureConnStrings.ConnectionString);
+                var blobClient = storageAccount.CreateCloudBlobClient();
+                var container = blobClient.GetContainerReference($"{containerRoot}/FordGlobal/{marketName}");
+                var parsedContentDisposition =
+                    ContentDispositionHeaderValue.Parse(file.ContentDisposition);
+                
+                var blockBlob = container.GetBlockBlobReference(fileName);
+                await blockBlob.UploadFromStreamAsync(file.OpenReadStream());
+
+                var mediaInfoDto = GenerateMediaInfoDto(fileName, storageAccount.BlobStorageUri.PrimaryUri.AbsoluteUri, containerRoot,
+                    file.ContentType, "FordGlobal", marketName, currentMarket.Id, file.Length);
+
+                var response = await _mediaInfoRepo.CreateMediaInfo(mediaInfoDto);
+
+                return response;
+            }
+            catch (Exception e)
+            {
+                return new MediaInfo();
+            }
+        }
+        
         public async Task<MediaInfo> UploadFile(IFormFile file, Market currentMarket)
         {
             try
@@ -57,6 +85,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
                 return new MediaInfo();
             }
         }
+
         private MediaInfo GenerateMediaInfoDto(string fileName, string defaultUrl, string containerRoot, string contentType, string brandName, string marketName, int marketId, long fileSize)
         {
             var mediaItem = new MediaInfo
@@ -74,6 +103,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             };
             return mediaItem;
         }
+
         private MediaTypes GetMediaType(string contentType)
         {
             switch (contentType.ToLower())

@@ -38,17 +38,19 @@ var SurveyFeedItemFormComponent = (function (_super) {
     //}
     SurveyFeedItemFormComponent.prototype.addFormControls = function () {
         var _this = this;
-        var formArray = new forms_1.FormArray([]);
+        var formArray = new forms_1.FormArray([], forms_1.Validators.required);
         this.model.questions.forEach(function (x) { return formArray.push(_this.initQuestion(x)); });
         this.form.addControl('questions', formArray);
         this.form.addControl('surveyDescription', new forms_1.FormControl(this.model.surveyDescription, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
         this.form.addControl('completionMessage', new forms_1.FormControl(this.model.completionMessage, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
+        this.form.controls['mainIconId'].setValidators(null);
     };
     ;
     SurveyFeedItemFormComponent.prototype.removeFormControls = function () {
         this.form.removeControl('questions');
         this.form.removeControl('surveyDescription');
         this.form.removeControl('completionMessage');
+        this.form.controls['mainIconId'].setValidators(forms_1.Validators.required);
     };
     ;
     SurveyFeedItemFormComponent.prototype.initQuestion = function (question) {

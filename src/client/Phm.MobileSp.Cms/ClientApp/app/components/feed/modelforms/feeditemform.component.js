@@ -30,15 +30,17 @@ var Observationfeeditemcomponent = require("./observationfeeditem.component");
 var enums_1 = require("../../../enums");
 var imagefeeditem_component_1 = require("./imagefeeditem.component");
 var videofeeditem_component_1 = require("./videofeeditem.component");
+var mediaservice_1 = require("../../../services/mediaservice");
 var ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationFeedItemFormComponent;
 var FeedItemForm = (function () {
-    function FeedItemForm(fb, http, route, router, feedDataService, injector, sharedService) {
+    function FeedItemForm(fb, http, route, router, feedDataService, injector, sharedService, mediaDataService) {
         this.http = http;
         this.route = route;
         this.router = router;
         this.feedDataService = feedDataService;
         this.injector = injector;
         this.sharedService = sharedService;
+        this.mediaDataService = mediaDataService;
         this.feedFormData = null;
         this.selectedFeedCatId = 0;
         this.feedTypes = Enums.FeedTypeEnum;
@@ -57,16 +59,21 @@ var FeedItemForm = (function () {
         this.getModel();
     }
     FeedItemForm.prototype.swapForm = function (newFormType, feedCategory) {
+        this.submitted = false;
         var newForm = (new newFormType());
         if (!this.subForm || this.subForm.feedType != newForm.feedType && (newForm.feedType != Enums.FeedTypeEnum.Text
             || (this.subForm.feedType != Enums.FeedTypeEnum.Image && this.subForm.feedType != Enums.FeedTypeEnum.Video))) {
             if (this.form) {
                 this.subForm = null;
             }
+            //(this.form).patchValue(this.model, { onlySelf: true });
+            //var model = new newForm.feedModelType(this.form.value);
+            //model.mainIcon = this.model.mainIcon;
+            //this.model = model;
             this.model = new newForm.feedModelType(this.model);
             this.feedFormData = {
                 feedFormComponent: newFormType,
-                inputs: { form: this.form, feedFormSteps: this.feedFormSteps, model: this.model }
+                inputs: { form: this.form, feedFormSteps: this.feedFormSteps, model: this.model, submitted: this.submitted }
             };
             this.subForm = newForm;
             this.model.feedType = newForm.feedType;
@@ -95,27 +102,29 @@ var FeedItemForm = (function () {
             shortDescription: ['', [forms_1.Validators.required, forms_1.Validators.minLength(10)]],
             feedType: ['', [forms_1.Validators.required]],
             feedCategory: ['', [forms_1.Validators.required]],
-            points: ['', []],
+            points: ['', [forms_1.Validators.required]],
             enabled: ['', []],
             published: ['', []],
-            mainIcon: ['', []],
             allowFavourite: ['', []],
             legalInformation: ['', []],
             makeTitleWidgetLink: ['', []],
             permissions: ['', []],
-            readingTime: ['', []],
+            readingTime: ['', [forms_1.Validators.required]],
             callToActionText: ['', []],
             callToActionUrl: ['', []],
             createdAt: ['', []],
             updatedAt: ['', []],
             startDate: ['', [forms_1.Validators.required]],
-            endDate: ['', [forms_1.Validators.required]]
+            endDate: ['', [forms_1.Validators.required]],
+            mainIconId: ['', [forms_1.Validators.required]],
+            bodyText: ['', []]
         });
     };
     FeedItemForm.prototype.getModel = function () {
         if (this.model) {
             var baseModel = new Feedclasses.BaseFeed();
             baseModel.formatFeedItemDates(this.model);
+            this.getIconModel();
             this.swapForm(this.getFeedType(this.model.feedType), this.model.feedCategory);
         }
         else {
@@ -123,9 +132,16 @@ var FeedItemForm = (function () {
             this.updateForm();
             this.setupFormSteps();
         }
-        this.model.webUrlLink.indexOf('http://');
     };
     ;
+    FeedItemForm.prototype.getIconModel = function () {
+        var _this = this;
+        if (this.model && this.model.mainIconId > 0) {
+            this.mediaDataService.getMediaInfo(this.model.mainIconId).subscribe(function (result) {
+                _this.model.mainIcon = result;
+            });
+        }
+    };
     FeedItemForm.prototype.updateForm = function () {
         if (this.model && this.model.id > 0) {
             (this.form).patchValue(this.model, { onlySelf: true });
@@ -139,6 +155,7 @@ var FeedItemForm = (function () {
             this.form.controls['feedCategory'].patchValue(this.model.feedCategory, { onlySelf: true });
             this.form.controls['startDate'].patchValue(this.model.startDate, { onlySelf: true });
             this.form.controls['endDate'].patchValue(this.model.endDate, { onlySelf: true });
+            this.form.controls['mainIconId'].patchValue(this.model.mainIconId, { onlySelf: true });
         }
         this.form.updateValueAndValidity();
     };
@@ -158,36 +175,54 @@ var FeedItemForm = (function () {
                 return textfeeditem_component_1.TextFeedItemFormComponent;
         }
     };
-    FeedItemForm.prototype.attachMedia = function (media) {
-        this.form.markAsDirty();
-        if (media.mediaType == enums_1.MediaTypes.Image) {
-            var model = new Feedclasses.ImageFeed(this.model);
-            model.mainImageId = media.id;
-            model.mainImage = media;
-            this.model = model;
+    FeedItemForm.prototype.attachMedia = function (media, fieldName) {
+        if (fieldName === void 0) { fieldName = ''; }
+        if (fieldName == null || fieldName == '') {
+            if (media.mediaType == enums_1.MediaTypes.Image)
+                fieldName = "mainImage";
+            else if (media.mediaType == enums_1.MediaTypes.Video)
+                fieldName = "mainVideo";
+            else
+                return;
+        }
+        var fieldIdName = fieldName + "Id";
+        var model = this.model;
+        //if (fieldName == "mainImage") {
+        //    model = new Feedclasses.ImageFeed(this.form.value);
+        //} else if (fieldName == "mainVideo") {
+        //    model = new Feedclasses.VideoFeed(this.form.value);
+        //}
+        model[fieldIdName] = media.id;
+        model[fieldName] = media;
+        this.model = model;
+        if (fieldName == "mainImage") {
             this.swapForm(imagefeeditem_component_1.ImageFeedItemFormComponent, this.model.feedCategory);
         }
-        else if (media.mediaType == enums_1.MediaTypes.Video) {
-            var model = new Feedclasses.VideoFeed(this.model);
-            model.mainVideoId = media.id;
-            model.mainVideo = media;
-            this.model = model;
+        else if (fieldName == "mainVideo") {
             this.swapForm(videofeeditem_component_1.VideoFeedItemFormComponent, this.model.feedCategory);
         }
+        console.log(this.model);
+        if (this.form.controls[fieldIdName] != null)
+            this.form.controls[fieldIdName].patchValue(this.model[fieldIdName], { onlySelf: true });
+        this.form.updateValueAndValidity();
     };
     FeedItemForm.prototype.save = function (feedItem, isValid) {
         var _this = this;
         this.submitted = true;
-        if (!isValid)
+        this.form.updateValueAndValidity();
+        if (!this.form.valid || this.loading)
             return;
+        this.loading = true;
         feedItem = new this.subForm.feedModelType(feedItem);
-        feedItem.callToActionUrl = feedItem.callToActionUrl.indexOf('http') == 0 ? feedItem.callToActionUrl : 'http://' + feedItem.callToActionUrl;
+        feedItem.callToActionUrl = feedItem.callToActionUrl.length == 0 || feedItem.callToActionUrl.indexOf('http') == 0 ? feedItem.callToActionUrl : 'http://' + feedItem.callToActionUrl;
         this.feedDataService.updateFeeditem(this.subForm.updateUrl, feedItem).subscribe(function (result) {
             if (result.success) {
                 _this.model = result.content;
                 _this.sharedService.updateFeedItem(result.content);
                 _this.feedUpdated.emit(result.content);
             }
+            else
+                _this.loading = false;
         });
     };
     FeedItemForm.prototype.updateMaterialize = function () {
@@ -240,7 +275,8 @@ FeedItemForm = __decorate([
         providers: [feedDataService_1.FeedDataService]
     }),
     __metadata("design:paramtypes", [forms_1.FormBuilder, http_1.Http, router_1.ActivatedRoute,
-        router_1.Router, feedDataService_1.FeedDataService, core_1.Injector, ShareService])
+        router_1.Router, feedDataService_1.FeedDataService,
+        core_1.Injector, ShareService, mediaservice_1.MediaDataService])
 ], FeedItemForm);
 exports.FeedItemForm = FeedItemForm;
 //# sourceMappingURL=feeditemform.component.js.map

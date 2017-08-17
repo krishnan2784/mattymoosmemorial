@@ -11,7 +11,14 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
     public class MediaInfoRepository : BaseRepository, IMediaInfoRepository
     {
         public MediaInfoRepository(IHttpClientService client): base(client, "MediaInfo") {       }
-        
+
+        public async Task<MediaInfo> GetMediaInfo(int id)
+        {
+            var response = await GetAsync(id);
+            return GetResponseModel<MediaInfo>(response);
+        }
+
+
         public async Task<MediaInfo> CreateMediaInfo(MediaInfo file)
         {
             var response = await CreateAsync(file);

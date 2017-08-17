@@ -36,12 +36,13 @@ var QuizFeedItemFormComponent = (function (_super) {
     }
     QuizFeedItemFormComponent.prototype.addFormControls = function () {
         var _this = this;
-        var formArray = new forms_1.FormArray([]);
+        var formArray = new forms_1.FormArray([], forms_1.Validators.required);
         this.model.questions.forEach(function (x) { return formArray.push(_this.initQuestion(x)); });
         this.form.addControl('questions', formArray);
         this.form.addControl('onBoardingMessage', new forms_1.FormControl(this.model.onBoardingMessage, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
         this.form.addControl('successMessage', new forms_1.FormControl(this.model.successMessage, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
         this.form.addControl('failMessage', new forms_1.FormControl(this.model.failMessage, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
+        this.form.controls['mainIconId'].setValidators(null);
     };
     ;
     QuizFeedItemFormComponent.prototype.removeFormControls = function () {
@@ -49,6 +50,7 @@ var QuizFeedItemFormComponent = (function (_super) {
         this.form.removeControl('onBoardingMessage');
         this.form.removeControl('successMessage');
         this.form.removeControl('failMessage');
+        this.form.controls['mainIconId'].setValidators(forms_1.Validators.required);
     };
     ;
     QuizFeedItemFormComponent.prototype.initQuestion = function (question) {

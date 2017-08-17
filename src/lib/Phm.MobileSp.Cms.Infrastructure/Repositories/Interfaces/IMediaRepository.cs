@@ -11,5 +11,6 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
     public interface IMediaRepository 
     {
         Task<MediaInfo> UploadFile(IFormFile file, Market currentMarket);
+        Task<MediaInfo> UploadPreviewImage(IFormFile file, string fileName, Market currentMarket);
     }
 }
