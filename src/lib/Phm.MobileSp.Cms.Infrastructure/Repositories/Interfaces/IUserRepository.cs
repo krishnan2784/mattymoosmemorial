@@ -6,16 +6,10 @@ using Phm.MobileSp.Cms.Core.Models;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
 {
-    public interface IUserRepository : ICoreBaseRepository
+    public interface IUserRepository
     {
+        Task<Tuple<ApplicationUser, string>> GetUserAsync(LoginDetails userDetails);
         Task<dynamic> GetCurrentUser();
-        Task<Tuple<ApplicationUser, string>> GetUserAsync(ILoginDetails userDetails);
-        Task<IEnumerable<string>> GetUserRoles(ApplicationUser user);
-        Task<dynamic> GetUsersAsync(int marketId, int? userId);
-        Task<IEnumerable<IUserMarket>> GetUserMarkets(IMarketRepository marketRepo, int userId);
-        Task<IEnumerable<IUserConfiguration>> GetUserConfigurationsByUserId(int userId);
-        Task<BaseResponse> CreateUserAsync(UserTemplate user);
-        Task<BaseResponse> UpdateUserAsync(UserTemplate user);
-        Task<BaseResponse> GetSecGroupsAsync(int marketId);
+        Task<IEnumerable<UserMarket>> GetUserMarkets(int userId);
     }
 }

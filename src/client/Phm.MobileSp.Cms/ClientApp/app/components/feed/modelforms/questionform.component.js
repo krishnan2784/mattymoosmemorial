@@ -67,6 +67,10 @@ __decorate([
     __metadata("design:type", Object)
 ], QuestionFormComponent.prototype, "questionType", void 0);
 __decorate([
+    core_1.Input(),
+    __metadata("design:type", Boolean)
+], QuestionFormComponent.prototype, "submitted", void 0);
+__decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)
 ], QuestionFormComponent.prototype, "addAnswer", void 0);

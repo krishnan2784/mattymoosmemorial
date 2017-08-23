@@ -4,9 +4,48 @@ using System.Reflection;
 using AutoMapper;
 using MLearningCoreService;
 using Phm.MobileSp.Cms.Core.Models;
+using Microsoft.Extensions.DependencyInjection;
+using AutoMapper.Configuration;
 
 namespace Phm.MobileSp.Cms.Infrastructure
 {
+    public class MobileSpDefaultMapper : Profile
+    {
+        public MobileSpDefaultMapper()
+        {
+            CreateMap<MediaInfoDto, MediaInfo>().ReverseMap();
+            CreateMap<CorporateAppDto, CorporateApp>().ReverseMap();
+            CreateMap<ImageFeedDto, ImageFeed>().ReverseMap();
+            CreateMap<TextFeedDto, TextFeed>().ReverseMap();
+            CreateMap<VideoFeedDto, VideoFeed>().ReverseMap();
+            CreateMap<QuizFeedDto, QuizFeed>().ReverseMap();
+            CreateMap<QuizQuestionDto, QuizQuestion>().ReverseMap();
+            CreateMap<QuizQuestionAnswerDto, QuizQuestionAnswer>().ReverseMap();
+            CreateMap<SurveyFeedDto, SurveyFeed>().ReverseMap();
+            CreateMap<SurveyQuestionDto, SurveyQuestion>().ReverseMap();
+            CreateMap<SurveyQuestionAnswerDto, SurveyQuestionAnswer>().ReverseMap();
+            CreateMap<ObservationFeedDto, ObservationFeed>().ReverseMap();
+            CreateMap<UserObservationDto, UserObservation>().ReverseMap();
+            CreateMap<UserDto, User>().ReverseMap();
+            CreateMap<BaseFeedDto, BaseFeed>().ReverseMap();
+            CreateMap<MobileSPCoreService.MarketDto, Market>().ReverseMap();
+            CreateMap<MobileSPCoreService.UserConfigurationDto, UserConfiguration>().ReverseMap();
+        }
+        
+    }
+
+    public static class AutoMapperConfiguration
+    {
+        public static void SetConfiguration(ref IServiceCollection services)
+        {
+            var config = new MapperConfiguration(cfg => {
+                cfg.AddProfiles("Phm.MobileSp.Cms.Infrastructure");
+            });
+            services.AddSingleton(config.CreateMapper());
+        }        
+    }
+
+
     public class AutoMapperGenericsHelper<TSource, TDestination>
     {
         public AutoMapperGenericsHelper()
@@ -100,7 +139,7 @@ namespace Phm.MobileSp.Cms.Infrastructure
 
     public static class FeedMapper
     {
-        public static IEnumerable<TFeedDestination> MapFeed<TFeedSource,TFeedDestination>(this List<TFeedSource> sourceFeed) 
+        public static IEnumerable<TFeedDestination> MapFeed<TFeedSource, TFeedDestination>(this List<TFeedSource> sourceFeed)
         {
             var mapper = FeedMap<TFeedSource, TFeedDestination>();
             return mapper.Map<IList<TFeedDestination>>(sourceFeed);
@@ -130,7 +169,8 @@ namespace Phm.MobileSp.Cms.Infrastructure
                     var surveyFeedItem = destinationModel as SurveyFeed;
                     if (quizFeedItem != null)
                     {
-                        foreach (var question in quizFeedItem.Questions){
+                        foreach (var question in quizFeedItem.Questions)
+                        {
                             cfg.CreateMap<QuizQuestionDto, QuizQuestion>()
                                 .IgnorePopulatedDestinationFields(question)
                                 .ReverseMap();
@@ -139,7 +179,9 @@ namespace Phm.MobileSp.Cms.Infrastructure
                                 .IgnorePopulatedDestinationFields(x)
                                 .ReverseMap());
                         }
-                    } else if (surveyFeedItem != null){
+                    }
+                    else if (surveyFeedItem != null)
+                    {
                         foreach (var question in surveyFeedItem.Questions)
                         {
                             cfg.CreateMap<SurveyQuestionDto, SurveyQuestion>()
@@ -160,7 +202,7 @@ namespace Phm.MobileSp.Cms.Infrastructure
                                     .ReverseMap();
                             }
                         }
-                    }              
+                    }
                     cfg.CreateMap<TFeedItemSource, TFeedItemDestination>()
                             .IgnorePopulatedDestinationFields(destinationModel)
                             .ReverseMap();

@@ -13,6 +13,7 @@ import Feedformstepsclasses = require("../../../classes/feedformstepsclasses");
 import FeedFormSteps = Feedformstepsclasses.FeedFormSteps;
 import FeedModel = require("../../../interfaces/models/IFeedModel");
 import { BasePartialItemFormComponent } from "./basepartialfeeditem.component";
+import { MediaDataService } from "../../../services/mediaservice";
 
 @Component({
     selector: 'imagefeeditem', 
@@ -21,28 +22,23 @@ import { BasePartialItemFormComponent } from "./basepartialfeeditem.component";
 export class ImageFeedItemFormComponent extends BasePartialItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
     model: Feedclasses.ImageFeed;
 
-    constructor(injector: Injector) {
+    constructor(injector: Injector, public mediaDataService: MediaDataService) {
         super(injector, Feedclasses.ImageFeed, '/api/Feed/UpdateImageFeedItem', FeedTypeEnum.Image);
     } 
 
     addFormControls() {
         this.form.addControl('imageDescription', new FormControl(this.model.imageDescription, []));
-        this.form.addControl('mainImageId', new FormControl(this.model.mainImageId, []));
-
-        //this.form.addControl('mainImage', new FormGroup({
-        //    id: new FormControl(this.model.mainImage.id, []),
-        //    masterId: new FormControl(this.model.mainImage.masterId, []),
-        //    marketId: new FormControl(this.model.mainImage.marketId, []),
-        //    path: new FormControl(this.model.mainImage.path, []),
-        //    name: new FormControl(this.model.mainImage.name, []),
-        //    mediaType: new FormControl(this.model.mainImage.mediaType, [])
-        //}));
+        this.form.addControl('mainImageId', new FormControl(this.model.mainImageId, [<any>Validators.required]));      
+        if (this.model && !this.model.mainImage && this.model.mainImageId > 0) {
+            this.mediaDataService.getMediaInfo(this.model.mainImageId).subscribe((result) => {
+                this.model.mainImage = result;
+            });
+        }
     };
 
     removeFormControls() {
         this.form.removeControl('imageDescription');
         this.form.removeControl('mainImageId');
-        //this.form.removeControl('mainImage');
     };
     
 }

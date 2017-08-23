@@ -91,7 +91,7 @@ export class EditUser extends BaseModalContent implements OnInit, AfterViewInit,
 
         this.userDataService.updateUser(user).subscribe((response) => {
             if (response.success) {
-                this.closeModal(user);
+                this.closeModal(response.content);
             }
         });
     }

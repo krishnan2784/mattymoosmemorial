@@ -84,25 +84,25 @@ var FeedDataService = (function (_super) {
         return this.publishToLive(CopiedElementTypeEnum.Feed, contentId);
     };
     FeedDataService.prototype.getQuizFeedItemReport = function (feedItemId) {
-        return this.getRequestFull('/api/Feed/GetQuizFeedSummaries?feedItemId=' + feedItemId);
+        return this.getRequestFull('/api/FeedSummaries/GetQuizFeedSummaries?feedItemId=' + feedItemId);
     };
     FeedDataService.prototype.getFeedItemResultList = function (feedItemId, lowerBoundary, higherBoundary, userGroupId) {
-        var requestUrl = '/api/Feed/GetQuizResultsSummariesEX?feedItemId=' + feedItemId
+        var requestUrl = '/api/FeedSummaries/GetQuizResultsSummariesEX?feedItemId=' + feedItemId
             + '&lowerBoundary=' + lowerBoundary
             + '&higherBoundary=' + higherBoundary
             + '&userGroupId=' + userGroupId;
         return this.getRequestFull(requestUrl);
     };
     FeedDataService.prototype.getSurveyFeedSummaries = function (feedItemId) {
-        return this.getRequestFull('/api/Feed/GetSurveyFeedSummaries?feedItemId=' + feedItemId);
+        return this.getRequestFull('/api/FeedSummaries/GetSurveyFeedSummaries?feedItemId=' + feedItemId);
     };
     FeedDataService.prototype.getObservationFeedSummaries = function (feedItemId) {
-        return this.getRequestFull('/api/Feed/GetObservationFeedSummaries?feedItemId=' + feedItemId);
+        return this.getRequestFull('/api/FeedSummaries/GetObservationFeedSummaries?feedItemId=' + feedItemId);
     };
     FeedDataService.prototype.getLeaderBoard = function (startDate, endDate) {
         if (startDate === void 0) { startDate = null; }
         if (endDate === void 0) { endDate = null; }
-        var requestUrl = '/api/Feed/GetLeaderBoard';
+        var requestUrl = '/api/Leaderboard/GetLeaderBoard';
         console.log(startDate, endDate);
         if (startDate || endDate) {
             requestUrl = requestUrl + '?'
@@ -115,7 +115,7 @@ var FeedDataService = (function (_super) {
     FeedDataService.prototype.getUserPointsHistory = function (userId, startDate, endDate) {
         if (startDate === void 0) { startDate = null; }
         if (endDate === void 0) { endDate = null; }
-        var requestUrl = '/api/Feed/GetUserPointsHistory?userId=' + userId
+        var requestUrl = '/api/Leaderboard/GetUserPointsHistory?userId=' + userId
             + (startDate ? '&startDate=' + startDate : '')
             + (endDate ? '&endDate=' + endDate : '');
         return this.getRequestBase(requestUrl);

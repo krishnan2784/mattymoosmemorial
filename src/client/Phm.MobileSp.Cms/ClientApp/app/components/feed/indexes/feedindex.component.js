@@ -164,6 +164,8 @@ var FeedIndexComponent = (function (_super) {
             feedFormComponent: form,
             inputs: inputs
         };
+        //this.feedDataService.getFeeditem(feedItem.id).subscribe(item => {
+        //});
     };
     FeedIndexComponent.prototype.copyFeedItemToMarket = function (feedItem) {
         var inputs = { model: feedItem, contentType: CopiedElementTypeEnum.Feed, marketContentService: this.feedDataService };

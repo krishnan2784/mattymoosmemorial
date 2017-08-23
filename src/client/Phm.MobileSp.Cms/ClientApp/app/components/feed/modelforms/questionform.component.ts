@@ -24,6 +24,9 @@ export class QuestionFormComponent {
     @Input('questionType')
     questionType: any;
 
+    @Input()
+    public submitted: boolean; 
+
     feedTypeEnum: typeof FeedTypeEnum = FeedTypeEnum;
 
     @Output()

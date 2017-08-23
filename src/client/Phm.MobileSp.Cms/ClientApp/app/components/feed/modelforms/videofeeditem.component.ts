@@ -13,6 +13,7 @@ import Feedformstepsclasses = require("../../../classes/feedformstepsclasses");
 import FeedFormSteps = Feedformstepsclasses.FeedFormSteps;
 import FeedModel = require("../../../interfaces/models/IFeedModel");
 import { BasePartialItemFormComponent } from "./basepartialfeeditem.component";
+import { MediaDataService } from "../../../services/mediaservice";
 
 @Component({
     selector: 'videofeeditem', 
@@ -21,14 +22,19 @@ import { BasePartialItemFormComponent } from "./basepartialfeeditem.component";
 export class VideoFeedItemFormComponent extends BasePartialItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
     model: Feedclasses.VideoFeed;
 
-    constructor(injector: Injector) {
+    constructor(injector: Injector, public mediaDataService: MediaDataService) {
         super(injector, Feedclasses.VideoFeed, '/api/Feed/UpdateVideoFeedItem', FeedTypeEnum.Video);
+
     } 
 
     addFormControls() {
         this.form.addControl('videoDescription', new FormControl(this.model.videoDescription, []));
-        this.form.addControl('mainVideoId', new FormControl(this.model.mainVideoId, []));
-
+        this.form.addControl('mainVideoId', new FormControl(this.model.mainVideoId, [<any>Validators.required]));
+        if (this.model && !this.model.mainVideo && this.model.mainVideoId > 0) {
+            this.mediaDataService.getMediaInfo(this.model.mainVideoId).subscribe((result) => {
+                this.model.mainVideo = result;
+            });
+        }
         //this.form.addControl('mainVideo', new FormGroup({
         //    id: new FormControl(this.model.mainVideo.id, []),
         //    masterId: new FormControl(this.model.mainVideo.masterId, []),

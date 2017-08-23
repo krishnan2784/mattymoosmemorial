@@ -12,12 +12,13 @@ export class BasePartialItemFormComponent implements IFeedItemComponents.IFeedIt
     public form: FormGroup;
     public feedFormSteps: FeedFormSteps;
     public model: FeedModel.IFeedItem;
-
+    public submitted: boolean; 
     constructor(private injector: Injector, public feedModelType, public updateUrl: string,
         public feedType: Enums.FeedTypeEnum) {
         if (injector) {
             this.form = injector.get('form');
             this.model = injector.get('model');
+            this.submitted = injector.get('submitted');
             this.feedFormSteps = injector.get('feedFormSteps');
         }
     } 

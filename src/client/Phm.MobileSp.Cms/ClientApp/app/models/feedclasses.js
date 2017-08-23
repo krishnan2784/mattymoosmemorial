@@ -25,16 +25,16 @@ var BaseFeed = (function (_super) {
         var _this = _super.call(this, options) || this;
         _this.title = options['title'] || '';
         _this.shortDescription = options['shortDescription'] || '';
-        // this.shortDescription = options['shortDescription'] ? options['shortDescription'] : '';
         _this.feedCategory = options['feedCategory'];
         _this.points = options['points'] || 0;
-        _this.mainIcon = options['mediaInfo'];
+        _this.mainIcon = options['mainIcon'];
+        _this.mainIconId = options['mainIconId'];
         _this.marketId = options['marketId'];
         _this.allowFavourite = options['allowFavourite'] || true;
         _this.corporateApp = options['corporateApp'];
         _this.legalInformation = options['legalInformation'];
-        _this.makeTitleWidgetLink = options['makeTitleWidgetLink'];
-        _this.permissions = options['permissions'];
+        _this.makeTitleWidgetLink = options['makeTitleWidgetLink'] || false;
+        _this.permissions = options['permissions'] || 0;
         _this.readingTime = options['readingTime'] || 0;
         _this.startDate = options['startDate'];
         _this.endDate = options['endDate'];
@@ -64,6 +64,18 @@ var BaseFeed = (function (_super) {
     return BaseFeed;
 }(Baseclasses.BaseModel));
 exports.BaseFeed = BaseFeed;
+var TextFeed = (function (_super) {
+    __extends(TextFeed, _super);
+    function TextFeed(options) {
+        if (options === void 0) { options = {}; }
+        var _this = _super.call(this, options) || this;
+        _this.feedType = FeedTypeEnum.Text;
+        _this.bodyText = options['bodyText'] || '';
+        return _this;
+    }
+    return TextFeed;
+}(BaseFeed));
+exports.TextFeed = TextFeed;
 var CampaignFeed = (function (_super) {
     __extends(CampaignFeed, _super);
     function CampaignFeed(options) {
@@ -90,7 +102,7 @@ var ImageFeed = (function (_super) {
         return _this;
     }
     return ImageFeed;
-}(BaseFeed));
+}(TextFeed));
 exports.ImageFeed = ImageFeed;
 var QuizFeed = (function (_super) {
     __extends(QuizFeed, _super);
@@ -142,18 +154,6 @@ var ObservationFeed = (function (_super) {
     return ObservationFeed;
 }(SurveyFeed));
 exports.ObservationFeed = ObservationFeed;
-var TextFeed = (function (_super) {
-    __extends(TextFeed, _super);
-    function TextFeed(options) {
-        if (options === void 0) { options = {}; }
-        var _this = _super.call(this, options) || this;
-        _this.feedType = FeedTypeEnum.Text;
-        _this.bodyText = options['bodyText'] || '';
-        return _this;
-    }
-    return TextFeed;
-}(BaseFeed));
-exports.TextFeed = TextFeed;
 var VideoFeed = (function (_super) {
     __extends(VideoFeed, _super);
     function VideoFeed(options) {
@@ -166,6 +166,6 @@ var VideoFeed = (function (_super) {
         return _this;
     }
     return VideoFeed;
-}(BaseFeed));
+}(TextFeed));
 exports.VideoFeed = VideoFeed;
 //# sourceMappingURL=feedclasses.js.map

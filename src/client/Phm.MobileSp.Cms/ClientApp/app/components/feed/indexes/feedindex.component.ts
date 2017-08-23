@@ -137,7 +137,6 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
     }
 
     editFeedItem(feedItem: IFeedItem = null, feedCat: FeedCategoryEnum = null) {
-
         let inputs = { feedItem: feedItem, feedCat: feedCat, feedUpdated: this.getData() };
         var form = FeedItemForm;
 
@@ -156,11 +155,17 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
             this.updateTabNavItems(DefaultTabNavs.feedIndexTabs);
             this.feedFormData = null;
         });
-
+        
         this.feedFormData = {
             feedFormComponent: form,
             inputs: inputs
         };
+
+        //this.feedDataService.getFeeditem(feedItem.id).subscribe(item => {
+
+        //});
+
+
     }
 
     copyFeedItemToMarket(feedItem: IFeedItem) {

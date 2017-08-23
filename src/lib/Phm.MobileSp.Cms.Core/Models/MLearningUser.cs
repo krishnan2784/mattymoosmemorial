@@ -24,7 +24,7 @@ namespace Phm.MobileSp.Cms.Core.Models
         public string UserName { get; set; }
     }
 
-    public class MLearningUser : BaseModel, IMLearningUser
+    public class MLearningUser : BaseModel
     {
         public int DefaultMarketId { get; set; }
 

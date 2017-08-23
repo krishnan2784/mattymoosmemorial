@@ -128,7 +128,7 @@ var UserAccountManagementComponent = (function (_super) {
     };
     UserAccountManagementComponent.prototype.changeFilter = function (data, config) {
         var _this = this;
-        var filteredData = data;
+        var filteredData = data || [];
         var lowerFilter = this.config.filtering.filterString.toLowerCase();
         this.columns.forEach(function (column) {
             if (column.filtering) {
@@ -209,18 +209,32 @@ var UserAccountManagementComponent = (function (_super) {
             .catch(function (err) { });
     };
     UserAccountManagementComponent.prototype.updateUser = function (user) {
-        this.attachUserProperties(user);
-        var index = this.filteredUserAccounts.indexOf(user);
-        if (index > -1)
-            this.filteredUserAccounts.splice(index, 1, user);
-        else
-            this.filteredUserAccounts.unshift(user);
+        if (user != null) {
+            this.attachUserProperties(user);
+            if (this.filteredUserAccounts != null) {
+                var originalUser = this.filteredUserAccounts.find(function (x) { return x.id === user.id; });
+                var index = this.filteredUserAccounts.indexOf(originalUser);
+                if (index > -1)
+                    this.filteredUserAccounts.splice(index, 1, user);
+                else
+                    this.filteredUserAccounts.unshift(user);
+            }
+            if (this.allUserAccounts != null) {
+                var originalUser = this.allUserAccounts.find(function (x) { return x.id === user.id; });
+                var index = this.allUserAccounts.indexOf(originalUser);
+                if (index > -1)
+                    this.allUserAccounts.splice(index, 1, user);
+                else
+                    this.allUserAccounts.unshift(user);
+            }
+            this.onChangeTable(this.config);
+        }
     };
     UserAccountManagementComponent.prototype.attachUserProperties = function (user) {
         user.userAvatar = '<i class="material-icons table-avatar">person</i>';
         user.dealershipName_code = user.dealershipName + ' (' + user.dealershipCode + ')';
         user.firstName_region = user.firstName + '<p class="sub-data">' + user.regionName + '</p>';
-        user.email_zone = user.email + '<p class="sub-data">' + user.zoneName + '</p>';
+        user.email_zone = user.email + '<p class="sub-data">' + user.areaName + '</p>';
         user.actionEdit = '<a class="action-btn remove" data-toggle="modal" data-target="#edit-user"><i class="material-icons">edit</i><p>Edit</p></a>';
         user.actionDelete = '<a class="action-btn remove"><i class="material-icons">delete</i><p>Delete</p></a>';
         return user;

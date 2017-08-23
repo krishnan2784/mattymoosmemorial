@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Phm.MobileSp.Cms.Helpers.Attributes;
+using System.Linq;
 
 namespace Phm.MobileSp.Cms.Controllers
 {
@@ -10,6 +11,9 @@ namespace Phm.MobileSp.Cms.Controllers
     {
         public IActionResult Index()
         {
+
+            if (string.IsNullOrEmpty(HttpContext?.User?.Claims?.FirstOrDefault(x => x.Type == "sessionguid")?.Value))
+                return Redirect("/Account/Login");
            return View();
 
         }

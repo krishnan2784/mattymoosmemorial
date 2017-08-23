@@ -25,11 +25,12 @@ export class TextFeedItemFormComponent extends BasePartialItemFormComponent impl
     } 
 
     addFormControls() {
-        this.form.addControl('bodyText', new FormControl(this.model.bodyText, [<any>Validators.required, <any>Validators.minLength(5)]));
+        this.form.controls['bodyText'].setValidators(Validators.required);
+       this.form.controls['mainIconId'].setValidators(Validators.required);
     };
 
     removeFormControls() {
-        this.form.removeControl('bodyText');
+        this.form.controls['bodyText'].setValidators(null);
     };
     
 }

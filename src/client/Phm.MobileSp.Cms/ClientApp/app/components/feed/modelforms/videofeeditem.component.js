@@ -25,14 +25,23 @@ var Enums = require("../../../enums");
 var FeedTypeEnum = Enums.FeedTypeEnum;
 var Feedclasses = require("../../../models/feedclasses");
 var basepartialfeeditem_component_1 = require("./basepartialfeeditem.component");
+var mediaservice_1 = require("../../../services/mediaservice");
 var VideoFeedItemFormComponent = (function (_super) {
     __extends(VideoFeedItemFormComponent, _super);
-    function VideoFeedItemFormComponent(injector) {
-        return _super.call(this, injector, Feedclasses.VideoFeed, '/api/Feed/UpdateVideoFeedItem', FeedTypeEnum.Video) || this;
+    function VideoFeedItemFormComponent(injector, mediaDataService) {
+        var _this = _super.call(this, injector, Feedclasses.VideoFeed, '/api/Feed/UpdateVideoFeedItem', FeedTypeEnum.Video) || this;
+        _this.mediaDataService = mediaDataService;
+        return _this;
     }
     VideoFeedItemFormComponent.prototype.addFormControls = function () {
+        var _this = this;
         this.form.addControl('videoDescription', new forms_1.FormControl(this.model.videoDescription, []));
-        this.form.addControl('mainVideoId', new forms_1.FormControl(this.model.mainVideoId, []));
+        this.form.addControl('mainVideoId', new forms_1.FormControl(this.model.mainVideoId, [forms_1.Validators.required]));
+        if (this.model && !this.model.mainVideo && this.model.mainVideoId > 0) {
+            this.mediaDataService.getMediaInfo(this.model.mainVideoId).subscribe(function (result) {
+                _this.model.mainVideo = result;
+            });
+        }
         //this.form.addControl('mainVideo', new FormGroup({
         //    id: new FormControl(this.model.mainVideo.id, []),
         //    masterId: new FormControl(this.model.mainVideo.masterId, []),
@@ -55,7 +64,7 @@ VideoFeedItemFormComponent = __decorate([
         selector: 'videofeeditem',
         template: require('./videofeeditem.component.html')
     }),
-    __metadata("design:paramtypes", [core_1.Injector])
+    __metadata("design:paramtypes", [core_1.Injector, mediaservice_1.MediaDataService])
 ], VideoFeedItemFormComponent);
 exports.VideoFeedItemFormComponent = VideoFeedItemFormComponent;
 //# sourceMappingURL=videofeeditem.component.js.map

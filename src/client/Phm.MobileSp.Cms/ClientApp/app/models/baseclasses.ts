@@ -1,11 +1,13 @@
-﻿export class BaseModel {
+﻿import { DateEx } from "../classes/helpers/date";
+
+export class BaseModel {
     id: number;
     enabled: boolean;
     published: boolean;
     masterId: string;
-    createdAt: Date;
-    deletedAt: Date;
-    updatedAt: Date;
+    createdAt: string;
+    deletedAt: string;
+    updatedAt: string;
 
     constructor(options: {} = {}) {
         this.id = options['id'] || 0;
@@ -13,8 +15,15 @@
         this.published = options['published'] || false;
         this.masterId = options['masterId'];
         this.createdAt = options['createdAt'];
-        this.deletedAt = options['deletedAt'];
         this.updatedAt = options['updatedAt'];
+
+        let d = DateEx.formatDate(new Date());
+        if (!this.createdAt) {
+            this.createdAt = d;
+        }
+        if (!this.updatedAt) {
+            this.updatedAt = d;
+        }
     }
 }
 

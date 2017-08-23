@@ -92,7 +92,7 @@ var EditUser = (function (_super) {
             return;
         this.userDataService.updateUser(user).subscribe(function (response) {
             if (response.success) {
-                _this.closeModal(user);
+                _this.closeModal(response.content);
             }
         });
     };

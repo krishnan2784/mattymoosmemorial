@@ -1,4 +1,6 @@
-﻿export class ApiResponse {
+﻿import { ResponseHelper } from "../services/helpers/responsehelper";
+
+export class ApiResponse {
     success: boolean;
     message: string;
     content: any;
@@ -6,5 +8,7 @@
         this.success = options['success'];
         this.message = options['message'] || '';
         this.content = options['content'] || null;
+        if (this.content !== null && typeof this.content === "object")
+            this.content = ResponseHelper.toCamel(this.content);
     }
 }

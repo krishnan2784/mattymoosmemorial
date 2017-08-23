@@ -31,11 +31,12 @@ var TextFeedItemFormComponent = (function (_super) {
         return _super.call(this, injector, Feedclasses.TextFeed, '/api/Feed/UpdateTextFeedItem', FeedTypeEnum.Text) || this;
     }
     TextFeedItemFormComponent.prototype.addFormControls = function () {
-        this.form.addControl('bodyText', new forms_1.FormControl(this.model.bodyText, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
+        this.form.controls['bodyText'].setValidators(forms_1.Validators.required);
+        this.form.controls['mainIconId'].setValidators(forms_1.Validators.required);
     };
     ;
     TextFeedItemFormComponent.prototype.removeFormControls = function () {
-        this.form.removeControl('bodyText');
+        this.form.controls['bodyText'].setValidators(null);
     };
     ;
     return TextFeedItemFormComponent;

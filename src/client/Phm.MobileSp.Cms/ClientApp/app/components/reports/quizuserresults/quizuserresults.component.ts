@@ -1,4 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ResponseHelper } from "../../../services/helpers/responsehelper";
 @Component({
   selector: 'quizuserresults',
   template: require('./quizuserresults.html'),

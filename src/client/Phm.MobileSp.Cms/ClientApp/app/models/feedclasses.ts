@@ -30,6 +30,7 @@ export class BaseFeed extends Baseclasses.BaseModel implements FeedModel.IFeedIt
     feedCategory: FeedCategoryEnum;
     points: number;
     mainIcon: Mediainfoclasses.MediaInfo;
+    mainIconId: number;
     marketId: string;
     webUrlLink: string;
     callToActionText: string;
@@ -39,16 +40,16 @@ export class BaseFeed extends Baseclasses.BaseModel implements FeedModel.IFeedIt
         super(options);
         this.title = options['title'] || '';
         this.shortDescription = options['shortDescription'] || '';
-       // this.shortDescription = options['shortDescription'] ? options['shortDescription'] : '';
         this.feedCategory = options['feedCategory'];
         this.points = options['points'] || 0;
-        this.mainIcon = options['mediaInfo'];
+        this.mainIcon = options['mainIcon'];
+        this.mainIconId = options['mainIconId'];
         this.marketId = options['marketId'];
         this.allowFavourite = options['allowFavourite'] || true;
         this.corporateApp = options['corporateApp'];
         this.legalInformation = options['legalInformation'];
-        this.makeTitleWidgetLink = options['makeTitleWidgetLink'];
-        this.permissions = options['permissions'];
+        this.makeTitleWidgetLink = options['makeTitleWidgetLink'] || false;
+        this.permissions = options['permissions'] || 0;
         this.readingTime = options['readingTime'] || 0;
         this.startDate = options['startDate'];
         this.endDate = options['endDate'];
@@ -76,6 +77,15 @@ export class BaseFeed extends Baseclasses.BaseModel implements FeedModel.IFeedIt
     }
 }
 
+export class TextFeed extends BaseFeed {
+    public bodyText: string;
+    constructor(options: {} = {}) {
+        super(options);
+        this.feedType = FeedTypeEnum.Text;
+        this.bodyText = options['bodyText'] || '';
+    }
+}
+
 export class CampaignFeed extends BaseFeed {
     public campaignDescription: string;
     public feeds: BaseFeed[];
@@ -88,7 +98,7 @@ export class CampaignFeed extends BaseFeed {
     }
 }
 
-export class ImageFeed extends BaseFeed {
+export class ImageFeed extends TextFeed {
     public imageDescription: string;
     public mainImage: MediaInfo;
     public mainImageId: number;
@@ -149,16 +159,7 @@ export class ObservationFeed extends SurveyFeed {
     }
 }
 
-export class TextFeed extends BaseFeed {
-    public bodyText: string;
-    constructor(options: {} = {}) {
-        super(options);
-        this.feedType = FeedTypeEnum.Text;
-        this.bodyText = options['bodyText'] || '';
-    }
-}
-
-export class VideoFeed extends BaseFeed {
+export class VideoFeed extends TextFeed {
     public videoDescription: string;
     public mainVideo: MediaInfo;
     public mainVideoId: number;

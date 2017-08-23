@@ -1,18 +1,12 @@
 <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Media)">
     <div [formGroup]="form">
+        <small class="active-warning" [class.hidden]="form.controls.mainImageId.valid || !submitted">
+            Please upload an image.
+        </small>
         <div class="input-field">
             <input id="imageDescription" type="text" formControlName="imageDescription">
             <label for="imageDescription" [class.active]="form.controls.imageDescription.value.length>0">A caption for your image</label>
         </div>
         <input type="hidden" formControlName="mainImageId">
-
-        <!--<div formGroupName="mainImage">
-            <input type="hidden" formControlName="id">
-            <input type="hidden" formControlName="masterId">
-            <input type="hidden" formControlName="marketId">
-            <input type="hidden" formControlName="path">
-            <input type="hidden" formControlName="name">
-            <input type="hidden" formControlName="mediaType">
-        </div>-->
     </div>
 </div>
