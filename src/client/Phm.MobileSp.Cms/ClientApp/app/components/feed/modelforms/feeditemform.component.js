@@ -32,6 +32,7 @@ var imagefeeditem_component_1 = require("./imagefeeditem.component");
 var videofeeditem_component_1 = require("./videofeeditem.component");
 var mediaservice_1 = require("../../../services/mediaservice");
 var ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationFeedItemFormComponent;
+var validators_1 = require("../../../classes/validators");
 var FeedItemForm = (function () {
     function FeedItemForm(fb, http, route, router, feedDataService, injector, sharedService, mediaDataService) {
         this.http = http;
@@ -98,18 +99,18 @@ var FeedItemForm = (function () {
     FeedItemForm.prototype.initialiseForm = function () {
         this.form = this._fb.group({
             id: ['', []],
-            title: ['', [forms_1.Validators.required, forms_1.Validators.minLength(5)]],
-            shortDescription: ['', [forms_1.Validators.required, forms_1.Validators.minLength(10)]],
+            title: ['', [forms_1.Validators.required, forms_1.Validators.maxLength(160)]],
+            shortDescription: ['', [forms_1.Validators.required, forms_1.Validators.maxLength(120)]],
             feedType: ['', [forms_1.Validators.required]],
             feedCategory: ['', [forms_1.Validators.required]],
-            points: ['', [forms_1.Validators.required]],
+            points: ['', [forms_1.Validators.required, validators_1.minValue(1)]],
             enabled: ['', []],
             published: ['', []],
             allowFavourite: ['', []],
             legalInformation: ['', []],
             makeTitleWidgetLink: ['', []],
             permissions: ['', []],
-            readingTime: ['', [forms_1.Validators.required]],
+            readingTime: ['', [forms_1.Validators.required, validators_1.minValue(1)]],
             callToActionText: ['', []],
             callToActionUrl: ['', []],
             createdAt: ['', []],

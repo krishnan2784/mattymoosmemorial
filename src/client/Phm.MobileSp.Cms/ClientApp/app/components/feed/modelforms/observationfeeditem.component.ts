@@ -9,6 +9,7 @@ import Basequestionfeeditemcomponent = require("./basequestionfeeditem.component
 import BaseQuestionFeedItemFormComponent = Basequestionfeeditemcomponent.BaseQuestionFeedItemFormComponent;
 import Observationclasses = require("../../../models/observationclasses");
 import UserObservation = Observationclasses.UserObservation;
+import { minValue } from "../../../classes/validators";
 
 @Component({
     selector: 'observationfeeditem',
@@ -37,8 +38,8 @@ export class ObservationFeedItemFormComponent extends BaseQuestionFeedItemFormCo
         this.form.addControl('surveyDescription', new FormControl(this.model.surveyDescription, [<any>Validators.required, <any>Validators.minLength(5)]));
         this.form.addControl('completionMessage', new FormControl(this.model.completionMessage, [<any>Validators.required, <any>Validators.minLength(5)]));
         this.form.controls['mainIconId'].setValidators(null);
-        this.form.controls['readingTime'].setValidators(Validators.required);
-        this.form.controls['points'].setValidators(Validators.required);
+        this.form.controls['readingTime'].setValidators(null);
+        this.form.controls['points'].setValidators(null);
     };
     
     removeFormControls() {
@@ -47,9 +48,8 @@ export class ObservationFeedItemFormComponent extends BaseQuestionFeedItemFormCo
         this.form.removeControl('surveyDescription');
         this.form.removeControl('completionMessage');
         this.form.controls['mainIconId'].setValidators(Validators.required);
-        this.form.controls['readingTime'].setValidators(null);
-        this.form.controls['points'].setValidators(null);
-
+        this.form.controls['readingTime'].setValidators([Validators.required, minValue(1)]);
+        this.form.controls['points'].setValidators([Validators.required, minValue(1)]);
     };
 
     initUserObservation(userObservation: UserObservation = new UserObservation()) {

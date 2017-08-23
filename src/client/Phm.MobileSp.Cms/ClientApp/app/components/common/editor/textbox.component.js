@@ -17,6 +17,7 @@ var TextInputComponent = (function () {
         this.label = '';
         this.validationMessage = '';
         this.formSubmitted = false;
+        this.maxLength = 0;
         this.activeClass = '';
     }
     TextInputComponent.prototype.ngOnInit = function () {
@@ -52,10 +53,14 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Boolean)
 ], TextInputComponent.prototype, "formSubmitted", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Number)
+], TextInputComponent.prototype, "maxLength", void 0);
 TextInputComponent = __decorate([
     core_1.Component({
         selector: 'textinput',
-        template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n        <div class=\"input-field\">\n            <input id=\"{{elementId}}\" type=\"text\" formControlName=\"{{formControlId}}\">\n            <label [attr.for]=\"elementId\" class=\"{{activeClass}}\">{{label}}</label>\n            <small class=\"active-warning\" [class.hidden]=\"form.controls[formControlId].valid || !formSubmitted\">\n                {{validationMessage}}\n            </small>\n        </div>\n    </div>\n"
+        template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n        <div class=\"input-field\">\n            <input id=\"{{elementId}}\" type=\"text\" formControlName=\"{{formControlId}}\" [attr.maxLength]=\"maxLength > 0 ? maxLength : null\">\n            <label [attr.for]=\"elementId\" class=\"{{activeClass}}\">{{label}}</label>\n            <small class=\"active-warning\" [class.hidden]=\"form.controls[formControlId].valid || !formSubmitted\">\n                {{validationMessage}}\n            </small>\n        </div>\n    </div>\n"
     })
 ], TextInputComponent);
 exports.TextInputComponent = TextInputComponent;

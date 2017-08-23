@@ -6,7 +6,7 @@ import { FormGroup } from "@angular/forms";
   template: `
     <div [formGroup]="form" *ngIf="form">
         <div class="input-field">
-            <input id="{{elementId}}" type="text" formControlName="{{formControlId}}">
+            <input id="{{elementId}}" type="text" formControlName="{{formControlId}}" [attr.maxLength]="maxLength > 0 ? maxLength : null">
             <label [attr.for]="elementId" class="{{activeClass}}">{{label}}</label>
             <small class="active-warning" [class.hidden]="form.controls[formControlId].valid || !formSubmitted">
                 {{validationMessage}}
@@ -22,6 +22,7 @@ export class TextInputComponent implements OnInit {
     @Input() label: string = '';
     @Input() validationMessage: string = '';
     @Input() formSubmitted: boolean = false;
+    @Input() maxLength: number = 0;
     activeClass: string = '';
     ngOnInit() {
         if (this.elementId == '')

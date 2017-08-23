@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+VisualStudioVersion = 15.0.26730.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0797536B-0CDF-4DE3-A3B0-A077235E7896}"
 EndProject
@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{6E89F9F0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{BD6594CD-A777-4C65-9ABE-63CDB380A6A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phm.MobileSp.Cms.Core", "src\lib\Phm.MobileSp.Cms.Core\Phm.MobileSp.Cms.Core.csproj", "{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phm.MobileSp.Cms.Core", "src\lib\Phm.MobileSp.Cms.Core\Phm.MobileSp.Cms.Core.csproj", "{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phm.MobileSp.Cms.Infrastructure", "src\lib\Phm.MobileSp.Cms.Infrastructure\Phm.MobileSp.Cms.Infrastructure.csproj", "{9FA302F4-F520-4E46-BEFA-3AB1509AA243}"
 EndProject
@@ -77,18 +77,18 @@ Global
 		{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}.AppStore|x64.Build.0 = Debug|Any CPU
 		{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}.AppStore|x86.ActiveCfg = Debug|Any CPU
 		{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}.AppStore|x86.Build.0 = Debug|Any CPU
-		{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}.AzureStaging|Any CPU.ActiveCfg = AzureStaging|Any CPU
-		{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}.AzureStaging|Any CPU.Build.0 = AzureStaging|Any CPU
-		{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}.AzureStaging|ARM.ActiveCfg = AzureStaging|Any CPU
-		{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}.AzureStaging|ARM.Build.0 = AzureStaging|Any CPU
-		{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}.AzureStaging|iPhone.ActiveCfg = AzureStaging|Any CPU
-		{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}.AzureStaging|iPhone.Build.0 = AzureStaging|Any CPU
-		{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}.AzureStaging|iPhoneSimulator.ActiveCfg = AzureStaging|Any CPU
-		{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}.AzureStaging|iPhoneSimulator.Build.0 = AzureStaging|Any CPU
-		{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}.AzureStaging|x64.ActiveCfg = AzureStaging|Any CPU
-		{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}.AzureStaging|x64.Build.0 = AzureStaging|Any CPU
-		{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}.AzureStaging|x86.ActiveCfg = AzureStaging|Any CPU
-		{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}.AzureStaging|x86.Build.0 = AzureStaging|Any CPU
+		{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}.AzureStaging|Any CPU.ActiveCfg = Release|Any CPU
+		{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}.AzureStaging|Any CPU.Build.0 = Release|Any CPU
+		{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}.AzureStaging|ARM.ActiveCfg = Release|Any CPU
+		{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}.AzureStaging|ARM.Build.0 = Release|Any CPU
+		{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}.AzureStaging|iPhone.ActiveCfg = Release|Any CPU
+		{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}.AzureStaging|iPhone.Build.0 = Release|Any CPU
+		{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}.AzureStaging|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}.AzureStaging|iPhoneSimulator.Build.0 = Release|Any CPU
+		{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}.AzureStaging|x64.ActiveCfg = Release|Any CPU
+		{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}.AzureStaging|x64.Build.0 = Release|Any CPU
+		{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}.AzureStaging|x86.ActiveCfg = Release|Any CPU
+		{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}.AzureStaging|x86.Build.0 = Release|Any CPU
 		{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6}.Debug|ARM.ActiveCfg = Debug|Any CPU
@@ -137,18 +137,18 @@ Global
 		{9FA302F4-F520-4E46-BEFA-3AB1509AA243}.AppStore|x64.Build.0 = Debug|Any CPU
 		{9FA302F4-F520-4E46-BEFA-3AB1509AA243}.AppStore|x86.ActiveCfg = Debug|Any CPU
 		{9FA302F4-F520-4E46-BEFA-3AB1509AA243}.AppStore|x86.Build.0 = Debug|Any CPU
-		{9FA302F4-F520-4E46-BEFA-3AB1509AA243}.AzureStaging|Any CPU.ActiveCfg = AzureStaging|Any CPU
-		{9FA302F4-F520-4E46-BEFA-3AB1509AA243}.AzureStaging|Any CPU.Build.0 = AzureStaging|Any CPU
-		{9FA302F4-F520-4E46-BEFA-3AB1509AA243}.AzureStaging|ARM.ActiveCfg = AzureStaging|Any CPU
-		{9FA302F4-F520-4E46-BEFA-3AB1509AA243}.AzureStaging|ARM.Build.0 = AzureStaging|Any CPU
-		{9FA302F4-F520-4E46-BEFA-3AB1509AA243}.AzureStaging|iPhone.ActiveCfg = AzureStaging|Any CPU
-		{9FA302F4-F520-4E46-BEFA-3AB1509AA243}.AzureStaging|iPhone.Build.0 = AzureStaging|Any CPU
-		{9FA302F4-F520-4E46-BEFA-3AB1509AA243}.AzureStaging|iPhoneSimulator.ActiveCfg = AzureStaging|Any CPU
-		{9FA302F4-F520-4E46-BEFA-3AB1509AA243}.AzureStaging|iPhoneSimulator.Build.0 = AzureStaging|Any CPU
-		{9FA302F4-F520-4E46-BEFA-3AB1509AA243}.AzureStaging|x64.ActiveCfg = AzureStaging|Any CPU
-		{9FA302F4-F520-4E46-BEFA-3AB1509AA243}.AzureStaging|x64.Build.0 = AzureStaging|Any CPU
-		{9FA302F4-F520-4E46-BEFA-3AB1509AA243}.AzureStaging|x86.ActiveCfg = AzureStaging|Any CPU
-		{9FA302F4-F520-4E46-BEFA-3AB1509AA243}.AzureStaging|x86.Build.0 = AzureStaging|Any CPU
+		{9FA302F4-F520-4E46-BEFA-3AB1509AA243}.AzureStaging|Any CPU.ActiveCfg = Release|Any CPU
+		{9FA302F4-F520-4E46-BEFA-3AB1509AA243}.AzureStaging|Any CPU.Build.0 = Release|Any CPU
+		{9FA302F4-F520-4E46-BEFA-3AB1509AA243}.AzureStaging|ARM.ActiveCfg = Release|Any CPU
+		{9FA302F4-F520-4E46-BEFA-3AB1509AA243}.AzureStaging|ARM.Build.0 = Release|Any CPU
+		{9FA302F4-F520-4E46-BEFA-3AB1509AA243}.AzureStaging|iPhone.ActiveCfg = Release|Any CPU
+		{9FA302F4-F520-4E46-BEFA-3AB1509AA243}.AzureStaging|iPhone.Build.0 = Release|Any CPU
+		{9FA302F4-F520-4E46-BEFA-3AB1509AA243}.AzureStaging|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{9FA302F4-F520-4E46-BEFA-3AB1509AA243}.AzureStaging|iPhoneSimulator.Build.0 = Release|Any CPU
+		{9FA302F4-F520-4E46-BEFA-3AB1509AA243}.AzureStaging|x64.ActiveCfg = Release|Any CPU
+		{9FA302F4-F520-4E46-BEFA-3AB1509AA243}.AzureStaging|x64.Build.0 = Release|Any CPU
+		{9FA302F4-F520-4E46-BEFA-3AB1509AA243}.AzureStaging|x86.ActiveCfg = Release|Any CPU
+		{9FA302F4-F520-4E46-BEFA-3AB1509AA243}.AzureStaging|x86.Build.0 = Release|Any CPU
 		{9FA302F4-F520-4E46-BEFA-3AB1509AA243}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9FA302F4-F520-4E46-BEFA-3AB1509AA243}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FA302F4-F520-4E46-BEFA-3AB1509AA243}.Debug|ARM.ActiveCfg = Debug|Any CPU
@@ -197,18 +197,18 @@ Global
 		{9564C638-C217-437E-89BE-ACD5568CE37E}.AppStore|x64.Build.0 = Debug|Any CPU
 		{9564C638-C217-437E-89BE-ACD5568CE37E}.AppStore|x86.ActiveCfg = Debug|Any CPU
 		{9564C638-C217-437E-89BE-ACD5568CE37E}.AppStore|x86.Build.0 = Debug|Any CPU
-		{9564C638-C217-437E-89BE-ACD5568CE37E}.AzureStaging|Any CPU.ActiveCfg = AzureStaging|Any CPU
-		{9564C638-C217-437E-89BE-ACD5568CE37E}.AzureStaging|Any CPU.Build.0 = AzureStaging|Any CPU
-		{9564C638-C217-437E-89BE-ACD5568CE37E}.AzureStaging|ARM.ActiveCfg = AzureStaging|Any CPU
-		{9564C638-C217-437E-89BE-ACD5568CE37E}.AzureStaging|ARM.Build.0 = AzureStaging|Any CPU
-		{9564C638-C217-437E-89BE-ACD5568CE37E}.AzureStaging|iPhone.ActiveCfg = AzureStaging|Any CPU
-		{9564C638-C217-437E-89BE-ACD5568CE37E}.AzureStaging|iPhone.Build.0 = AzureStaging|Any CPU
-		{9564C638-C217-437E-89BE-ACD5568CE37E}.AzureStaging|iPhoneSimulator.ActiveCfg = AzureStaging|Any CPU
-		{9564C638-C217-437E-89BE-ACD5568CE37E}.AzureStaging|iPhoneSimulator.Build.0 = AzureStaging|Any CPU
-		{9564C638-C217-437E-89BE-ACD5568CE37E}.AzureStaging|x64.ActiveCfg = AzureStaging|Any CPU
-		{9564C638-C217-437E-89BE-ACD5568CE37E}.AzureStaging|x64.Build.0 = AzureStaging|Any CPU
-		{9564C638-C217-437E-89BE-ACD5568CE37E}.AzureStaging|x86.ActiveCfg = AzureStaging|Any CPU
-		{9564C638-C217-437E-89BE-ACD5568CE37E}.AzureStaging|x86.Build.0 = AzureStaging|Any CPU
+		{9564C638-C217-437E-89BE-ACD5568CE37E}.AzureStaging|Any CPU.ActiveCfg = Release|Any CPU
+		{9564C638-C217-437E-89BE-ACD5568CE37E}.AzureStaging|Any CPU.Build.0 = Release|Any CPU
+		{9564C638-C217-437E-89BE-ACD5568CE37E}.AzureStaging|ARM.ActiveCfg = Release|Any CPU
+		{9564C638-C217-437E-89BE-ACD5568CE37E}.AzureStaging|ARM.Build.0 = Release|Any CPU
+		{9564C638-C217-437E-89BE-ACD5568CE37E}.AzureStaging|iPhone.ActiveCfg = Release|Any CPU
+		{9564C638-C217-437E-89BE-ACD5568CE37E}.AzureStaging|iPhone.Build.0 = Release|Any CPU
+		{9564C638-C217-437E-89BE-ACD5568CE37E}.AzureStaging|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{9564C638-C217-437E-89BE-ACD5568CE37E}.AzureStaging|iPhoneSimulator.Build.0 = Release|Any CPU
+		{9564C638-C217-437E-89BE-ACD5568CE37E}.AzureStaging|x64.ActiveCfg = Release|Any CPU
+		{9564C638-C217-437E-89BE-ACD5568CE37E}.AzureStaging|x64.Build.0 = Release|Any CPU
+		{9564C638-C217-437E-89BE-ACD5568CE37E}.AzureStaging|x86.ActiveCfg = Release|Any CPU
+		{9564C638-C217-437E-89BE-ACD5568CE37E}.AzureStaging|x86.Build.0 = Release|Any CPU
 		{9564C638-C217-437E-89BE-ACD5568CE37E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9564C638-C217-437E-89BE-ACD5568CE37E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9564C638-C217-437E-89BE-ACD5568CE37E}.Debug|ARM.ActiveCfg = Debug|Any CPU
@@ -243,5 +243,8 @@ Global
 		{F5DA65AF-7F6F-46F1-BB29-67CAA28601F6} = {3B050C47-2404-4929-96A8-63B5ACD8E39E}
 		{9FA302F4-F520-4E46-BEFA-3AB1509AA243} = {3B050C47-2404-4929-96A8-63B5ACD8E39E}
 		{9564C638-C217-437E-89BE-ACD5568CE37E} = {B5D9168C-F010-4B93-8A71-F9C2E8942E83}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CD674498-5BC9-4AF6-BB0A-7E173789A1AB}
 	EndGlobalSection
 EndGlobal

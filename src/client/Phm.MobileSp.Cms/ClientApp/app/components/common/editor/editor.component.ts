@@ -7,13 +7,14 @@ declare var $: any;
   selector: 'editor',
   template: `
     <div [formGroup]="formGroup" *ngIf="formGroup">
-      <textarea id="{{elementId}}" formControlName="{{elementId}}" *ngIf="elementId" value={{value}} class="materialize-textarea"></textarea>
+      <textarea id="{{elementId}}" formControlName="{{elementId}}" *ngIf="elementId" value={{value}} class="materialize-textarea" [attr.maxLength]="maxLength > 0 ? maxLength : null"></textarea>
     </div>`
 })
 export class RichTextEditorComponent implements  AfterViewInit, OnDestroy {
     @Input() elementId: string;
     @Input() value: string = '';
     @Input() formGroup: FormGroup;
+    @Input() maxLength: number = 0;
     @Output() onEditorKeyup = new EventEmitter<any>();
   editor;
   ngAfterViewInit()

@@ -32,6 +32,7 @@ import { IMediaDataService } from "../../../interfaces/services/IMediaDataServic
 import { MediaDataService } from "../../../services/mediaservice";
 import ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationFeedItemFormComponent;
 import BaseFeed = Feedclasses.BaseFeed;
+import { minValue } from "../../../classes/validators";
 declare var $: any;
 declare var Materialize: any;
 declare var tinymce: any;
@@ -140,18 +141,18 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     public initialiseForm() {
         this.form = this._fb.group({
             id: ['', []],
-            title: ['', [<any>Validators.required, <any>Validators.minLength(5)]],
-            shortDescription: ['', [<any>Validators.required, <any>Validators.minLength(10)]],
+            title: ['', [<any>Validators.required, <any>Validators.maxLength(160)]],
+            shortDescription: ['', [<any>Validators.required, <any>Validators.maxLength(120)]],
             feedType: ['', [<any>Validators.required]],
             feedCategory: ['', [<any>Validators.required]],
-            points: ['', [<any>Validators.required]],
+            points: ['', [<any>Validators.required, minValue(1)]],
             enabled: ['', []],
             published: ['', []],
             allowFavourite: ['', []],
             legalInformation: ['', []],
             makeTitleWidgetLink: ['', []],
             permissions: ['', []],
-            readingTime: ['', [<any>Validators.required]],
+            readingTime: ['', [<any>Validators.required, minValue(1)]],
             callToActionText: ['', []],
             callToActionUrl: ['', []],
             createdAt: ['', []],

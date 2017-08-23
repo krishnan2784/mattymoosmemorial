@@ -146,7 +146,7 @@
 
             <div class="rich-text-box">
                 <label>Enter Title</label>
-                <editor [elementId]="'title'" [value]="form.controls.title.value" [formGroup]="form"></editor>
+                <editor [elementId]="'title'" [value]="form.controls.title.value" [formGroup]="form" [maxLength]="160"></editor>
                 <small class="active-warning" [class.hidden]="form.controls.title.valid || !submitted">
                     Title is required (minimum 5 characters).
                 </small>
@@ -154,7 +154,7 @@
 
             <div class="rich-text-box">
                 <label>Short Description</label>
-                <editor [elementId]="'shortDescription'" [value]="form.controls.shortDescription.value" [formGroup]="form"></editor>
+                <editor [elementId]="'shortDescription'" [value]="form.controls.shortDescription.value" [formGroup]="form" [maxLength]="120"></editor>
                 <small class="active-warning" [class.hidden]="form.controls.shortDescription.valid || !submitted">
                     Short description is required.
                 </small>

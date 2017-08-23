@@ -29,6 +29,7 @@ var Basequestionfeeditemcomponent = require("./basequestionfeeditem.component");
 var BaseQuestionFeedItemFormComponent = Basequestionfeeditemcomponent.BaseQuestionFeedItemFormComponent;
 var Observationclasses = require("../../../models/observationclasses");
 var UserObservation = Observationclasses.UserObservation;
+var validators_1 = require("../../../classes/validators");
 var ObservationFeedItemFormComponent = (function (_super) {
     __extends(ObservationFeedItemFormComponent, _super);
     function ObservationFeedItemFormComponent(injector) {
@@ -50,8 +51,8 @@ var ObservationFeedItemFormComponent = (function (_super) {
         this.form.addControl('surveyDescription', new forms_1.FormControl(this.model.surveyDescription, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
         this.form.addControl('completionMessage', new forms_1.FormControl(this.model.completionMessage, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
         this.form.controls['mainIconId'].setValidators(null);
-        this.form.controls['readingTime'].setValidators(forms_1.Validators.required);
-        this.form.controls['points'].setValidators(forms_1.Validators.required);
+        this.form.controls['readingTime'].setValidators(null);
+        this.form.controls['points'].setValidators(null);
     };
     ;
     ObservationFeedItemFormComponent.prototype.removeFormControls = function () {
@@ -60,8 +61,8 @@ var ObservationFeedItemFormComponent = (function (_super) {
         this.form.removeControl('surveyDescription');
         this.form.removeControl('completionMessage');
         this.form.controls['mainIconId'].setValidators(forms_1.Validators.required);
-        this.form.controls['readingTime'].setValidators(null);
-        this.form.controls['points'].setValidators(null);
+        this.form.controls['readingTime'].setValidators([forms_1.Validators.required, validators_1.minValue(1)]);
+        this.form.controls['points'].setValidators([forms_1.Validators.required, validators_1.minValue(1)]);
     };
     ;
     ObservationFeedItemFormComponent.prototype.initUserObservation = function (userObservation) {
