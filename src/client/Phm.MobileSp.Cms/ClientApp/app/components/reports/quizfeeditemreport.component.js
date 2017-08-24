@@ -101,17 +101,6 @@ var QuizFeedItemReport = (function () {
         this.updateBarData();
     };
     QuizFeedItemReport.prototype.updateGaugeData = function () {
-        //var gaugeData = new GaugeChartData({
-        //    height: 150,
-        //    showTooltip: true,
-        //    chartData: [
-        //        {
-        //            name: 'Passed',
-        //            colour: '#9F378E',
-        //            data: (this.summaryData.passed / this.summaryData.submitted) * 100
-        //        }
-        //    ]
-        //});
         this.passRatioData = (this.summaryData.passed / this.summaryData.submitted) * 100;
     };
     QuizFeedItemReport.prototype.updateDonutData = function () {
@@ -148,18 +137,6 @@ var QuizFeedItemReport = (function () {
         for (var submission in this.summaryData.submissions) {
             _loop_1(submission);
         }
-        //var barData = new BarChartData({
-        //    width: 500,
-        //    showTooltip: true,
-        //    showYAxis: false,
-        //    showXAxis: true,
-        //    chartData: [{
-        //        name: 'Allocated time (days)',
-        //        colour: '#9F378E',
-        //        data: dates
-        //    }]
-        //});
-        //this.averageTimeData = barData;
         this.averageTimeData = {
             legendText: "Submissions",
             footerText: "Allocated time (days)",

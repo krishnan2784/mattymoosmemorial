@@ -421,17 +421,6 @@ var LeaderboardComponent = (function () {
             rank: 'Rank'
         });
         new Angular2_csv_1.Angular2Csv(report, 'Leaderboard_' + date_1.DateEx.formatDate(new Date()));
-        //let rep = {
-        //    filter: this.filter,
-        //    originalDataset: this.data,
-        //    top10: this.top10,
-        //    transformedDataset: this.allUsers,
-        //    updatedDataFromServer: this.updatedData,
-        //    searchString: this.searchString,
-        //    refineGroups: this.refineGroups,
-        //    salesExecList: this.salesExecList
-        //}
-        //this.report.emit(rep);
     };
     LeaderboardComponent.prototype.viewUserBreakdown = function (e) {
         this.userSelected.emit(e);

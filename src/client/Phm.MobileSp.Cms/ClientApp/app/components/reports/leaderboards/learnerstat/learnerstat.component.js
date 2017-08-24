@@ -236,7 +236,15 @@ var LearnerStatComponent = (function () {
         return Math.floor(millisBetween / millisecondsPerDay);
     };
     LearnerStatComponent.prototype.raiseExport = function () {
-        var report = this.data.slice(0);
+        var _this = this;
+        var report = this.data.slice(0).map(function (s, index, array) {
+            return {
+                createdAt: s.createdAt,
+                userPointType: _this.types.filter(function (x) { return x.value == s.userPointType; })[0].text,
+                points: s.points
+            };
+        });
+        report.unshift({ 'createdAt': 'Date Earned', 'userPointType': 'Activity Type', 'points': 'Points Earned' });
         new Angular2_csv_1.Angular2Csv(report, this.user.currentUser.firstName + this.user.currentUser.lastName + date_1.DateEx.formatDate(new Date()));
     };
     return LearnerStatComponent;

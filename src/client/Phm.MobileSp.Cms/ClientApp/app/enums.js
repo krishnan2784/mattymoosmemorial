@@ -93,4 +93,12 @@ var UploaderType;
     UploaderType[UploaderType["ImageAndVideo"] = 3] = "ImageAndVideo";
     UploaderType[UploaderType["File"] = 4] = "File";
 })(UploaderType = exports.UploaderType || (exports.UploaderType = {}));
+var UserPointType;
+(function (UserPointType) {
+    UserPointType[UserPointType["Unknown"] = 0] = "Unknown";
+    UserPointType[UserPointType["QuizFeed"] = 1] = "QuizFeed";
+    UserPointType[UserPointType["TextFeed"] = 2] = "TextFeed";
+    UserPointType[UserPointType["VideoFeed"] = 3] = "VideoFeed";
+    UserPointType[UserPointType["SurveyFeed"] = 4] = "SurveyFeed";
+})(UserPointType = exports.UserPointType || (exports.UserPointType = {}));
 //# sourceMappingURL=enums.js.map

@@ -136,17 +136,6 @@ export class QuizFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public updateGaugeData() {
-        //var gaugeData = new GaugeChartData({
-        //    height: 150,
-        //    showTooltip: true,
-        //    chartData: [
-        //        {
-        //            name: 'Passed',
-        //            colour: '#9F378E',
-        //            data: (this.summaryData.passed / this.summaryData.submitted) * 100
-        //        }
-        //    ]
-        //});
         this.passRatioData = (this.summaryData.passed / this.summaryData.submitted) * 100;
     }
 
@@ -180,25 +169,12 @@ export class QuizFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
                 dates.push({ label: formatted, percent: 1 });
             }
         }
-        //var barData = new BarChartData({
-        //    width: 500,
-        //    showTooltip: true,
-        //    showYAxis: false,
-        //    showXAxis: true,
-        //    chartData: [{
-        //        name: 'Allocated time (days)',
-        //        colour: '#9F378E',
-        //        data: dates
-        //    }]
-        //});
-        //this.averageTimeData = barData;
 
         this.averageTimeData = {
             legendText: "Submissions",
             footerText: "Allocated time (days)",
             data: dates
-        }
-    
+        }    
     }
 
     public goBack() {

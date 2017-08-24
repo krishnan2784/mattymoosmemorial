@@ -112,7 +112,17 @@ var ObservationFeedItemReport = (function () {
         }
     };
     ObservationFeedItemReport.prototype.handleReport = function () {
-        new Angular2_csv_1.Angular2Csv(this.summaryData, this.model.title + DateEx.formatDate(new Date()));
+        var report = [{ 'title': 'Question', 'question': 'Answer', 'percent': 'Percent' }];
+        for (var i = 0; i < this.listData.length; i++) {
+            for (var i2 = 0; i2 < this.listData[i].data.length; i2++) {
+                report.push({
+                    title: this.listData[i].title,
+                    question: this.listData[i].data[i2].label,
+                    percent: this.listData[i].data[i2].percent
+                });
+            }
+        }
+        new Angular2_csv_1.Angular2Csv(report, this.model.title + DateEx.formatDate(new Date()));
     };
     ObservationFeedItemReport.prototype.goBack = function () {
         this.pageTitle = null;

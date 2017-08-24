@@ -415,17 +415,6 @@ export class LeaderboardComponent implements OnInit, OnChanges {
             rank: 'Rank'
         });        
         new Angular2Csv(report, 'Leaderboard_' + DateEx.formatDate(new Date()));
-        //let rep = {
-        //    filter: this.filter,
-        //    originalDataset: this.data,
-        //    top10: this.top10,
-        //    transformedDataset: this.allUsers,
-        //    updatedDataFromServer: this.updatedData,
-        //    searchString: this.searchString,
-        //    refineGroups: this.refineGroups,
-        //    salesExecList: this.salesExecList
-        //}
-        //this.report.emit(rep);
     }
     public viewUserBreakdown(e) {
         this.userSelected.emit(e);
