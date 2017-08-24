@@ -3,6 +3,7 @@ import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 import { DateEx } from "../../../../classes/helpers/date";
 
 import * as D3 from 'd3';
+import { UserPointType } from "../../../../enums";
 @Component({
   selector: 'learnerstat',
   template: require('./learnerstat.html'),
@@ -244,8 +245,15 @@ export class LearnerStatComponent implements OnInit, AfterViewInit {
       var millisBetween = endDay.getTime() - startDay.getTime();
       return Math.floor(millisBetween / millisecondsPerDay);
   }
-  raiseExport() {
-        let report = this.data.slice(0);    
-        new Angular2Csv(report, this.user.currentUser.firstName + this.user.currentUser.lastName + DateEx.formatDate(new Date()));
+  raiseExport() {  
+      let report = this.data.slice(0).map((s, index, array) => {
+          return {
+              createdAt: s.createdAt,
+              userPointType: this.types.filter(x=>x.value == s.userPointType)[0].text,
+              points: s.points
+          };
+      });
+      report.unshift({ 'createdAt': 'Date Earned', 'userPointType': 'Activity Type', 'points': 'Points Earned' });      
+      new Angular2Csv(report, this.user.currentUser.firstName + this.user.currentUser.lastName + DateEx.formatDate(new Date()));
   }
 }

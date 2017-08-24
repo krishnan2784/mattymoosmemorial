@@ -128,7 +128,17 @@ export class ObservationFeedItemReport implements OnInit, AfterViewInit, OnDestr
     }
 
     handleReport() {
-        new Angular2Csv(this.summaryData, this.model.title + DateEx.formatDate(new Date()));
+        let report = [{ 'title': 'Question', 'question': 'Answer', 'percent': 'Percent' }];
+        for (var i = 0; i < this.listData.length; i++) {
+            for (var i2 = 0; i2 < this.listData[i].data.length; i2++) {
+                report.push({
+                    title: this.listData[i].title,
+                    question: this.listData[i].data[i2].label,
+                    percent: this.listData[i].data[i2].percent
+                });
+            }
+        }
+        new Angular2Csv(report, this.model.title + DateEx.formatDate(new Date()));
     }
 
     public goBack() {

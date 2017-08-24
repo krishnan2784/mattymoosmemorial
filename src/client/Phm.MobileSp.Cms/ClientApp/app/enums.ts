@@ -82,3 +82,11 @@ export enum UploaderType {
     ImageAndVideo = 3,
     File = 4
 }
+export enum UserPointType
+{
+    Unknown = 0,
+    QuizFeed = 1,
+    TextFeed = 2,
+    VideoFeed = 3,
+    SurveyFeed = 4
+}
