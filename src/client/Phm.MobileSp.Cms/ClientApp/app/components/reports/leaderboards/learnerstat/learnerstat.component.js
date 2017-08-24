@@ -19,6 +19,7 @@ var LearnerStatComponent = (function () {
         this.headerMin = false;
         this.groupBy = [];
         this.max = 0;
+        this.lines = [];
         this.colors = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#CDDC39", "#673AB7", "#03a9f4", "#ffeb3b", "#e91e63", "#607d8b", "#8bc34a", "#ee6e73", "#000000", "#000000", "#000000"];
         this.datesChanged = new core_1.EventEmitter();
         this.export = new core_1.EventEmitter();
@@ -62,16 +63,17 @@ var LearnerStatComponent = (function () {
         for (var i = 0; i < this.types.length; i++) {
             this.groupBy[i].percent = this.groupBy[i].points / (total / 100) + '';
         }
-        console.log(total, this.groupBy);
     };
     LearnerStatComponent.prototype.ngOnInit = function () {
-        this.dDates = this.displayedDates();
-        for (var i = 0; i < this.data.length; i++) {
-            if (this.data[i].points > this.max) {
-                this.max = this.data[i].points;
-            }
-        }
+        this.setMaxHeight();
         this.groupIt();
+        this.fullData = this.data;
+        this.date1 = new Date(this.data[0].createdAt);
+        this.date1 = new Date(this.date1.getFullYear(), this.date1.getMonth(), this.date1.getDate(), 0, 0, 0);
+        this.date2 = new Date(this.data[this.data.length - 1].createdAt);
+        this.date2 = new Date(this.date2.getFullYear(), this.date2.getMonth(), this.date2.getDate(), 23, 59, 59);
+        this.dateRange = this.getDateDiff(this.date1, this.date2) + 1;
+        this.dDates = this.displayedDates();
     };
     LearnerStatComponent.prototype.ngAfterViewInit = function () {
         this.htmlElement = this.element.nativeElement;
@@ -93,10 +95,32 @@ var LearnerStatComponent = (function () {
         }
         return r;
     };
+    LearnerStatComponent.prototype.setMaxHeight = function () {
+        if (this.data && this.data.length > 0) {
+            this.max = Math.max.apply(null, this.data.map(function (x) { return x.points; }));
+        }
+        else
+            this.max = 0;
+        this.setLines();
+    };
+    LearnerStatComponent.prototype.setLines = function () {
+        var r = [];
+        if (this.max && this.max > 0) {
+            var p = Math.round(this.max / 10);
+            ;
+            for (var i = 0; i < this.max;) {
+                r.push(i);
+                i += p;
+            }
+        }
+        else
+            r = this.dummyArray(10);
+        this.lines = r;
+    };
     LearnerStatComponent.prototype.displayedDates = function () {
         var days = [];
         var l = this.data.length - 1;
-        for (var d = new Date(this.data[0].createdAt); d <= new Date(this.data[l].createdAt); d.setDate(d.getDate() + 1)) {
+        for (var d = new Date(this.date1); d <= new Date(this.date2); d.setDate(d.getDate() + 1)) {
             days.push(new Date(d));
         }
         if (days.length === 1) {
@@ -116,7 +140,6 @@ var LearnerStatComponent = (function () {
         var m = parseInt((days.length / 2) + "");
         var bfm = parseInt((days.length / 4) + "");
         var afm = parseInt((days.length / 1.25) + "");
-        console.log('m=', m);
         var middle = days[m - 1];
         var bfMiddle = days[bfm - 1];
         var afMiddle = days[afm - 1];
@@ -124,7 +147,6 @@ var LearnerStatComponent = (function () {
         s.push(middle);
         s.push(afMiddle);
         s.push(days[days.length - 1]);
-        console.log(s);
         return s;
     };
     LearnerStatComponent.prototype.setup = function () {
@@ -170,11 +192,48 @@ var LearnerStatComponent = (function () {
             .text(function (datum, index) { return _this.pieData[index].label; })
             .style("text-anchor", "middle");
     };
-    LearnerStatComponent.prototype.raiseDatesChanged = function () {
-        this.datesChanged.emit({
-            date1: this.date1,
-            date2: this.date2
-        });
+    LearnerStatComponent.prototype.updateStartDate = function (e) {
+        this.minDay = e.day;
+        this.minMonth = e.month;
+        this.minYear = e.year;
+        this.date1 = e.fullDate;
+        this.date1 = new Date(this.date1.getFullYear(), this.date1.getMonth(), this.date1.getDate(), 0, 0, 0);
+        if (new Date(this.date2) < e.fullDate) {
+            this.updateEndDate(e);
+        }
+        this.updateDateFilter();
+    };
+    LearnerStatComponent.prototype.updateEndDate = function (e) {
+        this.date2.setDate(e.fullDate.getDate() + 1);
+        this.date2 = new Date(e.fullDate.getFullYear(), e.fullDate.getMonth(), e.fullDate.getDate(), 23, 59, 59);
+        this.updateDateFilter();
+    };
+    LearnerStatComponent.prototype.updateDateFilter = function () {
+        var _this = this;
+        if (this.date1) {
+            if (this.date2)
+                this.data = this.fullData.filter(function (x) { console.log(x); var date = new Date(x.createdAt); return (date > _this.date1) && date < _this.date2; });
+            else
+                this.data = this.fullData.filter(function (x) { return new Date(x.createdAt) > _this.date1; });
+        }
+        else if (this.date2)
+            this.data = this.fullData.filter(function (x) { return new Date(x.createdAt) < _this.date2; });
+        this.dDates = this.displayedDates();
+        this.dateRange = this.getDateDiff(this.date1, this.date2) + 1;
+        this.setMaxHeight();
+    };
+    LearnerStatComponent.prototype.getDateOffset = function (d) {
+        var p = 100 / this.dateRange;
+        var diff = this.getDateDiff(this.date1, d.createdAt);
+        var r = (p * diff) + (((100 / this.dateRange) / 5) * (d.userPointType));
+        return r;
+    };
+    LearnerStatComponent.prototype.getDateDiff = function (d1, d2) {
+        var startDay = new Date(d1);
+        var endDay = new Date(d2);
+        var millisecondsPerDay = 1000 * 60 * 60 * 24;
+        var millisBetween = endDay.getTime() - startDay.getTime();
+        return Math.floor(millisBetween / millisecondsPerDay);
     };
     LearnerStatComponent.prototype.raiseExport = function () {
         var report = this.data.slice(0);

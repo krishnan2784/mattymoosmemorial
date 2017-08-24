@@ -14,6 +14,7 @@ var date_1 = require("../../../classes/helpers/date");
 var DatepickerComponent = (function () {
     function DatepickerComponent(_eref) {
         this._eref = _eref;
+        this.rightAlign = false;
         this.dateSelected = new core_1.EventEmitter();
         this.show = false;
         this.hidePastDays = false;
@@ -269,6 +270,10 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Date)
 ], DatepickerComponent.prototype, "initialDate", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Boolean)
+], DatepickerComponent.prototype, "rightAlign", void 0);
 __decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)
