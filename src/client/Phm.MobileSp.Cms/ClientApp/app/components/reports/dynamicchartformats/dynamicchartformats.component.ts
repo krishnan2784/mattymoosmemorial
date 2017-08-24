@@ -80,7 +80,7 @@ export class DynamicChartFormatsComponent implements AfterViewInit, OnInit  {
     arcSelection.append("path")
       .attr("d", arc)
       .attr("fill", (datum, index) => {
-        return pieColor(this.pieData[index].label);
+        return this.colors[index];
       });
 
     arcSelection.append("text")

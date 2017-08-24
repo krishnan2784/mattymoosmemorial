@@ -81,7 +81,7 @@ var DynamicChartFormatsComponent = (function () {
         arcSelection.append("path")
             .attr("d", arc)
             .attr("fill", function (datum, index) {
-            return pieColor(_this.pieData[index].label);
+            return _this.colors[index];
         });
         arcSelection.append("text")
             .attr("transform", function (datum) {
