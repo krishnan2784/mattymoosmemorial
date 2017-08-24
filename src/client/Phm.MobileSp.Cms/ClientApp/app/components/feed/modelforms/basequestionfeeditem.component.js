@@ -37,7 +37,7 @@ var BaseQuestionFeedItemFormComponent = (function (_super) {
     };
     BaseQuestionFeedItemFormComponent.prototype.baseQuestionForm = function (question) {
         var _this = this;
-        var formArray = new forms_1.FormArray([]);
+        var formArray = new forms_1.FormArray([], forms_1.Validators.minLength(1));
         question.answers.forEach(function (x) { return formArray.push(_this.initAnswer(x)); });
         var fg = new forms_1.FormGroup({
             id: new forms_1.FormControl(question.id, []),

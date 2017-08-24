@@ -27,10 +27,11 @@
     <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.QuizScore)">
         <div class="rich-text-box">
             <label>Welcome message</label>
-            <editor [elementId]="'onBoardingMessage'" [value]="form.controls.onBoardingMessage.value" [formGroup]="form"></editor>
+            <editor [elementId]="'onBoardingMessage'" [value]="form.controls.onBoardingMessage.value" [formGroup]="form" [disabled]="true"></editor>
             <small class="active-warning" [class.hidden]="form.controls.onBoardingMessage.valid || !submitted">
                 e.g: Welcome to the Quiz
             </small>
+            <small>This entry is not required for this feed item.</small>
         </div>
 
         <div class="rich-text-box">
@@ -54,7 +55,7 @@
     <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.SurveyScore)">
         <div class="rich-text-box">
             <label>Welcome message</label>
-            <editor [elementId]="'surveyDescription'" [value]="form.controls.surveyDescription.value" [formGroup]="form"></editor>
+            <editor [elementId]="'surveyDescription'" [value]="form.controls.surveyDescription.value" [formGroup]="form" [disabled]="true"></editor>
             <small class="active-warning" [class.hidden]="form.controls.surveyDescription.valid || !submitted">
                 e.g: Welcome to the Survey
             </small>
@@ -62,10 +63,11 @@
 
         <div class="rich-text-box">
             <label>Completion message</label>
-            <editor [elementId]="'completionMessage'" [value]="form.controls.completionMessage.value" [formGroup]="form"></editor>
+            <editor [elementId]="'completionMessage'" [value]="form.controls.completionMessage.value" [formGroup]="form" [disabled]="true"></editor>
             <small class="active-warning" [class.hidden]="form.controls.completionMessage.valid || !submitted">
                 e.g: Thank you for taking part!
             </small>
         </div>
+        <small>These entries are not required for this feed item.</small>
     </div>
 </div>

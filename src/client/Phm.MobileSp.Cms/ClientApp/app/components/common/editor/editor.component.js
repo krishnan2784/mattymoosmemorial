@@ -15,6 +15,7 @@ var RichTextEditorComponent = (function () {
     function RichTextEditorComponent() {
         this.value = '';
         this.maxLength = 0;
+        this.disabled = false;
         this.onEditorKeyup = new core_1.EventEmitter();
     }
     RichTextEditorComponent.prototype.ngAfterViewInit = function () {
@@ -56,13 +57,17 @@ __decorate([
     __metadata("design:type", Number)
 ], RichTextEditorComponent.prototype, "maxLength", void 0);
 __decorate([
+    core_1.Input(),
+    __metadata("design:type", Boolean)
+], RichTextEditorComponent.prototype, "disabled", void 0);
+__decorate([
     core_1.Output(),
     __metadata("design:type", Object)
 ], RichTextEditorComponent.prototype, "onEditorKeyup", void 0);
 RichTextEditorComponent = __decorate([
     core_1.Component({
         selector: 'editor',
-        template: "\n    <div [formGroup]=\"formGroup\" *ngIf=\"formGroup\">\n      <textarea id=\"{{elementId}}\" formControlName=\"{{elementId}}\" *ngIf=\"elementId\" value={{value}} class=\"materialize-textarea\" [attr.maxLength]=\"maxLength > 0 ? maxLength : null\"></textarea>\n    </div>"
+        template: "\n    <div [formGroup]=\"formGroup\" *ngIf=\"formGroup\">\n      <textarea id=\"{{elementId}}\" formControlName=\"{{elementId}}\" *ngIf=\"elementId\" value={{value}} class=\"materialize-textarea\" [attr.maxLength]=\"maxLength > 0 ? maxLength : null\" [attr.disabled]=\"disabled ? disabled : null\"></textarea>\n    </div>"
     })
 ], RichTextEditorComponent);
 exports.RichTextEditorComponent = RichTextEditorComponent;

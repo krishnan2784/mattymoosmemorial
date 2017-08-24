@@ -18,7 +18,7 @@ export class QuizUserResultsComponent implements OnInit {
       let a = {
         question: q[i].question,
         options: [],
-        isCorrect : true
+        isCorrect: q[i].answers.filter(x => x.isCorrect).length > 0
       };
       for (let j = 0; j < q[i].answers.length; j++) {
         let isChecked =  this.getAnswerFromUser(q[i].id, q[i].answers[j].id);

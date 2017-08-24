@@ -22,7 +22,7 @@ export class BaseQuestionFeedItemFormComponent extends BasePartialItemFormCompon
     }
 
     baseQuestionForm(question: any): FormGroup {
-        var formArray = new FormArray([]);
+        var formArray = new FormArray([], Validators.minLength(1));
         question.answers.forEach(x => formArray.push(this.initAnswer(x)));
         var fg = new FormGroup({
             id: new FormControl(question.id, []),

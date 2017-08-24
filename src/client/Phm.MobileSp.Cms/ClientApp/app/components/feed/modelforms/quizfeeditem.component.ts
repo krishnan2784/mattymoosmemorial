@@ -7,6 +7,7 @@ import Feedclasses = require("../../../models/feedclasses");
 import QuizClasses = require("../../../models/quizclasses");
 import Basequestionfeeditemcomponent = require("./basequestionfeeditem.component");
 import BaseQuestionFeedItemFormComponent = Basequestionfeeditemcomponent.BaseQuestionFeedItemFormComponent;
+import { minCorrectAnswers } from "../../../classes/validators";
 
 @Component({
     selector: 'quizfeeditem',
@@ -21,14 +22,13 @@ export class QuizFeedItemFormComponent extends BaseQuestionFeedItemFormComponent
     }
 
     addFormControls() {
-        var formArray = new FormArray([], Validators.required);
+        var formArray = new FormArray([], Validators.minLength(1));
         this.model.questions.forEach(x=> formArray.push(this.initQuestion(x)));
         this.form.addControl('questions', formArray);
-        this.form.addControl('onBoardingMessage', new FormControl(this.model.onBoardingMessage, [<any>Validators.required, <any>Validators.minLength(5)]));
-        this.form.addControl('successMessage', new FormControl(this.model.successMessage, [<any>Validators.required, <any>Validators.minLength(5)]));
-        this.form.addControl('failMessage', new FormControl(this.model.failMessage, [<any>Validators.required, <any>Validators.minLength(5)]));  
+        this.form.addControl('onBoardingMessage', new FormControl(this.model.onBoardingMessage, []));
+        this.form.addControl('successMessage', new FormControl(this.model.successMessage, [Validators.required]));
+        this.form.addControl('failMessage', new FormControl(this.model.failMessage, [Validators.required]));  
         this.form.controls['mainIconId'].setValidators(null);
-
     };
 
     removeFormControls() {
@@ -42,6 +42,8 @@ export class QuizFeedItemFormComponent extends BaseQuestionFeedItemFormComponent
     initQuestion(question: QuizClasses.QuizQuestion = new QuizClasses.QuizQuestion()) {
         var fg = this.baseQuestionForm(question);
         fg.addControl('quizFeedId', new FormControl(question.quizFeedId, []));
+        fg.setValidators(minCorrectAnswers(1));
+        fg.controls['answers'].setValidators(Validators.minLength(2));
         return fg;
     }
 

@@ -68,7 +68,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             {
                 Name = containerDetails.FileName,
                 AzureUrl =
-                    $"{ containerDetails.StorageAccountUri }{ containerDetails.ContainerRoot }/{containerDetails.BrandName}/{containerDetails.MarketName}/{containerDetails.FileName}",
+                    $"{ containerDetails.StorageAccountUri }{containerDetails.Container.Name}/{containerDetails.FileName}",
                 MediaType = GetMediaType(containerDetails.MimeType),
                 MarketId = containerDetails.CurrentMarketId,
                 MediaId = containerDetails.FileName,
