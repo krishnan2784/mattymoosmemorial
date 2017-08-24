@@ -42,14 +42,14 @@ var ObservationFeedItemFormComponent = (function (_super) {
     }
     ObservationFeedItemFormComponent.prototype.addFormControls = function () {
         var _this = this;
-        var formArray = new forms_1.FormArray([], forms_1.Validators.required);
+        var formArray = new forms_1.FormArray([], forms_1.Validators.minLength(1));
         this.model.questions.forEach(function (x) { return formArray.push(_this.initQuestion(x)); });
         this.form.addControl('questions', formArray);
         var userFormArray = new forms_1.FormArray([]);
         this.model.userObservations.forEach(function (x) { return userFormArray.push(_this.initUserObservation(x)); });
         this.form.addControl('userObservations', userFormArray);
-        this.form.addControl('surveyDescription', new forms_1.FormControl(this.model.surveyDescription, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
-        this.form.addControl('completionMessage', new forms_1.FormControl(this.model.completionMessage, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
+        this.form.addControl('surveyDescription', new forms_1.FormControl(this.model.surveyDescription, []));
+        this.form.addControl('completionMessage', new forms_1.FormControl(this.model.completionMessage, []));
         this.form.controls['mainIconId'].setValidators(null);
         this.form.controls['readingTime'].setValidators(null);
         this.form.controls['points'].setValidators(null);

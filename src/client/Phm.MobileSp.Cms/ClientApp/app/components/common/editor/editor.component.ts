@@ -7,7 +7,7 @@ declare var $: any;
   selector: 'editor',
   template: `
     <div [formGroup]="formGroup" *ngIf="formGroup">
-      <textarea id="{{elementId}}" formControlName="{{elementId}}" *ngIf="elementId" value={{value}} class="materialize-textarea" [attr.maxLength]="maxLength > 0 ? maxLength : null"></textarea>
+      <textarea id="{{elementId}}" formControlName="{{elementId}}" *ngIf="elementId" value={{value}} class="materialize-textarea" [attr.maxLength]="maxLength > 0 ? maxLength : null" [attr.disabled]="disabled ? disabled : null"></textarea>
     </div>`
 })
 export class RichTextEditorComponent implements  AfterViewInit, OnDestroy {
@@ -15,6 +15,7 @@ export class RichTextEditorComponent implements  AfterViewInit, OnDestroy {
     @Input() value: string = '';
     @Input() formGroup: FormGroup;
     @Input() maxLength: number = 0;
+    @Input() disabled: boolean = false;
     @Output() onEditorKeyup = new EventEmitter<any>();
   editor;
   ngAfterViewInit()

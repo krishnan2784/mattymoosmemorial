@@ -23,7 +23,7 @@ var QuizUserResultsComponent = (function () {
             var a = {
                 question: q[i].question,
                 options: [],
-                isCorrect: true
+                isCorrect: q[i].answers.filter(function (x) { return x.isCorrect; }).length > 0
             };
             for (var j = 0; j < q[i].answers.length; j++) {
                 var isChecked = this.getAnswerFromUser(q[i].id, q[i].answers[j].id);

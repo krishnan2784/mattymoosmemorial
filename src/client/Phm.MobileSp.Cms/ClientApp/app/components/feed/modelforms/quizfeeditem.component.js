@@ -27,6 +27,7 @@ var Feedclasses = require("../../../models/feedclasses");
 var QuizClasses = require("../../../models/quizclasses");
 var Basequestionfeeditemcomponent = require("./basequestionfeeditem.component");
 var BaseQuestionFeedItemFormComponent = Basequestionfeeditemcomponent.BaseQuestionFeedItemFormComponent;
+var validators_1 = require("../../../classes/validators");
 var QuizFeedItemFormComponent = (function (_super) {
     __extends(QuizFeedItemFormComponent, _super);
     function QuizFeedItemFormComponent(injector) {
@@ -36,12 +37,12 @@ var QuizFeedItemFormComponent = (function (_super) {
     }
     QuizFeedItemFormComponent.prototype.addFormControls = function () {
         var _this = this;
-        var formArray = new forms_1.FormArray([], forms_1.Validators.required);
+        var formArray = new forms_1.FormArray([], forms_1.Validators.minLength(1));
         this.model.questions.forEach(function (x) { return formArray.push(_this.initQuestion(x)); });
         this.form.addControl('questions', formArray);
-        this.form.addControl('onBoardingMessage', new forms_1.FormControl(this.model.onBoardingMessage, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
-        this.form.addControl('successMessage', new forms_1.FormControl(this.model.successMessage, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
-        this.form.addControl('failMessage', new forms_1.FormControl(this.model.failMessage, [forms_1.Validators.required, forms_1.Validators.minLength(5)]));
+        this.form.addControl('onBoardingMessage', new forms_1.FormControl(this.model.onBoardingMessage, []));
+        this.form.addControl('successMessage', new forms_1.FormControl(this.model.successMessage, [forms_1.Validators.required]));
+        this.form.addControl('failMessage', new forms_1.FormControl(this.model.failMessage, [forms_1.Validators.required]));
         this.form.controls['mainIconId'].setValidators(null);
     };
     ;
@@ -57,6 +58,8 @@ var QuizFeedItemFormComponent = (function (_super) {
         if (question === void 0) { question = new QuizClasses.QuizQuestion(); }
         var fg = this.baseQuestionForm(question);
         fg.addControl('quizFeedId', new forms_1.FormControl(question.quizFeedId, []));
+        fg.setValidators(validators_1.minCorrectAnswers(1));
+        fg.controls['answers'].setValidators(forms_1.Validators.minLength(2));
         return fg;
     };
     QuizFeedItemFormComponent.prototype.initAnswer = function (answer) {

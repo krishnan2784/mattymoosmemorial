@@ -26,4 +26,20 @@ function maxValue(max) {
     };
 }
 exports.maxValue = maxValue;
+function minCorrectAnswers(min) {
+    return function (form) {
+        var c = 0;
+        var a = form.controls['answers'];
+        for (var i = 0; i < a.controls.length; i++) {
+            var fg = a.controls[i];
+            if (fg.controls['isCorrect'].value == true) {
+                c++;
+            }
+        }
+        if (c >= min)
+            return null;
+        return { 'minCorrect': { min: min } };
+    };
+}
+exports.minCorrectAnswers = minCorrectAnswers;
 //# sourceMappingURL=validators.js.map

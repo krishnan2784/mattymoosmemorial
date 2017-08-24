@@ -28,15 +28,15 @@ export class ObservationFeedItemFormComponent extends BaseQuestionFeedItemFormCo
     }
     
     addFormControls() {
-        var formArray = new FormArray([], Validators.required);
+        var formArray = new FormArray([], Validators.minLength(1));
         this.model.questions.forEach(x => formArray.push(this.initQuestion(x)));
         this.form.addControl('questions', formArray);
 
         var userFormArray = new FormArray([]);
         this.model.userObservations.forEach(x => userFormArray.push(this.initUserObservation(x)));
         this.form.addControl('userObservations', userFormArray);
-        this.form.addControl('surveyDescription', new FormControl(this.model.surveyDescription, [<any>Validators.required, <any>Validators.minLength(5)]));
-        this.form.addControl('completionMessage', new FormControl(this.model.completionMessage, [<any>Validators.required, <any>Validators.minLength(5)]));
+        this.form.addControl('surveyDescription', new FormControl(this.model.surveyDescription, []));
+        this.form.addControl('completionMessage', new FormControl(this.model.completionMessage, []));
         this.form.controls['mainIconId'].setValidators(null);
         this.form.controls['readingTime'].setValidators(null);
         this.form.controls['points'].setValidators(null);
