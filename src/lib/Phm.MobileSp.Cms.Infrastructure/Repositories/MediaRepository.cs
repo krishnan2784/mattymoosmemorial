@@ -1,107 +1,115 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using MobileSPCoreService;
+﻿using Microsoft.ApplicationInsights;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
+using Microsoft.WindowsAzure.Storage;
 using Phm.MobileSp.Cms.Core.Enumerations;
 using Phm.MobileSp.Cms.Core.Models;
-using Phm.MobileSp.Cms.Core.Models.Interfaces;
-using Phm.MobileSp.Cms.Infrastructure;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
+using Phm.MobileSp.Cms.Infrastructure.Utilities;
+using System;
 using System.IO;
 using System.Net.Http.Headers;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
-using System.Net.Http;
+using System.Security;
+using System.Threading.Tasks;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 {
     public class MediaRepository : BaseRepository, IMediaRepository
     {
-        private MicrosoftAzureStorage _azureConnStrings{ get;}
+        private readonly TelemetryClient _errorClient = new TelemetryClient();
         private readonly IMediaInfoRepository _mediaInfoRepo;
-        public MediaRepository(IOptions<MicrosoftAzureStorage> azureConnStrings,
-            IHttpClientService client, IMediaInfoRepository mediaInfoRepo)
-            : base(client, "")
+
+        public MediaRepository(IOptions<MicrosoftAzureStorage> azureConnStrings, IHttpClientService client, IMediaInfoRepository mediaInfoRepo) : base(client, "")
         {
-            _azureConnStrings = azureConnStrings.Value;
+            AzureConnStrings = azureConnStrings.Value;
             _mediaInfoRepo = mediaInfoRepo;
         }
 
-        public async Task<MediaInfo> UploadPreviewImage(IFormFile file, string fileName, Market currentMarket)
-        {
-            try
-            {
-                var marketName = currentMarket.Name.Replace(" ", "_").Replace("(", "_").Replace(")", "_") + "/Preview";
+        private MicrosoftAzureStorage AzureConnStrings { get; }
 
-                var containerRoot = _azureConnStrings.ContainerRoot;
-                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(_azureConnStrings.ConnectionString);
-                var blobClient = storageAccount.CreateCloudBlobClient();
-                var container = blobClient.GetContainerReference($"{containerRoot}/FordGlobal/{marketName}");
-                var parsedContentDisposition =
-                    ContentDispositionHeaderValue.Parse(file.ContentDisposition);
-                
-                var blockBlob = container.GetBlockBlobReference(fileName);
-                await blockBlob.UploadFromStreamAsync(file.OpenReadStream());
-
-                var mediaInfoDto = GenerateMediaInfoDto(fileName, storageAccount.BlobStorageUri.PrimaryUri.AbsoluteUri, containerRoot,
-                    file.ContentType, "FordGlobal", marketName, currentMarket.Id, file.Length);
-
-                var response = await _mediaInfoRepo.CreateMediaInfo(mediaInfoDto);
-
-                return response;
-            }
-            catch (Exception e)
-            {
-                return new MediaInfo();
-            }
-        }
-        
+        //Todo: Please Add Brand Name for better segregation of user data
         public async Task<MediaInfo> UploadFile(IFormFile file, Market currentMarket)
         {
             try
             {
-                var marketName = currentMarket.Name.Replace(" ", "_").Replace("(", "_").Replace(")", "_");
+                var container = GetCloudBlobContainer(currentMarket, false);
+                var parsedContentDisposition = ContentDispositionHeaderValue.Parse(file.ContentDisposition);
+                container = container.SetFileDetails(Path.Combine(parsedContentDisposition.FileName.Trim('"')), VerifyCorrectMimeType(file), file.Length);
 
-                var containerRoot = _azureConnStrings.ContainerRoot;
-                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(_azureConnStrings.ConnectionString);
-                var blobClient = storageAccount.CreateCloudBlobClient();
-                var container = blobClient.GetContainerReference($"{containerRoot}/FordGlobal/{marketName}");
-                var parsedContentDisposition =
-                    ContentDispositionHeaderValue.Parse(file.ContentDisposition);
-                var filename = Path.Combine(parsedContentDisposition.FileName.Trim('"'));
-                var blockBlob = container.GetBlockBlobReference(filename);
-                await blockBlob.UploadFromStreamAsync(file.OpenReadStream());
+                await UploadFileToStorage(file, container);
 
-                var mediaInfoDto = GenerateMediaInfoDto(filename, storageAccount.BlobStorageUri.PrimaryUri.AbsoluteUri, containerRoot,
-                    file.ContentType, "FordGlobal", marketName, currentMarket.Id, file.Length);
-
-                var response = await _mediaInfoRepo.CreateMediaInfo(mediaInfoDto);
-
-                return response;
-            } catch (Exception e)
+                return await GenerateMediaInfoDtoForResponse(container);
+            }
+            catch (Exception e)
             {
-                return new MediaInfo();
+                return ProcessUploadException(e);
             }
         }
 
-        private MediaInfo GenerateMediaInfoDto(string fileName, string defaultUrl, string containerRoot, string contentType, string brandName, string marketName, int marketId, long fileSize)
+        //Todo: Please Add Brand Name for better segregation of user data
+        public async Task<MediaInfo> UploadPreviewImage(IFormFile file, string fileName, Market currentMarket)
+        {
+            try
+            {
+                var container = GetCloudBlobContainer(currentMarket, true);
+                container = container.SetFileDetails(fileName, VerifyCorrectMimeType(file), file.Length);
+                await UploadFileToStorage(file, container);
+                return await GenerateMediaInfoDtoForResponse(container);
+            }
+            catch (Exception e)
+            {
+                return ProcessUploadException(e);
+            }
+        }
+
+        private MediaInfo GenerateMediaInfoDto(CloudContainerDetails containerDetails)
         {
             var mediaItem = new MediaInfo
             {
-                Name = fileName,
+                Name = containerDetails.FileName,
                 AzureUrl =
-                    $"{ defaultUrl }{ containerRoot }/{brandName}/{marketName}/{fileName}",
-                MediaType = GetMediaType(contentType),
-                MarketId = marketId,
-                MediaId = fileName,
+                    $"{ containerDetails.StorageAccountUri }{ containerDetails.ContainerRoot }/{containerDetails.BrandName}/{containerDetails.MarketName}/{containerDetails.FileName}",
+                MediaType = GetMediaType(containerDetails.MimeType),
+                MarketId = containerDetails.CurrentMarketId,
+                MediaId = containerDetails.FileName,
                 MediaVersion = 0,
-                Path = $"{brandName}/{marketName}/",
-                Size =fileSize,
-                Extension = fileName.Substring(fileName.LastIndexOf(".") + 1, fileName.Length - (fileName.LastIndexOf(".") + 1))
+                Path = $"{containerDetails.BrandName}/{containerDetails.MarketName}/",
+                Size = containerDetails.FileSize,
+                Extension = Path.GetExtension(containerDetails.FileName)
             };
             return mediaItem;
+        }
+
+        private async Task<MediaInfo> GenerateMediaInfoDtoForResponse(CloudContainerDetails containerDetails)
+        {
+            var mediaInfoDto = GenerateMediaInfoDto(containerDetails);
+            var response = await _mediaInfoRepo.CreateMediaInfo(mediaInfoDto);
+            return response;
+        }
+
+        private CloudContainerDetails GetCloudBlobContainer(Market market, bool isPreviewItem)
+        {
+            var storageAccount = CloudStorageAccount.Parse(AzureConnStrings.ConnectionString);
+            var blobClient = storageAccount.CreateCloudBlobClient();
+            var foldername = GetFolderLocation(market.Name.Replace(" ", "_").Replace("(", "_").Replace(")", "_"), isPreviewItem);
+
+            var detail = new CloudContainerDetails
+            {
+                MarketName = market.Name.Replace(" ", "_").Replace("(", "_").Replace(")", "_"),
+                CurrentMarketId = market.Id,
+                BrandName = "FordGlobal", // Todo: Add Brand to contructor of public Upload Methods then pass the name to this value.
+                ContainerRoot = AzureConnStrings.ContainerRoot,
+                StorageAccountUri = storageAccount.BlobStorageUri.PrimaryUri.AbsoluteUri,
+                Container = blobClient.GetContainerReference($"{AzureConnStrings.ContainerRoot}/FordGlobal/{foldername}")
+            };
+            return detail;
+        }
+
+        private string GetFolderLocation(string market, bool isPreviewItem)
+        {
+            if (isPreviewItem)
+                return market + "/Preview";
+            return market;
         }
 
         private MediaTypes GetMediaType(string contentType)
@@ -112,13 +120,37 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
                 case "image/jpeg":
                 case "image/jpg":
                     return MediaTypes.Image;
+
                 case "video/mp4":
                     return MediaTypes.Video;
+
                 case "application/pdf":
                     return MediaTypes.File;
+
                 default:
                     return MediaTypes.Text;
             }
+        }
+
+        private MediaInfo ProcessUploadException(Exception e)
+        {
+            _errorClient.TrackException(e);
+            return new MediaInfo();
+        }
+
+        private async Task UploadFileToStorage(IFormFile file, CloudContainerDetails containerDetails)
+        {
+            var blockBlob = containerDetails.Container.GetBlockBlobReference(containerDetails.FileName);
+            blockBlob.Properties.ContentType = containerDetails.MimeType;
+            await blockBlob.UploadFromStreamAsync(file.OpenReadStream());
+        }
+
+        private string VerifyCorrectMimeType(IFormFile file)
+        {
+            var parsedContentDisposition = ContentDispositionHeaderValue.Parse(file.ContentDisposition);
+            var mimeType = file.GetMimeType(parsedContentDisposition.FileName.Trim('"'));
+            if (file.ContentType != mimeType) throw new SecurityException("Mime types must match");
+            return mimeType;
         }
     }
 }
