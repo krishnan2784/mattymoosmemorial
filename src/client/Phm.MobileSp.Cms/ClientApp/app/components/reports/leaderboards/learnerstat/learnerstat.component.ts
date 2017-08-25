@@ -58,6 +58,7 @@ export class LearnerStatComponent implements OnInit, AfterViewInit {
     }
   ];
   groupIt() {
+    this.groupBy = [];
     for(let i=0; i < this.types.length; i++){
       this.groupBy.push ({
         group: this.types[i].value,
@@ -90,14 +91,7 @@ export class LearnerStatComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.htmlElement = this.element.nativeElement;
     this.host = D3.select(this.htmlElement);
-    for(let i=0 ; i < this.groupBy.length; i++) {
-      this.pieData.push(
-        {
-          label: parseFloat(this.groupBy[i].percent).toFixed(1)  + '%',
-          value: this.groupBy[i].percent
-        }
-      );
-    }
+    this.updatePieData();
     this.setup();
     this.buildSVG();
     this.buildPie();
@@ -110,17 +104,16 @@ export class LearnerStatComponent implements OnInit, AfterViewInit {
     return r;
   }
   setMaxHeight() {
-      if (this.data && this.data.length > 0) {
-          this.max = Math.max.apply(null, this.data.map(x => x.points));
-      } else
-          this.max = 0;
-
+      var m = 10;
+      if (this.data && this.data.length > 0) 
+          m = Math.max.apply(null, this.data.map(x => x.points));
+      this.max = m >= 10 ? m : 10;
       this.setLines();
   }
   setLines() {
       let r = [];
-      if (this.max && this.max > 0) {
-          var p = Math.round(this.max / 10);;
+      if (this.max && this.max > 10) {
+          var p = Math.round(this.max / 10);
           for (let i = 0; i < this.max;) {
               r.push(i);
               i += p;
@@ -174,6 +167,17 @@ export class LearnerStatComponent implements OnInit, AfterViewInit {
       .append("g")
       .attr("transform", `translate(${this.width / 4},${this.height / 4})`);
   }
+  private updatePieData() {
+      this.pieData = [];
+      for (let i = 0; i < this.groupBy.length; i++) {
+          this.pieData.push(
+              {
+                  label: parseFloat(this.groupBy[i].percent).toFixed(1) + '%',
+                  value: this.groupBy[i].percent
+              }
+          );
+      }
+  }
   private buildPie(): void {
     let pie = D3.layout.pie();
     let values = this.pieData.map(data => data.value);
@@ -205,6 +209,13 @@ export class LearnerStatComponent implements OnInit, AfterViewInit {
       .text((datum, index) => this.pieData[index].label)
       .style("text-anchor", "middle");
   }
+  updatePie() {
+      this.groupIt();
+      this.svg.remove();
+      this.buildSVG();
+      this.updatePieData();
+      this.buildPie();
+  }
   updateStartDate(e) {
       this.minDay = e.day;
       this.minMonth = e.month;
@@ -224,7 +235,7 @@ export class LearnerStatComponent implements OnInit, AfterViewInit {
   updateDateFilter() {
       if (this.date1) {
           if (this.date2)
-              this.data = this.fullData.filter((x) => { console.log(x); var date = new Date(x.createdAt); return (date > this.date1) && date < this.date2 });
+              this.data = this.fullData.filter((x) => { var date = new Date(x.createdAt); return (date > this.date1) && date < this.date2 });
           else
               this.data = this.fullData.filter((x) => new Date(x.createdAt) > this.date1);
       } else if (this.date2)
@@ -232,6 +243,7 @@ export class LearnerStatComponent implements OnInit, AfterViewInit {
       this.dDates = this.displayedDates();
       this.dateRange = this.getDateDiff(this.date1, this.date2) + 1;
       this.setMaxHeight();
+      this.updatePie();
   }
   getDateOffset(d) {
       var p = 100 / this.dateRange;

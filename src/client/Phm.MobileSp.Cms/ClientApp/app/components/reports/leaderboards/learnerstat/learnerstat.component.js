@@ -47,6 +47,7 @@ var LearnerStatComponent = (function () {
         ];
     }
     LearnerStatComponent.prototype.groupIt = function () {
+        this.groupBy = [];
         for (var i = 0; i < this.types.length; i++) {
             this.groupBy.push({
                 group: this.types[i].value,
@@ -79,12 +80,7 @@ var LearnerStatComponent = (function () {
     LearnerStatComponent.prototype.ngAfterViewInit = function () {
         this.htmlElement = this.element.nativeElement;
         this.host = D3.select(this.htmlElement);
-        for (var i = 0; i < this.groupBy.length; i++) {
-            this.pieData.push({
-                label: parseFloat(this.groupBy[i].percent).toFixed(1) + '%',
-                value: this.groupBy[i].percent
-            });
-        }
+        this.updatePieData();
         this.setup();
         this.buildSVG();
         this.buildPie();
@@ -97,18 +93,16 @@ var LearnerStatComponent = (function () {
         return r;
     };
     LearnerStatComponent.prototype.setMaxHeight = function () {
-        if (this.data && this.data.length > 0) {
-            this.max = Math.max.apply(null, this.data.map(function (x) { return x.points; }));
-        }
-        else
-            this.max = 0;
+        var m = 10;
+        if (this.data && this.data.length > 0)
+            m = Math.max.apply(null, this.data.map(function (x) { return x.points; }));
+        this.max = m >= 10 ? m : 10;
         this.setLines();
     };
     LearnerStatComponent.prototype.setLines = function () {
         var r = [];
-        if (this.max && this.max > 0) {
+        if (this.max && this.max > 10) {
             var p = Math.round(this.max / 10);
-            ;
             for (var i = 0; i < this.max;) {
                 r.push(i);
                 i += p;
@@ -162,6 +156,15 @@ var LearnerStatComponent = (function () {
             .append("g")
             .attr("transform", "translate(" + this.width / 4 + "," + this.height / 4 + ")");
     };
+    LearnerStatComponent.prototype.updatePieData = function () {
+        this.pieData = [];
+        for (var i = 0; i < this.groupBy.length; i++) {
+            this.pieData.push({
+                label: parseFloat(this.groupBy[i].percent).toFixed(1) + '%',
+                value: this.groupBy[i].percent
+            });
+        }
+    };
     LearnerStatComponent.prototype.buildPie = function () {
         var pie = D3.layout.pie();
         var values = this.pieData.map(function (data) { return data.value; });
@@ -193,6 +196,13 @@ var LearnerStatComponent = (function () {
             .text(function (datum, index) { return _this.pieData[index].label; })
             .style("text-anchor", "middle");
     };
+    LearnerStatComponent.prototype.updatePie = function () {
+        this.groupIt();
+        this.svg.remove();
+        this.buildSVG();
+        this.updatePieData();
+        this.buildPie();
+    };
     LearnerStatComponent.prototype.updateStartDate = function (e) {
         this.minDay = e.day;
         this.minMonth = e.month;
@@ -213,7 +223,7 @@ var LearnerStatComponent = (function () {
         var _this = this;
         if (this.date1) {
             if (this.date2)
-                this.data = this.fullData.filter(function (x) { console.log(x); var date = new Date(x.createdAt); return (date > _this.date1) && date < _this.date2; });
+                this.data = this.fullData.filter(function (x) { var date = new Date(x.createdAt); return (date > _this.date1) && date < _this.date2; });
             else
                 this.data = this.fullData.filter(function (x) { return new Date(x.createdAt) > _this.date1; });
         }
@@ -222,6 +232,7 @@ var LearnerStatComponent = (function () {
         this.dDates = this.displayedDates();
         this.dateRange = this.getDateDiff(this.date1, this.date2) + 1;
         this.setMaxHeight();
+        this.updatePie();
     };
     LearnerStatComponent.prototype.getDateOffset = function (d) {
         var p = 100 / this.dateRange;
