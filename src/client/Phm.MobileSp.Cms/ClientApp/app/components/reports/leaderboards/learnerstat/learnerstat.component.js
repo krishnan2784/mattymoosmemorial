@@ -63,6 +63,7 @@ var LearnerStatComponent = (function () {
         for (var i = 0; i < this.types.length; i++) {
             this.groupBy[i].percent = this.groupBy[i].points / (total / 100) + '';
         }
+        this.groupBy = this.groupBy.filter(function (x) { return x.points > 0; });
     };
     LearnerStatComponent.prototype.ngOnInit = function () {
         this.setMaxHeight();

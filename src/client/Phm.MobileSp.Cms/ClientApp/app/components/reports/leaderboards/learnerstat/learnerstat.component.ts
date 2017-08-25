@@ -74,6 +74,7 @@ export class LearnerStatComponent implements OnInit, AfterViewInit {
     for (let i=0; i < this.types.length; i++){
       this.groupBy[i].percent = this.groupBy[i].points / (total / 100) + '';
     }
+    this.groupBy = this.groupBy.filter(x=>x.points > 0);
   }
   ngOnInit() {
     this.setMaxHeight();
