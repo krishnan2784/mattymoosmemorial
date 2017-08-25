@@ -111,10 +111,12 @@ var DatepickerComponent = (function () {
         }
         return array;
     };
-    DatepickerComponent.prototype.checkPastDay = function (d) {
+    DatepickerComponent.prototype.checkPastDay = function (d, m, y) {
+        if (m === void 0) { m = this.selectedMonth; }
+        if (y === void 0) { y = this.selectedYear; }
         if (!this.cannotSelectPast)
             return false;
-        var g = new Date(this.selectedYear, this.selectedMonth, d);
+        var g = new Date(y, m, d);
         var x = this.isDayOnPast(g);
         return x;
     };
@@ -174,6 +176,9 @@ var DatepickerComponent = (function () {
         };
     };
     DatepickerComponent.prototype.prevMonth = function () {
+        if (!this.canGoBack()) {
+            return;
+        }
         var m = this.selectedMonth;
         var y = this.selectedYear;
         if (m == 0) {
@@ -183,13 +188,24 @@ var DatepickerComponent = (function () {
         else {
             m--;
         }
-        if (this.checkPastDay(this.minDay) || !this.isDayAboveMin(this.minDay, m)) {
-            return;
-        }
         this.selectedMonth = m;
         this.selectedYear = y;
         this.pastDays = this.dummyArrayGenerator(this.firstDayOfWeek(this.selectedMonth, this.selectedYear).index.uk);
-        return;
+    };
+    DatepickerComponent.prototype.canGoBack = function () {
+        var m = this.selectedMonth;
+        var y = this.selectedYear;
+        if (m == 0) {
+            m = 11;
+            y--;
+        }
+        else {
+            m--;
+        }
+        if ((this.checkPastDay(this.minDay) && this.selectedDate > new Date(this.selectedYear, this.selectedMonth, 1)) || !this.isDayAboveMin(this.minDay, m, y)) {
+            return false;
+        }
+        return true;
     };
     DatepickerComponent.prototype.nextMonth = function () {
         if (this.selectedMonth == 11) {

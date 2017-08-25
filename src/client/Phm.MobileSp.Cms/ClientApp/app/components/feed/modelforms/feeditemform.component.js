@@ -152,6 +152,7 @@ var FeedItemForm = (function () {
             }, 10);
         }
         else {
+            this.setMinDate(new Date());
             this.form.controls['feedType'].patchValue(this.model.feedType, { onlySelf: true });
             this.form.controls['feedCategory'].patchValue(this.model.feedCategory, { onlySelf: true });
             this.form.controls['startDate'].patchValue(this.model.startDate, { onlySelf: true });
@@ -202,7 +203,6 @@ var FeedItemForm = (function () {
         else if (fieldName == "mainVideo") {
             this.swapForm(videofeeditem_component_1.VideoFeedItemFormComponent, this.model.feedCategory);
         }
-        console.log(this.model);
         if (this.form.controls[fieldIdName] != null)
             this.form.controls[fieldIdName].patchValue(this.model[fieldIdName], { onlySelf: true });
         this.form.updateValueAndValidity();
@@ -255,9 +255,15 @@ var FeedItemForm = (function () {
         this.form.markAsDirty();
     };
     FeedItemForm.prototype.setMinDate = function (date) {
+        var now = new Date();
+        if (new Date(date) < now)
+            date = now;
         this.minDay = date.getDate();
         this.minMonth = date.getMonth();
         this.minYear = date.getFullYear();
+        console.log(this.minDay);
+        console.log(this.minMonth);
+        console.log(this.minYear);
     };
     FeedItemForm.prototype.goBack = function () {
         this.feedUpdated.emit(null);

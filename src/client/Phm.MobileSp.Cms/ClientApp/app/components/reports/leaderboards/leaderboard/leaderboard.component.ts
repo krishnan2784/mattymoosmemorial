@@ -262,7 +262,7 @@ export class LeaderboardComponent implements OnInit, OnChanges {
         }
     }
     isInfilteredRegion(r) {
-        if (this.filter.regions.length === 0) { return true; }
+        if (!this.filter.regions || this.filter.regions.length === 0) { return true; }
         let ret = false;
         for (let i = 0; i < this.filter.regions.length; i++) {
             if (this.filter.regions[i] === r) { return true }
@@ -270,7 +270,7 @@ export class LeaderboardComponent implements OnInit, OnChanges {
         return ret;
     }
     isInfilteredZone(z) {
-        if (this.filter.zones.length === 0) { return true; }
+        if (!this.filter.zones || this.filter.zones.length === 0) { return true; }
         let ret = false;
         for (let i = 0; i < this.filter.zones.length; i++) {
             if (this.filter.zones[i] === z) { return true }

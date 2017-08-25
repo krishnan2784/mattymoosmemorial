@@ -253,7 +253,7 @@ var LeaderboardComponent = (function () {
         }
     };
     LeaderboardComponent.prototype.isInfilteredRegion = function (r) {
-        if (this.filter.regions.length === 0) {
+        if (!this.filter.regions || this.filter.regions.length === 0) {
             return true;
         }
         var ret = false;
@@ -265,7 +265,7 @@ var LeaderboardComponent = (function () {
         return ret;
     };
     LeaderboardComponent.prototype.isInfilteredZone = function (z) {
-        if (this.filter.zones.length === 0) {
+        if (!this.filter.zones || this.filter.zones.length === 0) {
             return true;
         }
         var ret = false;

@@ -116,10 +116,10 @@ export class DatepickerComponent implements OnInit, OnChanges, OnDestroy {
     }
     return array;
   }
-  checkPastDay(d) {
+  checkPastDay(d, m = this.selectedMonth, y = this.selectedYear) {
       if (!this.cannotSelectPast)
           return false;
-    let g = new Date(this.selectedYear,this.selectedMonth,d);
+    let g = new Date(y,m,d);
     let x = this.isDayOnPast(g);
     return x;
   }
@@ -178,23 +178,36 @@ export class DatepickerComponent implements OnInit, OnChanges, OnDestroy {
     };
   }
   prevMonth() {
-      let m = this.selectedMonth;
-      let y = this.selectedYear;
-    if(m ==0){
-      m =11;
-      y--;
-    }
-    else
-    {
-      m--;
-    }
-    if (this.checkPastDay(this.minDay) || !this.isDayAboveMin(this.minDay, m)) {
+    if (!this.canGoBack()) {
         return;
+      }
+    let m = this.selectedMonth;
+    let y = this.selectedYear;
+    if (m == 0) {
+        m = 11;
+        y--;
+    }
+    else {
+        m--;
     }
     this.selectedMonth = m;
     this.selectedYear = y;
     this.pastDays = this.dummyArrayGenerator(this.firstDayOfWeek(this.selectedMonth, this.selectedYear).index.uk);
-    return;
+  }
+  canGoBack() {
+      let m = this.selectedMonth;
+      let y = this.selectedYear;
+      if (m == 0) {
+          m = 11;
+          y--;
+      }
+      else {
+          m--;
+      }
+      if ((this.checkPastDay(this.minDay) && this.selectedDate > new Date(this.selectedYear, this.selectedMonth, 1)) || !this.isDayAboveMin(this.minDay, m, y)) {
+          return false;
+      }
+      return true;
   }
   nextMonth(){
     if(this.selectedMonth ==11){

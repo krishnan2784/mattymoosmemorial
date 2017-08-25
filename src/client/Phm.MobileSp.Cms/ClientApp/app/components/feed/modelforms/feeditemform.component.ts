@@ -193,6 +193,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
                 Materialize.updateTextFields();
             }, 10);  
         } else {
+            this.setMinDate(new Date()); 
             this.form.controls['feedType'].patchValue(this.model.feedType, { onlySelf: true });
             this.form.controls['feedCategory'].patchValue(this.model.feedCategory, { onlySelf: true });
             this.form.controls['startDate'].patchValue(this.model.startDate, { onlySelf: true });
@@ -250,9 +251,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         } else if (fieldName == "mainVideo") {
             this.swapForm(VideoFeedItemFormComponent, this.model.feedCategory);
         } 
-
-        console.log(this.model);
-
+        
         if (this.form.controls[fieldIdName] != null)
             this.form.controls[fieldIdName].patchValue(this.model[fieldIdName], { onlySelf: true });
         this.form.updateValueAndValidity();
@@ -314,9 +313,16 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     }
 
     setMinDate(date) {
+        var now = new Date();
+        if (new Date(date) < now)
+            date = now;
+
         this.minDay = date.getDate();
         this.minMonth = date.getMonth();
         this.minYear = date.getFullYear();
+        console.log(this.minDay);
+        console.log(this.minMonth);
+        console.log(this.minYear);
     }
 
     goBack() {

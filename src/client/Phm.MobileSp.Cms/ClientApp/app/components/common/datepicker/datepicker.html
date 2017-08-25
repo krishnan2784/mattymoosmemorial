@@ -13,7 +13,7 @@
   <div class="showCalendar" *ngIf="show" [class.rightCal]="rightAlign">
     <div class="calendarHeader">
         <div class="monthSelector">
-            <div class="chMS col-md-2" (click)="prevMonth()" [class.disabled]="(cannotSelectPast && selectedMonth <= thisMonth && selectedYear <= thisYear) || !isDayAboveMin(1, selectedMonth-1)"><i class="material-icons">chevron_left</i></div>
+            <div class="chMS col-md-2" (click)="prevMonth()" [class.disabled]="!canGoBack()"><i class="material-icons">chevron_left</i></div>
             <div class="col-md-7">{{shortMonths[selectedMonth]}} {{selectedYear}}</div>
             <div class="chMS col-md-2" (click)="nextMonth()"><i class="material-icons">chevron_right</i></div>
         </div>
