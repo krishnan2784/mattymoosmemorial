@@ -42,16 +42,15 @@
                 <span class="hidden">
                     {{d.createdAt}}
                 </span>
-              <!--{{(d.points / max) * 100}} = {{d.points}} of {{max}}-->
             </div>
           </div>
-          <div class="dates" *ngIf="dDates">
-            <div *ngFor="let d of dDates ; let i = index" [style.width]="(95 / dDates.length) +'%'" class="dateRow">
-              <div *ngIf="d" [ngClass]="{dateDivFirst : i < 2, dateDivLast : i > dDates.length -3, dateDivOthers: !(i < 2) && !(i > dDates.length -3) }" class="dateDiv">
-                {{d.getDate()}}/{{d.getMonth() + 1}}/{{d.getFullYear()}}
-              </div>
+            <div class="dates" *ngIf="dDates">
+                <div *ngFor="let d of dDates ; let i = index" [style.width]="(100 / dDates.length) +'%'" class="dateRow">
+                    <div *ngIf="d" class="dateDiv datalabel">
+                        {{d.getDate()}}/{{d.getMonth() + 1}}/{{d.getFullYear()}}
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
         <div class="legends">
           <div *ngFor="let l of types; let i = index" class="legRow">

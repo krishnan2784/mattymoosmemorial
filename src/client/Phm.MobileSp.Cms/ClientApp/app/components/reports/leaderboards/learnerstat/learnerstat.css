@@ -119,10 +119,12 @@
         position: absolute;
         right: 18px;
         top: 17px; }
-      .learnerStatContents .chartActivity .graphWrapper .dates .dateDivOthers {
+      .learnerStatContents .chartActivity .graphWrapper .dates .datalabel {
         position: absolute;
         left: calc(50% - 60px);
-        top: 17px; }
+        top: 17px; 
+        left: -20px;
+      }
   .learnerStatContents .chartActivity .legends {
     margin-top: 86px;
     padding: 10px;

@@ -118,29 +118,15 @@ var LearnerStatComponent = (function () {
         for (var d = new Date(this.date1); d <= new Date(this.date2); d.setDate(d.getDate() + 1)) {
             days.push(new Date(d));
         }
-        if (days.length === 1) {
-            return [];
-        }
-        if (days.length === 2) {
-            return [days[0], undefined, undefined, undefined, days[l]];
-        }
-        if (days.length == 3) {
-            return [days[0], undefined, days[1], undefined, days[2]];
-        }
-        if (days.length == 4) {
-            return [days[0], days[1], undefined, days[2], days[3]];
-        }
+        if (days.length < 20)
+            return days;
+        var m = Math.round(days.length / 20);
         var s = [];
         s.push(days[0]);
-        var m = parseInt((days.length / 2) + "");
-        var bfm = parseInt((days.length / 4) + "");
-        var afm = parseInt((days.length / 1.25) + "");
-        var middle = days[m - 1];
-        var bfMiddle = days[bfm - 1];
-        var afMiddle = days[afm - 1];
-        s.push(bfMiddle);
-        s.push(middle);
-        s.push(afMiddle);
+        for (var i = 1; i < days.length - 1; i++) {
+            if (i % m === 0)
+                s.push(days[i]);
+        }
         s.push(days[days.length - 1]);
         return s;
     };
