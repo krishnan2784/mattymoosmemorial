@@ -55,12 +55,14 @@ var SurveyFeedItemFormComponent = (function (_super) {
     ;
     SurveyFeedItemFormComponent.prototype.initQuestion = function (question) {
         if (question === void 0) { question = new SurveyClasses.SurveyQuestion(); }
+        question = new SurveyClasses.SurveyQuestion(question);
         var fg = this.baseQuestionForm(question);
         fg.addControl('surveyFeedId', new forms_1.FormControl(question.surveyFeedId, []));
         return fg;
     };
     SurveyFeedItemFormComponent.prototype.initAnswer = function (answer) {
         if (answer === void 0) { answer = new SurveyClasses.SurveyQuestionAnswer(); }
+        answer = new SurveyClasses.SurveyQuestionAnswer(answer);
         var fg = this.baseAnswerForm(answer);
         fg.addControl('surveyQuestionId', new forms_1.FormControl(answer.surveyQuestionId, []));
         fg.addControl('isFreeText', new forms_1.FormControl(answer.isFreeText, []));

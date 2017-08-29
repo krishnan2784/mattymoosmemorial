@@ -18,11 +18,11 @@ var SurveyQuestion = (function (_super) {
     function SurveyQuestion(options) {
         if (options === void 0) { options = {}; }
         var _this = _super.call(this, options) || this;
-        _this.answers = options['Answers'];
-        _this.order = options['Order'] || 0;
-        _this.question = options['Question'] || '';
+        _this.answers = options['answers'];
+        _this.order = options['order'] || 0;
+        _this.question = options['question'] || '';
         _this.questionType = options['questionType'] || Enums.SurveyQuestionTypeEnum.Single;
-        _this.surveyFeedId = options['SurveyFeedId'] || 0;
+        _this.surveyFeedId = options['surveyFeedId'] || 0;
         if (!_this.answers) {
             _this.answers = [];
             _this.answers.push(new SurveyQuestionAnswer());
@@ -38,10 +38,10 @@ var SurveyQuestionAnswer = (function (_super) {
     function SurveyQuestionAnswer(options) {
         if (options === void 0) { options = {}; }
         var _this = _super.call(this, options) || this;
-        _this.answer = options['Answer'] || '';
-        _this.isFreeText = options['IsFreeText'] || false;
-        _this.order = options['Order'] || 0;
-        _this.surveyQuestionId = options['SurveyQuestionId'] || 0;
+        _this.answer = options['answer'] || '';
+        _this.isFreeText = options['isFreeText'] || false;
+        _this.order = options['order'] || 0;
+        _this.surveyQuestionId = options['surveyQuestionId'] || 0;
         return _this;
     }
     return SurveyQuestionAnswer;

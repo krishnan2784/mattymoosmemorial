@@ -56,6 +56,7 @@ var QuizFeedItemFormComponent = (function (_super) {
     ;
     QuizFeedItemFormComponent.prototype.initQuestion = function (question) {
         if (question === void 0) { question = new QuizClasses.QuizQuestion(); }
+        question = new QuizClasses.QuizQuestion(question);
         var fg = this.baseQuestionForm(question);
         fg.addControl('quizFeedId', new forms_1.FormControl(question.quizFeedId, []));
         fg.setValidators(validators_1.minCorrectAnswers(1));
@@ -64,6 +65,7 @@ var QuizFeedItemFormComponent = (function (_super) {
     };
     QuizFeedItemFormComponent.prototype.initAnswer = function (answer) {
         if (answer === void 0) { answer = new QuizClasses.QuizQuestionAnswer(); }
+        answer = new QuizClasses.QuizQuestionAnswer(answer);
         var fg = this.baseAnswerForm(answer);
         fg.addControl('quizQuestionId', new forms_1.FormControl(answer.quizQuestionId, []));
         fg.addControl('isCorrect', new forms_1.FormControl(answer.isCorrect, []));

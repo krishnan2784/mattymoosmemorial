@@ -49,7 +49,8 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
         public async Task<TFeedItem> UpdateFeedItemAsync<TFeedItem, TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed
             where TDestinationDto : BaseFeedDto
         {
-            var originalItem = await GetFeedItemAsync(feedItem.Id);
+            var oResponse = await GetAsync(feedItem.Id);
+            var originalItem = GetResponseModel<List<TFeedItem>>(oResponse).First();
             feedItem = FeedMapper.ConvertUnpopulatedFieldsToModel(originalItem, feedItem);
             var response = await UpdateAsync(feedItem);
             return GetResponseModel<TFeedItem>(response);

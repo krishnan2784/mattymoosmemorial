@@ -42,12 +42,14 @@ export class SurveyFeedItemFormComponent extends BaseQuestionFeedItemFormCompone
     };
 
     initQuestion(question: SurveyClasses.SurveyQuestion = new SurveyClasses.SurveyQuestion()) {
+        question = new SurveyClasses.SurveyQuestion(question);
         var fg = this.baseQuestionForm(question);
         fg.addControl('surveyFeedId', new FormControl(question.surveyFeedId, []));
         return fg;
     }
     
     initAnswer(answer: SurveyClasses.SurveyQuestionAnswer = new SurveyClasses.SurveyQuestionAnswer()) {
+        answer = new SurveyClasses.SurveyQuestionAnswer(answer);
         var fg = this.baseAnswerForm(answer);
         fg.addControl('surveyQuestionId', new FormControl(answer.surveyQuestionId, []));
         fg.addControl('isFreeText', new FormControl(answer.isFreeText, []));
