@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -49,7 +50,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
                     return Json(new BaseResponse<MediaInfo>(false, "The uploaded image is not the correct size.", new MediaInfo()));
             }
 
-            var index = file.FileName.LastIndexOf(".");
+            var index = file.FileName.LastIndexOf(".", StringComparison.Ordinal);
             var fileName = file.FileName.Remove(index, 1).Insert(index, "@3x.");
 
             var markets = await _marketRepository.GetMarketsAsync();

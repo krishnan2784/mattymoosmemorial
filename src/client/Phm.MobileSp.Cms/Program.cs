@@ -9,7 +9,6 @@
 
 namespace Phm.MobileSp.Cms
 {
-    using System;
     using System.IO;
 
     using Microsoft.AspNetCore.Hosting;
@@ -30,7 +29,7 @@ namespace Phm.MobileSp.Cms
         {
             var config = new ConfigurationBuilder()
                 .AddCommandLine(args)
-                .AddEnvironmentVariables(prefix: "ASPNETCORE_")
+                .AddEnvironmentVariables("ASPNETCORE_")
                 .Build();
 
             var hostBuilder = new WebHostBuilder()
@@ -38,7 +37,7 @@ namespace Phm.MobileSp.Cms
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
-                .UseStartup<Phm.MobileSp.Cms.Startup>()
+                .UseStartup<Startup>()
                 .UseApplicationInsights();
 
             //var regionName = Environment.GetEnvironmentVariable("REGION_NAME");
