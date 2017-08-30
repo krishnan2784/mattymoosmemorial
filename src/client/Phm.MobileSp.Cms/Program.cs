@@ -7,6 +7,8 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using Microsoft.ApplicationInsights;
+
 namespace Phm.MobileSp.Cms
 {
     using System.IO;
@@ -27,28 +29,37 @@ namespace Phm.MobileSp.Cms
         /// </param>
         public static void Main(string[] args)
         {
-            var config = new ConfigurationBuilder()
-                .AddCommandLine(args)
-                .AddEnvironmentVariables("ASPNETCORE_")
-                .Build();
+            try
+            {
+                var config = new ConfigurationBuilder()
+                        .AddCommandLine(args)
+                        .AddEnvironmentVariables("ASPNETCORE_")
+                        .Build();
 
-            var hostBuilder = new WebHostBuilder()
-                .UseConfiguration(config)
-                .UseKestrel()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseIISIntegration()
-                .UseStartup<Startup>()
-                .UseApplicationInsights();
+                var hostBuilder = new WebHostBuilder()
+                    .UseConfiguration(config)
+                    .UseKestrel()
+                    .UseContentRoot(Directory.GetCurrentDirectory())
+                    .UseIISIntegration()
+                    .UseStartup<Startup>()
+                    .UseApplicationInsights();
 
-            //var regionName = Environment.GetEnvironmentVariable("REGION_NAME");
-            //if (regionName != null)
-            //{
+                //var regionName = Environment.GetEnvironmentVariable("REGION_NAME");
+                //if (regionName != null)
+                //{
                 hostBuilder.UseAzureAppServices();
-            //}
+                //}
 
-            var host = hostBuilder.Build();
+                var host = hostBuilder.Build();
 
-            host.Run();
+                host.Run();
+            }
+            catch (System.Exception ex)
+            {
+                var client = new TelemetryClient();
+                client.TrackException(ex);
+                throw;
+            }
 
         }
     }
