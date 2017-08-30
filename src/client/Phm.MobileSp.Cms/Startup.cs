@@ -1,5 +1,3 @@
-
-
 namespace Phm.MobileSp.Cms
 {
     using Core.Models;
