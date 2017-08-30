@@ -6,6 +6,7 @@ using MLearningCoreService;
 using Phm.MobileSp.Cms.Core.Models;
 using Microsoft.Extensions.DependencyInjection;
 using AutoMapper.Configuration;
+using System.Linq;
 
 namespace Phm.MobileSp.Cms.Infrastructure
 {
@@ -155,6 +156,8 @@ namespace Phm.MobileSp.Cms.Infrastructure
         {
             try
             {
+                dynamic oFeedItem = sourceModel;
+
                 var config = new MapperConfiguration(cfg =>
                 {
                     cfg.CreateMap<MediaInfoDto, MediaInfo>()
@@ -169,29 +172,40 @@ namespace Phm.MobileSp.Cms.Infrastructure
                     var surveyFeedItem = destinationModel as SurveyFeed;
                     if (quizFeedItem != null)
                     {
-                        foreach (var question in quizFeedItem.Questions)
-                        {
-                            cfg.CreateMap<QuizQuestionDto, QuizQuestion>()
-                                .IgnorePopulatedDestinationFields(question)
-                                .ReverseMap();
+                        oFeedItem.Questions = quizFeedItem.Questions.ToList();
+                        cfg.CreateMap<QuizQuestionDto, QuizQuestion>().ReverseMap();
+                        cfg.CreateMap<QuizQuestionAnswerDto, QuizQuestionAnswer>().ReverseMap();
 
-                            question.Answers.ForEach(x => cfg.CreateMap<QuizQuestionAnswerDto, QuizQuestionAnswer>()
-                                .IgnorePopulatedDestinationFields(x)
-                                .ReverseMap());
-                        }
+                        //foreach (var question in quizFeedItem.Questions)
+                        //{
+                        //    cfg.CreateMap<QuizQuestionDto, QuizQuestion>()
+                        //        .IgnorePopulatedDestinationFields(question)
+                        //        .ReverseMap();
+
+                        //    question.Answers.ForEach(x => cfg.CreateMap<QuizQuestionAnswerDto, QuizQuestionAnswer>()
+                        //        .IgnorePopulatedDestinationFields(x)
+                        //        .ReverseMap());
+                        //}
                     }
                     else if (surveyFeedItem != null)
                     {
-                        foreach (var question in surveyFeedItem.Questions)
-                        {
-                            cfg.CreateMap<SurveyQuestionDto, SurveyQuestion>()
-                                .IgnorePopulatedDestinationFields(question)
-                                .ReverseMap();
+                        oFeedItem.Questions = surveyFeedItem.Questions.ToList();
+                        cfg.CreateMap<SurveyQuestionDto, SurveyQuestion>().ReverseMap();
+                        cfg.CreateMap<SurveyQuestionAnswerDto, SurveyQuestionAnswer>().ReverseMap();
+                        
+                        //oFeedItem.Questions = (sourceModel as SurveyFeed).Questions.Where(x => surveyFeedItem.Questions.Where(y => x.Id == y.Id).Count() > 0).ToList();
+                        //oFeedItem.Questions.AddRange(surveyFeedItem.Questions.Where(y => y.Id == 0));
 
-                            question.Answers.ForEach(x => cfg.CreateMap<SurveyQuestionAnswerDto, SurveyQuestionAnswer>()
-                                .IgnorePopulatedDestinationFields(x)
-                                .ReverseMap());
-                        }
+                        //foreach (var question in surveyFeedItem.Questions)
+                        //{
+                        //    cfg.CreateMap<SurveyQuestionDto, SurveyQuestion>()
+                        //        .IgnorePopulatedDestinationFields(question)
+                        //        .ReverseMap();
+
+                        //    question.Answers.ForEach(x => cfg.CreateMap<SurveyQuestionAnswerDto, SurveyQuestionAnswer>()
+                        //        .IgnorePopulatedDestinationFields(x)
+                        //        .ReverseMap());
+                        //}
                         if (surveyFeedItem is ObservationFeed)
                         {
                             var users = ((ObservationFeed)surveyFeedItem).UserObservations;
@@ -209,7 +223,7 @@ namespace Phm.MobileSp.Cms.Infrastructure
                 });
 
                 var mapper = config.CreateMapper();
-                return mapper.Map(sourceModel, destinationModel);
+                return mapper.Map(oFeedItem, destinationModel);
             }
             catch (Exception e)
             {

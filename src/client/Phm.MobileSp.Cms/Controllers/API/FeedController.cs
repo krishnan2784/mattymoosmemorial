@@ -66,7 +66,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
                 return await CreateFeedItem<TFeedItem, TDestinationDto>(feedItem);
             
             var feedItemResponse = await _feedRepository.UpdateFeedItemAsync<TFeedItem, TDestinationDto>(feedItem);
-            var success = feedItemResponse != null;
+            var success = feedItemResponse?.Id > 0;
             return Json(new BaseResponse<TFeedItem>(success, success ? "Feed item successfuly updated" : "Failed to update feed item", feedItemResponse));
         }
 

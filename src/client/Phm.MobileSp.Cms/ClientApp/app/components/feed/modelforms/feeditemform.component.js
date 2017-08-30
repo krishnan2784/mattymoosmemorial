@@ -67,10 +67,6 @@ var FeedItemForm = (function () {
             if (this.form) {
                 this.subForm = null;
             }
-            //(this.form).patchValue(this.model, { onlySelf: true });
-            //var model = new newForm.feedModelType(this.form.value);
-            //model.mainIcon = this.model.mainIcon;
-            //this.model = model;
             this.model = new newForm.feedModelType(this.model);
             this.feedFormData = {
                 feedFormComponent: newFormType,
@@ -189,11 +185,6 @@ var FeedItemForm = (function () {
         }
         var fieldIdName = fieldName + "Id";
         var model = this.model;
-        //if (fieldName == "mainImage") {
-        //    model = new Feedclasses.ImageFeed(this.form.value);
-        //} else if (fieldName == "mainVideo") {
-        //    model = new Feedclasses.VideoFeed(this.form.value);
-        //}
         model[fieldIdName] = media.id;
         model[fieldName] = media;
         this.model = model;
@@ -214,7 +205,9 @@ var FeedItemForm = (function () {
         if (!this.form.valid || this.loading)
             return;
         this.loading = true;
+        console.log(feedItem);
         feedItem = new this.subForm.feedModelType(feedItem);
+        console.log(feedItem);
         feedItem.callToActionUrl = feedItem.callToActionUrl.length == 0 || feedItem.callToActionUrl.indexOf('http') == 0 ? feedItem.callToActionUrl : 'http://' + feedItem.callToActionUrl;
         this.feedDataService.updateFeeditem(this.subForm.updateUrl, feedItem).subscribe(function (result) {
             if (result.success) {
@@ -229,13 +222,6 @@ var FeedItemForm = (function () {
     FeedItemForm.prototype.updateMaterialize = function () {
         setTimeout(function () {
             $('#bodyText').trigger('autoresize');
-            //Materialize.updateTextFields();
-            //$('.datepicker').pickadate({
-            //    selectMonths: true,
-            //    selectYears: 5,
-            //    format: 'dddd, dd mmm, yyyy',
-            //    formatSubmit: 'yyyy/mm/dd'
-            //});
         }, 1);
     };
     FeedItemForm.prototype.handleStartDate = function (e) {
@@ -261,9 +247,6 @@ var FeedItemForm = (function () {
         this.minDay = date.getDate();
         this.minMonth = date.getMonth();
         this.minYear = date.getFullYear();
-        console.log(this.minDay);
-        console.log(this.minMonth);
-        console.log(this.minYear);
     };
     FeedItemForm.prototype.goBack = function () {
         this.feedUpdated.emit(null);

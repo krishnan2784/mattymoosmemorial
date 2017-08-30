@@ -18,11 +18,11 @@ var QuizQuestion = (function (_super) {
     function QuizQuestion(options) {
         if (options === void 0) { options = {}; }
         var _this = _super.call(this, options) || this;
-        _this.answers = options['Answers'];
-        _this.order = options['Order'] || 0;
-        _this.question = options['Question'] || '';
-        _this.questionType = options['QuestionType'] || Enums.QuizQuestionTypeEnum.Single;
-        _this.quizFeedId = options['QuizFeedId'] || 0;
+        _this.answers = options['answers'];
+        _this.order = options['order'] || 0;
+        _this.question = options['question'] || '';
+        _this.questionType = options['questionType'] || Enums.QuizQuestionTypeEnum.Single;
+        _this.quizFeedId = options['quizFeedId'] || 0;
         if (!_this.answers) {
             _this.answers = [];
             _this.answers.push(new QuizQuestionAnswer());
@@ -38,10 +38,10 @@ var QuizQuestionAnswer = (function (_super) {
     function QuizQuestionAnswer(options) {
         if (options === void 0) { options = {}; }
         var _this = _super.call(this, options) || this;
-        _this.answer = options['Answer'] || '';
-        _this.isCorrect = options['IsCorrect'] || false;
-        _this.order = options['Order'] || 0;
-        _this.quizQuestionId = options['QuizQuestionId'] || 0;
+        _this.answer = options['answer'] || '';
+        _this.isCorrect = options['isCorrect'] || false;
+        _this.order = options['order'] || 0;
+        _this.quizQuestionId = options['quizQuestionId'] || 0;
         return _this;
     }
     return QuizQuestionAnswer;
