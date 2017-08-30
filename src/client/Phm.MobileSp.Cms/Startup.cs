@@ -33,7 +33,7 @@ namespace Phm.MobileSp.Cms
         private const string ExceptionsOnStartup = "Startup";
         private const string ExceptionsOnConfigureServices = "ConfigureServices";
         private readonly Dictionary<string, List<Exception>> _exceptions;
-        private TelemetryClient _client;
+        private TelemetryClient _client = new TelemetryClient();
         public Startup(IHostingEnvironment env)
         {
           
@@ -128,80 +128,80 @@ namespace Phm.MobileSp.Cms
             }
             catch (Exception ex)
             {
-                _exceptions[ExceptionsOnConfigureServices].Add(ex);
-               
+                _exceptions[ExceptionsOnConfigureServices].Add(ex);               
             }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
-            var log = loggerFactory.CreateLogger<Startup>();
+            try { 
+                app.UseSession();
 
-            app.UseSession();
-
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
-            {
-                AuthenticationScheme = "MobileSPAuthCookie",
-                LoginPath = new PathString("/Account/Login"),
-                AccessDeniedPath = new PathString("/Account/Login"),
-                AutomaticAuthenticate = true,
-                AutomaticChallenge = true
-            });
-
-
-            app.UseClaimsTransformation(context =>
-            {
-                if (context.Principal.Identity.IsAuthenticated)
+                app.UseCookieAuthentication(new CookieAuthenticationOptions
                 {
-                    context.Principal.Identities.First().AddClaim(new Claim("now", DateTime.Now.ToString(CultureInfo.InvariantCulture)));
+                    AuthenticationScheme = "MobileSPAuthCookie",
+                    LoginPath = new PathString("/Account/Login"),
+                    AccessDeniedPath = new PathString("/Account/Login"),
+                    AutomaticAuthenticate = true,
+                    AutomaticChallenge = true
+                });
+
+
+                app.UseClaimsTransformation(context =>
+                {
+                    if (context.Principal.Identity.IsAuthenticated)
+                    {
+                        context.Principal.Identities.First().AddClaim(new Claim("now", DateTime.Now.ToString(CultureInfo.InvariantCulture)));
+                    }
+
+                    return Task.FromResult(context.Principal);
+                });
+
+                if (env.IsDevelopment())
+                {
+                    app.UseDeveloperExceptionPage();
+                }
+                else
+                {
+                    //app.UseExceptionHandler("/Home/Error");
+                    app.UseDeveloperExceptionPage();
                 }
 
-                return Task.FromResult(context.Principal);
-            });
+    #if DEBUG
+                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+                {
+                    HotModuleReplacement = true
+                });
+    #endif
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
+                app.UseStaticFiles();
+
+                app.UseMvc(routes =>
+                {
+                    routes.MapRoute("logout", "account/logout",
+                        new { controller = "Base", action = "Logout" });
+
+
+                    routes.MapRoute("logout-page", "logout",
+                        new { controller = "Account", action = "Logout" });
+
+                    routes.MapRoute(
+                        "default",
+                        "{controller=Home}/{action=Index}/{id?}");
+
+                    routes.MapSpaFallbackRoute(
+                        "spa-fallback",
+                        new { controller = "Home", action = "Index" });
+                });
             }
-            else
+            catch (Exception ex)
             {
-                //app.UseExceptionHandler("/Home/Error");
-                app.UseDeveloperExceptionPage();
+                _exceptions[ExceptionsOnConfigureServices].Add(ex);
             }
-
-#if DEBUG
-            app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
-            {
-                HotModuleReplacement = true
-            });
-#endif
-
-            app.UseStaticFiles();
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute("logout", "account/logout",
-                    new { controller = "Base", action = "Logout" });
-
-
-                routes.MapRoute("logout-page", "logout",
-                    new { controller = "Account", action = "Logout" });
-
-                routes.MapRoute(
-                    "default",
-                    "{controller=Home}/{action=Index}/{id?}");
-
-                routes.MapSpaFallbackRoute(
-                    "spa-fallback",
-                    new { controller = "Home", action = "Index" });
-            });
 
             if (!_exceptions.Any(p => p.Value.Any())) return;
             {
-                _client = new TelemetryClient();
                 foreach (var ex in _exceptions)
                 {
                     foreach (var expection in ex.Value)
@@ -216,13 +216,23 @@ namespace Phm.MobileSp.Cms
                         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                         context.Response.ContentType = "text/plain";
 
-                        foreach (var ex in _exceptions)
-                        {
-                            foreach (var val in ex.Value)
+                        try {
+                            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+                            loggerFactory.AddDebug();
+                            var log = loggerFactory.CreateLogger<Startup>();
+
+                            foreach (var ex in _exceptions)
                             {
-                                log.LogError($"{ex.Key}:::{val.Message}");
-                                await context.Response.WriteAsync($"Error on {ex.Key}: {val.Message}").ConfigureAwait(false);
+                                foreach (var val in ex.Value)
+                                {
+
+                                    log.LogError($"{ex.Key}:::{val.Message}");
+                                    await context.Response.WriteAsync($"Error on {ex.Key}: {val.Message}").ConfigureAwait(false);
+                                }
                             }
+                        } catch (Exception ex)
+                        {
+                            _client.TrackException(ex);
                         }
                     });
             }
