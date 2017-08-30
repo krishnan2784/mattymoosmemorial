@@ -78,8 +78,8 @@ var UserFilter = (function () {
                 }
                 else
                     _this.renderRegionFilter = false;
-                if (_this.renderZoneFilter && result.zones.length > 0) {
-                    result.zones.forEach(function (group) {
+                if (_this.renderZoneFilter && result.areas.length > 0) {
+                    result.areas.forEach(function (group) {
                         _this.criteria.allZoneFilters.push({ id: group.replace(" ", ""), text: group, checked: false });
                     });
                 }

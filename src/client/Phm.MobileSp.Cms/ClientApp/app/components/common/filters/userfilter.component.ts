@@ -87,8 +87,8 @@ export class UserFilter implements AfterViewInit, OnDestroy {
                     });
                 } else
                     this.renderRegionFilter = false;
-                if (this.renderZoneFilter && result.zones.length > 0) {
-                    result.zones.forEach((group) => {
+                if (this.renderZoneFilter && result.areas.length > 0) {
+                    result.areas.forEach((group) => {
                         this.criteria.allZoneFilters.push({ id: group.replace(" ", ""), text: group, checked: false });
                     });
                 } else

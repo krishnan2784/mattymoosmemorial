@@ -250,7 +250,7 @@ export class UserAccountManagementComponent extends BaseComponent {
         this.filterCriteria = criteria;
         var data = Object.assign([], this.allUserAccounts);
         if (this.filterCriteria.zoneFilters.length > 0)
-            data = data.filter(x => this.filterCriteria.zoneFilters.filter(y => y.text === x.zoneName).length > 0);
+            data = data.filter(x => this.filterCriteria.zoneFilters.filter(y => y.text === x.areaName).length > 0);
         if (this.filterCriteria.regionFilters.length > 0)
             data = data.filter(x => this.filterCriteria.regionFilters.filter(y => y.text === x.regionName).length > 0);
 

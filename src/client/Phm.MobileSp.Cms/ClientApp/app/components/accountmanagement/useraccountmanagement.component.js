@@ -244,7 +244,7 @@ var UserAccountManagementComponent = (function (_super) {
         this.filterCriteria = criteria;
         var data = Object.assign([], this.allUserAccounts);
         if (this.filterCriteria.zoneFilters.length > 0)
-            data = data.filter(function (x) { return _this.filterCriteria.zoneFilters.filter(function (y) { return y.text === x.zoneName; }).length > 0; });
+            data = data.filter(function (x) { return _this.filterCriteria.zoneFilters.filter(function (y) { return y.text === x.areaName; }).length > 0; });
         if (this.filterCriteria.regionFilters.length > 0)
             data = data.filter(function (x) { return _this.filterCriteria.regionFilters.filter(function (y) { return y.text === x.regionName; }).length > 0; });
         this.filteredUserAccounts = data;

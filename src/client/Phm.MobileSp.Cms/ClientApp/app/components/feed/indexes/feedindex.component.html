@@ -30,15 +30,15 @@
                             </div>
                             <div class="col-md-12 feed-item-dates">
                                 <div *ngIf="feedItem.published && feedItem.publishedLiveAt" class="col-md-4 no-pad date-posted">
-                                    Date posted: {{ feedItem.publishedLiveAt | date:'d/M/y, hh:mm a' }}
+                                    Date posted: {{ feedItem.publishedLiveAt | date:'short' }}
                                 </div>
 
                                 <div *ngIf="feedItem.updatedAt && feedItem.updatedAt!==feedItem.createdAt" class="col-md-4 no-pad">
-                                    Date modified: {{ feedItem.updatedAt | date:'d/M/y, hh:mm a' }}
+                                    Date modified: {{ feedItem.updatedAt | date:'short' }}
                                 </div>
 
                                 <div class="col-md-4 no-pad">
-                                    Date created: {{ feedItem.createdAt | date:'d/M/y, hh:mm a' }}
+                                    Date created: {{ feedItem.createdAt | date:'short' }}
                                 </div>
                             </div>
                         </div>
