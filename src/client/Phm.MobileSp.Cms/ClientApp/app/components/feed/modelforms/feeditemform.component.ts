@@ -102,10 +102,6 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
                 this.subForm = null;
             } 
             
-            //(this.form).patchValue(this.model, { onlySelf: true });
-            //var model = new newForm.feedModelType(this.form.value);
-            //model.mainIcon = this.model.mainIcon;
-            //this.model = model;
             this.model = new newForm.feedModelType(this.model);
 
             this.feedFormData = {
@@ -235,12 +231,6 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
 
         let model = this.model;
 
-        //if (fieldName == "mainImage") {
-        //    model = new Feedclasses.ImageFeed(this.form.value);
-        //} else if (fieldName == "mainVideo") {
-        //    model = new Feedclasses.VideoFeed(this.form.value);
-        //}
-
         model[fieldIdName] = media.id;
         model[fieldName] = media;
         
@@ -266,8 +256,11 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             return;
         
         this.loading = true;
+        console.log(feedItem);
 
         feedItem = new this.subForm.feedModelType(feedItem);
+        console.log(feedItem);
+
         feedItem.callToActionUrl = feedItem.callToActionUrl.length == 0 || feedItem.callToActionUrl.indexOf('http') == 0 ? feedItem.callToActionUrl : 'http://' + feedItem.callToActionUrl;
 
         this.feedDataService.updateFeeditem(this.subForm.updateUrl, feedItem).subscribe(result => {
@@ -283,14 +276,6 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     public updateMaterialize() {
         setTimeout(function () {
             $('#bodyText').trigger('autoresize');
-
-            //Materialize.updateTextFields();
-            //$('.datepicker').pickadate({
-            //    selectMonths: true,
-            //    selectYears: 5,
-            //    format: 'dddd, dd mmm, yyyy',
-            //    formatSubmit: 'yyyy/mm/dd'
-            //});
         }, 1);
     }
 
@@ -320,9 +305,6 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         this.minDay = date.getDate();
         this.minMonth = date.getMonth();
         this.minYear = date.getFullYear();
-        console.log(this.minDay);
-        console.log(this.minMonth);
-        console.log(this.minYear);
     }
 
     goBack() {

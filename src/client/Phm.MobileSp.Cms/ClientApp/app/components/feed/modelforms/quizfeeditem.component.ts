@@ -40,6 +40,7 @@ export class QuizFeedItemFormComponent extends BaseQuestionFeedItemFormComponent
     };
 
     initQuestion(question: QuizClasses.QuizQuestion = new QuizClasses.QuizQuestion()) {
+        question = new QuizClasses.QuizQuestion(question);
         var fg = this.baseQuestionForm(question);
         fg.addControl('quizFeedId', new FormControl(question.quizFeedId, []));
         fg.setValidators(minCorrectAnswers(1));
@@ -48,6 +49,7 @@ export class QuizFeedItemFormComponent extends BaseQuestionFeedItemFormComponent
     }
 
     initAnswer(answer: QuizClasses.QuizQuestionAnswer = new QuizClasses.QuizQuestionAnswer()) {
+        answer = new QuizClasses.QuizQuestionAnswer(answer);
         var fg = this.baseAnswerForm(answer);
         fg.addControl('quizQuestionId', new FormControl(answer.quizQuestionId, []));
         fg.addControl('isCorrect', new FormControl(answer.isCorrect, []));

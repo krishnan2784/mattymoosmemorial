@@ -11,11 +11,11 @@ export class SurveyQuestion extends Baseclasses.BaseModel {
 
     constructor(options: {} = {}) {
         super(options);
-        this.answers = options['Answers'];
-        this.order = options['Order'] || 0;
-        this.question = options['Question'] || '';
+        this.answers = options['answers'];
+        this.order = options['order'] || 0;
+        this.question = options['question'] || '';
         this.questionType = options['questionType'] || Enums.SurveyQuestionTypeEnum.Single;
-        this.surveyFeedId = options['SurveyFeedId'] || 0;
+        this.surveyFeedId = options['surveyFeedId'] || 0;
         if (!this.answers) {
             this.answers = [];
             this.answers.push(new SurveyQuestionAnswer());
@@ -32,9 +32,9 @@ export class SurveyQuestionAnswer extends BaseModel {
 
     constructor(options: {} = {}) {
         super(options);
-        this.answer = options['Answer'] || '';
-        this.isFreeText = options['IsFreeText'] || false;
-        this.order = options['Order'] || 0;
-        this.surveyQuestionId = options['SurveyQuestionId'] || 0;
+        this.answer = options['answer'] || '';
+        this.isFreeText = options['isFreeText'] || false;
+        this.order = options['order'] || 0;
+        this.surveyQuestionId = options['surveyQuestionId'] || 0;
     }
 }
