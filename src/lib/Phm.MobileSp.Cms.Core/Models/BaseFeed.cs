@@ -33,5 +33,6 @@ namespace Phm.MobileSp.Cms.Core.Models
         public virtual string WebUrlLink { get; set; }
         public virtual string CallToActionText { get; set; }
         public virtual string CallToActionUrl { get; set; }
+        public virtual string TagText { get; set; }
     }
 }

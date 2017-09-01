@@ -168,6 +168,15 @@
                 </small>
             </div>
 
+
+            <taginputbox [form]="form" [formSubmitted]="submitted"
+                        [elementId]="'tagText'"
+                        [formControlId]="'tagText'"
+                        [label]="'Tags'"
+                        [validationMessage]="'You must add at least one tag.'"
+                        [maxLength]="5"></taginputbox>
+
+            
             <upload (mediaUploaded)="attachMedia($event, 'mainIcon')" [selectedMedia]="model.mainIcon" [enforceExactDimensions]="true" 
                     [maxWidth]="1860" [maxHeight]="930" [uploaderType]="uploaderTypes.Image" [title]="'Preview Image'" [uploadUrl]="'/Media/UploadFeedItemIcon'" [previewText]="'Icon Preview'"></upload>
             <small class="active-warning" [class.hidden]="form.controls.mainIconId.valid || !submitted">

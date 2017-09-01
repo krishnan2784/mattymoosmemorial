@@ -42,6 +42,7 @@ var BaseFeed = (function (_super) {
         _this.webUrlLink = options['webUrlLink'] || '';
         _this.callToActionText = options['callToActionText'] || '';
         _this.callToActionUrl = options['callToActionUrl'] || '';
+        _this.tagText = options['tagText'] || '';
         _this.formatFeedItemDates();
         return _this;
     }

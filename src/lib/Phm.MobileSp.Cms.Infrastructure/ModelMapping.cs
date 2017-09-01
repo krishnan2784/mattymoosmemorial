@@ -10,41 +10,41 @@ using System.Linq;
 
 namespace Phm.MobileSp.Cms.Infrastructure
 {
-    public class MobileSpDefaultMapper : Profile
-    {
-        public MobileSpDefaultMapper()
-        {
-            CreateMap<MediaInfoDto, MediaInfo>().ReverseMap();
-            CreateMap<CorporateAppDto, CorporateApp>().ReverseMap();
-            CreateMap<ImageFeedDto, ImageFeed>().ReverseMap();
-            CreateMap<TextFeedDto, TextFeed>().ReverseMap();
-            CreateMap<VideoFeedDto, VideoFeed>().ReverseMap();
-            CreateMap<QuizFeedDto, QuizFeed>().ReverseMap();
-            CreateMap<QuizQuestionDto, QuizQuestion>().ReverseMap();
-            CreateMap<QuizQuestionAnswerDto, QuizQuestionAnswer>().ReverseMap();
-            CreateMap<SurveyFeedDto, SurveyFeed>().ReverseMap();
-            CreateMap<SurveyQuestionDto, SurveyQuestion>().ReverseMap();
-            CreateMap<SurveyQuestionAnswerDto, SurveyQuestionAnswer>().ReverseMap();
-            CreateMap<ObservationFeedDto, ObservationFeed>().ReverseMap();
-            CreateMap<UserObservationDto, UserObservation>().ReverseMap();
-            CreateMap<UserDto, User>().ReverseMap();
-            CreateMap<BaseFeedDto, BaseFeed>().ReverseMap();
-            CreateMap<MobileSPCoreService.MarketDto, Market>().ReverseMap();
-            CreateMap<MobileSPCoreService.UserConfigurationDto, UserConfiguration>().ReverseMap();
-        }
+    //public class MobileSpDefaultMapper : Profile
+    //{
+    //    public MobileSpDefaultMapper()
+    //    {
+    //        CreateMap<MediaInfoDto, MediaInfo>().ReverseMap();
+    //        CreateMap<CorporateAppDto, CorporateApp>().ReverseMap();
+    //        CreateMap<ImageFeedDto, ImageFeed>().ReverseMap();
+    //        CreateMap<TextFeedDto, TextFeed>().ReverseMap();
+    //        CreateMap<VideoFeedDto, VideoFeed>().ReverseMap();
+    //        CreateMap<QuizFeedDto, QuizFeed>().ReverseMap();
+    //        CreateMap<QuizQuestionDto, QuizQuestion>().ReverseMap();
+    //        CreateMap<QuizQuestionAnswerDto, QuizQuestionAnswer>().ReverseMap();
+    //        CreateMap<SurveyFeedDto, SurveyFeed>().ReverseMap();
+    //        CreateMap<SurveyQuestionDto, SurveyQuestion>().ReverseMap();
+    //        CreateMap<SurveyQuestionAnswerDto, SurveyQuestionAnswer>().ReverseMap();
+    //        CreateMap<ObservationFeedDto, ObservationFeed>().ReverseMap();
+    //        CreateMap<UserObservationDto, UserObservation>().ReverseMap();
+    //        CreateMap<UserDto, User>().ReverseMap();
+    //        CreateMap<BaseFeedDto, BaseFeed>().ReverseMap();
+    //        CreateMap<MobileSPCoreService.MarketDto, Market>().ReverseMap();
+    //        CreateMap<MobileSPCoreService.UserConfigurationDto, UserConfiguration>().ReverseMap();
+    //    }
         
-    }
+    //}
 
-    public static class AutoMapperConfiguration
-    {
-        public static void SetConfiguration(ref IServiceCollection services)
-        {
-            var config = new MapperConfiguration(cfg => {
-                cfg.AddProfiles("Phm.MobileSp.Cms.Infrastructure");
-            });
-            services.AddSingleton(config.CreateMapper());
-        }        
-    }
+    //public static class AutoMapperConfiguration
+    //{
+    //    public static void SetConfiguration(ref IServiceCollection services)
+    //    {
+    //        var config = new MapperConfiguration(cfg => {
+    //            cfg.AddProfiles("Phm.MobileSp.Cms.Infrastructure");
+    //        });
+    //        services.AddSingleton(config.CreateMapper());
+    //    }        
+    //}
 
 
     public class AutoMapperGenericsHelper<TSource, TDestination>
@@ -112,7 +112,7 @@ namespace Phm.MobileSp.Cms.Infrastructure
             {
                 if (property.GetValue(destinationModel) != null || (property.PropertyType.GetTypeInfo().IsClass && (property.PropertyType != typeof(string) && property.PropertyType != typeof(Guid))))
                 {
-                    expression.ForMember(property.Name, opt => opt.Ignore());
+                    expression.ForMember(property.Name, opt => opt.UseDestinationValue());
                 }
             }
             return expression;
@@ -223,6 +223,8 @@ namespace Phm.MobileSp.Cms.Infrastructure
                 });
 
                 var mapper = config.CreateMapper();
+                var m = mapper.Map(oFeedItem, destinationModel);
+                
                 return mapper.Map(oFeedItem, destinationModel);
             }
             catch (Exception e)

@@ -27,6 +27,9 @@ var TextInputComponent = (function () {
             this.activeClass = this.form.controls[this.formControlId].value.toString().length > 0 ? "active" : "";
         }
     };
+    TextInputComponent.prototype.ngAfterViewInit = function () {
+        $('#' + this.elementId).characterCounter();
+    };
     return TextInputComponent;
 }());
 __decorate([
@@ -60,7 +63,7 @@ __decorate([
 TextInputComponent = __decorate([
     core_1.Component({
         selector: 'textinput',
-        template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n        <div class=\"input-field\">\n            <input id=\"{{elementId}}\" type=\"text\" formControlName=\"{{formControlId}}\" [attr.maxLength]=\"maxLength > 0 ? maxLength : null\">\n            <label [attr.for]=\"elementId\" class=\"{{activeClass}}\">{{label}}</label>\n            <small class=\"active-warning\" [class.hidden]=\"form.controls[formControlId].valid || !formSubmitted\">\n                {{validationMessage}}\n            </small>\n        </div>\n    </div>\n"
+        template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n        <div class=\"input-field\">\n            <input id=\"{{elementId}}\" type=\"text\" formControlName=\"{{formControlId}}\" [attr.maxLength]=\"maxLength > 0 ? maxLength : null\" [attr.data-length]=\"maxLength > 0 ? maxLength : null\">\n            <label [attr.for]=\"elementId\" class=\"{{activeClass}}\">{{label}}</label>\n            <small class=\"active-warning\" [class.hidden]=\"form.controls[formControlId].valid || !formSubmitted\">\n                {{validationMessage}}\n            </small>\n        </div>\n    </div>\n"
     })
 ], TextInputComponent);
 exports.TextInputComponent = TextInputComponent;

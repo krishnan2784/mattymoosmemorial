@@ -1,12 +1,13 @@
-import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { Component, Input, Output, OnInit, AfterViewInit } from '@angular/core';
 import { FormGroup } from "@angular/forms";
+declare var $: any;
 
 @Component({
   selector: 'textinput',
   template: `
     <div [formGroup]="form" *ngIf="form">
         <div class="input-field">
-            <input id="{{elementId}}" type="text" formControlName="{{formControlId}}" [attr.maxLength]="maxLength > 0 ? maxLength : null">
+            <input id="{{elementId}}" type="text" formControlName="{{formControlId}}" [attr.maxLength]="maxLength > 0 ? maxLength : null" [attr.data-length]="maxLength > 0 ? maxLength : null">
             <label [attr.for]="elementId" class="{{activeClass}}">{{label}}</label>
             <small class="active-warning" [class.hidden]="form.controls[formControlId].valid || !formSubmitted">
                 {{validationMessage}}
@@ -15,7 +16,7 @@ import { FormGroup } from "@angular/forms";
     </div>
 `
 })
-export class TextInputComponent implements OnInit {
+export class TextInputComponent implements OnInit, AfterViewInit {
     @Input() form: FormGroup;
     @Input() formControlId: string;
     @Input() elementId: string = '';
@@ -30,5 +31,8 @@ export class TextInputComponent implements OnInit {
         if (this.form && this.form.controls[this.formControlId]) {
             this.activeClass = this.form.controls[this.formControlId].value.toString().length > 0 ? "active" : "";
         }
+    }
+    ngAfterViewInit() {
+        $('#' + this.elementId).characterCounter();
     }
 }
