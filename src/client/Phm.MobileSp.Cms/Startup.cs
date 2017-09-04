@@ -91,7 +91,7 @@ namespace Phm.MobileSp.Cms
                 services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
                 services.Configure<MicrosoftAzureStorage>(Configuration.GetSection("MicrosoftAzureStorage"));
 
-                //AutoMapperConfiguration.SetConfiguration(ref services);
+                // AutoMapperConfiguration.SetConfiguration(ref services);
 
                 services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
@@ -158,7 +158,7 @@ namespace Phm.MobileSp.Cms
                     return Task.FromResult(context.Principal);
                 });
 
-                if (env.IsDevelopment())
+                if (env.IsDevelopment() || env?.EnvironmentName == "Local")
                 {
                     app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                     {

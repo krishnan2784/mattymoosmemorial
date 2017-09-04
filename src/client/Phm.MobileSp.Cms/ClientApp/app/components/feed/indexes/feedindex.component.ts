@@ -19,6 +19,8 @@ import CopiedElementTypeEnum = Enums.CopiedElementTypeEnum;
 
 import { Overlay } from 'angular2-modal';
 import { Modal } from 'angular2-modal/plugins/bootstrap';
+import Feedclasses = require("../../../models/feedclasses");
+import BaseFeed = Feedclasses.BaseFeed;
 
 declare var $: any;
 declare var Materialize: any;
@@ -29,7 +31,7 @@ declare var Materialize: any;
     styles: [require('./feedindex.component.css')]
 })
 export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestroy {
-    feedFormData = null;
+    selectedModel = null;
     modalData = null;
 
     public feedItems: IFeedItem[];
@@ -136,10 +138,7 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
         }
     }
 
-    editFeedItem(feedItem: IFeedItem = null, feedCat: FeedCategoryEnum = null) {
-        let inputs = { feedItem: feedItem, feedCat: feedCat, feedUpdated: this.getData() };
-        var form = FeedItemForm;
-
+    editFeedItem(feedItem: IFeedItem = new BaseFeed(), feedCat: FeedCategoryEnum = null) {
         if (feedItem) {
             this.updatePageTitle("Edit Feed Content Form");
         } else {
@@ -148,24 +147,15 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
         this.updateMarketDropdownVisibility(false);
         this.updateTabNavItems();
 
-        form.prototype.feedUpdated = new EventEmitter<IFeedItem>();
-        form.prototype.feedUpdated.subscribe((feedItemResponse) => {
-            this.setPageTitle();
-            this.updateMarketDropdownVisibility(true);
-            this.updateTabNavItems(DefaultTabNavs.feedIndexTabs);
-            this.feedFormData = null;
-        });
-        
-        this.feedFormData = {
-            feedFormComponent: form,
-            inputs: inputs
-        };
+        this.selectedModel = feedItem;
+    }
 
-        //this.feedDataService.getFeeditem(feedItem.id).subscribe(item => {
-
-        //});
-
-
+    feedItemUpdated() {
+        this.setPageTitle();
+        this.updateMarketDropdownVisibility(true);
+        this.updateTabNavItems(DefaultTabNavs.feedIndexTabs);
+        this.selectedModel = null;
+        this.getData();
     }
 
     copyFeedItemToMarket(feedItem: IFeedItem) {
@@ -201,7 +191,7 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
 
     publishFeedItemTolive(feedItem: IFeedItem) {
         var confirmText;
-        if (feedItem.publishedLiveAt) {
+        if (feedItem.published && feedItem.publishedLiveAt) {
             confirmText = feedItem.title + " has already been published. Are you sure to overwrite it?";
         } else {
             confirmText = "Are you sure to publish " + feedItem.title + "?";

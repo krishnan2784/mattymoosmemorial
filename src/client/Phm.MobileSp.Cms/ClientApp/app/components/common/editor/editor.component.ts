@@ -7,7 +7,7 @@ declare var $: any;
   selector: 'editor',
   template: `
     <div [formGroup]="formGroup" *ngIf="formGroup">
-      <textarea id="{{elementId}}" formControlName="{{elementId}}" *ngIf="elementId" value={{value}} class="materialize-textarea" [attr.maxLength]="maxLength > 0 ? maxLength : null" [attr.disabled]="disabled ? disabled : null"></textarea>
+      <textarea id="{{elementId}}" formControlName="{{elementId}}" *ngIf="elementId" value={{value}} class="materialize-textarea" [attr.maxLength]="maxLength > 0 ? maxLength : null" [attr.data-length]="maxLength > 0 ? maxLength : null" [attr.disabled]="disabled ? disabled : null"></textarea>
     </div>`
 })
 export class RichTextEditorComponent implements  AfterViewInit, OnDestroy {
@@ -34,7 +34,7 @@ export class RichTextEditorComponent implements  AfterViewInit, OnDestroy {
     //    });
     //  },
     //  });
-        $('#' + this.elementId).trigger('autoresize');
+      $('#' + this.elementId).trigger('autoresize').characterCounter();
 
   }
 

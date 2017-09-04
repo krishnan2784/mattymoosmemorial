@@ -1,17 +1,9 @@
-import { Component, Input, Injector } from '@angular/core';
-import { Http } from '@angular/http';
-import {Observable} from 'rxjs/Observable';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { FeedItemForm } from "./feeditemform.component";
-import { FeedDataService }  from "../../../services/feeddataservice";
+import { Component, Injector } from '@angular/core';
+import { Validators } from '@angular/forms'
 import * as IFeedItemComponents from "../../../interfaces/components/IFeedItemComponents";
 import Enums = require("../../../enums");
 import FeedTypeEnum = Enums.FeedTypeEnum;
 import Feedclasses = require("../../../models/feedclasses");
-import Feedformstepsclasses = require("../../../classes/feedformstepsclasses");
-import FeedFormSteps = Feedformstepsclasses.FeedFormSteps;
-import FeedModel = require("../../../interfaces/models/IFeedModel");
 import { BasePartialItemFormComponent } from "./basepartialfeeditem.component";
 
 @Component({
@@ -25,12 +17,13 @@ export class TextFeedItemFormComponent extends BasePartialItemFormComponent impl
     } 
 
     addFormControls() {
-        this.form.controls['bodyText'].setValidators(Validators.required);
+       this.form.controls['bodyText'].setValidators(Validators.required);
        this.form.controls['mainIconId'].setValidators(Validators.required);
     };
 
     removeFormControls() {
         this.form.controls['bodyText'].setValidators(null);
+        console.log('hi');
     };
     
 }

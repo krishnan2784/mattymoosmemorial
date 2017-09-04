@@ -14,9 +14,6 @@ var forms_1 = require("@angular/forms");
 var ng2_nouislider_1 = require("ng2-nouislider");
 var ng2_table_1 = require("ng2-table/ng2-table");
 var ngx_bootstrap_1 = require("ngx-bootstrap");
-//import { IonRangeSliderModule } from "ng2-ion-range-slider";
-//import { CalendarModule } from 'primeng/primeng';
-//import { DateValueAccessor } from './classes/datevalueaccessor';
 require("rxjs/add/observable/throw");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/debounceTime");
@@ -36,7 +33,6 @@ var useraccountmanagement_component_1 = require("./components/accountmanagement/
 var textfeeditem_component_1 = require("./components/feed/modelforms/textfeeditem.component");
 var feedindex_component_1 = require("./components/feed/indexes/feedindex.component");
 var feeditemform_component_1 = require("./components/feed/modelforms/feeditemform.component");
-var feeditemcontainer_component_1 = require("./components/feed/modelforms/feeditemcontainer.component");
 var quizfeeditem_component_1 = require("./components/feed/modelforms/quizfeeditem.component");
 var surveyfeeditem_component_1 = require("./components/feed/modelforms/surveyfeeditem.component");
 var observationfeeditem_component_1 = require("./components/feed/modelforms/observationfeeditem.component");
@@ -83,6 +79,7 @@ var monobargraph_component_1 = require("./components/charts/monobargraph/monobar
 var datepicker_component_1 = require("./components/common/datepicker/datepicker.component");
 var textbox_component_1 = require("./components/common/editor/textbox.component");
 var numbertextbox_component_1 = require("./components/common/editor/numbertextbox.component");
+var taginputbox_component_1 = require("./components/common/editor/taginputbox.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -108,7 +105,6 @@ AppModule = __decorate([
             useraccountmanagement_component_1.UserAccountManagementComponent,
             feedindex_component_1.FeedIndexComponent,
             // feed item forms
-            feeditemcontainer_component_1.FeedItemContainerComponent,
             feeditemform_component_1.FeedItemForm,
             textfeeditem_component_1.TextFeedItemFormComponent,
             imagefeeditem_component_1.ImageFeedItemFormComponent,
@@ -148,6 +144,7 @@ AppModule = __decorate([
             editor_component_1.RichTextEditorComponent,
             textbox_component_1.TextInputComponent,
             numbertextbox_component_1.NumberTextInputComponent,
+            taginputbox_component_1.TagInputComponent,
             UploadMediaComponent
         ],
         imports: [

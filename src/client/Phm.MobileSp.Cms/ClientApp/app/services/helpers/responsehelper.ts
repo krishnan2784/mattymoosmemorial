@@ -11,29 +11,29 @@ export class ResponseHelper {
     public static toCamel(o) {
         if (o === null)
             return o;
-        var newO, origKey, newKey, value
+        var newO, origKey, newKey, value;
         if (o instanceof Array) {
-            newO = []
+            newO = [];
             for (origKey in o) {
-                value = o[origKey]
+                value = o[origKey];
                 if (value !== null && typeof value === "object") {
-                    value = this.toCamel(value)
+                    value = this.toCamel(value);
                 }
-                newO.push(value)
+                newO.push(value);
             }
         } else {
             newO = {}
             for (origKey in o) {
                 if (o.hasOwnProperty(origKey)) {
-                    newKey = (origKey.charAt(0).toLowerCase() + origKey.slice(1) || origKey).toString()
-                    value = o[origKey]
+                    newKey = (origKey.charAt(0).toLowerCase() + origKey.slice(1) || origKey).toString();
+                    value = o[origKey];
                     if (value !== null && (value.constructor === Object || value instanceof Array)) {
-                        value = this.toCamel(value)
+                        value = this.toCamel(value);
                     }
-                    newO[newKey] = value
+                    newO[newKey] = value;
                 }
             }
         }
-        return newO
+        return newO;
     }
 }

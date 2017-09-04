@@ -10,19 +10,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
 var Enums = require("../../../enums");
+var Feedformstepsclasses = require("../../../classes/feedformstepsclasses");
+var FeedFormSteps = Feedformstepsclasses.FeedFormSteps;
+var FeedModel = require("../../../interfaces/models/IFeedModel");
 var BasePartialItemFormComponent = (function () {
     function BasePartialItemFormComponent(injector, feedModelType, updateUrl, feedType) {
         this.injector = injector;
         this.feedModelType = feedModelType;
         this.updateUrl = updateUrl;
         this.feedType = feedType;
-        if (injector) {
-            this.form = injector.get('form');
-            this.model = injector.get('model');
-            this.submitted = injector.get('submitted');
-            this.feedFormSteps = injector.get('feedFormSteps');
-        }
     }
     BasePartialItemFormComponent.prototype.ngOnInit = function () {
         this.model = new this.feedModelType(this.model);
@@ -39,6 +37,22 @@ var BasePartialItemFormComponent = (function () {
     ;
     return BasePartialItemFormComponent;
 }());
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", forms_1.FormGroup)
+], BasePartialItemFormComponent.prototype, "form", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", FeedFormSteps)
+], BasePartialItemFormComponent.prototype, "feedFormSteps", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], BasePartialItemFormComponent.prototype, "model", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Boolean)
+], BasePartialItemFormComponent.prototype, "submitted", void 0);
 BasePartialItemFormComponent = __decorate([
     core_1.Component({}),
     __metadata("design:paramtypes", [core_1.Injector, Object, String, Number])

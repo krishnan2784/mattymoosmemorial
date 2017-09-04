@@ -3,14 +3,9 @@ import { RouterModule } from '@angular/router';
 import { UniversalModule } from 'angular2-universal';
 import { Ng2PaginationModule } from 'ng2-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { D3Service } from 'd3-ng2-service';
 import { NouisliderModule } from 'ng2-nouislider';
 import { Ng2TableModule } from 'ng2-table/ng2-table';
 import { PaginationModule } from 'ngx-bootstrap';
-import { MaterializeModule } from 'angular2-materialize';
-//import { IonRangeSliderModule } from "ng2-ion-range-slider";
-//import { CalendarModule } from 'primeng/primeng';
-//import { DateValueAccessor } from './classes/datevalueaccessor';
 
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
@@ -33,7 +28,6 @@ import { UserAccountManagementComponent } from './components/accountmanagement/u
 import { TextFeedItemFormComponent } from './components/feed/modelforms/textfeeditem.component';
 import { FeedIndexComponent } from "./components/feed/indexes/feedindex.component";
 import { FeedItemForm } from "./components/feed/modelforms/feeditemform.component";
-import { FeedItemContainerComponent } from "./components/feed/modelforms/feeditemcontainer.component";
 
 import { QuizFeedItemFormComponent } from "./components/feed/modelforms/quizfeeditem.component";
 import { SurveyFeedItemFormComponent } from "./components/feed/modelforms/surveyfeeditem.component";
@@ -82,6 +76,7 @@ import { MonobarGraphComponent } from "./components/charts/monobargraph/monobarg
 import { DatepickerComponent } from "./components/common/datepicker/datepicker.component";
 import { TextInputComponent } from "./components/common/editor/textbox.component";
 import { NumberTextInputComponent } from "./components/common/editor/numbertextbox.component";
+import { TagInputComponent } from "./components/common/editor/taginputbox.component";
 
 
 @NgModule({
@@ -105,7 +100,6 @@ import { NumberTextInputComponent } from "./components/common/editor/numbertextb
         FeedIndexComponent,
 
         // feed item forms
-        FeedItemContainerComponent,
         FeedItemForm,
         TextFeedItemFormComponent,
         ImageFeedItemFormComponent,
@@ -151,6 +145,7 @@ import { NumberTextInputComponent } from "./components/common/editor/numbertextb
         RichTextEditorComponent,
         TextInputComponent,
         NumberTextInputComponent,
+        TagInputComponent,
         UploadMediaComponent
     ],
     imports: [

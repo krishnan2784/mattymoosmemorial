@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit, OnDestroy } from '@angular/core';
+import { Component, Injector, OnInit, OnDestroy, OnChanges, SimpleChange, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import * as IFeedItemComponents from "../../../interfaces/components/IFeedItemComponents";
 import Enums = require("../../../enums");
@@ -9,21 +9,18 @@ import FeedModel = require("../../../interfaces/models/IFeedModel");
 @Component({
 })
 export class BasePartialItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm, OnInit, OnDestroy {
+    @Input()
     public form: FormGroup;
+    @Input()
     public feedFormSteps: FeedFormSteps;
+    @Input()
     public model: FeedModel.IFeedItem;
+    @Input()
     public submitted: boolean; 
     constructor(private injector: Injector, public feedModelType, public updateUrl: string,
         public feedType: Enums.FeedTypeEnum) {
-        if (injector) {
-            this.form = injector.get('form');
-            this.model = injector.get('model');
-            this.submitted = injector.get('submitted');
-            this.feedFormSteps = injector.get('feedFormSteps');
-        }
     } 
-
-
+    
     ngOnInit(): void {
         this.model = new this.feedModelType(this.model);
         this.addFormControls();

@@ -26,6 +26,12 @@
     <NoStdLib>false</NoStdLib>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="ClientApp\app\components\utility\**" />
+    <Content Remove="ClientApp\app\components\utility\**" />
+    <EmbeddedResource Remove="ClientApp\app\components\utility\**" />
+    <None Remove="ClientApp\app\components\utility\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Remove="package-lock.json" />
   </ItemGroup>
   <ItemGroup>
@@ -66,7 +72,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ClientApp\app\components\navbar\" />
-    <Folder Include="ClientApp\app\components\utility\" />
     <Folder Include="ClientApp\plugins\" />
     <Folder Include="Connected Services\Application Insights" />
   </ItemGroup>

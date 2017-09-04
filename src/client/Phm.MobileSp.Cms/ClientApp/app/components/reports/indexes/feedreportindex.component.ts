@@ -11,10 +11,8 @@ import Userclasses = require("../../../models/userclasses");
 import UserMarket = Userclasses.UserMarket;
 import QuizFeeditemreportcomponent = require("../quizfeeditemreport.component");
 import QuizFeedItemReport = QuizFeeditemreportcomponent.QuizFeedItemReport;
-import Feeddataservice = require("../../../services/feeddataservice");
 import { DefaultTabNavs } from "../../navmenu/tabnavmenu.component";
 import { SurveyFeedItemReport } from "../surveyfeeditemreport.component";
-import { ObservationFeedItemReport } from "../observationfeeditemreport.component";
 
 declare var $: any;
 declare var Materialize: any;
