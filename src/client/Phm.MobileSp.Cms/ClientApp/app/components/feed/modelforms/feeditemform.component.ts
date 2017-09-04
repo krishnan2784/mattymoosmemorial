@@ -237,7 +237,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         this.model = model;
 
         if (fieldName == "mainImage") {
-            this.swapForm(ImageFeedItemFormComponent, this.model.feedCategory)
+            this.swapForm(ImageFeedItemFormComponent, this.model.feedCategory);
         } else if (fieldName == "mainVideo") {
             this.swapForm(VideoFeedItemFormComponent, this.model.feedCategory);
         } 
@@ -250,13 +250,13 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     save(feedItem: FeedItem, isValid: boolean) {
         
         this.submitted = true;
+        this.feedFormData.inputs.submitted = true;
         this.form.updateValueAndValidity();
 
         if (!this.form.valid || this.loading)
             return;
         
         this.loading = true;
-        console.log(feedItem);
 
         feedItem = new this.subForm.feedModelType(feedItem);
         console.log(feedItem);

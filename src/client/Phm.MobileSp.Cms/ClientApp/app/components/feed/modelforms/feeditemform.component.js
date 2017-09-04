@@ -201,11 +201,11 @@ var FeedItemForm = (function () {
     FeedItemForm.prototype.save = function (feedItem, isValid) {
         var _this = this;
         this.submitted = true;
+        this.feedFormData.inputs.submitted = true;
         this.form.updateValueAndValidity();
         if (!this.form.valid || this.loading)
             return;
         this.loading = true;
-        console.log(feedItem);
         feedItem = new this.subForm.feedModelType(feedItem);
         console.log(feedItem);
         feedItem.callToActionUrl = feedItem.callToActionUrl.length == 0 || feedItem.callToActionUrl.indexOf('http') == 0 ? feedItem.callToActionUrl : 'http://' + feedItem.callToActionUrl;

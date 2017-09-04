@@ -148,7 +148,7 @@
                 <label>Enter Title</label>
                 <editor [elementId]="'title'" [value]="form.controls.title.value" [formGroup]="form" [maxLength]="160"></editor>
                 <small class="active-warning" [class.hidden]="form.controls.title.valid || !submitted">
-                    Title is required (minimum 5 characters).
+                    Title is required.
                 </small>
             </div>
 
@@ -164,7 +164,7 @@
                 <label>Body Text</label>
                 <editor [elementId]="'bodyText'" [value]="form.controls.bodyText.value" [formGroup]="form"></editor>
                 <small class="active-warning" [class.hidden]="form.controls.bodyText.valid || !submitted">
-                    Body text is required if you are not uploading an image or video (minimum 5 characters).
+                    Body text is required if you are not uploading an image or video.
                 </small>
             </div>
 
