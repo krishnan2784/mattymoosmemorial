@@ -243,12 +243,12 @@ var LearnerStatComponent = (function () {
         var _this = this;
         if (this.date1) {
             if (this.date2)
-                this.data = this.fullData.filter(function (x) { var date = new Date(x.createdAt); return (date > _this.date1) && date < _this.date2; });
+                this.data = this.fullData.filter(function (x) { var date = new Date(x.createdAt); return (date >= _this.date1) && date <= _this.date2; });
             else
-                this.data = this.fullData.filter(function (x) { return new Date(x.createdAt) > _this.date1; });
+                this.data = this.fullData.filter(function (x) { return new Date(x.createdAt) >= _this.date1; });
         }
         else if (this.date2)
-            this.data = this.fullData.filter(function (x) { return new Date(x.createdAt) < _this.date2; });
+            this.data = this.fullData.filter(function (x) { return new Date(x.createdAt) <= _this.date2; });
         this.dDates = this.displayedDates();
         this.dateRange = this.getDateDiff(this.date1, this.date2) + 1;
         this.setMaxHeight();

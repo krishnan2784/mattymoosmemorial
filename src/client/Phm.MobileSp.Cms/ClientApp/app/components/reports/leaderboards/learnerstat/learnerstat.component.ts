@@ -246,17 +246,17 @@ export class LearnerStatComponent implements OnInit, AfterViewInit {
     }
   updateEndDate(e) {
       this.date2.setDate(e.fullDate.getDate() + 1);
-      this.date2 = new Date(e.fullDate.getFullYear(), e.fullDate.getMonth(), e.fullDate.getDate(), 23, 59, 59)
+      this.date2 = new Date(e.fullDate.getFullYear(), e.fullDate.getMonth(), e.fullDate.getDate(), 23, 59, 59);
       this.updateDateFilter();
   }
   updateDateFilter() {
       if (this.date1) {
           if (this.date2)
-              this.data = this.fullData.filter((x) => { var date = new Date(x.createdAt); return (date > this.date1) && date < this.date2 });
+              this.data = this.fullData.filter((x) => { var date = new Date(x.createdAt); return (date >= this.date1) && date <= this.date2 });
           else
-              this.data = this.fullData.filter((x) => new Date(x.createdAt) > this.date1);
+              this.data = this.fullData.filter((x) => new Date(x.createdAt) >= this.date1);
       } else if (this.date2)
-          this.data = this.fullData.filter((x) => new Date(x.createdAt) < this.date2);
+          this.data = this.fullData.filter((x) => new Date(x.createdAt) <= this.date2);
       this.dDates = this.displayedDates();
       this.dateRange = this.getDateDiff(this.date1, this.date2) + 1;
       this.setMaxHeight();
