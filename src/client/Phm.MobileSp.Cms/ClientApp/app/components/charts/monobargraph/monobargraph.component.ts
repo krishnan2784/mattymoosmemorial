@@ -11,14 +11,15 @@ export class MonobarGraphComponent implements OnInit {
   heightRatio = 1;
   ngOnInit() {
       this.bar7H = 100 / this.data.data.length;
-      var maxHeight = Math.max(this.data.data.map(x => x.percent));
-      var minHeight = Math.min(this.data.data.map(x => x.percent));
+      var values = this.data.data.map(o => { return o.percent; });
+      var maxHeight = Math.max.apply(Math, values);
+      var minHeight = Math.min.apply(Math, values);
+
       if (maxHeight > 0) {
           if (minHeight < 0)
               maxHeight = maxHeight + Math.abs(minHeight);
       } else if (maxHeight < 0)
           maxHeight = Math.abs(minHeight);
-
       if (maxHeight > 0)
           this.heightRatio = 100 / maxHeight;
   }

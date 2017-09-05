@@ -58,13 +58,39 @@ export class LearnerStatComponent implements OnInit, AfterViewInit {
     }
   ];
   groupIt() {
+      this.data = this.data.filter(x => x.points > 0);
+      let d2 = [];
+
+      for (var d = new Date(this.date1); d < this.date2;) {
+          for (let i = 0; i < this.types.length; i++) {
+              d2.push({
+                  createdAt: new Date(d),
+                  userPointType: this.types[i].value,
+                  points: 0
+              });
+          }
+          d.setDate(d.getDate() + 1);
+      }
+      for (let i = 0; i < d2.length; i++) {
+          var filteredSet = this.data
+              .filter(x => {
+                  var pDate = new Date(x.createdAt);
+                  return x.userPointType == d2[i].userPointType &&
+                      new Date(pDate.getFullYear(), pDate.getMonth(), pDate.getDate(), 0, 0, 0).valueOf() == d2[i].createdAt.valueOf();
+              });
+          d2[i].points = filteredSet.map(x => x.points).reduce((a, b) => a + b, 0);
+      }
+      this.data = d2.filter(x => x.points > 0);
+      this.groupPieData();
+    }
+  groupPieData() {
     this.groupBy = [];
-    for(let i=0; i < this.types.length; i++){
-      this.groupBy.push ({
-        group: this.types[i].value,
-        points: 0,
-        percent : 0
-      })
+    for(let i=0; i < this.types.length; i++) {
+        this.groupBy.push({
+            group: this.types[i].value,
+            points: 0,
+            percent: 0
+        });
     }
     let total = 0;
     for (let i = 0 ; i < this.data.length; i++) {
@@ -78,15 +104,16 @@ export class LearnerStatComponent implements OnInit, AfterViewInit {
     this.groupBy = this.groupBy.filter(x=>x.points > 0);
   }
   ngOnInit() {
-    this.setMaxHeight();
-    this.groupIt();
-    this.fullData = this.data;
-    this.date1 = new Date(this.data[0].createdAt);
-    this.date1 = new Date(this.date1.getFullYear(), this.date1.getMonth(), this.date1.getDate(), 0, 0, 0);
-    this.date2 = new Date(this.data[this.data.length - 1].createdAt);
-    this.date2 = new Date(this.date2.getFullYear(), this.date2.getMonth(), this.date2.getDate(), 23, 59, 59)
-    this.dateRange = this.getDateDiff(this.date1, this.date2) + 1;
-    this.dDates = this.displayedDates();
+      this.date1 = new Date(this.data[0].createdAt);
+      this.date1 = new Date(this.date1.getFullYear(), this.date1.getMonth(), this.date1.getDate(), 0, 0, 0);
+      this.date2 = new Date(this.data[this.data.length - 1].createdAt);
+      this.date2 = new Date(this.date2.getFullYear(), this.date2.getMonth(), this.date2.getDate(), 23, 59, 59);
+      this.setMinDate(this.date1);
+      this.dateRange = this.getDateDiff(this.date1, this.date2) + 1;
+      this.dDates = this.displayedDates();
+      this.groupIt();
+      this.setMaxHeight();
+      this.fullData = this.data;
   }
   ngAfterViewInit() {
     this.htmlElement = this.element.nativeElement;
@@ -160,7 +187,8 @@ export class LearnerStatComponent implements OnInit, AfterViewInit {
           this.pieData.push(
               {
                   label: parseFloat(this.groupBy[i].percent).toFixed(1) + '%',
-                  value: this.groupBy[i].percent
+                  value: this.groupBy[i].percent,
+                  group: this.groupBy[i].group
               }
           );
       }
@@ -184,9 +212,8 @@ export class LearnerStatComponent implements OnInit, AfterViewInit {
     arcSelection.append("path")
       .attr("d", arc)
       .attr("fill", (datum, index) => {
-        return pieColor(this.pieData[index].label);
+          return pieColor(this.pieData[index].group);
       });
-
     arcSelection.append("text")
       .attr("transform", (datum: any) => {
         datum.innerRadius = 0;
@@ -197,16 +224,14 @@ export class LearnerStatComponent implements OnInit, AfterViewInit {
       .style("text-anchor", "middle");
   }
   updatePie() {
-      this.groupIt();
+      this.groupPieData();
       this.svg.remove();
       this.buildSVG();
       this.updatePieData();
       this.buildPie();
   }
   updateStartDate(e) {
-      this.minDay = e.day;
-      this.minMonth = e.month;
-      this.minYear = e.year;
+      this.setMinDate(e.fullDate);
       this.date1 = e.fullDate;
       this.date1 = new Date(this.date1.getFullYear(), this.date1.getMonth(), this.date1.getDate(), 0, 0, 0);
       if (new Date(this.date2) < e.fullDate) {
@@ -214,6 +239,11 @@ export class LearnerStatComponent implements OnInit, AfterViewInit {
       }
       this.updateDateFilter();
   }
+    setMinDate(e) {
+        this.minDay = e.getDate();
+        this.minMonth = e.getMonth();
+        this.minYear = e.getFullYear();
+    }
   updateEndDate(e) {
       this.date2.setDate(e.fullDate.getDate() + 1);
       this.date2 = new Date(e.fullDate.getFullYear(), e.fullDate.getMonth(), e.fullDate.getDate(), 23, 59, 59)

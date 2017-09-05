@@ -47,6 +47,35 @@ var LearnerStatComponent = (function () {
         ];
     }
     LearnerStatComponent.prototype.groupIt = function () {
+        this.data = this.data.filter(function (x) { return x.points > 0; });
+        var d2 = [];
+        for (var d = new Date(this.date1); d < this.date2;) {
+            for (var i = 0; i < this.types.length; i++) {
+                d2.push({
+                    createdAt: new Date(d),
+                    userPointType: this.types[i].value,
+                    points: 0
+                });
+            }
+            d.setDate(d.getDate() + 1);
+        }
+        var _loop_1 = function (i) {
+            filteredSet = this_1.data
+                .filter(function (x) {
+                var pDate = new Date(x.createdAt);
+                return x.userPointType == d2[i].userPointType &&
+                    new Date(pDate.getFullYear(), pDate.getMonth(), pDate.getDate(), 0, 0, 0).valueOf() == d2[i].createdAt.valueOf();
+            });
+            d2[i].points = filteredSet.map(function (x) { return x.points; }).reduce(function (a, b) { return a + b; }, 0);
+        };
+        var this_1 = this, filteredSet;
+        for (var i = 0; i < d2.length; i++) {
+            _loop_1(i);
+        }
+        this.data = d2.filter(function (x) { return x.points > 0; });
+        this.groupPieData();
+    };
+    LearnerStatComponent.prototype.groupPieData = function () {
         this.groupBy = [];
         for (var i = 0; i < this.types.length; i++) {
             this.groupBy.push({
@@ -67,15 +96,16 @@ var LearnerStatComponent = (function () {
         this.groupBy = this.groupBy.filter(function (x) { return x.points > 0; });
     };
     LearnerStatComponent.prototype.ngOnInit = function () {
-        this.setMaxHeight();
-        this.groupIt();
-        this.fullData = this.data;
         this.date1 = new Date(this.data[0].createdAt);
         this.date1 = new Date(this.date1.getFullYear(), this.date1.getMonth(), this.date1.getDate(), 0, 0, 0);
         this.date2 = new Date(this.data[this.data.length - 1].createdAt);
         this.date2 = new Date(this.date2.getFullYear(), this.date2.getMonth(), this.date2.getDate(), 23, 59, 59);
+        this.setMinDate(this.date1);
         this.dateRange = this.getDateDiff(this.date1, this.date2) + 1;
         this.dDates = this.displayedDates();
+        this.groupIt();
+        this.setMaxHeight();
+        this.fullData = this.data;
     };
     LearnerStatComponent.prototype.ngAfterViewInit = function () {
         this.htmlElement = this.element.nativeElement;
@@ -147,7 +177,8 @@ var LearnerStatComponent = (function () {
         for (var i = 0; i < this.groupBy.length; i++) {
             this.pieData.push({
                 label: parseFloat(this.groupBy[i].percent).toFixed(1) + '%',
-                value: this.groupBy[i].percent
+                value: this.groupBy[i].percent,
+                group: this.groupBy[i].group
             });
         }
     };
@@ -171,7 +202,7 @@ var LearnerStatComponent = (function () {
         arcSelection.append("path")
             .attr("d", arc)
             .attr("fill", function (datum, index) {
-            return pieColor(_this.pieData[index].label);
+            return pieColor(_this.pieData[index].group);
         });
         arcSelection.append("text")
             .attr("transform", function (datum) {
@@ -183,22 +214,25 @@ var LearnerStatComponent = (function () {
             .style("text-anchor", "middle");
     };
     LearnerStatComponent.prototype.updatePie = function () {
-        this.groupIt();
+        this.groupPieData();
         this.svg.remove();
         this.buildSVG();
         this.updatePieData();
         this.buildPie();
     };
     LearnerStatComponent.prototype.updateStartDate = function (e) {
-        this.minDay = e.day;
-        this.minMonth = e.month;
-        this.minYear = e.year;
+        this.setMinDate(e.fullDate);
         this.date1 = e.fullDate;
         this.date1 = new Date(this.date1.getFullYear(), this.date1.getMonth(), this.date1.getDate(), 0, 0, 0);
         if (new Date(this.date2) < e.fullDate) {
             this.updateEndDate(e);
         }
         this.updateDateFilter();
+    };
+    LearnerStatComponent.prototype.setMinDate = function (e) {
+        this.minDay = e.getDate();
+        this.minMonth = e.getMonth();
+        this.minYear = e.getFullYear();
     };
     LearnerStatComponent.prototype.updateEndDate = function (e) {
         this.date2.setDate(e.fullDate.getDate() + 1);

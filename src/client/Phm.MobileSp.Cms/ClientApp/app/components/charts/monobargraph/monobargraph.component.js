@@ -17,8 +17,9 @@ var MonobarGraphComponent = (function () {
     }
     MonobarGraphComponent.prototype.ngOnInit = function () {
         this.bar7H = 100 / this.data.data.length;
-        var maxHeight = Math.max(this.data.data.map(function (x) { return x.percent; }));
-        var minHeight = Math.min(this.data.data.map(function (x) { return x.percent; }));
+        var values = this.data.data.map(function (o) { return o.percent; });
+        var maxHeight = Math.max.apply(Math, values);
+        var minHeight = Math.min.apply(Math, values);
         if (maxHeight > 0) {
             if (minHeight < 0)
                 maxHeight = maxHeight + Math.abs(minHeight);
