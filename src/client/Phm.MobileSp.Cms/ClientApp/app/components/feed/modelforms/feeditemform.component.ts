@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from "rxjs/Rx";
-import { FeedDataService } from "../../../services/feedDataService";
+import { FeedDataService } from "../../../services/feeddataservice";
 import * as IFeedItemComponents from "../../../interfaces/components/IFeedItemComponents";
 import { TextFeedItemFormComponent } from "./textfeeditem.component";
 import FeedModel = require("../../../interfaces/models/IFeedModel");
@@ -14,7 +14,6 @@ import FeedCategoryEnum = Enums.FeedCategoryEnum;
 import Feedclasses = require("../../../models/feedclasses");
 import Feedformstepsclasses = require("../../../classes/feedformstepsclasses");
 import FeedFormSteps = Feedformstepsclasses.FeedFormSteps;
-import FeedFormStepType = Feedformstepsclasses.FeedFormStepType;
 import Quizfeeditemcomponent = require("./quizfeeditem.component");
 import QuizFeedItemFormComponent = Quizfeeditemcomponent.QuizFeedItemFormComponent;
 import Surveyfeeditemcomponent = require("./surveyfeeditem.component");
@@ -26,12 +25,8 @@ import { MediaInfo } from "../../../models/mediainfoclasses";
 import { MediaTypes } from "../../../enums";
 import { ImageFeedItemFormComponent } from "./imagefeeditem.component";
 import { VideoFeedItemFormComponent } from "./videofeeditem.component";
-import { DateEx } from "../../../classes/helpers/date";
-import { isNumber } from "util";
-import { IMediaDataService } from "../../../interfaces/services/IMediaDataService";
 import { MediaDataService } from "../../../services/mediaservice";
 import ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationFeedItemFormComponent;
-import BaseFeed = Feedclasses.BaseFeed;
 import { minValue } from "../../../classes/validators";
 declare var $: any;
 declare var Materialize: any;
@@ -156,7 +151,8 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             startDate: ['', [<any>Validators.required]],
             endDate: ['', [<any>Validators.required]],
             mainIconId: ['', [<any>Validators.required]],
-            bodyText: ['', []]
+            bodyText: ['', []],
+            tagText: ['', [<any>Validators.required]]
         });
     } 
 
@@ -275,7 +271,10 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
 
     public updateMaterialize() {
         setTimeout(function () {
-            $('#bodyText').trigger('autoresize');
+            $('#tagText').tagsinput({
+                allowDuplicates: false,
+                maxTags: 5
+            });
         }, 1);
     }
 

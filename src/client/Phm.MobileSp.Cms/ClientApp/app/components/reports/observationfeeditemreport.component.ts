@@ -1,30 +1,15 @@
-import { Component, OnInit, ElementRef, Input, Output, ViewChild, EventEmitter, Injector, AfterViewInit, OnDestroy } from '@angular/core';
-import Baseclasses = require("../../models/baseclasses");
-import BaseModel = Baseclasses.BaseModel;
-import Basecomponent = require("../base.component");
-import BaseComponent = Basecomponent.BaseComponent;
+import { Component, OnInit, Output, EventEmitter, Injector, AfterViewInit, OnDestroy } from '@angular/core';
 import Datashareservice = require("../../services/helpers/shareservice");
 import ShareService = Datashareservice.ShareService;
-import FeedModel = require("../../interfaces/models/IFeedModel");
-import IFeedItem = FeedModel.IFeedItem;
 import Enums = require("../../enums");
-import FeedTypeEnum = Enums.FeedTypeEnum;
-import Feeddataservice = require("../../services/feeddataservice");
-import FeedDataService = Feeddataservice.FeedDataService;
-import Chartclasses = require("../../models/chartclasses");
-import BarChartData = Chartclasses.BarChartData;
-import Barchartcomponent = require("../charts/barchart.component");
-import GaugeChartData = Chartclasses.GaugeChartData;
-import DonutChartData = Chartclasses.DonutChartData;
+import {FeedDataService} from "../../services/feeddataservice";
 import Reportclasses = require("../../models/reportclasses");
 import SurveyItemSummary = Reportclasses.SurveyItemSummary;
 import Date1 = require("../../classes/helpers/date");
 import DateEx = Date1.DateEx;
-import Userfiltercomponent = require("../common/filters/userfilter.component");
 import { SurveyFeed } from "../../models/feedclasses";
 import { Angular2Csv } from "angular2-csv/Angular2-csv";
 import { ObservationItemSummary } from "../../models/reportclasses";
-import UserFilters = Userfiltercomponent.UserFilters;
 
 @Component({
     selector: 'observationfeeditemreport',

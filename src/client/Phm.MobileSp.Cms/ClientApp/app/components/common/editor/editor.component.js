@@ -33,7 +33,7 @@ var RichTextEditorComponent = (function () {
         //    });
         //  },
         //  });
-        $('#' + this.elementId).trigger('autoresize');
+        $('#' + this.elementId).trigger('autoresize').characterCounter();
     };
     RichTextEditorComponent.prototype.ngOnDestroy = function () {
         tinymce.remove(this.editor);
@@ -67,7 +67,7 @@ __decorate([
 RichTextEditorComponent = __decorate([
     core_1.Component({
         selector: 'editor',
-        template: "\n    <div [formGroup]=\"formGroup\" *ngIf=\"formGroup\">\n      <textarea id=\"{{elementId}}\" formControlName=\"{{elementId}}\" *ngIf=\"elementId\" value={{value}} class=\"materialize-textarea\" [attr.maxLength]=\"maxLength > 0 ? maxLength : null\" [attr.disabled]=\"disabled ? disabled : null\"></textarea>\n    </div>"
+        template: "\n    <div [formGroup]=\"formGroup\" *ngIf=\"formGroup\">\n      <textarea id=\"{{elementId}}\" formControlName=\"{{elementId}}\" *ngIf=\"elementId\" value={{value}} class=\"materialize-textarea\" [attr.maxLength]=\"maxLength > 0 ? maxLength : null\" [attr.data-length]=\"maxLength > 0 ? maxLength : null\" [attr.disabled]=\"disabled ? disabled : null\"></textarea>\n    </div>"
     })
 ], RichTextEditorComponent);
 exports.RichTextEditorComponent = RichTextEditorComponent;

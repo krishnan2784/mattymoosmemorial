@@ -3,14 +3,9 @@ import { RouterModule } from '@angular/router';
 import { UniversalModule } from 'angular2-universal';
 import { Ng2PaginationModule } from 'ng2-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { D3Service } from 'd3-ng2-service';
 import { NouisliderModule } from 'ng2-nouislider';
 import { Ng2TableModule } from 'ng2-table/ng2-table';
 import { PaginationModule } from 'ngx-bootstrap';
-import { MaterializeModule } from 'angular2-materialize';
-//import { IonRangeSliderModule } from "ng2-ion-range-slider";
-//import { CalendarModule } from 'primeng/primeng';
-//import { DateValueAccessor } from './classes/datevalueaccessor';
 
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
@@ -82,6 +77,7 @@ import { MonobarGraphComponent } from "./components/charts/monobargraph/monobarg
 import { DatepickerComponent } from "./components/common/datepicker/datepicker.component";
 import { TextInputComponent } from "./components/common/editor/textbox.component";
 import { NumberTextInputComponent } from "./components/common/editor/numbertextbox.component";
+import { TagInputComponent } from "./components/common/editor/taginputbox.component";
 
 
 @NgModule({
@@ -151,6 +147,7 @@ import { NumberTextInputComponent } from "./components/common/editor/numbertextb
         RichTextEditorComponent,
         TextInputComponent,
         NumberTextInputComponent,
+        TagInputComponent,
         UploadMediaComponent
     ],
     imports: [

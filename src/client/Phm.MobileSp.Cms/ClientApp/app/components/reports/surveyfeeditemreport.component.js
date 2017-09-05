@@ -13,8 +13,7 @@ var core_1 = require("@angular/core");
 var Datashareservice = require("../../services/helpers/shareservice");
 var ShareService = Datashareservice.ShareService;
 var Enums = require("../../enums");
-var Feeddataservice = require("../../services/feeddataservice");
-var FeedDataService = Feeddataservice.FeedDataService;
+var feeddataservice_1 = require("../../services/feeddataservice");
 var Date1 = require("../../classes/helpers/date");
 var DateEx = Date1.DateEx;
 var Angular2_csv_1 = require("angular2-csv/Angular2-csv");
@@ -178,7 +177,7 @@ SurveyFeedItemReport = __decorate([
         template: require('./surveyfeeditemreport.component.html'),
         styles: [require('./quizfeeditemreport.component.css'), require('./surveyfeeditemreport.component.css')]
     }),
-    __metadata("design:paramtypes", [ShareService, FeedDataService,
+    __metadata("design:paramtypes", [ShareService, feeddataservice_1.FeedDataService,
         core_1.Injector])
 ], SurveyFeedItemReport);
 exports.SurveyFeedItemReport = SurveyFeedItemReport;

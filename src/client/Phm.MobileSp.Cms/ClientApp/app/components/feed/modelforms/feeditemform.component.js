@@ -13,7 +13,7 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
-var feedDataService_1 = require("../../../services/feedDataService");
+var feeddataservice_1 = require("../../../services/feeddataservice");
 var textfeeditem_component_1 = require("./textfeeditem.component");
 var Enums = require("../../../enums");
 var FeedCategoryEnum = Enums.FeedCategoryEnum;
@@ -114,7 +114,8 @@ var FeedItemForm = (function () {
             startDate: ['', [forms_1.Validators.required]],
             endDate: ['', [forms_1.Validators.required]],
             mainIconId: ['', [forms_1.Validators.required]],
-            bodyText: ['', []]
+            bodyText: ['', []],
+            tagText: ['', [forms_1.Validators.required]]
         });
     };
     FeedItemForm.prototype.getModel = function () {
@@ -221,7 +222,10 @@ var FeedItemForm = (function () {
     };
     FeedItemForm.prototype.updateMaterialize = function () {
         setTimeout(function () {
-            $('#bodyText').trigger('autoresize');
+            $('#tagText').tagsinput({
+                allowDuplicates: false,
+                maxTags: 5
+            });
         }, 1);
     };
     FeedItemForm.prototype.handleStartDate = function (e) {
@@ -262,10 +266,10 @@ FeedItemForm = __decorate([
         selector: 'feeditemform',
         template: require('./feeditemform.component.html'),
         styles: [require('./feeditemform.component.css')],
-        providers: [feedDataService_1.FeedDataService]
+        providers: [feeddataservice_1.FeedDataService]
     }),
     __metadata("design:paramtypes", [forms_1.FormBuilder, http_1.Http, router_1.ActivatedRoute,
-        router_1.Router, feedDataService_1.FeedDataService,
+        router_1.Router, feeddataservice_1.FeedDataService,
         core_1.Injector, ShareService, mediaservice_1.MediaDataService])
 ], FeedItemForm);
 exports.FeedItemForm = FeedItemForm;
