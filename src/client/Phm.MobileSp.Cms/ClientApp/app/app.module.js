@@ -33,7 +33,6 @@ var useraccountmanagement_component_1 = require("./components/accountmanagement/
 var textfeeditem_component_1 = require("./components/feed/modelforms/textfeeditem.component");
 var feedindex_component_1 = require("./components/feed/indexes/feedindex.component");
 var feeditemform_component_1 = require("./components/feed/modelforms/feeditemform.component");
-var feeditemcontainer_component_1 = require("./components/feed/modelforms/feeditemcontainer.component");
 var quizfeeditem_component_1 = require("./components/feed/modelforms/quizfeeditem.component");
 var surveyfeeditem_component_1 = require("./components/feed/modelforms/surveyfeeditem.component");
 var observationfeeditem_component_1 = require("./components/feed/modelforms/observationfeeditem.component");
@@ -106,7 +105,6 @@ AppModule = __decorate([
             useraccountmanagement_component_1.UserAccountManagementComponent,
             feedindex_component_1.FeedIndexComponent,
             // feed item forms
-            feeditemcontainer_component_1.FeedItemContainerComponent,
             feeditemform_component_1.FeedItemForm,
             textfeeditem_component_1.TextFeedItemFormComponent,
             imagefeeditem_component_1.ImageFeedItemFormComponent,

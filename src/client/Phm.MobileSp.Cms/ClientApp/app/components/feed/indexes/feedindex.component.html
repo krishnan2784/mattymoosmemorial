@@ -1,4 +1,4 @@
-<div *ngIf="!feedFormData">
+<div *ngIf="!selectedModel">
     <div>
         <div class="loader" *ngIf="!this.feedItems"></div>
                 
@@ -99,8 +99,7 @@
     </div>
 </div>
 
-<div *ngIf="feedFormData">
-    <feed-form-component [feedFormData]="feedFormData"></feed-form-component>
-</div>
+<feeditemform *ngIf="selectedModel" [model]="selectedModel" (feedUpdated)="feedItemUpdated($event)"></feeditemform>
+
 
 <base-modal [modalData]="modalData" [modalId]="'feeditem-copytomarket'" [modalHeader]="'Copy to market'" [modalDescription]="''" (modelClosed)="updateFeedItem($event)"></base-modal>

@@ -13,6 +13,9 @@
                    [formControlId]="'question'"
                    [label]="'Question'"
                    [validationMessage]="'A question is required.'"></textinput>
+        <small *ngIf="feedType===feedTypeEnum.Quiz && submitted && form.hasError('minCorrect')" class="active-warning">
+            Please select at least one correct answer.
+        </small>
     </div>
     
     <div class="question-answer-container col-md-10">

@@ -28,7 +28,6 @@ import { UserAccountManagementComponent } from './components/accountmanagement/u
 import { TextFeedItemFormComponent } from './components/feed/modelforms/textfeeditem.component';
 import { FeedIndexComponent } from "./components/feed/indexes/feedindex.component";
 import { FeedItemForm } from "./components/feed/modelforms/feeditemform.component";
-import { FeedItemContainerComponent } from "./components/feed/modelforms/feeditemcontainer.component";
 
 import { QuizFeedItemFormComponent } from "./components/feed/modelforms/quizfeeditem.component";
 import { SurveyFeedItemFormComponent } from "./components/feed/modelforms/surveyfeeditem.component";
@@ -101,7 +100,6 @@ import { TagInputComponent } from "./components/common/editor/taginputbox.compon
         FeedIndexComponent,
 
         // feed item forms
-        FeedItemContainerComponent,
         FeedItemForm,
         TextFeedItemFormComponent,
         ImageFeedItemFormComponent,

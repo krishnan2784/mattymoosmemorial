@@ -22,7 +22,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var feeddataservice_1 = require("../../../services/feeddataservice");
-var feeditemform_component_1 = require("../modelforms/feeditemform.component");
 var Enums = require("../../../enums");
 var FeedTypeEnum = Enums.FeedTypeEnum;
 var FeedCategoryEnum = Enums.FeedCategoryEnum;
@@ -34,6 +33,8 @@ var FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
 var CopiedElementTypeEnum = Enums.CopiedElementTypeEnum;
 var angular2_modal_1 = require("angular2-modal");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
+var Feedclasses = require("../../../models/feedclasses");
+var BaseFeed = Feedclasses.BaseFeed;
 var FeedIndexComponent = (function (_super) {
     __extends(FeedIndexComponent, _super);
     function FeedIndexComponent(route, router, feedDataService, sharedService, overlay, vcRef, confirmBox) {
@@ -42,7 +43,7 @@ var FeedIndexComponent = (function (_super) {
         _this.router = router;
         _this.feedDataService = feedDataService;
         _this.confirmBox = confirmBox;
-        _this.feedFormData = null;
+        _this.selectedModel = null;
         _this.modalData = null;
         _this.feedTypes = FeedTypeEnum;
         _this.feedCats = FeedCategoryEnum;
@@ -140,11 +141,8 @@ var FeedIndexComponent = (function (_super) {
         }
     };
     FeedIndexComponent.prototype.editFeedItem = function (feedItem, feedCat) {
-        var _this = this;
-        if (feedItem === void 0) { feedItem = null; }
+        if (feedItem === void 0) { feedItem = new BaseFeed(); }
         if (feedCat === void 0) { feedCat = null; }
-        var inputs = { feedItem: feedItem, feedCat: feedCat, feedUpdated: this.getData() };
-        var form = feeditemform_component_1.FeedItemForm;
         if (feedItem) {
             this.updatePageTitle("Edit Feed Content Form");
         }
@@ -153,19 +151,14 @@ var FeedIndexComponent = (function (_super) {
         }
         this.updateMarketDropdownVisibility(false);
         this.updateTabNavItems();
-        form.prototype.feedUpdated = new core_1.EventEmitter();
-        form.prototype.feedUpdated.subscribe(function (feedItemResponse) {
-            _this.setPageTitle();
-            _this.updateMarketDropdownVisibility(true);
-            _this.updateTabNavItems(tabnavmenu_component_1.DefaultTabNavs.feedIndexTabs);
-            _this.feedFormData = null;
-        });
-        this.feedFormData = {
-            feedFormComponent: form,
-            inputs: inputs
-        };
-        //this.feedDataService.getFeeditem(feedItem.id).subscribe(item => {
-        //});
+        this.selectedModel = feedItem;
+    };
+    FeedIndexComponent.prototype.feedItemUpdated = function () {
+        this.setPageTitle();
+        this.updateMarketDropdownVisibility(true);
+        this.updateTabNavItems(tabnavmenu_component_1.DefaultTabNavs.feedIndexTabs);
+        this.selectedModel = null;
+        this.getData();
     };
     FeedIndexComponent.prototype.copyFeedItemToMarket = function (feedItem) {
         var inputs = { model: feedItem, contentType: CopiedElementTypeEnum.Feed, marketContentService: this.feedDataService };
@@ -198,7 +191,7 @@ var FeedIndexComponent = (function (_super) {
     FeedIndexComponent.prototype.publishFeedItemTolive = function (feedItem) {
         var _this = this;
         var confirmText;
-        if (feedItem.publishedLiveAt) {
+        if (feedItem.published && feedItem.publishedLiveAt) {
             confirmText = feedItem.title + " has already been published. Are you sure to overwrite it?";
         }
         else {

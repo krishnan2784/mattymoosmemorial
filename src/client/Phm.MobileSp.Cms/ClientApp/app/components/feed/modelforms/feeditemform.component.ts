@@ -1,6 +1,6 @@
-import { Component, Output, EventEmitter, Injector } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { Http } from '@angular/http';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from "rxjs/Rx";
@@ -39,20 +39,17 @@ declare var tinymce: any;
     providers: [FeedDataService]
 })
 export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
-    public _fb: FormBuilder;
-
     public form: FormGroup;
     public subForm: IFeedItemComponents.IFeedItemPartialForm;
     feedFormData = null;
     public submitted: boolean; 
     
     @Output()
-    public feedUpdated: EventEmitter<any>;
+    public feedUpdated: EventEmitter<any> = new EventEmitter<any>();
+    @Input()
     public model: FeedModel.IFeedItem;
     public modelObservable: Observable<FeedItem>;
     
-    public selectedFeedCatId: number = 0;
-
     feedTypes: typeof Enums.FeedTypeEnum = Enums.FeedTypeEnum;
     feedCats: typeof FeedCategoryEnum = FeedCategoryEnum;
     uploaderTypes: typeof Enums.UploaderType = Enums.UploaderType;
@@ -72,23 +69,19 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     minMonth;
     minYear;
 
-    constructor(fb: FormBuilder, public http: Http, public route: ActivatedRoute,
-        private router: Router, public feedDataService: FeedDataService,
-        private injector: Injector, public sharedService: ShareService, public mediaDataService: MediaDataService) {
-        
-        this._fb = fb;
+    constructor(public _fb: FormBuilder, public http: Http, public route: ActivatedRoute,
+        private router: Router, public feedDataService: FeedDataService, public sharedService: ShareService,
+        public mediaDataService: MediaDataService) {
+    }
 
+    ngOnInit() {
         this.initialiseForm();
-
-        this.model = this.injector.get('feedItem');
-        this.selectedFeedCatId = this.injector.get('feedCat');
-
         this.getModel();
     }
 
     public swapForm<TFormType extends any>(newFormType: TFormType, feedCategory: FeedCategoryEnum) {
-        this.submitted = false;
         let newForm = (new newFormType()) as IFeedItemComponents.IFeedItemPartialForm;
+        this.submitted = false;
 
         if (!this.subForm || this.subForm.feedType != newForm.feedType && (newForm.feedType != Enums.FeedTypeEnum.Text
             || (this.subForm.feedType != Enums.FeedTypeEnum.Image && this.subForm.feedType != Enums.FeedTypeEnum.Video))) {
@@ -98,11 +91,6 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             } 
             
             this.model = new newForm.feedModelType(this.model);
-
-            this.feedFormData = {
-                feedFormComponent: newFormType,
-                inputs: { form: this.form, feedFormSteps: this.feedFormSteps, model: this.model, submitted: this.submitted }
-            };
 
             this.subForm = newForm;
             this.model.feedType = newForm.feedType;           
@@ -233,7 +221,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         this.model = model;
 
         if (fieldName == "mainImage") {
-            this.swapForm(ImageFeedItemFormComponent, this.model.feedCategory)
+            this.swapForm(ImageFeedItemFormComponent, this.model.feedCategory);
         } else if (fieldName == "mainVideo") {
             this.swapForm(VideoFeedItemFormComponent, this.model.feedCategory);
         } 
@@ -246,17 +234,20 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     save(feedItem: FeedItem, isValid: boolean) {
         
         this.submitted = true;
+        
         this.form.updateValueAndValidity();
 
-        if (!this.form.valid || this.loading)
+        if (this.loading)
             return;
-        
+
+        console.log(this.getFormValidationErrors(this.form));
+        if (!this.form.valid)
+            return Materialize.toast('Please check that you have entered everything correctly.', 5000, 'red');
+        // this.getFormValidationErrors(this.form);
+
         this.loading = true;
-        console.log(feedItem);
 
         feedItem = new this.subForm.feedModelType(feedItem);
-        console.log(feedItem);
-
         feedItem.callToActionUrl = feedItem.callToActionUrl.length == 0 || feedItem.callToActionUrl.indexOf('http') == 0 ? feedItem.callToActionUrl : 'http://' + feedItem.callToActionUrl;
 
         this.feedDataService.updateFeeditem(this.subForm.updateUrl, feedItem).subscribe(result => {
@@ -269,13 +260,26 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         });
     }
 
-    public updateMaterialize() {
-        setTimeout(function () {
-            $('#tagText').tagsinput({
-                allowDuplicates: false,
-                maxTags: 5
-            });
-        }, 1);
+    getFormValidationErrors(form) {
+        if (!form || !form.controls)
+            return [];
+        var errArray = [];
+        Object.keys(form.controls).forEach(key => {
+            var c = form.get(key);
+            if (c.controls) {
+                var childErrors = this.getFormValidationErrors(c);
+                errArray.concat(childErrors);
+            } else {
+                const controlErrors = c.errors;
+                if (controlErrors != null) {
+                    Object.keys(controlErrors).forEach(keyError => {
+                        errArray.push(c);
+                        //console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ' + controlErrors[keyError]);
+                    });
+                }
+            }
+        });
+        return errArray;
     }
 
     handleStartDate(e) {

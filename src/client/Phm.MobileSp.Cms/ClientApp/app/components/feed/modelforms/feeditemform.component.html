@@ -148,7 +148,7 @@
                 <label>Enter Title</label>
                 <editor [elementId]="'title'" [value]="form.controls.title.value" [formGroup]="form" [maxLength]="160"></editor>
                 <small class="active-warning" [class.hidden]="form.controls.title.valid || !submitted">
-                    Title is required (minimum 5 characters).
+                    Title is required.
                 </small>
             </div>
 
@@ -164,7 +164,7 @@
                 <label>Body Text</label>
                 <editor [elementId]="'bodyText'" [value]="form.controls.bodyText.value" [formGroup]="form"></editor>
                 <small class="active-warning" [class.hidden]="form.controls.bodyText.valid || !submitted">
-                    Body text is required if you are not uploading an image or video (minimum 5 characters).
+                    Body text is required if you are not uploading an image or video.
                 </small>
             </div>
 
@@ -231,25 +231,24 @@
 
     </div>
     
-    <div [class.hidden]="!feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Media)">
-        <upload (mediaUploaded)="attachMedia($event, '')" *ngIf="model.id == 0 && model.feedType != feedTypes.Image && model.feedType != feedTypes.Video" [title]="'Upload an image or video'"></upload>
+<div [class.hidden]="!feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Media)">
+    <upload (mediaUploaded)="attachMedia($event, '')" *ngIf="model.id == 0 && model.feedType != feedTypes.Image && model.feedType != feedTypes.Video" [title]="'Upload an image or video'"></upload>
 
-        <upload (mediaUploaded)="attachMedia($event, 'mainImage')" [uploaderType]="model.id > 0 ? uploaderTypes.Image : uploaderTypes.Any" 
-                [selectedMedia]="model.mainImage" *ngIf="model.feedType == feedTypes.Image" [title]="'Upload an image'"
-                [previewText]="'Main Image Preview'"></upload>
+    <upload (mediaUploaded)="attachMedia($event, 'mainImage')" [uploaderType]="model.id > 0 ? uploaderTypes.Image : uploaderTypes.Any" 
+            [selectedMedia]="model.mainImage" *ngIf="model.feedType == feedTypes.Image" [title]="'Upload an image'"
+            [previewText]="'Main Image Preview'"></upload>
 
-        <upload (mediaUploaded)="attachMedia($event, 'mainVideo')" [uploaderType]="model.id > 0 ? uploaderTypes.Video : uploaderTypes.Any" 
-                [selectedMedia]="model.mainVideo" *ngIf="model.feedType == feedTypes.Video" [title]="'Upload a video'"
-                [previewText]="'Video Preview'"></upload>
+    <upload (mediaUploaded)="attachMedia($event, 'mainVideo')" [uploaderType]="model.id > 0 ? uploaderTypes.Video : uploaderTypes.Any" 
+            [selectedMedia]="model.mainVideo" *ngIf="model.feedType == feedTypes.Video" [title]="'Upload a video'"
+            [previewText]="'Video Preview'"></upload>
 
-        <h5 *ngIf="model.id > 0 && model.feedType != feedTypes.Image && model.feedType != feedTypes.Video">
-            To upload an image or video please create a new feed item.
-        </h5>
-    </div>
+    <h5 *ngIf="model.id > 0 && model.feedType != feedTypes.Image && model.feedType != feedTypes.Video">
+        To upload an image or video please create a new feed item.
+    </h5>
+</div>
 
-    <div *ngIf="feedFormData && (model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)">
-        <feed-form-component [feedFormData]="feedFormData"></feed-form-component>
-    </div>
+<imagefeeditem *ngIf="model.feedType === feedTypes.Image" [form]="form" [feedFormSteps]="feedFormSteps" [model]="model" [submitted]="submitted"></imagefeeditem>
+<videofeeditem *ngIf="model.feedType === feedTypes.Video" [form]="form" [feedFormSteps]="feedFormSteps" [model]="model" [submitted]="submitted"></videofeeditem>
 
     <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Links)">
         <h5>Call-To-Action</h5>
@@ -278,11 +277,14 @@
             </a>
         </div>
     </div>
-
-<div *ngIf="feedFormData && model.feedType != feedTypes.Image && model.feedType != feedTypes.Video">
-    <feed-form-component [feedFormData]="feedFormData"></feed-form-component>
+    
+<div *ngIf="model">
+    <textfeeditem *ngIf="model.feedType === feedTypes.Text" [form]="form" [feedFormSteps]="feedFormSteps" [model]="model" [submitted]="submitted"></textfeeditem>
+    <quizfeeditem *ngIf="model.feedType === feedTypes.Quiz" [form]="form" [feedFormSteps]="feedFormSteps" [model]="model" [submitted]="submitted"></quizfeeditem>
+    <surveyfeeditem *ngIf="model.feedType === feedTypes.Survey" [form]="form" [feedFormSteps]="feedFormSteps" [model]="model" [submitted]="submitted"></surveyfeeditem>
+    <observationfeeditem *ngIf="model.feedType === feedTypes.Observation" [form]="form" [feedFormSteps]="feedFormSteps" [model]="model" [submitted]="submitted"></observationfeeditem>
 </div>
-   
+
 <div class="clear-both"></div>
 </form>
             

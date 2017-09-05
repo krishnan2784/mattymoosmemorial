@@ -15,6 +15,7 @@ var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var feeddataservice_1 = require("../../../services/feeddataservice");
 var textfeeditem_component_1 = require("./textfeeditem.component");
+var FeedModel = require("../../../interfaces/models/IFeedModel");
 var Enums = require("../../../enums");
 var FeedCategoryEnum = Enums.FeedCategoryEnum;
 var Feedclasses = require("../../../models/feedclasses");
@@ -34,16 +35,16 @@ var mediaservice_1 = require("../../../services/mediaservice");
 var ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationFeedItemFormComponent;
 var validators_1 = require("../../../classes/validators");
 var FeedItemForm = (function () {
-    function FeedItemForm(fb, http, route, router, feedDataService, injector, sharedService, mediaDataService) {
+    function FeedItemForm(_fb, http, route, router, feedDataService, sharedService, mediaDataService) {
+        this._fb = _fb;
         this.http = http;
         this.route = route;
         this.router = router;
         this.feedDataService = feedDataService;
-        this.injector = injector;
         this.sharedService = sharedService;
         this.mediaDataService = mediaDataService;
         this.feedFormData = null;
-        this.selectedFeedCatId = 0;
+        this.feedUpdated = new core_1.EventEmitter();
         this.feedTypes = Enums.FeedTypeEnum;
         this.feedCats = FeedCategoryEnum;
         this.uploaderTypes = Enums.UploaderType;
@@ -53,25 +54,20 @@ var FeedItemForm = (function () {
         this.observationForm = ObservationFeedItemFormComponent;
         this.feedFormSteps = new FeedFormSteps();
         this.navbarData = [];
-        this._fb = fb;
-        this.initialiseForm();
-        this.model = this.injector.get('feedItem');
-        this.selectedFeedCatId = this.injector.get('feedCat');
-        this.getModel();
     }
+    FeedItemForm.prototype.ngOnInit = function () {
+        this.initialiseForm();
+        this.getModel();
+    };
     FeedItemForm.prototype.swapForm = function (newFormType, feedCategory) {
-        this.submitted = false;
         var newForm = (new newFormType());
+        this.submitted = false;
         if (!this.subForm || this.subForm.feedType != newForm.feedType && (newForm.feedType != Enums.FeedTypeEnum.Text
             || (this.subForm.feedType != Enums.FeedTypeEnum.Image && this.subForm.feedType != Enums.FeedTypeEnum.Video))) {
             if (this.form) {
                 this.subForm = null;
             }
             this.model = new newForm.feedModelType(this.model);
-            this.feedFormData = {
-                feedFormComponent: newFormType,
-                inputs: { form: this.form, feedFormSteps: this.feedFormSteps, model: this.model, submitted: this.submitted }
-            };
             this.subForm = newForm;
             this.model.feedType = newForm.feedType;
         }
@@ -203,12 +199,14 @@ var FeedItemForm = (function () {
         var _this = this;
         this.submitted = true;
         this.form.updateValueAndValidity();
-        if (!this.form.valid || this.loading)
+        if (this.loading)
             return;
+        console.log(this.getFormValidationErrors(this.form));
+        if (!this.form.valid)
+            return Materialize.toast('Please check that you have entered everything correctly.', 5000, 'red');
+        // this.getFormValidationErrors(this.form);
         this.loading = true;
-        console.log(feedItem);
         feedItem = new this.subForm.feedModelType(feedItem);
-        console.log(feedItem);
         feedItem.callToActionUrl = feedItem.callToActionUrl.length == 0 || feedItem.callToActionUrl.indexOf('http') == 0 ? feedItem.callToActionUrl : 'http://' + feedItem.callToActionUrl;
         this.feedDataService.updateFeeditem(this.subForm.updateUrl, feedItem).subscribe(function (result) {
             if (result.success) {
@@ -220,13 +218,28 @@ var FeedItemForm = (function () {
                 _this.loading = false;
         });
     };
-    FeedItemForm.prototype.updateMaterialize = function () {
-        setTimeout(function () {
-            $('#tagText').tagsinput({
-                allowDuplicates: false,
-                maxTags: 5
-            });
-        }, 1);
+    FeedItemForm.prototype.getFormValidationErrors = function (form) {
+        var _this = this;
+        if (!form || !form.controls)
+            return [];
+        var errArray = [];
+        Object.keys(form.controls).forEach(function (key) {
+            var c = form.get(key);
+            if (c.controls) {
+                var childErrors = _this.getFormValidationErrors(c);
+                errArray.concat(childErrors);
+            }
+            else {
+                var controlErrors = c.errors;
+                if (controlErrors != null) {
+                    Object.keys(controlErrors).forEach(function (keyError) {
+                        errArray.push(c);
+                        //console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ' + controlErrors[keyError]);
+                    });
+                }
+            }
+        });
+        return errArray;
     };
     FeedItemForm.prototype.handleStartDate = function (e) {
         this.minDay = e.day;
@@ -261,6 +274,10 @@ __decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)
 ], FeedItemForm.prototype, "feedUpdated", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], FeedItemForm.prototype, "model", void 0);
 FeedItemForm = __decorate([
     core_1.Component({
         selector: 'feeditemform',
@@ -269,8 +286,8 @@ FeedItemForm = __decorate([
         providers: [feeddataservice_1.FeedDataService]
     }),
     __metadata("design:paramtypes", [forms_1.FormBuilder, http_1.Http, router_1.ActivatedRoute,
-        router_1.Router, feeddataservice_1.FeedDataService,
-        core_1.Injector, ShareService, mediaservice_1.MediaDataService])
+        router_1.Router, feeddataservice_1.FeedDataService, ShareService,
+        mediaservice_1.MediaDataService])
 ], FeedItemForm);
 exports.FeedItemForm = FeedItemForm;
 //# sourceMappingURL=feeditemform.component.js.map
