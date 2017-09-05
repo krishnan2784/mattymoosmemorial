@@ -73,9 +73,7 @@ var DynamicChartFormatsComponent = (function () {
     };
     DynamicChartFormatsComponent.prototype.populatePie = function (arcSelection) {
         var _this = this;
-        var innerRadius = this.radius - 50;
         var outerRadius = this.radius - 10;
-        var pieColor = D3.scale.category10();
         var arc = D3.svg.arc()
             .outerRadius(outerRadius);
         arcSelection.append("path")

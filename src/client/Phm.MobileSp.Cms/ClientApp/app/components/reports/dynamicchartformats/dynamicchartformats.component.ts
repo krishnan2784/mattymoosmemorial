@@ -72,9 +72,7 @@ export class DynamicChartFormatsComponent implements AfterViewInit, OnInit  {
     this.populatePie(arcSelection);
   }
   private populatePie(arcSelection: D3.Selection<D3.layout.pie.Arc<number>>): void {
-    let innerRadius = this.radius - 50;
     let outerRadius = this.radius - 10;
-    let pieColor = D3.scale.category10();
     let arc = D3.svg.arc<D3.layout.pie.Arc<number>>()
       .outerRadius(outerRadius);
     arcSelection.append("path")
