@@ -28,6 +28,7 @@ var UserFilter = (function () {
         this.renderRegionFilter = false;
         this.renderZoneFilter = false;
         this.renderDealershipFilter = false;
+        this.refreshFilters = false;
         this.criteriaChanged = new core_1.EventEmitter();
         this.criteria = new UserFilters();
     }
@@ -41,6 +42,13 @@ var UserFilter = (function () {
         this.setupSubscriptions();
     };
     UserFilter.prototype.ngOnDestroy = function () {
+    };
+    UserFilter.prototype.ngOnChanges = function (changes) {
+        console.log(changes);
+        if (changes['refreshFilters']) {
+            this.getMarketFilters();
+            this.refreshFilters = false;
+        }
     };
     UserFilter.prototype.setupSubscriptions = function () {
         var _this = this;
@@ -78,8 +86,8 @@ var UserFilter = (function () {
                 }
                 else
                     _this.renderRegionFilter = false;
-                if (_this.renderZoneFilter && result.areas.length > 0) {
-                    result.areas.forEach(function (group) {
+                if (_this.renderZoneFilter && result.zones.length > 0) {
+                    result.zones.forEach(function (group) {
                         _this.criteria.allZoneFilters.push({ id: group.replace(" ", ""), text: group, checked: false });
                     });
                 }
@@ -203,6 +211,10 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Boolean)
 ], UserFilter.prototype, "renderDealershipFilter", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Boolean)
+], UserFilter.prototype, "refreshFilters", void 0);
 __decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)

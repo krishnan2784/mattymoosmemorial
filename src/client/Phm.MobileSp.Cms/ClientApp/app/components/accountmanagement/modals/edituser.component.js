@@ -61,7 +61,7 @@ var EditUser = (function (_super) {
             dealershipName: new forms_1.FormControl(this.model.dealershipName, [forms_1.Validators.required]),
             dealershipCode: new forms_1.FormControl(this.model.dealershipCode, [forms_1.Validators.required]),
             regionName: new forms_1.FormControl(this.model.regionName, [forms_1.Validators.required]),
-            areaName: new forms_1.FormControl(this.model.areaName, [forms_1.Validators.required]),
+            zoneName: new forms_1.FormControl(this.model.zoneName, [forms_1.Validators.required]),
             secGroup: new forms_1.FormControl(this.model.secGroup, [forms_1.Validators.required])
         });
     };

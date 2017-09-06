@@ -39,6 +39,7 @@ var UserAccountManagementComponent = (function (_super) {
         _this.confirmBox = confirmBox;
         _this.modalData = null;
         _this.filterCriteria = new UserFilters();
+        _this.refreshFilters = false;
         _this.rows = [];
         _this.columns = [
             { title: '', name: 'userAvatar' },
@@ -211,14 +212,16 @@ var UserAccountManagementComponent = (function (_super) {
     UserAccountManagementComponent.prototype.updateUser = function (user) {
         if (user != null) {
             this.attachUserProperties(user);
-            if (this.filteredUserAccounts != null) {
-                var originalUser = this.filteredUserAccounts.find(function (x) { return x.id === user.id; });
-                var index = this.filteredUserAccounts.indexOf(originalUser);
-                if (index > -1)
-                    this.filteredUserAccounts.splice(index, 1, user);
-                else
-                    this.filteredUserAccounts.unshift(user);
-            }
+            var data = Object.assign([], this.allUserAccounts);
+            this.filteredUserAccounts = data;
+            //if (this.filteredUserAccounts != null) {
+            //    let originalUser = this.filteredUserAccounts.find(x => x.id === user.id);
+            //    let index = this.filteredUserAccounts.indexOf(originalUser);
+            //    if (index > -1)
+            //        this.filteredUserAccounts.splice(index, 1, user);
+            //    else
+            //        this.filteredUserAccounts.unshift(user);
+            //}
             if (this.allUserAccounts != null) {
                 var originalUser = this.allUserAccounts.find(function (x) { return x.id === user.id; });
                 var index = this.allUserAccounts.indexOf(originalUser);
@@ -228,13 +231,14 @@ var UserAccountManagementComponent = (function (_super) {
                     this.allUserAccounts.unshift(user);
             }
             this.onChangeTable(this.config);
+            this.refreshFilters = true;
         }
     };
     UserAccountManagementComponent.prototype.attachUserProperties = function (user) {
         user.userAvatar = '<i class="material-icons table-avatar">person</i>';
         user.dealershipName_code = user.dealershipName + ' (' + user.dealershipCode + ')';
         user.firstName_region = user.firstName + '<p class="sub-data">' + user.regionName + '</p>';
-        user.email_zone = user.email + '<p class="sub-data">' + user.areaName + '</p>';
+        user.email_zone = user.email + '<p class="sub-data">' + user.zoneName + '</p>';
         user.actionEdit = '<a class="action-btn remove" data-toggle="modal" data-target="#edit-user"><i class="material-icons">edit</i><p>Edit</p></a>';
         user.actionDelete = '<a class="action-btn remove"><i class="material-icons">delete</i><p>Delete</p></a>';
         return user;
@@ -244,7 +248,7 @@ var UserAccountManagementComponent = (function (_super) {
         this.filterCriteria = criteria;
         var data = Object.assign([], this.allUserAccounts);
         if (this.filterCriteria.zoneFilters.length > 0)
-            data = data.filter(function (x) { return _this.filterCriteria.zoneFilters.filter(function (y) { return y.text === x.areaName; }).length > 0; });
+            data = data.filter(function (x) { return _this.filterCriteria.zoneFilters.filter(function (y) { return y.text === x.zoneName; }).length > 0; });
         if (this.filterCriteria.regionFilters.length > 0)
             data = data.filter(function (x) { return _this.filterCriteria.regionFilters.filter(function (y) { return y.text === x.regionName; }).length > 0; });
         this.filteredUserAccounts = data;

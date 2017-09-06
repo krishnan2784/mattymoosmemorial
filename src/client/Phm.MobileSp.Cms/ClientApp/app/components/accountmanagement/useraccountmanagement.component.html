@@ -41,7 +41,7 @@
                        class="form-control"
                        (tableChanged)="onChangeTable(config)" />
             </div>
-            <userfilter [renderTextSearch]="true" [renderRegionFilter]="true" [renderZoneFilter]="true" (criteriaChanged)="filterUpdate($event)"></userfilter>
+            <userfilter [renderTextSearch]="true" [renderRegionFilter]="true" [renderZoneFilter]="true" (criteriaChanged)="filterUpdate($event)" [refreshFilters]="refreshFilters"></userfilter>
         </div>
         <div class="clearfix"></div>
     </div>

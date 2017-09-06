@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, AfterViewInit, OnDestroy, OnChanges, SimpleChange } from '@angular/core';
 import Shareservice = require("../../../services/helpers/shareservice");
 import { MarketDataService } from "../../../services/marketdataservice";
 import { UserDataService } from "../../../services/userdataservice";
@@ -12,7 +12,7 @@ declare var $: any;
     template: require('./userfilter.component.html'),
     styles: [require('./userfilter.component.css')]
 })
-export class UserFilter implements AfterViewInit, OnDestroy {
+export class UserFilter implements AfterViewInit, OnChanges, OnDestroy {
 
     @Input()
     renderTextSearch: boolean = false;
@@ -32,7 +32,8 @@ export class UserFilter implements AfterViewInit, OnDestroy {
     renderZoneFilter: boolean = false;
     @Input()
     renderDealershipFilter: boolean = false;
-
+    @Input()
+    refreshFilters: boolean = false;
     @Output()
     criteriaChanged: EventEmitter<UserFilters> = new EventEmitter();
     
@@ -52,6 +53,14 @@ export class UserFilter implements AfterViewInit, OnDestroy {
     }
 
     ngOnDestroy() {
+    }
+
+    ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
+        console.log(changes);
+        if (changes['refreshFilters']) {
+            this.getMarketFilters();
+            this.refreshFilters = false;
+        }
     }
 
     setupSubscriptions() {
@@ -87,8 +96,8 @@ export class UserFilter implements AfterViewInit, OnDestroy {
                     });
                 } else
                     this.renderRegionFilter = false;
-                if (this.renderZoneFilter && result.areas.length > 0) {
-                    result.areas.forEach((group) => {
+                if (this.renderZoneFilter && result.zones.length > 0) {
+                    result.zones.forEach((group) => {
                         this.criteria.allZoneFilters.push({ id: group.replace(" ", ""), text: group, checked: false });
                     });
                 } else
@@ -156,7 +165,6 @@ export class UserFilter implements AfterViewInit, OnDestroy {
     }
         
     public setupRangeSlider() {
-        console.log($("#sliderElement"));
         $("#sliderElement").ionRangeSlider({
             type: "double",
             min: this.rangeFrom,

@@ -59,7 +59,7 @@ export class EditUser extends BaseModalContent implements OnInit, AfterViewInit,
             dealershipName: new FormControl(this.model.dealershipName, [<any>Validators.required]),
             dealershipCode: new FormControl(this.model.dealershipCode, [<any>Validators.required]),
             regionName: new FormControl(this.model.regionName, [<any>Validators.required]),
-            areaName: new FormControl(this.model.areaName, [<any>Validators.required]),
+            zoneName: new FormControl(this.model.zoneName, [<any>Validators.required]),
             secGroup: new FormControl(this.model.secGroup, [<any>Validators.required])
         });
     }

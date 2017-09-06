@@ -24,7 +24,8 @@ export class UserAccountManagementComponent extends BaseComponent {
     filterCriteria: UserFilters = new UserFilters();
     private allUserAccounts: Array<any>;
     private filteredUserAccounts: Array<any>;
-    
+    refreshFilters: boolean = false;
+
     public rows: Array<any> = [];
     public columns: Array<any> = [
         { title: '', name: 'userAvatar' },
@@ -214,15 +215,16 @@ export class UserAccountManagementComponent extends BaseComponent {
     public updateUser(user: UserTemplate) {
         if (user != null) {
             this.attachUserProperties(user);
-
-            if (this.filteredUserAccounts != null) {
-                let originalUser = this.filteredUserAccounts.find(x => x.id === user.id);
-                let index = this.filteredUserAccounts.indexOf(originalUser);
-                if (index > -1)
-                    this.filteredUserAccounts.splice(index, 1, user);
-                else
-                    this.filteredUserAccounts.unshift(user);
-            }
+            var data = Object.assign([], this.allUserAccounts);
+            this.filteredUserAccounts = data;
+            //if (this.filteredUserAccounts != null) {
+            //    let originalUser = this.filteredUserAccounts.find(x => x.id === user.id);
+            //    let index = this.filteredUserAccounts.indexOf(originalUser);
+            //    if (index > -1)
+            //        this.filteredUserAccounts.splice(index, 1, user);
+            //    else
+            //        this.filteredUserAccounts.unshift(user);
+            //}
             if (this.allUserAccounts != null) {
                 let originalUser = this.allUserAccounts.find(x => x.id === user.id);
                 let index = this.allUserAccounts.indexOf(originalUser);
@@ -232,7 +234,7 @@ export class UserAccountManagementComponent extends BaseComponent {
                     this.allUserAccounts.unshift(user);
             }
             this.onChangeTable(this.config);
-
+            this.refreshFilters = true;
         }
     }
 
@@ -240,7 +242,7 @@ export class UserAccountManagementComponent extends BaseComponent {
         user.userAvatar = '<i class="material-icons table-avatar">person</i>';
         user.dealershipName_code = user.dealershipName + ' (' + user.dealershipCode + ')';
         user.firstName_region = user.firstName + '<p class="sub-data">' + user.regionName + '</p>';
-        user.email_zone = user.email + '<p class="sub-data">' + user.areaName + '</p>';
+        user.email_zone = user.email + '<p class="sub-data">' + user.zoneName + '</p>';
         user.actionEdit = '<a class="action-btn remove" data-toggle="modal" data-target="#edit-user"><i class="material-icons">edit</i><p>Edit</p></a>';
         user.actionDelete = '<a class="action-btn remove"><i class="material-icons">delete</i><p>Delete</p></a>';
         return user;
@@ -250,7 +252,7 @@ export class UserAccountManagementComponent extends BaseComponent {
         this.filterCriteria = criteria;
         var data = Object.assign([], this.allUserAccounts);
         if (this.filterCriteria.zoneFilters.length > 0)
-            data = data.filter(x => this.filterCriteria.zoneFilters.filter(y => y.text === x.areaName).length > 0);
+            data = data.filter(x => this.filterCriteria.zoneFilters.filter(y => y.text === x.zoneName).length > 0);
         if (this.filterCriteria.regionFilters.length > 0)
             data = data.filter(x => this.filterCriteria.regionFilters.filter(y => y.text === x.regionName).length > 0);
 
