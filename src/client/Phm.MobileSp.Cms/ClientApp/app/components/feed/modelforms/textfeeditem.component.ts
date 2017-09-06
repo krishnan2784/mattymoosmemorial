@@ -23,7 +23,6 @@ export class TextFeedItemFormComponent extends BasePartialItemFormComponent impl
 
     removeFormControls() {
         this.form.controls['bodyText'].setValidators(null);
-        console.log('hi');
     };
     
 }

@@ -19,11 +19,12 @@ var QuestionFormComponent = (function () {
         this.addAnswer = new core_1.EventEmitter();
         this.removeAnswer = new core_1.EventEmitter();
     }
-    QuestionFormComponent.prototype.clearFormCheckboxes = function (index) {
+    QuestionFormComponent.prototype.clearFormCheckboxes = function (index, checkbox) {
         if (index === void 0) { index = null; }
+        if (checkbox === void 0) { checkbox = null; }
         var dynamicIndex;
-        var updateValue = true;
         var answers = this.form.controls['answers'];
+        var checked = checkbox ? checkbox.srcElement.checked : false;
         var controlName = "isFreeText";
         if (this.feedType === FeedTypeEnum.Quiz)
             controlName = "isCorrect";
@@ -32,7 +33,6 @@ var QuestionFormComponent = (function () {
             if (questionType === this.questionType.Multiple && this.feedType === FeedTypeEnum.Quiz)
                 return;
             dynamicIndex = answers.controls[index];
-            updateValue = !dynamicIndex.controls[controlName].value;
         }
         answers.controls.forEach(function (control) {
             var dynamic = control;
@@ -41,7 +41,7 @@ var QuestionFormComponent = (function () {
             }
         });
         if (index != null) {
-            dynamicIndex.controls[controlName].patchValue(updateValue, { onlySelf: true });
+            dynamicIndex.controls[controlName].patchValue(checked, { onlySelf: true });
         }
     };
     return QuestionFormComponent;

@@ -51,11 +51,11 @@
                     <input type="hidden" formControlName="published">
 
                     <div class="checkbox-container col-md-3" *ngIf="feedType===feedTypeEnum.Quiz">
-                        <input type="checkbox" class="filled-in" id="questions-{{index}}-answer-{{i}}-isCorrect" formControlName="isCorrect" (click)="clearFormCheckboxes(i)" />
+                        <input type="checkbox" class="filled-in" id="questions-{{index}}-answer-{{i}}-isCorrect" formControlName="isCorrect" (click)="clearFormCheckboxes(i, $event)" />
                         <label htmlFor="questions-{{index}}-answer-{{i}}-isCorrect">Correct</label>
                     </div>
                     <div class="checkbox-container col-md-3" *ngIf="feedType===feedTypeEnum.Survey || feedType===feedTypeEnum.Observation">
-                        <input type="checkbox" class="filled-in" id="questions-{{index}}-answer-{{i}}-isFreeText" formControlName="isFreeText" (click)="clearFormCheckboxes(i)" />
+                        <input type="checkbox" class="filled-in" id="questions-{{index}}-answer-{{i}}-isFreeText" formControlName="isFreeText" (click)="clearFormCheckboxes(i, $event)" />
                         <label htmlFor="questions-{{index}}-answer-{{i}}-isFreeText">Free text</label>
                     </div>
                     

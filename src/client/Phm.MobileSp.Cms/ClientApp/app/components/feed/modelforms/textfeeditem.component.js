@@ -37,7 +37,6 @@ var TextFeedItemFormComponent = (function (_super) {
     ;
     TextFeedItemFormComponent.prototype.removeFormControls = function () {
         this.form.controls['bodyText'].setValidators(null);
-        console.log('hi');
     };
     ;
     return TextFeedItemFormComponent;

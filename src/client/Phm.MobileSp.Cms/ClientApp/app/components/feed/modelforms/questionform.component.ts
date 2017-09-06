@@ -34,10 +34,10 @@ export class QuestionFormComponent {
     @Output()
     removeAnswer: EventEmitter<number> = new EventEmitter<number>();
     
-    clearFormCheckboxes(index: number = null) {
+    clearFormCheckboxes(index: number = null, checkbox = null) {
         var dynamicIndex: any;
-        var updateValue = true;
         var answers = <FormArray>this.form.controls['answers'];
+        var checked = checkbox ? checkbox.srcElement.checked : false;
 
         var controlName = "isFreeText";
         if (this.feedType === FeedTypeEnum.Quiz)
@@ -47,18 +47,18 @@ export class QuestionFormComponent {
             var questionType = this.form.controls['questionType'].value;
             if (questionType === this.questionType.Multiple && this.feedType === FeedTypeEnum.Quiz)
                 return;  
-
             dynamicIndex = answers.controls[index];
-            updateValue = !dynamicIndex.controls[controlName].value;
         }
+
         answers.controls.forEach((control) => {
             var dynamic: any = control;
             if (dynamic.controls[controlName]) {
                 dynamic.controls[controlName].patchValue(false, { onlySelf: true });
             }
         });
+
         if (index!=null) {
-            dynamicIndex.controls[controlName].patchValue(updateValue, { onlySelf: true });
+            dynamicIndex.controls[controlName].patchValue(checked, { onlySelf: true });
         }
     }
 }
