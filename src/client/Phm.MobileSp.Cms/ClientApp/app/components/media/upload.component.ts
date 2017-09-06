@@ -57,8 +57,8 @@ export class UploadMediaComponent implements OnInit {
 
         this.uploading = true;
         this.imagePreviewUrl = '';
+        this.videoPreviewUrl = '';
         this.mediaUploaded.emit(new MediaInfo());
-        console.log(this.files);
         for (var file of this.files) {
             this.mediaService.uploadFile(file, this.uploadUrl).subscribe((response) => {
                 this.processUploadResponse(response);

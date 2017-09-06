@@ -143,7 +143,7 @@ var FeedIndexComponent = (function (_super) {
     FeedIndexComponent.prototype.editFeedItem = function (feedItem, feedCat) {
         if (feedItem === void 0) { feedItem = new BaseFeed(); }
         if (feedCat === void 0) { feedCat = null; }
-        if (feedItem) {
+        if (feedItem && feedItem.id > 0) {
             this.updatePageTitle("Edit Feed Content Form");
         }
         else {

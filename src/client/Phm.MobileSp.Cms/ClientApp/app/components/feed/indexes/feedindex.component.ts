@@ -139,7 +139,7 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
     }
 
     editFeedItem(feedItem: IFeedItem = new BaseFeed(), feedCat: FeedCategoryEnum = null) {
-        if (feedItem) {
+        if (feedItem && feedItem.id > 0) {
             this.updatePageTitle("Edit Feed Content Form");
         } else {
             this.updatePageTitle("New Learning Content Form");

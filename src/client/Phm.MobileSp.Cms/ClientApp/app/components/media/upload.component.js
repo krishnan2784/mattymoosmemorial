@@ -43,8 +43,8 @@ var UploadMediaComponent = (function () {
             return;
         this.uploading = true;
         this.imagePreviewUrl = '';
+        this.videoPreviewUrl = '';
         this.mediaUploaded.emit(new mediainfoclasses_1.MediaInfo());
-        console.log(this.files);
         for (var _i = 0, _a = this.files; _i < _a.length; _i++) {
             var file = _a[_i];
             this.mediaService.uploadFile(file, this.uploadUrl).subscribe(function (response) {
