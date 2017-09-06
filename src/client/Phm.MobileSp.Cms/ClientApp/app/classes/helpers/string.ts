@@ -1,7 +1,4 @@
-﻿import Number1 = require("./number");
-import NumberEx = Number1.NumberEx;
-
-export class StringEx {
+﻿export class StringEx {
     public static getSearchString(searchString : string) : string {
         return searchString.split(' ').join('.*').toLowerCase();
     }
@@ -14,7 +11,6 @@ export class StringEx {
     public static searchArray(searchString : string, array: any[], fields: string[]) : any[] {
         searchString = this.getSearchString(searchString);
         for (let i = 0; i < array.length; i++) {
-            let searchableObject = this.getSearchableChildObject(array[i], '');
             let searchableText = fields.map(x => this.getSearchableChildObject(array[i], x)).join().toLowerCase();
             if (searchableText.search(searchString) < 0) {
                 array.splice(i, 1);

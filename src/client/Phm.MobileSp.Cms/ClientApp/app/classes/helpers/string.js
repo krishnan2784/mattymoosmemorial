@@ -14,7 +14,6 @@ var StringEx = (function () {
         var _this = this;
         searchString = this.getSearchString(searchString);
         var _loop_1 = function (i) {
-            var searchableObject = this_1.getSearchableChildObject(array[i], '');
             var searchableText = fields.map(function (x) { return _this.getSearchableChildObject(array[i], x); }).join().toLowerCase();
             if (searchableText.search(searchString) < 0) {
                 array.splice(i, 1);
@@ -22,7 +21,7 @@ var StringEx = (function () {
             }
             out_i_1 = i;
         };
-        var this_1 = this, out_i_1;
+        var out_i_1;
         for (var i = 0; i < array.length; i++) {
             _loop_1(i);
             i = out_i_1;

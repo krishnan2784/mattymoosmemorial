@@ -24,6 +24,13 @@
     <script type="text/javascript" src="scripts/c3.min.js"></script>
     <script type="text/javascript" src="scripts/ion.rangeSlider.js"></script>
     <script type="text/javascript" src="~/scripts/tinymce/tinymce.min.js"></script>
-    <script type="text/javascript" src="scripts/bootstrap-tagsinput.js"></script>
+<script type="text/javascript" src="scripts/bootstrap-tagsinput.js"></script>
+<script>
+    $(document).on('click', '#toast-container .toast', function() {
+        $(this).fadeOut(function(){
+            $(this).remove();
+        });
+    });
+</script>
 </body>
 </html>

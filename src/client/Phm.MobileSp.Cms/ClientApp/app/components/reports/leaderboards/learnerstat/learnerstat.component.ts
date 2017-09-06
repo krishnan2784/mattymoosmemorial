@@ -278,7 +278,7 @@ export class LearnerStatComponent implements OnInit, AfterViewInit {
   raiseExport() {  
       let report = this.data.slice(0).map((s, index, array) => {
           return {
-              createdAt: s.createdAt,
+              createdAt: DateEx.formatDate(s.createdAt, 'dd/MM/yyyy'),
               userPointType: this.types.filter(x=>x.value == s.userPointType)[0].text,
               points: s.points
           };

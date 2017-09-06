@@ -201,10 +201,11 @@ var FeedItemForm = (function () {
         this.form.updateValueAndValidity();
         if (this.loading)
             return;
-        console.log(this.getFormValidationErrors(this.form));
-        if (!this.form.valid)
-            return Materialize.toast('Please check that you have entered everything correctly.', 5000, 'red');
-        // this.getFormValidationErrors(this.form);
+        if (!this.form.valid) {
+            console.log(this.getFormValidationErrors(this.form));
+            $('.toast').remove();
+            return Materialize.toast('Please check that you have filled in all the required fields.', 6000, 'red');
+        }
         this.loading = true;
         feedItem = new this.subForm.feedModelType(feedItem);
         feedItem.callToActionUrl = feedItem.callToActionUrl.length == 0 || feedItem.callToActionUrl.indexOf('http') == 0 ? feedItem.callToActionUrl : 'http://' + feedItem.callToActionUrl;

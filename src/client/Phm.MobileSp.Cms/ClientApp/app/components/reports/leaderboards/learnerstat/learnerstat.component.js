@@ -271,7 +271,7 @@ var LearnerStatComponent = (function () {
         var _this = this;
         var report = this.data.slice(0).map(function (s, index, array) {
             return {
-                createdAt: s.createdAt,
+                createdAt: date_1.DateEx.formatDate(s.createdAt, 'dd/MM/yyyy'),
                 userPointType: _this.types.filter(function (x) { return x.value == s.userPointType; })[0].text,
                 points: s.points
             };
