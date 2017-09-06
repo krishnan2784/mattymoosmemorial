@@ -37,12 +37,10 @@ export class DynamicChartFormatsComponent implements AfterViewInit, OnInit  {
       this.htmlElement = this.element.nativeElement;
       this.host = D3.select(this.htmlElement);
       for (let i = 0; i < this.data.data.length; i++) {
-          if (this.data.data[i].percent > 0)
-              this.pieData.push(
-                  {
-                    label: this.data.data[i].percent + '%',
+            this.pieData.push({
+                    label: this.data.data[i].percent > 0 ? this.data.data[i].percent + '%' : '',
                     value: this.data.data[i].percent
-                  });
+                });
       }
       this.setup();
       this.buildSVG();
