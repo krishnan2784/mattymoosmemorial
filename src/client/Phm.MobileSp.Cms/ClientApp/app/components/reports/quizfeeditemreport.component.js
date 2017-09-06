@@ -42,9 +42,8 @@ var QuizFeedItemReport = (function () {
     QuizFeedItemReport.prototype.ngOnInit = function () {
         this.getData();
     };
-    QuizFeedItemReport.prototype.ngAfterViewInit = function () {
-    };
     QuizFeedItemReport.prototype.ngOnDestroy = function () {
+        this.backSub.unsubscribe();
     };
     QuizFeedItemReport.prototype.getData = function () {
         this.getHeaderData();

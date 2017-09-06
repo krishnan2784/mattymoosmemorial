@@ -211,7 +211,7 @@ UserFilter = __decorate([
     core_1.Component({
         selector: 'userfilter',
         template: require('./userfilter.component.html'),
-        styles: [require('./userfilter.component.css'), require('./ion.rangeSlider.custom.css')]
+        styles: [require('./userfilter.component.css')]
     }),
     __metadata("design:paramtypes", [ShareService, marketdataservice_1.MarketDataService, userdataservice_1.UserDataService])
 ], UserFilter);

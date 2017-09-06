@@ -1,19 +1,11 @@
-import { Component, OnInit, ElementRef, Input, Output, ViewChild, EventEmitter, Injector, AfterViewInit, OnDestroy } from '@angular/core';
-import Baseclasses = require("../../models/baseclasses");
-import BaseModel = Baseclasses.BaseModel;
-import Basecomponent = require("../base.component");
-import BaseComponent = Basecomponent.BaseComponent;
+import { Component, OnInit, Output, EventEmitter, Injector, OnDestroy } from '@angular/core';
 import Datashareservice = require("../../services/helpers/shareservice");
 import ShareService = Datashareservice.ShareService;
 import FeedModel = require("../../interfaces/models/IFeedModel");
 import IFeedItem = FeedModel.IFeedItem;
 import Enums = require("../../enums");
-import FeedTypeEnum = Enums.FeedTypeEnum;
 import { FeedDataService } from "../../services/feeddataservice";
 import Chartclasses = require("../../models/chartclasses");
-import BarChartData = Chartclasses.BarChartData;
-import Barchartcomponent = require("../charts/barchart.component");
-import GaugeChartData = Chartclasses.GaugeChartData;
 import DonutChartData = Chartclasses.DonutChartData;
 import Reportclasses = require("../../models/reportclasses");
 import FeedItemSummary = Reportclasses.FeedItemSummary;
@@ -21,7 +13,6 @@ import FeedItemSummaryEx = Reportclasses.FeedItemSummaryEx;
 import Date1 = require("../../classes/helpers/date");
 import DateEx = Date1.DateEx;
 import Userfiltercomponent = require("../common/filters/userfilter.component");
-import { QuizFeed } from "../../models/feedclasses";
 import { StringEx } from "../../classes/helpers/string";
 import UserFilters = Userfiltercomponent.UserFilters;
 
@@ -33,7 +24,7 @@ declare var noUiSlider: any;
     template: require('./quizfeeditemreport.component.html'),
     styles: [require('./quizfeeditemreport.component.css')]
 })
-export class QuizFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
+export class QuizFeedItemReport implements OnInit, OnDestroy {
     @Output()
     public onBackEvent: EventEmitter<any>;
 
@@ -69,10 +60,8 @@ export class QuizFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
         this.getData();
     }
 
-    ngAfterViewInit() {
-    }
-
     ngOnDestroy() {
+        this.backSub.unsubscribe();
     }
 
     private getData() {

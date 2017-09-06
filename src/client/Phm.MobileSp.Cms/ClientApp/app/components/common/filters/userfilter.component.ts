@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, Input, Output, ViewChild, EventEmitter, Injector, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, AfterViewInit, OnDestroy } from '@angular/core';
 import Shareservice = require("../../../services/helpers/shareservice");
 import { MarketDataService } from "../../../services/marketdataservice";
 import { UserDataService } from "../../../services/userdataservice";
@@ -10,7 +10,7 @@ declare var $: any;
 @Component({
     selector: 'userfilter',
     template: require('./userfilter.component.html'),
-    styles: [require('./userfilter.component.css'), require('./ion.rangeSlider.custom.css')]
+    styles: [require('./userfilter.component.css')]
 })
 export class UserFilter implements AfterViewInit, OnDestroy {
 
@@ -156,6 +156,7 @@ export class UserFilter implements AfterViewInit, OnDestroy {
     }
         
     public setupRangeSlider() {
+        console.log($("#sliderElement"));
         $("#sliderElement").ionRangeSlider({
             type: "double",
             min: this.rangeFrom,
