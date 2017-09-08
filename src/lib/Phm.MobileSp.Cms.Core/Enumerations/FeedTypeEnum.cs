@@ -10,6 +10,7 @@
         VideoLink = 5,
         ImageLink = 6,
         PdfLink = 7,
-        Observation = 8
+        Observation = 8,
+        Paged = 9
     }
 }

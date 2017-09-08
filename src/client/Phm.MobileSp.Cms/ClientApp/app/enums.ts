@@ -7,7 +7,8 @@
     VideoLink = 5,
     ImageLink = 6,
     PdfLink = 7,
-    Observation = 8
+    Observation = 8,
+    Paged = 9
 }
 export enum FeedCategoryEnum {
     Learning = 0,
@@ -89,4 +90,9 @@ export enum UserPointType
     TextFeed = 2,
     VideoFeed = 3,
     SurveyFeed = 4
+}
+export enum BasePageFeedTypeEnum {
+    Text = 0,
+    MediaText = 1,
+    MediaTabbedText = 2
 }

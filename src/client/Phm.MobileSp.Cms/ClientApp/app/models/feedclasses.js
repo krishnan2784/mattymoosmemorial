@@ -169,4 +169,16 @@ var VideoFeed = (function (_super) {
     return VideoFeed;
 }(TextFeed));
 exports.VideoFeed = VideoFeed;
+var PagedFeed = (function (_super) {
+    __extends(PagedFeed, _super);
+    function PagedFeed(options) {
+        if (options === void 0) { options = {}; }
+        var _this = _super.call(this, options) || this;
+        _this.feedType = FeedTypeEnum.Paged;
+        _this.baseFeedPages = options['baseFeedPages'];
+        return _this;
+    }
+    return PagedFeed;
+}(BaseFeed));
+exports.PagedFeed = PagedFeed;
 //# sourceMappingURL=feedclasses.js.map
