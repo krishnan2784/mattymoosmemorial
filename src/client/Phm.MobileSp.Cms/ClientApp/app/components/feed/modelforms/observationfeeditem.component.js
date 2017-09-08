@@ -33,7 +33,7 @@ var validators_1 = require("../../../classes/validators");
 var ObservationFeedItemFormComponent = (function (_super) {
     __extends(ObservationFeedItemFormComponent, _super);
     function ObservationFeedItemFormComponent(injector) {
-        var _this = _super.call(this, injector, Feedclasses.ObservationFeed, '/api/Feed/UpdateObservationFeedItem', FeedTypeEnum.Observation, Enums.SurveyQuestionTypeEnum) || this;
+        var _this = _super.call(this, injector, Feedclasses.ObservationFeed, FeedTypeEnum.Observation, Enums.SurveyQuestionTypeEnum) || this;
         if (_this.model) {
             _this.model.points = null;
             _this.form.controls['points'].patchValue(_this.model.points, { onlySelf: true });

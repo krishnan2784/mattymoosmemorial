@@ -16,7 +16,7 @@ import BaseQuestionFeedItemFormComponent = Basequestionfeeditemcomponent.BaseQue
 export class SurveyFeedItemFormComponent extends BaseQuestionFeedItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
     model: Feedclasses.SurveyFeed;
     constructor(injector: Injector) {
-        super(injector, Feedclasses.SurveyFeed, '/api/Feed/UpdateSurveyFeedItem', FeedTypeEnum.Survey, Enums.SurveyQuestionTypeEnum);
+        super(injector, Feedclasses.SurveyFeed, FeedTypeEnum.Survey, Enums.SurveyQuestionTypeEnum);
     }
 
     //constructor(injector: Injector, feedModelType: any = Feedclasses.SurveyFeed, updateUrl: string = '/api/Feed/UpdateSurveyFeedItem',

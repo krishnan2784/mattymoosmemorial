@@ -15,7 +15,7 @@ export class VideoFeedItemFormComponent extends BasePartialItemFormComponent imp
     model: Feedclasses.VideoFeed;
 
     constructor(injector: Injector, public mediaDataService: MediaDataService) {
-        super(injector, Feedclasses.VideoFeed, '/api/Feed/UpdateVideoFeedItem', FeedTypeEnum.Video);
+        super(injector, Feedclasses.VideoFeed, FeedTypeEnum.Video);
 
     } 
 

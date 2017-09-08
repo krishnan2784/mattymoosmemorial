@@ -31,7 +31,7 @@ var validators_1 = require("../../../classes/validators");
 var QuizFeedItemFormComponent = (function (_super) {
     __extends(QuizFeedItemFormComponent, _super);
     function QuizFeedItemFormComponent(injector) {
-        var _this = _super.call(this, injector, Feedclasses.QuizFeed, '/api/Feed/UpdateQuizFeedItem', FeedTypeEnum.Quiz, Enums.QuizQuestionTypeEnum) || this;
+        var _this = _super.call(this, injector, Feedclasses.QuizFeed, FeedTypeEnum.Quiz, Enums.QuizQuestionTypeEnum) || this;
         _this.questionType = Enums.QuizQuestionTypeEnum;
         return _this;
     }
