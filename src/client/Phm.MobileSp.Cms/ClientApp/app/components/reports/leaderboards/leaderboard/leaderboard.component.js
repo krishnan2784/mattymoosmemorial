@@ -80,56 +80,69 @@ var LeaderboardComponent = (function () {
         this.totPages = Math.ceil(this.salesExecList.length / this.pagCap);
     };
     LeaderboardComponent.prototype.formatDataset = function () {
+        var _this = this;
         var out = {
             regions: []
         };
-        for (var i = 0; i < this.data.length; i++) {
-            if (!this.regionAdded(this.data[i].regionName, out)) {
+        var _loop_1 = function (i) {
+            var regionsCountM1 = 0;
+            if (!this_1.regionAdded(this_1.data[i].regionName, out)) {
                 out.regions.push({
-                    name: this.data[i].regionName,
+                    name: this_1.data[i].regionName,
                     zones: []
                 });
-                this.graphData.children.push({
-                    name: this.data[i].regionName,
-                    description: this.data[i].regionName,
+                this_1.graphData.children.push({
+                    name: this_1.data[i].regionName,
+                    description: this_1.data[i].regionName,
                     size: 0,
                     displayLevel: 'zone',
                     selectionType: 'region',
                     children: []
                 });
+                regionsCountM1 = out.regions.length - 1;
             }
-            var regionsCountM1 = out.regions.length - 1;
-            this.graphData.children[regionsCountM1].size += this.data[i].totalMLearningPoints;
-            if (!this.zoneAdded(this.data[i].regionName, this.data[i].zoneName, out)) {
+            else
+                regionsCountM1 = out.regions.findIndex(function (x) { return x.name == _this.data[i].regionName; });
+            console.log(regionsCountM1);
+            this_1.graphData.children[regionsCountM1].size += this_1.data[i].totalMLearningPoints;
+            var zonesCountM1 = 0;
+            if (!this_1.zoneAdded(this_1.data[i].regionName, this_1.data[i].zoneName, out)) {
                 out.regions[regionsCountM1].zones.push({
-                    name: this.data[i].zoneName,
+                    name: this_1.data[i].zoneName,
                     dealerships: []
                 });
-                this.graphData.children[regionsCountM1].children.push({
-                    name: this.data[i].zoneName,
-                    description: this.data[i].zoneName,
+                this_1.graphData.children[regionsCountM1].children.push({
+                    name: this_1.data[i].zoneName,
+                    description: this_1.data[i].zoneName,
                     displayLevel: 'dealership',
                     selectionType: 'zone',
                     size: 0,
                     children: []
                 });
+                zonesCountM1 = out.regions[regionsCountM1].zones.length - 1;
             }
-            var zonesCountM1 = out.regions[regionsCountM1].zones.length - 1;
-            this.graphData.children[regionsCountM1].children[zonesCountM1].size += this.data[i].totalMLearningPoints;
-            if (!this.dealershipAdded(this.data[i].regionName, this.data[i].zoneName, this.data[i].dealershipCode, out)) {
+            else
+                zonesCountM1 = out.regions[regionsCountM1].zones.findIndex(function (x) { return x.name == _this.data[i].zoneName; });
+            this_1.graphData.children[regionsCountM1].children[zonesCountM1].size += this_1.data[i].totalMLearningPoints;
+            if (!this_1.dealershipAdded(this_1.data[i].regionName, this_1.data[i].zoneName, this_1.data[i].dealershipCode, out)) {
                 out.regions[regionsCountM1].zones[zonesCountM1].dealerships.push({
-                    code: this.data[i].dealershipCode,
+                    code: this_1.data[i].dealershipCode,
                     users: []
                 });
-                this.graphData.children[regionsCountM1].children[zonesCountM1].children.push({
-                    name: this.data[i].dealershipCode,
-                    description: this.data[i].dealershipCode,
+                console.log(out.regions[regionsCountM1].zones[zonesCountM1].dealerships);
+                this_1.graphData.children[regionsCountM1].children[zonesCountM1].children.push({
+                    name: this_1.data[i].dealershipCode,
+                    description: this_1.data[i].dealershipCode,
                     size: 0
                 });
             }
             var dealersM1 = out.regions[regionsCountM1].zones[zonesCountM1].dealerships.length - 1;
-            this.graphData.children[regionsCountM1].children[zonesCountM1].children[dealersM1].size += this.data[i].totalMLearningPoints;
-            out = this.insertUser(this.data[i], this.data[i].regionName, this.data[i].zoneName, this.data[i].dealershipCode, this.data[i].dealershipName, this.data[i].currentUser.firstName, this.data[i].currentUser.lastName, this.data[i].totalMLearningPoints, out);
+            this_1.graphData.children[regionsCountM1].children[zonesCountM1].children[dealersM1].size += this_1.data[i].totalMLearningPoints;
+            out = this_1.insertUser(this_1.data[i], this_1.data[i].regionName, this_1.data[i].zoneName, this_1.data[i].dealershipCode, this_1.data[i].dealershipName, this_1.data[i].currentUser.firstName, this_1.data[i].currentUser.lastName, this_1.data[i].totalMLearningPoints, out);
+        };
+        var this_1 = this;
+        for (var i = 0; i < this.data.length; i++) {
+            _loop_1(i);
         }
         this.formatedData = out;
         this.commitList(this.top10, true, false);
@@ -142,11 +155,15 @@ var LeaderboardComponent = (function () {
         return JSON.parse(JSON.stringify(source));
     };
     LeaderboardComponent.prototype.insertUser = function (user, region, zone, dealership, dealershipName, firstName, lastName, points, newDS) {
+        console.log(user, region, zone, dealership, dealershipName, firstName, lastName, points, newDS);
         for (var i = 0; i < newDS.regions.length; i++) {
+            console.log(region === newDS.regions[i].name);
             if (region === newDS.regions[i].name) {
                 for (var j = 0; j < newDS.regions[i].zones.length; j++) {
+                    console.log(zone === newDS.regions[i].zones[j].name);
                     if (zone === newDS.regions[i].zones[j].name) {
                         for (var k = 0; k < newDS.regions[i].zones[j].dealerships.length; k++) {
+                            console.log(dealership === newDS.regions[i].zones[j].dealerships[k].code);
                             if (dealership === newDS.regions[i].zones[j].dealerships[k].code) {
                                 newDS.regions[i].zones[j].dealerships[k].users.push({
                                     firstName: firstName,
@@ -194,6 +211,7 @@ var LeaderboardComponent = (function () {
         return false;
     };
     LeaderboardComponent.prototype.dealershipAdded = function (region, zone, dealership, newDS) {
+        console.log(region, zone, dealership, newDS);
         for (var i = 0; i < newDS.regions.length; i++) {
             if (region === newDS.regions[i].name) {
                 for (var j = 0; j < newDS.regions[i].zones.length; j++) {
@@ -207,6 +225,7 @@ var LeaderboardComponent = (function () {
                 }
             }
         }
+        console.log(false);
         return false;
     };
     LeaderboardComponent.prototype.raiseEvent = function (id, index) {
@@ -225,7 +244,9 @@ var LeaderboardComponent = (function () {
                 return 1;
             return 0;
         });
+        console.log(list);
         list.reverse();
+        console.log(list);
         var a = 0;
         list.forEach(function (e) {
             a++;
@@ -249,7 +270,8 @@ var LeaderboardComponent = (function () {
             }
         }
         if (list.length > 10 && isTop10) {
-            list.length = 10;
+            console.log(list);
+            //list.length = 10;
         }
     };
     LeaderboardComponent.prototype.isInfilteredRegion = function (r) {

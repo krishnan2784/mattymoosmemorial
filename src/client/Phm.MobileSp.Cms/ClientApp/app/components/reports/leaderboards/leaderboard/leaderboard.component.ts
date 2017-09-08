@@ -80,6 +80,7 @@ export class LeaderboardComponent implements OnInit, OnChanges {
             regions: []
         };
         for (let i = 0; i < this.data.length; i++) {
+            let regionsCountM1 = 0;
             if (!this.regionAdded(this.data[i].regionName, out)) {
                 out.regions.push(
                     {
@@ -94,9 +95,13 @@ export class LeaderboardComponent implements OnInit, OnChanges {
                     selectionType: 'region',
                     children: []
                 });
-            }
-            let regionsCountM1 = out.regions.length - 1;
+                regionsCountM1 = out.regions.length - 1;
+            } else
+                regionsCountM1 = out.regions.findIndex(x => x.name == this.data[i].regionName);
+            console.log(regionsCountM1);
             this.graphData.children[regionsCountM1].size += this.data[i].totalMLearningPoints;
+
+            let zonesCountM1 = 0;
             if (!this.zoneAdded(this.data[i].regionName, this.data[i].zoneName, out)) {
                 out.regions[regionsCountM1].zones.push(
                     {
@@ -111,8 +116,10 @@ export class LeaderboardComponent implements OnInit, OnChanges {
                     size: 0,
                     children: []
                 });
-            }
-            let zonesCountM1 = out.regions[regionsCountM1].zones.length - 1;
+                zonesCountM1 = out.regions[regionsCountM1].zones.length - 1;
+            } else
+                zonesCountM1 = out.regions[regionsCountM1].zones.findIndex(x => x.name == this.data[i].zoneName);
+            
             this.graphData.children[regionsCountM1].children[zonesCountM1].size += this.data[i].totalMLearningPoints;
             if (!this.dealershipAdded(this.data[i].regionName, this.data[i].zoneName, this.data[i].dealershipCode, out)) {
                 out.regions[regionsCountM1].zones[zonesCountM1].dealerships.push(
@@ -138,6 +145,7 @@ export class LeaderboardComponent implements OnInit, OnChanges {
                 this.data[i].currentUser.lastName,
                 this.data[i].totalMLearningPoints, out);
         }
+
         this.formatedData = out;
         this.commitList(this.top10, true, false);
         this.commitList(this.allUsers, false, false);

@@ -103,7 +103,6 @@ var FeedDataService = (function (_super) {
         if (startDate === void 0) { startDate = null; }
         if (endDate === void 0) { endDate = null; }
         var requestUrl = '/api/Leaderboard/GetLeaderBoard';
-        console.log(startDate, endDate);
         if (startDate || endDate) {
             requestUrl = requestUrl + '?'
                 + (startDate ? 'startDate=' + date_1.DateEx.formatDate(startDate) : '')

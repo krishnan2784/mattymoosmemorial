@@ -98,7 +98,6 @@ export class FeedDataService extends RequestHelper implements IFeedDataService, 
 
     public getLeaderBoard(startDate: string = null, endDate: string = null) {
         var requestUrl = '/api/Leaderboard/GetLeaderBoard';
-        console.log(startDate, endDate);
         if (startDate || endDate) {
             requestUrl = requestUrl + '?'
                 + (startDate ? 'startDate=' + DateEx.formatDate(startDate) : '')
