@@ -182,6 +182,6 @@ export class PagedFeed extends BaseFeed {
     constructor(options: {} = {}) {
         super(options);
         this.feedType = FeedTypeEnum.Paged;
-        this.baseFeedPages = options['baseFeedPages'];
+        this.baseFeedPages = options['baseFeedPages'] || [];
     }
 }

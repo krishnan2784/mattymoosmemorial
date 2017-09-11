@@ -28,6 +28,8 @@ import { VideoFeedItemFormComponent } from "./videofeeditem.component";
 import { MediaDataService } from "../../../services/mediaservice";
 import ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationFeedItemFormComponent;
 import { minValue } from "../../../classes/validators";
+import Pagedfeeditemcomponent = require("./pagedfeed/pagedfeeditem.component");
+import PagedFeedItemFormComponent = Pagedfeeditemcomponent.PagedFeedItemFormComponent;
 declare var $: any;
 declare var Materialize: any;
 declare var tinymce: any;
@@ -59,7 +61,8 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     public quizForm = QuizFeedItemFormComponent;
     public surveyForm = SurveyFeedItemFormComponent;
     public observationForm = ObservationFeedItemFormComponent;
-
+    public pagedForm = PagedFeedItemFormComponent;
+    
     public feedFormSteps: FeedFormSteps = new FeedFormSteps();
     public navbarData = [];
 
@@ -232,32 +235,32 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     }
 
     save(feedItem: FeedItem, isValid: boolean) {
-        
         this.submitted = true;
-        
-        this.form.updateValueAndValidity();
+        console.log(feedItem);
+        return;
+        //this.form.updateValueAndValidity();
 
-        if (this.loading)
-            return;
+        //if (this.loading)
+        //    return;
 
-        if (!this.form.valid) {
-            console.log(this.getFormValidationErrors(this.form));
-            $('.toast').remove();
-            return Materialize.toast('Please check that you have filled in all the required fields.', 6000, 'red');
-        }
-        this.loading = true;
+        //if (!this.form.valid) {
+        //    console.log(this.getFormValidationErrors(this.form));
+        //    $('.toast').remove();
+        //    return Materialize.toast('Please check that you have filled in all the required fields.', 6000, 'red');
+        //}
+        //this.loading = true;
 
-        feedItem = new this.subForm.feedModelType(feedItem);
-        feedItem.callToActionUrl = feedItem.callToActionUrl.length == 0 || feedItem.callToActionUrl.indexOf('http') == 0 ? feedItem.callToActionUrl : 'http://' + feedItem.callToActionUrl;
+        //feedItem = new this.subForm.feedModelType(feedItem);
+        //feedItem.callToActionUrl = feedItem.callToActionUrl.length == 0 || feedItem.callToActionUrl.indexOf('http') == 0 ? feedItem.callToActionUrl : 'http://' + feedItem.callToActionUrl;
 
-        this.feedDataService.updateFeeditem(this.subForm.updateUrl, feedItem).subscribe(result => {
-            if (result.success) {
-                this.model = result.content;
-                this.sharedService.updateFeedItem(result.content);
-                this.feedUpdated.emit(result.content);
-            } else 
-                this.loading = false;
-        });
+        //this.feedDataService.updateFeeditem('', feedItem).subscribe(result => {
+        //    if (result.success) {
+        //        this.model = result.content;
+        //        this.sharedService.updateFeedItem(result.content);
+        //        this.feedUpdated.emit(result.content);
+        //    } else 
+        //        this.loading = false;
+        //});
     }
 
     getFormValidationErrors(form) {

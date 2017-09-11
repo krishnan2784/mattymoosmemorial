@@ -34,9 +34,12 @@
                         <h5>LEARNING</h5>
                         <p>Create informal, fun learning and competition. Small modules with an optional Quiz to test engagement. Embrace competition with Leaderboards and track user's progress with Reports.</p>
                         <div class="btn-holder">
-                            <a (click)="swapForm(this.textForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3 waves-effect waves-light"
-                               [class.active-type]="model.feedCategory == feedCats.Learning && (model.feedType == feedTypes.Text || model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)" [class.disabled]="model.id>0">
+                            <a (click)="swapForm(this.textForm, feedCats.Learning)" class="btn btn-primary col-md-3 btn-3 waves-effect waves-light"
+                               [class.active-type]="model.feedCategory == feedCats.Learning && (model.feedType == feedTypes.Text || model.feedType == feedTypes.Image || model.feedType == feedTypes.Video || model.feedType == feedTypes.Paged)" [class.disabled]="model.id>0">
                                 Module
+                            </a>
+                            <a (click)="swapForm(this.pagedForm, feedCats.Learning)" class="btn btn-primary col-md-1 btn-3 waves-effect waves-light paged-item-icon" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Paged" [class.disabled]="model.id>0">
+                                <i class="material-icons">chrome_reader_mode</i>
                             </a>
                             <a (click)="swapForm(this.quizForm, feedCats.Learning)" class="btn btn-primary col-md-4 btn-3 waves-effect waves-light" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Quiz" [class.disabled]="model.id>0">
                                 Quiz
@@ -145,27 +148,29 @@
         <div class="col-md-8">
 
             <div class="rich-text-box">
-                <label>Enter Title</label>
-                <editor [elementId]="'title'" [value]="form.controls.title.value" [formGroup]="form" [maxLength]="160"></editor>
-                <small class="active-warning" [class.hidden]="form.controls.title.valid || !submitted">
-                    Title is required.
-                </small>
+                <editor [form]="form" [formSubmitted]="submitted"
+                        [elementId]="'title'"
+                        [formControlId]="'title'"
+                        [label]="'Enter Title'"
+                        [validationMessage]="'Title is required.'"
+                        [maxLength]="160"></editor>
             </div>
 
             <div class="rich-text-box">
-                <label>Short Description</label>
-                <editor [elementId]="'shortDescription'" [value]="form.controls.shortDescription.value" [formGroup]="form" [maxLength]="120"></editor>
-                <small class="active-warning" [class.hidden]="form.controls.shortDescription.valid || !submitted">
-                    Short description is required.
-                </small>
+                <editor [form]="form" [formSubmitted]="submitted"
+                        [elementId]="'shortDescription'"
+                        [formControlId]="'shortDescription'"
+                        [label]="'Short Description'"
+                        [validationMessage]="'Short description is required.'"
+                        [maxLength]="120"></editor>
             </div>
 
             <div class="rich-text-box" *ngIf="model.feedType == feedTypes.Text ||  model.feedType == feedTypes.Image || model.feedType == feedTypes.Video">
-                <label>Body Text</label>
-                <editor [elementId]="'bodyText'" [value]="form.controls.bodyText.value" [formGroup]="form"></editor>
-                <small class="active-warning" [class.hidden]="form.controls.bodyText.valid || !submitted">
-                    Body text is required if you are not uploading an image or video.
-                </small>
+                <editor [form]="form" [formSubmitted]="submitted"
+                        [elementId]="'bodyText'"
+                        [formControlId]="'bodyText'"
+                        [label]="'Body Text'"
+                        [validationMessage]="'Body text is required if you are not uploading an image or video.'"></editor>
             </div>
 
 
@@ -280,6 +285,7 @@
     
 <div *ngIf="model">
     <textfeeditem *ngIf="model.feedType === feedTypes.Text" [form]="form" [feedFormSteps]="feedFormSteps" [model]="model" [submitted]="submitted"></textfeeditem>
+    <pagedfeeditem *ngIf="model.feedType === feedTypes.Paged" [form]="form" [feedFormSteps]="feedFormSteps" [model]="model" [submitted]="submitted"></pagedfeeditem>
     <quizfeeditem *ngIf="model.feedType === feedTypes.Quiz" [form]="form" [feedFormSteps]="feedFormSteps" [model]="model" [submitted]="submitted"></quizfeeditem>
     <surveyfeeditem *ngIf="model.feedType === feedTypes.Survey" [form]="form" [feedFormSteps]="feedFormSteps" [model]="model" [submitted]="submitted"></surveyfeeditem>
     <observationfeeditem *ngIf="model.feedType === feedTypes.Observation" [form]="form" [feedFormSteps]="feedFormSteps" [model]="model" [submitted]="submitted"></observationfeeditem>

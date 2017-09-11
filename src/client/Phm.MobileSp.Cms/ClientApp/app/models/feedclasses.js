@@ -175,7 +175,7 @@ var PagedFeed = (function (_super) {
         if (options === void 0) { options = {}; }
         var _this = _super.call(this, options) || this;
         _this.feedType = FeedTypeEnum.Paged;
-        _this.baseFeedPages = options['baseFeedPages'];
+        _this.baseFeedPages = options['baseFeedPages'] || [];
         return _this;
     }
     return PagedFeed;

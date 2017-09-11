@@ -77,6 +77,12 @@ import { DatepickerComponent } from "./components/common/datepicker/datepicker.c
 import { TextInputComponent } from "./components/common/editor/textbox.component";
 import { NumberTextInputComponent } from "./components/common/editor/numbertextbox.component";
 import { TagInputComponent } from "./components/common/editor/taginputbox.component";
+import Pagedfeeditemcomponent = require("./components/feed/modelforms/pagedfeed/pagedfeeditem.component");
+import PagedFeedItemFormComponent = Pagedfeeditemcomponent.PagedFeedItemFormComponent;
+import Textpageformcomponent = require("./components/feed/modelforms/pagedfeed/textpageform.component");
+import TextPageFormComponent = Textpageformcomponent.TextPageFormComponent;
+import Mediatextpageformcomponent = require("./components/feed/modelforms/pagedfeed/mediatextpageform.component");
+import MediaTextPageFormComponent = Mediatextpageformcomponent.MediaTextPageFormComponent;
 
 
 @NgModule({
@@ -108,6 +114,9 @@ import { TagInputComponent } from "./components/common/editor/taginputbox.compon
         SurveyFeedItemFormComponent,
         ObservationFeedItemFormComponent,
         QuestionFormComponent,
+        PagedFeedItemFormComponent,
+        TextPageFormComponent,
+        MediaTextPageFormComponent,
         BaseModalComponent,
 
         // reporting

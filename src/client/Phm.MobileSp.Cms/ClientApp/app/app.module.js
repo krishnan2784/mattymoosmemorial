@@ -80,6 +80,12 @@ var datepicker_component_1 = require("./components/common/datepicker/datepicker.
 var textbox_component_1 = require("./components/common/editor/textbox.component");
 var numbertextbox_component_1 = require("./components/common/editor/numbertextbox.component");
 var taginputbox_component_1 = require("./components/common/editor/taginputbox.component");
+var Pagedfeeditemcomponent = require("./components/feed/modelforms/pagedfeed/pagedfeeditem.component");
+var PagedFeedItemFormComponent = Pagedfeeditemcomponent.PagedFeedItemFormComponent;
+var Textpageformcomponent = require("./components/feed/modelforms/pagedfeed/textpageform.component");
+var TextPageFormComponent = Textpageformcomponent.TextPageFormComponent;
+var Mediatextpageformcomponent = require("./components/feed/modelforms/pagedfeed/mediatextpageform.component");
+var MediaTextPageFormComponent = Mediatextpageformcomponent.MediaTextPageFormComponent;
 var AppModule = (function () {
     function AppModule() {
     }
@@ -113,6 +119,9 @@ AppModule = __decorate([
             surveyfeeditem_component_1.SurveyFeedItemFormComponent,
             observationfeeditem_component_1.ObservationFeedItemFormComponent,
             questionform_component_1.QuestionFormComponent,
+            PagedFeedItemFormComponent,
+            TextPageFormComponent,
+            MediaTextPageFormComponent,
             BaseModalComponent,
             // reporting
             feedreportindex_component_1.FeedReportIndexComponent,

@@ -34,6 +34,8 @@ var videofeeditem_component_1 = require("./videofeeditem.component");
 var mediaservice_1 = require("../../../services/mediaservice");
 var ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationFeedItemFormComponent;
 var validators_1 = require("../../../classes/validators");
+var Pagedfeeditemcomponent = require("./pagedfeed/pagedfeeditem.component");
+var PagedFeedItemFormComponent = Pagedfeeditemcomponent.PagedFeedItemFormComponent;
 var FeedItemForm = (function () {
     function FeedItemForm(_fb, http, route, router, feedDataService, sharedService, mediaDataService) {
         this._fb = _fb;
@@ -52,6 +54,7 @@ var FeedItemForm = (function () {
         this.quizForm = QuizFeedItemFormComponent;
         this.surveyForm = SurveyFeedItemFormComponent;
         this.observationForm = ObservationFeedItemFormComponent;
+        this.pagedForm = PagedFeedItemFormComponent;
         this.feedFormSteps = new FeedFormSteps();
         this.navbarData = [];
     }
@@ -196,28 +199,28 @@ var FeedItemForm = (function () {
         this.form.updateValueAndValidity();
     };
     FeedItemForm.prototype.save = function (feedItem, isValid) {
-        var _this = this;
         this.submitted = true;
-        this.form.updateValueAndValidity();
-        if (this.loading)
-            return;
-        if (!this.form.valid) {
-            console.log(this.getFormValidationErrors(this.form));
-            $('.toast').remove();
-            return Materialize.toast('Please check that you have filled in all the required fields.', 6000, 'red');
-        }
-        this.loading = true;
-        feedItem = new this.subForm.feedModelType(feedItem);
-        feedItem.callToActionUrl = feedItem.callToActionUrl.length == 0 || feedItem.callToActionUrl.indexOf('http') == 0 ? feedItem.callToActionUrl : 'http://' + feedItem.callToActionUrl;
-        this.feedDataService.updateFeeditem(this.subForm.updateUrl, feedItem).subscribe(function (result) {
-            if (result.success) {
-                _this.model = result.content;
-                _this.sharedService.updateFeedItem(result.content);
-                _this.feedUpdated.emit(result.content);
-            }
-            else
-                _this.loading = false;
-        });
+        console.log(feedItem);
+        return;
+        //this.form.updateValueAndValidity();
+        //if (this.loading)
+        //    return;
+        //if (!this.form.valid) {
+        //    console.log(this.getFormValidationErrors(this.form));
+        //    $('.toast').remove();
+        //    return Materialize.toast('Please check that you have filled in all the required fields.', 6000, 'red');
+        //}
+        //this.loading = true;
+        //feedItem = new this.subForm.feedModelType(feedItem);
+        //feedItem.callToActionUrl = feedItem.callToActionUrl.length == 0 || feedItem.callToActionUrl.indexOf('http') == 0 ? feedItem.callToActionUrl : 'http://' + feedItem.callToActionUrl;
+        //this.feedDataService.updateFeeditem('', feedItem).subscribe(result => {
+        //    if (result.success) {
+        //        this.model = result.content;
+        //        this.sharedService.updateFeedItem(result.content);
+        //        this.feedUpdated.emit(result.content);
+        //    } else 
+        //        this.loading = false;
+        //});
     };
     FeedItemForm.prototype.getFormValidationErrors = function (form) {
         var _this = this;

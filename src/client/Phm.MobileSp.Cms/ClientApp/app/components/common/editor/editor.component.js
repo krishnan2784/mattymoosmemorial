@@ -16,8 +16,18 @@ var RichTextEditorComponent = (function () {
         this.value = '';
         this.maxLength = 0;
         this.disabled = false;
+        this.label = '';
+        this.validationMessage = '';
+        this.formSubmitted = false;
         this.onEditorKeyup = new core_1.EventEmitter();
+        this.activeClass = '';
     }
+    RichTextEditorComponent.prototype.ngOnInit = function () {
+        if (this.elementId == '')
+            this.elementId = this.formControlId;
+        if (this.form && this.form.controls[this.formControlId])
+            this.activeClass = this.form.controls[this.formControlId].value.toString().length > 0 ? "active" : "";
+    };
     RichTextEditorComponent.prototype.ngAfterViewInit = function () {
         //tinymce.init({
         //  selector: '#' + this.elementId,
@@ -42,16 +52,20 @@ var RichTextEditorComponent = (function () {
 }());
 __decorate([
     core_1.Input(),
+    __metadata("design:type", forms_1.FormGroup)
+], RichTextEditorComponent.prototype, "form", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", String)
+], RichTextEditorComponent.prototype, "formControlId", void 0);
+__decorate([
+    core_1.Input(),
     __metadata("design:type", String)
 ], RichTextEditorComponent.prototype, "elementId", void 0);
 __decorate([
     core_1.Input(),
     __metadata("design:type", String)
 ], RichTextEditorComponent.prototype, "value", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", forms_1.FormGroup)
-], RichTextEditorComponent.prototype, "formGroup", void 0);
 __decorate([
     core_1.Input(),
     __metadata("design:type", Number)
@@ -61,13 +75,25 @@ __decorate([
     __metadata("design:type", Boolean)
 ], RichTextEditorComponent.prototype, "disabled", void 0);
 __decorate([
+    core_1.Input(),
+    __metadata("design:type", String)
+], RichTextEditorComponent.prototype, "label", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", String)
+], RichTextEditorComponent.prototype, "validationMessage", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Boolean)
+], RichTextEditorComponent.prototype, "formSubmitted", void 0);
+__decorate([
     core_1.Output(),
     __metadata("design:type", Object)
 ], RichTextEditorComponent.prototype, "onEditorKeyup", void 0);
 RichTextEditorComponent = __decorate([
     core_1.Component({
         selector: 'editor',
-        template: "\n    <div [formGroup]=\"formGroup\" *ngIf=\"formGroup\">\n      <textarea id=\"{{elementId}}\" formControlName=\"{{elementId}}\" *ngIf=\"elementId\" value={{value}} class=\"materialize-textarea\" [attr.maxLength]=\"maxLength > 0 ? maxLength : null\" [attr.data-length]=\"maxLength > 0 ? maxLength : null\" [attr.disabled]=\"disabled ? disabled : null\"></textarea>\n    </div>"
+        template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n        <div class=\"input-field\">\n              <label [attr.for]=\"elementId\" class=\"{{activeClass}}\">{{label}}</label>\n              <textarea id=\"{{elementId}}\" formControlName=\"{{formControlId}}\" *ngIf=\"formControlId\" class=\"materialize-textarea\" [attr.maxLength]=\"maxLength > 0 ? maxLength : null\" [attr.data-length]=\"maxLength > 0 ? maxLength : null\" [attr.disabled]=\"disabled ? disabled : null\"></textarea>\n                <small class=\"active-warning\" [class.hidden]=\"form.controls[formControlId].valid || !formSubmitted\">\n                    {{validationMessage}}\n                </small>\n        </div>\n    </div>"
     })
 ], RichTextEditorComponent);
 exports.RichTextEditorComponent = RichTextEditorComponent;

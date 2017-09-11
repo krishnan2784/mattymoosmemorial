@@ -43,6 +43,7 @@
 .feed-cat-container a.active-type {
     background-color: #435363!important;
     color: #EEEEEF!important;
+    border-radius: 0;
     opacity: 1 !important;
 }
 
@@ -148,3 +149,5 @@ padding: 20px;
 .rich-text-box {
     margin-bottom: 10px;
 }
+
+.paged-item-icon{ padding: 0;}

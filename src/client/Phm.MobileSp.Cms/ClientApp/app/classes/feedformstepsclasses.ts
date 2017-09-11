@@ -29,6 +29,9 @@ export class FeedFormSteps implements OnInit {
             } else if (this.formType === Enums.FeedTypeEnum.Survey || this.formType === Enums.FeedTypeEnum.Observation) {
                 steps.push(new FeedFormStep(FeedFormStepType.SurveyQuestions, 2, "Survey Questions"));
                 steps.push(new FeedFormStep(FeedFormStepType.SurveyScore, 3, "Survey Results"));
+            } else if (this.formType === Enums.FeedTypeEnum.Paged) {
+                steps.push(new FeedFormStep(FeedFormStepType.Pages, 2, "Pages"));
+                steps.push(new FeedFormStep(FeedFormStepType.Links, 3, "Links", "if required"));
             } else {
                 steps.push(new FeedFormStep(FeedFormStepType.Media, 2, "Media", "if required"));
                 steps.push(new FeedFormStep(FeedFormStepType.Links, 3, "Links", "if required"));
@@ -96,4 +99,5 @@ export enum FeedFormStepType {
     QuizScore = 5,
     SurveyQuestions = 6,
     SurveyScore = 7,
+    Pages = 8,
 }
