@@ -1,11 +1,11 @@
 <div [formGroup]="form" *ngIf="this.model">
     <div class="col-md-10">
         <div class="input-field">
-            <textinput [form]="form" [formSubmitted]="submitted"
-                       [elementId]="'baseFeedPages-' + index + '-bodyText'"
-                       [formControlId]="'bodyText'"
-                       [label]="'Body text'"
-                       [validationMessage]="'Body text is required.'"></textinput>
+            <editor [form]="form" [formSubmitted]="submitted"
+                    [elementId]="'baseFeedPages-' + index + '-bodyText'"
+                    [formControlId]="'bodyText'"
+                    [label]="'Body text'"
+                    [validationMessage]="'Body text is required.'"></editor>
         </div>
         <div class="clearfix"></div>
     </div>

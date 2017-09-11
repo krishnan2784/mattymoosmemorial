@@ -31,15 +31,14 @@ export class PagedFeedItemFormComponent extends BasePartialItemFormComponent imp
     }
 
     addFormControls() {
-        var formArray = new FormArray([], Validators.minLength(2), Validators.maxLength(5));
+        var formArray = new FormArray([], <any>Validators.minLength(2));
         this.model.baseFeedPages.forEach((x, i) => formArray.push(this.initPage(x)));
         this.form.addControl('baseFeedPages', formArray);
-        this.form.controls['mainIconId'].setValidators(null);
+        this.form.controls['baseFeedPages'].setValidators(Validators.maxLength(5));
     };
 
     removeFormControls() {
         this.form.removeControl('baseFeedPages');
-        this.form.controls['mainIconId'].setValidators(Validators.required);
     };
     
     initPage(page: BaseFeedPage = null): FormGroup {
@@ -50,8 +49,8 @@ export class PagedFeedItemFormComponent extends BasePartialItemFormComponent imp
             enabled: new FormControl(page.enabled, []),
             published: new FormControl(page.published, []),
             basePageFeedType: new FormControl(page.basePageFeedType, [<any>Validators.required]),
-            pagedFeedId: new FormControl(page.pagedFeedId, [<any>Validators.required]),
-            title: new FormControl(page.title, [<any>Validators.required])
+            pagedFeedId: new FormControl(page.pagedFeedId, []),
+            title: new FormControl(page.title, [])
         });
     }
 

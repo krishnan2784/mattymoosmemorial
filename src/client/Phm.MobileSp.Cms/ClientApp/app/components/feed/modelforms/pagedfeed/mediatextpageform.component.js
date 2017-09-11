@@ -20,17 +20,9 @@ var MediaTextPageFormComponent = (function () {
         this.model = new MediaTextFeedPage(this.model);
         this.addFormControls();
     };
-    MediaTextPageFormComponent.prototype.ngOnDestroy = function () {
-        this.removeFormControls();
-    };
     MediaTextPageFormComponent.prototype.addFormControls = function () {
         this.form.addControl('bodyText', new forms_1.FormControl(this.model.bodyText, [forms_1.Validators.required]));
         this.form.addControl('mediaInfoId', new forms_1.FormControl(this.model.bodyText, [forms_1.Validators.required]));
-    };
-    ;
-    MediaTextPageFormComponent.prototype.removeFormControls = function () {
-        this.form.removeControl('bodyText');
-        this.form.removeControl('mediaInfoId');
     };
     ;
     MediaTextPageFormComponent.prototype.attachMedia = function (media) {

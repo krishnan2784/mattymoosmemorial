@@ -44,15 +44,14 @@ var PagedFeedItemFormComponent = (function (_super) {
     };
     PagedFeedItemFormComponent.prototype.addFormControls = function () {
         var _this = this;
-        var formArray = new forms_1.FormArray([], forms_1.Validators.minLength(2), forms_1.Validators.maxLength(5));
+        var formArray = new forms_1.FormArray([], forms_1.Validators.minLength(2));
         this.model.baseFeedPages.forEach(function (x, i) { return formArray.push(_this.initPage(x)); });
         this.form.addControl('baseFeedPages', formArray);
-        this.form.controls['mainIconId'].setValidators(null);
+        this.form.controls['baseFeedPages'].setValidators(forms_1.Validators.maxLength(5));
     };
     ;
     PagedFeedItemFormComponent.prototype.removeFormControls = function () {
         this.form.removeControl('baseFeedPages');
-        this.form.controls['mainIconId'].setValidators(forms_1.Validators.required);
     };
     ;
     PagedFeedItemFormComponent.prototype.initPage = function (page) {
@@ -64,8 +63,8 @@ var PagedFeedItemFormComponent = (function (_super) {
             enabled: new forms_1.FormControl(page.enabled, []),
             published: new forms_1.FormControl(page.published, []),
             basePageFeedType: new forms_1.FormControl(page.basePageFeedType, [forms_1.Validators.required]),
-            pagedFeedId: new forms_1.FormControl(page.pagedFeedId, [forms_1.Validators.required]),
-            title: new forms_1.FormControl(page.title, [forms_1.Validators.required])
+            pagedFeedId: new forms_1.FormControl(page.pagedFeedId, []),
+            title: new forms_1.FormControl(page.title, [])
         });
     };
     PagedFeedItemFormComponent.prototype.addPage = function (basePageFeedType) {

@@ -199,28 +199,29 @@ var FeedItemForm = (function () {
         this.form.updateValueAndValidity();
     };
     FeedItemForm.prototype.save = function (feedItem, isValid) {
+        var _this = this;
         this.submitted = true;
-        console.log(feedItem);
-        return;
-        //this.form.updateValueAndValidity();
-        //if (this.loading)
-        //    return;
-        //if (!this.form.valid) {
-        //    console.log(this.getFormValidationErrors(this.form));
-        //    $('.toast').remove();
-        //    return Materialize.toast('Please check that you have filled in all the required fields.', 6000, 'red');
-        //}
-        //this.loading = true;
-        //feedItem = new this.subForm.feedModelType(feedItem);
-        //feedItem.callToActionUrl = feedItem.callToActionUrl.length == 0 || feedItem.callToActionUrl.indexOf('http') == 0 ? feedItem.callToActionUrl : 'http://' + feedItem.callToActionUrl;
-        //this.feedDataService.updateFeeditem('', feedItem).subscribe(result => {
-        //    if (result.success) {
-        //        this.model = result.content;
-        //        this.sharedService.updateFeedItem(result.content);
-        //        this.feedUpdated.emit(result.content);
-        //    } else 
-        //        this.loading = false;
-        //});
+        console.log(feedItem, isValid, this.form);
+        this.form.updateValueAndValidity();
+        if (this.loading)
+            return;
+        if (!this.form.valid) {
+            console.log(this.getFormValidationErrors(this.form));
+            $('.toast').remove();
+            return Materialize.toast('Please check that you have filled in all the required fields.', 6000, 'red');
+        }
+        this.loading = true;
+        feedItem = new this.subForm.feedModelType(feedItem);
+        feedItem.callToActionUrl = feedItem.callToActionUrl.length == 0 || feedItem.callToActionUrl.indexOf('http') == 0 ? feedItem.callToActionUrl : 'http://' + feedItem.callToActionUrl;
+        this.feedDataService.updateFeeditem('', feedItem).subscribe(function (result) {
+            if (result.success) {
+                _this.model = result.content;
+                _this.sharedService.updateFeedItem(result.content);
+                _this.feedUpdated.emit(result.content);
+            }
+            else
+                _this.loading = false;
+        });
     };
     FeedItemForm.prototype.getFormValidationErrors = function (form) {
         var _this = this;

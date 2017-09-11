@@ -10,7 +10,7 @@ import TextFeedPage = Pagedfeedclasses.TextFeedPage;
     template: require('./textpageform.component.html'),
     styles: [require('./textpageform.component.css')]
 })
-export class TextPageFormComponent implements OnInit, OnDestroy {
+export class TextPageFormComponent implements OnInit {
 
     @Input('form')
     public form: FormGroup;
@@ -28,17 +28,9 @@ export class TextPageFormComponent implements OnInit, OnDestroy {
         this.model = new TextFeedPage(this.model);
         this.addFormControls();
     }
-
-    ngOnDestroy() {
-        this.removeFormControls();
-    }
-
+    
     addFormControls() {
-        this.form.addControl('bodyText', new FormControl(this.model.bodyText, [Validators.required]));
-    };
-
-    removeFormControls() {
-        this.form.removeControl('bodyText');
+        this.form.addControl('bodyText', new FormControl(this.model.bodyText, [<any>Validators.required]));
     };
 
 }

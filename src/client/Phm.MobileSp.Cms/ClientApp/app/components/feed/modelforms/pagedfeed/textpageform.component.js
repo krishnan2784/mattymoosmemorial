@@ -20,15 +20,8 @@ var TextPageFormComponent = (function () {
         this.model = new TextFeedPage(this.model);
         this.addFormControls();
     };
-    TextPageFormComponent.prototype.ngOnDestroy = function () {
-        this.removeFormControls();
-    };
     TextPageFormComponent.prototype.addFormControls = function () {
         this.form.addControl('bodyText', new forms_1.FormControl(this.model.bodyText, [forms_1.Validators.required]));
-    };
-    ;
-    TextPageFormComponent.prototype.removeFormControls = function () {
-        this.form.removeControl('bodyText');
     };
     ;
     return TextPageFormComponent;

@@ -10,7 +10,7 @@ import MediaInfo = Mediainfoclasses.MediaInfo;
     template: require('./mediatextpageform.component.html'),
     styles: [require('./mediatextpageform.component.css')]
 })
-export class MediaTextPageFormComponent implements OnInit, OnDestroy {
+export class MediaTextPageFormComponent implements OnInit {
 
     @Input('form')
     public form: FormGroup;
@@ -29,18 +29,9 @@ export class MediaTextPageFormComponent implements OnInit, OnDestroy {
         this.addFormControls();
     }
 
-    ngOnDestroy() {
-        this.removeFormControls();
-    }
-
     addFormControls() {
-        this.form.addControl('bodyText', new FormControl(this.model.bodyText, [Validators.required]));
-        this.form.addControl('mediaInfoId', new FormControl(this.model.bodyText, [Validators.required]));
-    };
-
-    removeFormControls() {
-        this.form.removeControl('bodyText');
-        this.form.removeControl('mediaInfoId');
+        this.form.addControl('bodyText', new FormControl(this.model.bodyText, [<any>Validators.required]));
+        this.form.addControl('mediaInfoId', new FormControl(this.model.bodyText, [<any>Validators.required]));
     };
 
     attachMedia(media: MediaInfo) {
