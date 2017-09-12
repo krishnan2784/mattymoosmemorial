@@ -88,7 +88,7 @@
     <None Update="ClientApp\app\classes\feedformstepsclasses - Copy.js">
       <DependentUpon>feedformstepsclasses.ts</DependentUpon>
     </None>
-    <None Update="ClientApp\app\components\feed\modelforms\pagedfeed\mediatextpageform.component.css">
+    <None Update="ClientApp\app\components\feed\modelforms\pagedfeed\mediatextpageform - Copy.component.css">
       <DependentUpon>mediatextpageform.component.html</DependentUpon>
     </None>
     <None Update="ClientApp\app\components\feed\modelforms\pagedfeed\textpageform.component.css">

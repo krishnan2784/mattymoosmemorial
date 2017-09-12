@@ -86,6 +86,8 @@ var Textpageformcomponent = require("./components/feed/modelforms/pagedfeed/text
 var TextPageFormComponent = Textpageformcomponent.TextPageFormComponent;
 var Mediatextpageformcomponent = require("./components/feed/modelforms/pagedfeed/mediatextpageform.component");
 var MediaTextPageFormComponent = Mediatextpageformcomponent.MediaTextPageFormComponent;
+var Mediatabbedtextpageformcomponent = require("./components/feed/modelforms/pagedfeed/mediatabbedtextpageform.component");
+var MediaTabbedTextPageFormComponent = Mediatabbedtextpageformcomponent.MediaTabbedTextPageFormComponent;
 var AppModule = (function () {
     function AppModule() {
     }
@@ -122,6 +124,7 @@ AppModule = __decorate([
             PagedFeedItemFormComponent,
             TextPageFormComponent,
             MediaTextPageFormComponent,
+            MediaTabbedTextPageFormComponent,
             BaseModalComponent,
             // reporting
             feedreportindex_component_1.FeedReportIndexComponent,

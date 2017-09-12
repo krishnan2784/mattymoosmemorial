@@ -70,6 +70,7 @@ var PagedFeedItemFormComponent = (function (_super) {
     PagedFeedItemFormComponent.prototype.addPage = function (basePageFeedType) {
         var control = this.form.controls['baseFeedPages'];
         control.push(this.initPage(new BaseFeedPage({ basePageFeedType: basePageFeedType })));
+        this.model.baseFeedPages.push(new BaseFeedPage({ basePageFeedType: basePageFeedType }));
         this.displayPage(control.length - 1);
     };
     PagedFeedItemFormComponent.prototype.removePage = function (index) {
@@ -77,6 +78,7 @@ var PagedFeedItemFormComponent = (function (_super) {
         if (this.currentPage > 0)
             this.displayPage(this.currentPage - 1);
         control.removeAt(index);
+        this.model.baseFeedPages.splice(index, 1);
         this.form.markAsDirty();
     };
     PagedFeedItemFormComponent.prototype.displayPage = function (index) {
@@ -85,6 +87,20 @@ var PagedFeedItemFormComponent = (function (_super) {
         if (index < 0 || index > (pages.length - 1))
             return;
         this.currentPage = index;
+    };
+    PagedFeedItemFormComponent.prototype.showAddPage = function () {
+        this.showAddPageOptions = true;
+    };
+    PagedFeedItemFormComponent.prototype.hideAddPage = function () {
+        this.showAddPageOptions = false;
+    };
+    PagedFeedItemFormComponent.prototype.attachMedia = function (media) {
+        var m = this.currPage().value;
+        m.mediaInfoId = media.id;
+        m.mediaInfo = media;
+        this.model.baseFeedPages[this.currentPage] = m;
+        this.currPage().controls.mediaInfoId.patchValue(media.id, { onlySelf: true });
+        this.form.updateValueAndValidity();
     };
     return PagedFeedItemFormComponent;
 }(BasePartialItemFormComponent));

@@ -236,7 +236,6 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
 
     save(feedItem: FeedItem, isValid: boolean) {
         this.submitted = true;
-        console.log(feedItem, isValid, this.form);
         this.form.updateValueAndValidity();
 
         if (this.loading)

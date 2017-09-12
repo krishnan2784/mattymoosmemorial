@@ -9,6 +9,8 @@ import Feedclasses = require("../../../../models/feedclasses");
 import PagedFeed = Feedclasses.PagedFeed;
 import Pagedfeedclasses = require("../../../../models/pagedfeedclasses");
 import BaseFeedPage = Pagedfeedclasses.BaseFeedPage;
+import Mediainfoclasses = require("../../../../models/mediainfoclasses");
+import MediaInfo = Mediainfoclasses.MediaInfo;
 
 @Component({
     selector: 'pagedfeeditem',
@@ -17,7 +19,7 @@ import BaseFeedPage = Pagedfeedclasses.BaseFeedPage;
 })
 export class PagedFeedItemFormComponent extends BasePartialItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
     public currentPage: number = 0;
-    model: Feedclasses.PagedFeed;
+    public model: Feedclasses.PagedFeed;
     pageTypeEnum: typeof Enums.BasePageFeedTypeEnum = Enums.BasePageFeedTypeEnum;
     showAddPageOptions: boolean = false;
 
@@ -57,6 +59,7 @@ export class PagedFeedItemFormComponent extends BasePartialItemFormComponent imp
     addPage(basePageFeedType: Enums.BasePageFeedTypeEnum) {
         const control = <FormArray>this.form.controls['baseFeedPages'];
         control.push(this.initPage(new BaseFeedPage({ basePageFeedType })));
+        this.model.baseFeedPages.push(new BaseFeedPage({ basePageFeedType }));
         this.displayPage(control.length - 1);
     }
 
@@ -65,6 +68,7 @@ export class PagedFeedItemFormComponent extends BasePartialItemFormComponent imp
         if (this.currentPage > 0)
             this.displayPage(this.currentPage - 1);
         control.removeAt(index);
+        this.model.baseFeedPages.splice(index, 1);
         this.form.markAsDirty();
     }
 
@@ -74,5 +78,22 @@ export class PagedFeedItemFormComponent extends BasePartialItemFormComponent imp
         if (index < 0 || index > (pages.length - 1))
             return;
         this.currentPage = index;
+    }
+
+    showAddPage() {
+        this.showAddPageOptions = true;
+    }
+
+    hideAddPage() {
+        this.showAddPageOptions = false;
+    }
+
+    attachMedia(media: MediaInfo) {
+        var m = this.currPage().value;
+        m.mediaInfoId = media.id;
+        m.mediaInfo = media;
+        this.model.baseFeedPages[this.currentPage] = m;
+        this.currPage().controls.mediaInfoId.patchValue(media.id, { onlySelf: true });
+        this.form.updateValueAndValidity();
     }
 }

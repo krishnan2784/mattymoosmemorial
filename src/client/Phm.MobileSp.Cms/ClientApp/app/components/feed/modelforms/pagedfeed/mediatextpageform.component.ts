@@ -7,8 +7,7 @@ import MediaInfo = Mediainfoclasses.MediaInfo;
 
 @Component({
     selector: 'media-text-page-form',
-    template: require('./mediatextpageform.component.html'),
-    styles: [require('./mediatextpageform.component.css')]
+    template: require('./mediatextpageform.component.html')
 })
 export class MediaTextPageFormComponent implements OnInit {
 
@@ -24,6 +23,9 @@ export class MediaTextPageFormComponent implements OnInit {
     @Input()
     public submitted: boolean; 
 
+    @Output()
+    public uploadedMedia: EventEmitter<any> = new EventEmitter;
+
     ngOnInit() {
         this.model = new MediaTextFeedPage(this.model);
         this.addFormControls();
@@ -31,13 +33,10 @@ export class MediaTextPageFormComponent implements OnInit {
 
     addFormControls() {
         this.form.addControl('bodyText', new FormControl(this.model.bodyText, [<any>Validators.required]));
-        this.form.addControl('mediaInfoId', new FormControl(this.model.bodyText, [<any>Validators.required]));
+        this.form.addControl('mediaInfoId', new FormControl(this.model.mediaInfoId, [<any>Validators.required]));
     };
 
     attachMedia(media: MediaInfo) {
-        this.model.mediaInfoId = media.id;
-        this.model.mediaInfo = media;
-        this.form.controls.mediaInfoId.patchValue(this.model.mediaInfoId, { onlySelf: true });
-        this.form.updateValueAndValidity();
+        this.uploadedMedia.emit(media);
     }
 }

@@ -1,30 +1,31 @@
 <div [formGroup]="form">
     <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Pages)">
-        <small *ngIf="submitted && form.controls.baseFeedPages.hasError('minlength')" class="active-warning center">
-            Please add at least two pages.
-        </small>
-        <div class="clearfix"></div>
-
-        <div class="page-menu col-md-10" *ngIf="form.controls.baseFeedPages.controls.length > 0">
-            <a [class.invisible]="currentPage<=0" (click)="displayPage(currentPage-1)" class="page-menu-item prev-page"><i class="material-icons">keyboard_arrow_left</i></a>
-            <a *ngFor="let page of form.controls.baseFeedPages.controls; let i=index" [class.active]="currentPage===i" (click)="displayPage(i)" class="page-menu-item">{{i+1}}</a>
-            <a [class.invisible]="currentPage >= (form.controls.baseFeedPages.controls.length-1)" (click)="displayPage(currentPage+1)" class="page-menu-item"><i class="material-icons">keyboard_arrow_right</i></a>
-
-            <a (click)="showAddPageOptions = true;" class="page-menu-item" *ngIf="form.controls.baseFeedPages.controls.length < 5"><i class="material-icons">add</i></a>
-            <div class="clearfix"></div>
-        </div>
-        <div class="clearfix"></div>
 
         <div *ngIf="showAddPageOptions" class="center col-md-10">
             <a class="btn" (click)="addPage(pageTypeEnum.Text);">Text</a>
             <a class="btn" (click)="addPage(pageTypeEnum.MediaText);">Media & Text</a>
             <a class="btn" (click)="addPage(pageTypeEnum.MediaTabbedText);">Tabbed Text & Media</a>
+            <a class="btn grey" (click)="hideAddPage();">Cancel</a>
             <div class="clearfix"></div>
         </div>
 
+        <small *ngIf="submitted && form.controls.baseFeedPages.hasError('minlength')" class="active-warning center">
+            Please add at least two pages.
+        </small>
+
+        <div class="page-menu col-md-10" *ngIf="form.controls.baseFeedPages.controls.length > 0 && !showAddPageOptions">
+            <a [class.invisible]="currentPage<=0" (click)="displayPage(currentPage-1)" class="page-menu-item prev-page"><i class="material-icons">keyboard_arrow_left</i></a>
+            <a *ngFor="let page of form.controls.baseFeedPages.controls; let i=index" [class.active]="currentPage===i" (click)="displayPage(i)" class="page-menu-item">{{i+1}}</a>
+            <a [class.invisible]="currentPage >= (form.controls.baseFeedPages.controls.length-1)" (click)="displayPage(currentPage+1)" class="page-menu-item"><i class="material-icons">keyboard_arrow_right</i></a>
+
+            <a (click)="showAddPage();" class="page-menu-item" *ngIf="form.controls.baseFeedPages.controls.length < 5"><i class="material-icons">add</i></a>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+
         <div formArrayName="baseFeedPages">
             <div *ngFor="let page of form.controls.baseFeedPages.controls; let i=index">
-                <div [class.hidden]="currentPage!=i">
+                <div [class.hidden]="currentPage!=i || showAddPageOptions">
                     <div [formGroupName]="i">
                         <input type="hidden" formControlName="id">
                         <input type="hidden" formControlName="masterId">
@@ -34,10 +35,11 @@
                         <input type="hidden" formControlName="basePageFeedType">
                         <input type="hidden" formControlName="pagedFeedId">
                         <input type="hidden" formControlName="title">
-                        <text-page-form *ngIf="form.controls.baseFeedPages.controls[i].controls.basePageFeedType.value === pageTypeEnum.Text" [form]="form.controls.baseFeedPages.controls[i]" [index]="i" [model]="page" [submitted]="submitted"></text-page-form>
-                        <media-text-page-form *ngIf="form.controls.baseFeedPages.controls[i].controls.basePageFeedType.value === pageTypeEnum.MediaText" [form]="form.controls.baseFeedPages.controls[i]" [index]="i" [model]="page" [submitted]="submitted"></media-text-page-form>
+                        <text-page-form *ngIf="form.controls.baseFeedPages.controls[i].controls.basePageFeedType.value === pageTypeEnum.Text" [form]="page" [index]="i" [model]="model.baseFeedPages[i]" [submitted]="submitted"></text-page-form>
+                        <media-text-page-form *ngIf="form.controls.baseFeedPages.controls[i].controls.basePageFeedType.value === pageTypeEnum.MediaText" [form]="page" [index]="i" [model]="model.baseFeedPages[i]" [submitted]="submitted" (uploadedMedia)="attachMedia($event)"></media-text-page-form>
+                        <media-tabbed-text-page-form *ngIf="form.controls.baseFeedPages.controls[i].controls.basePageFeedType.value === pageTypeEnum.MediaTabbedText" [form]="page" [index]="i" [model]="model.baseFeedPages[i]" [submitted]="submitted" (uploadedMedia)="attachMedia($event)"></media-tabbed-text-page-form>
                     </div>
-
+                   
                     <div class="col-md-10 remove-page-container">
                         <hr/>
                         <a (click)="removePage(i)" [class.disabled]="form.controls.baseFeedPages.controls.length <= 1" class="btn">Delete Page</a>

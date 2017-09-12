@@ -15,6 +15,7 @@ var Pagedfeedclasses = require("../../../../models/pagedfeedclasses");
 var MediaTextFeedPage = Pagedfeedclasses.MediaTextFeedPage;
 var MediaTextPageFormComponent = (function () {
     function MediaTextPageFormComponent() {
+        this.uploadedMedia = new core_1.EventEmitter;
     }
     MediaTextPageFormComponent.prototype.ngOnInit = function () {
         this.model = new MediaTextFeedPage(this.model);
@@ -22,14 +23,11 @@ var MediaTextPageFormComponent = (function () {
     };
     MediaTextPageFormComponent.prototype.addFormControls = function () {
         this.form.addControl('bodyText', new forms_1.FormControl(this.model.bodyText, [forms_1.Validators.required]));
-        this.form.addControl('mediaInfoId', new forms_1.FormControl(this.model.bodyText, [forms_1.Validators.required]));
+        this.form.addControl('mediaInfoId', new forms_1.FormControl(this.model.mediaInfoId, [forms_1.Validators.required]));
     };
     ;
     MediaTextPageFormComponent.prototype.attachMedia = function (media) {
-        this.model.mediaInfoId = media.id;
-        this.model.mediaInfo = media;
-        this.form.controls.mediaInfoId.patchValue(this.model.mediaInfoId, { onlySelf: true });
-        this.form.updateValueAndValidity();
+        this.uploadedMedia.emit(media);
     };
     return MediaTextPageFormComponent;
 }());
@@ -49,11 +47,14 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Boolean)
 ], MediaTextPageFormComponent.prototype, "submitted", void 0);
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", core_1.EventEmitter)
+], MediaTextPageFormComponent.prototype, "uploadedMedia", void 0);
 MediaTextPageFormComponent = __decorate([
     core_1.Component({
         selector: 'media-text-page-form',
-        template: require('./mediatextpageform.component.html'),
-        styles: [require('./mediatextpageform.component.css')]
+        template: require('./mediatextpageform.component.html')
     })
 ], MediaTextPageFormComponent);
 exports.MediaTextPageFormComponent = MediaTextPageFormComponent;

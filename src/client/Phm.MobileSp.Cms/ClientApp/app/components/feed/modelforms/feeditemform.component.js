@@ -201,7 +201,6 @@ var FeedItemForm = (function () {
     FeedItemForm.prototype.save = function (feedItem, isValid) {
         var _this = this;
         this.submitted = true;
-        console.log(feedItem, isValid, this.form);
         this.form.updateValueAndValidity();
         if (this.loading)
             return;

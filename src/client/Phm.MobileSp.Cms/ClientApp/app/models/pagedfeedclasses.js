@@ -46,7 +46,7 @@ var MediaTextFeedPage = (function (_super) {
         var _this = _super.call(this, options) || this;
         _this.basePageFeedType = Enums.BasePageFeedTypeEnum.MediaText;
         _this.mediaInfo = options['mediaInfo'];
-        _this.mediaInfoId = options['mediaInfoId'] || 0;
+        _this.mediaInfoId = options['mediaInfoId'];
         _this.bodyText = options['bodyText'] || '';
         return _this;
     }
@@ -60,7 +60,7 @@ var MediaTabbedTextFeedPage = (function (_super) {
         var _this = _super.call(this, options) || this;
         _this.basePageFeedType = Enums.BasePageFeedTypeEnum.MediaTabbedText;
         _this.mediaInfo = options['mediaInfo'];
-        _this.mediaInfoId = options['mediaInfoId'] || 0;
+        _this.mediaInfoId = options['mediaInfoId'];
         _this.tabs = options['tabs'];
         if (!_this.tabs) {
             _this.tabs = [];

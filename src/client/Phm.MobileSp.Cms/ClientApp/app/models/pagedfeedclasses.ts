@@ -38,7 +38,7 @@ export class MediaTextFeedPage extends BaseFeedPage {
         super(options);
         this.basePageFeedType = Enums.BasePageFeedTypeEnum.MediaText;
         this.mediaInfo = options['mediaInfo'];
-        this.mediaInfoId = options['mediaInfoId'] || 0;
+        this.mediaInfoId = options['mediaInfoId'];
         this.bodyText = options['bodyText'] || '';
     }
 }
@@ -52,7 +52,7 @@ export class MediaTabbedTextFeedPage extends BaseFeedPage {
         super(options);
         this.basePageFeedType = Enums.BasePageFeedTypeEnum.MediaTabbedText;
         this.mediaInfo = options['mediaInfo'];
-        this.mediaInfoId = options['mediaInfoId'] || 0;
+        this.mediaInfoId = options['mediaInfoId'];
         this.tabs = options['tabs'];
 
         if (!this.tabs) {

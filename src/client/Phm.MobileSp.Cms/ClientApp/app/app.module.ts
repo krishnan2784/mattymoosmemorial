@@ -83,7 +83,9 @@ import Textpageformcomponent = require("./components/feed/modelforms/pagedfeed/t
 import TextPageFormComponent = Textpageformcomponent.TextPageFormComponent;
 import Mediatextpageformcomponent = require("./components/feed/modelforms/pagedfeed/mediatextpageform.component");
 import MediaTextPageFormComponent = Mediatextpageformcomponent.MediaTextPageFormComponent;
-
+import Mediatabbedtextpageformcomponent =
+    require("./components/feed/modelforms/pagedfeed/mediatabbedtextpageform.component");
+import MediaTabbedTextPageFormComponent = Mediatabbedtextpageformcomponent.MediaTabbedTextPageFormComponent;
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -117,6 +119,7 @@ import MediaTextPageFormComponent = Mediatextpageformcomponent.MediaTextPageForm
         PagedFeedItemFormComponent,
         TextPageFormComponent,
         MediaTextPageFormComponent,
+        MediaTabbedTextPageFormComponent,
         BaseModalComponent,
 
         // reporting

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -22,7 +24,11 @@ namespace Phm.MobileSp.Cms.Helpers.CustomModelBinding
                 bodyStr = reader.ReadToEnd();
             }
             var feedItemModel = JsonConvert.DeserializeObject<BaseFeed>(bodyStr);
-            var type = Type.GetType($"Phm.MobileSp.Cms.Core.Models.{feedItemModel.FeedType.ToString()}Feed, Phm.MobileSp.Cms.Core", true);
+            var feedType = feedItemModel.FeedType.ToString();
+            if (feedType=="Paged")
+                return new PagedFeedItemModelBinder(bodyStr).BindModelAsync(bindingContext);
+
+            var type = Type.GetType($"Phm.MobileSp.Cms.Core.Models.{feedType}Feed, Phm.MobileSp.Cms.Core", true);
             if (!typeof(BaseFeed).IsAssignableFrom(type))
             {
                 throw new InvalidOperationException("Bad Type");
@@ -31,6 +37,41 @@ namespace Phm.MobileSp.Cms.Helpers.CustomModelBinding
             bindingContext.Model = model;
 
             bindingContext.Result = ModelBindingResult.Success(model);
+            return TaskCache.CompletedTask;
+        }
+    }
+
+    public class PagedFeedItemModelBinder : IModelBinder
+    {
+        private string bodyString = null;
+        public PagedFeedItemModelBinder() { }
+        public PagedFeedItemModelBinder(string bString) => this.bodyString = bString;
+
+        public Task BindModelAsync(ModelBindingContext bindingContext)
+        {
+            if (bodyString == null)
+            {
+                var req = bindingContext.HttpContext.Request;
+                using (StreamReader reader = new StreamReader(req.Body, Encoding.UTF8, true, 1024, true))
+                {
+                    bodyString = reader.ReadToEnd();
+                }
+            }
+
+            dynamic pageM = JsonConvert.DeserializeObject<dynamic>(bodyString);
+            var pages = pageM["baseFeedPages"];
+
+            var pageModel = JsonConvert.DeserializeObject<PagedFeed>(bodyString);
+
+            for (var i = 0; i < pageModel.BaseFeedPages.Count; i++)
+            {
+                var pageType = pageModel.BaseFeedPages[i].BasePageFeedType.ToString();
+                var type = Type.GetType($"Phm.MobileSp.Cms.Core.Models.{pageType}FeedPage, Phm.MobileSp.Cms.Core", true);
+                pageModel.BaseFeedPages[i] = pages[i].ToObject(type);
+            }
+            
+            bindingContext.Model = pageModel;
+            bindingContext.Result = ModelBindingResult.Success(pageModel);
             return TaskCache.CompletedTask;
         }
     }
