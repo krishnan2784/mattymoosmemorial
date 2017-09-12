@@ -85,7 +85,7 @@ var QuizFeedItemReport = (function () {
         if (this.filterCriteria.userGroupFilters.length > 0)
             data = data.filter(function (x) { return _this.filterCriteria.userGroupFilters.filter(function (y) { return y.text === x.mainUserGroup; }).length > 0; });
         if (this.filterCriteria.dealershipFilters.length > 0)
-            data = data.filter(function (x) { return _this.filterCriteria.dealershipFilters.filter(function (y) { return y.text === x.dealershipName; }).length > 0; });
+            data = data.filter(function (x) { return _this.filterCriteria.dealershipFilters.filter(function (y) { return y.text === x.dealerShipName; }).length > 0; });
         data = data.filter(function (x) { return x.resultPercentage >= _this.filterCriteria.pointsRangeBottom &&
             x.resultPercentage <= _this.filterCriteria.pointsRangeTop; });
         if (this.searchString !== "") {
