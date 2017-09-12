@@ -41,3 +41,11 @@ export function minCorrectAnswers(min: Number): ValidatorFn {
         return { 'minCorrect': { min } }
     };
 }
+export function minLengthArray(min: number): ValidatorFn {
+    return (c: AbstractControl): { [key: string]: any } => {
+        if (c.value.length >= min)
+            return null;
+
+        return { 'minLengthArray': { valid: false } };
+    }
+}

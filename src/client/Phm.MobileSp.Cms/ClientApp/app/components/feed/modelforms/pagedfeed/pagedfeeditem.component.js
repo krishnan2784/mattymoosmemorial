@@ -29,6 +29,7 @@ var Feedclasses = require("../../../../models/feedclasses");
 var PagedFeed = Feedclasses.PagedFeed;
 var Pagedfeedclasses = require("../../../../models/pagedfeedclasses");
 var BaseFeedPage = Pagedfeedclasses.BaseFeedPage;
+var Validators1 = require("../../../../classes/validators");
 var PagedFeedItemFormComponent = (function (_super) {
     __extends(PagedFeedItemFormComponent, _super);
     function PagedFeedItemFormComponent(injector) {
@@ -47,7 +48,7 @@ var PagedFeedItemFormComponent = (function (_super) {
         var formArray = new forms_1.FormArray([], forms_1.Validators.minLength(2));
         this.model.baseFeedPages.forEach(function (x, i) { return formArray.push(_this.initPage(x)); });
         this.form.addControl('baseFeedPages', formArray);
-        this.form.controls['baseFeedPages'].setValidators(forms_1.Validators.maxLength(5));
+        this.form.controls['baseFeedPages'].setValidators([forms_1.Validators.required, Validators1.minLengthArray(2), forms_1.Validators.maxLength(5)]);
     };
     ;
     PagedFeedItemFormComponent.prototype.removeFormControls = function () {

@@ -11,6 +11,7 @@ import Pagedfeedclasses = require("../../../../models/pagedfeedclasses");
 import BaseFeedPage = Pagedfeedclasses.BaseFeedPage;
 import Mediainfoclasses = require("../../../../models/mediainfoclasses");
 import MediaInfo = Mediainfoclasses.MediaInfo;
+import Validators1 = require("../../../../classes/validators");
 
 @Component({
     selector: 'pagedfeeditem',
@@ -36,7 +37,7 @@ export class PagedFeedItemFormComponent extends BasePartialItemFormComponent imp
         var formArray = new FormArray([], <any>Validators.minLength(2));
         this.model.baseFeedPages.forEach((x, i) => formArray.push(this.initPage(x)));
         this.form.addControl('baseFeedPages', formArray);
-        this.form.controls['baseFeedPages'].setValidators(Validators.maxLength(5));
+        this.form.controls['baseFeedPages'].setValidators([Validators.required, Validators1.minLengthArray(2), Validators.maxLength(5)]);
     };
 
     removeFormControls() {

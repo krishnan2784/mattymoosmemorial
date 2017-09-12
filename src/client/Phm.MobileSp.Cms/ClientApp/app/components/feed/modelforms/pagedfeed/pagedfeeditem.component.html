@@ -1,5 +1,10 @@
 <div [formGroup]="form">
     <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Pages)">
+        
+        <small *ngIf="submitted && form.controls.baseFeedPages.hasError('minLengthArray')" class="active-warning center">
+            Please add at least two pages.
+        </small>
+        <div class="clearfix"></div>
 
         <div *ngIf="showAddPageOptions" class="center col-md-10">
             <a class="btn" (click)="addPage(pageTypeEnum.Text);">Text</a>
@@ -8,10 +13,6 @@
             <a class="btn grey" (click)="hideAddPage();">Cancel</a>
             <div class="clearfix"></div>
         </div>
-
-        <small *ngIf="submitted && form.controls.baseFeedPages.hasError('minlength')" class="active-warning center">
-            Please add at least two pages.
-        </small>
 
         <div class="page-menu col-md-10" *ngIf="form.controls.baseFeedPages.controls.length > 0 && !showAddPageOptions">
             <a [class.invisible]="currentPage<=0" (click)="displayPage(currentPage-1)" class="page-menu-item prev-page"><i class="material-icons">keyboard_arrow_left</i></a>
