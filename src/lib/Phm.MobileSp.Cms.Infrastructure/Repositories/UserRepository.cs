@@ -79,8 +79,12 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 
             foreach (var config in configs)
             {
+                if (list.Any(x => x.Id == config.MarketId))
+                    continue;
+
                 var market = markets.First(x => x.Id == config.MarketId);
-                bool isLiveMarket = (bool)market.IsLive;
+                bool isLiveMarket = market.IsLive != null && (bool)market.IsLive;
+                
                 list.Add(new UserMarket()
                 {
                     Id = config.MarketId,
