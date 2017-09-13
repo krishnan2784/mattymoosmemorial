@@ -129,7 +129,6 @@ var LeaderboardComponent = (function () {
                     code: this_1.data[i].dealershipCode,
                     users: []
                 });
-                console.log(out.regions[regionsCountM1].zones[zonesCountM1].dealerships);
                 this_1.graphData.children[regionsCountM1].children[zonesCountM1].children.push({
                     name: this_1.data[i].dealershipCode,
                     description: this_1.data[i].dealershipCode,
@@ -155,15 +154,11 @@ var LeaderboardComponent = (function () {
         return JSON.parse(JSON.stringify(source));
     };
     LeaderboardComponent.prototype.insertUser = function (user, region, zone, dealership, dealershipName, firstName, lastName, points, newDS) {
-        console.log(user, region, zone, dealership, dealershipName, firstName, lastName, points, newDS);
         for (var i = 0; i < newDS.regions.length; i++) {
-            console.log(region === newDS.regions[i].name);
             if (region === newDS.regions[i].name) {
                 for (var j = 0; j < newDS.regions[i].zones.length; j++) {
-                    console.log(zone === newDS.regions[i].zones[j].name);
                     if (zone === newDS.regions[i].zones[j].name) {
                         for (var k = 0; k < newDS.regions[i].zones[j].dealerships.length; k++) {
-                            console.log(dealership === newDS.regions[i].zones[j].dealerships[k].code);
                             if (dealership === newDS.regions[i].zones[j].dealerships[k].code) {
                                 newDS.regions[i].zones[j].dealerships[k].users.push({
                                     firstName: firstName,
@@ -211,7 +206,6 @@ var LeaderboardComponent = (function () {
         return false;
     };
     LeaderboardComponent.prototype.dealershipAdded = function (region, zone, dealership, newDS) {
-        console.log(region, zone, dealership, newDS);
         for (var i = 0; i < newDS.regions.length; i++) {
             if (region === newDS.regions[i].name) {
                 for (var j = 0; j < newDS.regions[i].zones.length; j++) {
@@ -225,7 +219,6 @@ var LeaderboardComponent = (function () {
                 }
             }
         }
-        console.log(false);
         return false;
     };
     LeaderboardComponent.prototype.raiseEvent = function (id, index) {
@@ -244,9 +237,7 @@ var LeaderboardComponent = (function () {
                 return 1;
             return 0;
         });
-        console.log(list);
         list.reverse();
-        console.log(list);
         var a = 0;
         list.forEach(function (e) {
             a++;
@@ -270,8 +261,7 @@ var LeaderboardComponent = (function () {
             }
         }
         if (list.length > 10 && isTop10) {
-            console.log(list);
-            //list.length = 10;
+            list.length = 10;
         }
     };
     LeaderboardComponent.prototype.isInfilteredRegion = function (r) {
