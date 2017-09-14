@@ -88,8 +88,6 @@ var EditUser = (function (_super) {
     EditUser.prototype.saveUser = function (user, isValid) {
         var _this = this;
         this.submitted = true;
-        console.log(this.form);
-        return;
         if (!isValid) {
             console.log(FormEx.getFormValidationErrors(this.form));
             $('.toast').remove();

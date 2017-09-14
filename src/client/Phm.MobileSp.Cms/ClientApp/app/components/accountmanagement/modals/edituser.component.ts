@@ -85,8 +85,6 @@ export class EditUser extends BaseModalContent implements OnInit, AfterViewInit,
 
     saveUser(user: UserTemplate, isValid: boolean) {
         this.submitted = true;
-        console.log(this.form);
-        return;
         if (!isValid) {
             console.log(FormEx.getFormValidationErrors(this.form));
             $('.toast').remove();
