@@ -13,6 +13,8 @@ import UserFilters = Userfiltercomponent.UserFilters;
 
 import { Overlay } from 'angular2-modal';
 import { Modal } from 'angular2-modal/plugins/bootstrap';
+import String1 = require("../../classes/helpers/string");
+import StringEx = String1.StringEx;
 
 @Component({
     selector: 'useraccountmanagement',
@@ -25,6 +27,7 @@ export class UserAccountManagementComponent extends BaseComponent {
     private allUserAccounts: Array<any>;
     private filteredUserAccounts: Array<any>;
     refreshFilters: boolean = false;
+    roles: { id: number, name: string }[];
 
     public rows: Array<any> = [];
     public columns: Array<any> = [
@@ -64,9 +67,6 @@ export class UserAccountManagementComponent extends BaseComponent {
         this.userDataService.getUsers().subscribe((result) => {
             this.allUserAccounts = result;
             if (result) {
-                for (let i = 0; i < result.length; i++) {
-                    this.attachUserProperties(this.allUserAccounts[i]);
-                }
             } else
                 this.allUserAccounts = [];
 
@@ -74,6 +74,14 @@ export class UserAccountManagementComponent extends BaseComponent {
             this.filteredUserAccounts = this.allUserAccounts;
             this.onChangeTable(this.config);
             this.sharedService.updateMarketDropdownEnabledState(true);
+        });
+        this.userDataService.getUserGroups().subscribe((result) => {
+            if (result) {
+                this.roles = [];
+                result.forEach((role) => {
+                    this.roles.push({ id: role.id, name: role.name });
+                });
+            }
         });
     }
 
@@ -83,6 +91,7 @@ export class UserAccountManagementComponent extends BaseComponent {
 
     setupSubscriptions() {
         this.sharedService.marketUpdated.subscribe((market) => {
+            this.filteredUserAccounts = null;
             this.getData();
         });
     }
@@ -124,40 +133,7 @@ export class UserAccountManagementComponent extends BaseComponent {
     }
 
     public changeFilter(data: any, config: any): any {
-        let filteredData: Array<any> = data || [];
-        var lowerFilter = this.config.filtering.filterString.toLowerCase();
-        this.columns.forEach((column: any) => {
-            if (column.filtering) {
-                filteredData = filteredData.filter((item: any) => {
-                    return item[column.name].toLowerCase().match(lowerFilter);
-                });
-            }
-        });
-
-        if (!config.filtering) {
-            return filteredData;
-        }
-
-        if (config.filtering.columnName) {
-            return filteredData.filter((item: any) =>
-                item[config.filtering.columnName].toLowerCase().match(lowerFilter));
-        }
-
-        let tempArray: Array<any> = [];
-        filteredData.forEach((item: any) => {
-            let flag = false;
-            this.columns.forEach((column: any) => {
-                if (item[column.name] && item[column.name].toString().toLowerCase().match(lowerFilter)) {
-                    flag = true;
-                }
-            });
-            if (flag) {
-                tempArray.push(item);
-            }
-        });
-        filteredData = tempArray;
-
-        return filteredData;
+        return StringEx.searchArray(this.config.filtering.filterString.toLowerCase(), data, ['firstName', 'lastName', 'email', 'regionName', 'zoneName', 'dealershipName', 'dealershipCode']);
     }
 
     public onChangeTable(config: any, page: any = { page: this.page, itemsPerPage: this.itemsPerPage }): any {
@@ -176,17 +152,9 @@ export class UserAccountManagementComponent extends BaseComponent {
         this.length = sortedData.length;
     }
 
-    public onCellClick(data: any): any {
-        if (data.column === 'actionEdit') {
-            this.editUser(data.row);
-        } else if (data.column === 'actionDelete') {
-            this.deleteUser(data.row);
-        }
-    }
-
     public editUser(user: UserTemplate = new UserTemplate()) {
         user = new UserTemplate(user);
-        let inputs = { model: user, title: user.id === 0 ? 'Create User' : 'Edit User' };
+        let inputs = { model: user, title: user.id === 0 ? 'Create User' : 'Edit User', roles: this.roles };
         var modelData = EditUser;
 
         this.modalData = {
@@ -214,7 +182,6 @@ export class UserAccountManagementComponent extends BaseComponent {
 
     public updateUser(user: UserTemplate) {
         if (user != null) {
-            this.attachUserProperties(user);
             if (this.allUserAccounts != null) {
                 let originalUser = this.allUserAccounts.find(x => x.id === user.id);
                 let index = this.allUserAccounts.indexOf(originalUser);
@@ -228,16 +195,6 @@ export class UserAccountManagementComponent extends BaseComponent {
             this.onChangeTable(this.config);
             this.refreshFilters = true;
         }
-    }
-
-    public attachUserProperties(user: any) {
-        user.userAvatar = '<i class="material-icons table-avatar">person</i>';
-        user.dealershipName_code = user.dealershipName + ' (' + user.dealershipCode + ')';
-        user.firstName_region = user.firstName + '<p class="sub-data">' + user.regionName + '</p>';
-        user.email_zone = user.email + '<p class="sub-data">' + user.zoneName + '</p>';
-        user.actionEdit = '<a class="action-btn remove" data-toggle="modal" data-target="#edit-user"><i class="material-icons">edit</i><p>Edit</p></a>';
-        user.actionDelete = '<a class="action-btn remove"><i class="material-icons">delete</i><p>Delete</p></a>';
-        return user;
     }
 
     filterUpdate(criteria: UserFilters) {

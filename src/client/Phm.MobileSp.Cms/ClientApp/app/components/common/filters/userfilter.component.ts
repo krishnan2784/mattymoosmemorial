@@ -56,7 +56,6 @@ export class UserFilter implements AfterViewInit, OnChanges, OnDestroy {
     }
 
     ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
-        console.log(changes);
         if (changes['refreshFilters']) {
             this.getMarketFilters();
             this.refreshFilters = false;

@@ -40,6 +40,7 @@ var EditUser = (function (_super) {
         _this.dealershipCodes = ['0001', '0002', '0003'];
         if (injector) {
             _this.model = injector.get('model');
+            _this.roles = injector.get('roles');
         }
         _this.initialiseForm();
         _this.getAutoCompleteData();
@@ -53,6 +54,7 @@ var EditUser = (function (_super) {
     EditUser.prototype.ngAfterViewInit = function () {
     };
     EditUser.prototype.initialiseForm = function () {
+        var _this = this;
         this.form = this.fb.group({
             id: new forms_1.FormControl(this.model.id, []),
             firstName: new forms_1.FormControl(this.model.firstName, [forms_1.Validators.required]),
@@ -64,6 +66,8 @@ var EditUser = (function (_super) {
             zoneName: new forms_1.FormControl(this.model.zoneName, [forms_1.Validators.required]),
             secGroup: new forms_1.FormControl(this.model.secGroup, [forms_1.Validators.required])
         });
+        if (this.roles && this.roles.length > 0 && this.model && this.model.secGroup && this.model.secGroup.id > 0)
+            this.model.secGroup = this.roles.find(function (x) { return x.id == _this.model.secGroup.id; });
     };
     EditUser.prototype.getAutoCompleteData = function () {
         var _this = this;
@@ -73,16 +77,6 @@ var EditUser = (function (_super) {
                 _this.dealershipCodes = result.dealershipCodes;
                 _this.zones = result.zones;
                 _this.regions = result.regions;
-            }
-        });
-        this.userDataService.getUserGroups().subscribe(function (result) {
-            if (result) {
-                _this.roles = [];
-                result.forEach(function (role) {
-                    _this.roles.push({ id: role.id, name: role.name });
-                });
-                if (_this.roles && _this.roles.length > 0 && _this.model && _this.model.secGroup && _this.model.secGroup.id > 0)
-                    _this.model.secGroup = _this.roles.find(function (x) { return x.id == _this.model.secGroup.id; });
             }
         });
     };

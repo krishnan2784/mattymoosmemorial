@@ -30,6 +30,8 @@ var Userfiltercomponent = require("../common/filters/userfilter.component");
 var UserFilters = Userfiltercomponent.UserFilters;
 var angular2_modal_1 = require("angular2-modal");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
+var String1 = require("../../classes/helpers/string");
+var StringEx = String1.StringEx;
 var UserAccountManagementComponent = (function (_super) {
     __extends(UserAccountManagementComponent, _super);
     function UserAccountManagementComponent(sharedService, userDataService, overlay, vcRef, confirmBox) {
@@ -75,9 +77,6 @@ var UserAccountManagementComponent = (function (_super) {
         this.userDataService.getUsers().subscribe(function (result) {
             _this.allUserAccounts = result;
             if (result) {
-                for (var i = 0; i < result.length; i++) {
-                    _this.attachUserProperties(_this.allUserAccounts[i]);
-                }
             }
             else
                 _this.allUserAccounts = [];
@@ -86,12 +85,21 @@ var UserAccountManagementComponent = (function (_super) {
             _this.onChangeTable(_this.config);
             _this.sharedService.updateMarketDropdownEnabledState(true);
         });
+        this.userDataService.getUserGroups().subscribe(function (result) {
+            if (result) {
+                _this.roles = [];
+                result.forEach(function (role) {
+                    _this.roles.push({ id: role.id, name: role.name });
+                });
+            }
+        });
     };
     UserAccountManagementComponent.prototype.ngOnInit = function () {
     };
     UserAccountManagementComponent.prototype.setupSubscriptions = function () {
         var _this = this;
         this.sharedService.marketUpdated.subscribe(function (market) {
+            _this.filteredUserAccounts = null;
             _this.getData();
         });
     };
@@ -128,38 +136,7 @@ var UserAccountManagementComponent = (function (_super) {
         });
     };
     UserAccountManagementComponent.prototype.changeFilter = function (data, config) {
-        var _this = this;
-        var filteredData = data || [];
-        var lowerFilter = this.config.filtering.filterString.toLowerCase();
-        this.columns.forEach(function (column) {
-            if (column.filtering) {
-                filteredData = filteredData.filter(function (item) {
-                    return item[column.name].toLowerCase().match(lowerFilter);
-                });
-            }
-        });
-        if (!config.filtering) {
-            return filteredData;
-        }
-        if (config.filtering.columnName) {
-            return filteredData.filter(function (item) {
-                return item[config.filtering.columnName].toLowerCase().match(lowerFilter);
-            });
-        }
-        var tempArray = [];
-        filteredData.forEach(function (item) {
-            var flag = false;
-            _this.columns.forEach(function (column) {
-                if (item[column.name] && item[column.name].toString().toLowerCase().match(lowerFilter)) {
-                    flag = true;
-                }
-            });
-            if (flag) {
-                tempArray.push(item);
-            }
-        });
-        filteredData = tempArray;
-        return filteredData;
+        return StringEx.searchArray(this.config.filtering.filterString.toLowerCase(), data, ['firstName', 'lastName', 'email', 'regionName', 'zoneName', 'dealershipName', 'dealershipCode']);
     };
     UserAccountManagementComponent.prototype.onChangeTable = function (config, page) {
         if (page === void 0) { page = { page: this.page, itemsPerPage: this.itemsPerPage }; }
@@ -174,18 +151,10 @@ var UserAccountManagementComponent = (function (_super) {
         this.rows = page && config.paging ? this.changePage(page, sortedData) : sortedData;
         this.length = sortedData.length;
     };
-    UserAccountManagementComponent.prototype.onCellClick = function (data) {
-        if (data.column === 'actionEdit') {
-            this.editUser(data.row);
-        }
-        else if (data.column === 'actionDelete') {
-            this.deleteUser(data.row);
-        }
-    };
     UserAccountManagementComponent.prototype.editUser = function (user) {
         if (user === void 0) { user = new userclasses_1.UserTemplate(); }
         user = new userclasses_1.UserTemplate(user);
-        var inputs = { model: user, title: user.id === 0 ? 'Create User' : 'Edit User' };
+        var inputs = { model: user, title: user.id === 0 ? 'Create User' : 'Edit User', roles: this.roles };
         var modelData = EditUser;
         this.modalData = {
             modalContent: modelData,
@@ -211,7 +180,6 @@ var UserAccountManagementComponent = (function (_super) {
     };
     UserAccountManagementComponent.prototype.updateUser = function (user) {
         if (user != null) {
-            this.attachUserProperties(user);
             if (this.allUserAccounts != null) {
                 var originalUser = this.allUserAccounts.find(function (x) { return x.id === user.id; });
                 var index = this.allUserAccounts.indexOf(originalUser);
@@ -225,15 +193,6 @@ var UserAccountManagementComponent = (function (_super) {
             this.onChangeTable(this.config);
             this.refreshFilters = true;
         }
-    };
-    UserAccountManagementComponent.prototype.attachUserProperties = function (user) {
-        user.userAvatar = '<i class="material-icons table-avatar">person</i>';
-        user.dealershipName_code = user.dealershipName + ' (' + user.dealershipCode + ')';
-        user.firstName_region = user.firstName + '<p class="sub-data">' + user.regionName + '</p>';
-        user.email_zone = user.email + '<p class="sub-data">' + user.zoneName + '</p>';
-        user.actionEdit = '<a class="action-btn remove" data-toggle="modal" data-target="#edit-user"><i class="material-icons">edit</i><p>Edit</p></a>';
-        user.actionDelete = '<a class="action-btn remove"><i class="material-icons">delete</i><p>Delete</p></a>';
-        return user;
     };
     UserAccountManagementComponent.prototype.filterUpdate = function (criteria) {
         var _this = this;

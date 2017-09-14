@@ -36,6 +36,7 @@ export class EditUser extends BaseModalContent implements OnInit, AfterViewInit,
         super();
         if (injector) {
             this.model = injector.get('model');
+            this.roles = injector.get('roles');
         }
         this.initialiseForm();
         this.getAutoCompleteData();
@@ -62,6 +63,8 @@ export class EditUser extends BaseModalContent implements OnInit, AfterViewInit,
             zoneName: new FormControl(this.model.zoneName, [<any>Validators.required]),
             secGroup: new FormControl(this.model.secGroup, [<any>Validators.required])
         });
+        if (this.roles && this.roles.length > 0 && this.model && this.model.secGroup && this.model.secGroup.id > 0)
+            this.model.secGroup = this.roles.find(x => x.id == this.model.secGroup.id);
     }
 
     getAutoCompleteData() {
@@ -71,16 +74,6 @@ export class EditUser extends BaseModalContent implements OnInit, AfterViewInit,
                 this.dealershipCodes = result.dealershipCodes;
                 this.zones = result.zones;
                 this.regions = result.regions;
-            }
-        });
-        this.userDataService.getUserGroups().subscribe((result) => {
-            if (result) {
-                this.roles = [];
-                result.forEach((role) => {
-                    this.roles.push({ id: role.id, name: role.name });
-                });
-                if (this.roles && this.roles.length > 0 && this.model && this.model.secGroup && this.model.secGroup.id > 0)
-                    this.model.secGroup = this.roles.find(x => x.id == this.model.secGroup.id);
             }
         });
     }
