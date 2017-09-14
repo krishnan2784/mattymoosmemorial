@@ -10,9 +10,12 @@ import Userclasses = require("../../../models/userclasses");
 import Userdataservice = require("../../../services/userdataservice");
 import UserDataService = Userdataservice.UserDataService;
 import UserTemplate = Userclasses.UserTemplate;
-import { MaterializeModule } from 'angular2-materialize';
 import { MarketDataService } from "../../../services/marketdataservice";
+import Form = require("../../../classes/helpers/form");
+import FormEx = Form.FormEx;
+import Validators1 = require("../../../classes/validators");
 
+declare var Materialize: any;
 declare var $: any;
 @Component({
     selector: 'edituser',
@@ -30,6 +33,8 @@ export class EditUser extends BaseModalContent implements OnInit, AfterViewInit,
     public zones: string[] =['Zone 1', 'Zone 2', 'Zone 3'];
     public dealershipNames: string[] = ['Dealership 1', 'Dealership 2', 'Dealership 3'];
     public dealershipCodes: string[] = ['0001', '0002', '0003'];
+    submitted: boolean = false;
+    loading: boolean = false;
 
     constructor(private injector: Injector, private userDataService: UserDataService,
         private fb: FormBuilder, public marketDataService: MarketDataService) {
@@ -55,12 +60,12 @@ export class EditUser extends BaseModalContent implements OnInit, AfterViewInit,
             id: new FormControl(this.model.id, []),
             firstName: new FormControl(this.model.firstName, [<any>Validators.required]),
             lastName: new FormControl(this.model.lastName, [<any>Validators.required]),
-            email: new FormControl(this.model.email, [<any>Validators.required]),
+            email: new FormControl(this.model.email, [<any>Validators.required, Validators1.validEmailAddress()]),
             dealershipName: new FormControl(this.model.dealershipName, [<any>Validators.required]),
             dealershipCode: new FormControl(this.model.dealershipCode, [<any>Validators.required]),
             regionName: new FormControl(this.model.regionName, [<any>Validators.required]),
             zoneName: new FormControl(this.model.zoneName, [<any>Validators.required]),
-            secGroup: new FormControl(this.model.secGroup, [<any>Validators.required])
+            secGroup: new FormControl(this.model.secGroup, [<any>Validators.required, Validators1.validUserRole()])
         });
     }
 
@@ -86,13 +91,24 @@ export class EditUser extends BaseModalContent implements OnInit, AfterViewInit,
     }
 
     saveUser(user: UserTemplate, isValid: boolean) {
-        if (!isValid)
+        this.submitted = true;
+        console.log(this.form);
+        return;
+        if (!isValid) {
+            console.log(FormEx.getFormValidationErrors(this.form));
+            $('.toast').remove();
+            return Materialize.toast('Please check that you have filled in all the required fields.', 6000, 'red');
+        }
+        if (this.loading)
             return;
 
+        this.loading = true;
         this.userDataService.updateUser(user).subscribe((response) => {
             if (response.success) {
                 this.closeModal(response.content);
             }
+            this.submitted = false;
+            this.loading = false;
         });
     }
 

@@ -34,6 +34,8 @@ var videofeeditem_component_1 = require("./videofeeditem.component");
 var mediaservice_1 = require("../../../services/mediaservice");
 var ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationFeedItemFormComponent;
 var validators_1 = require("../../../classes/validators");
+var Form = require("../../../classes/helpers/form");
+var FormEx = Form.FormEx;
 var FeedItemForm = (function () {
     function FeedItemForm(_fb, http, route, router, feedDataService, sharedService, mediaDataService) {
         this._fb = _fb;
@@ -202,7 +204,7 @@ var FeedItemForm = (function () {
         if (this.loading)
             return;
         if (!this.form.valid) {
-            console.log(this.getFormValidationErrors(this.form));
+            console.log(FormEx.getFormValidationErrors(this.form));
             $('.toast').remove();
             return Materialize.toast('Please check that you have filled in all the required fields.', 6000, 'red');
         }
@@ -218,29 +220,6 @@ var FeedItemForm = (function () {
             else
                 _this.loading = false;
         });
-    };
-    FeedItemForm.prototype.getFormValidationErrors = function (form) {
-        var _this = this;
-        if (!form || !form.controls)
-            return [];
-        var errArray = [];
-        Object.keys(form.controls).forEach(function (key) {
-            var c = form.get(key);
-            if (c.controls) {
-                var childErrors = _this.getFormValidationErrors(c);
-                errArray.concat(childErrors);
-            }
-            else {
-                var controlErrors = c.errors;
-                if (controlErrors != null) {
-                    Object.keys(controlErrors).forEach(function (keyError) {
-                        errArray.push(c);
-                        //console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ' + controlErrors[keyError]);
-                    });
-                }
-            }
-        });
-        return errArray;
     };
     FeedItemForm.prototype.handleStartDate = function (e) {
         this.minDay = e.day;
