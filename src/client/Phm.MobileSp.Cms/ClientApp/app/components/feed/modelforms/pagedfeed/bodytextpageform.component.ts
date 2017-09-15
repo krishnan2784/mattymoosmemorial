@@ -6,17 +6,17 @@ import Pagedfeedclasses = require("../../../../models/pagedfeedclasses");
 import TextFeedPage = Pagedfeedclasses.TextFeedPage;
 
 @Component({
-    selector: 'text-page-form',
-    template: require('./textpageform.component.html'),
-    styles: [require('./textpageform.component.css')]
+    selector: 'bodytext-page-form',
+    template: require('./bodytextpageform.component.html'),
+    styles: [require('./bodytextpageform.component.css')]
 })
-export class TextPageFormComponent implements OnInit {
+export class BodyTextPageFormComponent implements OnInit {
 
     @Input('form')
     public form: FormGroup;
 
     @Input('model')
-    public model: TextFeedPage;
+    public model;
 
     @Input('index')
     public index: number;
@@ -25,7 +25,6 @@ export class TextPageFormComponent implements OnInit {
     public submitted: boolean; 
 
     ngOnInit() {
-        this.model = new TextFeedPage(this.model);
         this.addFormControls();
     }
     

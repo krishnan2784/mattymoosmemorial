@@ -71,6 +71,35 @@ var MediaTabbedTextFeedPage = (function (_super) {
     return MediaTabbedTextFeedPage;
 }(BaseFeedPage));
 exports.MediaTabbedTextFeedPage = MediaTabbedTextFeedPage;
+var MediaFeedPage = (function (_super) {
+    __extends(MediaFeedPage, _super);
+    function MediaFeedPage(options) {
+        if (options === void 0) { options = {}; }
+        var _this = _super.call(this, options) || this;
+        _this.basePageFeedType = Enums.BasePageFeedTypeEnum.Media;
+        _this.mediaInfo = options['mediaInfo'];
+        _this.mediaInfoId = options['mediaInfoId'];
+        return _this;
+    }
+    return MediaFeedPage;
+}(BaseFeedPage));
+exports.MediaFeedPage = MediaFeedPage;
+var TabbedTextFeedPage = (function (_super) {
+    __extends(TabbedTextFeedPage, _super);
+    function TabbedTextFeedPage(options) {
+        if (options === void 0) { options = {}; }
+        var _this = _super.call(this, options) || this;
+        _this.basePageFeedType = Enums.BasePageFeedTypeEnum.TabbedText;
+        _this.tabs = options['tabs'];
+        if (!_this.tabs) {
+            _this.tabs = [];
+            _this.tabs.push(new TabText());
+        }
+        return _this;
+    }
+    return TabbedTextFeedPage;
+}(BaseFeedPage));
+exports.TabbedTextFeedPage = TabbedTextFeedPage;
 var TabText = (function (_super) {
     __extends(TabText, _super);
     function TabText(options) {

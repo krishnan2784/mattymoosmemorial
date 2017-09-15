@@ -11,43 +11,40 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
-var Pagedfeedclasses = require("../../../../models/pagedfeedclasses");
-var TextFeedPage = Pagedfeedclasses.TextFeedPage;
-var TextPageFormComponent = (function () {
-    function TextPageFormComponent() {
+var BodyTextPageFormComponent = (function () {
+    function BodyTextPageFormComponent() {
     }
-    TextPageFormComponent.prototype.ngOnInit = function () {
-        this.model = new TextFeedPage(this.model);
+    BodyTextPageFormComponent.prototype.ngOnInit = function () {
         this.addFormControls();
     };
-    TextPageFormComponent.prototype.addFormControls = function () {
+    BodyTextPageFormComponent.prototype.addFormControls = function () {
         this.form.addControl('bodyText', new forms_1.FormControl(this.model.bodyText, [forms_1.Validators.required]));
     };
     ;
-    return TextPageFormComponent;
+    return BodyTextPageFormComponent;
 }());
 __decorate([
     core_1.Input('form'),
     __metadata("design:type", forms_1.FormGroup)
-], TextPageFormComponent.prototype, "form", void 0);
+], BodyTextPageFormComponent.prototype, "form", void 0);
 __decorate([
     core_1.Input('model'),
-    __metadata("design:type", TextFeedPage)
-], TextPageFormComponent.prototype, "model", void 0);
+    __metadata("design:type", Object)
+], BodyTextPageFormComponent.prototype, "model", void 0);
 __decorate([
     core_1.Input('index'),
     __metadata("design:type", Number)
-], TextPageFormComponent.prototype, "index", void 0);
+], BodyTextPageFormComponent.prototype, "index", void 0);
 __decorate([
     core_1.Input(),
     __metadata("design:type", Boolean)
-], TextPageFormComponent.prototype, "submitted", void 0);
-TextPageFormComponent = __decorate([
+], BodyTextPageFormComponent.prototype, "submitted", void 0);
+BodyTextPageFormComponent = __decorate([
     core_1.Component({
-        selector: 'text-page-form',
-        template: require('./textpageform.component.html'),
-        styles: [require('./textpageform.component.css')]
+        selector: 'bodytext-page-form',
+        template: require('./bodytextpageform.component.html'),
+        styles: [require('./bodytextpageform.component.css')]
     })
-], TextPageFormComponent);
-exports.TextPageFormComponent = TextPageFormComponent;
-//# sourceMappingURL=textpageform.component.js.map
+], BodyTextPageFormComponent);
+exports.BodyTextPageFormComponent = BodyTextPageFormComponent;
+//# sourceMappingURL=bodytextpageform.component.js.map

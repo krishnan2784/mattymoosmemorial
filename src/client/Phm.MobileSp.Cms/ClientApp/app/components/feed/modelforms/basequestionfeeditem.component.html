@@ -26,50 +26,50 @@
 
     <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.QuizScore)">
         <div class="rich-text-box">
-            <editor [form]="form" [formSubmitted]="submitted"
+            <textarea [form]="form" [formSubmitted]="submitted"
                     [elementId]="'onBoardingMessage'"
                     [formControlId]="'onBoardingMessage'"
                     [label]="'Welcome Message'"
                     [validationMessage]="'e.g: Welcome to the Quiz.'"
-                    [disabled]="true"></editor>
+                    [disabled]="true"></textarea>
             <small>This entry is not required for this feed item.</small>
         </div>
 
         <div class="rich-text-box">
-            <editor [form]="form" [formSubmitted]="submitted"
+            <textarea [form]="form" [formSubmitted]="submitted"
                     [elementId]="'successMessage'"
                     [formControlId]="'successMessage'"
                     [label]="'Congratulate your learners with an engaging message'"
-                    [validationMessage]="'e.g: Congratulations! Your skills are improving.'"></editor>
+                    [validationMessage]="'e.g: Congratulations! Your skills are improving.'"></textarea>
         </div>
 
         <div class="rich-text-box">
-            <editor [form]="form" [formSubmitted]="submitted"
+            <textarea [form]="form" [formSubmitted]="submitted"
                     [elementId]="'failMessage'"
                     [formControlId]="'failMessage'"
                     [label]="'Let your learners know what went wrong with a positive message.'"
-                    [validationMessage]="'e.g: oooh Unlucky! You will get it next time!.'"></editor>
+                    [validationMessage]="'e.g: oooh Unlucky! You will get it next time!.'"></textarea>
         </div>
 
     </div>
     
     <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.SurveyScore)">
         <div class="rich-text-box">
-            <editor [form]="form" [formSubmitted]="submitted"
+            <textarea [form]="form" [formSubmitted]="submitted"
                     [elementId]="'surveyDescription'"
                     [formControlId]="'surveyDescription'"
                     [label]="'Welcome message'"
                     [validationMessage]="'e.g: Welcome to the Survey.'"
-                    [disabled]="true"></editor>
+                    [disabled]="true"></textarea>
         </div>
 
         <div class="rich-text-box">
-            <editor [form]="form" [formSubmitted]="submitted"
+            <textarea [form]="form" [formSubmitted]="submitted"
                     [elementId]="'completionMessage'"
                     [formControlId]="'completionMessage'"
                     [label]="'Completion message'"
                     [validationMessage]="'e.g: Thank you for taking part!'"
-                    [disabled]="true"></editor>
+                    [disabled]="true"></textarea>
         </div>
         <small>These entries are not required for this feed item.</small>
     </div>

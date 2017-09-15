@@ -1,0 +1,10 @@
+<div [formGroup]="form" *ngIf="this.model">
+    <div class="input-field">
+        <richtexteditor [form]="form" [formSubmitted]="submitted"
+                [elementId]="'baseFeedPages-' + index + '-bodyText'"
+                [formControlId]="'bodyText'"
+                [label]="'Body text'"
+                [validationMessage]="'Body text is required.'"></richtexteditor>
+    </div>
+    <div class="clearfix"></div>
+</div>

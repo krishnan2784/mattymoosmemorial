@@ -11,51 +11,47 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
-var Pagedfeedclasses = require("../../../../models/pagedfeedclasses");
-var MediaTextFeedPage = Pagedfeedclasses.MediaTextFeedPage;
-var MediaTextPageFormComponent = (function () {
-    function MediaTextPageFormComponent() {
+var MediaPageFormComponent = (function () {
+    function MediaPageFormComponent() {
         this.uploadedMedia = new core_1.EventEmitter;
     }
-    MediaTextPageFormComponent.prototype.ngOnInit = function () {
-        this.model = new MediaTextFeedPage(this.model);
+    MediaPageFormComponent.prototype.ngOnInit = function () {
         this.addFormControls();
     };
-    MediaTextPageFormComponent.prototype.addFormControls = function () {
-        this.form.addControl('bodyText', new forms_1.FormControl(this.model.bodyText, [forms_1.Validators.required]));
+    MediaPageFormComponent.prototype.addFormControls = function () {
         this.form.addControl('mediaInfoId', new forms_1.FormControl(this.model.mediaInfoId, [forms_1.Validators.required]));
     };
     ;
-    MediaTextPageFormComponent.prototype.attachMedia = function (media) {
+    MediaPageFormComponent.prototype.attachMedia = function (media) {
         this.uploadedMedia.emit(media);
     };
-    return MediaTextPageFormComponent;
+    return MediaPageFormComponent;
 }());
 __decorate([
     core_1.Input('form'),
     __metadata("design:type", forms_1.FormGroup)
-], MediaTextPageFormComponent.prototype, "form", void 0);
+], MediaPageFormComponent.prototype, "form", void 0);
 __decorate([
     core_1.Input('model'),
-    __metadata("design:type", MediaTextFeedPage)
-], MediaTextPageFormComponent.prototype, "model", void 0);
+    __metadata("design:type", Object)
+], MediaPageFormComponent.prototype, "model", void 0);
 __decorate([
     core_1.Input('index'),
     __metadata("design:type", Number)
-], MediaTextPageFormComponent.prototype, "index", void 0);
+], MediaPageFormComponent.prototype, "index", void 0);
 __decorate([
     core_1.Input(),
     __metadata("design:type", Boolean)
-], MediaTextPageFormComponent.prototype, "submitted", void 0);
+], MediaPageFormComponent.prototype, "submitted", void 0);
 __decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)
-], MediaTextPageFormComponent.prototype, "uploadedMedia", void 0);
-MediaTextPageFormComponent = __decorate([
+], MediaPageFormComponent.prototype, "uploadedMedia", void 0);
+MediaPageFormComponent = __decorate([
     core_1.Component({
-        selector: 'media-text-page-form',
-        template: require('./mediatextpageform.component.html')
+        selector: 'media-page-form',
+        template: require('./mediapageform.component.html')
     })
-], MediaTextPageFormComponent);
-exports.MediaTextPageFormComponent = MediaTextPageFormComponent;
-//# sourceMappingURL=mediatextpageform.component.js.map
+], MediaPageFormComponent);
+exports.MediaPageFormComponent = MediaPageFormComponent;
+//# sourceMappingURL=mediapageform.component.js.map

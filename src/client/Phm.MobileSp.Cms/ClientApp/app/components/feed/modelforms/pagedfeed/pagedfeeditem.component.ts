@@ -97,4 +97,20 @@ export class PagedFeedItemFormComponent extends BasePartialItemFormComponent imp
         this.currPage().controls.mediaInfoId.patchValue(media.id, { onlySelf: true });
         this.form.updateValueAndValidity();
     }
+
+    pageHasProperty(modelType: Enums.BasePageFeedTypeEnum, propertyName: string): boolean {
+        switch (propertyName) {
+            case 'bodyText':
+                return modelType === Enums.BasePageFeedTypeEnum.Text ||
+                        modelType === Enums.BasePageFeedTypeEnum.MediaText;
+            case 'mediaInfoId':
+                return modelType === Enums.BasePageFeedTypeEnum.Media ||
+                    modelType === Enums.BasePageFeedTypeEnum.MediaText ||
+                    modelType === Enums.BasePageFeedTypeEnum.MediaTabbedText;
+            case 'tabs':
+                return modelType === Enums.BasePageFeedTypeEnum.TabbedText ||
+                    modelType === Enums.BasePageFeedTypeEnum.MediaTabbedText;
+        }
+        return false;
+    }
 }

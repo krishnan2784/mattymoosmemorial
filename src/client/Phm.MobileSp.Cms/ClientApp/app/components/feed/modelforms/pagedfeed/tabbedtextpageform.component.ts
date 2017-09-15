@@ -7,18 +7,18 @@ import MediaTabbedTextFeedPage = PagedFeedClasses.MediaTabbedTextFeedPage;
 import TabText = PagedFeedClasses.TabText;
 
 @Component({
-    selector: 'media-tabbed-text-page-form',
-    template: require('./mediatabbedtextpageform.component.html'),
-    styles: [require('./mediatabbedtextpageform.component.css')]
+    selector: 'tabbed-text-page-form',
+    template: require('./tabbedtextpageform.component.html'),
+    styles: [require('./tabbedtextpageform.component.css')]
 })
-export class MediaTabbedTextPageFormComponent implements OnInit {
+export class TabbedTextPageFormComponent implements OnInit {
     public currentTab: number = 0;
 
     @Input('form')
     public form: FormGroup;
 
     @Input('model')
-    public model: MediaTabbedTextFeedPage;
+    public model;
 
     @Input('index')
     public index: number;
@@ -26,11 +26,7 @@ export class MediaTabbedTextPageFormComponent implements OnInit {
     @Input()
     public submitted: boolean; 
 
-    @Output()
-    public uploadedMedia: EventEmitter<any> = new EventEmitter;
-
     ngOnInit() {
-        console.log(this.model);
         this.model = new MediaTabbedTextFeedPage(this.model);
         this.addFormControls();
     }
@@ -45,7 +41,6 @@ export class MediaTabbedTextPageFormComponent implements OnInit {
         this.model.tabs.forEach((x, i) => formArray.push(this.initTab(x)));
         this.form.addControl('tabs', formArray);
         this.form.controls['tabs'].setValidators(Validators.maxLength(3));
-        this.form.addControl('mediaInfoId', new FormControl(this.model.mediaInfoId, [<any>Validators.required]));
     };
 
     initTab(tab: TabText = null): FormGroup {
@@ -57,7 +52,7 @@ export class MediaTabbedTextPageFormComponent implements OnInit {
             published: new FormControl(tab.published, []),
             mediaTabbedTextFeedtabId: new FormControl(tab.mediaTabbedTextFeedPageId, []),
             bodyText: new FormControl(tab.bodyText, [<any>Validators.required]),
-            title: new FormControl(tab.title, [])
+            title: new FormControl(tab.title, [<any>Validators.required])
         });
     }
 
@@ -80,9 +75,5 @@ export class MediaTabbedTextPageFormComponent implements OnInit {
         if (index < 0 || index > (tabs.length - 1))
             return;
         this.currentTab = index;
-    }
-
-    attachMedia(media: MediaInfo) {
-        this.uploadedMedia.emit(media);
     }
 }

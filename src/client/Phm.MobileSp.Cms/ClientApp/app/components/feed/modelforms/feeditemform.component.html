@@ -160,29 +160,29 @@
         <div class="col-md-8">
 
             <div class="rich-text-box">
-                <editor [form]="form" [formSubmitted]="submitted"
+                <textarea [form]="form" [formSubmitted]="submitted"
                         [elementId]="'title'"
                         [formControlId]="'title'"
                         [label]="'Enter Title'"
                         [validationMessage]="'Title is required.'"
-                        [maxLength]="160"></editor>
+                        [maxLength]="160"></textarea>
             </div>
 
             <div class="rich-text-box">
-                <editor [form]="form" [formSubmitted]="submitted"
+                <richtexteditor [form]="form" [formSubmitted]="submitted"
                         [elementId]="'shortDescription'"
                         [formControlId]="'shortDescription'"
                         [label]="'Short Description'"
                         [validationMessage]="'Short description is required.'"
-                        [maxLength]="120"></editor>
+                        [maxLength]="120"></richtexteditor>
             </div>
 
             <div class="rich-text-box" *ngIf="model.feedType == feedTypes.Text ||  model.feedType == feedTypes.Image || model.feedType == feedTypes.Video">
-                <editor [form]="form" [formSubmitted]="submitted"
+                <richtexteditor [form]="form" [formSubmitted]="submitted"
                         [elementId]="'bodyText'"
                         [formControlId]="'bodyText'"
                         [label]="'Body Text'"
-                        [validationMessage]="'Body text is required if you are not uploading an image or video.'"></editor>
+                        [validationMessage]="'Body text is required if you are not uploading an image or video.'"></richtexteditor>
             </div>
 
 

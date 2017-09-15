@@ -62,6 +62,33 @@ export class MediaTabbedTextFeedPage extends BaseFeedPage {
     }
 }
 
+export class MediaFeedPage extends BaseFeedPage {
+    public mediaInfo: MediaInfo;
+    public mediaInfoId: number;
+
+    constructor(options: {} = {}) {
+        super(options);
+        this.basePageFeedType = Enums.BasePageFeedTypeEnum.Media;
+        this.mediaInfo = options['mediaInfo'];
+        this.mediaInfoId = options['mediaInfoId'];
+    }
+}
+
+export class TabbedTextFeedPage extends BaseFeedPage {
+    public tabs: TabText[];
+
+    constructor(options: {} = {}) {
+        super(options);
+        this.basePageFeedType = Enums.BasePageFeedTypeEnum.TabbedText;
+        this.tabs = options['tabs'];
+
+        if (!this.tabs) {
+            this.tabs = [];
+            this.tabs.push(new TabText());
+        }
+    }
+}
+
 export class TabText extends BaseModel {
     public mediaTabbedTextFeedPageId: number;
     public title: string;

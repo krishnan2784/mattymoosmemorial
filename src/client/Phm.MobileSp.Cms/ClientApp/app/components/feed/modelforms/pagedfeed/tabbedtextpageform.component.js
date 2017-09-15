@@ -14,30 +14,27 @@ var forms_1 = require("@angular/forms");
 var PagedFeedClasses = require("../../../../models/pagedfeedclasses");
 var MediaTabbedTextFeedPage = PagedFeedClasses.MediaTabbedTextFeedPage;
 var TabText = PagedFeedClasses.TabText;
-var MediaTabbedTextPageFormComponent = (function () {
-    function MediaTabbedTextPageFormComponent() {
+var TabbedTextPageFormComponent = (function () {
+    function TabbedTextPageFormComponent() {
         this.currentTab = 0;
-        this.uploadedMedia = new core_1.EventEmitter;
     }
-    MediaTabbedTextPageFormComponent.prototype.ngOnInit = function () {
-        console.log(this.model);
+    TabbedTextPageFormComponent.prototype.ngOnInit = function () {
         this.model = new MediaTabbedTextFeedPage(this.model);
         this.addFormControls();
     };
-    MediaTabbedTextPageFormComponent.prototype.currTab = function () {
+    TabbedTextPageFormComponent.prototype.currTab = function () {
         var tabs = this.form.controls['tabs'];
         return tabs.controls[this.currentTab];
     };
-    MediaTabbedTextPageFormComponent.prototype.addFormControls = function () {
+    TabbedTextPageFormComponent.prototype.addFormControls = function () {
         var _this = this;
         var formArray = new forms_1.FormArray([], forms_1.Validators.minLength(2));
         this.model.tabs.forEach(function (x, i) { return formArray.push(_this.initTab(x)); });
         this.form.addControl('tabs', formArray);
         this.form.controls['tabs'].setValidators(forms_1.Validators.maxLength(3));
-        this.form.addControl('mediaInfoId', new forms_1.FormControl(this.model.mediaInfoId, [forms_1.Validators.required]));
     };
     ;
-    MediaTabbedTextPageFormComponent.prototype.initTab = function (tab) {
+    TabbedTextPageFormComponent.prototype.initTab = function (tab) {
         if (tab === void 0) { tab = null; }
         return new forms_1.FormGroup({
             id: new forms_1.FormControl(tab.id, []),
@@ -47,58 +44,51 @@ var MediaTabbedTextPageFormComponent = (function () {
             published: new forms_1.FormControl(tab.published, []),
             mediaTabbedTextFeedtabId: new forms_1.FormControl(tab.mediaTabbedTextFeedPageId, []),
             bodyText: new forms_1.FormControl(tab.bodyText, [forms_1.Validators.required]),
-            title: new forms_1.FormControl(tab.title, [])
+            title: new forms_1.FormControl(tab.title, [forms_1.Validators.required])
         });
     };
-    MediaTabbedTextPageFormComponent.prototype.addTab = function () {
+    TabbedTextPageFormComponent.prototype.addTab = function () {
         var control = this.form.controls['tabs'];
         control.push(this.initTab(new TabText()));
         this.displayTab(control.length - 1);
     };
-    MediaTabbedTextPageFormComponent.prototype.removeTab = function (index) {
+    TabbedTextPageFormComponent.prototype.removeTab = function (index) {
         var control = this.form.controls['tabs'];
         if (this.currentTab > 0)
             this.displayTab(this.currentTab - 1);
         control.removeAt(index);
         this.form.markAsDirty();
     };
-    MediaTabbedTextPageFormComponent.prototype.displayTab = function (index) {
+    TabbedTextPageFormComponent.prototype.displayTab = function (index) {
         var tabs = this.form.controls['tabs'];
         if (index < 0 || index > (tabs.length - 1))
             return;
         this.currentTab = index;
     };
-    MediaTabbedTextPageFormComponent.prototype.attachMedia = function (media) {
-        this.uploadedMedia.emit(media);
-    };
-    return MediaTabbedTextPageFormComponent;
+    return TabbedTextPageFormComponent;
 }());
 __decorate([
     core_1.Input('form'),
     __metadata("design:type", forms_1.FormGroup)
-], MediaTabbedTextPageFormComponent.prototype, "form", void 0);
+], TabbedTextPageFormComponent.prototype, "form", void 0);
 __decorate([
     core_1.Input('model'),
-    __metadata("design:type", MediaTabbedTextFeedPage)
-], MediaTabbedTextPageFormComponent.prototype, "model", void 0);
+    __metadata("design:type", Object)
+], TabbedTextPageFormComponent.prototype, "model", void 0);
 __decorate([
     core_1.Input('index'),
     __metadata("design:type", Number)
-], MediaTabbedTextPageFormComponent.prototype, "index", void 0);
+], TabbedTextPageFormComponent.prototype, "index", void 0);
 __decorate([
     core_1.Input(),
     __metadata("design:type", Boolean)
-], MediaTabbedTextPageFormComponent.prototype, "submitted", void 0);
-__decorate([
-    core_1.Output(),
-    __metadata("design:type", core_1.EventEmitter)
-], MediaTabbedTextPageFormComponent.prototype, "uploadedMedia", void 0);
-MediaTabbedTextPageFormComponent = __decorate([
+], TabbedTextPageFormComponent.prototype, "submitted", void 0);
+TabbedTextPageFormComponent = __decorate([
     core_1.Component({
-        selector: 'media-tabbed-text-page-form',
-        template: require('./mediatabbedtextpageform.component.html'),
-        styles: [require('./mediatabbedtextpageform.component.css')]
+        selector: 'tabbed-text-page-form',
+        template: require('./tabbedtextpageform.component.html'),
+        styles: [require('./tabbedtextpageform.component.css')]
     })
-], MediaTabbedTextPageFormComponent);
-exports.MediaTabbedTextPageFormComponent = MediaTabbedTextPageFormComponent;
-//# sourceMappingURL=mediatabbedtextpageform.component.js.map
+], TabbedTextPageFormComponent);
+exports.TabbedTextPageFormComponent = TabbedTextPageFormComponent;
+//# sourceMappingURL=tabbedtextpageform.component.js.map

@@ -8,7 +8,9 @@
 
         <div *ngIf="showAddPageOptions" class="center col-md-10">
             <a class="btn" (click)="addPage(pageTypeEnum.Text);">Text</a>
+            <a class="btn" (click)="addPage(pageTypeEnum.Media);">Media</a>
             <a class="btn" (click)="addPage(pageTypeEnum.MediaText);">Media & Text</a>
+            <a class="btn" (click)="addPage(pageTypeEnum.TabbedText);">Tabbed Text</a>
             <a class="btn" (click)="addPage(pageTypeEnum.MediaTabbedText);">Tabbed Text & Media</a>
             <a class="btn grey" (click)="hideAddPage();">Cancel</a>
             <div class="clearfix"></div>
@@ -36,9 +38,15 @@
                         <input type="hidden" formControlName="basePageFeedType">
                         <input type="hidden" formControlName="pagedFeedId">
                         <input type="hidden" formControlName="title">
-                        <text-page-form *ngIf="form.controls.baseFeedPages.controls[i].controls.basePageFeedType.value === pageTypeEnum.Text" [form]="page" [index]="i" [model]="model.baseFeedPages[i]" [submitted]="submitted"></text-page-form>
-                        <media-text-page-form *ngIf="form.controls.baseFeedPages.controls[i].controls.basePageFeedType.value === pageTypeEnum.MediaText" [form]="page" [index]="i" [model]="model.baseFeedPages[i]" [submitted]="submitted" (uploadedMedia)="attachMedia($event)"></media-text-page-form>
-                        <media-tabbed-text-page-form *ngIf="form.controls.baseFeedPages.controls[i].controls.basePageFeedType.value === pageTypeEnum.MediaTabbedText" [form]="page" [index]="i" [model]="model.baseFeedPages[i]" [submitted]="submitted" (uploadedMedia)="attachMedia($event)"></media-tabbed-text-page-form>
+                        <bodytext-page-form *ngIf="pageHasProperty(form.controls.baseFeedPages.controls[i].controls.basePageFeedType.value, 'bodyText');"
+                                            [form]="page" [index]="i" [model]="model.baseFeedPages[i]" [submitted]="submitted">
+                        </bodytext-page-form>
+                        <media-page-form *ngIf="pageHasProperty(form.controls.baseFeedPages.controls[i].controls.basePageFeedType.value, 'mediaInfoId');"
+                                         [form]="page" [index]="i" [model]="model.baseFeedPages[i]" [submitted]="submitted" (uploadedMedia)="attachMedia($event)">
+                        </media-page-form>
+                        <tabbed-text-page-form *ngIf="pageHasProperty(form.controls.baseFeedPages.controls[i].controls.basePageFeedType.value, 'tabs');"
+                                                     [form]="page" [index]="i" [model]="model.baseFeedPages[i]" [submitted]="submitted" (uploadedMedia)="attachMedia($event)">
+                        </tabbed-text-page-form>
                     </div>
                    
                     <div class="col-md-10 remove-page-container">

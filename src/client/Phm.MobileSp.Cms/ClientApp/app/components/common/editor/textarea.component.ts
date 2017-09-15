@@ -4,7 +4,7 @@ declare var tinymce: any;
 declare var $: any;
 
 @Component({
-  selector: 'editor',
+  selector: 'textarea',
   template: `
     <div [formGroup]="form" *ngIf="form">
         <div class="input-field">
@@ -16,7 +16,7 @@ declare var $: any;
         </div>
     </div>`
 })
-export class RichTextEditorComponent implements OnInit, AfterViewInit, OnDestroy {
+export class TextAreaComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() form: FormGroup;
     @Input() formControlId: string;
     @Input() elementId: string;
@@ -30,6 +30,8 @@ export class RichTextEditorComponent implements OnInit, AfterViewInit, OnDestroy
     editor;
     activeClass: string = '';
     ngOnInit() {
+        if (this.form.controls[this.formControlId].value == null)
+            this.form.controls[this.formControlId].setValue('');
         if (this.elementId == '')
             this.elementId = this.formControlId;
         if (this.form && this.form.controls[this.formControlId]) 
@@ -37,20 +39,6 @@ export class RichTextEditorComponent implements OnInit, AfterViewInit, OnDestroy
     }
   ngAfterViewInit()
   {
-    //tinymce.init({
-    //  selector: '#' + this.elementId,
-    //  plugins: ['link', 'paste', 'table','autoresize'],
-    //  setup: editor => {
-    //    this.editor = editor;
-    //    editor.on('keyup', () => {
-    //        const content = editor.getContent();
-    //        this.value = content;
-    //        this.formGroup.controls[this.elementId].patchValue(content, {});
-    //        this.formGroup.markAsDirty();
-    //        this.onEditorKeyup.emit({ id: this.elementId, val: content });
-    //    });
-    //  },
-    //  });
       $('#' + this.elementId).trigger('autoresize').characterCounter();
   }
 
@@ -58,10 +46,3 @@ export class RichTextEditorComponent implements OnInit, AfterViewInit, OnDestroy
     tinymce.remove(this.editor);
   }
 }
-
-//`
-//    <div [formGroup]="formGroup" *ngIf="formGroup">
-//      <input type="hidden" formControlName="{{elementId}}" *ngIf="elementId" value={{value}}>
-//    </div>
-    
-//<textarea id="{{elementId}}">{{value}}</textarea>`

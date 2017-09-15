@@ -23,27 +23,29 @@ var RichTextEditorComponent = (function () {
         this.activeClass = '';
     }
     RichTextEditorComponent.prototype.ngOnInit = function () {
+        if (this.form.controls[this.formControlId].value == null)
+            this.form.controls[this.formControlId].setValue('');
         if (this.elementId == '')
             this.elementId = this.formControlId;
         if (this.form && this.form.controls[this.formControlId])
             this.activeClass = this.form.controls[this.formControlId].value.toString().length > 0 ? "active" : "";
     };
     RichTextEditorComponent.prototype.ngAfterViewInit = function () {
-        //tinymce.init({
-        //  selector: '#' + this.elementId,
-        //  plugins: ['link', 'paste', 'table','autoresize'],
-        //  setup: editor => {
-        //    this.editor = editor;
-        //    editor.on('keyup', () => {
-        //        const content = editor.getContent();
-        //        this.value = content;
-        //        this.formGroup.controls[this.elementId].patchValue(content, {});
-        //        this.formGroup.markAsDirty();
-        //        this.onEditorKeyup.emit({ id: this.elementId, val: content });
-        //    });
-        //  },
-        //  });
-        $('#' + this.elementId).trigger('autoresize').characterCounter();
+        var _this = this;
+        tinymce.init({
+            selector: '#' + this.elementId,
+            plugins: ['link', 'paste', 'table', 'autoresize'],
+            setup: function (editor) {
+                _this.editor = editor;
+                editor.on('keyup', function () {
+                    var content = editor.getContent();
+                    _this.value = content;
+                    _this.form.controls[_this.formControlId].patchValue(content, {});
+                    _this.form.markAsDirty();
+                    _this.onEditorKeyup.emit({ id: _this.elementId, val: content });
+                });
+            },
+        });
     };
     RichTextEditorComponent.prototype.ngOnDestroy = function () {
         tinymce.remove(this.editor);
@@ -92,14 +94,9 @@ __decorate([
 ], RichTextEditorComponent.prototype, "onEditorKeyup", void 0);
 RichTextEditorComponent = __decorate([
     core_1.Component({
-        selector: 'editor',
-        template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n        <div class=\"input-field\">\n              <label [attr.for]=\"elementId\" class=\"{{activeClass}}\">{{label}}</label>\n              <textarea id=\"{{elementId}}\" formControlName=\"{{formControlId}}\" *ngIf=\"formControlId\" class=\"materialize-textarea\" [attr.maxLength]=\"maxLength > 0 ? maxLength : null\" [attr.data-length]=\"maxLength > 0 ? maxLength : null\" [attr.disabled]=\"disabled ? disabled : null\"></textarea>\n                <small class=\"active-warning\" [class.hidden]=\"form.controls[formControlId].valid || !formSubmitted\">\n                    {{validationMessage}}\n                </small>\n        </div>\n    </div>"
+        selector: 'richtexteditor',
+        template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n            <input type=\"hidden\" formControlName=\"{{formControlId}}\" *ngIf=\"formControlId\">\n            <div class=\"input-field\">\n                <textarea id=\"{{elementId}}\" [attr.maxLength]=\"maxLength > 0 ? maxLength : null\" [attr.data-length]=\"maxLength > 0 ? maxLength : null\" [attr.disabled]=\"disabled ? disabled : null\">{{value}}</textarea>\n            </div>\n    </div>"
     })
 ], RichTextEditorComponent);
 exports.RichTextEditorComponent = RichTextEditorComponent;
-//`
-//    <div [formGroup]="formGroup" *ngIf="formGroup">
-//      <input type="hidden" formControlName="{{elementId}}" *ngIf="elementId" value={{value}}>
-//    </div>
-//<textarea id="{{elementId}}">{{value}}</textarea>` 
-//# sourceMappingURL=editor.component.js.map
+//# sourceMappingURL=richtexteditor.component.js.map

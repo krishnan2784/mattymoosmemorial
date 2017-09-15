@@ -107,5 +107,7 @@ var BasePageFeedTypeEnum;
     BasePageFeedTypeEnum[BasePageFeedTypeEnum["Text"] = 0] = "Text";
     BasePageFeedTypeEnum[BasePageFeedTypeEnum["MediaText"] = 1] = "MediaText";
     BasePageFeedTypeEnum[BasePageFeedTypeEnum["MediaTabbedText"] = 2] = "MediaTabbedText";
+    BasePageFeedTypeEnum[BasePageFeedTypeEnum["Media"] = 3] = "Media";
+    BasePageFeedTypeEnum[BasePageFeedTypeEnum["TabbedText"] = 4] = "TabbedText";
 })(BasePageFeedTypeEnum = exports.BasePageFeedTypeEnum || (exports.BasePageFeedTypeEnum = {}));
 //# sourceMappingURL=enums.js.map

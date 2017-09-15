@@ -69,7 +69,7 @@ import { QuizUserResultsComponent } from "./components/reports/quizuserresults/q
 import { LearnerStatComponent } from "./components/reports/leaderboards/learnerstat/learnerstat.component";
 import { ImageFeedItemFormComponent } from "./components/feed/modelforms/imagefeeditem.component";
 import { VideoFeedItemFormComponent } from "./components/feed/modelforms/videofeeditem.component";
-import { RichTextEditorComponent } from "./components/common/editor/editor.component";
+import { RichTextEditorComponent } from "./components/common/editor/richtexteditor.component";
 import { ObservationFeedItemReport } from "./components/reports/observationfeeditemreport.component";
 import { GaugeGraphComponent } from "./components/charts/gaugegraph/gaugegraph.component";
 import { MonobarGraphComponent } from "./components/charts/monobargraph/monobargraph.component";
@@ -79,13 +79,15 @@ import { NumberTextInputComponent } from "./components/common/editor/numbertextb
 import { TagInputComponent } from "./components/common/editor/taginputbox.component";
 import Pagedfeeditemcomponent = require("./components/feed/modelforms/pagedfeed/pagedfeeditem.component");
 import PagedFeedItemFormComponent = Pagedfeeditemcomponent.PagedFeedItemFormComponent;
-import Textpageformcomponent = require("./components/feed/modelforms/pagedfeed/textpageform.component");
-import TextPageFormComponent = Textpageformcomponent.TextPageFormComponent;
-import Mediatextpageformcomponent = require("./components/feed/modelforms/pagedfeed/mediatextpageform.component");
-import MediaTextPageFormComponent = Mediatextpageformcomponent.MediaTextPageFormComponent;
-import Mediatabbedtextpageformcomponent =
-    require("./components/feed/modelforms/pagedfeed/mediatabbedtextpageform.component");
-import MediaTabbedTextPageFormComponent = Mediatabbedtextpageformcomponent.MediaTabbedTextPageFormComponent;
+import Bodytextpageformcomponent = require("./components/feed/modelforms/pagedfeed/bodytextpageform.component");
+import BodyTextPageFormComponent = Bodytextpageformcomponent.BodyTextPageFormComponent;
+import Mediapageformcomponent = require("./components/feed/modelforms/pagedfeed/mediapageform.component");
+import MediaPageFormComponent = Mediapageformcomponent.MediaPageFormComponent;
+import Tabbedtextpageformcomponent = require("./components/feed/modelforms/pagedfeed/tabbedtextpageform.component");
+import TabbedTextPageFormComponent = Tabbedtextpageformcomponent.TabbedTextPageFormComponent;
+import Textareacomponent = require("./components/common/editor/textarea.component");
+import TextAreaComponent = Textareacomponent.TextAreaComponent;
+
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -117,9 +119,9 @@ import MediaTabbedTextPageFormComponent = Mediatabbedtextpageformcomponent.Media
         ObservationFeedItemFormComponent,
         QuestionFormComponent,
         PagedFeedItemFormComponent,
-        TextPageFormComponent,
-        MediaTextPageFormComponent,
-        MediaTabbedTextPageFormComponent,
+        BodyTextPageFormComponent,
+        MediaPageFormComponent,
+        TabbedTextPageFormComponent,
         BaseModalComponent,
 
         // reporting
@@ -155,6 +157,7 @@ import MediaTabbedTextPageFormComponent = Mediatabbedtextpageformcomponent.Media
         //shared
         UserFilter,
         RichTextEditorComponent,
+        TextAreaComponent,
         TextInputComponent,
         NumberTextInputComponent,
         TagInputComponent,

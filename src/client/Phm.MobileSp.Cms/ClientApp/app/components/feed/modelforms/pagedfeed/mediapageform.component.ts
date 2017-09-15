@@ -6,16 +6,16 @@ import Mediainfoclasses = require("../../../../models/mediainfoclasses");
 import MediaInfo = Mediainfoclasses.MediaInfo;
 
 @Component({
-    selector: 'media-text-page-form',
-    template: require('./mediatextpageform.component.html')
+    selector: 'media-page-form',
+    template: require('./mediapageform.component.html')
 })
-export class MediaTextPageFormComponent implements OnInit {
+export class MediaPageFormComponent implements OnInit {
 
     @Input('form')
     public form: FormGroup;
 
     @Input('model')
-    public model: MediaTextFeedPage;
+    public model;
 
     @Input('index')
     public index: number;
@@ -27,12 +27,10 @@ export class MediaTextPageFormComponent implements OnInit {
     public uploadedMedia: EventEmitter<any> = new EventEmitter;
 
     ngOnInit() {
-        this.model = new MediaTextFeedPage(this.model);
         this.addFormControls();
     }
 
     addFormControls() {
-        this.form.addControl('bodyText', new FormControl(this.model.bodyText, [<any>Validators.required]));
         this.form.addControl('mediaInfoId', new FormControl(this.model.mediaInfoId, [<any>Validators.required]));
     };
 
