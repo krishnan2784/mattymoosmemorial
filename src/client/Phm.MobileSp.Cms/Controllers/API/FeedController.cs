@@ -11,6 +11,7 @@ using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 using System;
 using Phm.MobileSp.Cms.Core.Models.Interfaces;
 using Phm.MobileSp.Cms.Helpers.CustomModelBinding;
+using Phm.MobileSp.Cms.Helpers.CustomModelBinding.FeedItems;
 
 namespace Phm.MobileSp.Cms.Controllers.API
 {
@@ -59,7 +60,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
 
         [HttpPost("[action]")]
         [JsonResponseWrapper]
-        public async Task<JsonResult> UpdateFeedItem([FromBody][ModelBinder(BinderType = typeof(FeedItemModelBinder))]BaseFeed feedItem)
+        public async Task<JsonResult> UpdateFeedItem([FromBody][ModelBinder(BinderType = typeof(BaseFeedItemModelBinder))]BaseFeed feedItem)
         {
             feedItem.EndDate = feedItem.EndDate?.AddDays(1).AddSeconds(-1);
             if (feedItem.Id == 0)
