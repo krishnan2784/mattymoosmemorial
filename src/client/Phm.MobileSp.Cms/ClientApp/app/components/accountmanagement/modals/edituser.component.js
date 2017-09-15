@@ -26,6 +26,9 @@ var BaseModalContent = Basemodalcontentcomponent.BaseModalContent;
 var Userdataservice = require("../../../services/userdataservice");
 var UserDataService = Userdataservice.UserDataService;
 var marketdataservice_1 = require("../../../services/marketdataservice");
+var Form = require("../../../classes/helpers/form");
+var FormEx = Form.FormEx;
+var Validators1 = require("../../../classes/validators");
 var EditUser = (function (_super) {
     __extends(EditUser, _super);
     function EditUser(injector, userDataService, fb, marketDataService) {
@@ -38,6 +41,8 @@ var EditUser = (function (_super) {
         _this.zones = ['Zone 1', 'Zone 2', 'Zone 3'];
         _this.dealershipNames = ['Dealership 1', 'Dealership 2', 'Dealership 3'];
         _this.dealershipCodes = ['0001', '0002', '0003'];
+        _this.submitted = false;
+        _this.loading = false;
         if (injector) {
             _this.model = injector.get('model');
         }
@@ -57,12 +62,12 @@ var EditUser = (function (_super) {
             id: new forms_1.FormControl(this.model.id, []),
             firstName: new forms_1.FormControl(this.model.firstName, [forms_1.Validators.required]),
             lastName: new forms_1.FormControl(this.model.lastName, [forms_1.Validators.required]),
-            email: new forms_1.FormControl(this.model.email, [forms_1.Validators.required]),
+            email: new forms_1.FormControl(this.model.email, [forms_1.Validators.required, Validators1.validEmailAddress()]),
             dealershipName: new forms_1.FormControl(this.model.dealershipName, [forms_1.Validators.required]),
             dealershipCode: new forms_1.FormControl(this.model.dealershipCode, [forms_1.Validators.required]),
             regionName: new forms_1.FormControl(this.model.regionName, [forms_1.Validators.required]),
             zoneName: new forms_1.FormControl(this.model.zoneName, [forms_1.Validators.required]),
-            secGroup: new forms_1.FormControl(this.model.secGroup, [forms_1.Validators.required])
+            secGroup: new forms_1.FormControl(this.model.secGroup, [forms_1.Validators.required, Validators1.validUserRole()])
         });
     };
     EditUser.prototype.getAutoCompleteData = function () {
@@ -88,12 +93,21 @@ var EditUser = (function (_super) {
     };
     EditUser.prototype.saveUser = function (user, isValid) {
         var _this = this;
-        if (!isValid)
+        this.submitted = true;
+        if (!isValid) {
+            console.log(FormEx.getFormValidationErrors(this.form));
+            $('.toast').remove();
+            return Materialize.toast('Please check that you have filled in all the required fields.', 6000, 'red');
+        }
+        if (this.loading)
             return;
+        this.loading = true;
         this.userDataService.updateUser(user).subscribe(function (response) {
             if (response.success) {
                 _this.closeModal(response.content);
             }
+            _this.submitted = false;
+            _this.loading = false;
         });
     };
     return EditUser;

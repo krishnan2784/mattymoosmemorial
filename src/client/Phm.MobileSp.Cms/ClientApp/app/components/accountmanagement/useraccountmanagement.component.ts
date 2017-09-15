@@ -215,16 +215,6 @@ export class UserAccountManagementComponent extends BaseComponent {
     public updateUser(user: UserTemplate) {
         if (user != null) {
             this.attachUserProperties(user);
-            var data = Object.assign([], this.allUserAccounts);
-            this.filteredUserAccounts = data;
-            //if (this.filteredUserAccounts != null) {
-            //    let originalUser = this.filteredUserAccounts.find(x => x.id === user.id);
-            //    let index = this.filteredUserAccounts.indexOf(originalUser);
-            //    if (index > -1)
-            //        this.filteredUserAccounts.splice(index, 1, user);
-            //    else
-            //        this.filteredUserAccounts.unshift(user);
-            //}
             if (this.allUserAccounts != null) {
                 let originalUser = this.allUserAccounts.find(x => x.id === user.id);
                 let index = this.allUserAccounts.indexOf(originalUser);
@@ -233,6 +223,8 @@ export class UserAccountManagementComponent extends BaseComponent {
                 else
                     this.allUserAccounts.unshift(user);
             }
+            var data = Object.assign([], this.allUserAccounts);
+            this.filteredUserAccounts = data;
             this.onChangeTable(this.config);
             this.refreshFilters = true;
         }

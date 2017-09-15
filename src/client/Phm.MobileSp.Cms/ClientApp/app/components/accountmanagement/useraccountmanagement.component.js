@@ -212,16 +212,6 @@ var UserAccountManagementComponent = (function (_super) {
     UserAccountManagementComponent.prototype.updateUser = function (user) {
         if (user != null) {
             this.attachUserProperties(user);
-            var data = Object.assign([], this.allUserAccounts);
-            this.filteredUserAccounts = data;
-            //if (this.filteredUserAccounts != null) {
-            //    let originalUser = this.filteredUserAccounts.find(x => x.id === user.id);
-            //    let index = this.filteredUserAccounts.indexOf(originalUser);
-            //    if (index > -1)
-            //        this.filteredUserAccounts.splice(index, 1, user);
-            //    else
-            //        this.filteredUserAccounts.unshift(user);
-            //}
             if (this.allUserAccounts != null) {
                 var originalUser = this.allUserAccounts.find(function (x) { return x.id === user.id; });
                 var index = this.allUserAccounts.indexOf(originalUser);
@@ -230,6 +220,8 @@ var UserAccountManagementComponent = (function (_super) {
                 else
                     this.allUserAccounts.unshift(user);
             }
+            var data = Object.assign([], this.allUserAccounts);
+            this.filteredUserAccounts = data;
             this.onChangeTable(this.config);
             this.refreshFilters = true;
         }

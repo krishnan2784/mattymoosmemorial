@@ -132,10 +132,17 @@ var LearnerStatComponent = (function () {
     LearnerStatComponent.prototype.setLines = function () {
         var r = [];
         if (this.max && this.max > 10) {
-            var p = Math.round(this.max / 10);
-            for (var i = 0; i < this.max;) {
-                r.push(i);
-                i += p;
+            var m = 10;
+            for (var i = 10; i > 0; i--) {
+                if (this.max % i === 0) {
+                    m = i;
+                    break;
+                }
+            }
+            var p = this.max / m;
+            for (var i_1 = 0; i_1 < this.max;) {
+                r.push(Math.round(i_1));
+                i_1 += p;
             }
         }
         else

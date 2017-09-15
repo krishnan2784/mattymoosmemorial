@@ -27,13 +27,13 @@
         <div class="detailBar"></div>
         <div class="graphWrapper">
           <div class="axisY">
-            <div class="numbers" *ngFor="let d of lines">
+            <div class="numbers" *ngFor="let d of lines; let i = index;" [style.top]="(i * (100 / lines.length)) +'%'">
               {{max - d}}
             </div>
             <div class="activityLabel">Activity</div>
           </div>
           <div class="bars">
-            <div class="lines" *ngFor="let d of dummyArray(10)" [style.top]="((d +1) * 10) +'%'"></div>
+            <div class="lines" *ngFor="let d of lines; let i = index;" [style.top]="((i +1) * (100 / lines.length)) +'%'"></div>
             <div ngClass="dataBar" *ngFor="let d of data; let i = index;"
                  [style.width]="((100 / dateRange) / 5) + '%'"
                  [style.height]="(d.points / max) * 100 + '%'"

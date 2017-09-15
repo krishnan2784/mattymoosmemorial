@@ -105,7 +105,7 @@ export class QuizFeedItemReport implements OnInit, OnDestroy {
             data = data.filter(x => this.filterCriteria.userGroupFilters.filter(y => y.text === x.mainUserGroup).length > 0);
         
         if (this.filterCriteria.dealershipFilters.length > 0)
-            data = data.filter(x => this.filterCriteria.dealershipFilters.filter(y => y.text === x.dealershipName).length > 0);
+            data = data.filter(x => this.filterCriteria.dealershipFilters.filter(y => y.text === x.dealerShipName).length > 0);
 
         data = data.filter(x => x.resultPercentage >= this.filterCriteria.pointsRangeBottom &&
             x.resultPercentage <= this.filterCriteria.pointsRangeTop);

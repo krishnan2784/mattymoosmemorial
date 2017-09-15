@@ -67,7 +67,8 @@
         font-size: 10px;
         text-align: right;
         height: 22.1px;
-        width: 90%; }
+        width: 90%; 
+        position: absolute;}
       .learnerStatContents .chartActivity .graphWrapper .axisY .activityLabel {
         -ms-transform: rotate(-90deg);
         -webkit-transform: rotate(-90deg);

@@ -140,9 +140,18 @@ export class LearnerStatComponent implements OnInit, AfterViewInit {
   setLines() {
       let r = [];
       if (this.max && this.max > 10) {
-          var p = Math.round(this.max / 10);
+          
+          var m = 10;
+          for (var i = 10; i > 0; i--) {
+              if (this.max % i === 0) {
+                  m = i;
+                  break;
+              }
+          }
+
+          var p = this.max / m;
           for (let i = 0; i < this.max;) {
-              r.push(i);
+              r.push(Math.round(i));
               i += p;
           }
       } else
