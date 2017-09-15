@@ -20,23 +20,28 @@ var RichTextEditorComponent = (function () {
         this.validationMessage = '';
         this.formSubmitted = false;
         this.onEditorKeyup = new core_1.EventEmitter();
-        this.activeClass = '';
+        this.currentChars = 0;
+        this.editing = false;
+        this.toggleEdit = this.toggleEditing.bind(this);
+        this.setupValue = this.setValue.bind(this);
     }
     RichTextEditorComponent.prototype.ngOnInit = function () {
         if (this.form.controls[this.formControlId].value == null)
             this.form.controls[this.formControlId].setValue('');
         if (this.elementId == '')
             this.elementId = this.formControlId;
-        if (this.form && this.form.controls[this.formControlId])
-            this.activeClass = this.form.controls[this.formControlId].value.toString().length > 0 ? "active" : "";
     };
     RichTextEditorComponent.prototype.ngAfterViewInit = function () {
+        this.initTinyMce();
+    };
+    RichTextEditorComponent.prototype.initTinyMce = function () {
         var _this = this;
         tinymce.init({
             selector: '#' + this.elementId,
             plugins: ['link', 'paste', 'table', 'autoresize'],
             setup: function (editor) {
                 _this.editor = editor;
+                setTimeout(function () { return _this.setValue(); }, 10);
                 editor.on('keyup', function () {
                     var content = editor.getContent();
                     _this.value = content;
@@ -44,8 +49,29 @@ var RichTextEditorComponent = (function () {
                     _this.form.markAsDirty();
                     _this.onEditorKeyup.emit({ id: _this.elementId, val: content });
                 });
+                editor.on('keydown', function () {
+                    if (_this.maxLength === 0)
+                        return;
+                    _this.currentChars = $.trim(tinymce.activeEditor.getContent().replace(/(<([^>]+)>)/ig, "")).length;
+                    if (_this.currentChars > _this.maxLength - 1) {
+                        editor.stopPropagation();
+                        editor.preventDefault();
+                    }
+                });
+                editor.on('mousedown ', function () {
+                    _this.toggleEdit(true);
+                });
+                editor.on('blur', function () {
+                    _this.toggleEdit(false);
+                });
             },
         });
+    };
+    RichTextEditorComponent.prototype.toggleEditing = function (currentlyEditing) {
+        this.editing = currentlyEditing;
+    };
+    RichTextEditorComponent.prototype.setValue = function () {
+        tinymce.get(this.elementId).setContent(this.form.controls[this.formControlId].value);
     };
     RichTextEditorComponent.prototype.ngOnDestroy = function () {
         tinymce.remove(this.editor);
@@ -95,7 +121,7 @@ __decorate([
 RichTextEditorComponent = __decorate([
     core_1.Component({
         selector: 'richtexteditor',
-        template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n            <input type=\"hidden\" formControlName=\"{{formControlId}}\" *ngIf=\"formControlId\">\n            <div class=\"input-field\">\n                <textarea id=\"{{elementId}}\" [attr.maxLength]=\"maxLength > 0 ? maxLength : null\" [attr.data-length]=\"maxLength > 0 ? maxLength : null\" [attr.disabled]=\"disabled ? disabled : null\">{{value}}</textarea>\n            </div>\n    </div>"
+        template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n        <input type=\"hidden\" formControlName=\"{{formControlId}}\" *ngIf=\"formControlId\">\n        <label [class.active]=\"editing\">{{label}}</label>\n        <textarea id=\"{{elementId}}\" [attr.disabled]=\"disabled ? disabled : null\">\n            {{value}}\n        </textarea>\n        <span class=\"character-counter\" style=\"float: right; font-size: 12px; height: 1px;\" *ngIf=\"maxLength > 0 && editing\">\n            {{currentChars}}/{{maxLength}}\n        </span>\n        <small class=\"active-warning\" [class.hidden]=\"form.controls[formControlId].valid || !formSubmitted\">\n            {{validationMessage}}\n        </small>\n        <div class=\"clearfix\"></div>\n    </div>"
     })
 ], RichTextEditorComponent);
 exports.RichTextEditorComponent = RichTextEditorComponent;

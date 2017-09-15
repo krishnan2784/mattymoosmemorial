@@ -80,7 +80,7 @@ __decorate([
 ], TextAreaComponent.prototype, "onEditorKeyup", void 0);
 TextAreaComponent = __decorate([
     core_1.Component({
-        selector: 'textarea',
+        selector: 'enhancedtextarea',
         template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n        <div class=\"input-field\">\n              <label [attr.for]=\"elementId\" class=\"{{activeClass}}\">{{label}}</label>\n              <textarea id=\"{{elementId}}\" formControlName=\"{{formControlId}}\" *ngIf=\"formControlId\" class=\"materialize-textarea\" [attr.maxLength]=\"maxLength > 0 ? maxLength : null\" [attr.data-length]=\"maxLength > 0 ? maxLength : null\" [attr.disabled]=\"disabled ? disabled : null\"></textarea>\n                <small class=\"active-warning\" [class.hidden]=\"form.controls[formControlId].valid || !formSubmitted\">\n                    {{validationMessage}}\n                </small>\n        </div>\n    </div>"
     })
 ], TextAreaComponent);

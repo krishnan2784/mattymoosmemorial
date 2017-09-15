@@ -26,50 +26,50 @@
 
     <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.QuizScore)">
         <div class="rich-text-box">
-            <textarea [form]="form" [formSubmitted]="submitted"
+            <enhancedtextarea [form]="form" [formSubmitted]="submitted"
                     [elementId]="'onBoardingMessage'"
                     [formControlId]="'onBoardingMessage'"
                     [label]="'Welcome Message'"
                     [validationMessage]="'e.g: Welcome to the Quiz.'"
-                    [disabled]="true"></textarea>
+                    [disabled]="true"></enhancedtextarea>
             <small>This entry is not required for this feed item.</small>
         </div>
 
         <div class="rich-text-box">
-            <textarea [form]="form" [formSubmitted]="submitted"
+            <enhancedtextarea [form]="form" [formSubmitted]="submitted"
                     [elementId]="'successMessage'"
                     [formControlId]="'successMessage'"
                     [label]="'Congratulate your learners with an engaging message'"
-                    [validationMessage]="'e.g: Congratulations! Your skills are improving.'"></textarea>
+                    [validationMessage]="'e.g: Congratulations! Your skills are improving.'"></enhancedtextarea>
         </div>
 
         <div class="rich-text-box">
-            <textarea [form]="form" [formSubmitted]="submitted"
+            <enhancedtextarea [form]="form" [formSubmitted]="submitted"
                     [elementId]="'failMessage'"
                     [formControlId]="'failMessage'"
                     [label]="'Let your learners know what went wrong with a positive message.'"
-                    [validationMessage]="'e.g: oooh Unlucky! You will get it next time!.'"></textarea>
+                    [validationMessage]="'e.g: oooh Unlucky! You will get it next time!.'"></enhancedtextarea>
         </div>
 
     </div>
     
     <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.SurveyScore)">
         <div class="rich-text-box">
-            <textarea [form]="form" [formSubmitted]="submitted"
+            <enhancedtextarea [form]="form" [formSubmitted]="submitted"
                     [elementId]="'surveyDescription'"
                     [formControlId]="'surveyDescription'"
                     [label]="'Welcome message'"
                     [validationMessage]="'e.g: Welcome to the Survey.'"
-                    [disabled]="true"></textarea>
+                    [disabled]="true"></enhancedtextarea>
         </div>
 
         <div class="rich-text-box">
-            <textarea [form]="form" [formSubmitted]="submitted"
+            <enhancedtextarea [form]="form" [formSubmitted]="submitted"
                     [elementId]="'completionMessage'"
                     [formControlId]="'completionMessage'"
                     [label]="'Completion message'"
                     [validationMessage]="'e.g: Thank you for taking part!'"
-                    [disabled]="true"></textarea>
+                    [disabled]="true"></enhancedtextarea>
         </div>
         <small>These entries are not required for this feed item.</small>
     </div>

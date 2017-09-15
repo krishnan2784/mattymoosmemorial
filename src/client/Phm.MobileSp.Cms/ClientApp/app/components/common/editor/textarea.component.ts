@@ -4,7 +4,7 @@ declare var tinymce: any;
 declare var $: any;
 
 @Component({
-  selector: 'textarea',
+    selector: 'enhancedtextarea',
   template: `
     <div [formGroup]="form" *ngIf="form">
         <div class="input-field">

@@ -28,14 +28,11 @@
                                    [formControlId]="'title'"
                                    [label]="'Tab title'"
                                    [validationMessage]="'A tab title is required.'"></textinput>
-                        <div class="input-field">
-                            <richtexteditor [form]="tab" [formSubmitted]="submitted"
-                                    [elementId]="'tabs-' + i + '-bodyText'"
-                                    [formControlId]="'bodyText'"
-                                    [label]="'Body text'"
-                                    [validationMessage]="'Body text is required.'"></richtexteditor>
-                            <div class="clearfix"></div>
-                        </div>
+                        <richtexteditor [form]="tab" [formSubmitted]="submitted"
+                                [elementId]="'tabs-' + i + '-bodyText'"
+                                [formControlId]="'bodyText'"
+                                [label]="'Body text'"
+                                [validationMessage]="'Body text is required.'"></richtexteditor>
                     </div>
                     <div class="col-md-10 remove-tab-container">
                         <hr/>
