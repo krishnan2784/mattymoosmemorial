@@ -1,0 +1,62 @@
+<div [formGroup]="form">
+    <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Pages)">
+        
+        <small *ngIf="submitted && form.controls.baseFeedPages.hasError('minLengthArray')" class="active-warning center">
+            Please add at least two pages.
+        </small>
+        <div class="clearfix"></div>
+
+        <div *ngIf="showAddPageOptions" class="center col-md-10">
+            <a class="btn" (click)="addPage(pageTypeEnum.Text);">Text</a>
+            <a class="btn" (click)="addPage(pageTypeEnum.Media);">Media</a>
+            <a class="btn" (click)="addPage(pageTypeEnum.MediaText);">Media & Text</a>
+            <a class="btn" (click)="addPage(pageTypeEnum.TabbedText);">Tabbed Text</a>
+            <a class="btn" (click)="addPage(pageTypeEnum.MediaTabbedText);">Tabbed Text & Media</a>
+            <a class="btn grey" (click)="hideAddPage();">Cancel</a>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="page-menu col-md-10" *ngIf="form.controls.baseFeedPages.controls.length > 0 && !showAddPageOptions">
+            <a [class.invisible]="currentPage<=0" (click)="displayPage(currentPage-1)" class="page-menu-item prev-page"><i class="material-icons">keyboard_arrow_left</i></a>
+            <a *ngFor="let page of form.controls.baseFeedPages.controls; let i=index" [class.active]="currentPage===i" (click)="displayPage(i)" class="page-menu-item">{{i+1}}</a>
+            <a [class.invisible]="currentPage >= (form.controls.baseFeedPages.controls.length-1)" (click)="displayPage(currentPage+1)" class="page-menu-item"><i class="material-icons">keyboard_arrow_right</i></a>
+
+            <a (click)="showAddPage();" class="page-menu-item" *ngIf="form.controls.baseFeedPages.controls.length < 5"><i class="material-icons">add</i></a>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+
+        <div formArrayName="baseFeedPages">
+            <div *ngFor="let page of form.controls.baseFeedPages.controls; let i=index">
+                <div [class.hidden]="currentPage!=i || showAddPageOptions">
+                    <div [formGroupName]="i">
+                        <input type="hidden" formControlName="id">
+                        <input type="hidden" formControlName="masterId">
+                        <input type="hidden" formControlName="pageNumber">
+                        <input type="hidden" formControlName="enabled">
+                        <input type="hidden" formControlName="published">
+                        <input type="hidden" formControlName="basePageFeedType">
+                        <input type="hidden" formControlName="pagedFeedId">
+                        <input type="hidden" formControlName="title">
+                        <bodytext-page-form *ngIf="pageHasProperty(form.controls.baseFeedPages.controls[i].controls.basePageFeedType.value, 'bodyText');"
+                                            [form]="page" [index]="i" [model]="model.baseFeedPages[i]" [submitted]="submitted">
+                        </bodytext-page-form>
+                        <media-page-form *ngIf="pageHasProperty(form.controls.baseFeedPages.controls[i].controls.basePageFeedType.value, 'mediaInfoId');"
+                                         [form]="page" [index]="i" [model]="model.baseFeedPages[i]" [submitted]="submitted" (uploadedMedia)="attachMedia($event)">
+                        </media-page-form>
+                        <tabbed-text-page-form *ngIf="pageHasProperty(form.controls.baseFeedPages.controls[i].controls.basePageFeedType.value, 'tabs');"
+                                                     [form]="page" [index]="i" [model]="model.baseFeedPages[i]" [submitted]="submitted" (uploadedMedia)="attachMedia($event)">
+                        </tabbed-text-page-form>
+                    </div>
+                   
+                    <div class="col-md-10 remove-page-container">
+                        <hr/>
+                        <a (click)="removePage(i)" [class.disabled]="form.controls.baseFeedPages.controls.length <= 1" class="btn">Delete Page</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h4 class="center col-md-10" *ngIf="form.controls.baseFeedPages.controls.length == 0 && !showAddPageOptions">Click <a (click)="showAddPageOptions = true;"><i class="material-icons">add</i></a> to add your first page.</h4>
+    </div>
+</div>

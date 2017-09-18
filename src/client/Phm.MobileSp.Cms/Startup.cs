@@ -1,3 +1,6 @@
+using Phm.MobileSp.Cms.Contracts;
+using Phm.MobileSp.Cms.Helpers.CustomModelBinding.FeedItems;
+
 namespace Phm.MobileSp.Cms
 {
     using Core.Models;
@@ -117,6 +120,8 @@ namespace Phm.MobileSp.Cms
                 services.AddTransient<IUserQuizResultsRepository, UserQuizResultsRepository>();
                 services.AddTransient<IUserRepository, UserRepository>();
                 services.AddTransient<IUserTemplateRepository, UserTemplateRepository>();
+
+                services.AddSingleton<IFeedItemModelBinder, FeedItemModelBinder>();
 
                 services.AddSession(options =>
                 {

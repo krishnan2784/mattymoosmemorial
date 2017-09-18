@@ -72,7 +72,7 @@ var quizuserresults_component_1 = require("./components/reports/quizuserresults/
 var learnerstat_component_1 = require("./components/reports/leaderboards/learnerstat/learnerstat.component");
 var imagefeeditem_component_1 = require("./components/feed/modelforms/imagefeeditem.component");
 var videofeeditem_component_1 = require("./components/feed/modelforms/videofeeditem.component");
-var editor_component_1 = require("./components/common/editor/editor.component");
+var richtexteditor_component_1 = require("./components/common/editor/richtexteditor.component");
 var observationfeeditemreport_component_1 = require("./components/reports/observationfeeditemreport.component");
 var gaugegraph_component_1 = require("./components/charts/gaugegraph/gaugegraph.component");
 var monobargraph_component_1 = require("./components/charts/monobargraph/monobargraph.component");
@@ -80,6 +80,16 @@ var datepicker_component_1 = require("./components/common/datepicker/datepicker.
 var textbox_component_1 = require("./components/common/editor/textbox.component");
 var numbertextbox_component_1 = require("./components/common/editor/numbertextbox.component");
 var taginputbox_component_1 = require("./components/common/editor/taginputbox.component");
+var Pagedfeeditemcomponent = require("./components/feed/modelforms/pagedfeed/pagedfeeditem.component");
+var PagedFeedItemFormComponent = Pagedfeeditemcomponent.PagedFeedItemFormComponent;
+var Bodytextpageformcomponent = require("./components/feed/modelforms/pagedfeed/bodytextpageform.component");
+var BodyTextPageFormComponent = Bodytextpageformcomponent.BodyTextPageFormComponent;
+var Mediapageformcomponent = require("./components/feed/modelforms/pagedfeed/mediapageform.component");
+var MediaPageFormComponent = Mediapageformcomponent.MediaPageFormComponent;
+var Tabbedtextpageformcomponent = require("./components/feed/modelforms/pagedfeed/tabbedtextpageform.component");
+var TabbedTextPageFormComponent = Tabbedtextpageformcomponent.TabbedTextPageFormComponent;
+var Textareacomponent = require("./components/common/editor/textarea.component");
+var TextAreaComponent = Textareacomponent.TextAreaComponent;
 var AppModule = (function () {
     function AppModule() {
     }
@@ -113,6 +123,10 @@ AppModule = __decorate([
             surveyfeeditem_component_1.SurveyFeedItemFormComponent,
             observationfeeditem_component_1.ObservationFeedItemFormComponent,
             questionform_component_1.QuestionFormComponent,
+            PagedFeedItemFormComponent,
+            BodyTextPageFormComponent,
+            MediaPageFormComponent,
+            TabbedTextPageFormComponent,
             BaseModalComponent,
             // reporting
             feedreportindex_component_1.FeedReportIndexComponent,
@@ -141,7 +155,8 @@ AppModule = __decorate([
             FeedItemCopyToMarket,
             //shared
             UserFilter,
-            editor_component_1.RichTextEditorComponent,
+            richtexteditor_component_1.RichTextEditorComponent,
+            TextAreaComponent,
             textbox_component_1.TextInputComponent,
             numbertextbox_component_1.NumberTextInputComponent,
             taginputbox_component_1.TagInputComponent,

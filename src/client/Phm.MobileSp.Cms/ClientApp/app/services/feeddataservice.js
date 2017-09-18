@@ -72,7 +72,7 @@ var FeedDataService = (function (_super) {
         });
     };
     FeedDataService.prototype.updateFeeditem = function (updateUrl, feedItem) {
-        return this.postRequestFull(updateUrl, feedItem);
+        return this.postRequestFull('/api/Feed/UpdateFeedItem', feedItem);
     };
     FeedDataService.prototype.deleteFeeditem = function (feedItemId) {
         return this.postRequestBase('/api/Feed/DeleteFeedItem', feedItemId);

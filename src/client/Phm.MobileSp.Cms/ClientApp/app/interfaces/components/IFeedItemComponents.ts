@@ -16,7 +16,6 @@ export interface IFeedItemForm {
 }
 
 export interface IFeedItemPartialForm {
-    updateUrl: string;
     feedModelType: any;
     feedType: Enums.FeedTypeEnum;
     model: FeedModel.IFeedItem;

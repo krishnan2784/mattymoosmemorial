@@ -13,6 +13,8 @@ import Observationclasses = require("./observationclasses");
 import UserObservation = Observationclasses.UserObservation;
 import Date1 = require("../classes/helpers/date");
 import DateEx = Date1.DateEx;
+import Pagedfeedclasses = require("./pagedfeedclasses");
+import BaseFeedPage = Pagedfeedclasses.BaseFeedPage;
 
 export class BaseFeed extends Baseclasses.BaseModel implements FeedModel.IFeedItem {
     allowFavourite: boolean;
@@ -171,6 +173,15 @@ export class VideoFeed extends TextFeed {
         this.videoDescription = options['videoDescription'] || '';
         this.mainVideo = options['mainVideo'];
         this.mainVideoId = options['mainVideoId'] || 0;
+    }
+}
 
+export class PagedFeed extends BaseFeed {
+    public baseFeedPages: BaseFeedPage[];
+
+    constructor(options: {} = {}) {
+        super(options);
+        this.feedType = FeedTypeEnum.Paged;
+        this.baseFeedPages = options['baseFeedPages'] || [];
     }
 }

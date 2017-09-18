@@ -25,8 +25,8 @@ var Enums = require("../../../enums");
 var basepartialfeeditem_component_1 = require("./basepartialfeeditem.component");
 var BaseQuestionFeedItemFormComponent = (function (_super) {
     __extends(BaseQuestionFeedItemFormComponent, _super);
-    function BaseQuestionFeedItemFormComponent(injector, feedModelType, updateUrl, feedType, questionTypeEnum) {
-        var _this = _super.call(this, injector, feedModelType, updateUrl, feedType) || this;
+    function BaseQuestionFeedItemFormComponent(injector, feedModelType, feedType, questionTypeEnum) {
+        var _this = _super.call(this, injector, feedModelType, feedType) || this;
         _this.questionTypeEnum = questionTypeEnum;
         _this.currentQuestion = 0;
         return _this;
@@ -106,7 +106,7 @@ BaseQuestionFeedItemFormComponent = __decorate([
         template: require('./basequestionfeeditem.component.html'),
         styles: [require('./feeditemform.component.css'), require('./basequestionfeeditem.component.css')]
     }),
-    __metadata("design:paramtypes", [core_1.Injector, Object, String, Number, Object])
+    __metadata("design:paramtypes", [core_1.Injector, Object, Number, Object])
 ], BaseQuestionFeedItemFormComponent);
 exports.BaseQuestionFeedItemFormComponent = BaseQuestionFeedItemFormComponent;
 //# sourceMappingURL=basequestionfeeditem.component.js.map

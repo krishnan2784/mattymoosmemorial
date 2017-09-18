@@ -18,7 +18,7 @@ export class QuizFeedItemFormComponent extends BaseQuestionFeedItemFormComponent
     model: Feedclasses.QuizFeed;
     questionType: typeof Enums.QuizQuestionTypeEnum = Enums.QuizQuestionTypeEnum;
     constructor(injector: Injector) {
-        super(injector, Feedclasses.QuizFeed, '/api/Feed/UpdateQuizFeedItem', FeedTypeEnum.Quiz, Enums.QuizQuestionTypeEnum);
+        super(injector, Feedclasses.QuizFeed, FeedTypeEnum.Quiz, Enums.QuizQuestionTypeEnum);
     }
 
     addFormControls() {

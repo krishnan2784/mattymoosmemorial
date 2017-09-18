@@ -13,7 +13,7 @@ export class TextFeedItemFormComponent extends BasePartialItemFormComponent impl
     model: Feedclasses.TextFeed;
 
     constructor(injector: Injector) {
-        super(injector, Feedclasses.TextFeed, '/api/Feed/UpdateTextFeedItem', FeedTypeEnum.Text);
+        super(injector, Feedclasses.TextFeed, FeedTypeEnum.Text);
     } 
 
     addFormControls() {

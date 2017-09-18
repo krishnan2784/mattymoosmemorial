@@ -16,10 +16,9 @@ var Feedformstepsclasses = require("../../../classes/feedformstepsclasses");
 var FeedFormSteps = Feedformstepsclasses.FeedFormSteps;
 var FeedModel = require("../../../interfaces/models/IFeedModel");
 var BasePartialItemFormComponent = (function () {
-    function BasePartialItemFormComponent(injector, feedModelType, updateUrl, feedType) {
+    function BasePartialItemFormComponent(injector, feedModelType, feedType) {
         this.injector = injector;
         this.feedModelType = feedModelType;
-        this.updateUrl = updateUrl;
         this.feedType = feedType;
     }
     BasePartialItemFormComponent.prototype.ngOnInit = function () {
@@ -55,7 +54,7 @@ __decorate([
 ], BasePartialItemFormComponent.prototype, "submitted", void 0);
 BasePartialItemFormComponent = __decorate([
     core_1.Component({}),
-    __metadata("design:paramtypes", [core_1.Injector, Object, String, Number])
+    __metadata("design:paramtypes", [core_1.Injector, Object, Number])
 ], BasePartialItemFormComponent);
 exports.BasePartialItemFormComponent = BasePartialItemFormComponent;
 //# sourceMappingURL=basepartialfeeditem.component.js.map

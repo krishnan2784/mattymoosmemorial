@@ -12,8 +12,8 @@ import { BasePartialItemFormComponent } from "./basepartialfeeditem.component";
 export class BaseQuestionFeedItemFormComponent extends BasePartialItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
     public currentQuestion: number = 0;
 
-    constructor(injector: Injector, feedModelType, updateUrl: string, feedType: Enums.FeedTypeEnum, public questionTypeEnum: any) {
-        super(injector, feedModelType, updateUrl, feedType);
+    constructor(injector: Injector, feedModelType, feedType: Enums.FeedTypeEnum, public questionTypeEnum: any) {
+        super(injector, feedModelType, feedType);
     }
 
     currQuestion(): any {

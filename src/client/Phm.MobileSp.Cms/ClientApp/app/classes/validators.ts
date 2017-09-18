@@ -59,3 +59,11 @@ export function validUserRole(): ValidatorFn {
         return { "invalidUserRole": true };
     };
 }
+export function minLengthArray(min: number): ValidatorFn {
+    return (c: AbstractControl): { [key: string]: any } => {
+        if (c.value.length >= min)
+            return null;
+
+        return { 'minLengthArray': { valid: false } };
+    }
+}

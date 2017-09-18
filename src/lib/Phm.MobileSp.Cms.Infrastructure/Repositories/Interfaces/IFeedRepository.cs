@@ -11,10 +11,8 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
         Task<dynamic> GetFeedItemAsync(int feedItemId);
         Task<dynamic> GetMarketFeedItems(int marketId);
         Task<dynamic> GetFeedItems(FeedCriteria criteria);
-        Task<TFeedItem> CreateFeedItemAsync<TFeedItem, TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed
-            where TDestinationDto : BaseFeedDto;
-        Task<TFeedItem> UpdateFeedItemAsync<TFeedItem, TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed
-            where TDestinationDto : BaseFeedDto;
+        Task<TFeedItem> CreateFeedItemAsync<TFeedItem>(TFeedItem feedItem) where TFeedItem : BaseFeed;
+        Task<TFeedItem> UpdateFeedItemAsync<TFeedItem>(TFeedItem feedItem) where TFeedItem : BaseFeed;
         Task<bool> DeleteFeedItemAsync(int feedItemId);
         Task<bool> CopyFeedItemToMarketAsync(int feedItemId, List<int> marketIds);
     }

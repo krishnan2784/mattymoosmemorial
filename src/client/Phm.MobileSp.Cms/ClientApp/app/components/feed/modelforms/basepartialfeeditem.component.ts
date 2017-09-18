@@ -17,8 +17,8 @@ export class BasePartialItemFormComponent implements IFeedItemComponents.IFeedIt
     public model: FeedModel.IFeedItem;
     @Input()
     public submitted: boolean; 
-    constructor(private injector: Injector, public feedModelType, public updateUrl: string,
-        public feedType: Enums.FeedTypeEnum) {
+
+    constructor(private injector: Injector, public feedModelType, public feedType: Enums.FeedTypeEnum) {
     } 
     
     ngOnInit(): void {

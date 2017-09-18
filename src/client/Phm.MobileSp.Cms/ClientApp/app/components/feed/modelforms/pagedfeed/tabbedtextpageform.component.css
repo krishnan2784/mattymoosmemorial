@@ -1,0 +1,56 @@
+﻿.tab-menu {
+     text-align: center;
+}
+
+.tab-menu-item {
+    text-decoration: none;
+    font-size: 1.6em;
+    color: #000;
+    padding: 0 5px;
+    font-weight: 200;
+    position: relative;
+    padding: 0 10px;
+    margin-right: 10px;
+    min-width: 30px;
+}
+
+.tab-menu-item.active {
+    font-weight: 800;
+}
+
+
+.tab-menu-item:not(.active) {
+    cursor: pointer;
+}
+
+.tab-menu-item .material-icons {
+    position: absolute;
+    bottom: 3px;
+    right: 0;
+}
+
+.prev-tab {
+    left: 0;
+    right: initial;
+}
+
+.remove-tab-container {
+    margin: 0 50px;
+}
+
+.tab-container, .tab-num.active {
+    background-color: #eee;
+}
+.tab-container {
+    padding: 0 10px 20px;
+}
+
+.tab-num.active {
+    background-color: #eee;
+}
+
+.tab-list-container {
+    background-color: #fff;
+    margin: 0 -10px;
+    height: 27px;
+}
