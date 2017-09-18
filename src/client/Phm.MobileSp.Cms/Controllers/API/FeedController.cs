@@ -10,6 +10,8 @@ using Phm.MobileSp.Cms.Helpers.Attributes;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 using System;
 using Phm.MobileSp.Cms.Core.Models.Interfaces;
+using Phm.MobileSp.Cms.Helpers.CustomModelBinding;
+using Phm.MobileSp.Cms.Helpers.CustomModelBinding.FeedItems;
 
 namespace Phm.MobileSp.Cms.Controllers.API
 {
@@ -47,56 +49,27 @@ namespace Phm.MobileSp.Cms.Controllers.API
         }
 
         [HttpPost("[action]")]
-        public async Task<JsonResult> CreateFeedItem<TFeedItem, TDestinationDto>(dynamic feedItem) where TFeedItem : BaseFeed
-            where TDestinationDto : BaseFeedDto
-        {
+        [JsonResponseWrapper]
+        public async Task<JsonResult> CreateFeedItem<TFeedItem>(dynamic feedItem) where TFeedItem : BaseFeed {
             feedItem.MarketId = CurrentMarketId;
           
-            var feedItemResponse = await _feedRepository.CreateFeedItemAsync<TFeedItem, TDestinationDto>(feedItem);
+            var feedItemResponse = await _feedRepository.CreateFeedItemAsync<TFeedItem>(feedItem);
             var success = feedItemResponse != null;
             return Json(new BaseResponse<TFeedItem>(success, success ? "Feed item successfuly created" : "Failed to create feed item", feedItemResponse));
         }
 
         [HttpPost("[action]")]
-        public async Task<JsonResult> UpdateFeedItem<TFeedItem,TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed
-            where TDestinationDto : BaseFeedDto
+        [JsonResponseWrapper]
+        public async Task<JsonResult> UpdateFeedItem([FromBody][ModelBinder(BinderType = typeof(BaseFeedItemModelBinder))]BaseFeed feedItem)
         {
             feedItem.EndDate = feedItem.EndDate?.AddDays(1).AddSeconds(-1);
             if (feedItem.Id == 0)
-                return await CreateFeedItem<TFeedItem, TDestinationDto>(feedItem);
+                return await CreateFeedItem<BaseFeed>(feedItem);
             
-            var feedItemResponse = await _feedRepository.UpdateFeedItemAsync<TFeedItem, TDestinationDto>(feedItem);
+            var feedItemResponse = await _feedRepository.UpdateFeedItemAsync(feedItem);
             var success = feedItemResponse?.Id > 0;
-            return Json(new BaseResponse<TFeedItem>(success, success ? "Feed item successfuly updated" : "Failed to update feed item", feedItemResponse));
+            return Json(new BaseResponse<BaseFeed>(success, success ? "Feed item successfuly updated" : "Failed to update feed item", feedItemResponse));
         }
-
-        
-        [HttpPost("[action]")]
-        [JsonResponseWrapper]
-        public async Task<JsonResult> UpdateTextFeedItem([FromBody]TextFeed feedItem) => await UpdateFeedItem<TextFeed, TextFeedDto>(feedItem);
-
-
-        [HttpPost("[action]")]
-        [JsonResponseWrapper]
-        public async Task<JsonResult> UpdateImageFeedItem([FromBody]ImageFeed feedItem) => await UpdateFeedItem<ImageFeed, ImageFeedDto>(feedItem);
-
-        [HttpPost("[action]")]
-        [JsonResponseWrapper]
-        public async Task<JsonResult> UpdateVideoFeedItem([FromBody]VideoFeed feedItem) => await UpdateFeedItem<VideoFeed, VideoFeedDto>(feedItem);
-
-        [HttpPost("[action]")]
-        [JsonResponseWrapper]
-        public async Task<JsonResult> UpdateQuizFeedItem([FromBody]QuizFeed feedItem) => await UpdateFeedItem<QuizFeed, QuizFeedDto>(feedItem);
-
-        [HttpPost("[action]")]
-        [JsonResponseWrapper]
-        public async Task<JsonResult> UpdateSurveyFeedItem([FromBody]SurveyFeed feedItem) => await UpdateFeedItem<SurveyFeed, SurveyFeedDto>(feedItem);
-
-        [HttpPost("[action]")]
-        [JsonResponseWrapper]
-        public async Task<JsonResult> UpdateObservationFeedItem([FromBody]ObservationFeed feedItem) => await UpdateFeedItem<ObservationFeed, ObservationFeedDto>(feedItem);
-
-
 
         [HttpPost("[action]")]
         [JsonResponseWrapper]

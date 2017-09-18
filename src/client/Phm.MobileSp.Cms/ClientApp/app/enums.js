@@ -11,6 +11,7 @@ var FeedTypeEnum;
     FeedTypeEnum[FeedTypeEnum["ImageLink"] = 6] = "ImageLink";
     FeedTypeEnum[FeedTypeEnum["PdfLink"] = 7] = "PdfLink";
     FeedTypeEnum[FeedTypeEnum["Observation"] = 8] = "Observation";
+    FeedTypeEnum[FeedTypeEnum["Paged"] = 9] = "Paged";
 })(FeedTypeEnum = exports.FeedTypeEnum || (exports.FeedTypeEnum = {}));
 var FeedCategoryEnum;
 (function (FeedCategoryEnum) {
@@ -101,4 +102,12 @@ var UserPointType;
     UserPointType[UserPointType["VideoFeed"] = 3] = "VideoFeed";
     UserPointType[UserPointType["SurveyFeed"] = 4] = "SurveyFeed";
 })(UserPointType = exports.UserPointType || (exports.UserPointType = {}));
+var BasePageFeedTypeEnum;
+(function (BasePageFeedTypeEnum) {
+    BasePageFeedTypeEnum[BasePageFeedTypeEnum["Text"] = 0] = "Text";
+    BasePageFeedTypeEnum[BasePageFeedTypeEnum["MediaText"] = 1] = "MediaText";
+    BasePageFeedTypeEnum[BasePageFeedTypeEnum["MediaTabbedText"] = 2] = "MediaTabbedText";
+    BasePageFeedTypeEnum[BasePageFeedTypeEnum["Media"] = 3] = "Media";
+    BasePageFeedTypeEnum[BasePageFeedTypeEnum["TabbedText"] = 4] = "TabbedText";
+})(BasePageFeedTypeEnum = exports.BasePageFeedTypeEnum || (exports.BasePageFeedTypeEnum = {}));
 //# sourceMappingURL=enums.js.map

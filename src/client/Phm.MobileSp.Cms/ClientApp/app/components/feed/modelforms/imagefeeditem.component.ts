@@ -15,7 +15,7 @@ export class ImageFeedItemFormComponent extends BasePartialItemFormComponent imp
     model: Feedclasses.ImageFeed;
 
     constructor(injector: Injector, public mediaDataService: MediaDataService) {
-        super(injector, Feedclasses.ImageFeed, '/api/Feed/UpdateImageFeedItem', FeedTypeEnum.Image);
+        super(injector, Feedclasses.ImageFeed, FeedTypeEnum.Image);
     } 
 
     addFormControls() {

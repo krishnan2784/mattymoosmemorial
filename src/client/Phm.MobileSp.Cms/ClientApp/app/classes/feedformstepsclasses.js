@@ -27,6 +27,10 @@ var FeedFormSteps = (function () {
                 steps.push(new FeedFormStep(FeedFormStepType.SurveyQuestions, 2, "Survey Questions"));
                 steps.push(new FeedFormStep(FeedFormStepType.SurveyScore, 3, "Survey Results"));
             }
+            else if (_this.formType === Enums.FeedTypeEnum.Paged) {
+                steps.push(new FeedFormStep(FeedFormStepType.Pages, 2, "Pages"));
+                steps.push(new FeedFormStep(FeedFormStepType.Links, 3, "Links", "if required"));
+            }
             else {
                 steps.push(new FeedFormStep(FeedFormStepType.Media, 2, "Media", "if required"));
                 steps.push(new FeedFormStep(FeedFormStepType.Links, 3, "Links", "if required"));
@@ -98,5 +102,6 @@ var FeedFormStepType;
     FeedFormStepType[FeedFormStepType["QuizScore"] = 5] = "QuizScore";
     FeedFormStepType[FeedFormStepType["SurveyQuestions"] = 6] = "SurveyQuestions";
     FeedFormStepType[FeedFormStepType["SurveyScore"] = 7] = "SurveyScore";
+    FeedFormStepType[FeedFormStepType["Pages"] = 8] = "Pages";
 })(FeedFormStepType = exports.FeedFormStepType || (exports.FeedFormStepType = {}));
 //# sourceMappingURL=feedformstepsclasses.js.map

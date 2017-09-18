@@ -88,6 +88,12 @@
     <None Update="ClientApp\app\classes\feedformstepsclasses - Copy.js">
       <DependentUpon>feedformstepsclasses.ts</DependentUpon>
     </None>
+    <None Update="ClientApp\app\components\common\editor\textarea.component.js">
+      <DependentUpon>textarea.component.ts</DependentUpon>
+    </None>
+    <None Update="ClientApp\app\components\feed\modelforms\pagedfeed\bodytextpageform.component.css">
+      <DependentUpon>bodytextpageform.component.html</DependentUpon>
+    </None>
     <None Update="ClientApp\app\components\feed\modelforms\questionform.component.css">
       <DependentUpon>questionform.component.html</DependentUpon>
     </None>

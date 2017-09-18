@@ -69,7 +69,7 @@ import { QuizUserResultsComponent } from "./components/reports/quizuserresults/q
 import { LearnerStatComponent } from "./components/reports/leaderboards/learnerstat/learnerstat.component";
 import { ImageFeedItemFormComponent } from "./components/feed/modelforms/imagefeeditem.component";
 import { VideoFeedItemFormComponent } from "./components/feed/modelforms/videofeeditem.component";
-import { RichTextEditorComponent } from "./components/common/editor/editor.component";
+import { RichTextEditorComponent } from "./components/common/editor/richtexteditor.component";
 import { ObservationFeedItemReport } from "./components/reports/observationfeeditemreport.component";
 import { GaugeGraphComponent } from "./components/charts/gaugegraph/gaugegraph.component";
 import { MonobarGraphComponent } from "./components/charts/monobargraph/monobargraph.component";
@@ -77,6 +77,16 @@ import { DatepickerComponent } from "./components/common/datepicker/datepicker.c
 import { TextInputComponent } from "./components/common/editor/textbox.component";
 import { NumberTextInputComponent } from "./components/common/editor/numbertextbox.component";
 import { TagInputComponent } from "./components/common/editor/taginputbox.component";
+import Pagedfeeditemcomponent = require("./components/feed/modelforms/pagedfeed/pagedfeeditem.component");
+import PagedFeedItemFormComponent = Pagedfeeditemcomponent.PagedFeedItemFormComponent;
+import Bodytextpageformcomponent = require("./components/feed/modelforms/pagedfeed/bodytextpageform.component");
+import BodyTextPageFormComponent = Bodytextpageformcomponent.BodyTextPageFormComponent;
+import Mediapageformcomponent = require("./components/feed/modelforms/pagedfeed/mediapageform.component");
+import MediaPageFormComponent = Mediapageformcomponent.MediaPageFormComponent;
+import Tabbedtextpageformcomponent = require("./components/feed/modelforms/pagedfeed/tabbedtextpageform.component");
+import TabbedTextPageFormComponent = Tabbedtextpageformcomponent.TabbedTextPageFormComponent;
+import Textareacomponent = require("./components/common/editor/textarea.component");
+import TextAreaComponent = Textareacomponent.TextAreaComponent;
 
 
 @NgModule({
@@ -108,6 +118,10 @@ import { TagInputComponent } from "./components/common/editor/taginputbox.compon
         SurveyFeedItemFormComponent,
         ObservationFeedItemFormComponent,
         QuestionFormComponent,
+        PagedFeedItemFormComponent,
+        BodyTextPageFormComponent,
+        MediaPageFormComponent,
+        TabbedTextPageFormComponent,
         BaseModalComponent,
 
         // reporting
@@ -143,6 +157,7 @@ import { TagInputComponent } from "./components/common/editor/taginputbox.compon
         //shared
         UserFilter,
         RichTextEditorComponent,
+        TextAreaComponent,
         TextInputComponent,
         NumberTextInputComponent,
         TagInputComponent,

@@ -36,6 +36,8 @@ var ObservationFeedItemFormComponent = Observationfeeditemcomponent.ObservationF
 var validators_1 = require("../../../classes/validators");
 var Form = require("../../../classes/helpers/form");
 var FormEx = Form.FormEx;
+var Pagedfeeditemcomponent = require("./pagedfeed/pagedfeeditem.component");
+var PagedFeedItemFormComponent = Pagedfeeditemcomponent.PagedFeedItemFormComponent;
 var FeedItemForm = (function () {
     function FeedItemForm(_fb, http, route, router, feedDataService, sharedService, mediaDataService) {
         this._fb = _fb;
@@ -54,6 +56,7 @@ var FeedItemForm = (function () {
         this.quizForm = QuizFeedItemFormComponent;
         this.surveyForm = SurveyFeedItemFormComponent;
         this.observationForm = ObservationFeedItemFormComponent;
+        this.pagedForm = PagedFeedItemFormComponent;
         this.feedFormSteps = new FeedFormSteps();
         this.navbarData = [];
     }
@@ -211,7 +214,7 @@ var FeedItemForm = (function () {
         this.loading = true;
         feedItem = new this.subForm.feedModelType(feedItem);
         feedItem.callToActionUrl = feedItem.callToActionUrl.length == 0 || feedItem.callToActionUrl.indexOf('http') == 0 ? feedItem.callToActionUrl : 'http://' + feedItem.callToActionUrl;
-        this.feedDataService.updateFeeditem(this.subForm.updateUrl, feedItem).subscribe(function (result) {
+        this.feedDataService.updateFeeditem('', feedItem).subscribe(function (result) {
             if (result.success) {
                 _this.model = result.content;
                 _this.sharedService.updateFeedItem(result.content);

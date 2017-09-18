@@ -30,7 +30,7 @@ var BaseQuestionFeedItemFormComponent = Basequestionfeeditemcomponent.BaseQuesti
 var SurveyFeedItemFormComponent = (function (_super) {
     __extends(SurveyFeedItemFormComponent, _super);
     function SurveyFeedItemFormComponent(injector) {
-        return _super.call(this, injector, Feedclasses.SurveyFeed, '/api/Feed/UpdateSurveyFeedItem', FeedTypeEnum.Survey, Enums.SurveyQuestionTypeEnum) || this;
+        return _super.call(this, injector, Feedclasses.SurveyFeed, FeedTypeEnum.Survey, Enums.SurveyQuestionTypeEnum) || this;
     }
     //constructor(injector: Injector, feedModelType: any = Feedclasses.SurveyFeed, updateUrl: string = '/api/Feed/UpdateSurveyFeedItem',
     //    feedType: Enums.FeedTypeEnum = FeedTypeEnum.Survey, questionTypeEnum: any = Enums.SurveyQuestionTypeEnum) {

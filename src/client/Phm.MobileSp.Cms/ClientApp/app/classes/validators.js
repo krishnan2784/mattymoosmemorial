@@ -62,4 +62,12 @@ function validUserRole() {
     };
 }
 exports.validUserRole = validUserRole;
+function minLengthArray(min) {
+    return function (c) {
+        if (c.value.length >= min)
+            return null;
+        return { 'minLengthArray': { valid: false } };
+    };
+}
+exports.minLengthArray = minLengthArray;
 //# sourceMappingURL=validators.js.map

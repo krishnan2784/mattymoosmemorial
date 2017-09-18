@@ -39,16 +39,12 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             return await GetFeedItems(new FeedCriteria() { MarketId = marketId, Enabled = null });
         }
 
-        public async Task<TFeedItem> CreateFeedItemAsync<TFeedItem, TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed
-            where TDestinationDto : BaseFeedDto
-        {
+        public async Task<TFeedItem> CreateFeedItemAsync<TFeedItem>(TFeedItem feedItem) where TFeedItem : BaseFeed {
             var response = await CreateAsync(feedItem);
             return GetResponseModel<TFeedItem>(response);
         }
 
-        public async Task<TFeedItem> UpdateFeedItemAsync<TFeedItem, TDestinationDto>(TFeedItem feedItem) where TFeedItem : BaseFeed
-            where TDestinationDto : BaseFeedDto
-        {
+        public async Task<TFeedItem> UpdateFeedItemAsync<TFeedItem>(TFeedItem feedItem) where TFeedItem : BaseFeed {
             //var oResponse = await GetAsync(feedItem.Id);
             //var originalItem = GetResponseModel<List<TFeedItem>>(oResponse).First();
             //feedItem = FeedMapper.ConvertUnpopulatedFieldsToModel(originalItem, feedItem);

@@ -28,7 +28,7 @@ var basepartialfeeditem_component_1 = require("./basepartialfeeditem.component")
 var TextFeedItemFormComponent = (function (_super) {
     __extends(TextFeedItemFormComponent, _super);
     function TextFeedItemFormComponent(injector) {
-        return _super.call(this, injector, Feedclasses.TextFeed, '/api/Feed/UpdateTextFeedItem', FeedTypeEnum.Text) || this;
+        return _super.call(this, injector, Feedclasses.TextFeed, FeedTypeEnum.Text) || this;
     }
     TextFeedItemFormComponent.prototype.addFormControls = function () {
         this.form.controls['bodyText'].setValidators(forms_1.Validators.required);

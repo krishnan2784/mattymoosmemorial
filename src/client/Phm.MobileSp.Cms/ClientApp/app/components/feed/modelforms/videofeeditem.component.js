@@ -29,7 +29,7 @@ var mediaservice_1 = require("../../../services/mediaservice");
 var VideoFeedItemFormComponent = (function (_super) {
     __extends(VideoFeedItemFormComponent, _super);
     function VideoFeedItemFormComponent(injector, mediaDataService) {
-        var _this = _super.call(this, injector, Feedclasses.VideoFeed, '/api/Feed/UpdateVideoFeedItem', FeedTypeEnum.Video) || this;
+        var _this = _super.call(this, injector, Feedclasses.VideoFeed, FeedTypeEnum.Video) || this;
         _this.mediaDataService = mediaDataService;
         return _this;
     }

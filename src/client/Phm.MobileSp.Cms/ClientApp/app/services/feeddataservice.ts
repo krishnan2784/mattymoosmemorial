@@ -61,7 +61,7 @@ export class FeedDataService extends RequestHelper implements IFeedDataService, 
     }
 
     public updateFeeditem(updateUrl: string, feedItem: FeedItem): Observable<Apiresponse.ApiResponse> {
-        return this.postRequestFull(updateUrl, feedItem);
+        return this.postRequestFull('/api/Feed/UpdateFeedItem', feedItem);
     }
 
     public deleteFeeditem(feedItemId: number): Observable<boolean> {

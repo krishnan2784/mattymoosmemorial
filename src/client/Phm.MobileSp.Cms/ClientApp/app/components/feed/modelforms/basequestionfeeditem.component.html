@@ -26,47 +26,50 @@
 
     <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.QuizScore)">
         <div class="rich-text-box">
-            <label>Welcome message</label>
-            <editor [elementId]="'onBoardingMessage'" [value]="form.controls.onBoardingMessage.value" [formGroup]="form" [disabled]="true"></editor>
-            <small class="active-warning" [class.hidden]="form.controls.onBoardingMessage.valid || !submitted">
-                e.g: Welcome to the Quiz
-            </small>
+            <enhancedtextarea [form]="form" [formSubmitted]="submitted"
+                    [elementId]="'onBoardingMessage'"
+                    [formControlId]="'onBoardingMessage'"
+                    [label]="'Welcome Message'"
+                    [validationMessage]="'e.g: Welcome to the Quiz.'"
+                    [disabled]="true"></enhancedtextarea>
             <small>This entry is not required for this feed item.</small>
         </div>
 
         <div class="rich-text-box">
-            <label>Congratulate your learners with an engaging message</label>
-            <editor [elementId]="'successMessage'" [value]="form.controls.successMessage.value" [formGroup]="form"></editor>
-            <small class="active-warning" [class.hidden]="form.controls.successMessage.valid || !submitted">
-                e.g: Congratulations! Your skills are improving
-            </small>
+            <enhancedtextarea [form]="form" [formSubmitted]="submitted"
+                    [elementId]="'successMessage'"
+                    [formControlId]="'successMessage'"
+                    [label]="'Congratulate your learners with an engaging message'"
+                    [validationMessage]="'e.g: Congratulations! Your skills are improving.'"></enhancedtextarea>
         </div>
 
         <div class="rich-text-box">
-            <label>Let your learners know what went wrong with a positive message</label>
-            <editor [elementId]="'failMessage'" [value]="form.controls.failMessage.value" [formGroup]="form"></editor>
-            <small class="active-warning" [class.hidden]="form.controls.failMessage.valid || !submitted">
-                e.g: oooh Unlucky! You will get it next time!
-            </small>
+            <enhancedtextarea [form]="form" [formSubmitted]="submitted"
+                    [elementId]="'failMessage'"
+                    [formControlId]="'failMessage'"
+                    [label]="'Let your learners know what went wrong with a positive message.'"
+                    [validationMessage]="'e.g: oooh Unlucky! You will get it next time!.'"></enhancedtextarea>
         </div>
 
     </div>
     
     <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.SurveyScore)">
         <div class="rich-text-box">
-            <label>Welcome message</label>
-            <editor [elementId]="'surveyDescription'" [value]="form.controls.surveyDescription.value" [formGroup]="form" [disabled]="true"></editor>
-            <small class="active-warning" [class.hidden]="form.controls.surveyDescription.valid || !submitted">
-                e.g: Welcome to the Survey
-            </small>
+            <enhancedtextarea [form]="form" [formSubmitted]="submitted"
+                    [elementId]="'surveyDescription'"
+                    [formControlId]="'surveyDescription'"
+                    [label]="'Welcome message'"
+                    [validationMessage]="'e.g: Welcome to the Survey.'"
+                    [disabled]="true"></enhancedtextarea>
         </div>
 
         <div class="rich-text-box">
-            <label>Completion message</label>
-            <editor [elementId]="'completionMessage'" [value]="form.controls.completionMessage.value" [formGroup]="form" [disabled]="true"></editor>
-            <small class="active-warning" [class.hidden]="form.controls.completionMessage.valid || !submitted">
-                e.g: Thank you for taking part!
-            </small>
+            <enhancedtextarea [form]="form" [formSubmitted]="submitted"
+                    [elementId]="'completionMessage'"
+                    [formControlId]="'completionMessage'"
+                    [label]="'Completion message'"
+                    [validationMessage]="'e.g: Thank you for taking part!'"
+                    [disabled]="true"></enhancedtextarea>
         </div>
         <small>These entries are not required for this feed item.</small>
     </div>
