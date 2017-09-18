@@ -4,35 +4,82 @@
     <a (click)="editUser()" class="btn-floating btn-large waves-effect waves-light btn-top-right" data-toggle="modal" data-target="#edit-user">
         <i class="material-icons">person_add</i>
     </a>
-    <div class="animate-bottom">
+    <div class="animate-bottom user-index-container">
         <div class="col-md-8">
-            <pagination *ngIf="config.paging"
-                        class="pagination-sm right"
-                        [(ngModel)]="page"
-                        [totalItems]="length"
-                        [itemsPerPage]="itemsPerPage"
-                        [maxSize]="maxSize"
-                        [boundaryLinks]="true"
-                        [rotate]="false"
-                        (pageChanged)="onChangeTable(config, $event)"
-                        (numPages)="numPages = $event">
-            </pagination>
-            <ng-table [config]="config"
-                      (tableChanged)="onChangeTable(config)"
-                      (cellClicked)="onCellClick($event)"
-                      [rows]="rows" [columns]="columns">
-            </ng-table>
-            <pagination *ngIf="config.paging"
-                        class="pagination-sm right"
-                        [(ngModel)]="page"
-                        [totalItems]="length"
-                        [itemsPerPage]="itemsPerPage"
-                        [maxSize]="maxSize"
-                        [boundaryLinks]="true"
-                        [rotate]="false"
-                        (pageChanged)="onChangeTable(config, $event)"
-                        (numPages)="numPages = $event">
-            </pagination>
+            <div class="col-md-12" *ngIf="filteredUserAccounts.length === 0">
+                <div class="col-md-11 col-md-offset-1">
+                    <em>No users to display.</em>
+                </div>
+            </div>
+            <div class='user-index animate-bottom' *ngIf="filteredUserAccounts.length > 0">
+                <div class="col-md-12 index-user-header">
+                    <div class="col-md-1 user-img">
+                    </div>
+                    <div class="col-md-11 no-pad">
+                        <div class="col-md-10 no-pad">
+                            <div class="col-md-3">
+                                First Name
+                            </div>
+                            <div class="col-md-3">
+                                Last Name
+                            </div>
+                            <div class="col-md-3">
+                                Email
+                            </div>
+                            <div class="col-md-3">
+                                Dealership
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>                    
+                </div>
+                    <div *ngFor="let user of filteredUserAccounts | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}" class="col-md-12 index-user-item">
+                        <div class="col-md-1 user-img">
+                            <i class="material-icons table-avatar">person</i>
+                        </div>
+                        <div class="col-md-11 no-pad">
+                            <div class="col-md-10 no-pad user-details">
+                                <div class="col-md-3">
+                                    {{user.firstName}}
+                                    <p class="sub-data">
+                                        {{user.regionName == null ? '' : user.regionName}}
+                                    </p>
+                                </div>
+                                <div class="col-md-3">
+                                    {{user.lastName}}
+                                </div>
+                                <div class="col-md-3">
+                                    {{user.email}}
+                                    <p class="sub-data">
+                                        {{user.zoneName == null ? '' : user.zoneName}}
+                                    </p>
+                                </div>
+                                <div class="col-md-3">
+                                    {{user.dealershipName == null ? 'Not Specified' : user.dealershipName + ' (' + user.dealershipCode + ')'}}
+                                </div>
+                            </div>
+                            <div class="col-md-2 user-index-controls">
+                                <div class="user-control">
+                                    <a class="action-btn" data-toggle="modal" data-target="#edit-user" (click)="editUser(user)">
+                                        <i class="material-icons">edit</i>
+                                        <p>Edit</p>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <pagination-controls (pageChange)="page = $event" id="1"
+                                         maxSize="20"
+                                         directionLinks="true"
+                                         autoHide="true">
+                    </pagination-controls>
+                </div>
+
         </div>
         <div class="col-md-4">
             <div class="search-filter hidden">

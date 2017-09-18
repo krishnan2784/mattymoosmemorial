@@ -44,7 +44,6 @@ var UserFilter = (function () {
     UserFilter.prototype.ngOnDestroy = function () {
     };
     UserFilter.prototype.ngOnChanges = function (changes) {
-        console.log(changes);
         if (changes['refreshFilters']) {
             this.getMarketFilters();
             this.refreshFilters = false;

@@ -29,7 +29,7 @@
             </div>
 
             <label>Role</label>
-            <select id="role" formControlName="secGroup" materialize="material_select" [(ngModel)]="model.secGroup" class="browser-default" [disabled]="!roles">
+            <select id="role" formControlName="secGroup" materialize="material_select" [(ngModel)]="model.secGroup" class="browser-default">
                 <option *ngFor="let r of roles" [ngValue]="r">{{r.name}}</option>
             </select>
             <small class="active-warning" [class.hidden]="form.controls.secGroup.valid || !submitted">
