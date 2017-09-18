@@ -166,6 +166,8 @@ export class QuizFeedItemReport implements OnInit, OnDestroy {
     }
 
     public goBack() {
+        if (this.selectedQuizResult != null)
+            return;
         this.pageTitle = null;
         this.model = null;
         this.averageTimeData = null;

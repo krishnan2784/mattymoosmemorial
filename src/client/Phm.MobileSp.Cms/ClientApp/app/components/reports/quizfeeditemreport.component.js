@@ -142,6 +142,8 @@ var QuizFeedItemReport = (function () {
         };
     };
     QuizFeedItemReport.prototype.goBack = function () {
+        if (this.selectedQuizResult != null)
+            return;
         this.pageTitle = null;
         this.model = null;
         this.averageTimeData = null;
