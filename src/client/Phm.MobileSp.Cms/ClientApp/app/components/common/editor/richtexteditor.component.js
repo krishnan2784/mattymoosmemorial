@@ -23,7 +23,6 @@ var RichTextEditorComponent = (function () {
         this.currentChars = 0;
         this.editing = false;
         this.toggleEdit = this.toggleEditing.bind(this);
-        this.setupValue = this.setValue.bind(this);
     }
     RichTextEditorComponent.prototype.ngOnInit = function () {
         if (this.form.controls[this.formControlId].value == null)
@@ -41,7 +40,6 @@ var RichTextEditorComponent = (function () {
             plugins: ['link', 'paste', 'table', 'autoresize'],
             setup: function (editor) {
                 _this.editor = editor;
-                setTimeout(function () { return _this.setValue(); }, 10);
                 editor.on('keyup', function () {
                     var content = editor.getContent();
                     _this.value = content;
@@ -64,14 +62,15 @@ var RichTextEditorComponent = (function () {
                 editor.on('blur', function () {
                     _this.toggleEdit(false);
                 });
+                editor.on("init", function (editor) {
+                    tinymce.get(_this.elementId).setContent(_this.form.controls[_this.formControlId].value);
+                    tinymce.execCommand('mceRepaint');
+                });
             },
         });
     };
     RichTextEditorComponent.prototype.toggleEditing = function (currentlyEditing) {
         this.editing = currentlyEditing;
-    };
-    RichTextEditorComponent.prototype.setValue = function () {
-        tinymce.get(this.elementId).setContent(this.form.controls[this.formControlId].value);
     };
     RichTextEditorComponent.prototype.ngOnDestroy = function () {
         tinymce.remove(this.editor);

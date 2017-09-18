@@ -36,7 +36,6 @@ export class RichTextEditorComponent implements OnInit, AfterViewInit, OnDestroy
     editor;
     editing: boolean = false;
     toggleEdit = this.toggleEditing.bind(this);
-    setupValue = this.setValue.bind(this);
     
     ngOnInit() {
         if (this.form.controls[this.formControlId].value == null)
@@ -53,7 +52,6 @@ export class RichTextEditorComponent implements OnInit, AfterViewInit, OnDestroy
       plugins: ['link', 'paste', 'table','autoresize'],
       setup: editor => {
           this.editor = editor;
-          setTimeout(() => this.setValue(), 10);
           editor.on('keyup',
               () => {
                   const content = editor.getContent();
@@ -80,15 +78,18 @@ export class RichTextEditorComponent implements OnInit, AfterViewInit, OnDestroy
               () => {
                   this.toggleEdit(false);
               });
+          editor.on("init",
+              (editor) => {
+                  tinymce.get(this.elementId).setContent(this.form.controls[this.formControlId].value);
+                  tinymce.execCommand('mceRepaint');
+              }
+          );
       },
     });
   }
   toggleEditing(currentlyEditing: boolean) {
      this.editing = currentlyEditing;
   }
- setValue() {
-     tinymce.get(this.elementId).setContent(this.form.controls[this.formControlId].value);
- }
   ngOnDestroy() {
     tinymce.remove(this.editor);
   }
