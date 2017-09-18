@@ -41,6 +41,7 @@ var FeedItemCopyToMarket = (function (_super) {
         _this.userMarkets = [];
         _this.currentMarkets = [];
         _this.unsavedChanges = false;
+        _this.loading = false;
         if (injector) {
             _this.model = injector.get('model');
             _this.contentType = injector.get('contentType');
@@ -117,11 +118,13 @@ var FeedItemCopyToMarket = (function (_super) {
     FeedItemCopyToMarket.prototype.checkForChanges = function () { this.unsavedChanges = this.currentMarkets.filter(function (x) { return !x.isCopied; }).length > 0; };
     FeedItemCopyToMarket.prototype.saveChanges = function () {
         var _this = this;
+        this.loading = true;
         var marketIds = this.currentMarkets.map(function (x) { return x.id; });
         this.marketContentService.copyItemToMarket(this.model.id, marketIds).subscribe(function (result) {
             if (result.success) {
                 _this.closeModal();
             }
+            _this.loading = false;
         });
     };
     return FeedItemCopyToMarket;

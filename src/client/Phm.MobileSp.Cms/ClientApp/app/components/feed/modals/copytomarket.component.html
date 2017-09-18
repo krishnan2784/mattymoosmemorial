@@ -27,7 +27,7 @@
 
 <div class="modal-footer">
     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    <a class="btn btn-primary" (click)="saveChanges()" [attr.disabled]="unsavedChanges ? null : 'disabled'">Save changes</a>
+    <a class="btn btn-primary" (click)="saveChanges()" [attr.disabled]="!loading && unsavedChanges ? null : 'disabled'">Save changes</a>
 </div>
 
 

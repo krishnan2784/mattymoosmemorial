@@ -38,6 +38,7 @@ export class FeedItemCopyToMarket extends BaseModalContent implements OnInit, IM
     selectedMarket: ContentMarket;
 
     unsavedChanges: boolean = false;
+    loading: boolean = false;
 
     constructor(private injector: Injector, private sharedService: ShareService,
         private marketService: MarketDataService, private userDataService: UserDataService) {
@@ -112,14 +113,16 @@ export class FeedItemCopyToMarket extends BaseModalContent implements OnInit, IM
         }
     }
 
-    checkForChanges() {this.unsavedChanges = this.currentMarkets.filter(x => !x.isCopied).length > 0;}
+    checkForChanges() { this.unsavedChanges = this.currentMarkets.filter(x => !x.isCopied).length > 0;}
 
     saveChanges() {
+        this.loading = true;
         var marketIds = this.currentMarkets.map((x) => { return x.id; });
         this.marketContentService.copyItemToMarket(this.model.id, marketIds).subscribe((result) => {
             if (result.success) {
                 this.closeModal();
             }
+            this.loading = false;
         });
     }
 }
