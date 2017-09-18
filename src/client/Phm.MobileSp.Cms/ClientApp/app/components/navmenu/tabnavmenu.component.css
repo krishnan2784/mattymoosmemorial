@@ -8,12 +8,14 @@
 }
 .tab-nav-container ul{
     padding-left: 6px;
+    white-space: nowrap;
 }
 .tab-nav-container li {
     display: inline-block;   
     padding: 0 15px;
     color: #000;
     text-decoration: none;
+
 }
 .tab-nav-container li a, .tab-nav-container li a:hover, .tabnavitem:not(.link-active) a  {
     color: #000;

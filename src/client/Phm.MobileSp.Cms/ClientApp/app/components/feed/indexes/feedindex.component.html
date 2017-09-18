@@ -6,44 +6,44 @@
             <a (click)="editFeedItem()" class="btn-floating btn-large waves-effect waves-light btn-top-right" *ngIf="currentMarket && !currentMarket.isLive">
                 <i class="material-icons">add</i>
             </a>
-            <div class="col-md-12" *ngIf="this.feedItems.length === 0">
-                <div class="col-md-11 col-md-offset-1">
+            <div class="col-xs-12" *ngIf="this.feedItems.length === 0">
+                <div class="col-xs-11 col-xs-offset-1">
                     <em>No items to display.</em>
                 </div>
             </div>
 
-            <div class='feed-index col-md-12 animate-bottom' *ngIf="this.feedItems.length > 0">
-                <div *ngFor="let feedItem of this.feedItems | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}" class="col-md-12 index-feed-item">
-                    <div class="col-md-1">
+            <div class='feed-index col-xs-12 animate-bottom' *ngIf="this.feedItems.length > 0">
+                <div *ngFor="let feedItem of this.feedItems | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}" class="col-xs-12 index-feed-item">
+                    <div class="col-xs-1">
                         <img src="assets/images/Icon-{{feedCats[feedItem.feedCategory]}}-b.png" class="feed-cat-img" *ngIf="feedItem.feedType!=feedTypes.Observation" />
                         <img src="assets/images/Icon-Observation-b.png" class="feed-cat-img" *ngIf="feedItem.feedType==feedTypes.Observation" />
                     </div>
-                    <div class="col-md-11 no-pad">
-                        <div class="col-md-8 no-pad">
-                            <div class="col-md-12 feed-item-title">
+                    <div class="col-xs-11 no-pad">
+                        <div class="col-xs-8 no-pad">
+                            <div class="col-xs-12 feed-item-title">
                                 <h5 [innerHTML]="feedItem.title"></h5>
                             </div>
-                            <div class="col-md-12 feed-item-markets">
+                            <div class="col-xs-12 feed-item-markets">
                                 <div *ngIf="feedItem.markets">
                                     {{ feedItem.title }}
                                 </div>
                             </div>
-                            <div class="col-md-12 feed-item-dates">
-                                <div *ngIf="feedItem.published && feedItem.publishedLiveAt" class="col-md-4 no-pad date-posted">
+                            <div class="col-xs-12 feed-item-dates">
+                                <div *ngIf="feedItem.published && feedItem.publishedLiveAt" class="col-xs-4 no-pad date-posted feed-item-date">
                                     Date posted: {{ feedItem.publishedLiveAt | date:'short' }}
                                 </div>
 
-                                <div *ngIf="feedItem.updatedAt && feedItem.updatedAt!==feedItem.createdAt" class="col-md-4 no-pad">
+                                <div *ngIf="feedItem.updatedAt && feedItem.updatedAt!==feedItem.createdAt" class="col-xs-4 no-pad feed-item-date">
                                     Date modified: {{ feedItem.updatedAt | date:'short' }}
                                 </div>
 
-                                <div class="col-md-4 no-pad">
+                                <div class="col-xs-4 no-pad feed-item-date">
                                     Date created: {{ feedItem.createdAt | date:'short' }}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 feed-index-controls">
-                            <div class="feed-control col-md-3">
+                        <div class="col-xs-4 feed-index-controls">
+                            <div class="feed-control col-xs-3">
                                 <!--<div>
                             <a onclick="alert('Feature coming soon.');">
                                 <i class="material-icons">smartphone</i>
@@ -51,7 +51,7 @@
                             </a>
                         </div>-->
                             </div>
-                            <div class="feed-control col-md-3" [class.col-md-offset-3]="currentMarket && currentMarket.isLive">
+                            <div class="feed-control col-xs-3" [class.col-xs-offset-3]="currentMarket && currentMarket.isLive">
                                 <div>
                                     <a (click)="editFeedItem(feedItem)">
                                         <i class="material-icons">edit</i>
@@ -59,7 +59,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="feed-control col-md-3">
+                            <div class="feed-control col-xs-3">
                                 <div>
                                     <a (click)="deleteFeeditem(feedItem)">
                                         <i class="material-icons">delete</i>
@@ -67,7 +67,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="feed-control col-md-3">
+                            <div class="feed-control col-xs-3">
                                 <div *ngIf="currentMarket && !currentMarket.isLive && currentMarket.isMaster">
                                     <a (click)="copyFeedItemToMarket(feedItem)" data-toggle="modal" data-target="#feeditem-copytomarket">
                                         <i class="material-icons">content_copy</i>

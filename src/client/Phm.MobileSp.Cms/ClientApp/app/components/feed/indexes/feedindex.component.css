@@ -42,17 +42,10 @@
     font-weight: 600;
 }
 
-.feed-item-dates {
-    
-}
-
 .feed-item-markets {
     height: 20px;
 }
 
-.feed-item-dates {
-
-}
 .date-posted {
     color: #1d9d19;
     font-weight: 600;
@@ -83,7 +76,7 @@
     justify-content: space-between;
     padding-bottom: 20px;
 }
-.feed-item-title h5, .feed-item-dates{
+.feed-item-title h5, .feed-item-dates, .feed-item-date{
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
