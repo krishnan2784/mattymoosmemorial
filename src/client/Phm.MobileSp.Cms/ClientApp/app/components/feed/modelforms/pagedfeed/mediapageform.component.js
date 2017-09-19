@@ -14,6 +14,7 @@ var forms_1 = require("@angular/forms");
 var MediaPageFormComponent = (function () {
     function MediaPageFormComponent() {
         this.uploadedMedia = new core_1.EventEmitter;
+        this.mediaUploading = new core_1.EventEmitter();
     }
     MediaPageFormComponent.prototype.ngOnInit = function () {
         this.addFormControls();
@@ -47,6 +48,10 @@ __decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)
 ], MediaPageFormComponent.prototype, "uploadedMedia", void 0);
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", core_1.EventEmitter)
+], MediaPageFormComponent.prototype, "mediaUploading", void 0);
 MediaPageFormComponent = __decorate([
     core_1.Component({
         selector: 'media-page-form',

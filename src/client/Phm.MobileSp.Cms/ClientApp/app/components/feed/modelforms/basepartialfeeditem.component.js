@@ -20,6 +20,7 @@ var BasePartialItemFormComponent = (function () {
         this.injector = injector;
         this.feedModelType = feedModelType;
         this.feedType = feedType;
+        this.mediaUploading = new core_1.EventEmitter();
     }
     BasePartialItemFormComponent.prototype.ngOnInit = function () {
         this.model = new this.feedModelType(this.model);
@@ -52,6 +53,10 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Boolean)
 ], BasePartialItemFormComponent.prototype, "submitted", void 0);
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", core_1.EventEmitter)
+], BasePartialItemFormComponent.prototype, "mediaUploading", void 0);
 BasePartialItemFormComponent = __decorate([
     core_1.Component({}),
     __metadata("design:paramtypes", [core_1.Injector, Object, Number])

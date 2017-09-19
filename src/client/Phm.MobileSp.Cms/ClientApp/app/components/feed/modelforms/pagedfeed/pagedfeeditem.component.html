@@ -1,5 +1,5 @@
 <div [formGroup]="form">
-    <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Pages)">
+    <div [class.hidden]="!feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Pages)">
         
         <small *ngIf="submitted && form.controls.baseFeedPages.hasError('minLengthArray')" class="active-warning center">
             Please add at least two pages.
@@ -37,16 +37,19 @@
                         <input type="hidden" formControlName="published">
                         <input type="hidden" formControlName="basePageFeedType">
                         <input type="hidden" formControlName="pagedFeedId">
-                        <input type="hidden" formControlName="title">
-                        <bodytext-page-form *ngIf="pageHasProperty(form.controls.baseFeedPages.controls[i].controls.basePageFeedType.value, 'bodyText');"
-                                            [form]="page" [index]="i" [model]="model.baseFeedPages[i]" [submitted]="submitted">
-                        </bodytext-page-form>
+                        <input type="hidden" formControlName="title">                        
+                        <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Pages)">
+                            <bodytext-page-form *ngIf="pageHasProperty(form.controls.baseFeedPages.controls[i].controls.basePageFeedType.value, 'bodyText');"
+                                                [form]="page" [index]="i" [model]="model.baseFeedPages[i]" [submitted]="submitted">
+                            </bodytext-page-form>
+                            <tabbed-text-page-form *ngIf="pageHasProperty(form.controls.baseFeedPages.controls[i].controls.basePageFeedType.value, 'tabs');"
+                                                   [form]="page" [index]="i" [model]="model.baseFeedPages[i]" [submitted]="submitted" (uploadedMedia)="attachMedia($event)">
+                            </tabbed-text-page-form>
+                        </div>
                         <media-page-form *ngIf="pageHasProperty(form.controls.baseFeedPages.controls[i].controls.basePageFeedType.value, 'mediaInfoId');"
-                                         [form]="page" [index]="i" [model]="model.baseFeedPages[i]" [submitted]="submitted" (uploadedMedia)="attachMedia($event)">
+                                         [form]="page" [index]="i" [model]="model.baseFeedPages[i]" [submitted]="submitted"
+                                         (uploadedMedia)="attachMedia($event)" (mediaUploading)="mediaUploading.emit($event)">
                         </media-page-form>
-                        <tabbed-text-page-form *ngIf="pageHasProperty(form.controls.baseFeedPages.controls[i].controls.basePageFeedType.value, 'tabs');"
-                                                     [form]="page" [index]="i" [model]="model.baseFeedPages[i]" [submitted]="submitted" (uploadedMedia)="attachMedia($event)">
-                        </tabbed-text-page-form>
                     </div>
                    
                     <div class="col-md-10 remove-page-container">

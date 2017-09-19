@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit, OnDestroy, OnChanges, SimpleChange, Input } from '@angular/core';
+import { Component, Injector, OnInit, OnDestroy, OnChanges, SimpleChange, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import * as IFeedItemComponents from "../../../interfaces/components/IFeedItemComponents";
 import Enums = require("../../../enums");
@@ -17,6 +17,9 @@ export class BasePartialItemFormComponent implements IFeedItemComponents.IFeedIt
     public model: FeedModel.IFeedItem;
     @Input()
     public submitted: boolean; 
+
+    @Output()
+    public mediaUploading: EventEmitter<any> = new EventEmitter();
 
     constructor(private injector: Injector, public feedModelType, public feedType: Enums.FeedTypeEnum) {
     } 

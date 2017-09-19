@@ -41,6 +41,8 @@ export class UploadMediaComponent implements OnInit {
     public correctType: boolean = true;
 
     @Output()
+    public mediaUploading: EventEmitter<boolean> = new EventEmitter();
+    @Output()
     public mediaUploaded: EventEmitter<any> = new EventEmitter();
 
     constructor(public mediaService: MediaDataService) {
@@ -54,8 +56,8 @@ export class UploadMediaComponent implements OnInit {
     uploadFile() {
         if (!this.files)
             return;
-
         this.uploading = true;
+        this.mediaUploading.emit(true);
         this.imagePreviewUrl = '';
         this.videoPreviewUrl = '';
         this.mediaUploaded.emit(new MediaInfo());
@@ -68,14 +70,14 @@ export class UploadMediaComponent implements OnInit {
     }    
 
     processUploadResponse(media: MediaInfo) {
-        this.uploading = false;
         this.selectedMedia = media;     
         if (media.id > 0) {
             this.setPreviewImage();
             this.mediaUploaded.emit(media);
         } else
             this.failAlert("An error occurred during the upload process.");      
-
+        this.uploading = false;
+        this.mediaUploading.emit(false);
     }
 
     failAlert(message) {

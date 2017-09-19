@@ -194,8 +194,10 @@
                         [maxLength]="5"></taginputbox>
 
             
-            <upload (mediaUploaded)="attachMedia($event, 'mainIcon')" [selectedMedia]="model.mainIcon" [enforceExactDimensions]="true" 
-                    [maxWidth]="1860" [maxHeight]="930" [uploaderType]="uploaderTypes.Image" [title]="'Preview Image'" [uploadUrl]="'/Media/UploadFeedItemIcon'" [previewText]="'Icon Preview'"></upload>
+            <upload (mediaUploaded)="attachMedia($event, 'mainIcon')" (mediaUploading)="loading=$event" 
+                    [selectedMedia]="model.mainIcon" [enforceExactDimensions]="true" 
+                    [maxWidth]="1860" [maxHeight]="930" [uploaderType]="uploaderTypes.Image" [title]="'Preview Image'" 
+                    [uploadUrl]="'/Media/UploadFeedItemIcon'" [previewText]="'Icon Preview'"></upload>
             <small class="active-warning" [class.hidden]="form.controls.mainIconId.valid || !submitted">
                 Please upload an image with a resolution of 1860 x 930px.
             </small>
@@ -249,13 +251,15 @@
     </div>
     
 <div [class.hidden]="!feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Media)">
-    <upload (mediaUploaded)="attachMedia($event, '')" *ngIf="model.id == 0" [title]="'Upload an image or video'"></upload>
+    <upload (mediaUploaded)="attachMedia($event, '')" (mediaUploading)="loading=$event" *ngIf="model.id == 0" [title]="'Upload an image or video'"></upload>
 
-    <upload (mediaUploaded)="attachMedia($event, 'mainImage')" [uploaderType]="model.id > 0 ? uploaderTypes.Image : uploaderTypes.Any" 
+    <upload (mediaUploaded)="attachMedia($event, 'mainImage')" (mediaUploading)="loading=$event"
+            [uploaderType]="model.id > 0 ? uploaderTypes.Image : uploaderTypes.Any" 
             [selectedMedia]="model.mainImage" *ngIf="model.feedType == feedTypes.Image && model.id > 0" [title]="'Upload an image'"
             [previewText]="'Main Image Preview'"></upload>
 
-    <upload (mediaUploaded)="attachMedia($event, 'mainVideo')" [uploaderType]="model.id > 0 ? uploaderTypes.Video : uploaderTypes.Any" 
+    <upload (mediaUploaded)="attachMedia($event, 'mainVideo')" (mediaUploading)="loading=$event"
+            [uploaderType]="model.id > 0 ? uploaderTypes.Video : uploaderTypes.Any" 
             [selectedMedia]="model.mainVideo" *ngIf="model.feedType == feedTypes.Video && model.id > 0" [title]="'Upload a video'"
             [previewText]="'Video Preview'"></upload>
 
@@ -297,7 +301,7 @@
     
 <div *ngIf="model">
     <textfeeditem *ngIf="model.feedType === feedTypes.Text" [form]="form" [feedFormSteps]="feedFormSteps" [model]="model" [submitted]="submitted"></textfeeditem>
-    <pagedfeeditem *ngIf="model.feedType === feedTypes.Paged" [form]="form" [feedFormSteps]="feedFormSteps" [model]="model" [submitted]="submitted"></pagedfeeditem>
+    <pagedfeeditem *ngIf="model.feedType === feedTypes.Paged" [form]="form" [feedFormSteps]="feedFormSteps" [model]="model" [submitted]="submitted" (mediaUploading)="loading=$event"></pagedfeeditem>
     <quizfeeditem *ngIf="model.feedType === feedTypes.Quiz" [form]="form" [feedFormSteps]="feedFormSteps" [model]="model" [submitted]="submitted"></quizfeeditem>
     <surveyfeeditem *ngIf="model.feedType === feedTypes.Survey" [form]="form" [feedFormSteps]="feedFormSteps" [model]="model" [submitted]="submitted"></surveyfeeditem>
     <observationfeeditem *ngIf="model.feedType === feedTypes.Observation" [form]="form" [feedFormSteps]="feedFormSteps" [model]="model" [submitted]="submitted"></observationfeeditem>

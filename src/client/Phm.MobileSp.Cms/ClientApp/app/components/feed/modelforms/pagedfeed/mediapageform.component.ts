@@ -25,6 +25,8 @@ export class MediaPageFormComponent implements OnInit {
 
     @Output()
     public uploadedMedia: EventEmitter<any> = new EventEmitter;
+    @Output()
+    public mediaUploading: EventEmitter<any> = new EventEmitter();
 
     ngOnInit() {
         this.addFormControls();
