@@ -1,4 +1,4 @@
-import { Component, Injector } from '@angular/core';
+import { Component, Injector, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms'
 import * as IFeedItemComponents from "../../../../interfaces/components/IFeedItemComponents";
 import Enums = require("../../../../enums");

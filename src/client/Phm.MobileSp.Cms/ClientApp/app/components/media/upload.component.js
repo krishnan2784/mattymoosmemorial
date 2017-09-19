@@ -31,6 +31,7 @@ var UploadMediaComponent = (function () {
         this.uploading = false;
         this.uploaderTypes = enums_1.UploaderType;
         this.correctType = true;
+        this.mediaUploading = new core_1.EventEmitter();
         this.mediaUploaded = new core_1.EventEmitter();
     }
     UploadMediaComponent.prototype.ngOnInit = function () {
@@ -42,6 +43,7 @@ var UploadMediaComponent = (function () {
         if (!this.files)
             return;
         this.uploading = true;
+        this.mediaUploading.emit(true);
         this.imagePreviewUrl = '';
         this.videoPreviewUrl = '';
         this.mediaUploaded.emit(new mediainfoclasses_1.MediaInfo());
@@ -54,7 +56,6 @@ var UploadMediaComponent = (function () {
         }
     };
     UploadMediaComponent.prototype.processUploadResponse = function (media) {
-        this.uploading = false;
         this.selectedMedia = media;
         if (media.id > 0) {
             this.setPreviewImage();
@@ -62,6 +63,8 @@ var UploadMediaComponent = (function () {
         }
         else
             this.failAlert("An error occurred during the upload process.");
+        this.uploading = false;
+        this.mediaUploading.emit(false);
     };
     UploadMediaComponent.prototype.failAlert = function (message) {
         Materialize.toast(message, 5000, 'red');
@@ -201,6 +204,10 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Object)
 ], UploadMediaComponent.prototype, "uploadUrl", void 0);
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", core_1.EventEmitter)
+], UploadMediaComponent.prototype, "mediaUploading", void 0);
 __decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)
