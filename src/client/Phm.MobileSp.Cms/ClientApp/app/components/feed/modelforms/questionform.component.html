@@ -23,11 +23,11 @@
             <div class="answer-header">Question type</div>
             <p class="answer-body">
                 <span class="question-type-sector">
-                    <input type="radio" class="with-gap black" id="answer-type-1" name="questionType" formControlName="questionType" [value]="questionType.Single" [checked]="form.controls['questionType'].value === questionType.Single" (click)="clearFormCheckboxes()" />
+                    <input [attr.disabled]="form.controls.id.value > 0 ? 'disabled' : null" type="radio" class="with-gap black" id="answer-type-1" name="questionType" formControlName="questionType" [value]="questionType.Single" [checked]="form.controls['questionType'].value === questionType.Single" (click)="clearFormCheckboxes()" />
                     <label for="answer-type-1">Single choice</label>
                 </span>
                 <span class="question-type-sector">
-                    <input type="radio" class="with-gap" id="answer-type-2" name="questionType" formControlName="questionType" [value]="questionType.Multiple" [checked]="form.controls['questionType'].value === questionType.Multiple" (click)="clearFormCheckboxes()" />
+                    <input [attr.disabled]="form.controls.id.value > 0 ? 'disabled' : null" type="radio" class="with-gap" id="answer-type-2" name="questionType" formControlName="questionType" [value]="questionType.Multiple" [checked]="form.controls['questionType'].value === questionType.Multiple" (click)="clearFormCheckboxes()" />
                     <label for="answer-type-2">Multiple choice</label>
                 </span>
 
@@ -51,7 +51,7 @@
                     <input type="hidden" formControlName="published">
 
                     <div class="checkbox-container col-md-3" *ngIf="feedType===feedTypeEnum.Quiz">
-                        <input type="checkbox" class="filled-in" id="questions-{{index}}-answer-{{i}}-isCorrect" formControlName="isCorrect" (click)="clearFormCheckboxes(i, $event)" />
+                        <input [attr.disabled]="form.controls.id.value > 0 ? 'disabled' : null" type="checkbox" class="filled-in" id="questions-{{index}}-answer-{{i}}-isCorrect" formControlName="isCorrect" (click)="clearFormCheckboxes(i, $event)" />
                         <label htmlFor="questions-{{index}}-answer-{{i}}-isCorrect">Correct</label>
                     </div>
                     <div class="checkbox-container col-md-3" *ngIf="feedType===feedTypeEnum.Survey || feedType===feedTypeEnum.Observation">
@@ -67,11 +67,12 @@
                                    [validationMessage]="'An answer is required.'"></textinput>
                     </div>
 
-                    <a (click)="this.removeAnswer.emit(i)" [class.disabled]="form.controls.answers.controls.length < 3" class="btn">Delete Answer</a>
+                    <a *ngIf="form.controls.id.value === 0" (click)="this.removeAnswer.emit(i)" [class.disabled]="form.controls.answers.controls.length < 3" class="btn">Delete Answer</a>
+                    <div class="clearfix"></div>
                 </div>
             </div>
         </div>
-        <a (click)="this.addAnswer.emit()" [class.disabled]="form.controls.answers.controls.length > 7" class="btn btn-add-answer">Add Answer</a> 
+        <a *ngIf="form.controls.id.value === 0" (click)="this.addAnswer.emit()" [class.disabled]="form.controls.answers.controls.length > 7" class="btn btn-add-answer">Add Answer</a> 
     </div>
     <div class="clearfix"></div>
 </div>
