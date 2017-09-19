@@ -82,3 +82,6 @@
     overflow: hidden;
     max-height: 26.400px;
 }
+.feed-item-date{
+    padding-right: 15px;
+}
