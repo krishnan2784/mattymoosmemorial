@@ -23,19 +23,16 @@ namespace Phm.MobileSp.Cms.Helpers
                 _client.BaseAddress = new Uri(connStrings.Value.API);
 
                 var authToken = context.HttpContext?.User.Claims?.FirstOrDefault(x => x.Type == "sessionguid")?.Value;
-                if (!string.IsNullOrEmpty(authToken))
-                    SetAuthToken(authToken);
+                SetAuthToken(authToken);
             }
 
         }
 
         public void SetAuthToken(string authToken)
         {
-            if (!string.IsNullOrWhiteSpace(authToken))
-            {
-                _client.DefaultRequestHeaders.Add("Authorization", authToken);
-                _client.DefaultRequestHeaders.Add("AccessToken", authToken);
-            }
+            if (string.IsNullOrWhiteSpace(authToken) || _client.DefaultRequestHeaders.Authorization != null)
+                return;
+            _client.DefaultRequestHeaders.Add("Authorization", authToken);            
         }
     }
 }
