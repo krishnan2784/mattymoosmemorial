@@ -38,7 +38,7 @@
                         <input type="hidden" formControlName="basePageFeedType">
                         <input type="hidden" formControlName="pagedFeedId">
                         <input type="hidden" formControlName="title">                        
-                        <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Pages)">
+                        <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Pages) && currentPage==i ">
                             <bodytext-page-form *ngIf="pageHasProperty(form.controls.baseFeedPages.controls[i].controls.basePageFeedType.value, 'bodyText');"
                                                 [form]="page" [index]="i" [model]="model.baseFeedPages[i]" [submitted]="submitted">
                             </bodytext-page-form>
