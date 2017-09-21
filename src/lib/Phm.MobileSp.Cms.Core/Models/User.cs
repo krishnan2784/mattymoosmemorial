@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using Phm.MobileSp.Cms.Core.Models.Interfaces;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Phm.MobileSp.Cms.Core.Models
 {
-    public class MLearningUser : BaseModel
+    public class User : BaseModel
     {
-        public int DefaultMarketId { get; set; }
-
         public string DealershipCode { get; set; }
 
         public string DealershipName { get; set; }
@@ -19,14 +18,11 @@ namespace Phm.MobileSp.Cms.Core.Models
 
         public string LastName { get; set; }
 
-        public string Password { get; set; }
+        public int? SecEntityId { get; set; }
 
         public int SessionExpireMinutes { get; set; }
 
         public string UserName { get; set; }
-
-        public List<UserConfiguration> UserConfigurationList { get; set; }
-
-        public string UserConfigurationJson { get; set; }
     }
+
 }

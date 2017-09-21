@@ -1,0 +1,81 @@
+@using Phm.MobileSp.Cms.Core.Models
+@model  Phm.MobileSp.Cms.Models.ViewModels.UserRegistrationViewModel
+
+@{ Layout = "_LayoutLogin"; }
+
+<div class="login-body">
+
+    <div class="login-content">
+        <div class="header">
+        </div>
+
+        <div class="row">
+            <div class="welcome-message">
+                <div class="center">
+                    <h5>
+                        @{
+                            if (!string.IsNullOrEmpty(Model.FirstName))
+                            {
+                                <text>Hi @Model.FirstName, welcome to mLearning</text>
+                            }
+                            else
+                            {
+                                <text>Welcome to mLearning</text>
+                            }
+                        }
+
+                    </h5>
+                    <p>
+                        Please enter a password which meets the following requirements:
+                    </p>
+                </div>
+                <div class="col-md-10">
+                    <div class="col-md-offset-4 col-md-7 password-requirements">
+                        <ul>
+                            <li>Between 6-15 Characters</li>
+                            <li>At least one uppercase character</li>
+                            <li>At least one lowercase character</li>
+                            <li>At least one number</li>                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-10 login-form">
+                <form action="/Registration/UpdatePassword" method="post" class="form-horizontal regstration-form" role="form">
+                    @Html.HiddenFor(x => x.Id);
+
+                    <div class="form-group">
+                        <div class="col-md-offset-4 col-md-7">
+                            @Html.LabelFor(m => m.Password)
+                            <input asp-for="Password" class="form-control password" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-4 col-md-7">
+                            <label class="control-label">Confirm Password</label>
+
+                            <input asp-for="ConfirmationPassword" class="form-control password-confirmation" />
+                            <span asp-validation-for="ConfirmationPassword" class="text-danger"></span>
+                            @*<input type="password" class="password-confirmation" required />*@
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="col-md-offset-4 col-md-7">
+                            <button type="submit" class="waves-effect waves-light btn btn-primary right">Complete Registration</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="scripts/register.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+}
