@@ -11,8 +11,8 @@ namespace Phm.MobileSp.Cms.Models.ViewModels
         public string FirstName { get; set; }
 
         [Required]
-        [RegularExpression("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,15}$",
-            ErrorMessage = "You password must be between 6 and 15 characters long, and contain a lowercase character, an uppercase character, and a number.")]
+        [RegularExpression("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,15}$",
+            ErrorMessage = "You password must be between 8 and 15 characters long, and contain a lowercase character, an uppercase character, and a number.")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
         
@@ -22,9 +22,9 @@ namespace Phm.MobileSp.Cms.Models.ViewModels
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (Password.Length < 6 || Password.Length > 15)
+            if (Password.Length < 8 || Password.Length > 15)
                 yield return new ValidationResult(
-                    $"Your password must be between 6 and 15 characters long.",
+                    $"Your password must be between 8 and 15 characters long.",
                     new[] { "Password" });
 
             bool hasUpperCaseLetter = false;
