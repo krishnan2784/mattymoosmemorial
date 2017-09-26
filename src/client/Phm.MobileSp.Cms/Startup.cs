@@ -115,12 +115,13 @@ namespace Phm.MobileSp.Cms
                 services.AddTransient<IMarketUserRepository, MarketUserRepository>();
                 services.AddTransient<IMediaInfoRepository, MediaInfoRepository>();
                 services.AddTransient<IMediaRepository, MediaRepository>();
+                services.AddTransient<IRegistrationRepository, RegistrationRepository>();
                 services.AddTransient<ISecurityGroupsRepository, SecurityGroupsRepository>();
                 services.AddTransient<IUserConfigurationRepository, UserConfigurationRepository>();
                 services.AddTransient<IUserQuizResultsRepository, UserQuizResultsRepository>();
                 services.AddTransient<IUserRepository, UserRepository>();
                 services.AddTransient<IUserTemplateRepository, UserTemplateRepository>();
-
+                
                 services.AddSingleton<IFeedItemModelBinder, FeedItemModelBinder>();
 
                 services.AddSession(options =>
@@ -184,9 +185,12 @@ namespace Phm.MobileSp.Cms
                     routes.MapRoute("logout", "account/logout",
                         new { controller = "Base", action = "Logout" });
 
-
                     routes.MapRoute("logout-page", "logout",
                         new { controller = "Account", action = "Logout" });
+
+
+                    routes.MapRoute("register", "register",
+                        new { controller = "Registration", action = "Index" });
 
                     routes.MapRoute(
                         "default",
