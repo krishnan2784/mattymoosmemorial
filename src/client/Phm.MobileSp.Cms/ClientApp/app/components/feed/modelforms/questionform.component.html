@@ -30,7 +30,6 @@
                     <input [attr.disabled]="form.controls.id.value > 0 ? 'disabled' : null" type="radio" class="with-gap" id="answer-type-2" name="questionType" formControlName="questionType" [value]="questionType.Multiple" [checked]="form.controls['questionType'].value === questionType.Multiple" (click)="clearFormCheckboxes()" />
                     <label for="answer-type-2">Multiple choice</label>
                 </span>
-
             </p>
         </div>
 

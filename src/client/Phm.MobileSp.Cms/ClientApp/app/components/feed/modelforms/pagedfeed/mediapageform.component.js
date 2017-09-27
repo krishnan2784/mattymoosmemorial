@@ -19,8 +19,15 @@ var MediaPageFormComponent = (function () {
     MediaPageFormComponent.prototype.ngOnInit = function () {
         this.addFormControls();
     };
+    MediaPageFormComponent.prototype.ngOnDestroy = function () {
+        this.removeFormControls();
+    };
     MediaPageFormComponent.prototype.addFormControls = function () {
         this.form.addControl('mediaInfoId', new forms_1.FormControl(this.model.mediaInfoId, [forms_1.Validators.required]));
+    };
+    ;
+    MediaPageFormComponent.prototype.removeFormControls = function () {
+        this.form.removeControl('mediaInfoId');
     };
     ;
     MediaPageFormComponent.prototype.attachMedia = function (media) {

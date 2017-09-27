@@ -28,7 +28,6 @@ var FeedTypeEnum = Enums.FeedTypeEnum;
 var Feedclasses = require("../../../../models/feedclasses");
 var PagedFeed = Feedclasses.PagedFeed;
 var Pagedfeedclasses = require("../../../../models/pagedfeedclasses");
-var BaseFeedPage = Pagedfeedclasses.BaseFeedPage;
 var Validators1 = require("../../../../classes/validators");
 var PagedFeedItemFormComponent = (function (_super) {
     __extends(PagedFeedItemFormComponent, _super);
@@ -36,7 +35,6 @@ var PagedFeedItemFormComponent = (function (_super) {
         var _this = _super.call(this, injector, PagedFeed, FeedTypeEnum.Paged) || this;
         _this.currentPage = 0;
         _this.pageTypeEnum = Enums.BasePageFeedTypeEnum;
-        _this.showAddPageOptions = false;
         return _this;
     }
     PagedFeedItemFormComponent.prototype.currPage = function () {
@@ -68,10 +66,10 @@ var PagedFeedItemFormComponent = (function (_super) {
             title: new forms_1.FormControl(page.title, [])
         });
     };
-    PagedFeedItemFormComponent.prototype.addPage = function (basePageFeedType) {
+    PagedFeedItemFormComponent.prototype.addPage = function () {
         var control = this.form.controls['baseFeedPages'];
-        control.push(this.initPage(new BaseFeedPage({ basePageFeedType: basePageFeedType })));
-        this.model.baseFeedPages.push(new BaseFeedPage({ basePageFeedType: basePageFeedType }));
+        control.push(this.initPage(new Pagedfeedclasses.TextFeedPage({})));
+        this.model.baseFeedPages.push(new Pagedfeedclasses.TextFeedPage({}));
         this.displayPage(control.length - 1);
     };
     PagedFeedItemFormComponent.prototype.removePage = function (index) {
@@ -83,17 +81,10 @@ var PagedFeedItemFormComponent = (function (_super) {
         this.form.markAsDirty();
     };
     PagedFeedItemFormComponent.prototype.displayPage = function (index) {
-        this.showAddPageOptions = false;
         var pages = this.form.controls['baseFeedPages'];
         if (index < 0 || index > (pages.length - 1))
             return;
         this.currentPage = index;
-    };
-    PagedFeedItemFormComponent.prototype.showAddPage = function () {
-        this.showAddPageOptions = true;
-    };
-    PagedFeedItemFormComponent.prototype.hideAddPage = function () {
-        this.showAddPageOptions = false;
     };
     PagedFeedItemFormComponent.prototype.attachMedia = function (media) {
         var m = this.currPage().value;
@@ -117,6 +108,34 @@ var PagedFeedItemFormComponent = (function (_super) {
                     modelType === Enums.BasePageFeedTypeEnum.MediaTabbedText;
         }
         return false;
+    };
+    PagedFeedItemFormComponent.prototype.changePageType = function (modelType) {
+        var m;
+        switch (modelType) {
+            case this.pageTypeEnum.Text:
+                m = new Pagedfeedclasses.TextFeedPage(this.currPage().value);
+                break;
+            case this.pageTypeEnum.Media:
+                m = new Pagedfeedclasses.MediaFeedPage(this.currPage().value);
+                break;
+            case this.pageTypeEnum.MediaText:
+                m = new Pagedfeedclasses.MediaTextFeedPage(this.currPage().value);
+                break;
+            case this.pageTypeEnum.TabbedText:
+                m = new Pagedfeedclasses.TabbedTextFeedPage(this.currPage().value);
+                break;
+            case this.pageTypeEnum.MediaTabbedText:
+                m = new Pagedfeedclasses.MediaTabbedTextFeedPage(this.currPage().value);
+                break;
+        }
+        m.id = 0;
+        this.model.baseFeedPages[this.currentPage] = m;
+        this.updateCurrentPageProperty('id', 0);
+        this.updateCurrentPageProperty('basePageFeedType', modelType);
+    };
+    PagedFeedItemFormComponent.prototype.updateCurrentPageProperty = function (propName, value) {
+        this.model.baseFeedPages[this.currentPage][propName] = value;
+        this.currPage().controls[propName].patchValue(value, { onlySelf: true });
     };
     return PagedFeedItemFormComponent;
 }(BasePartialItemFormComponent));

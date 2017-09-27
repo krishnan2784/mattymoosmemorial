@@ -11,7 +11,7 @@ import TabText = PagedFeedClasses.TabText;
     template: require('./tabbedtextpageform.component.html'),
     styles: [require('./tabbedtextpageform.component.css')]
 })
-export class TabbedTextPageFormComponent implements OnInit {
+export class TabbedTextPageFormComponent implements OnInit, OnDestroy {
     public currentTab: number = 0;
 
     @Input('form')
@@ -24,11 +24,18 @@ export class TabbedTextPageFormComponent implements OnInit {
     public index: number;
 
     @Input()
-    public submitted: boolean; 
+    public submitted: boolean;
 
+    @Input()
+    public isVisible: boolean; 
+    
     ngOnInit() {
         this.model = new MediaTabbedTextFeedPage(this.model);
         this.addFormControls();
+    }
+
+    ngOnDestroy() {
+        this.removeFormControls();
     }
 
     currTab(): any {
@@ -41,6 +48,10 @@ export class TabbedTextPageFormComponent implements OnInit {
         this.model.tabs.forEach((x, i) => formArray.push(this.initTab(x)));
         this.form.addControl('tabs', formArray);
         this.form.controls['tabs'].setValidators(Validators.maxLength(3));
+    };
+
+    removeFormControls() {
+        this.form.removeControl('tabs');
     };
 
     initTab(tab: TabText = null): FormGroup {

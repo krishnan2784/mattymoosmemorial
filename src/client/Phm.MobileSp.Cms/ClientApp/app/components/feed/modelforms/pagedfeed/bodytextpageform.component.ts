@@ -10,7 +10,7 @@ import TextFeedPage = Pagedfeedclasses.TextFeedPage;
     template: require('./bodytextpageform.component.html'),
     styles: [require('./bodytextpageform.component.css')]
 })
-export class BodyTextPageFormComponent implements OnInit {
+export class BodyTextPageFormComponent implements OnInit, OnDestroy {
 
     @Input('form')
     public form: FormGroup;
@@ -24,12 +24,23 @@ export class BodyTextPageFormComponent implements OnInit {
     @Input()
     public submitted: boolean; 
 
+    @Input()
+    public isVisible: boolean; 
+
     ngOnInit() {
         this.addFormControls();
+    }
+
+    ngOnDestroy() {
+        this.removeFormControls();
     }
     
     addFormControls() {
         this.form.addControl('bodyText', new FormControl(this.model.bodyText, [<any>Validators.required]));
+    };
+
+    removeFormControls() {
+        this.form.removeControl('bodyText');
     };
 
 }

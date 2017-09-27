@@ -22,6 +22,9 @@ var TabbedTextPageFormComponent = (function () {
         this.model = new MediaTabbedTextFeedPage(this.model);
         this.addFormControls();
     };
+    TabbedTextPageFormComponent.prototype.ngOnDestroy = function () {
+        this.removeFormControls();
+    };
     TabbedTextPageFormComponent.prototype.currTab = function () {
         var tabs = this.form.controls['tabs'];
         return tabs.controls[this.currentTab];
@@ -32,6 +35,10 @@ var TabbedTextPageFormComponent = (function () {
         this.model.tabs.forEach(function (x, i) { return formArray.push(_this.initTab(x)); });
         this.form.addControl('tabs', formArray);
         this.form.controls['tabs'].setValidators(forms_1.Validators.maxLength(3));
+    };
+    ;
+    TabbedTextPageFormComponent.prototype.removeFormControls = function () {
+        this.form.removeControl('tabs');
     };
     ;
     TabbedTextPageFormComponent.prototype.initTab = function (tab) {
@@ -83,6 +90,10 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Boolean)
 ], TabbedTextPageFormComponent.prototype, "submitted", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Boolean)
+], TabbedTextPageFormComponent.prototype, "isVisible", void 0);
 TabbedTextPageFormComponent = __decorate([
     core_1.Component({
         selector: 'tabbed-text-page-form',

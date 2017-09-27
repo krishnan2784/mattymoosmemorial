@@ -18,6 +18,7 @@ var Surveyclasses = require("./surveyclasses");
 var Baseclasses = require("./baseclasses");
 var Date1 = require("../classes/helpers/date");
 var DateEx = Date1.DateEx;
+var Pagedfeedclasses = require("./pagedfeedclasses");
 var BaseFeed = (function (_super) {
     __extends(BaseFeed, _super);
     function BaseFeed(options) {
@@ -176,6 +177,10 @@ var PagedFeed = (function (_super) {
         var _this = _super.call(this, options) || this;
         _this.feedType = FeedTypeEnum.Paged;
         _this.baseFeedPages = options['baseFeedPages'] || [];
+        if (!_this.baseFeedPages || _this.baseFeedPages.length === 0) {
+            _this.baseFeedPages = [];
+            _this.baseFeedPages.push(new Pagedfeedclasses.TextFeedPage());
+        }
         return _this;
     }
     return PagedFeed;

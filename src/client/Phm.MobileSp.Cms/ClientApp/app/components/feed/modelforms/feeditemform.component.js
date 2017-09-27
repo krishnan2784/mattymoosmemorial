@@ -206,6 +206,7 @@ var FeedItemForm = (function () {
         this.form.updateValueAndValidity();
         if (this.loading)
             return;
+        console.log(this.model);
         if (!this.form.valid) {
             console.log(FormEx.getFormValidationErrors(this.form));
             $('.toast').remove();

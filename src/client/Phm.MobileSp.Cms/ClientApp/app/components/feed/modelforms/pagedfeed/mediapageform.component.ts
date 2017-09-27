@@ -9,7 +9,7 @@ import MediaInfo = Mediainfoclasses.MediaInfo;
     selector: 'media-page-form',
     template: require('./mediapageform.component.html')
 })
-export class MediaPageFormComponent implements OnInit {
+export class MediaPageFormComponent implements OnInit, OnDestroy {
 
     @Input('form')
     public form: FormGroup;
@@ -32,8 +32,16 @@ export class MediaPageFormComponent implements OnInit {
         this.addFormControls();
     }
 
+    ngOnDestroy() {
+        this.removeFormControls();
+    }
+
     addFormControls() {
         this.form.addControl('mediaInfoId', new FormControl(this.model.mediaInfoId, [<any>Validators.required]));
+    };
+
+    removeFormControls() {
+        this.form.removeControl('mediaInfoId');
     };
 
     attachMedia(media: MediaInfo) {
