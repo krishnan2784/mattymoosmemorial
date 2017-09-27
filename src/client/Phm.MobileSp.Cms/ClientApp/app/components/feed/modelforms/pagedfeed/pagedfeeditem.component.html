@@ -1,5 +1,5 @@
 <div [formGroup]="form">
-    <div [class.hidden]="!feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Pages)">
+    <div [class.hidden]="!feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Pages)" class="form-tab">
         
         <small *ngIf="submitted && form.controls.baseFeedPages.hasError('minLengthArray')" class="active-warning center">
             Please add at least two pages.
@@ -61,5 +61,6 @@
         </div>
 
         <h4 class="center col-md-10" *ngIf="form.controls.baseFeedPages.controls.length == 0 && !showAddPageOptions">Click <a (click)="showAddPageOptions = true;"><i class="material-icons">add</i></a> to add your first page.</h4>
+        <div class="clearfix"></div>
     </div>
 </div>

@@ -90,6 +90,7 @@
 
 .feed-item-form-buttons {
     float: right;
+    padding: 20px 0;
 }
 
 .feed-form-navigation {
@@ -97,6 +98,14 @@
     padding: 0 15px;
     vertical-align: middle;
     margin-bottom: 40px;
+    position:absolute;
+    top: 100px;
+    left:3px;
+    background-color: #fff;
+    width: 100%;
+    border-top: 1px solid #D8DEDC;
+    border-bottom:2px solid #D8DEDC;
+
 }
 
 .btn-save {
@@ -185,8 +194,4 @@
 }
 .observation-container{
     padding-bottom: 0;
-}
-.form-tab{
-    background-color:#fff;
-    padding:20px;
 }

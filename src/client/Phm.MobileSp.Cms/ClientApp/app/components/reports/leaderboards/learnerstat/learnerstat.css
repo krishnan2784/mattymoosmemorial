@@ -13,7 +13,7 @@
         float: left;
         width: 60px;
         text-align: center; }
-      .learnerStatContents .dbHeader .dateRange input, datepicker {
+      .learnerStatContents .dbHeader .dateRange input, .learnerStatContents .dbHeader .dateRange datepicker {
         width: 150px;
         float: left;
         margin-top: -12px; }
@@ -67,8 +67,8 @@
         font-size: 10px;
         text-align: right;
         height: 22.1px;
-        width: 90%; 
-        position: absolute;}
+        width: 90%;
+        position: absolute; }
       .learnerStatContents .chartActivity .graphWrapper .axisY .activityLabel {
         -ms-transform: rotate(-90deg);
         -webkit-transform: rotate(-90deg);
@@ -123,9 +123,8 @@
       .learnerStatContents .chartActivity .graphWrapper .dates .datalabel {
         position: absolute;
         left: calc(50% - 60px);
-        top: 17px; 
-        left: -20px;
-      }
+        top: 17px;
+        left: -20px; }
   .learnerStatContents .chartActivity .legends {
     margin-top: 86px;
     padding: 10px;

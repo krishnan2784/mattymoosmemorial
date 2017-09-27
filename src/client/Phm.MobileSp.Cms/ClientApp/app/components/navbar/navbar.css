@@ -1,56 +1,32 @@
 .navBarContents {
   height: 50px;
   font-size: 14px;
-  position: relative; }
-  .navBarContents .gradientLine {
-    width: 100%;
-    height: 4px;
-    position: absolute;
-    left: 82.5px;
-    top: calc(13px);
-    z-index: 40;
-    /* IE10+ */
-    background-image: -ms-linear-gradient(left, #1A4064 0%, #2BE7D0 100%);
-    /* Mozilla Firefox */
-    background-image: -moz-linear-gradient(left, #1A4064 0%, #2BE7D0 100%);
-    /* Opera */
-    background-image: -o-linear-gradient(left, #1A4064 0%, #2BE7D0 100%);
-    /* Webkit (Safari/Chrome 10) */
-    background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #1A4064), color-stop(100, #2BE7D0));
-    /* Webkit (Chrome 11+) */
-    background-image: -webkit-linear-gradient(left, #1A4064 0%, #2BE7D0 100%);
-    /* W3C Markup */
-    background-image: linear-gradient(to right, #1A4064 0%, #2BE7D0 100%); }
+  padding-left: 35px;
+  position: relative;
+  margin-top: -10px; }
   .navBarContents .option {
     float: left;
-    height: 50px;
-    width: 165px; }
+    width: 165px;
+    display: inline-block; }
   .navBarContents .text {
     position: absolute;
-    height: 20px;
-    width: 165px;
-    text-align: center;
-    font-weight: bold;
-    margin-top: 4px;
+    padding-right: 20px;
+    margin-top: 10px;
     cursor: pointer; }
-  .navBarContents .textSelected {
-    color: #756ca1; }
-  .navBarContents .circle {
-    border-radius: 50%;
-    margin-left: 69.5px;
-    z-index: 50;
-    position: relative;
-    width: 26px;
-    height: 26px;
-    cursor: pointer;
-    -webkit-transition: all 500ms;
-    /* Safari */
-    transition: all 500ms; }
-  .navBarContents .selected {
-    background: #473b62;
-    border: 2px solid #39d3c3; }
+  .navBarContents .selected .main-text {
+    font-weight: 600;
+    cursor: pointer; }
+  .navBarContents .selected .additionalText {
+    font-weight: 400; }
   .navBarContents .additionalText {
     font-weight: lighter; }
   .navBarContents .notSelected {
-    background: #eeeef0;
-    border: 2px solid #6f6f6f; }
+    background: #eeeef0; }
+
+.border-top {
+  border-top: 4px solid #D8DEDC;
+  display: inline-block;
+  width: 35%; }
+
+.selected .border-top {
+  border-color: #01A8DC; }

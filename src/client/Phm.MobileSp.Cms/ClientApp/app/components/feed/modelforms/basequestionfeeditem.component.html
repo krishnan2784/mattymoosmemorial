@@ -1,5 +1,5 @@
 <div [formGroup]="form">
-    <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.QuizQuestions) || feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.SurveyQuestions)">
+    <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.QuizQuestions) || feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.SurveyQuestions)" class="form-tab">
         <div class="question-menu col-md-10">
             <a [class.invisible]="currentQuestion<=0" (click)="displayQuestion(currentQuestion-1)" class="question-menu-item prev-question"><i class="material-icons">keyboard_arrow_left</i></a>
             <a *ngFor="let question of form.controls.questions.controls; let i=index" [class.active]="currentQuestion===i" (click)="displayQuestion(i)" class="question-menu-item">{{i+1}}</a>
@@ -21,10 +21,11 @@
                 </div>
             </div>
         </div>
+        <div class="clearfix"></div>
     </div>
     
 
-    <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.QuizScore)">
+    <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.QuizScore)" class="form-tab">
         <div class="rich-text-box">
             <enhancedtextarea [form]="form" [formSubmitted]="submitted"
                     [elementId]="'onBoardingMessage'"
@@ -53,7 +54,7 @@
 
     </div>
     
-    <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.SurveyScore)">
+    <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.SurveyScore)" class="form-tab">
         <div class="rich-text-box">
             <enhancedtextarea [form]="form" [formSubmitted]="submitted"
                     [elementId]="'surveyDescription'"
