@@ -22,7 +22,6 @@ export class PagedFeedItemFormComponent extends BasePartialItemFormComponent imp
     public currentPage: number = 0;
     public model: Feedclasses.PagedFeed;
     pageTypeEnum: typeof Enums.BasePageFeedTypeEnum = Enums.BasePageFeedTypeEnum;
-    showAddPageOptions: boolean = false;
 
     constructor(injector: Injector) {
         super(injector, PagedFeed, FeedTypeEnum.Paged);
@@ -57,10 +56,10 @@ export class PagedFeedItemFormComponent extends BasePartialItemFormComponent imp
         });
     }
 
-    addPage(basePageFeedType: Enums.BasePageFeedTypeEnum) {
+    addPage() {
         const control = <FormArray>this.form.controls['baseFeedPages'];
-        control.push(this.initPage(new BaseFeedPage({ basePageFeedType })));
-        this.model.baseFeedPages.push(new BaseFeedPage({ basePageFeedType }));
+        control.push(this.initPage(new Pagedfeedclasses.TextFeedPage({ })));
+        this.model.baseFeedPages.push(new Pagedfeedclasses.TextFeedPage({ }));
         this.displayPage(control.length - 1);
     }
 
@@ -74,19 +73,10 @@ export class PagedFeedItemFormComponent extends BasePartialItemFormComponent imp
     }
 
     displayPage(index: number) {
-        this.showAddPageOptions = false;
         const pages = <FormArray>this.form.controls['baseFeedPages'];
         if (index < 0 || index > (pages.length - 1))
             return;
         this.currentPage = index;
-    }
-
-    showAddPage() {
-        this.showAddPageOptions = true;
-    }
-
-    hideAddPage() {
-        this.showAddPageOptions = false;
     }
 
     attachMedia(media: MediaInfo) {
@@ -102,7 +92,7 @@ export class PagedFeedItemFormComponent extends BasePartialItemFormComponent imp
         switch (propertyName) {
             case 'bodyText':
                 return modelType === Enums.BasePageFeedTypeEnum.Text ||
-                        modelType === Enums.BasePageFeedTypeEnum.MediaText;
+                    modelType === Enums.BasePageFeedTypeEnum.MediaText;
             case 'mediaInfoId':
                 return modelType === Enums.BasePageFeedTypeEnum.Media ||
                     modelType === Enums.BasePageFeedTypeEnum.MediaText ||
@@ -112,5 +102,35 @@ export class PagedFeedItemFormComponent extends BasePartialItemFormComponent imp
                     modelType === Enums.BasePageFeedTypeEnum.MediaTabbedText;
         }
         return false;
+    }
+    
+    changePageType(modelType: Enums.BasePageFeedTypeEnum) {
+        var m;
+        switch (modelType) {
+            case this.pageTypeEnum.Text:
+                m = new Pagedfeedclasses.TextFeedPage(this.currPage().value);
+                break;
+            case this.pageTypeEnum.Media:
+                m = new Pagedfeedclasses.MediaFeedPage(this.currPage().value);
+                break;
+            case this.pageTypeEnum.MediaText:
+                m = new Pagedfeedclasses.MediaTextFeedPage(this.currPage().value);
+                break;
+            case this.pageTypeEnum.TabbedText:
+                m = new Pagedfeedclasses.TabbedTextFeedPage(this.currPage().value);
+                break;
+            case this.pageTypeEnum.MediaTabbedText:
+                m = new Pagedfeedclasses.MediaTabbedTextFeedPage(this.currPage().value);
+                break;
+        }
+        m.id = 0;
+        this.model.baseFeedPages[this.currentPage] = m;
+        this.updateCurrentPageProperty('id', 0);
+        this.updateCurrentPageProperty('basePageFeedType', modelType);
+    }
+
+    updateCurrentPageProperty(propName, value) {
+        this.model.baseFeedPages[this.currentPage][propName] = value;
+        this.currPage().controls[propName].patchValue(value, { onlySelf: true });
     }
 }

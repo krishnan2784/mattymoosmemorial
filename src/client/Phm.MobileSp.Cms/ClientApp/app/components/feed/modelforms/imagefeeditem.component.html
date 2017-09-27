@@ -1,4 +1,4 @@
-<div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Media)">
+<div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Media)" class="form-tab">
     <div [formGroup]="form">
         <small class="active-warning" [class.hidden]="form.controls.mainImageId.valid || !submitted">
             Please upload an image.

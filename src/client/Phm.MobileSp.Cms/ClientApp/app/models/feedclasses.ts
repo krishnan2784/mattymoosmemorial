@@ -183,5 +183,9 @@ export class PagedFeed extends BaseFeed {
         super(options);
         this.feedType = FeedTypeEnum.Paged;
         this.baseFeedPages = options['baseFeedPages'] || [];
+        if (!this.baseFeedPages || this.baseFeedPages.length === 0) {
+            this.baseFeedPages = [];
+            this.baseFeedPages.push(new Pagedfeedclasses.TextFeedPage());
+        }
     }
 }

@@ -17,8 +17,15 @@ var BodyTextPageFormComponent = (function () {
     BodyTextPageFormComponent.prototype.ngOnInit = function () {
         this.addFormControls();
     };
+    BodyTextPageFormComponent.prototype.ngOnDestroy = function () {
+        this.removeFormControls();
+    };
     BodyTextPageFormComponent.prototype.addFormControls = function () {
         this.form.addControl('bodyText', new forms_1.FormControl(this.model.bodyText, [forms_1.Validators.required]));
+    };
+    ;
+    BodyTextPageFormComponent.prototype.removeFormControls = function () {
+        this.form.removeControl('bodyText');
     };
     ;
     return BodyTextPageFormComponent;
@@ -39,6 +46,10 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Boolean)
 ], BodyTextPageFormComponent.prototype, "submitted", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Boolean)
+], BodyTextPageFormComponent.prototype, "isVisible", void 0);
 BodyTextPageFormComponent = __decorate([
     core_1.Component({
         selector: 'bodytext-page-form',

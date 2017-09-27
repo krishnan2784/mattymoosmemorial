@@ -1,34 +1,23 @@
 <div [formGroup]="form">
-    <div [class.hidden]="!feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Pages)">
-        
+    <div [class.hidden]="!feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Pages)" class="form-tab">
         <small *ngIf="submitted && form.controls.baseFeedPages.hasError('minLengthArray')" class="active-warning center">
             Please add at least two pages.
         </small>
         <div class="clearfix"></div>
 
-        <div *ngIf="showAddPageOptions" class="center col-md-10">
-            <a class="btn" (click)="addPage(pageTypeEnum.Text);">Text</a>
-            <a class="btn" (click)="addPage(pageTypeEnum.Media);">Media</a>
-            <a class="btn" (click)="addPage(pageTypeEnum.MediaText);">Media & Text</a>
-            <a class="btn" (click)="addPage(pageTypeEnum.TabbedText);">Tabbed Text</a>
-            <a class="btn" (click)="addPage(pageTypeEnum.MediaTabbedText);">Tabbed Text & Media</a>
-            <a class="btn grey" (click)="hideAddPage();">Cancel</a>
-            <div class="clearfix"></div>
-        </div>
-
-        <div class="page-menu col-md-10" *ngIf="form.controls.baseFeedPages.controls.length > 0 && !showAddPageOptions">
+        <div class="page-menu col-md-10" *ngIf="form.controls.baseFeedPages.controls.length > 0">
             <a [class.invisible]="currentPage<=0" (click)="displayPage(currentPage-1)" class="page-menu-item prev-page"><i class="material-icons">keyboard_arrow_left</i></a>
             <a *ngFor="let page of form.controls.baseFeedPages.controls; let i=index" [class.active]="currentPage===i" (click)="displayPage(i)" class="page-menu-item">{{i+1}}</a>
             <a [class.invisible]="currentPage >= (form.controls.baseFeedPages.controls.length-1)" (click)="displayPage(currentPage+1)" class="page-menu-item"><i class="material-icons">keyboard_arrow_right</i></a>
 
-            <a (click)="showAddPage();" class="page-menu-item" *ngIf="form.controls.baseFeedPages.controls.length < 5"><i class="material-icons">add</i></a>
+            <a (click)="addPage();" class="page-menu-item" *ngIf="form.controls.baseFeedPages.controls.length < 5"><i class="material-icons">add</i></a>
             <div class="clearfix"></div>
         </div>
         <div class="clearfix"></div>
 
         <div formArrayName="baseFeedPages">
             <div *ngFor="let page of form.controls.baseFeedPages.controls; let i=index">
-                <div [class.hidden]="currentPage!=i || showAddPageOptions">
+                <div [class.hidden]="currentPage!=i" class="col-md-10">
                     <div [formGroupName]="i">
                         <input type="hidden" formControlName="id">
                         <input type="hidden" formControlName="masterId">
@@ -37,29 +26,56 @@
                         <input type="hidden" formControlName="published">
                         <input type="hidden" formControlName="basePageFeedType">
                         <input type="hidden" formControlName="pagedFeedId">
-                        <input type="hidden" formControlName="title">                        
-                        <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Pages) && currentPage==i ">
+                        <input type="hidden" formControlName="title">
+                        <div class="page-type-container">
+                            <div class="page-type-header">Page type</div>
+                            <p class="page-type-body">
+                                <span class="page-type-selector">
+                                    <input type="radio" class="with-gap" id="page-type-1" name="basePageFeedType-{{i}}" [value]="pageTypeEnum.Text" [checked]="currPage().controls['basePageFeedType'].value === pageTypeEnum.Text" (click)="changePageType(pageTypeEnum.Text)" />
+                                    <label for="page-type-1">Text</label>
+                                </span>
+                                <span class="page-type-selector">
+                                    <input type="radio" class="with-gap" id="page-type-2" name="basePageFeedType-{{i}}" [value]="pageTypeEnum.Media" [checked]="currPage().controls['basePageFeedType'].value == pageTypeEnum.Media" (click)="changePageType(pageTypeEnum.Media)" />
+                                    <label for="page-type-2">Media</label>
+                                </span>
+                                <span class="page-type-selector">
+                                    <input type="radio" class="with-gap" id="page-type-3" name="basePageFeedType-{{i}}" [value]="pageTypeEnum.MediaText" [checked]="currPage().controls['basePageFeedType'].value == pageTypeEnum.MediaText" (click)="changePageType(pageTypeEnum.MediaText)" />
+                                    <label for="page-type-3">Media & Text</label>
+                                </span>
+                                <span class="page-type-selector">
+                                    <input type="radio" class="with-gap" id="page-type-4" name="basePageFeedType-{{i}}" [value]="pageTypeEnum.TabbedText" [checked]="currPage().controls['basePageFeedType'].value == pageTypeEnum.TabbedText" (click)="changePageType(pageTypeEnum.TabbedText)" />
+                                    <label for="page-type-4">Tabbed Text</label>
+                                </span>
+                                <span class="page-type-selector">
+                                    <input type="radio" class="with-gap" id="page-type-5" name="basePageFeedType-{{i}}" [value]="pageTypeEnum.MediaTabbedText" [checked]="currPage().controls['basePageFeedType'].value == pageTypeEnum.MediaTabbedText" (click)="changePageType(pageTypeEnum.MediaTabbedText)" />
+                                    <label for="page-type-5">Tabbed Text & Media</label>
+                                </span>
+                            </p>
+                        </div>
+                        <div class="col-md-10 col-lg-offset-1">
                             <bodytext-page-form *ngIf="pageHasProperty(form.controls.baseFeedPages.controls[i].controls.basePageFeedType.value, 'bodyText');"
-                                                [form]="page" [index]="i" [model]="model.baseFeedPages[i]" [submitted]="submitted">
+                                                [form]="page" [isVisible]="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Pages) && currentPage==i"
+                                                [index]="i" [model]="model.baseFeedPages[i]" [submitted]="submitted">
                             </bodytext-page-form>
                             <tabbed-text-page-form *ngIf="pageHasProperty(form.controls.baseFeedPages.controls[i].controls.basePageFeedType.value, 'tabs');"
-                                                   [form]="page" [index]="i" [model]="model.baseFeedPages[i]" [submitted]="submitted" (uploadedMedia)="attachMedia($event)">
+                                                    [form]="page" [isVisible]="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Pages) && currentPage==i"
+                                                   [index]="i" [model]="model.baseFeedPages[i]" [submitted]="submitted" (uploadedMedia)="attachMedia($event)">
                             </tabbed-text-page-form>
+                            <media-page-form *ngIf="pageHasProperty(form.controls.baseFeedPages.controls[i].controls.basePageFeedType.value, 'mediaInfoId');"
+                                                [form]="page" [index]="i" [model]="model.baseFeedPages[i]" [submitted]="submitted"
+                                                (uploadedMedia)="attachMedia($event)" (mediaUploading)="mediaUploading.emit($event)">
+                            </media-page-form>
                         </div>
-                        <media-page-form *ngIf="pageHasProperty(form.controls.baseFeedPages.controls[i].controls.basePageFeedType.value, 'mediaInfoId');"
-                                         [form]="page" [index]="i" [model]="model.baseFeedPages[i]" [submitted]="submitted"
-                                         (uploadedMedia)="attachMedia($event)" (mediaUploading)="mediaUploading.emit($event)">
-                        </media-page-form>
+                        <div class="clearfix"></div>
                     </div>
-                   
+
                     <div class="col-md-10 remove-page-container">
-                        <hr/>
+                        <hr />
                         <a (click)="removePage(i)" [class.disabled]="form.controls.baseFeedPages.controls.length <= 1" class="btn">Delete Page</a>
                     </div>
                 </div>
+                <div class="clearfix"></div>
             </div>
         </div>
-
-        <h4 class="center col-md-10" *ngIf="form.controls.baseFeedPages.controls.length == 0 && !showAddPageOptions">Click <a (click)="showAddPageOptions = true;"><i class="material-icons">add</i></a> to add your first page.</h4>
     </div>
 </div>

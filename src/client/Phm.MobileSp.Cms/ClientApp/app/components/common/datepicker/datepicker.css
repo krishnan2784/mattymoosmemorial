@@ -22,12 +22,10 @@
         height: 100%;
         background-color: #4F3A9F;
         color: white;
-        cursor: pointer;
-
-        padding: 4px; }
-        .rightCal{
-    right: 0px;
-  }
+        padding: 4px;
+        cursor: pointer; }
+  .dp_content .rightCal {
+    right: 0px; }
   .dp_content .showCalendar {
     width: 316px;
     padding: 10px;
@@ -46,15 +44,14 @@
     .dp_content .showCalendar .monthSelector {
       font-size: 2em;
       text-align: center; }
-       .dp_content .showCalendar .monthSelector .disabled{
-          color: grey;
-      }
       .dp_content .showCalendar .monthSelector div {
         float: left;
         padding: 3px; }
       .dp_content .showCalendar .monthSelector .txtMs {
         text-align: center;
         width: 150px; }
+      .dp_content .showCalendar .monthSelector .disabled {
+        color: grey; }
     .dp_content .showCalendar .weekDays {
       background-color: #4F3A9F !important;
       color: white; }
@@ -90,10 +87,9 @@
     .dp_content .monthSelector .txt {
       width: 85px; }
     .dp_content .monthSelector .chMS {
-      margin-top: 4px; }    
-    .dp_content .monthSelector .chMS:not(.disabled){
-        cursor: pointer;
-    }
+      margin-top: 4px; }
+    .dp_content .monthSelector .chMS:not(.disabled) {
+      cursor: pointer; }
   .dp_content .todayButton {
     position: absolute;
     top: 10px;
@@ -187,12 +183,11 @@
     box-shadow: 0px 0 5px rgba(0, 0, 0, 0.349019);
     -webkit-box-shadow: 0px 0 5px rgba(0, 0, 0, 0.349019);
     -moz-box-shadow: 0px 0 5px rgba(0, 0, 0, 0.349019); }
+  .dp_content .selectableDay:hover {
+    cursor: pointer; }
   .dp_content .selectedDay {
     background-color: #4F3A9F !important;
     color: white !important; }
-  .dp_content .selectableDay:hover{
-    cursor: pointer;
-}
   .dp_content .sdayTop {
     width: 40px;
     height: 40px;

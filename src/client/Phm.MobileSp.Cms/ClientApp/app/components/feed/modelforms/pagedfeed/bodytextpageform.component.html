@@ -1,4 +1,4 @@
-<div [formGroup]="form" *ngIf="this.model">
+<div [formGroup]="form" *ngIf="isVisible">
     <richtexteditor [form]="form" [formSubmitted]="submitted"
             [elementId]="'baseFeedPages-' + index + '-bodyText'"
             [formControlId]="'bodyText'"

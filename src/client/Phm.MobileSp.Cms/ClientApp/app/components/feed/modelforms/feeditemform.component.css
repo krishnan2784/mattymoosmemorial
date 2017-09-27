@@ -2,7 +2,6 @@
     padding-top: 20px;
     margin-bottom: 50px;
     min-height: 750px;
-    background-color: #fff;
 }
 
 .feed-cat-container {
@@ -10,8 +9,10 @@
     padding: 20px 0 0;
     border: 1px #DBE2EA solid;
     margin-bottom: 20px;
-    min-height: 300px;
-    position: relative;
+    min-height: 350px;
+    position: relative;    
+    background-color: #fff;
+    padding-bottom: 120px;
 }
 
 .feed-cat-container p {
@@ -49,9 +50,29 @@
 
 
 .btn-holder {
+    height:120px;
+    width: 100%;
     position: absolute;
     bottom: 0;
-    width: 100%;
+}
+
+@media (min-width: 1500px) {
+  .btn-holder a{
+      padding: 0 0 0 100px;
+  }
+}
+
+.btn-holder a{
+    height:100%;
+}
+
+.btn-holder .type{
+    position: relative;
+    top: 30%;
+}
+
+.select-type-feed {
+    text-align: left;
 }
 
 .feed-cat-img {
@@ -64,11 +85,12 @@
 }
 
 .feed-item-form-container {
-padding: 20px;
+    padding: 20px;
 }
 
 .feed-item-form-buttons {
     float: right;
+    padding: 20px 0;
 }
 
 .feed-form-navigation {
@@ -76,6 +98,14 @@ padding: 20px;
     padding: 0 15px;
     vertical-align: middle;
     margin-bottom: 40px;
+    position:absolute;
+    top: 100px;
+    left:3px;
+    background-color: #fff;
+    width: 100%;
+    border-top: 1px solid #D8DEDC;
+    border-bottom:2px solid #D8DEDC;
+
 }
 
 .btn-save {
@@ -151,3 +181,17 @@ padding: 20px;
 }
 
 .paged-item-icon{ padding: 0;}
+.observation-partial{
+    border-right: 1px #DBE2EA solid;    
+    margin-top: -20px;
+    padding: 0;
+    height: 400px;  
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.observation-explanation p{
+    text-align:left;
+}
+.observation-container{
+    padding-bottom: 0;
+}

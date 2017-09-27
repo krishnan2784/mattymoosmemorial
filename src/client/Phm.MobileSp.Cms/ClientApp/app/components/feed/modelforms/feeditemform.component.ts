@@ -242,6 +242,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
 
         if (this.loading)
             return;
+        console.log(this.model);
 
         if (!this.form.valid) {
             console.log(FormEx.getFormValidationErrors(this.form));
