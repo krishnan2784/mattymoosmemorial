@@ -11,12 +11,14 @@ export class LbExecutivesTableComponent implements OnChanges {
   @Input() busy: boolean;
   @Output() userSelected: EventEmitter<any> = new EventEmitter();
   pagedData;
+  basePageIndex = 1;
   ngOnChanges(changes) {
     if (changes['page'] === undefined && changes['data'] === undefined) {
       return;
     }
     this.pagedData = [];
     let init = (this.pageSize * this.page);
+    this.basePageIndex = init + 1;
     for (let i = init; i < init + this.pageSize; i++) {
       if (i < this.data.length) {
         this.pagedData.push(this.data[i]);

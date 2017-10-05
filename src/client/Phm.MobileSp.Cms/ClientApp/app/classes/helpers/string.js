@@ -28,6 +28,29 @@ var StringEx = (function () {
         }
         return array;
     };
+    StringEx.sortArray = function (array, fields) {
+        array.sort(function (a, b) {
+            for (var i = 0; i < fields.length; i++) {
+                if (a[fields[i]] == b[fields[i]])
+                    continue;
+                if (Number.isInteger(a[fields[i]])) {
+                    if (a[fields[i]] < b[fields[i]])
+                        return -1;
+                    if (a[fields[i]] > b[fields[i]])
+                        return 1;
+                }
+                else {
+                    var aLower = a[fields[i]].toLowerCase(), bLower = b[fields[i]].toLowerCase();
+                    if (aLower > bLower)
+                        return -1;
+                    if (aLower < bLower)
+                        return 1;
+                }
+            }
+            return 0;
+        });
+        return array;
+    };
     StringEx.getSearchableChildObject = function (o, s) {
         s = s.replace(/\[(\w+)\]/g, '.$1');
         s = s.replace(/^\./, '');

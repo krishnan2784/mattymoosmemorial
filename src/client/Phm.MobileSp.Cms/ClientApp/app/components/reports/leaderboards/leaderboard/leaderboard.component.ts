@@ -15,7 +15,7 @@ export class LeaderboardComponent implements OnInit, OnChanges {
     @Output() datesChanged: EventEmitter<any> = new EventEmitter();
     @Output() report: EventEmitter<any> = new EventEmitter();
     @Output() userSelected: EventEmitter<any> = new EventEmitter();
-    pagCap = 14;
+    pagCap = 15;
     curPage = 0;
     totPages = 2;
     formatedData;
@@ -98,7 +98,6 @@ export class LeaderboardComponent implements OnInit, OnChanges {
                 regionsCountM1 = out.regions.length - 1;
             } else
                 regionsCountM1 = out.regions.findIndex(x => x.name == this.data[i].regionName);
-            console.log(regionsCountM1);
             this.graphData.children[regionsCountM1].size += this.data[i].totalMLearningPoints;
 
             let zonesCountM1 = 0;
@@ -234,13 +233,7 @@ export class LeaderboardComponent implements OnInit, OnChanges {
         this.optionSelected.emit(id);
     }
     commitList(list, isTop10, applyFilter) {
-        list.sort(function (a, b) {
-            let keyA = a.points,
-                keyB = b.points
-            if (keyA < keyB) return -1;
-            if (keyA > keyB) return 1;
-            return 0;
-        });
+      list = StringEx.sortArray(list, ['points', 'firstName', 'lastName']);
         list.reverse();
         let a = 0;
         list.forEach((e) => {

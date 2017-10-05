@@ -13,6 +13,7 @@ var core_1 = require("@angular/core");
 var LbExecutivesTableComponent = (function () {
     function LbExecutivesTableComponent() {
         this.userSelected = new core_1.EventEmitter();
+        this.basePageIndex = 1;
     }
     LbExecutivesTableComponent.prototype.ngOnChanges = function (changes) {
         if (changes['page'] === undefined && changes['data'] === undefined) {
@@ -20,6 +21,7 @@ var LbExecutivesTableComponent = (function () {
         }
         this.pagedData = [];
         var init = (this.pageSize * this.page);
+        this.basePageIndex = init + 1;
         for (var i = init; i < init + this.pageSize; i++) {
             if (i < this.data.length) {
                 this.pagedData.push(this.data[i]);

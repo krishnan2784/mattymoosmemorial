@@ -2,7 +2,8 @@
   <div class="busy" *ngIf="busy">
 
   </div>
-  <table class="highlight bordered">
+  <h5 *ngIf="pagedData && pagedData.length === 0">No users matching the criteria were found.</h5>
+  <table class="highlight bordered" *ngIf="pagedData && pagedData.length > 0">
     <thead>
     <tr>
       <th class="rank">Rank</th>
@@ -13,7 +14,7 @@
     </thead>
     <tbody>
     <tr *ngFor="let d of pagedData; let i = index">
-      <td class="rank">{{d.rank}}</td>
+      <td class="rank">{{i+basePageIndex}}</td>
       <td><i class="material-icons">account_circle</i> {{d.firstName}} {{d.lastName}}<!-- / {{d.region}}:{{d.zone}}--></td>
       <td class="reputation">{{d.points}}</td>
         <td>

@@ -19,7 +19,7 @@ var LeaderboardComponent = (function () {
         this.datesChanged = new core_1.EventEmitter();
         this.report = new core_1.EventEmitter();
         this.userSelected = new core_1.EventEmitter();
-        this.pagCap = 14;
+        this.pagCap = 15;
         this.curPage = 0;
         this.totPages = 2;
         this.searchString = '';
@@ -103,7 +103,6 @@ var LeaderboardComponent = (function () {
             }
             else
                 regionsCountM1 = out.regions.findIndex(function (x) { return x.name == _this.data[i].regionName; });
-            console.log(regionsCountM1);
             this_1.graphData.children[regionsCountM1].size += this_1.data[i].totalMLearningPoints;
             var zonesCountM1 = 0;
             if (!this_1.zoneAdded(this_1.data[i].regionName, this_1.data[i].zoneName, out)) {
@@ -229,14 +228,7 @@ var LeaderboardComponent = (function () {
         this.optionSelected.emit(id);
     };
     LeaderboardComponent.prototype.commitList = function (list, isTop10, applyFilter) {
-        list.sort(function (a, b) {
-            var keyA = a.points, keyB = b.points;
-            if (keyA < keyB)
-                return -1;
-            if (keyA > keyB)
-                return 1;
-            return 0;
-        });
+        list = string_1.StringEx.sortArray(list, ['points', 'firstName', 'lastName']);
         list.reverse();
         var a = 0;
         list.forEach(function (e) {
