@@ -11,7 +11,6 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Enums = require("../enums");
-var FeedCategoryEnum = Enums.FeedCategoryEnum;
 var FeedTypeEnum = Enums.FeedTypeEnum;
 var Quizclasses = require("./quizclasses");
 var Surveyclasses = require("./surveyclasses");
@@ -78,20 +77,6 @@ var TextFeed = (function (_super) {
     return TextFeed;
 }(BaseFeed));
 exports.TextFeed = TextFeed;
-var CampaignFeed = (function (_super) {
-    __extends(CampaignFeed, _super);
-    function CampaignFeed(options) {
-        if (options === void 0) { options = {}; }
-        var _this = _super.call(this, options) || this;
-        _this.feedCategory = FeedCategoryEnum.Campaign;
-        _this.feedType = options['feedType'];
-        _this.campaignDescription = options['campaignDescription'] || '';
-        _this.feeds = options['feeds'];
-        return _this;
-    }
-    return CampaignFeed;
-}(BaseFeed));
-exports.CampaignFeed = CampaignFeed;
 var ImageFeed = (function (_super) {
     __extends(ImageFeed, _super);
     function ImageFeed(options) {
@@ -101,11 +86,27 @@ var ImageFeed = (function (_super) {
         _this.imageDescription = options['imageDescription'] || '';
         _this.mainImage = options['mainImage'];
         _this.mainImageId = options['mainImageId'] || 0;
+        _this.bodyText = options['bodyText'] || '';
         return _this;
     }
     return ImageFeed;
-}(TextFeed));
+}(BaseFeed));
 exports.ImageFeed = ImageFeed;
+var VideoFeed = (function (_super) {
+    __extends(VideoFeed, _super);
+    function VideoFeed(options) {
+        if (options === void 0) { options = {}; }
+        var _this = _super.call(this, options) || this;
+        _this.feedType = FeedTypeEnum.Video;
+        _this.videoDescription = options['videoDescription'] || '';
+        _this.mainVideo = options['mainVideo'];
+        _this.mainVideoId = options['mainVideoId'] || 0;
+        _this.bodyText = options['bodyText'] || '';
+        return _this;
+    }
+    return VideoFeed;
+}(BaseFeed));
+exports.VideoFeed = VideoFeed;
 var QuizFeed = (function (_super) {
     __extends(QuizFeed, _super);
     function QuizFeed(options) {
@@ -156,20 +157,6 @@ var ObservationFeed = (function (_super) {
     return ObservationFeed;
 }(SurveyFeed));
 exports.ObservationFeed = ObservationFeed;
-var VideoFeed = (function (_super) {
-    __extends(VideoFeed, _super);
-    function VideoFeed(options) {
-        if (options === void 0) { options = {}; }
-        var _this = _super.call(this, options) || this;
-        _this.feedType = FeedTypeEnum.Video;
-        _this.videoDescription = options['videoDescription'] || '';
-        _this.mainVideo = options['mainVideo'];
-        _this.mainVideoId = options['mainVideoId'] || 0;
-        return _this;
-    }
-    return VideoFeed;
-}(TextFeed));
-exports.VideoFeed = VideoFeed;
 var PagedFeed = (function (_super) {
     __extends(PagedFeed, _super);
     function PagedFeed(options) {

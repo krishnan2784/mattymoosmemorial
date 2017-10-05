@@ -89,29 +89,36 @@ export class TextFeed extends BaseFeed {
     }
 }
 
-export class CampaignFeed extends BaseFeed {
-    public campaignDescription: string;
-    public feeds: BaseFeed[];
-    constructor(options: {} = {}) {
-        super(options);
-        this.feedCategory = FeedCategoryEnum.Campaign;
-        this.feedType = options['feedType'];
-        this.campaignDescription = options['campaignDescription'] || '';
-        this.feeds = options['feeds'];
-    }
-}
-
-export class ImageFeed extends TextFeed {
+export class ImageFeed extends BaseFeed {
     public imageDescription: string;
     public mainImage: MediaInfo;
     public mainImageId: number;
+    public bodyText: string;
+
     constructor(options: {} = {}) {
         super(options);
         this.feedType = FeedTypeEnum.Image;
         this.imageDescription = options['imageDescription'] || '';
         this.mainImage = options['mainImage'];
         this.mainImageId = options['mainImageId'] || 0;
+        this.bodyText = options['bodyText'] || '';
     }
+}
+
+export class VideoFeed extends BaseFeed {
+  public videoDescription: string;
+  public mainVideo: MediaInfo;
+  public mainVideoId: number;
+  public bodyText: string;
+
+  constructor(options: {} = {}) {
+    super(options);
+    this.feedType = FeedTypeEnum.Video;
+    this.videoDescription = options['videoDescription'] || '';
+    this.mainVideo = options['mainVideo'];
+    this.mainVideoId = options['mainVideoId'] || 0;
+    this.bodyText = options['bodyText'] || '';
+  }
 }
 
 export class QuizFeed extends BaseFeed {
@@ -159,20 +166,6 @@ export class ObservationFeed extends SurveyFeed {
         super(options);
         this.feedType = FeedTypeEnum.Observation;
         this.userObservations = options['userObservation'] || [];
-    }
-}
-
-export class VideoFeed extends TextFeed {
-    public videoDescription: string;
-    public mainVideo: MediaInfo;
-    public mainVideoId: number;
-
-    constructor(options: {} = {}) {
-        super(options);
-        this.feedType = FeedTypeEnum.Video;
-        this.videoDescription = options['videoDescription'] || '';
-        this.mainVideo = options['mainVideo'];
-        this.mainVideoId = options['mainVideoId'] || 0;
     }
 }
 

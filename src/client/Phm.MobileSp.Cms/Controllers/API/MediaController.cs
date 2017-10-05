@@ -46,7 +46,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
 
             using (Image temp = new Image(file.OpenReadStream()))
             {
-                if (temp.Height != 930 || temp.Width != 1860)
+                if (temp.Height != 320 || temp.Width != 640)
                     return Json(new BaseResponse<MediaInfo>(false, "The uploaded image is not the correct size.", new MediaInfo()));
             }
 

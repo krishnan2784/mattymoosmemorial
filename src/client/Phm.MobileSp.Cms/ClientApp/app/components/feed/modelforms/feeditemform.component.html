@@ -212,12 +212,12 @@
             </div>
 
             <div class="rich-text-box">
-                <richtexteditor [form]="form" [formSubmitted]="submitted"
+                <enhancedtextarea [form]="form" [formSubmitted]="submitted"
                         [elementId]="'shortDescription'"
                         [formControlId]="'shortDescription'"
                         [label]="'Short Description'"
                         [validationMessage]="'Short description is required.'"
-                        [maxLength]="120"></richtexteditor>
+                        [maxLength]="120"></enhancedtextarea>
             </div>
 
             <div class="rich-text-box" *ngIf="model.feedType == feedTypes.Text ||  model.feedType == feedTypes.Image || model.feedType == feedTypes.Video">
@@ -239,10 +239,10 @@
             
             <upload (mediaUploaded)="attachMedia($event, 'mainIcon')" (mediaUploading)="loading=$event" 
                     [selectedMedia]="model.mainIcon" [enforceExactDimensions]="true" 
-                    [maxWidth]="1860" [maxHeight]="930" [uploaderType]="uploaderTypes.Image" [title]="'Preview Image'" 
+                    [maxWidth]="640" [maxHeight]="320" [uploaderType]="uploaderTypes.Image" [title]="'Preview Image'" 
                     [uploadUrl]="'/Media/UploadFeedItemIcon'" [previewText]="'Icon Preview'"></upload>
             <small class="active-warning" [class.hidden]="form.controls.mainIconId.valid || !submitted">
-                Please upload an image with a resolution of 1860 x 930px.
+                Please upload an image with a resolution of 640 x 320px.
             </small>
         </div>
 
