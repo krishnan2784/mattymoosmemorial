@@ -29,12 +29,17 @@ export class NumberTextInputComponent implements OnInit {
         if (this.elementId == '')
             this.elementId = this.formControlId;
         if (this.form && this.form.controls[this.formControlId]) {
-            this.activeClass = this.form.controls[this.formControlId].value && this.form.controls[this.formControlId].value.toString().length > 0 ? "active" : "";
+          this.activeClass = this.form.controls[this.formControlId].value
+            && this.form.controls[this.formControlId].value.toString().length > 0 ? "active" : "";
         }
     }
     filterInput(e) {
+      // setting the type to number doesn't prevent the current versions of firefox and edge accepting 
+      // non-numerical characters and only fails validation. To maintain consistency with Chrome we are 
+      // (and also to prevent the 'e' character being entered) we're also manually checking input
       let char = e.key,
-        currValue = this.form && this.form.controls[this.formControlId] && this.form.controls[this.formControlId].value ? this.form.controls[this.formControlId].value.toString() : '';
+        currValue = this.form && this.form.controls[this.formControlId]
+          && this.form.controls[this.formControlId].value ? this.form.controls[this.formControlId].value.toString() : '';
       var success;
       if (e.key === '.') {
         if (!this.allowFractions || this.hasPoint || currValue.length === 0) {
