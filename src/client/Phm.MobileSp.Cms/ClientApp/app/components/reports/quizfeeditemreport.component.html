@@ -1,6 +1,6 @@
 <div *ngIf="model">
 
-    <div *ngIf="!selectedQuizResult">
+    <div [class.hidden]="selectedQuizResult">
         <div class="report-title">
             <img src="assets/images/Icon-Quiz-b.png" class="feed-cat-img" />
 
