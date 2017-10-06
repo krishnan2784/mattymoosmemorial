@@ -149,3 +149,7 @@ td {
 table .material-icons {
     color: #000;
 }
+.user-detail-col {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

@@ -17,16 +17,16 @@
                     </div>
                     <div class="col-md-11 no-pad">
                         <div class="col-md-10 no-pad">
-                            <div class="col-md-3">
+                            <div class="col-md-3 user-detail-col">
                                 First Name
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3 user-detail-col">
                                 Last Name
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3 user-detail-col">
                                 Email
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3 user-detail-col">
                                 Dealership
                             </div>
                         </div>
@@ -42,22 +42,22 @@
                         </div>
                         <div class="col-md-11 no-pad">
                             <div class="col-md-10 no-pad user-details">
-                                <div class="col-md-3">
+                                <div class="col-md-3 user-detail-col">
                                     {{user.firstName}}
                                     <p class="sub-data">
                                         {{user.regionName == null ? '' : user.regionName}}
                                     </p>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 user-detail-col">
                                     {{user.lastName}}
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 user-detail-col">
                                     {{user.email}}
                                     <p class="sub-data">
                                         {{user.zoneName == null ? '' : user.zoneName}}
                                     </p>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 user-detail-col">
                                     {{user.dealershipName == null ? 'Not Specified' : user.dealershipName + ' (' + user.dealershipCode + ')'}}
                                 </div>
                             </div>
