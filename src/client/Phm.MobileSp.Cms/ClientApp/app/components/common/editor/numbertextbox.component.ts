@@ -6,7 +6,7 @@ import { FormGroup } from "@angular/forms";
   template: `
     <div [formGroup]="form" *ngIf="form">
         <div class="input-field">
-            <input id="{{elementId}}" type="number" formControlName="{{formControlId}}">
+            <input id="{{elementId}}" type="number" formControlName="{{formControlId}}" (keypress)="filterInput($event)">
             <label [attr.for]="elementId" class="{{activeClass}}">{{label}}</label>
             <small class="active-warning" [class.hidden]="form.controls[formControlId].valid || !formSubmitted">
                 {{validationMessage}}
@@ -22,6 +22,8 @@ export class NumberTextInputComponent implements OnInit {
     @Input() label: string = '';
     @Input() validationMessage: string = '';
     @Input() formSubmitted: boolean = false;
+    @Input() allowFractions: boolean = false;
+    hasPoint: boolean = false;
     activeClass: string = '';
     ngOnInit() {
         if (this.elementId == '')
@@ -29,5 +31,24 @@ export class NumberTextInputComponent implements OnInit {
         if (this.form && this.form.controls[this.formControlId]) {
             this.activeClass = this.form.controls[this.formControlId].value && this.form.controls[this.formControlId].value.toString().length > 0 ? "active" : "";
         }
+    }
+    filterInput(e) {
+      let char = e.key,
+        currValue = this.form && this.form.controls[this.formControlId] && this.form.controls[this.formControlId].value ? this.form.controls[this.formControlId].value.toString() : '';
+      var success;
+      if (e.key === '.') {
+        if (!this.allowFractions || this.hasPoint || currValue.length === 0) {
+          event.preventDefault();
+          return;
+        }
+        this.hasPoint = true;
+        success = true;
+      } else {
+        this.hasPoint = currValue.includes('.');
+        success = char.match(/[0-9]/);
+      }
+      if (!success) {
+          event.preventDefault();
+      } 
     }
 }

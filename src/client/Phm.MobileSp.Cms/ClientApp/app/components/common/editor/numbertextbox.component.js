@@ -17,6 +17,8 @@ var NumberTextInputComponent = (function () {
         this.label = '';
         this.validationMessage = '';
         this.formSubmitted = false;
+        this.allowFractions = false;
+        this.hasPoint = false;
         this.activeClass = '';
     }
     NumberTextInputComponent.prototype.ngOnInit = function () {
@@ -24,6 +26,25 @@ var NumberTextInputComponent = (function () {
             this.elementId = this.formControlId;
         if (this.form && this.form.controls[this.formControlId]) {
             this.activeClass = this.form.controls[this.formControlId].value && this.form.controls[this.formControlId].value.toString().length > 0 ? "active" : "";
+        }
+    };
+    NumberTextInputComponent.prototype.filterInput = function (e) {
+        var char = e.key, currValue = this.form && this.form.controls[this.formControlId] && this.form.controls[this.formControlId].value ? this.form.controls[this.formControlId].value.toString() : '';
+        var success;
+        if (e.key === '.') {
+            if (!this.allowFractions || this.hasPoint || currValue.length === 0) {
+                event.preventDefault();
+                return;
+            }
+            this.hasPoint = true;
+            success = true;
+        }
+        else {
+            this.hasPoint = currValue.includes('.');
+            success = char.match(/[0-9]/);
+        }
+        if (!success) {
+            event.preventDefault();
         }
     };
     return NumberTextInputComponent;
@@ -52,10 +73,14 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Boolean)
 ], NumberTextInputComponent.prototype, "formSubmitted", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Boolean)
+], NumberTextInputComponent.prototype, "allowFractions", void 0);
 NumberTextInputComponent = __decorate([
     core_1.Component({
         selector: 'numbertextinput',
-        template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n        <div class=\"input-field\">\n            <input id=\"{{elementId}}\" type=\"number\" formControlName=\"{{formControlId}}\">\n            <label [attr.for]=\"elementId\" class=\"{{activeClass}}\">{{label}}</label>\n            <small class=\"active-warning\" [class.hidden]=\"form.controls[formControlId].valid || !formSubmitted\">\n                {{validationMessage}}\n            </small>\n        </div>\n    </div>\n"
+        template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n        <div class=\"input-field\">\n            <input id=\"{{elementId}}\" type=\"number\" formControlName=\"{{formControlId}}\" (keypress)=\"filterInput($event)\">\n            <label [attr.for]=\"elementId\" class=\"{{activeClass}}\">{{label}}</label>\n            <small class=\"active-warning\" [class.hidden]=\"form.controls[formControlId].valid || !formSubmitted\">\n                {{validationMessage}}\n            </small>\n        </div>\n    </div>\n"
     })
 ], NumberTextInputComponent);
 exports.NumberTextInputComponent = NumberTextInputComponent;
