@@ -17,7 +17,6 @@ var ColourPickerInputComponent = (function () {
         this.label = '';
         this.validationMessage = '';
         this.formSubmitted = false;
-        this.maxLength = 0;
     }
     ColourPickerInputComponent.prototype.ngOnInit = function () {
         if (this.elementId == '')
@@ -51,10 +50,6 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Boolean)
 ], ColourPickerInputComponent.prototype, "formSubmitted", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Number)
-], ColourPickerInputComponent.prototype, "maxLength", void 0);
 ColourPickerInputComponent = __decorate([
     core_1.Component({
         selector: 'colourpicker',

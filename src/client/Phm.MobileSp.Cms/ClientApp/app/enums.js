@@ -110,4 +110,12 @@ var BasePageFeedTypeEnum;
     BasePageFeedTypeEnum[BasePageFeedTypeEnum["Media"] = 3] = "Media";
     BasePageFeedTypeEnum[BasePageFeedTypeEnum["TabbedText"] = 4] = "TabbedText";
 })(BasePageFeedTypeEnum = exports.BasePageFeedTypeEnum || (exports.BasePageFeedTypeEnum = {}));
+var BrandingElementType;
+(function (BrandingElementType) {
+    BrandingElementType[BrandingElementType["Colour"] = 0] = "Colour";
+    BrandingElementType[BrandingElementType["Image"] = 1] = "Image";
+    BrandingElementType[BrandingElementType["Font"] = 2] = "Font";
+    BrandingElementType[BrandingElementType["Alignment"] = 3] = "Alignment";
+    BrandingElementType[BrandingElementType["Selection"] = 4] = "Selection";
+})(BrandingElementType = exports.BrandingElementType || (exports.BrandingElementType = {}));
 //# sourceMappingURL=enums.js.map

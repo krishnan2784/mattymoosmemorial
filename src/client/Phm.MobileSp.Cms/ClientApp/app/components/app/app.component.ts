@@ -5,12 +5,13 @@ import { ShareService } from "../../services/helpers/shareservice";
 import { UserDataService } from "../../services/userdataservice";
 import Mediaservice = require("../../services/mediaservice");
 import MediaDataService = Mediaservice.MediaDataService;
+import {BrandingService} from "../../services/brandingservice";
 
 @Component({
     selector: 'app',
     template: require('./app.component.html'),
     styles: [require('./app.component.css')],
-    providers: [FeedDataService, MarketDataService, ShareService, UserDataService, MediaDataService]
+    providers: [FeedDataService, MarketDataService, ShareService, UserDataService, MediaDataService, BrandingService]
 })
 export class AppComponent {
     public pageTitle: string;

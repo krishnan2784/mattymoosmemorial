@@ -13,32 +13,43 @@ var core_1 = require("@angular/core");
 var brandingservice_1 = require("../../../services/brandingservice");
 var shareservice_1 = require("../../../services/helpers/shareservice");
 var navmenuclasses_1 = require("../../../models/navmenuclasses");
-var BrandingNavMenuComponent = (function () {
-    function BrandingNavMenuComponent(brandingService, shareService) {
+var BrandingContainerComponent = (function () {
+    function BrandingContainerComponent(brandingService, shareService) {
         this.brandingService = brandingService;
         this.shareService = shareService;
+        this.brandSectionNames = [];
     }
-    BrandingNavMenuComponent.prototype.ngOnInit = function () {
+    BrandingContainerComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.brandingService.getMarketBranding(this.shareService.currentMarketId).subscribe(function (result) {
             _this.brandingSections = result || [];
+            for (var i = 0; i < _this.brandingSections.length; i++) {
+                if (_this.brandSectionNames.indexOf(_this.brandingSections[i].groupDescription) > -1)
+                    continue;
+                _this.brandSectionNames.push(_this.brandingSections[i].groupDescription);
+            }
+            if (_this.brandSectionNames.length > 0) {
+                var menu = [];
+                for (var i = 0; i < _this.brandSectionNames.length; i++) {
+                    menu.push(new navmenuclasses_1.NavMenuOption(_this.brandSectionNames[i], null, { onClick: _this.changeSection(_this.brandSectionNames[i]) }));
+                }
+                _this.shareService.updateMainNavMenu(menu);
+                _this.changeSection(_this.brandSectionNames[0]);
+            }
         });
-        this.shareService.updateMainNavMenu([
-            new navmenuclasses_1.NavMenuOption('Dashboard', null, { onClick: this.changeSection({}) })
-        ]);
     };
-    BrandingNavMenuComponent.prototype.changeSection = function (brandingSection) {
-        this.activeBrandSection = brandingSection;
+    BrandingContainerComponent.prototype.changeSection = function (brandingSection) {
+        this.activeBrandingSections = this.brandingSections.filter(function (x) { return x.groupDescription === brandingSection; });
     };
-    return BrandingNavMenuComponent;
+    return BrandingContainerComponent;
 }());
-BrandingNavMenuComponent = __decorate([
+BrandingContainerComponent = __decorate([
     core_1.Component({
-        selector: 'branding-nav-menu',
-        template: require('./brandingnavmenu.component.html'),
-        styles: [require('./brandingnavmenu.component.css')]
+        selector: 'branding-container',
+        template: require('./brandingcontainer.component.html'),
+        styles: [require('./brandingcontainer.component.css')]
     }),
     __metadata("design:paramtypes", [brandingservice_1.BrandingService, shareservice_1.ShareService])
-], BrandingNavMenuComponent);
-exports.BrandingNavMenuComponent = BrandingNavMenuComponent;
+], BrandingContainerComponent);
+exports.BrandingContainerComponent = BrandingContainerComponent;
 //# sourceMappingURL=brandingcontainer.component.js.map

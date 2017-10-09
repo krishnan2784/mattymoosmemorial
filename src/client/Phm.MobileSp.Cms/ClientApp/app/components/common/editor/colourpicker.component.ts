@@ -22,7 +22,6 @@ export class ColourPickerInputComponent implements OnInit, AfterViewInit {
     @Input() label: string = '';
     @Input() validationMessage: string = '';
     @Input() formSubmitted: boolean = false;
-    @Input() maxLength: number = 0;
     ngOnInit() {
         if (this.elementId == '')
             this.elementId = this.formControlId;

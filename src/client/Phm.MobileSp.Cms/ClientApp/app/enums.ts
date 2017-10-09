@@ -98,3 +98,10 @@ export enum BasePageFeedTypeEnum {
     Media = 3,
     TabbedText = 4
 }
+export enum BrandingElementType {
+  Colour = 0,
+  Image = 1,
+  Font = 2,
+  Alignment = 3,
+  Selection = 4
+}

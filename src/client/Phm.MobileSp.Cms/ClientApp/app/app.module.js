@@ -92,8 +92,9 @@ var TabbedTextPageFormComponent = Tabbedtextpageformcomponent.TabbedTextPageForm
 var Textareacomponent = require("./components/common/editor/textarea.component");
 var TextAreaComponent = Textareacomponent.TextAreaComponent;
 var colourpicker_component_1 = require("./components/common/editor/colourpicker.component");
-var brandingnavmenu_component_1 = require("./components/branding/brandingnavmenu/brandingnavmenu.component");
 var brandingcontentsection_component_1 = require("./components/branding/brandingcontentsection/brandingcontentsection.component");
+var brandingcontainer_component_1 = require("./components/branding/brandingnavmenu/brandingcontainer.component");
+var basebrandingcomponent_component_1 = require("./components/branding/components/basebrandingcomponent/basebrandingcomponent.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -111,15 +112,15 @@ AppModule = __decorate([
             footer_component_1.FooterComponent,
             marketdropdown_component_1.MarketDropdown,
             datepicker_component_1.DatepickerComponent,
-            //DateValueAccessor,
             // main naviation items
             counter_component_1.CounterComponent,
             fetchdata_component_1.FetchDataComponent,
             home_component_1.HomeComponent,
             useraccountmanagement_component_1.UserAccountManagementComponent,
             feedindex_component_1.FeedIndexComponent,
-            brandingnavmenu_component_1.BrandingNavMenuComponent,
+            brandingcontainer_component_1.BrandingContainerComponent,
             brandingcontentsection_component_1.BrandingContentSectionComponent,
+            basebrandingcomponent_component_1.BaseBrandingComponent,
             // feed item forms
             feeditemform_component_1.FeedItemForm,
             textfeeditem_component_1.TextFeedItemFormComponent,
@@ -194,6 +195,7 @@ AppModule = __decorate([
                 { path: 'reports/leaderboard', component: leaderboardcontainer_component_1.LeaderboardContainer },
                 { path: 'reports', component: feedreportindex_component_1.FeedReportIndexComponent },
                 { path: 'reports/:feedType', component: feedreportindex_component_1.FeedReportIndexComponent },
+                { path: 'branding', component: brandingcontainer_component_1.BrandingContainerComponent },
                 { path: '**', redirectTo: 'home' }
             ])
         ]

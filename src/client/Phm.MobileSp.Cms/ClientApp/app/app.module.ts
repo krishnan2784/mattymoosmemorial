@@ -89,8 +89,11 @@ import TabbedTextPageFormComponent = Tabbedtextpageformcomponent.TabbedTextPageF
 import Textareacomponent = require("./components/common/editor/textarea.component");
 import TextAreaComponent = Textareacomponent.TextAreaComponent;
 import {ColourPickerInputComponent} from "./components/common/editor/colourpicker.component";
-import {BrandingNavMenuComponent} from "./components/branding/brandingnavmenu/brandingnavmenu.component";
-import {BrandingContentSectionComponent} from "./components/branding/brandingcontentsection/brandingcontentsection.component";
+import {BrandingContentSectionComponent} from
+  "./components/branding/brandingcontentsection/brandingcontentsection.component";
+import {BrandingContainerComponent} from "./components/branding/brandingnavmenu/brandingcontainer.component";
+import {BaseBrandingComponent} from
+  "./components/branding/components/basebrandingcomponent/basebrandingcomponent.component";
 
 
 @NgModule({
@@ -104,7 +107,6 @@ import {BrandingContentSectionComponent} from "./components/branding/brandingcon
         FooterComponent,
         MarketDropdown,
         DatepickerComponent,
-        //DateValueAccessor,
 
         // main naviation items
         CounterComponent,
@@ -112,8 +114,9 @@ import {BrandingContentSectionComponent} from "./components/branding/brandingcon
         HomeComponent,
         UserAccountManagementComponent,
         FeedIndexComponent,
-        BrandingNavMenuComponent,
+        BrandingContainerComponent,
         BrandingContentSectionComponent,
+        BaseBrandingComponent,
 
         // feed item forms
         FeedItemForm,
@@ -195,6 +198,7 @@ import {BrandingContentSectionComponent} from "./components/branding/brandingcon
             { path: 'reports/leaderboard', component: LeaderboardContainer },
             { path: 'reports', component: FeedReportIndexComponent },
             { path: 'reports/:feedType', component: FeedReportIndexComponent },
+            { path: 'branding', component: BrandingContainerComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ]

@@ -11,22 +11,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+var brandingclasses_1 = require("../../../../models/brandingclasses");
+var enums_1 = require("../../../../enums");
 var BaseBrandingComponent = (function () {
     function BaseBrandingComponent(fb) {
         this.fb = fb;
-        this.feedUpdated = new core_1.EventEmitter();
+        this.componentUpdated = new core_1.EventEmitter();
+        this.brandingElementType = enums_1.BrandingElementType;
     }
     BaseBrandingComponent.prototype.ngOnInit = function () {
         this.initialiseForm();
     };
     BaseBrandingComponent.prototype.initialiseForm = function () {
         this.form = this.fb.group({
-            id: ['', []],
-            masterId: ['', []],
-            enabled: ['', []],
-            published: ['', []],
-            createdAt: ['', []],
-            updatedAt: ['', []]
+            id: [this.model.id, []],
+            masterId: [this.model.masterId, []],
+            order: [this.model.order, []],
+            enabled: [this.model.enabled, []],
+            published: [this.model.published, []],
+            createdAt: [this.model.createdAt, []],
+            updatedAt: [this.model.updatedAt, []],
+            //groupDescription: [this.model.groupDescription, []],
+            //key: [this.model.key, []],
+            //elementType: [this.model.elementType, []],
+            //description: [this.model.description, []],
+            value: [this.model.value, []],
+            primaryImageId: [this.model.primaryImageId, []],
+            secondaryImageId: [this.model.secondaryImageId, []]
         });
     };
     return BaseBrandingComponent;
@@ -34,10 +45,10 @@ var BaseBrandingComponent = (function () {
 __decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)
-], BaseBrandingComponent.prototype, "feedUpdated", void 0);
+], BaseBrandingComponent.prototype, "componentUpdated", void 0);
 __decorate([
     core_1.Input(),
-    __metadata("design:type", Object)
+    __metadata("design:type", brandingclasses_1.BrandingElement)
 ], BaseBrandingComponent.prototype, "model", void 0);
 BaseBrandingComponent = __decorate([
     core_1.Component({
