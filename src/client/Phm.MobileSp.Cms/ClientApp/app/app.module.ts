@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NouisliderModule } from 'ng2-nouislider';
 import { Ng2TableModule } from 'ng2-table/ng2-table';
 import { PaginationModule } from 'ngx-bootstrap';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
@@ -87,6 +88,9 @@ import Tabbedtextpageformcomponent = require("./components/feed/modelforms/paged
 import TabbedTextPageFormComponent = Tabbedtextpageformcomponent.TabbedTextPageFormComponent;
 import Textareacomponent = require("./components/common/editor/textarea.component");
 import TextAreaComponent = Textareacomponent.TextAreaComponent;
+import {ColourPickerInputComponent} from "./components/common/editor/colourpicker.component";
+import {BrandingNavMenuComponent} from "./components/branding/brandingnavmenu/brandingnavmenu.component";
+import {BrandingContentSectionComponent} from "./components/branding/brandingcontentsection/brandingcontentsection.component";
 
 
 @NgModule({
@@ -108,6 +112,8 @@ import TextAreaComponent = Textareacomponent.TextAreaComponent;
         HomeComponent,
         UserAccountManagementComponent,
         FeedIndexComponent,
+        BrandingNavMenuComponent,
+        BrandingContentSectionComponent,
 
         // feed item forms
         FeedItemForm,
@@ -161,6 +167,7 @@ import TextAreaComponent = Textareacomponent.TextAreaComponent;
         TextInputComponent,
         NumberTextInputComponent,
         TagInputComponent,
+        ColourPickerInputComponent,
         UploadMediaComponent
     ],
     imports: [
@@ -172,6 +179,7 @@ import TextAreaComponent = Textareacomponent.TextAreaComponent;
         Ng2TableModule,
         PaginationModule.forRoot(),
         ModalModule.forRoot(),
+        ColorPickerModule,
         BootstrapModalModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },

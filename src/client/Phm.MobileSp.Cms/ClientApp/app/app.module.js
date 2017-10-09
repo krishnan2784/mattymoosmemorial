@@ -14,6 +14,7 @@ var forms_1 = require("@angular/forms");
 var ng2_nouislider_1 = require("ng2-nouislider");
 var ng2_table_1 = require("ng2-table/ng2-table");
 var ngx_bootstrap_1 = require("ngx-bootstrap");
+var ngx_color_picker_1 = require("ngx-color-picker");
 require("rxjs/add/observable/throw");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/debounceTime");
@@ -90,6 +91,9 @@ var Tabbedtextpageformcomponent = require("./components/feed/modelforms/pagedfee
 var TabbedTextPageFormComponent = Tabbedtextpageformcomponent.TabbedTextPageFormComponent;
 var Textareacomponent = require("./components/common/editor/textarea.component");
 var TextAreaComponent = Textareacomponent.TextAreaComponent;
+var colourpicker_component_1 = require("./components/common/editor/colourpicker.component");
+var brandingnavmenu_component_1 = require("./components/branding/brandingnavmenu/brandingnavmenu.component");
+var brandingcontentsection_component_1 = require("./components/branding/brandingcontentsection/brandingcontentsection.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -114,6 +118,8 @@ AppModule = __decorate([
             home_component_1.HomeComponent,
             useraccountmanagement_component_1.UserAccountManagementComponent,
             feedindex_component_1.FeedIndexComponent,
+            brandingnavmenu_component_1.BrandingNavMenuComponent,
+            brandingcontentsection_component_1.BrandingContentSectionComponent,
             // feed item forms
             feeditemform_component_1.FeedItemForm,
             textfeeditem_component_1.TextFeedItemFormComponent,
@@ -160,6 +166,7 @@ AppModule = __decorate([
             textbox_component_1.TextInputComponent,
             numbertextbox_component_1.NumberTextInputComponent,
             taginputbox_component_1.TagInputComponent,
+            colourpicker_component_1.ColourPickerInputComponent,
             UploadMediaComponent
         ],
         imports: [
@@ -171,6 +178,7 @@ AppModule = __decorate([
             ng2_table_1.Ng2TableModule,
             ngx_bootstrap_1.PaginationModule.forRoot(),
             angular2_modal_1.ModalModule.forRoot(),
+            ngx_color_picker_1.ColorPickerModule,
             bootstrap_1.BootstrapModalModule,
             router_1.RouterModule.forRoot([
                 { path: '', redirectTo: 'home', pathMatch: 'full' },

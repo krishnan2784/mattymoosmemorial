@@ -37,6 +37,8 @@ var ShareService = (function () {
         this.goBackEvent = new core_1.EventEmitter();
         this.tabNavUpdate = new Subject_1.Subject();
         this.navTabsUpdated = this.tabNavUpdate.asObservable();
+        this.mainNavUpdate = new Subject_1.Subject();
+        this.mainNavUpdated = this.mainNavUpdate.asObservable();
         userDataService.getCurrentUser().subscribe(function (response) {
             _this.currentUser = response;
         });
@@ -67,6 +69,9 @@ var ShareService = (function () {
     };
     ShareService.prototype.updateNavTabs = function (navItems) {
         this.tabNavUpdate.next(navItems);
+    };
+    ShareService.prototype.updateMainNavMenu = function (navItems) {
+        this.mainNavUpdate.next(navItems);
     };
     return ShareService;
 }());

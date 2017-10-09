@@ -1,0 +1,16 @@
+<div [formGroup]="form" *ngIf="this.model">
+  <input type="hidden" formControlName="id">
+  <input type="hidden" formControlName="masterId">
+  <input type="hidden" formControlName="order">
+  <input type="hidden" formControlName="enabled">
+  <input type="hidden" formControlName="published">
+  <input type="hidden" formControlName="createdAt">
+  <input type="hidden" formControlName="updatedAt">
+
+  <colourpicker [form]="form" [formSubmitted]="submitted"
+                [elementId]="'title'"
+                [formControlId]="'title'"
+                [label]="'Enter Title'"
+                [validationMessage]="'Title is required.'"
+                [maxLength]="160"></colourpicker>
+</div>

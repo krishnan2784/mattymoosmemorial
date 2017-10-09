@@ -30,11 +30,11 @@
                         </a>
                     </li>
                 </ul>
-              
+
               <ul class='nav navbar-nav'>
-                <li *ngFor="let m of currentMenuOptions" [routerLinkActive]="['link-active']">
-                  <a [routerLink]="[m.routerLink]" (click)="m.onClick" class="waves-effect waves-light" [routerLinkActiveOptions]="m.routerLinkActiveOptions">
-                    {{m.title}}
+                <li *ngFor="let m of brandingSections" [class.active]="activeBrandSection === m">
+                  <a (click)="changeSection(m)" class="waves-effect waves-light">
+                    {{m.groupDescription}}
                   </a>
                 </li>
               </ul>

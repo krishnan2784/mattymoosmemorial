@@ -10,13 +10,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var Enums = require("../../enums");
 var shareservice_1 = require("../../services/helpers/shareservice");
+var navmenuclasses_1 = require("../../models/navmenuclasses");
 var NavMenuComponent = (function () {
-    function NavMenuComponent(shareService) {
+    function NavMenuComponent(shareService, navigationService) {
+        var _this = this;
         this.shareService = shareService;
-        this.feedCats = Enums.FeedCategoryEnum;
+        this.navigationService = navigationService;
+        this.currentMenuOptions = [];
+        this.baseMenuOptions = [];
+        this.shareService.mainNavUpdated.subscribe(function (navMenu) {
+            _this.currentMenuOptions = navMenu;
+        });
     }
+    NavMenuComponent.prototype.ngOnInit = function () {
+        //this.navigationService.getNavigationMenu(result => {
+        //  this.baseMenuOptions = result;
+        //  this.shareService.updateMainNavMenu(result);
+        //});
+        // until we have permission based menus
+        this.baseMenuOptions = [
+            new navmenuclasses_1.NavMenuOption('Dashboard', '/home'),
+            new navmenuclasses_1.NavMenuOption('Content', '/feed'),
+            new navmenuclasses_1.NavMenuOption('Reports', '/reports', { routerLinkActiveOptions: { exact: false } }),
+            new navmenuclasses_1.NavMenuOption('Accounts', '/useraccountmanagement', { routerLinkActiveOptions: { exact: false } })
+        ];
+        this.resetNavMenu();
+    };
+    NavMenuComponent.prototype.resetNavMenu = function () {
+        this.currentMenuOptions = this.baseMenuOptions;
+    };
     return NavMenuComponent;
 }());
 NavMenuComponent = __decorate([
@@ -25,7 +48,7 @@ NavMenuComponent = __decorate([
         template: require('./navmenu.component.html'),
         styles: [require('./navmenu.component.css')]
     }),
-    __metadata("design:paramtypes", [shareservice_1.ShareService])
+    __metadata("design:paramtypes", [shareservice_1.ShareService, Object])
 ], NavMenuComponent);
 exports.NavMenuComponent = NavMenuComponent;
 //# sourceMappingURL=navmenu.component.js.map

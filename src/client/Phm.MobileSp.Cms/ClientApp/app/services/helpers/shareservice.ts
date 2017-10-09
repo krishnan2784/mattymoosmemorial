@@ -8,6 +8,7 @@ import { NavItem } from "../../components/navmenu/tabnavmenu.component";
 import { UserDataService } from "../userdataservice";
 import { User } from "../../models/userclasses";
 import IFeedItem = FeedModel.IFeedItem;
+import {NavMenuOption} from "../../models/navmenuclasses";
 
 @Injectable()
 export class ShareService {
@@ -77,6 +78,14 @@ export class ShareService {
     navTabsUpdated = this.tabNavUpdate.asObservable();
 
     public updateNavTabs(navItems: NavItem[]) {
-        this.tabNavUpdate.next(navItems);
+      this.tabNavUpdate.next(navItems);
     }    
+
+
+    private mainNavUpdate = new Subject<NavMenuOption[]>();
+    mainNavUpdated = this.mainNavUpdate.asObservable();
+
+    public updateMainNavMenu(navItems: NavMenuOption[]) {
+      this.mainNavUpdate.next(navItems);
+  }    
 }
