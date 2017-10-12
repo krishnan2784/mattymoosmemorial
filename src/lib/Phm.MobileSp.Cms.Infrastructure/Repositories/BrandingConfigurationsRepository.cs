@@ -19,7 +19,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 		public async Task<dynamic> UpdateBrandingConfigurationsAsync(List<BrandingElement> brandingElements)
 		{
 			var response = await PutAsync(brandingElements);
-			return GetResponseModel<List<BrandingElement>>(response);
+			return GetResponseModel<dynamic>(response);
 		}
 	}
 }

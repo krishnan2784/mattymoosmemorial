@@ -11,9 +11,11 @@ import {BrandingService} from "../../../services/brandingservice";
 export class BrandingContentSectionComponent {
 	@Input()
 	public models: BrandingElement[];
+	@Input()
+	disabled: boolean;
 
 	public form: FormGroup;
-	public submitted: boolean;
+	public submitted: boolean = false;
 
 	constructor(public fb: FormBuilder, public brandingService: BrandingService) {
 		this.form = this.fb.group({});
@@ -32,21 +34,17 @@ export class BrandingContentSectionComponent {
 	public initBrandingElement(model: BrandingElement): FormGroup {
 		return new FormGroup({
 			id: new FormControl(model.id, []),
-			masterId: new FormControl(model.masterId, []),
 			order: new FormControl(model.order, []),
-			enabled: new FormControl(model.enabled, []),
-			published: new FormControl(model.published, []),
-			createdAt: new FormControl(model.createdAt, []),
-			updatedAt: new FormControl(model.updatedAt, []),
+			groupName: new FormControl(model.groupName, []),
 			value: new FormControl(model.value, []),
 			primaryImageId: new FormControl(model.primaryImageId, []),
 			secondaryImageId: new FormControl(model.secondaryImageId, [])
 		});
 	} 
 	save(form, isValid) {
-		console.log(form.brandingElements);
+		this.submitted = true;
 		this.brandingService.updateBranding(form.brandingElements).subscribe(result => {
-			console.log(result);
+			this.submitted = false;
 		});
 	}
 }

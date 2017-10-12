@@ -16,6 +16,7 @@ var BrandingContentSectionComponent = (function () {
     function BrandingContentSectionComponent(fb, brandingService) {
         this.fb = fb;
         this.brandingService = brandingService;
+        this.submitted = false;
         this.form = this.fb.group({});
     }
     BrandingContentSectionComponent.prototype.ngOnInit = function () {
@@ -31,21 +32,18 @@ var BrandingContentSectionComponent = (function () {
     BrandingContentSectionComponent.prototype.initBrandingElement = function (model) {
         return new forms_1.FormGroup({
             id: new forms_1.FormControl(model.id, []),
-            masterId: new forms_1.FormControl(model.masterId, []),
             order: new forms_1.FormControl(model.order, []),
-            enabled: new forms_1.FormControl(model.enabled, []),
-            published: new forms_1.FormControl(model.published, []),
-            createdAt: new forms_1.FormControl(model.createdAt, []),
-            updatedAt: new forms_1.FormControl(model.updatedAt, []),
+            groupName: new forms_1.FormControl(model.groupName, []),
             value: new forms_1.FormControl(model.value, []),
             primaryImageId: new forms_1.FormControl(model.primaryImageId, []),
             secondaryImageId: new forms_1.FormControl(model.secondaryImageId, [])
         });
     };
     BrandingContentSectionComponent.prototype.save = function (form, isValid) {
-        console.log(form.brandingElements);
+        var _this = this;
+        this.submitted = true;
         this.brandingService.updateBranding(form.brandingElements).subscribe(function (result) {
-            console.log(result);
+            _this.submitted = false;
         });
     };
     return BrandingContentSectionComponent;
@@ -54,6 +52,10 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Array)
 ], BrandingContentSectionComponent.prototype, "models", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Boolean)
+], BrandingContentSectionComponent.prototype, "disabled", void 0);
 BrandingContentSectionComponent = __decorate([
     core_1.Component({
         selector: 'branding-section',

@@ -35,7 +35,8 @@ namespace Phm.MobileSp.Cms.Controllers.API
         public async Task<JsonResult> Update([FromBody]List<BrandingElement> brandingElements)
         {
             var response = await _brandingConfigRepo.UpdateBrandingConfigurationsAsync(brandingElements);
-            return Json(new BaseResponse<dynamic>(response));
+	        var success = response?.Count != null && response.Count == brandingElements.Count;
+            return Json(new BaseResponse<dynamic>(success, success ? "Branding was successfully updated." : "Failed to update branding. Please try again.", response));
         }
 
     }

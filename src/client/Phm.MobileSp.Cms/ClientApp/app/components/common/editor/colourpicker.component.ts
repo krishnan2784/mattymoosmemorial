@@ -9,12 +9,13 @@ import { FormGroup } from "@angular/forms";
 	        <input type="hidden" formControlName="{{formControlId}}">
 	        <h5 [attr.for]="elementId">{{label}}</h5>
 			<div id="{{elementId}}" class="colour-block" [style.background]="form.controls[formControlId].value">
-				<span [(colorPicker)]="form.controls[formControlId].value" 				  
-						[cpCancelButton]="true"
-						[cpOutputFormat]="hex"
-						[cpOKButton]="true"
-						[cpAlphaChannel]="disabled"
-						(colorPickerSelect)="setColour($event)">{{form.controls[formControlId].value}}</span>
+				<span *ngIf="!disabled" [(colorPicker)]="form.controls[formControlId].value" 				  
+				      [cpCancelButton]="true"
+				      [cpOutputFormat]="hex"
+				      [cpOKButton]="true"
+				      [cpAlphaChannel]="disabled"
+				      (colorPickerSelect)="setColour($event)">{{form.controls[formControlId].value}}</span>
+				<span *ngIf="disabled">{{form.controls[formControlId].value}}</span>
 			</div>            
             <small class="active-warning" [class.hidden]="form.controls[formControlId].valid || !formSubmitted">
                 {{validationMessage}}
@@ -31,7 +32,8 @@ export class ColourPickerInputComponent implements OnInit, AfterViewInit {
     @Input() elementId: string = '';
     @Input() label: string = '';
     @Input() validationMessage: string = '';
-    @Input() formSubmitted: boolean = false;
+	@Input() formSubmitted: boolean = false;
+	@Input() disabled: boolean = false;
 	ngOnInit() {
         if (this.elementId == '')
             this.elementId = this.formControlId;

@@ -17,6 +17,7 @@ var ColourPickerInputComponent = (function () {
         this.label = '';
         this.validationMessage = '';
         this.formSubmitted = false;
+        this.disabled = false;
     }
     ColourPickerInputComponent.prototype.ngOnInit = function () {
         if (this.elementId == '')
@@ -55,10 +56,14 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Boolean)
 ], ColourPickerInputComponent.prototype, "formSubmitted", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Boolean)
+], ColourPickerInputComponent.prototype, "disabled", void 0);
 ColourPickerInputComponent = __decorate([
     core_1.Component({
         selector: 'colourpicker',
-        template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n        <div class=\"col-md-8\">\n\t        <input type=\"hidden\" formControlName=\"{{formControlId}}\">\n\t        <h5 [attr.for]=\"elementId\">{{label}}</h5>\n\t\t\t<div id=\"{{elementId}}\" class=\"colour-block\" [style.background]=\"form.controls[formControlId].value\">\n\t\t\t\t<span [(colorPicker)]=\"form.controls[formControlId].value\" \t\t\t\t  \n\t\t\t\t\t\t[cpCancelButton]=\"true\"\n\t\t\t\t\t\t[cpOutputFormat]=\"hex\"\n\t\t\t\t\t\t[cpOKButton]=\"true\"\n\t\t\t\t\t\t[cpAlphaChannel]=\"disabled\"\n\t\t\t\t\t\t(colorPickerSelect)=\"setColour($event)\">{{form.controls[formControlId].value}}</span>\n\t\t\t</div>            \n            <small class=\"active-warning\" [class.hidden]=\"form.controls[formControlId].valid || !formSubmitted\">\n                {{validationMessage}}\n            </small>\n        </div>\n<div class=\"clearfix\"></div>\n    </div>\n",
+        template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n        <div class=\"col-md-8\">\n\t        <input type=\"hidden\" formControlName=\"{{formControlId}}\">\n\t        <h5 [attr.for]=\"elementId\">{{label}}</h5>\n\t\t\t<div id=\"{{elementId}}\" class=\"colour-block\" [style.background]=\"form.controls[formControlId].value\">\n\t\t\t\t<span *ngIf=\"!disabled\" [(colorPicker)]=\"form.controls[formControlId].value\" \t\t\t\t  \n\t\t\t\t      [cpCancelButton]=\"true\"\n\t\t\t\t      [cpOutputFormat]=\"hex\"\n\t\t\t\t      [cpOKButton]=\"true\"\n\t\t\t\t      [cpAlphaChannel]=\"disabled\"\n\t\t\t\t      (colorPickerSelect)=\"setColour($event)\">{{form.controls[formControlId].value}}</span>\n\t\t\t\t<span *ngIf=\"disabled\">{{form.controls[formControlId].value}}</span>\n\t\t\t</div>            \n            <small class=\"active-warning\" [class.hidden]=\"form.controls[formControlId].valid || !formSubmitted\">\n                {{validationMessage}}\n            </small>\n        </div>\n<div class=\"clearfix\"></div>\n    </div>\n",
         styles: [require('./colourpicker.component.css')]
     })
 ], ColourPickerInputComponent);

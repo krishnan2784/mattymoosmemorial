@@ -1,22 +1,20 @@
 <div [formGroup]="form" *ngIf="model && form" class="branding-element">
   <div [formGroupName]="index">
     <input type="hidden" formControlName="id">
-    <input type="hidden" formControlName="masterId">
     <input type="hidden" formControlName="order">
-    <input type="hidden" formControlName="enabled">
-    <input type="hidden" formControlName="published">
-    <input type="hidden" formControlName="createdAt">
-    <input type="hidden" formControlName="updatedAt">
+    <input type="hidden" formControlName="groupName">
     <input type="hidden" formControlName="primaryImageId">
     <input type="hidden" formControlName="secondaryImageId">
 
 	  <colourpicker *ngIf="model.brandingElementType == brandingElementType.Colour"
+					[disabled]="disabled"
 	                [form]="form.controls[index]" [formSubmitted]="submitted"
 	                [elementId]="'value'"
 	                [formControlId]="'value'"
 	                [label]="model.description"
 	                [validationMessage]="'Please select a colour.'"></colourpicker>
 	  <enhancedtextarea *ngIf="model.brandingElementType != brandingElementType.Colour"
+	                    [disabled]="disabled"
 	                [form]="form.controls[index]" [formSubmitted]="submitted"
 	                [elementId]="'value'"
 	                [formControlId]="'value'"

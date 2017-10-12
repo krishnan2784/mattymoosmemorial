@@ -32,10 +32,20 @@ var BrandingContainerComponent = (function (_super) {
         _this.brandingService = brandingService;
         _this.shareService = shareService;
         _this.brandSectionNames = [];
+        _this.disabled = !(_this.shareService.currentMarket.id === 1); // enable for ford global market by default (crude, but we don't have any other global flag)
         _this.cs = _this.changeSection.bind(_this);
         return _this;
     }
     BrandingContainerComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.getBranding();
+        this.shareService.marketUpdated.subscribe(function (result) {
+            _this.activeBrandingSections = null;
+            _this.disabled = !(result.id === 1);
+            _this.getBranding();
+        });
+    };
+    BrandingContainerComponent.prototype.getBranding = function () {
         var _this = this;
         this.brandingService.getBranding().subscribe(function (result) {
             _this.brandingConfigurations = [];
@@ -47,8 +57,11 @@ var BrandingContainerComponent = (function (_super) {
                 _this.brandingConfigurations.push(new brandingclasses_1.BaseBrandingConfiguration(result));
             if (_this.brandingConfigurations.length > 1) {
                 var marketConfig = _this.brandingConfigurations.find(function (x) { return (new brandingclasses_1.MarketBrandingConfiguration(x)).marketId !== null; });
-                if (marketConfig)
-                    _this.brandingSections = _this.brandingConfigurations[_this.brandingConfigurations.indexOf(marketConfig)].brandingElements;
+                if (marketConfig) {
+                    _this.brandingSections =
+                        _this.brandingConfigurations[_this.brandingConfigurations.indexOf(marketConfig)].brandingElements;
+                    _this.disabled = false;
+                }
             }
             if (!_this.brandingSections)
                 _this.brandingSections = _this.brandingConfigurations[0].brandingElements;

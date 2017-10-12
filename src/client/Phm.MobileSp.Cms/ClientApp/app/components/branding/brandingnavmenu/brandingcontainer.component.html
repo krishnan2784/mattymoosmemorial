@@ -1,3 +1,8 @@
-<div class="branding-container">
-	<branding-section *ngIf="activeBrandingSections" [models]="activeBrandingSections"></branding-section>
+<div class="loader" *ngIf="!activeBrandingSections"></div>
+<div class="branding-container animate-bottom" *ngIf="activeBrandingSections">
+	<h5 *ngIf="disabled">
+		This market does not contain a branding configuration and is using the global settings. <br /><br />
+		To change the settings for this market switch to the global market and copy the configuration to this market.
+	</h5>
+	<branding-section [models]="activeBrandingSections" [disabled]="disabled"></branding-section>
 </div>

@@ -19,8 +19,6 @@ var BaseBrandingComponent = (function () {
         this.brandingElementType = enums_1.BrandingElementType;
     }
     BaseBrandingComponent.prototype.ngOnInit = function () {
-        console.log(this.form);
-        console.log(this.model);
     };
     return BaseBrandingComponent;
 }());
@@ -44,6 +42,10 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Number)
 ], BaseBrandingComponent.prototype, "index", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Boolean)
+], BaseBrandingComponent.prototype, "disabled", void 0);
 BaseBrandingComponent = __decorate([
     core_1.Component({
         selector: 'base-branding-component',

@@ -20,14 +20,13 @@ export class BaseBrandingComponent implements OnInit {
 	@Input()
 	public index: number;
   brandingElementType: typeof BrandingElementType = BrandingElementType;
-
+	@Input()
+	disabled: boolean;
   constructor() {
 
   }
 
 	ngOnInit() {
-		console.log(this.form);
-		console.log(this.model);
 	}
 
 }

@@ -1,7 +1,6 @@
 <form [formGroup]="form" *ngIf="models" (ngSubmit)="save(form.value, form.valid)">
   <div *ngFor="let m of models; let i=index">
-    <base-branding-component [model]="m" [form]="form.controls['brandingElements']" [index]="i"></base-branding-component>  
+    <base-branding-component [model]="m" [form]="form.controls['brandingElements']" [index]="i" [disabled]="disabled"></base-branding-component>  
   </div>
-  <a (click)="goBack()" class="btn btn-primary">Cancel</a>
-  <button type="submit" class="btn btn-primary btn-save">Save</button>
+  <button type="submit" class="btn btn-primary btn-save" *ngIf="!disabled" [attr.disabled]="submitted ? 'disabled' : null">Save</button>
 </form>
