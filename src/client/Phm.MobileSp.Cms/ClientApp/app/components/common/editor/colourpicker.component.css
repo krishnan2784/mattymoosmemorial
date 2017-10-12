@@ -1,0 +1,16 @@
+﻿.colour-block {
+	float: right;
+}
+.colour-block > span {
+	text-align: center;
+	padding-top: 10px;
+	display: inline-block;
+}
+.colour-block, .colour-block > span {
+	width: 100px;
+	height: 40px;
+	cursor: pointer;
+}
+.colour-block, h5 {
+	display: inline-block;
+}

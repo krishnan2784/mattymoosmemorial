@@ -14,31 +14,13 @@ var forms_1 = require("@angular/forms");
 var brandingclasses_1 = require("../../../../models/brandingclasses");
 var enums_1 = require("../../../../enums");
 var BaseBrandingComponent = (function () {
-    function BaseBrandingComponent(fb) {
-        this.fb = fb;
+    function BaseBrandingComponent() {
         this.componentUpdated = new core_1.EventEmitter();
         this.brandingElementType = enums_1.BrandingElementType;
     }
     BaseBrandingComponent.prototype.ngOnInit = function () {
-        this.initialiseForm();
-    };
-    BaseBrandingComponent.prototype.initialiseForm = function () {
-        this.form = this.fb.group({
-            id: [this.model.id, []],
-            masterId: [this.model.masterId, []],
-            order: [this.model.order, []],
-            enabled: [this.model.enabled, []],
-            published: [this.model.published, []],
-            createdAt: [this.model.createdAt, []],
-            updatedAt: [this.model.updatedAt, []],
-            //groupDescription: [this.model.groupDescription, []],
-            //key: [this.model.key, []],
-            //elementType: [this.model.elementType, []],
-            //description: [this.model.description, []],
-            value: [this.model.value, []],
-            primaryImageId: [this.model.primaryImageId, []],
-            secondaryImageId: [this.model.secondaryImageId, []]
-        });
+        console.log(this.form);
+        console.log(this.model);
     };
     return BaseBrandingComponent;
 }());
@@ -50,13 +32,25 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", brandingclasses_1.BrandingElement)
 ], BaseBrandingComponent.prototype, "model", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", forms_1.FormGroup)
+], BaseBrandingComponent.prototype, "form", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Boolean)
+], BaseBrandingComponent.prototype, "submitted", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Number)
+], BaseBrandingComponent.prototype, "index", void 0);
 BaseBrandingComponent = __decorate([
     core_1.Component({
         selector: 'base-branding-component',
         template: require('./basebrandingcomponent.component.html'),
         styles: [require('./basebrandingcomponent.component.css')]
     }),
-    __metadata("design:paramtypes", [forms_1.FormBuilder])
+    __metadata("design:paramtypes", [])
 ], BaseBrandingComponent);
 exports.BaseBrandingComponent = BaseBrandingComponent;
 //# sourceMappingURL=basebrandingcomponent.component.js.map

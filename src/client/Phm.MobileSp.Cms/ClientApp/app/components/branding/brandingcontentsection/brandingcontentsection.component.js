@@ -11,39 +11,56 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+var brandingservice_1 = require("../../../services/brandingservice");
 var BrandingContentSectionComponent = (function () {
-    function BrandingContentSectionComponent(fb) {
+    function BrandingContentSectionComponent(fb, brandingService) {
         this.fb = fb;
+        this.brandingService = brandingService;
+        this.form = this.fb.group({});
     }
+    BrandingContentSectionComponent.prototype.ngOnInit = function () {
+        this.addFormControls();
+    };
     BrandingContentSectionComponent.prototype.addFormControls = function () {
         var _this = this;
-        var formArray = new forms_1.FormArray([], Validators.minLength(2));
-        this.model.baseFeedPages.forEach(function (x, i) { return formArray.push(_this.initPage(x)); });
-        this.form.addControl('baseFeedPages', formArray);
-        this.form.controls['baseFeedPages'].setValidators([Validators.required, Validators1.minLengthArray(2), Validators.maxLength(5)]);
+        var formArray = new forms_1.FormArray([]);
+        this.models.forEach(function (x, i) { return formArray.push(_this.initBrandingElement(x)); });
+        this.form.addControl('brandingElements', formArray);
     };
     ;
+    BrandingContentSectionComponent.prototype.initBrandingElement = function (model) {
+        return new forms_1.FormGroup({
+            id: new forms_1.FormControl(model.id, []),
+            masterId: new forms_1.FormControl(model.masterId, []),
+            order: new forms_1.FormControl(model.order, []),
+            enabled: new forms_1.FormControl(model.enabled, []),
+            published: new forms_1.FormControl(model.published, []),
+            createdAt: new forms_1.FormControl(model.createdAt, []),
+            updatedAt: new forms_1.FormControl(model.updatedAt, []),
+            value: new forms_1.FormControl(model.value, []),
+            primaryImageId: new forms_1.FormControl(model.primaryImageId, []),
+            secondaryImageId: new forms_1.FormControl(model.secondaryImageId, [])
+        });
+    };
+    BrandingContentSectionComponent.prototype.save = function (form, isValid) {
+        console.log(form.brandingElements);
+        this.brandingService.updateBranding(form.brandingElements).subscribe(function (result) {
+            console.log(result);
+        });
+    };
     return BrandingContentSectionComponent;
 }());
 __decorate([
     core_1.Input(),
     __metadata("design:type", Array)
-], BrandingContentSectionComponent.prototype, "model", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", forms_1.FormGroup)
-], BrandingContentSectionComponent.prototype, "form", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Boolean)
-], BrandingContentSectionComponent.prototype, "submitted", void 0);
+], BrandingContentSectionComponent.prototype, "models", void 0);
 BrandingContentSectionComponent = __decorate([
     core_1.Component({
         selector: 'branding-section',
         template: require('./brandingcontentsection.component.html'),
         styles: [require('./brandingcontentsection.component.css')]
     }),
-    __metadata("design:paramtypes", [forms_1.FormBuilder])
+    __metadata("design:paramtypes", [forms_1.FormBuilder, brandingservice_1.BrandingService])
 ], BrandingContentSectionComponent);
 exports.BrandingContentSectionComponent = BrandingContentSectionComponent;
 //# sourceMappingURL=brandingcontentsection.component.js.map

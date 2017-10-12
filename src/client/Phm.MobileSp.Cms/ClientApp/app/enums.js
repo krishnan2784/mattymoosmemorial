@@ -112,10 +112,9 @@ var BasePageFeedTypeEnum;
 })(BasePageFeedTypeEnum = exports.BasePageFeedTypeEnum || (exports.BasePageFeedTypeEnum = {}));
 var BrandingElementType;
 (function (BrandingElementType) {
-    BrandingElementType[BrandingElementType["Colour"] = 0] = "Colour";
-    BrandingElementType[BrandingElementType["Image"] = 1] = "Image";
-    BrandingElementType[BrandingElementType["Font"] = 2] = "Font";
-    BrandingElementType[BrandingElementType["Alignment"] = 3] = "Alignment";
-    BrandingElementType[BrandingElementType["Selection"] = 4] = "Selection";
+    BrandingElementType[BrandingElementType["Font"] = 0] = "Font";
+    BrandingElementType[BrandingElementType["Colour"] = 1] = "Colour";
+    BrandingElementType[BrandingElementType["Icon"] = 2] = "Icon";
+    BrandingElementType[BrandingElementType["CustomSelection"] = 3] = "CustomSelection";
 })(BrandingElementType = exports.BrandingElementType || (exports.BrandingElementType = {}));
 //# sourceMappingURL=enums.js.map

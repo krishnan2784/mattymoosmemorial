@@ -32,10 +32,13 @@
                 </ul>
               
               <ul class='nav navbar-nav'>
-                <li *ngFor="let m of currentMenuOptions" [routerLinkActive]="['link-active']">
-                  <a [routerLink]="[m.routerLink]" (click)="m.onClick" class="waves-effect waves-light" [routerLinkActiveOptions]="m.routerLinkActiveOptions">
-                    {{m.title}}
-                  </a>
+                <li *ngFor="let m of currentMenuOptions" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="m.routerLinkActiveOptions">
+	                <a *ngIf="m.routerLink" [routerLink]="[m.routerLink]" (click)="m.onClick" class="waves-effect waves-light">
+		                {{m.title}}
+	                </a>
+	                <a *ngIf="!m.routerLink" (click)="m.onClick(m.onClickParams)" class="waves-effect waves-light">
+		                {{m.title}}
+	                </a>
                 </li>
               </ul>
             </div>

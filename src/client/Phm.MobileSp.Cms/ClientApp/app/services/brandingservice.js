@@ -33,11 +33,11 @@ var BrandingService = (function (_super) {
         _this.http = http;
         return _this;
     }
-    BrandingService.prototype.getBrandBranding = function (brandId) {
-        return this.getRequestBase('/api/Branding/GetBrandingByBrand/' + brandId);
+    BrandingService.prototype.getBranding = function () {
+        return this.getRequestBase('/api/Branding/Get');
     };
-    BrandingService.prototype.getMarketBranding = function (marketId) {
-        return this.getRequestBase('/api/Branding/GetBrandingByMarket/' + marketId);
+    BrandingService.prototype.updateBranding = function (brandingElements) {
+        return this.postRequestBase('/api/Branding/Update', brandingElements);
     };
     BrandingService.prototype.copyItemToMarket = function (id, marketIds) {
         return this.copyToMarket('/api/Branding/CopyFeedItemToMarket', id, marketIds);

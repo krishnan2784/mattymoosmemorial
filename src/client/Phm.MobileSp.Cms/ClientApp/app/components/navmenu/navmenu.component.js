@@ -13,10 +13,9 @@ var core_1 = require("@angular/core");
 var shareservice_1 = require("../../services/helpers/shareservice");
 var navmenuclasses_1 = require("../../models/navmenuclasses");
 var NavMenuComponent = (function () {
-    function NavMenuComponent(shareService, navigationService) {
+    function NavMenuComponent(shareService) {
         var _this = this;
         this.shareService = shareService;
-        this.navigationService = navigationService;
         this.currentMenuOptions = [];
         this.baseMenuOptions = [];
         this.shareService.mainNavUpdated.subscribe(function (navMenu) {
@@ -48,7 +47,7 @@ NavMenuComponent = __decorate([
         template: require('./navmenu.component.html'),
         styles: [require('./navmenu.component.css')]
     }),
-    __metadata("design:paramtypes", [shareservice_1.ShareService, Object])
+    __metadata("design:paramtypes", [shareservice_1.ShareService])
 ], NavMenuComponent);
 exports.NavMenuComponent = NavMenuComponent;
 //# sourceMappingURL=navmenu.component.js.map

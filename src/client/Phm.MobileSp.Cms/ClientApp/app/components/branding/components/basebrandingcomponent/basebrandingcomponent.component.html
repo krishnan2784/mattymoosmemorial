@@ -1,22 +1,27 @@
-<div [formGroup]="form" *ngIf="model">
-  <input type="hidden" formControlName="id">
-  <input type="hidden" formControlName="masterId">
-  <input type="hidden" formControlName="order">
-  <input type="hidden" formControlName="enabled">
-  <input type="hidden" formControlName="published">
-  <input type="hidden" formControlName="createdAt">
-  <input type="hidden" formControlName="updatedAt">
-  <!--<input type="hidden" formControlName="groupDescription">
-  <input type="hidden" formControlName="key">
-  <input type="hidden" formControlName="description">
-  <input type="hidden" formControlName="elementType">-->
-  <input type="hidden" formControlName="primaryImageId">
-  <input type="hidden" formControlName="secondaryImageId">
-  
-  <colourpicker *ngIf="model.elementType === brandingElementType.Colour"
-                [form]="form" [formSubmitted]="submitted"
-                [elementId]="'value'"
-                [formControlId]="'value'"
-                [label]="model.description"
-                [validationMessage]="'Please select a colour.'"></colourpicker>
+<div [formGroup]="form" *ngIf="model && form" class="branding-element">
+  <div [formGroupName]="index">
+    <input type="hidden" formControlName="id">
+    <input type="hidden" formControlName="masterId">
+    <input type="hidden" formControlName="order">
+    <input type="hidden" formControlName="enabled">
+    <input type="hidden" formControlName="published">
+    <input type="hidden" formControlName="createdAt">
+    <input type="hidden" formControlName="updatedAt">
+    <input type="hidden" formControlName="primaryImageId">
+    <input type="hidden" formControlName="secondaryImageId">
+
+	  <colourpicker *ngIf="model.brandingElementType == brandingElementType.Colour"
+	                [form]="form.controls[index]" [formSubmitted]="submitted"
+	                [elementId]="'value'"
+	                [formControlId]="'value'"
+	                [label]="model.description"
+	                [validationMessage]="'Please select a colour.'"></colourpicker>
+	  <enhancedtextarea *ngIf="model.brandingElementType != brandingElementType.Colour"
+	                [form]="form.controls[index]" [formSubmitted]="submitted"
+	                [elementId]="'value'"
+	                [formControlId]="'value'"
+	                [label]="model.description"
+	                [validationMessage]="'Please select a colour.'"></enhancedtextarea>
+
+  </div>
 </div>

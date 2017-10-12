@@ -9,38 +9,25 @@ import {BrandingElementType} from "../../../../enums";
     styles: [require('./basebrandingcomponent.component.css')]
 })
 export class BaseBrandingComponent implements OnInit {
-  public form: FormGroup;
-  public submitted: boolean;
-
   @Output()
   public componentUpdated: EventEmitter<any> = new EventEmitter<any>();
   @Input()
   public model: BrandingElement;
+  @Input()
+  public form: FormGroup;
+	@Input()
+  public submitted: boolean;
+	@Input()
+	public index: number;
   brandingElementType: typeof BrandingElementType = BrandingElementType;
 
-  constructor(public fb: FormBuilder) {
+  constructor() {
+
   }
 
-  ngOnInit() {
-    this.initialiseForm();
-  }
+	ngOnInit() {
+		console.log(this.form);
+		console.log(this.model);
+	}
 
-  public initialiseForm() {
-    this.form = this.fb.group({
-      id: [this.model.id, []],
-      masterId: [this.model.masterId, []],
-      order: [this.model.order, []],
-      enabled: [this.model.enabled, []],
-      published: [this.model.published, []],
-      createdAt: [this.model.createdAt, []],
-      updatedAt: [this.model.updatedAt, []],
-      //groupDescription: [this.model.groupDescription, []],
-      //key: [this.model.key, []],
-      //elementType: [this.model.elementType, []],
-      //description: [this.model.description, []],
-      value: [this.model.value, []],
-      primaryImageId: [this.model.primaryImageId, []],
-      secondaryImageId: [this.model.secondaryImageId, []]
-    });
-  } 
 }

@@ -99,9 +99,8 @@ export enum BasePageFeedTypeEnum {
     TabbedText = 4
 }
 export enum BrandingElementType {
-  Colour = 0,
-  Image = 1,
-  Font = 2,
-  Alignment = 3,
-  Selection = 4
+	Font = 0,
+	Colour = 1,
+	Icon = 2,
+	CustomSelection = 3
 }

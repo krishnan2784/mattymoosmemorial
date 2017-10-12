@@ -1,4 +1,14 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -13,25 +23,48 @@ var core_1 = require("@angular/core");
 var brandingservice_1 = require("../../../services/brandingservice");
 var shareservice_1 = require("../../../services/helpers/shareservice");
 var navmenuclasses_1 = require("../../../models/navmenuclasses");
-var BrandingContainerComponent = (function () {
+var brandingclasses_1 = require("../../../models/brandingclasses");
+var base_component_1 = require("../../base.component");
+var BrandingContainerComponent = (function (_super) {
+    __extends(BrandingContainerComponent, _super);
     function BrandingContainerComponent(brandingService, shareService) {
-        this.brandingService = brandingService;
-        this.shareService = shareService;
-        this.brandSectionNames = [];
+        var _this = _super.call(this, shareService, 'Customise my app', true) || this;
+        _this.brandingService = brandingService;
+        _this.shareService = shareService;
+        _this.brandSectionNames = [];
+        _this.cs = _this.changeSection.bind(_this);
+        return _this;
     }
     BrandingContainerComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.brandingService.getMarketBranding(this.shareService.currentMarketId).subscribe(function (result) {
-            _this.brandingSections = result || [];
+        this.brandingService.getBranding().subscribe(function (result) {
+            _this.brandingConfigurations = [];
+            if (!result)
+                return;
+            if (Array.isArray(result))
+                _this.brandingConfigurations = result;
+            else
+                _this.brandingConfigurations.push(new brandingclasses_1.BaseBrandingConfiguration(result));
+            if (_this.brandingConfigurations.length > 1) {
+                var marketConfig = _this.brandingConfigurations.find(function (x) { return (new brandingclasses_1.MarketBrandingConfiguration(x)).marketId !== null; });
+                if (marketConfig)
+                    _this.brandingSections = _this.brandingConfigurations[_this.brandingConfigurations.indexOf(marketConfig)].brandingElements;
+            }
+            if (!_this.brandingSections)
+                _this.brandingSections = _this.brandingConfigurations[0].brandingElements;
             for (var i = 0; i < _this.brandingSections.length; i++) {
-                if (_this.brandSectionNames.indexOf(_this.brandingSections[i].groupDescription) > -1)
+                _this.brandingSections[i] = new brandingclasses_1.BrandingElement(_this.brandingSections[i]);
+                if (_this.brandSectionNames.indexOf(_this.brandingSections[i].groupName) > -1)
                     continue;
-                _this.brandSectionNames.push(_this.brandingSections[i].groupDescription);
+                _this.brandSectionNames.push(_this.brandingSections[i].groupName);
             }
             if (_this.brandSectionNames.length > 0) {
                 var menu = [];
                 for (var i = 0; i < _this.brandSectionNames.length; i++) {
-                    menu.push(new navmenuclasses_1.NavMenuOption(_this.brandSectionNames[i], null, { onClick: _this.changeSection(_this.brandSectionNames[i]) }));
+                    menu.push(new navmenuclasses_1.NavMenuOption(_this.brandSectionNames[i], null, {
+                        onClick: _this.cs,
+                        onClickParams: _this.brandSectionNames[i]
+                    }));
                 }
                 _this.shareService.updateMainNavMenu(menu);
                 _this.changeSection(_this.brandSectionNames[0]);
@@ -39,10 +72,11 @@ var BrandingContainerComponent = (function () {
         });
     };
     BrandingContainerComponent.prototype.changeSection = function (brandingSection) {
-        this.activeBrandingSections = this.brandingSections.filter(function (x) { return x.groupDescription === brandingSection; });
+        this.activeBrandingSections = null;
+        this.activeBrandingSections = this.brandingSections.filter(function (x) { return x.groupName === brandingSection; });
     };
     return BrandingContainerComponent;
-}());
+}(base_component_1.BaseComponent));
 BrandingContainerComponent = __decorate([
     core_1.Component({
         selector: 'branding-container',

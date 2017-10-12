@@ -12,8 +12,8 @@ import {NavMenuOption} from "../../models/navmenuclasses";
 export class NavMenuComponent implements OnInit{
     currentMenuOptions: NavMenuOption[] = [];
     baseMenuOptions: NavMenuOption[] = [];
-    constructor(public shareService: ShareService, public navigationService: any) {
-      this.shareService.mainNavUpdated.subscribe(navMenu => {
+	constructor(public shareService: ShareService) { //, public navigationService: any
+		this.shareService.mainNavUpdated.subscribe(navMenu => {
         this.currentMenuOptions = navMenu;
       });
     }

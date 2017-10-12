@@ -1,1 +1,3 @@
-<branding-section [model]="activeBrandingSections"></branding-section>
+<div class="branding-container">
+	<branding-section *ngIf="activeBrandingSections" [models]="activeBrandingSections"></branding-section>
+</div>

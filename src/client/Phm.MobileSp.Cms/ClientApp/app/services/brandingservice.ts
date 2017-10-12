@@ -3,15 +3,14 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/publishReplay';
-import { IFeedDataService } from "../interfaces/services/IFeedDataService";
 import { RequestHelper } from "./helpers/requesthelper";
-
 import Enums = require("../enums");
 import Apiresponse = require("../models/apiresponse");
 import MarketContentService = require("../interfaces/services/IMarketContentService");
 import IMarketContentService = MarketContentService.IMarketContentService;
 import CopiedElementTypeEnum = Enums.CopiedElementTypeEnum;
 import {IBrandingService} from "../interfaces/services/IBrandingService";
+import {BaseBrandingConfiguration, BrandingElement } from "../models/brandingclasses";
 
 @Injectable()
 export class BrandingService extends RequestHelper implements IBrandingService, IMarketContentService {
@@ -20,14 +19,14 @@ export class BrandingService extends RequestHelper implements IBrandingService, 
         super(http);
     }
 
-    public getBrandBranding(brandId: number): Observable<any> {
-      return this.getRequestBase('/api/Branding/GetBrandingByBrand/' + brandId);
+	public getBranding(): Observable<BaseBrandingConfiguration[]> {
+      return this.getRequestBase('/api/Branding/Get');
     }
 
-    public getMarketBranding(marketId: number): Observable<any> {
-      return this.getRequestBase('/api/Branding/GetBrandingByMarket/' + marketId);
-    }
-  
+	public updateBranding(brandingElements: BrandingElement[]): Observable<BrandingElement[]> {
+		return this.postRequestBase('/api/Branding/Update', brandingElements);
+	}
+
     public copyItemToMarket(id: number, marketIds: number[]): Observable<Apiresponse.ApiResponse> {
       return this.copyToMarket('/api/Branding/CopyFeedItemToMarket', id, marketIds);
     }

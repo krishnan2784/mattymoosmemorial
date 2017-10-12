@@ -18,10 +18,10 @@ var BrandingElement = (function (_super) {
         if (options === void 0) { options = {}; }
         var _this = _super.call(this, options) || this;
         _this.order = options['order'] || 0;
-        _this.groupDescription = options['groupDescription'] || '';
+        _this.groupName = options['groupName'] || '';
         _this.key = options['key'] || '';
-        _this.description = options['description'] || '';
-        _this.elementType = options['elementType'];
+        _this.description = options['description'] || 'This is for testing purposes only.';
+        _this.brandingElementType = options['brandingElementType'];
         _this.value = options['value'] || '';
         _this.primaryImage = options['primaryImage'] || new mediainfoclasses_1.MediaInfo();
         _this.primaryImageId = options['primaryImageId'] || 0;
@@ -32,4 +32,28 @@ var BrandingElement = (function (_super) {
     return BrandingElement;
 }(baseclasses_1.BaseModel));
 exports.BrandingElement = BrandingElement;
+var BaseBrandingConfiguration = (function (_super) {
+    __extends(BaseBrandingConfiguration, _super);
+    function BaseBrandingConfiguration(options) {
+        if (options === void 0) { options = {}; }
+        var _this = _super.call(this, options) || this;
+        _this.brandId = options['brandId'] || 0;
+        _this.version = options['version'] || 0;
+        _this.brandingElements = options['brandingElements'] || [];
+        return _this;
+    }
+    return BaseBrandingConfiguration;
+}(baseclasses_1.BaseModel));
+exports.BaseBrandingConfiguration = BaseBrandingConfiguration;
+var MarketBrandingConfiguration = (function (_super) {
+    __extends(MarketBrandingConfiguration, _super);
+    function MarketBrandingConfiguration(options) {
+        if (options === void 0) { options = {}; }
+        var _this = _super.call(this, options) || this;
+        _this.marketId = options['marketId'] || 0;
+        return _this;
+    }
+    return MarketBrandingConfiguration;
+}(BaseBrandingConfiguration));
+exports.MarketBrandingConfiguration = MarketBrandingConfiguration;
 //# sourceMappingURL=brandingclasses.js.map
