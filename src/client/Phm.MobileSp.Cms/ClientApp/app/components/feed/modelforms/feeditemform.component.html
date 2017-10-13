@@ -297,12 +297,12 @@
     <upload (mediaUploaded)="attachMedia($event, '')" (mediaUploading)="loading=$event" *ngIf="model.id == 0" [title]="'Upload an image or video'"></upload>
 
     <upload (mediaUploaded)="attachMedia($event, 'mainImage')" (mediaUploading)="loading=$event"
-            [uploaderType]="model.id > 0 ? uploaderTypes.Image : uploaderTypes.Any" 
+            [uploaderType]="uploaderTypes.Image" 
             [selectedMedia]="model.mainImage" *ngIf="model.feedType == feedTypes.Image && model.id > 0" [title]="'Upload an image'"
             [previewText]="'Main Image Preview'"></upload>
 
     <upload (mediaUploaded)="attachMedia($event, 'mainVideo')" (mediaUploading)="loading=$event"
-            [uploaderType]="model.id > 0 ? uploaderTypes.Video : uploaderTypes.Any" 
+            [uploaderType]="uploaderTypes.Video" 
             [selectedMedia]="model.mainVideo" *ngIf="model.feedType == feedTypes.Video && model.id > 0" [title]="'Upload a video'"
             [previewText]="'Video Preview'"></upload>
 

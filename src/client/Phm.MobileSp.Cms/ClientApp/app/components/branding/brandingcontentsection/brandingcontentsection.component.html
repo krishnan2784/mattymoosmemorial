@@ -1,6 +1,6 @@
 <form [formGroup]="form" *ngIf="models" (ngSubmit)="save(form.value, form.valid)">
   <div *ngFor="let m of models; let i=index">
-    <base-branding-component [model]="m" [form]="form.controls['brandingElements']" [index]="i" [disabled]="disabled"></base-branding-component>  
+    <base-branding-component [model]="m" [form]="form.controls['brandingElements']" [index]="i" [disabled]="disabled" (mediaUploading)="loading=$event"></base-branding-component>  
   </div>
   <button type="submit" class="btn btn-primary btn-save" *ngIf="!disabled" [attr.disabled]="submitted ? 'disabled' : null">Save</button>
 </form>

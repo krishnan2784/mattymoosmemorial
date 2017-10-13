@@ -1,0 +1,8 @@
+﻿select {
+	float: right;
+	width: initial;
+	min-width: 200px;
+}
+select, h5 {
+	display: inline-block;
+}

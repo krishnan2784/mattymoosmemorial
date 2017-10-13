@@ -16,7 +16,9 @@ var enums_1 = require("../../../../enums");
 var BaseBrandingComponent = (function () {
     function BaseBrandingComponent() {
         this.componentUpdated = new core_1.EventEmitter();
+        this.mediaUploading = new core_1.EventEmitter();
         this.brandingElementType = enums_1.BrandingElementType;
+        this.uploaderTypes = enums_1.UploaderType;
     }
     BaseBrandingComponent.prototype.ngOnInit = function () {
     };
@@ -46,6 +48,10 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Boolean)
 ], BaseBrandingComponent.prototype, "disabled", void 0);
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", core_1.EventEmitter)
+], BaseBrandingComponent.prototype, "mediaUploading", void 0);
 BaseBrandingComponent = __decorate([
     core_1.Component({
         selector: 'base-branding-component',

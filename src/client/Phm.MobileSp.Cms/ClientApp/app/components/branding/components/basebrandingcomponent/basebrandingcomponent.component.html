@@ -1,25 +1,34 @@
 <div [formGroup]="form" *ngIf="model && form" class="branding-element">
-  <div [formGroupName]="index">
-    <input type="hidden" formControlName="id">
-    <input type="hidden" formControlName="order">
-    <input type="hidden" formControlName="groupName">
-    <input type="hidden" formControlName="primaryImageId">
-    <input type="hidden" formControlName="secondaryImageId">
+	<div class="col-md-8">
+		<div [formGroupName]="index">
+			<input type="hidden" formControlName="id">
+			<input type="hidden" formControlName="order">
+			<input type="hidden" formControlName="groupName">
+			<input type="hidden" formControlName="primaryImageId">
+			<input type="hidden" formControlName="secondaryImageId">
 
-	  <colourpicker *ngIf="model.brandingElementType == brandingElementType.Colour"
-					[disabled]="disabled"
-	                [form]="form.controls[index]" [formSubmitted]="submitted"
-	                [elementId]="'value'"
-	                [formControlId]="'value'"
-	                [label]="model.description"
-	                [validationMessage]="'Please select a colour.'"></colourpicker>
-	  <enhancedtextarea *ngIf="model.brandingElementType != brandingElementType.Colour"
-	                    [disabled]="disabled"
-	                [form]="form.controls[index]" [formSubmitted]="submitted"
-	                [elementId]="'value'"
-	                [formControlId]="'value'"
-	                [label]="model.description"
-	                [validationMessage]="'Please select a colour.'"></enhancedtextarea>
+			<colourpicker *ngIf="model.brandingElementType == brandingElementType.Colour"
+			              [disabled]="disabled"
+			              [form]="form.controls[index]" [formSubmitted]="submitted"
+			              [elementId]="index + '_value'"
+			              [formControlId]="'value'"
+			              [label]="model.description"></colourpicker>
+			<fontpicker *ngIf="model.brandingElementType == brandingElementType.Font"
+			            [disabled]="disabled"
+			            [form]="form.controls[index]" [formSubmitted]="submitted"
+			            [elementId]="index + '_value'"
+			            [formControlId]="'value'"
+			            [label]="model.description"></fontpicker>
+			<upload *ngIf="model.brandingElementType == brandingElementType.Icon"
+			        [disabled]="disabled"
+			        [form]="form.controls[index]"
+			        [formControlId]="'value'"
+			        [title]="model.description"
+			        [imagePreviewUrl]="model.value"
+			        [uploaderType]="uploaderTypes.Image"
+			        (mediaUploading)="loading=$event"></upload>
 
-  </div>
+		</div>
+	</div>
+	<div class="clearfix"></div>
 </div>

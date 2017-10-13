@@ -5,23 +5,20 @@ import { FormGroup } from "@angular/forms";
   selector: 'colourpicker',
   template: `
     <div [formGroup]="form" *ngIf="form">
-        <div class="col-md-8">
-	        <input type="hidden" formControlName="{{formControlId}}">
-	        <h5 [attr.for]="elementId">{{label}}</h5>
-			<div id="{{elementId}}" class="colour-block" [style.background]="form.controls[formControlId].value">
-				<span *ngIf="!disabled" [(colorPicker)]="form.controls[formControlId].value" 				  
-				      [cpCancelButton]="true"
-				      [cpOutputFormat]="hex"
-				      [cpOKButton]="true"
-				      [cpAlphaChannel]="disabled"
-				      (colorPickerSelect)="setColour($event)">{{form.controls[formControlId].value}}</span>
-				<span *ngIf="disabled">{{form.controls[formControlId].value}}</span>
-			</div>            
-            <small class="active-warning" [class.hidden]="form.controls[formControlId].valid || !formSubmitted">
-                {{validationMessage}}
-            </small>
-        </div>
-<div class="clearfix"></div>
+	    <input type="hidden" formControlName="{{formControlId}}">
+	    <h5 [attr.for]="elementId">{{label}}</h5>
+		<div id="{{elementId}}" class="colour-block" [style.background]="form.controls[formControlId].value">
+			<span *ngIf="!disabled" [(colorPicker)]="form.controls[formControlId].value" 				  
+				    [cpCancelButton]="true"
+				    [cpOutputFormat]="hex"
+				    [cpOKButton]="true"
+				    [cpAlphaChannel]="disabled"
+				    (colorPickerSelect)="setColour($event)">{{form.controls[formControlId].value}}</span>
+			<span *ngIf="disabled">{{form.controls[formControlId].value}}</span>
+		</div>            
+        <small class="active-warning" [class.hidden]="form.controls[formControlId].valid || !formSubmitted">
+            {{validationMessage}}
+        </small>
     </div>
 `,
   styles: [require('./colourpicker.component.css')]

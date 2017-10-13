@@ -95,6 +95,7 @@ var colourpicker_component_1 = require("./components/common/editor/colourpicker.
 var brandingcontentsection_component_1 = require("./components/branding/brandingcontentsection/brandingcontentsection.component");
 var brandingcontainer_component_1 = require("./components/branding/brandingnavmenu/brandingcontainer.component");
 var basebrandingcomponent_component_1 = require("./components/branding/components/basebrandingcomponent/basebrandingcomponent.component");
+var fontpicker_component_1 = require("./components/common/editor/fontpicker.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -168,6 +169,7 @@ AppModule = __decorate([
             numbertextbox_component_1.NumberTextInputComponent,
             taginputbox_component_1.TagInputComponent,
             colourpicker_component_1.ColourPickerInputComponent,
+            fontpicker_component_1.FontPickerComponent,
             UploadMediaComponent
         ],
         imports: [

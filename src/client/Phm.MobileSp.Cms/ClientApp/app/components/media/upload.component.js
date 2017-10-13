@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
 var Mediaservice = require("../../services/mediaservice");
 var mediainfoclasses_1 = require("../../models/mediainfoclasses");
 var enums_1 = require("../../enums");
@@ -27,6 +28,7 @@ var UploadMediaComponent = (function () {
         this.maxWidth = 0;
         this.maxHeight = 0;
         this.uploadUrl = '/Media/UploadFile';
+        this.disabled = false;
         this.files = [];
         this.uploading = false;
         this.uploaderTypes = enums_1.UploaderType;
@@ -36,7 +38,7 @@ var UploadMediaComponent = (function () {
     }
     UploadMediaComponent.prototype.ngOnInit = function () {
         if (this.selectedMedia)
-            this.setPreviewImage();
+            this.setPreviewImage(this.selectedMedia.azureUrl);
     };
     UploadMediaComponent.prototype.uploadFile = function () {
         var _this = this;
@@ -58,7 +60,8 @@ var UploadMediaComponent = (function () {
     UploadMediaComponent.prototype.processUploadResponse = function (media) {
         this.selectedMedia = media;
         if (media.id > 0) {
-            this.setPreviewImage();
+            this.setPreviewImage(this.selectedMedia.azureUrl);
+            this.setFormValue();
             this.mediaUploaded.emit(media);
         }
         else
@@ -69,13 +72,17 @@ var UploadMediaComponent = (function () {
     UploadMediaComponent.prototype.failAlert = function (message) {
         Materialize.toast(message, 5000, 'red');
     };
-    UploadMediaComponent.prototype.setPreviewImage = function () {
+    UploadMediaComponent.prototype.setPreviewImage = function (url) {
+        if (this.selectedMedia.mediaType == enums_1.MediaTypes.Image)
+            this.imagePreviewUrl = url;
+        else if (this.selectedMedia.mediaType == enums_1.MediaTypes.Video)
+            this.videoPreviewUrl = url;
+    };
+    UploadMediaComponent.prototype.setFormValue = function () {
         if (!this.selectedMedia)
             return;
-        if (this.selectedMedia.mediaType == enums_1.MediaTypes.Image)
-            this.imagePreviewUrl = this.selectedMedia.azureUrl;
-        else if (this.selectedMedia.mediaType == enums_1.MediaTypes.Video)
-            this.videoPreviewUrl = this.selectedMedia.azureUrl;
+        if (this.form)
+            this.form.controls[this.formControlId].patchValue(this.selectedMedia.azureUrl, {});
     };
     UploadMediaComponent.prototype.filesSelectHandler = function (fileInput) {
         var FileList = fileInput.target.files;
@@ -204,6 +211,22 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Object)
 ], UploadMediaComponent.prototype, "uploadUrl", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", forms_1.FormGroup)
+], UploadMediaComponent.prototype, "form", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", String)
+], UploadMediaComponent.prototype, "formControlId", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Boolean)
+], UploadMediaComponent.prototype, "disabled", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", String)
+], UploadMediaComponent.prototype, "imagePreviewUrl", void 0);
 __decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)
