@@ -7,14 +7,14 @@
 </p>
 <div class="upload-container">
     <div class="file-field input-field">
-        <div class="btn">
+        <div class="btn" [class.disabled]="disabled">
             <span>File</span>
             <input type="file" (change)="filesSelectHandler($event)" [disabled]="uploading || disabled" accept="video/mp4,image/png,image/jpg,image/jpeg" *ngIf="uploaderType==uploaderTypes.Any">
             <input type="file" (change)="filesSelectHandler($event)" [disabled]="uploading || disabled" accept="image/png,image/jpg,image/jpeg" *ngIf="uploaderType==uploaderTypes.Image">
             <input type="file" (change)="filesSelectHandler($event)" [disabled]="uploading || disabled" accept="video/mp4" *ngIf="uploaderType==uploaderTypes.Video">
         </div>
         <div class="file-path-wrapper">
-            <input class="file-path validate" type="text">
+            <input class="file-path validate" type="text" [attr.disabled]="disabled ? disabled : null">
         </div>
     </div>
     <span class="input-group-btn">

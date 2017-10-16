@@ -95,6 +95,8 @@ import {BrandingContainerComponent} from "./components/branding/brandingnavmenu/
 import {BaseBrandingComponent} from
   "./components/branding/components/basebrandingcomponent/basebrandingcomponent.component";
 import {FontPickerComponent} from "./components/common/editor/fontpicker.component";
+import {BrandingOptionPickerComponent} from
+	"./components/branding/components/brandingoptionpicker/brandingoptionpicker.component";
 
 
 @NgModule({
@@ -172,7 +174,8 @@ import {FontPickerComponent} from "./components/common/editor/fontpicker.compone
         NumberTextInputComponent,
         TagInputComponent,
 		ColourPickerInputComponent,
-	    FontPickerComponent,
+		FontPickerComponent,
+	    BrandingOptionPickerComponent,
         UploadMediaComponent
     ],
     imports: [

@@ -40,6 +40,7 @@ var BaseBrandingConfiguration = (function (_super) {
         _this.brandId = options['brandId'] || 0;
         _this.version = options['version'] || 0;
         _this.brandingElements = options['brandingElements'] || [];
+        _this.brandingOptions = options['brandingOptions'] || [];
         return _this;
     }
     return BaseBrandingConfiguration;
@@ -56,4 +57,15 @@ var MarketBrandingConfiguration = (function (_super) {
     return MarketBrandingConfiguration;
 }(BaseBrandingConfiguration));
 exports.MarketBrandingConfiguration = MarketBrandingConfiguration;
+var BrandingConfigurationOption = (function () {
+    function BrandingConfigurationOption(options) {
+        if (options === void 0) { options = {}; }
+        this.id = options['id'] || 0;
+        this.configurationKey = options['configurationKey'] || '';
+        this.value = options['value'] || '';
+        this.displayName = options['displayName'] || '';
+    }
+    return BrandingConfigurationOption;
+}());
+exports.BrandingConfigurationOption = BrandingConfigurationOption;
 //# sourceMappingURL=brandingclasses.js.map

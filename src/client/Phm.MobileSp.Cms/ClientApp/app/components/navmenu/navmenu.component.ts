@@ -25,7 +25,7 @@ export class NavMenuComponent implements OnInit{
       //});
       // until we have permission based menus
       this.baseMenuOptions = [
-        new NavMenuOption('Dashboard', '/home'),
+		  new NavMenuOption('Dashboard', '/home', {activeLink: true}),
         new NavMenuOption('Content', '/feed'),
         new NavMenuOption('Reports', '/reports', { routerLinkActiveOptions: { exact: false } }),
         new NavMenuOption('Accounts', '/useraccountmanagement', { routerLinkActiveOptions: { exact: false } })
@@ -34,5 +34,9 @@ export class NavMenuComponent implements OnInit{
     }
     resetNavMenu() {
       this.currentMenuOptions = this.baseMenuOptions;
-    }
+	}
+	setActiveMenu(index) {
+		this.currentMenuOptions.forEach((x) => x.activeLink = false);
+		this.currentMenuOptions[index].activeLink = true;
+	}
 }

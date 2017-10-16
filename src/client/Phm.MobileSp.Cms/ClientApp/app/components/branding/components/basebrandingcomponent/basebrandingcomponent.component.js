@@ -13,6 +13,7 @@ var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var brandingclasses_1 = require("../../../../models/brandingclasses");
 var enums_1 = require("../../../../enums");
+var string_1 = require("../../../../classes/helpers/string");
 var BaseBrandingComponent = (function () {
     function BaseBrandingComponent() {
         this.componentUpdated = new core_1.EventEmitter();
@@ -21,6 +22,9 @@ var BaseBrandingComponent = (function () {
         this.uploaderTypes = enums_1.UploaderType;
     }
     BaseBrandingComponent.prototype.ngOnInit = function () {
+        if (this.model && this.model.brandingElementType == this.brandingElementType.CustomSelection && this.brandingOptions) {
+            this.elementBrandingOptions = string_1.StringEx.searchArray(this.model.key, this.brandingOptions, ['configurationKey']);
+        }
     };
     return BaseBrandingComponent;
 }());
@@ -48,6 +52,10 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Boolean)
 ], BaseBrandingComponent.prototype, "disabled", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Array)
+], BaseBrandingComponent.prototype, "brandingOptions", void 0);
 __decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)

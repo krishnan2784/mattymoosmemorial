@@ -1,7 +1,8 @@
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import {BrandingElement} from "../../../../models/brandingclasses";
+import {BrandingElement, BrandingConfigurationOption } from "../../../../models/brandingclasses";
 import {BrandingElementType, UploaderType } from "../../../../enums";
+import {StringEx} from "../../../../classes/helpers/string";
 
 @Component({
     selector: 'base-branding-component',
@@ -21,7 +22,9 @@ export class BaseBrandingComponent implements OnInit {
 	public index: number;
 	@Input()
 	disabled: boolean;
-
+	@Input()
+	brandingOptions: BrandingConfigurationOption[];
+	elementBrandingOptions: BrandingConfigurationOption[];
 	@Output()
 	public mediaUploading: EventEmitter<boolean> = new EventEmitter();
 
@@ -33,6 +36,9 @@ export class BaseBrandingComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		if (this.model && this.model.brandingElementType == this.brandingElementType.CustomSelection && this.brandingOptions) {
+			this.elementBrandingOptions = StringEx.searchArray(this.model.key, this.brandingOptions, ['configurationKey']);
+		}
 	}
 
 }

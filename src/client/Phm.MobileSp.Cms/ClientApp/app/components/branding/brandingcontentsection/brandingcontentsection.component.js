@@ -22,6 +22,15 @@ var BrandingContentSectionComponent = (function () {
     BrandingContentSectionComponent.prototype.ngOnInit = function () {
         this.addFormControls();
     };
+    BrandingContentSectionComponent.prototype.ngOnDestroy = function () {
+        this.removeFormControls();
+    };
+    BrandingContentSectionComponent.prototype.ngOnChanges = function (changes) {
+        if (changes['models']) {
+            this.removeFormControls();
+            this.addFormControls();
+        }
+    };
     BrandingContentSectionComponent.prototype.addFormControls = function () {
         var _this = this;
         var formArray = new forms_1.FormArray([]);
@@ -29,6 +38,9 @@ var BrandingContentSectionComponent = (function () {
         this.form.addControl('brandingElements', formArray);
     };
     ;
+    BrandingContentSectionComponent.prototype.removeFormControls = function () {
+        this.form.removeControl('brandingElements');
+    };
     BrandingContentSectionComponent.prototype.initBrandingElement = function (model) {
         return new forms_1.FormGroup({
             id: new forms_1.FormControl(model.id, []),
@@ -56,6 +68,10 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Boolean)
 ], BrandingContentSectionComponent.prototype, "disabled", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Array)
+], BrandingContentSectionComponent.prototype, "brandingOptions", void 0);
 BrandingContentSectionComponent = __decorate([
     core_1.Component({
         selector: 'branding-section',

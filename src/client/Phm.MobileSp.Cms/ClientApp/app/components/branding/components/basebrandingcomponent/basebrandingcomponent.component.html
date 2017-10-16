@@ -14,11 +14,18 @@
 			              [formControlId]="'value'"
 			              [label]="model.description"></colourpicker>
 			<fontpicker *ngIf="model.brandingElementType == brandingElementType.Font"
-			            [disabled]="disabled"
-			            [form]="form.controls[index]" [formSubmitted]="submitted"
-			            [elementId]="index + '_value'"
-			            [formControlId]="'value'"
-			            [label]="model.description"></fontpicker>
+						[disabled]="disabled"
+						[form]="form.controls[index]" [formSubmitted]="submitted"
+						[elementId]="index + '_value'"
+						[formControlId]="'value'"
+						[label]="model.description"></fontpicker>
+			<brandingoptionpicker *ngIf="model.brandingElementType == brandingElementType.CustomSelection"
+						[disabled]="disabled"
+						[form]="form.controls[index]" [formSubmitted]="submitted"
+						[elementId]="index + '_value'"
+						[formControlId]="'value'"
+			                      [label]="model.description"
+								  [options]="elementBrandingOptions"></brandingoptionpicker>
 			<upload *ngIf="model.brandingElementType == brandingElementType.Icon"
 			        [disabled]="disabled"
 			        [form]="form.controls[index]"

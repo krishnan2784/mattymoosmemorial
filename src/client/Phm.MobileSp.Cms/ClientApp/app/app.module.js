@@ -96,6 +96,7 @@ var brandingcontentsection_component_1 = require("./components/branding/branding
 var brandingcontainer_component_1 = require("./components/branding/brandingnavmenu/brandingcontainer.component");
 var basebrandingcomponent_component_1 = require("./components/branding/components/basebrandingcomponent/basebrandingcomponent.component");
 var fontpicker_component_1 = require("./components/common/editor/fontpicker.component");
+var brandingoptionpicker_component_1 = require("./components/branding/components/brandingoptionpicker/brandingoptionpicker.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -170,6 +171,7 @@ AppModule = __decorate([
             taginputbox_component_1.TagInputComponent,
             colourpicker_component_1.ColourPickerInputComponent,
             fontpicker_component_1.FontPickerComponent,
+            brandingoptionpicker_component_1.BrandingOptionPickerComponent,
             UploadMediaComponent
         ],
         imports: [

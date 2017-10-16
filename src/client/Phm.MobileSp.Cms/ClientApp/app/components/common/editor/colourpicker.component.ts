@@ -7,7 +7,7 @@ import { FormGroup } from "@angular/forms";
     <div [formGroup]="form" *ngIf="form">
 	    <input type="hidden" formControlName="{{formControlId}}">
 	    <h5 [attr.for]="elementId">{{label}}</h5>
-		<div id="{{elementId}}" class="colour-block" [style.background]="form.controls[formControlId].value">
+		<div id="{{elementId}}" class="colour-block" [class.disabled]="disabled" [style.background]="form.controls[formControlId].value">
 			<span *ngIf="!disabled" [(colorPicker)]="form.controls[formControlId].value" 				  
 				    [cpCancelButton]="true"
 				    [cpOutputFormat]="hex"

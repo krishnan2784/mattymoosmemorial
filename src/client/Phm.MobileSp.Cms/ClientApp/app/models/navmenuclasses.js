@@ -6,8 +6,10 @@ var NavMenuOption = (function () {
         this.title = title;
         this.routerLink = routerLink;
         this.onClick = null;
+        this.activeLink = false;
         this.onClick = options['onClick'];
         this.onClickParams = options['onClickParams'];
+        this.activeLink = options['activeLink'];
         this.routerLinkActiveOptions = options['routerLinkActiveOptions'] || { exact: false };
     }
     return NavMenuOption;

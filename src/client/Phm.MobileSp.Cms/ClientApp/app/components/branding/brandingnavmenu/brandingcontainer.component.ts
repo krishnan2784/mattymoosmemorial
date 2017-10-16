@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {BrandingService} from "../../../services/brandingservice";
 import {ShareService} from "../../../services/helpers/shareservice";
 import {NavMenuOption} from "../../../models/navmenuclasses";
-import {BrandingElement, BaseBrandingConfiguration, MarketBrandingConfiguration } from "../../../models/brandingclasses";
+import {BrandingElement, BaseBrandingConfiguration, MarketBrandingConfiguration, BrandingConfigurationOption } from "../../../models/brandingclasses";
 import { BaseComponent } from "../../base.component";
 
 @Component({
@@ -14,6 +14,7 @@ export class BrandingContainerComponent extends BaseComponent implements OnInit 
 	brandingConfigurations: BaseBrandingConfiguration[];
 	brandingSections: BrandingElement[];
 	activeBrandingSections: BrandingElement[];
+	brandingOptions: BrandingConfigurationOption[];
 	brandSectionNames: string[] = [];
 	disabled: boolean = !(this.shareService.currentMarket.id === 1); // enable for ford global market by default (crude, but we don't have any other global flag)
 	cs = this.changeSection.bind(this);
@@ -50,6 +51,7 @@ export class BrandingContainerComponent extends BaseComponent implements OnInit 
 			}
 			if (!this.brandingSections)
 				this.brandingSections = this.brandingConfigurations[0].brandingElements;
+			this.brandingOptions = this.brandingConfigurations[0].brandingOptions;
 			for (let i = 0; i < this.brandingSections.length; i++) {
 				this.brandingSections[i] = new BrandingElement(this.brandingSections[i]);
 				if (this.brandSectionNames.indexOf(this.brandingSections[i].groupName) > -1) continue;
@@ -63,6 +65,7 @@ export class BrandingContainerComponent extends BaseComponent implements OnInit 
 						null,
 						{
 							onClick: this.cs,
+							activeLink: i === 0,
 							onClickParams: this.brandSectionNames[i]
 						}));
 				}

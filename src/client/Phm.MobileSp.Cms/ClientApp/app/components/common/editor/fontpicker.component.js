@@ -69,7 +69,7 @@ __decorate([
 FontPickerComponent = __decorate([
     core_1.Component({
         selector: 'fontpicker',
-        template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n\t    <h5 [attr.for]=\"elementId\">{{label}}</h5>\n\t    <select id=\"{{elementId}}\" formControlName=\"{{formControlId}}\">\n\t\t    <option *ngFor=\"let f of availableFonts\" value=\"{{f}}\" [attr.selected]=\"f==form.controls[formControlId].value ? 'selected' : null\" [style.font-family]=\"f\">{{f}}</option>\n\t    </select>\n    </div>\n",
+        template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n\t    <h5 [attr.for]=\"elementId\">{{label}}</h5>\n\t    <select id=\"{{elementId}}\" formControlName=\"{{formControlId}}\" [attr.disabled]=\"disabled ? disabled : null\" [style.font-family]=\"form.controls[formControlId].value\">\n\t\t    <option *ngFor=\"let f of availableFonts\" value=\"{{f}}\" [attr.selected]=\"f==form.controls[formControlId].value ? 'selected' : null\" [style.font-family]=\"f\">{{f}}</option>\n\t    </select>\n    </div>\n",
         styles: [require('./fontpicker.component.css')]
     })
 ], FontPickerComponent);

@@ -1,9 +1,17 @@
 <div class="nav-container">
     <div class='navbar-header'>
-        <a class='navbar-brand' [routerLink]="['/home']">
-            <img src="assets/images/MobileSP-LOGO-Landscape.png" class="header-logo"/>
-            <p>LearnComSP</p>
-        </a>
+	    <a *ngIf="currentMenuOptions == baseMenuOptions" class='navbar-brand' [routerLink]="['/home']">
+		    <img src="assets/images/MobileSP-LOGO-Landscape.png" class="header-logo" />
+		    <p>LearnComSP</p>
+	    </a>
+	    <a *ngIf="currentMenuOptions != baseMenuOptions" class='navbar-brand' [routerLink]="['/home']" (click)="resetNavMenu()">
+		    <img src="assets/images/MobileSP-LOGO-Landscape.png" class="header-logo"/>
+		    <p>LearnComSP</p>
+		    <div class="back-container">
+			    <i class="material-icons">reply</i> <span class="back-text">Go Back</span>
+		    </div>
+	    </a>
+
         <div class="header-content">
             <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
                 <span class='sr-only'>Toggle navigation</span>
@@ -32,11 +40,11 @@
                 </ul>
               
               <ul class='nav navbar-nav'>
-                <li *ngFor="let m of currentMenuOptions" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="m.routerLinkActiveOptions">
+                <li *ngFor="let m of currentMenuOptions; let i=index" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="m.routerLinkActiveOptions" [class.link-active]="m.activeLink">
 	                <a *ngIf="m.routerLink" [routerLink]="[m.routerLink]" (click)="m.onClick" class="waves-effect waves-light">
 		                {{m.title}}
 	                </a>
-	                <a *ngIf="!m.routerLink" (click)="m.onClick(m.onClickParams)" class="waves-effect waves-light">
+	                <a *ngIf="!m.routerLink" (click)="m.onClick(m.onClickParams);setActiveMenu(i)" class="waves-effect waves-light">
 		                {{m.title}}
 	                </a>
                 </li>

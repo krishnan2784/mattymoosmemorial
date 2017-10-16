@@ -65,6 +65,7 @@ var BrandingContainerComponent = (function (_super) {
             }
             if (!_this.brandingSections)
                 _this.brandingSections = _this.brandingConfigurations[0].brandingElements;
+            _this.brandingOptions = _this.brandingConfigurations[0].brandingOptions;
             for (var i = 0; i < _this.brandingSections.length; i++) {
                 _this.brandingSections[i] = new brandingclasses_1.BrandingElement(_this.brandingSections[i]);
                 if (_this.brandSectionNames.indexOf(_this.brandingSections[i].groupName) > -1)
@@ -76,6 +77,7 @@ var BrandingContainerComponent = (function (_super) {
                 for (var i = 0; i < _this.brandSectionNames.length; i++) {
                     menu.push(new navmenuclasses_1.NavMenuOption(_this.brandSectionNames[i], null, {
                         onClick: _this.cs,
+                        activeLink: i === 0,
                         onClickParams: _this.brandSectionNames[i]
                     }));
                 }

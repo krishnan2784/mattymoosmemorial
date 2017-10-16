@@ -29,7 +29,7 @@ var NavMenuComponent = (function () {
         //});
         // until we have permission based menus
         this.baseMenuOptions = [
-            new navmenuclasses_1.NavMenuOption('Dashboard', '/home'),
+            new navmenuclasses_1.NavMenuOption('Dashboard', '/home', { activeLink: true }),
             new navmenuclasses_1.NavMenuOption('Content', '/feed'),
             new navmenuclasses_1.NavMenuOption('Reports', '/reports', { routerLinkActiveOptions: { exact: false } }),
             new navmenuclasses_1.NavMenuOption('Accounts', '/useraccountmanagement', { routerLinkActiveOptions: { exact: false } })
@@ -38,6 +38,10 @@ var NavMenuComponent = (function () {
     };
     NavMenuComponent.prototype.resetNavMenu = function () {
         this.currentMenuOptions = this.baseMenuOptions;
+    };
+    NavMenuComponent.prototype.setActiveMenu = function (index) {
+        this.currentMenuOptions.forEach(function (x) { return x.activeLink = false; });
+        this.currentMenuOptions[index].activeLink = true;
     };
     return NavMenuComponent;
 }());

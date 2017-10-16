@@ -7,7 +7,7 @@ declare var $: any;
   template: `
     <div [formGroup]="form" *ngIf="form">
 	    <h5 [attr.for]="elementId">{{label}}</h5>
-	    <select id="{{elementId}}" formControlName="{{formControlId}}">
+	    <select id="{{elementId}}" formControlName="{{formControlId}}" [attr.disabled]="disabled ? disabled : null" [style.font-family]="form.controls[formControlId].value">
 		    <option *ngFor="let f of availableFonts" value="{{f}}" [attr.selected]="f==form.controls[formControlId].value ? 'selected' : null" [style.font-family]="f">{{f}}</option>
 	    </select>
     </div>

@@ -224,3 +224,10 @@ b
 .dropdown-content > li > a{
     padding-right: 10px;
 }
+.back-container {
+	margin-top: -10px;
+}
+.back-text {
+	position: relative;
+	top: -6px;
+}

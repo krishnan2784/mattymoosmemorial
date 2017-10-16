@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import {BrandingElement} from "../../../models/brandingclasses";
+import { Component, Input, OnInit, OnDestroy, OnChanges, SimpleChange } from '@angular/core';
+import {BrandingElement, BrandingConfigurationOption } from "../../../models/brandingclasses";
 import { FormControl, FormGroup, FormBuilder, FormArray } from "@angular/forms";
 import {BrandingService} from "../../../services/brandingservice";
 
@@ -8,11 +8,13 @@ import {BrandingService} from "../../../services/brandingservice";
     template: require('./brandingcontentsection.component.html'),
     styles: [require('./brandingcontentsection.component.css')]
 })
-export class BrandingContentSectionComponent {
+export class BrandingContentSectionComponent implements OnInit, OnDestroy, OnChanges {
 	@Input()
 	public models: BrandingElement[];
 	@Input()
 	disabled: boolean;
+	@Input()
+	brandingOptions: BrandingConfigurationOption[];
 
 	public form: FormGroup;
 	public submitted: boolean = false;
@@ -25,11 +27,26 @@ export class BrandingContentSectionComponent {
 		this.addFormControls();
 	}
 
+	ngOnDestroy() {
+		this.removeFormControls();
+	}
+
+	ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
+		if (changes['models']) {
+			this.removeFormControls();
+			this.addFormControls();
+		}
+	}
+
 	addFormControls() {
 		var formArray = new FormArray([]);
 		this.models.forEach((x, i) => formArray.push(this.initBrandingElement(x)));
 		this.form.addControl('brandingElements', formArray);
 	};
+
+	removeFormControls() {
+		this.form.removeControl('brandingElements');
+	}
 
 	public initBrandingElement(model: BrandingElement): FormGroup {
 		return new FormGroup({
