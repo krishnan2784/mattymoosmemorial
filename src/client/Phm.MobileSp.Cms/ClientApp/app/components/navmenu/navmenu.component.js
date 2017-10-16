@@ -18,8 +18,10 @@ var NavMenuComponent = (function () {
         this.shareService = shareService;
         this.currentMenuOptions = [];
         this.baseMenuOptions = [];
+        this.backText = null;
         this.shareService.mainNavUpdated.subscribe(function (navMenu) {
-            _this.currentMenuOptions = navMenu;
+            _this.currentMenuOptions = navMenu[0];
+            _this.backText = navMenu[1];
         });
     }
     NavMenuComponent.prototype.ngOnInit = function () {
@@ -38,6 +40,7 @@ var NavMenuComponent = (function () {
     };
     NavMenuComponent.prototype.resetNavMenu = function () {
         this.currentMenuOptions = this.baseMenuOptions;
+        this.shareService.updateAppTheme('');
     };
     NavMenuComponent.prototype.setActiveMenu = function (index) {
         this.currentMenuOptions.forEach(function (x) { return x.activeLink = false; });

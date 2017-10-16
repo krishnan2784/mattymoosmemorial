@@ -5,11 +5,9 @@
 		    <p>LearnComSP</p>
 	    </a>
 	    <a *ngIf="currentMenuOptions != baseMenuOptions" class='navbar-brand' [routerLink]="['/home']" (click)="resetNavMenu()">
-		    <img src="assets/images/MobileSP-LOGO-Landscape.png" class="header-logo"/>
-		    <p>LearnComSP</p>
-		    <div class="back-container">
-			    <i class="material-icons">reply</i> <span class="back-text">Go Back</span>
-		    </div>
+		    <h5 class="back-container">
+			    <i class="material-icons">reply</i> <span class="back-text">{{backText}}</span>
+		    </h5>
 	    </a>
 
         <div class="header-content">
@@ -27,7 +25,7 @@
             <div class='clearfix'></div>
             <div class='navbar-collapse collapse'>
                 
-                <a class='dropdown-button btn' data-activates='nav-bar-dropdown'>{{shareService.currentUser.email}} <i class="material-icons right">keyboard_arrow_down</i></a>
+                <a *ngIf="shareService.currentUser.email && currentMenuOptions == baseMenuOptions" class='dropdown-button btn' data-activates='nav-bar-dropdown'>{{shareService.currentUser.email}} <i class="material-icons right">keyboard_arrow_down</i></a>
                 <ul id='nav-bar-dropdown' class='dropdown-content'>
                     <li>
                         <a data-activates='nav-bar-dropdown'>{{shareService.currentUser.email}} <i class="material-icons right">keyboard_arrow_up</i></a>

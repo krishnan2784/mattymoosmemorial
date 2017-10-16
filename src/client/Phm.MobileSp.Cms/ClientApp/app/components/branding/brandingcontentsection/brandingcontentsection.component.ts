@@ -18,6 +18,7 @@ export class BrandingContentSectionComponent implements OnInit, OnDestroy, OnCha
 
 	public form: FormGroup;
 	public submitted: boolean = false;
+	public subGroups: [string, BrandingElement[]][];
 
 	constructor(public fb: FormBuilder, public brandingService: BrandingService) {
 		this.form = this.fb.group({});
@@ -25,6 +26,7 @@ export class BrandingContentSectionComponent implements OnInit, OnDestroy, OnCha
 
 	ngOnInit() {
 		this.addFormControls();
+		this.calculateSubGroups();
 	}
 
 	ngOnDestroy() {
@@ -35,6 +37,7 @@ export class BrandingContentSectionComponent implements OnInit, OnDestroy, OnCha
 		if (changes['models']) {
 			this.removeFormControls();
 			this.addFormControls();
+			this.calculateSubGroups();
 		}
 	}
 
@@ -58,6 +61,24 @@ export class BrandingContentSectionComponent implements OnInit, OnDestroy, OnCha
 			secondaryImageId: new FormControl(model.secondaryImageId, [])
 		});
 	} 
+
+	calculateSubGroups() {
+		this.subGroups = [];
+		for (let i = 0; i < this.models.length; i++) {
+			this.addSubGroup(this.models[i]);
+		}
+	}
+
+	addSubGroup(element: BrandingElement) {
+		let a = element.groupName.split('>');
+		var n = (a.length > 1 ? a[1] : element.description);
+		let m = this.subGroups.find(x => x[0] === n);
+		if (m)
+			m[1].push(element);
+		else
+			this.subGroups.push([n, [element]]);
+	}
+
 	save(form, isValid) {
 		this.submitted = true;
 		this.brandingService.updateBranding(form.brandingElements).subscribe(result => {

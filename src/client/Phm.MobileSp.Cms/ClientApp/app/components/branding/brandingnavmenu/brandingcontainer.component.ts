@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {BrandingService} from "../../../services/brandingservice";
 import {ShareService} from "../../../services/helpers/shareservice";
 import {NavMenuOption} from "../../../models/navmenuclasses";
 import {BrandingElement, BaseBrandingConfiguration, MarketBrandingConfiguration, BrandingConfigurationOption } from "../../../models/brandingclasses";
 import { BaseComponent } from "../../base.component";
 
-@Component({
+@
+Component({
 	selector: 'branding-container',
 	template: require('./brandingcontainer.component.html'),
 	styles: [require('./brandingcontainer.component.css')]
@@ -20,7 +21,7 @@ export class BrandingContainerComponent extends BaseComponent implements OnInit 
 	cs = this.changeSection.bind(this);
 
 	constructor(public brandingService: BrandingService, public shareService: ShareService) {
-		super(shareService, 'Customise my app', true);
+		super(shareService, '', true);
 	}
 
 	ngOnInit() {
@@ -52,10 +53,11 @@ export class BrandingContainerComponent extends BaseComponent implements OnInit 
 			if (!this.brandingSections)
 				this.brandingSections = this.brandingConfigurations[0].brandingElements;
 			this.brandingOptions = this.brandingConfigurations[0].brandingOptions;
+
 			for (let i = 0; i < this.brandingSections.length; i++) {
 				this.brandingSections[i] = new BrandingElement(this.brandingSections[i]);
-				if (this.brandSectionNames.indexOf(this.brandingSections[i].groupName) > -1) continue;
-				this.brandSectionNames.push(this.brandingSections[i].groupName);
+				if (this.brandSectionNames.indexOf(this.brandingSections[i].groupName.split('>')[0]) > -1) continue;
+				this.brandSectionNames.push(this.brandingSections[i].groupName.split('>')[0]);
 			}
 
 			if (this.brandSectionNames.length > 0) {
@@ -69,14 +71,17 @@ export class BrandingContainerComponent extends BaseComponent implements OnInit 
 							onClickParams: this.brandSectionNames[i]
 						}));
 				}
-				this.shareService.updateMainNavMenu(menu);
+				this.shareService.updateMainNavMenu(menu, "Customise my app");
+				this.updateAppTheme('light-theme');
 				this.changeSection(this.brandSectionNames[0]);
 			}
 		});
 	}
 
-changeSection(brandingSection) {
+	changeSection(brandingSection) {
+		console.log(this.brandingOptions);
 	  this.activeBrandingSections = null;
-	  this.activeBrandingSections = this.brandingSections.filter(x => x.groupName === brandingSection);
+	  this.activeBrandingSections = this.brandingSections.filter(x => x.groupName.split('>')[0] === brandingSection);
+	  this.updatePageTitle(brandingSection);
   }
 }

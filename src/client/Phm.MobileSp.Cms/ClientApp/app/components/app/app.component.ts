@@ -16,9 +16,14 @@ import {BrandingService} from "../../services/brandingservice";
 export class AppComponent {
     public pageTitle: string;
     public marketDropdownIsVisible: boolean;
-    public backButtonText: string;
+	public backButtonText: string;
+	public appTheme: string = '';
 
     constructor(private sharedService: ShareService) {
+
+		sharedService.appThemeUpdated.subscribe((appTheme) => {
+			this.setAppTheme(appTheme);
+		});
 
         sharedService.pageTitleUpdated.subscribe((pageTitle) => {
             this.setPageTitle(pageTitle);
@@ -41,9 +46,14 @@ export class AppComponent {
         this.backButtonText = value;
     }
 
-    setMarketDropdownVisibility(value) {
-        this.marketDropdownIsVisible = value;
-    }
+	setMarketDropdownVisibility(value) {
+		this.marketDropdownIsVisible = value;
+	}
+
+	setAppTheme(value) {
+		this.appTheme = value;
+		console.log(value, this.appTheme);
+	}
 
     goBack() {
         this.sharedService.goBackEvent.emit();

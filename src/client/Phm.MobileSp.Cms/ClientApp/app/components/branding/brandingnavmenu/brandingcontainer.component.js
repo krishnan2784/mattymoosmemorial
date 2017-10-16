@@ -28,7 +28,7 @@ var base_component_1 = require("../../base.component");
 var BrandingContainerComponent = (function (_super) {
     __extends(BrandingContainerComponent, _super);
     function BrandingContainerComponent(brandingService, shareService) {
-        var _this = _super.call(this, shareService, 'Customise my app', true) || this;
+        var _this = _super.call(this, shareService, '', true) || this;
         _this.brandingService = brandingService;
         _this.shareService = shareService;
         _this.brandSectionNames = [];
@@ -68,9 +68,9 @@ var BrandingContainerComponent = (function (_super) {
             _this.brandingOptions = _this.brandingConfigurations[0].brandingOptions;
             for (var i = 0; i < _this.brandingSections.length; i++) {
                 _this.brandingSections[i] = new brandingclasses_1.BrandingElement(_this.brandingSections[i]);
-                if (_this.brandSectionNames.indexOf(_this.brandingSections[i].groupName) > -1)
+                if (_this.brandSectionNames.indexOf(_this.brandingSections[i].groupName.split('>')[0]) > -1)
                     continue;
-                _this.brandSectionNames.push(_this.brandingSections[i].groupName);
+                _this.brandSectionNames.push(_this.brandingSections[i].groupName.split('>')[0]);
             }
             if (_this.brandSectionNames.length > 0) {
                 var menu = [];
@@ -81,14 +81,17 @@ var BrandingContainerComponent = (function (_super) {
                         onClickParams: _this.brandSectionNames[i]
                     }));
                 }
-                _this.shareService.updateMainNavMenu(menu);
+                _this.shareService.updateMainNavMenu(menu, "Customise my app");
+                _this.updateAppTheme('light-theme');
                 _this.changeSection(_this.brandSectionNames[0]);
             }
         });
     };
     BrandingContainerComponent.prototype.changeSection = function (brandingSection) {
+        console.log(this.brandingOptions);
         this.activeBrandingSections = null;
-        this.activeBrandingSections = this.brandingSections.filter(function (x) { return x.groupName === brandingSection; });
+        this.activeBrandingSections = this.brandingSections.filter(function (x) { return x.groupName.split('>')[0] === brandingSection; });
+        this.updatePageTitle(brandingSection);
     };
     return BrandingContainerComponent;
 }(base_component_1.BaseComponent));

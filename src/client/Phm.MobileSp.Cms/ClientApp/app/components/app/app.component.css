@@ -79,3 +79,12 @@ html, a, p, span, div, input, td, li, h1, h2, h3, h4, h5 {
 .back-button a:hover {
     text-decoration: none;
 }
+.light-theme .page-title {
+	color: #3E3E3E!important;
+}
+.light-theme .nav-col {
+	background-color: #E7EDEB!important;
+}
+.light-theme .content-col {
+	background-color: #B5BBB9;
+}

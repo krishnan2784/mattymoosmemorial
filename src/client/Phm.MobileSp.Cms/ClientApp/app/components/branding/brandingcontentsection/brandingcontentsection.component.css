@@ -224,3 +224,15 @@ b
 .dropdown-content > li > a{
     padding-right: 10px;
 }
+.preview-col {
+	padding: 0;
+}
+.value-col {
+	background-color: #fff;
+}
+.subgroup-container {
+	background-color: #E7EDEB;
+}
+.btn-primary {
+	margin: -10px 0 10px;
+}

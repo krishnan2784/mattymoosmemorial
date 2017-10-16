@@ -22,7 +22,6 @@ var BrandingOptionPickerComponent = (function () {
     BrandingOptionPickerComponent.prototype.ngOnInit = function () {
         if (this.elementId == '')
             this.elementId = this.formControlId;
-        console.log(this.form.controls[this.formControlId].value, this.options);
     };
     BrandingOptionPickerComponent.prototype.ngAfterViewInit = function () {
     };

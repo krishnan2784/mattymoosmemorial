@@ -23,12 +23,19 @@ export class ShareService {
     public currentMarket: UserMarket = new UserMarket;
     public currentMarketId: number = this.currentMarket.id;
 
-    private pageTitleUpdate = new Subject<string>();
-    pageTitleUpdated = this.pageTitleUpdate.asObservable();
+	private pageTitleUpdate = new Subject<string>();
+	pageTitleUpdated = this.pageTitleUpdate.asObservable();
 
-    public updatePageTitle(pageTitle: string) {
-        this.pageTitleUpdate.next(pageTitle);
-    }
+	public updatePageTitle(pageTitle: string) {
+		this.pageTitleUpdate.next(pageTitle);
+	}
+
+	private appThemeUpdate = new Subject<string>();
+	appThemeUpdated = this.appThemeUpdate.asObservable();
+
+	public updateAppTheme(appTheme: string) {
+		this.appThemeUpdate.next(appTheme);
+	}
 
     private backButtonUpdate = new Subject<string>();
     backButtonUpdated = this.backButtonUpdate.asObservable();
@@ -82,10 +89,10 @@ export class ShareService {
     }    
 
 
-    private mainNavUpdate = new Subject<NavMenuOption[]>();
+    private mainNavUpdate = new Subject<[NavMenuOption[],string]>();
     mainNavUpdated = this.mainNavUpdate.asObservable();
 
-    public updateMainNavMenu(navItems: NavMenuOption[]) {
-      this.mainNavUpdate.next(navItems);
+    public updateMainNavMenu(navItems: NavMenuOption[], backText: string = null) {
+      this.mainNavUpdate.next([navItems, backText]);
   }    
 }

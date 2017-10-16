@@ -1,8 +1,14 @@
 .branding-element {
 	background-color: #fff;
-	margin: 15px 0;
 	padding: 15px;
 }
 .col-md-8 {
 	padding: 0;
+}
+p {
+	display: inline-block;
+	margin-top: 10px;
+}
+colourpicker, fontpicker, brandingoptionpicker, upload {
+	float: right;
 }

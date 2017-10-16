@@ -30,7 +30,6 @@ export class BrandingOptionPickerComponent implements OnInit, AfterViewInit {
 	ngOnInit() {
         if (this.elementId == '')
             this.elementId = this.formControlId;
-		console.log(this.form.controls[this.formControlId].value, this.options);
 	}
     ngAfterViewInit() {
 

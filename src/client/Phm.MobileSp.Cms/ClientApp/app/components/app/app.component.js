@@ -21,6 +21,10 @@ var AppComponent = (function () {
     function AppComponent(sharedService) {
         var _this = this;
         this.sharedService = sharedService;
+        this.appTheme = '';
+        sharedService.appThemeUpdated.subscribe(function (appTheme) {
+            _this.setAppTheme(appTheme);
+        });
         sharedService.pageTitleUpdated.subscribe(function (pageTitle) {
             _this.setPageTitle(pageTitle);
         });
@@ -39,6 +43,10 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.setMarketDropdownVisibility = function (value) {
         this.marketDropdownIsVisible = value;
+    };
+    AppComponent.prototype.setAppTheme = function (value) {
+        this.appTheme = value;
+        console.log(value, this.appTheme);
     };
     AppComponent.prototype.goBack = function () {
         this.sharedService.goBackEvent.emit();

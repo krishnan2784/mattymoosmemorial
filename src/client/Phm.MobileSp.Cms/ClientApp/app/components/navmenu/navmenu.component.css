@@ -27,18 +27,18 @@ li:not(.link-active) a:focus,
 .navbar ul > li.link-active > a,
 .navbar ul > li.link-active > a:hover,
 .navbar ul > li.link-active > a:focus{
-    background-color: #EDEDED!important;
-    color: #3E3E3E!important;
+    background-color: #EDEDED;
+    color: #3E3E3E;
 }
-b
 
-
-.navbar-nav li {
+/*.navbar-nav li {
     margin: 0!important;
     border-top: 1px #3E3E3E solid;
     border-bottom: 1px #3E3E3E solid;
+}*/
+.navbar-brand:hover, .navbar-brand span:hover, .navbar-brand i:hover , .navbar-brand h5:hover {
+	cursor: pointer;
 }
-
  .navbar-brand {
      padding-top: 20px;
      background-color: white;
@@ -225,9 +225,28 @@ b
     padding-right: 10px;
 }
 .back-container {
-	margin-top: -10px;
+	margin-top: 40px;
 }
 .back-text {
 	position: relative;
 	top: -6px;
+}
+
+:host-context(.light-theme) .nav-col, :host-context(.light-theme) .footer, 
+:host-context(.light-theme) .nav-container {
+	background-color: #E7EDEB!important;
+}
+:host-context(.light-theme) .nav-container li:not(.link-active) a:hover,
+:host-context(.light-theme) .nav-container li:not(.link-active) a:focus,
+:host-context(.light-theme) .nav-container .navbar ul > li.link-active > a,
+:host-context(.light-theme) .nav-container .navbar ul > li.link-active > a:hover,
+:host-context(.light-theme) .nav-container .navbar ul > li.link-active > a:focus{
+	background-color: #FFFFFF!important;
+	font-weight: 600!important;
+}
+:host-context(.light-theme) .main-nav .navbar-nav li, 
+:host-context(.light-theme) .main-nav .navbar-nav li a {
+	color: #3E3E3E!important;
+	font-weight: 400!important;
+
 }

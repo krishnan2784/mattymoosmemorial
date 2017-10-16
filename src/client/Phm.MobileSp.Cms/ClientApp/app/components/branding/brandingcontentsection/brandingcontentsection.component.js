@@ -21,6 +21,7 @@ var BrandingContentSectionComponent = (function () {
     }
     BrandingContentSectionComponent.prototype.ngOnInit = function () {
         this.addFormControls();
+        this.calculateSubGroups();
     };
     BrandingContentSectionComponent.prototype.ngOnDestroy = function () {
         this.removeFormControls();
@@ -29,6 +30,7 @@ var BrandingContentSectionComponent = (function () {
         if (changes['models']) {
             this.removeFormControls();
             this.addFormControls();
+            this.calculateSubGroups();
         }
     };
     BrandingContentSectionComponent.prototype.addFormControls = function () {
@@ -50,6 +52,21 @@ var BrandingContentSectionComponent = (function () {
             primaryImageId: new forms_1.FormControl(model.primaryImageId, []),
             secondaryImageId: new forms_1.FormControl(model.secondaryImageId, [])
         });
+    };
+    BrandingContentSectionComponent.prototype.calculateSubGroups = function () {
+        this.subGroups = [];
+        for (var i = 0; i < this.models.length; i++) {
+            this.addSubGroup(this.models[i]);
+        }
+    };
+    BrandingContentSectionComponent.prototype.addSubGroup = function (element) {
+        var a = element.groupName.split('>');
+        var n = (a.length > 1 ? a[1] : element.description);
+        var m = this.subGroups.find(function (x) { return x[0] === n; });
+        if (m)
+            m[1].push(element);
+        else
+            this.subGroups.push([n, [element]]);
     };
     BrandingContentSectionComponent.prototype.save = function (form, isValid) {
         var _this = this;

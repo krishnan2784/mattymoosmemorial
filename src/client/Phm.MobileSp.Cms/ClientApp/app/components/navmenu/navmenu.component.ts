@@ -11,11 +11,13 @@ import {NavMenuOption} from "../../models/navmenuclasses";
 })
 export class NavMenuComponent implements OnInit{
     currentMenuOptions: NavMenuOption[] = [];
-    baseMenuOptions: NavMenuOption[] = [];
+	baseMenuOptions: NavMenuOption[] = [];
+	backText = null;
 	constructor(public shareService: ShareService) { //, public navigationService: any
 		this.shareService.mainNavUpdated.subscribe(navMenu => {
-        this.currentMenuOptions = navMenu;
-      });
+			this.currentMenuOptions = navMenu[0];
+			this.backText = navMenu[1];
+		});
     }
 
     ngOnInit() {
@@ -33,7 +35,8 @@ export class NavMenuComponent implements OnInit{
       this.resetNavMenu();
     }
     resetNavMenu() {
-      this.currentMenuOptions = this.baseMenuOptions;
+		this.currentMenuOptions = this.baseMenuOptions;
+	    this.shareService.updateAppTheme('');
 	}
 	setActiveMenu(index) {
 		this.currentMenuOptions.forEach((x) => x.activeLink = false);
