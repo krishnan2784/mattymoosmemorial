@@ -11,8 +11,8 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 
 		public async Task<dynamic> GetBrandingConfigurationsAsync(int marketId)
 		{
-			//var response = await GetAsync(marketId);
-			var response = await GetAsync();
+			var response = await GetAsync(new {marketId});
+			//var response = await GetAsync();
 			return GetResponseModel<dynamic>(response);
 		}
 

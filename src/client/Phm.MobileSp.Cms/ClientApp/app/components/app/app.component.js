@@ -46,7 +46,6 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.setAppTheme = function (value) {
         this.appTheme = value;
-        console.log(value, this.appTheme);
     };
     AppComponent.prototype.goBack = function () {
         this.sharedService.goBackEvent.emit();
@@ -58,7 +57,9 @@ AppComponent = __decorate([
         selector: 'app',
         template: require('./app.component.html'),
         styles: [require('./app.component.css')],
-        providers: [feeddataservice_1.FeedDataService, marketdataservice_1.MarketDataService, shareservice_1.ShareService, userdataservice_1.UserDataService, MediaDataService, brandingservice_1.BrandingService]
+        providers: [feeddataservice_1.FeedDataService, marketdataservice_1.MarketDataService,
+            shareservice_1.ShareService, userdataservice_1.UserDataService,
+            MediaDataService, brandingservice_1.BrandingService]
     }),
     __metadata("design:paramtypes", [shareservice_1.ShareService])
 ], AppComponent);

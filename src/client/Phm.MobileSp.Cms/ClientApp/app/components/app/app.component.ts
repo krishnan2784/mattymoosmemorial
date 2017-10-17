@@ -11,7 +11,9 @@ import {BrandingService} from "../../services/brandingservice";
     selector: 'app',
     template: require('./app.component.html'),
     styles: [require('./app.component.css')],
-    providers: [FeedDataService, MarketDataService, ShareService, UserDataService, MediaDataService, BrandingService]
+	providers: [FeedDataService, MarketDataService,
+		ShareService, UserDataService,
+		MediaDataService, BrandingService]
 })
 export class AppComponent {
     public pageTitle: string;
@@ -52,7 +54,6 @@ export class AppComponent {
 
 	setAppTheme(value) {
 		this.appTheme = value;
-		console.log(value, this.appTheme);
 	}
 
     goBack() {

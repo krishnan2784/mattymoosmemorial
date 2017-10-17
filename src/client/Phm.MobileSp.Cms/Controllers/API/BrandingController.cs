@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -24,7 +25,8 @@ namespace Phm.MobileSp.Cms.Controllers.API
         
         [HttpGet("[action]")]
         [JsonResponseWrapper]
-        public async Task<JsonResult> Get()
+        [ResponseCache(CacheProfileName = "NoCache")]
+		public async Task<JsonResult> Get()
         {
             var response = await _brandingConfigRepo.GetBrandingConfigurationsAsync(CurrentMarketId);
             return Json(new BaseResponse<dynamic>(response));
@@ -35,7 +37,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
         public async Task<JsonResult> Update([FromBody]List<BrandingElement> brandingElements)
         {
             var response = await _brandingConfigRepo.UpdateBrandingConfigurationsAsync(brandingElements);
-	        var success = response?.Count != null && response.Count == brandingElements.Count;
+	        var success = response != null && Convert.ToInt32(response) == brandingElements.Count;
             return Json(new BaseResponse<dynamic>(success, success ? "Branding was successfully updated." : "Failed to update branding. Please try again.", response));
         }
 

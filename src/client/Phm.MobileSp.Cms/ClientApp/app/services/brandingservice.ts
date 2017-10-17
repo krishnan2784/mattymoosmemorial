@@ -19,7 +19,7 @@ export class BrandingService extends RequestHelper implements IBrandingService, 
         super(http);
     }
 
-	public getBranding(): Observable<BaseBrandingConfiguration[]> {
+	public getBranding(): Observable<{brandingConfigurations: BaseBrandingConfiguration[], brandingOptions: any}> {
       return this.getRequestBase('/api/Branding/Get');
     }
 

@@ -17,7 +17,8 @@ export class BrandingContainerComponent extends BaseComponent implements OnInit 
 	activeBrandingSections: BrandingElement[];
 	brandingOptions: BrandingConfigurationOption[];
 	brandSectionNames: string[] = [];
-	disabled: boolean = !(this.shareService.currentMarket.id === 1); // enable for ford global market by default (crude, but we don't have any other global flag)
+	disabled: boolean = false; 
+	marketBranding: boolean = false;
 	cs = this.changeSection.bind(this);
 
 	constructor(public brandingService: BrandingService, public shareService: ShareService) {
@@ -27,8 +28,10 @@ export class BrandingContainerComponent extends BaseComponent implements OnInit 
 	ngOnInit() {
 		this.getBranding();
 		this.shareService.marketUpdated.subscribe(result => {
+			this.brandingConfigurations = null;
+			this.brandingSections = null;
 			this.activeBrandingSections = null;
-			this.disabled = !(result.id === 1);
+			this.brandingOptions = null;
 			this.getBranding();
 		});
 	}
@@ -38,21 +41,25 @@ export class BrandingContainerComponent extends BaseComponent implements OnInit 
 			this.brandingConfigurations = [];
 			if (!result)
 				return;
-			if (Array.isArray(result))
-				this.brandingConfigurations = result;
+			if (Array.isArray(result.brandingConfigurations))
+				this.brandingConfigurations = result.brandingConfigurations;
 			else
-				this.brandingConfigurations.push(new BaseBrandingConfiguration(result));
-			if (this.brandingConfigurations.length > 1) {
-				let marketConfig = this.brandingConfigurations.find(x => (new MarketBrandingConfiguration(x)).marketId !== null);
-				if (marketConfig) {
-					this.brandingSections =
-						this.brandingConfigurations[this.brandingConfigurations.indexOf(marketConfig)].brandingElements;
-					this.disabled = false;
-				}
-			}
-			if (!this.brandingSections)
+				this.brandingConfigurations.push(new BaseBrandingConfiguration(result.brandingConfigurations));
+			this.brandingOptions = result.brandingOptions;
+
+			let marketConfig = this.brandingConfigurations.find(x => (new MarketBrandingConfiguration(x)).marketId > 0);
+
+			if (marketConfig != null) {
+				this.brandingSections =
+					this.brandingConfigurations[this.brandingConfigurations.indexOf(marketConfig)].brandingElements;
+				this.disabled = false;
+				this.marketBranding = true;
+			} else
+				this.marketBranding = false;
+			//	this.disabled = this.shareService.currentMarket.id > 1;
+
+			if (this.brandingSections == null)
 				this.brandingSections = this.brandingConfigurations[0].brandingElements;
-			this.brandingOptions = this.brandingConfigurations[0].brandingOptions;
 
 			for (let i = 0; i < this.brandingSections.length; i++) {
 				this.brandingSections[i] = new BrandingElement(this.brandingSections[i]);
@@ -79,7 +86,6 @@ export class BrandingContainerComponent extends BaseComponent implements OnInit 
 	}
 
 	changeSection(brandingSection) {
-		console.log(this.brandingOptions);
 	  this.activeBrandingSections = null;
 	  this.activeBrandingSections = this.brandingSections.filter(x => x.groupName.split('>')[0] === brandingSection);
 	  this.updatePageTitle(brandingSection);

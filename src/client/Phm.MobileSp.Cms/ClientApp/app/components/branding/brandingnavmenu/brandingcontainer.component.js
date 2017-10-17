@@ -32,7 +32,8 @@ var BrandingContainerComponent = (function (_super) {
         _this.brandingService = brandingService;
         _this.shareService = shareService;
         _this.brandSectionNames = [];
-        _this.disabled = !(_this.shareService.currentMarket.id === 1); // enable for ford global market by default (crude, but we don't have any other global flag)
+        _this.disabled = false;
+        _this.marketBranding = false;
         _this.cs = _this.changeSection.bind(_this);
         return _this;
     }
@@ -40,8 +41,10 @@ var BrandingContainerComponent = (function (_super) {
         var _this = this;
         this.getBranding();
         this.shareService.marketUpdated.subscribe(function (result) {
+            _this.brandingConfigurations = null;
+            _this.brandingSections = null;
             _this.activeBrandingSections = null;
-            _this.disabled = !(result.id === 1);
+            _this.brandingOptions = null;
             _this.getBranding();
         });
     };
@@ -51,21 +54,23 @@ var BrandingContainerComponent = (function (_super) {
             _this.brandingConfigurations = [];
             if (!result)
                 return;
-            if (Array.isArray(result))
-                _this.brandingConfigurations = result;
+            if (Array.isArray(result.brandingConfigurations))
+                _this.brandingConfigurations = result.brandingConfigurations;
             else
-                _this.brandingConfigurations.push(new brandingclasses_1.BaseBrandingConfiguration(result));
-            if (_this.brandingConfigurations.length > 1) {
-                var marketConfig = _this.brandingConfigurations.find(function (x) { return (new brandingclasses_1.MarketBrandingConfiguration(x)).marketId !== null; });
-                if (marketConfig) {
-                    _this.brandingSections =
-                        _this.brandingConfigurations[_this.brandingConfigurations.indexOf(marketConfig)].brandingElements;
-                    _this.disabled = false;
-                }
+                _this.brandingConfigurations.push(new brandingclasses_1.BaseBrandingConfiguration(result.brandingConfigurations));
+            _this.brandingOptions = result.brandingOptions;
+            var marketConfig = _this.brandingConfigurations.find(function (x) { return (new brandingclasses_1.MarketBrandingConfiguration(x)).marketId > 0; });
+            if (marketConfig != null) {
+                _this.brandingSections =
+                    _this.brandingConfigurations[_this.brandingConfigurations.indexOf(marketConfig)].brandingElements;
+                _this.disabled = false;
+                _this.marketBranding = true;
             }
-            if (!_this.brandingSections)
+            else
+                _this.marketBranding = false;
+            //	this.disabled = this.shareService.currentMarket.id > 1;
+            if (_this.brandingSections == null)
                 _this.brandingSections = _this.brandingConfigurations[0].brandingElements;
-            _this.brandingOptions = _this.brandingConfigurations[0].brandingOptions;
             for (var i = 0; i < _this.brandingSections.length; i++) {
                 _this.brandingSections[i] = new brandingclasses_1.BrandingElement(_this.brandingSections[i]);
                 if (_this.brandSectionNames.indexOf(_this.brandingSections[i].groupName.split('>')[0]) > -1)
@@ -88,7 +93,6 @@ var BrandingContainerComponent = (function (_super) {
         });
     };
     BrandingContainerComponent.prototype.changeSection = function (brandingSection) {
-        console.log(this.brandingOptions);
         this.activeBrandingSections = null;
         this.activeBrandingSections = this.brandingSections.filter(function (x) { return x.groupName.split('>')[0] === brandingSection; });
         this.updatePageTitle(brandingSection);

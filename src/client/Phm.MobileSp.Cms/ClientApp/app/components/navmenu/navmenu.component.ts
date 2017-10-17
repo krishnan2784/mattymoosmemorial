@@ -13,7 +13,7 @@ export class NavMenuComponent implements OnInit{
     currentMenuOptions: NavMenuOption[] = [];
 	baseMenuOptions: NavMenuOption[] = [];
 	backText = null;
-	constructor(public shareService: ShareService) { //, public navigationService: any
+	constructor(public shareService: ShareService) { //, public securityService: any
 		this.shareService.mainNavUpdated.subscribe(navMenu => {
 			this.currentMenuOptions = navMenu[0];
 			this.backText = navMenu[1];
@@ -21,7 +21,7 @@ export class NavMenuComponent implements OnInit{
     }
 
     ngOnInit() {
-      //this.navigationService.getNavigationMenu(result => {
+      //this.securityService.getNavigationMenu(result => {
       //  this.baseMenuOptions = result;
       //  this.shareService.updateMainNavMenu(result);
       //});

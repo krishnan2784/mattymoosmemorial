@@ -1,8 +1,11 @@
 <div class="loader" *ngIf="!activeBrandingSections"></div>
 <div class="branding-container animate-bottom" *ngIf="activeBrandingSections">
+	<h5 *ngIf="!marketBranding">
+		This market does not contain a branding configuration and is using the default brand settings. <br /><br />
+		Any changes made here will affect all markets which share this brand.
+	</h5>
 	<h5 *ngIf="disabled">
-		This market does not contain a branding configuration and is using the global settings. <br /><br />
-		To change the settings for this market switch to the global market and copy the configuration to this market.
+		Changes to the branding of this market are disabled. If you would like to request a change please contact your NSC.
 	</h5>
 	<branding-section [models]="activeBrandingSections" [disabled]="disabled" [brandingOptions]="brandingOptions"></branding-section>
 </div>

@@ -2,6 +2,6 @@
 import {BaseBrandingConfiguration, BrandingElement } from "../../models/brandingclasses";
 
 export interface IBrandingService {
-	getBranding(): Observable<BaseBrandingConfiguration[]>;
+	getBranding(): Observable<{ brandingConfigurations: BaseBrandingConfiguration[], brandingOptions: any }>;
 	updateBranding(brandingElements: BrandingElement[]): Observable<BrandingElement[]>;
 }

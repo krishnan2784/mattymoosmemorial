@@ -25,7 +25,7 @@ var NavMenuComponent = (function () {
         });
     }
     NavMenuComponent.prototype.ngOnInit = function () {
-        //this.navigationService.getNavigationMenu(result => {
+        //this.securityService.getNavigationMenu(result => {
         //  this.baseMenuOptions = result;
         //  this.shareService.updateMainNavMenu(result);
         //});
