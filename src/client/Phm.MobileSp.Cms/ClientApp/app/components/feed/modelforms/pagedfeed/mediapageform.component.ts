@@ -36,8 +36,10 @@ export class MediaPageFormComponent implements OnInit, OnDestroy {
         this.removeFormControls();
     }
 
-    addFormControls() {
-        this.form.addControl('mediaInfoId', new FormControl(this.model.mediaInfoId, [<any>Validators.required]));
+	addFormControls() {
+		setTimeout(() => {
+			this.form.addControl('mediaInfoId', new FormControl(this.model.mediaInfoId, [<any>Validators.required]));
+		}, 10);
     };
 
     removeFormControls() {

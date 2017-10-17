@@ -23,7 +23,10 @@ var MediaPageFormComponent = (function () {
         this.removeFormControls();
     };
     MediaPageFormComponent.prototype.addFormControls = function () {
-        this.form.addControl('mediaInfoId', new forms_1.FormControl(this.model.mediaInfoId, [forms_1.Validators.required]));
+        var _this = this;
+        setTimeout(function () {
+            _this.form.addControl('mediaInfoId', new forms_1.FormControl(_this.model.mediaInfoId, [forms_1.Validators.required]));
+        }, 10);
     };
     ;
     MediaPageFormComponent.prototype.removeFormControls = function () {
