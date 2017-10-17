@@ -239,10 +239,10 @@
             
             <upload (mediaUploaded)="attachMedia($event, 'mainIcon')" (mediaUploading)="loading=$event" 
                     [selectedMedia]="model.mainIcon" [enforceExactDimensions]="true" 
-                    [maxWidth]="640" [maxHeight]="320" [uploaderType]="uploaderTypes.Image" [title]="'Preview Image'" 
+                    [maxWidth]="1280" [maxHeight]="640" [uploaderType]="uploaderTypes.Image" [title]="'Preview Image'" 
                     [uploadUrl]="'/Media/UploadFeedItemIcon'" [previewText]="'Icon Preview'"></upload>
             <small class="active-warning" [class.hidden]="form.controls.mainIconId.valid || !submitted">
-                Please upload an image with a resolution of 640 x 320px.
+                Please upload an image with a resolution of 1280 x 640px.
             </small>
         </div>
 
