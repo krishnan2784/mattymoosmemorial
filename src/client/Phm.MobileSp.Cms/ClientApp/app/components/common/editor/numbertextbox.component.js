@@ -38,7 +38,7 @@ var NumberTextInputComponent = (function () {
         var success;
         if (e.key === '.') {
             if (!this.allowFractions || this.hasPoint || currValue.length === 0) {
-                event.preventDefault();
+                e.preventDefault();
                 return;
             }
             this.hasPoint = true;
@@ -49,7 +49,7 @@ var NumberTextInputComponent = (function () {
             success = char.match(/[0-9]/);
         }
         if (!success) {
-            event.preventDefault();
+            e.preventDefault();
         }
     };
     return NumberTextInputComponent;

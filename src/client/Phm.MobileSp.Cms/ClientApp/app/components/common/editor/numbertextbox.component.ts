@@ -40,10 +40,10 @@ export class NumberTextInputComponent implements OnInit {
       let char = e.key,
         currValue = this.form && this.form.controls[this.formControlId]
           && this.form.controls[this.formControlId].value ? this.form.controls[this.formControlId].value.toString() : '';
-      var success;
+	  var success;
       if (e.key === '.') {
         if (!this.allowFractions || this.hasPoint || currValue.length === 0) {
-          event.preventDefault();
+          e.preventDefault();
           return;
         }
         this.hasPoint = true;
@@ -53,7 +53,7 @@ export class NumberTextInputComponent implements OnInit {
         success = char.match(/[0-9]/);
       }
       if (!success) {
-          event.preventDefault();
+          e.preventDefault();
       } 
     }
 }
