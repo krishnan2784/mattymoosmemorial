@@ -237,12 +237,15 @@
                         [maxLength]="5"></taginputbox>
 
             
-            <upload (mediaUploaded)="attachMedia($event, 'mainIcon')" (mediaUploading)="loading=$event" 
-                    [selectedMedia]="model.mainIcon" [enforceExactDimensions]="true" 
-                    [maxWidth]="1280" [maxHeight]="640" [uploaderType]="uploaderTypes.Image" [title]="'Preview Image'" 
-                    [uploadUrl]="'/Media/UploadFeedItemIcon'" [previewText]="'Icon Preview'"></upload>
-            <small class="active-warning" [class.hidden]="form.controls.mainIconId.valid || !submitted">
-                Please upload an image with a resolution of 1280 x 640px.
+	        <upload (mediaUploaded)="attachMedia($event, 'mainIcon')" (mediaUploading)="loading=$event" 
+	                [selectedMedia]="model.mainIcon" [enforceExactDimensions]="true" 
+	                [maxWidth]="1280" [maxHeight]="640" [uploaderType]="uploaderTypes.Image" [title]="'Preview Image'" 
+	                [uploadUrl]="'/Media/UploadFeedItemIcon'" [previewText]="'Icon Preview'"></upload>
+	        <small class="active-warning" [class.hidden]="form.controls.mainIconId.valid || !submitted">
+		        Please upload an image with a resolution of 1280 x 640px.
+	        </small>
+            <small [class.hidden]="!form.controls.mainIconId.valid && submitted">
+                Image must have a resolution of 1280 x 640px.
             </small>
         </div>
 
@@ -297,12 +300,12 @@
     <upload (mediaUploaded)="attachMedia($event, '')" (mediaUploading)="loading=$event" *ngIf="model.id == 0" [title]="'Upload an image or video'"></upload>
 
     <upload (mediaUploaded)="attachMedia($event, 'mainImage')" (mediaUploading)="loading=$event"
-            [uploaderType]="model.id > 0 ? uploaderTypes.Image : uploaderTypes.Any" 
+            [uploaderType]="uploaderTypes.Image" 
             [selectedMedia]="model.mainImage" *ngIf="model.feedType == feedTypes.Image && model.id > 0" [title]="'Upload an image'"
             [previewText]="'Main Image Preview'"></upload>
 
     <upload (mediaUploaded)="attachMedia($event, 'mainVideo')" (mediaUploading)="loading=$event"
-            [uploaderType]="model.id > 0 ? uploaderTypes.Video : uploaderTypes.Any" 
+            [uploaderType]="uploaderTypes.Video" 
             [selectedMedia]="model.mainVideo" *ngIf="model.feedType == feedTypes.Video && model.id > 0" [title]="'Upload a video'"
             [previewText]="'Video Preview'"></upload>
 
