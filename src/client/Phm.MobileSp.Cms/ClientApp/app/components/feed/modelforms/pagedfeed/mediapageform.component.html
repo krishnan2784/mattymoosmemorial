@@ -1,4 +1,4 @@
-<div [formGroup]="form" *ngIf="this.model">
+<div [formGroup]="form" *ngIf="this.model && this.form.controls['mediaInfoId']">
     <input type="hidden" formControlName="mediaInfoId">
         <upload (mediaUploaded)="attachMedia($event)" (mediaUploading)="mediaUploading.emit($event)"
                 [title]="'Upload an image or video'" [selectedMedia]="model.mediaInfo" [previewText]="'Media Preview'"></upload>

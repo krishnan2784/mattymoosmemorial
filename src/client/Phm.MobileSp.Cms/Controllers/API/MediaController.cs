@@ -46,12 +46,12 @@ namespace Phm.MobileSp.Cms.Controllers.API
 
             using (Image temp = new Image(file.OpenReadStream()))
             {
-                if (temp.Height != 320 || temp.Width != 640)
+                if (temp.Height != 640 || temp.Width != 1280)
                     return Json(new BaseResponse<MediaInfo>(false, "The uploaded image is not the correct size.", new MediaInfo()));
             }
 
             var index = file.FileName.LastIndexOf(".", StringComparison.Ordinal);
-            var fileName = file.FileName.Remove(index, 1).Insert(index, "@3x.");
+            var fileName = file.FileName.Remove(index, 1).Insert(index, "@2x.");
 
             var markets = await _marketRepository.GetMarketsAsync();
             var response = await _mediaRepository.UploadPreviewImage(file, fileName, markets.FirstOrDefault(x => x.Id == CurrentMarketId));
