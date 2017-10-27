@@ -61,7 +61,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
                 SessionGuid = response.SessionGUID.ToObject<string>(),
                 UserDetails = response.CurrentUser.ToObject<MLearningUser>()
             };
-            return user; ;
+            return user;
         }
         
         public async Task<dynamic> GetCurrentUser() {

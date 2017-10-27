@@ -2,7 +2,8 @@
     margin:30px 0;
 }
 .preview-container img{
-    width: 500px;
+    max-width: 100%;
+	float: right
 }
 .input-group-btn .btn-save{
     margin-top: 10px;

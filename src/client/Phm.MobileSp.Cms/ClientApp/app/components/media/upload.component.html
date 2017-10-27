@@ -22,9 +22,11 @@
     </span>
     <div *ngIf="showPreview" class="preview-container">
         <div *ngIf="imagePreviewUrl || videoPreviewUrl" >
-            <h5 class="col-md-4">{{previewText}}</h5>
-            <img *ngIf="imagePreviewUrl" src="{{imagePreviewUrl}}" class="col-md-8 preview-image" />
-            <video *ngIf="videoPreviewUrl" controls class="col-md-8 preview-image"><source src="{{videoPreviewUrl}}" type="video/mp4"></video>
+	        <h5 class="col-md-4">{{previewText}}</h5>
+	        <div class="col-md-8">
+				<img *ngIf="imagePreviewUrl" src="{{imagePreviewUrl}}" class="preview-image" />
+				<video *ngIf="videoPreviewUrl" controls class="preview-image"><source src="{{videoPreviewUrl}}" type="video/mp4"></video>		        
+	        </div>
             <div class="clearfix"></div>
             <hr />
         </div>
