@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {BrandingService} from "../../../services/brandingservice";
 import {ShareService} from "../../../services/helpers/shareservice";
 import {NavMenuOption} from "../../../models/navmenuclasses";
 import {BrandingElement, BaseBrandingConfiguration, MarketBrandingConfiguration, BrandingConfigurationOption } from "../../../models/brandingclasses";
 import { BaseComponent } from "../../base.component";
+import { Subscription } from "rxjs/Subscription";
 
 @
 Component({
@@ -11,7 +12,7 @@ Component({
 	template: require('./brandingcontainer.component.html'),
 	styles: [require('./brandingcontainer.component.css')]
 })
-export class BrandingContainerComponent extends BaseComponent implements OnInit {
+export class BrandingContainerComponent extends BaseComponent implements OnInit, OnDestroy {
 	brandingConfigurations: BaseBrandingConfiguration[];
 	brandingSections: BrandingElement[];
 	activeBrandingSections: BrandingElement[];
@@ -20,20 +21,24 @@ export class BrandingContainerComponent extends BaseComponent implements OnInit 
 	disabled: boolean = false; 
 	marketBranding: boolean = false;
 	cs = this.changeSection.bind(this);
-
+	marketSub: Subscription;
 	constructor(public brandingService: BrandingService, public shareService: ShareService) {
 		super(shareService, '', true);
 	}
 
 	ngOnInit() {
 		this.getBranding();
-		this.shareService.marketUpdated.subscribe(result => {
+		this.marketSub = this.shareService.marketUpdated.subscribe(result => {
 			this.brandingConfigurations = null;
 			this.brandingSections = null;
 			this.activeBrandingSections = null;
 			this.brandingOptions = null;
 			this.getBranding();
 		});
+	}
+
+	ngOnDestroy() {
+		this.marketSub.unsubscribe();
 	}
 
 	getBranding() {

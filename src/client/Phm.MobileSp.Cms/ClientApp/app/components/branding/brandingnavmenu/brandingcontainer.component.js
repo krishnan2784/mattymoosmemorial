@@ -40,13 +40,16 @@ var BrandingContainerComponent = (function (_super) {
     BrandingContainerComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.getBranding();
-        this.shareService.marketUpdated.subscribe(function (result) {
+        this.marketSub = this.shareService.marketUpdated.subscribe(function (result) {
             _this.brandingConfigurations = null;
             _this.brandingSections = null;
             _this.activeBrandingSections = null;
             _this.brandingOptions = null;
             _this.getBranding();
         });
+    };
+    BrandingContainerComponent.prototype.ngOnDestroy = function () {
+        this.marketSub.unsubscribe();
     };
     BrandingContainerComponent.prototype.getBranding = function () {
         var _this = this;
