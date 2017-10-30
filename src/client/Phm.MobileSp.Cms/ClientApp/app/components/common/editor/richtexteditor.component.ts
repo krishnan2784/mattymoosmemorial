@@ -75,7 +75,8 @@ export class RichTextEditorComponent implements OnInit, AfterViewInit, OnDestroy
                   this.toggleEdit(true);
               });
           editor.on('blur',
-              () => {
+			  () => {
+				  this.form.controls[this.formControlId].patchValue(editor.getContent(), {});
                   this.toggleEdit(false);
               });
           editor.on("init",

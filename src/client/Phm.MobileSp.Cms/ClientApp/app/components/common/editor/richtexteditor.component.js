@@ -60,6 +60,7 @@ var RichTextEditorComponent = (function () {
                     _this.toggleEdit(true);
                 });
                 editor.on('blur', function () {
+                    _this.form.controls[_this.formControlId].patchValue(editor.getContent(), {});
                     _this.toggleEdit(false);
                 });
                 editor.on("init", function (editor) {
