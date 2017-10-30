@@ -41,7 +41,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
         [HttpPost]
         public async Task<JsonResult> UploadFeedItemIcon(IFormFile file)
         {
-            if (file.ContentType != "image/png" && file.ContentType != "image/png" && file.ContentType != "image/png")
+            if (file.ContentType != "image/png" && file.ContentType != "image/jpeg")
                 return Json(new BaseResponse<MediaInfo>(false, "Preview images must be in Jpeg or Png format.", new MediaInfo()));
 
             using (Image temp = new Image(file.OpenReadStream()))
