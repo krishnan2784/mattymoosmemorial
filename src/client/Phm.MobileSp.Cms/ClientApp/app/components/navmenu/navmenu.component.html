@@ -1,9 +1,15 @@
 <div class="nav-container">
     <div class='navbar-header'>
-        <a class='navbar-brand' [routerLink]="['/home']">
-            <img src="assets/images/MobileSP-LOGO-Landscape.png" class="header-logo"/>
-            <p>LearnComSP</p>
-        </a>
+	    <a *ngIf="currentMenuOptions == baseMenuOptions" class='navbar-brand' [routerLink]="['/home']">
+		    <img src="assets/images/MobileSP-LOGO-Landscape.png" class="header-logo" />
+		    <p>LearnComSP</p>
+	    </a>
+	    <a *ngIf="currentMenuOptions != baseMenuOptions" class='navbar-brand' [routerLink]="['/home']" (click)="resetNavMenu()">
+		    <h5 class="back-container">
+			    <i class="material-icons">reply</i> <span class="back-text">{{backText}}</span>
+		    </h5>
+	    </a>
+
         <div class="header-content">
             <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
                 <span class='sr-only'>Toggle navigation</span>
@@ -19,7 +25,7 @@
             <div class='clearfix'></div>
             <div class='navbar-collapse collapse'>
                 
-                <a class='dropdown-button btn' data-activates='nav-bar-dropdown'>{{shareService.currentUser.email}} <i class="material-icons right">keyboard_arrow_down</i></a>
+                <a *ngIf="shareService.currentUser.email && currentMenuOptions == baseMenuOptions" class='dropdown-button btn' data-activates='nav-bar-dropdown'>{{shareService.currentUser.email}} <i class="material-icons right">keyboard_arrow_down</i></a>
                 <ul id='nav-bar-dropdown' class='dropdown-content'>
                     <li>
                         <a data-activates='nav-bar-dropdown'>{{shareService.currentUser.email}} <i class="material-icons right">keyboard_arrow_up</i></a>
@@ -30,44 +36,17 @@
                         </a>
                     </li>
                 </ul>
-
-                <ul class='nav navbar-nav'>
-                    <li [routerLinkActive]="['link-active']">
-                        <a [routerLink]="['/home']" class="waves-effect waves-light">
-                            Dashboard
-                        </a>
-                    </li>
-                    <li [routerLinkActive]="['link-active']" class="waves-effect waves-light">
-                        <a [routerLink]="['/feed']">
-                            Content
-                        </a>
-                    </li>
-                    <!--<li [routerLinkActive]="['link-active']" class="waves-effect waves-light">
-                        <a [routerLink]="['/categorymanagement']">
-                            Category Management
-                        </a>
-                    </li>
-                    <li [routerLinkActive]="['link-active']" class="waves-effect waves-light">
-                        <a [routerLink]="['/legalcontent']">
-                            Legal Content
-                        </a>
-                    </li>-->
-                    <li [routerLinkActive]="['link-active']" class="waves-effect waves-light" [routerLinkActiveOptions]="{exact: false}">
-                        <a [routerLink]="['/reports']">
-                            Reports
-                        </a>
-                    </li>
-                    <!--<li [routerLinkActive]="['link-active']" class="waves-effect waves-light">
-                        <a [routerLink]="['/media']">
-                            Media Library
-                        </a>
-                    </li>-->
-                    <li [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{exact: false}">
-                        <a [routerLink]="['/useraccountmanagement/']" class="waves-effect waves-light">
-                            Accounts
-                        </a>
-                    </li>
-                </ul>
+              
+              <ul class='nav navbar-nav'>
+                <li *ngFor="let m of currentMenuOptions; let i=index" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="m.routerLinkActiveOptions" [class.link-active]="m.activeLink">
+	                <a *ngIf="m.routerLink" [routerLink]="[m.routerLink]" (click)="m.onClick" class="waves-effect waves-light">
+		                {{m.title}}
+	                </a>
+	                <a *ngIf="!m.routerLink" (click)="m.onClick(m.onClickParams);setActiveMenu(i)" class="waves-effect waves-light">
+		                {{m.title}}
+	                </a>
+                </li>
+              </ul>
             </div>
         </div>
     </div>

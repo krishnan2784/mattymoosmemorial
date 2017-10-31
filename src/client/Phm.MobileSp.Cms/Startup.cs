@@ -121,10 +121,11 @@ namespace Phm.MobileSp.Cms
                 services.AddTransient<IUserQuizResultsRepository, UserQuizResultsRepository>();
                 services.AddTransient<IUserRepository, UserRepository>();
                 services.AddTransient<IUserTemplateRepository, UserTemplateRepository>();
-                
-                services.AddSingleton<IFeedItemModelBinder, FeedItemModelBinder>();
+                services.AddTransient<IBrandingConfigurationsRepository, BrandingConfigurationsRepository>();
+				services.AddSingleton<IFeedItemModelBinder, FeedItemModelBinder>();
+	            
 
-                services.AddSession(options =>
+				services.AddSession(options =>
                 {
                     options.IdleTimeout = TimeSpan.FromHours(1);
                     options.CookieName = ".MobileSP.Session";

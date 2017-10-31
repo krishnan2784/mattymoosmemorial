@@ -14,6 +14,7 @@ var forms_1 = require("@angular/forms");
 var ng2_nouislider_1 = require("ng2-nouislider");
 var ng2_table_1 = require("ng2-table/ng2-table");
 var ngx_bootstrap_1 = require("ngx-bootstrap");
+var ngx_color_picker_1 = require("ngx-color-picker");
 require("rxjs/add/observable/throw");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/debounceTime");
@@ -90,6 +91,12 @@ var Tabbedtextpageformcomponent = require("./components/feed/modelforms/pagedfee
 var TabbedTextPageFormComponent = Tabbedtextpageformcomponent.TabbedTextPageFormComponent;
 var Textareacomponent = require("./components/common/editor/textarea.component");
 var TextAreaComponent = Textareacomponent.TextAreaComponent;
+var colourpicker_component_1 = require("./components/common/editor/colourpicker.component");
+var brandingcontentsection_component_1 = require("./components/branding/brandingcontentsection/brandingcontentsection.component");
+var brandingcontainer_component_1 = require("./components/branding/brandingnavmenu/brandingcontainer.component");
+var basebrandingcomponent_component_1 = require("./components/branding/components/basebrandingcomponent/basebrandingcomponent.component");
+var fontpicker_component_1 = require("./components/common/editor/fontpicker.component");
+var brandingoptionpicker_component_1 = require("./components/branding/components/brandingoptionpicker/brandingoptionpicker.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -107,13 +114,15 @@ AppModule = __decorate([
             footer_component_1.FooterComponent,
             marketdropdown_component_1.MarketDropdown,
             datepicker_component_1.DatepickerComponent,
-            //DateValueAccessor,
             // main naviation items
             counter_component_1.CounterComponent,
             fetchdata_component_1.FetchDataComponent,
             home_component_1.HomeComponent,
             useraccountmanagement_component_1.UserAccountManagementComponent,
             feedindex_component_1.FeedIndexComponent,
+            brandingcontainer_component_1.BrandingContainerComponent,
+            brandingcontentsection_component_1.BrandingContentSectionComponent,
+            basebrandingcomponent_component_1.BaseBrandingComponent,
             // feed item forms
             feeditemform_component_1.FeedItemForm,
             textfeeditem_component_1.TextFeedItemFormComponent,
@@ -160,6 +169,9 @@ AppModule = __decorate([
             textbox_component_1.TextInputComponent,
             numbertextbox_component_1.NumberTextInputComponent,
             taginputbox_component_1.TagInputComponent,
+            colourpicker_component_1.ColourPickerInputComponent,
+            fontpicker_component_1.FontPickerComponent,
+            brandingoptionpicker_component_1.BrandingOptionPickerComponent,
             UploadMediaComponent
         ],
         imports: [
@@ -171,6 +183,7 @@ AppModule = __decorate([
             ng2_table_1.Ng2TableModule,
             ngx_bootstrap_1.PaginationModule.forRoot(),
             angular2_modal_1.ModalModule.forRoot(),
+            ngx_color_picker_1.ColorPickerModule,
             bootstrap_1.BootstrapModalModule,
             router_1.RouterModule.forRoot([
                 { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -186,6 +199,7 @@ AppModule = __decorate([
                 { path: 'reports/leaderboard', component: leaderboardcontainer_component_1.LeaderboardContainer },
                 { path: 'reports', component: feedreportindex_component_1.FeedReportIndexComponent },
                 { path: 'reports/:feedType', component: feedreportindex_component_1.FeedReportIndexComponent },
+                { path: 'branding', component: brandingcontainer_component_1.BrandingContainerComponent },
                 { path: '**', redirectTo: 'home' }
             ])
         ]

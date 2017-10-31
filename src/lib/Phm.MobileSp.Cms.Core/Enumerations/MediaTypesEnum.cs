@@ -1,6 +1,6 @@
 ﻿namespace Phm.MobileSp.Cms.Core.Enumerations
 {
-    public enum MediaTypes : int
+    public enum MediaTypes 
     {
         Text = 0,
         Font = 1,

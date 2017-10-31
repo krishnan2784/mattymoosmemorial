@@ -1,0 +1,21 @@
+<form [formGroup]="form" *ngIf="models" (ngSubmit)="save(form.value, form.valid)">
+	<button type="submit" class="btn btn-primary btn-save right" *ngIf="!disabled" [attr.disabled]="submitted ? 'disabled' : null">Save</button>
+	<div class="clearfix"></div>
+
+	<div *ngFor="let s of subGroups" class="subgroup-container">
+		<div class="col-md-5 value-col">
+			<h5>{{s[0]}}</h5>
+			<div *ngFor="let m of s[1]; let i=index">
+				<base-branding-component [model]="m" [form]="form.controls['brandingElements']"
+				                         [index]="models.indexOf(m)" [disabled]="disabled"
+				                         (mediaUploading)="loading=$event"
+				                         [brandingOptions]="brandingOptions"></base-branding-component>
+			</div>
+			
+		</div>
+		<div class="col-md-7 preview-col">
+
+		</div>
+		<div class="clearfix"></div>
+	</div>
+</form>

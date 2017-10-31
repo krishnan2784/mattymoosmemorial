@@ -29,7 +29,7 @@
                                 </div>
                             </div>
                             <div class="col-xs-12 feed-item-dates">
-                                <div *ngIf="feedItem.published && feedItem.publishedLiveAt" class="col-xs-4 no-pad date-posted feed-item-date">
+                                <div *ngIf="feedItem.publishedLiveAt" class="col-xs-4 no-pad date-posted feed-item-date">
                                     Date posted: {{ feedItem.publishedLiveAt | date:'short' }}
                                 </div>
 

@@ -43,6 +43,9 @@ var BaseComponent = (function () {
         if (tabNavItems === void 0) { tabNavItems = []; }
         this.sharedService.updateNavTabs(tabNavItems);
     };
+    BaseComponent.prototype.updateAppTheme = function (value) {
+        this.sharedService.updateAppTheme(value);
+    };
     BaseComponent.prototype.goBack = function () {
     };
     BaseComponent.prototype.ngOnDestroy = function () {
