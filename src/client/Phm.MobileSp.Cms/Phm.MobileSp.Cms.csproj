@@ -78,6 +78,7 @@
   <ItemGroup>
     <None Include="config.json" />
     <None Include="wwwroot\assets\images\partitionLevels.png" />
+    <None Include="wwwroot\assets\images\PHM-Logo-Small-b.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="config.json">

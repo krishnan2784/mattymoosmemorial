@@ -16,14 +16,16 @@ namespace Phm.MobileSp.Cms.Controllers
         public async Task<IActionResult> Index(string token = "")
         {
             var user = await RegistrationRepo.GetUser(token);
-            if (user == null || !string.IsNullOrEmpty(user.Password))
+            if (user == null || user.Id == 0)
                 return RedirectToAction("Error");
 
             var model = new UserRegistrationViewModel()
             {
                 Id = user.Id,
-                FirstName = user.FirstName
-            };
+                FirstName = user.FirstName,
+	            RegistrationHash = token,
+				UserEmail = user.Email
+			};
 
             return View(model);            
         }
@@ -39,7 +41,13 @@ namespace Phm.MobileSp.Cms.Controllers
             var success = false;
 
             if(isValid)
-                success = await RegistrationRepo.UpdateUserPassword(user.Id, user.Password);
+                success = await RegistrationRepo.UpdateUserPassword(new PasswordSetCriteria()
+	                {
+		                RegistrationHash = user.RegistrationHash,
+		                UserEmail = user.UserEmail,
+		                Password = user.Password,
+		                ConfirmPassword = user.ConfirmationPassword
+				});
 
             var message = success ? "You have completed your registration. You can now log in to mLearning." :
                 "An error has occurrred. Please try again.";

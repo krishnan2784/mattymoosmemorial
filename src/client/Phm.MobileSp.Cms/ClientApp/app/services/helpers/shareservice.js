@@ -24,6 +24,8 @@ var ShareService = (function () {
         this.currentMarketId = this.currentMarket.id;
         this.pageTitleUpdate = new Subject_1.Subject();
         this.pageTitleUpdated = this.pageTitleUpdate.asObservable();
+        this.appThemeUpdate = new Subject_1.Subject();
+        this.appThemeUpdated = this.appThemeUpdate.asObservable();
         this.backButtonUpdate = new Subject_1.Subject();
         this.backButtonUpdated = this.backButtonUpdate.asObservable();
         this.marketDropdownVisibilitypeUpdate = new Subject_1.Subject();
@@ -37,12 +39,17 @@ var ShareService = (function () {
         this.goBackEvent = new core_1.EventEmitter();
         this.tabNavUpdate = new Subject_1.Subject();
         this.navTabsUpdated = this.tabNavUpdate.asObservable();
+        this.mainNavUpdate = new Subject_1.Subject();
+        this.mainNavUpdated = this.mainNavUpdate.asObservable();
         userDataService.getCurrentUser().subscribe(function (response) {
             _this.currentUser = response;
         });
     }
     ShareService.prototype.updatePageTitle = function (pageTitle) {
         this.pageTitleUpdate.next(pageTitle);
+    };
+    ShareService.prototype.updateAppTheme = function (appTheme) {
+        this.appThemeUpdate.next(appTheme);
     };
     ShareService.prototype.updateBackButton = function (backText) {
         this.backButtonUpdate.next(backText);
@@ -67,6 +74,10 @@ var ShareService = (function () {
     };
     ShareService.prototype.updateNavTabs = function (navItems) {
         this.tabNavUpdate.next(navItems);
+    };
+    ShareService.prototype.updateMainNavMenu = function (navItems, backText) {
+        if (backText === void 0) { backText = null; }
+        this.mainNavUpdate.next([navItems, backText]);
     };
     return ShareService;
 }());

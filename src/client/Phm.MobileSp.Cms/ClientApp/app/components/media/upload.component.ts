@@ -31,11 +31,14 @@ export class UploadMediaComponent implements OnInit {
     @Input() maxWidth: number = 0;
     @Input() maxHeight: number = 0;
     @Input() uploadUrl = '/Media/UploadFile';
+	@Input() form: FormGroup;
+	@Input() formControlId: string;
+	@Input() disabled: boolean = false;
+	@Input() imagePreviewUrl: string;
 
     public files: File[] = [];
     public uploading: boolean = false;
 
-    public imagePreviewUrl: string;
     public videoPreviewUrl: string;
     uploaderTypes: typeof UploaderType = UploaderType;
     public correctType: boolean = true;
@@ -50,7 +53,7 @@ export class UploadMediaComponent implements OnInit {
 
     ngOnInit() {       
         if (this.selectedMedia)
-            this.setPreviewImage();
+			this.setPreviewImage(this.selectedMedia.azureUrl);
     }
 
     uploadFile() {
@@ -70,9 +73,10 @@ export class UploadMediaComponent implements OnInit {
     }    
 
     processUploadResponse(media: MediaInfo) {
-        this.selectedMedia = media;     
+		this.selectedMedia = media;
         if (media.id > 0) {
-            this.setPreviewImage();
+			this.setPreviewImage(this.selectedMedia.azureUrl);
+	        this.setFormValue();
             this.mediaUploaded.emit(media);
         } else
             this.failAlert("An error occurred during the upload process.");      
@@ -84,15 +88,20 @@ export class UploadMediaComponent implements OnInit {
         Materialize.toast(message, 5000, 'red');      
     }
 
-    setPreviewImage() {
-        if (!this.selectedMedia)
-            return;
-
+    setPreviewImage(url) {
         if (this.selectedMedia.mediaType == MediaTypes.Image)
-            this.imagePreviewUrl = this.selectedMedia.azureUrl;
+            this.imagePreviewUrl = url;
         else if (this.selectedMedia.mediaType == MediaTypes.Video)
-            this.videoPreviewUrl = this.selectedMedia.azureUrl;
+            this.videoPreviewUrl = url;
     }
+
+	setFormValue() {
+		if (!this.selectedMedia)
+			return;
+
+		if (this.form)
+			this.form.controls[this.formControlId].patchValue(this.selectedMedia.azureUrl, {});
+	}
 
     public filesSelectHandler(fileInput: any) {
         let FileList: FileList = fileInput.target.files;

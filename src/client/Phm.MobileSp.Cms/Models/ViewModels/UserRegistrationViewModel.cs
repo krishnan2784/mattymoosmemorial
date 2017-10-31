@@ -9,8 +9,10 @@ namespace Phm.MobileSp.Cms.Models.ViewModels
         [Required]
         public int Id { get; set; }
         public string FirstName { get; set; }
+        public string RegistrationHash { get; set; }
+        public string UserEmail { get; set; }
 
-        [Required]
+		[Required]
         [RegularExpression("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,15}$",
             ErrorMessage = "You password must be between 8 and 15 characters long, and contain a lowercase character, an uppercase character, and a number.")]
         [DataType(DataType.Password)]

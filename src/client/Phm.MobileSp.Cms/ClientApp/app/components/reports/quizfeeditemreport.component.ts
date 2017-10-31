@@ -51,7 +51,9 @@ export class QuizFeedItemReport implements OnInit, OnDestroy {
         this.model = this.injector.get('model');
         this.pageTitle = this.injector.get('pageTitle');
         this.feedTypeString = Enums.FeedTypeEnum[this.model.feedType];
-        this.backSub = this.sharedService.goBackEvent.subscribe(() => {
+		this.backSub = this.sharedService.goBackEvent.subscribe(() => {
+			console.log('destroyed1');
+
             this.onBackEvent.emit();
         });
     }
@@ -60,7 +62,8 @@ export class QuizFeedItemReport implements OnInit, OnDestroy {
         this.getData();
     }
 
-    ngOnDestroy() {
+	ngOnDestroy() {
+		console.log('destroyed');
         this.backSub.unsubscribe();
     }
 

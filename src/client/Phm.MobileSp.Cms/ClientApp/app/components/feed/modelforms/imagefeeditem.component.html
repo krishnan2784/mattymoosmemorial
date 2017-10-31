@@ -3,10 +3,11 @@
         <small class="active-warning" [class.hidden]="form.controls.mainImageId.valid || !submitted">
             Please upload an image.
         </small>
-        <div class="input-field">
+        <!--<div class="input-field">
             <input id="imageDescription" type="text" formControlName="imageDescription">
             <label for="imageDescription" [class.active]="form.controls.imageDescription.value.length>0">A caption for your image</label>
-        </div>
-        <input type="hidden" formControlName="mainImageId">
+        </div>-->
+		<input type="hidden" formControlName="mainImageId">
+        <input type="hidden" formControlName="imageDescription">
     </div>
 </div>

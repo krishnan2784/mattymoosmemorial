@@ -17,27 +17,25 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
         private readonly IUserConfigurationRepository _userConfigRepo;
 
         public RegistrationRepository(IHttpClientService client, IMarketRepository marketRepo, IUserConfigurationRepository userConfigRepo)
-            : base(client, "User") {
+            : base(client, "UserPassword") {
             _marketRepo = marketRepo;
             _userConfigRepo = userConfigRepo;
         }
 
-        public async Task<MLearningUser> GetUser(string userToken)
+        public async Task<User> GetUser(string userToken)
         {
             if (string.IsNullOrEmpty(userToken))
                 return null;
 
-            var response = await GetAsync("CurrentUser");
+            var response = await GetAsync(new { token = userToken });
             var m = GetResponseModel<User>(response);
-
-            return new MLearningUser() { Email = m.Email,
-            FirstName = m.FirstName,
-            LastName = m.LastName};
+	        return m;
         }
 
-        public async Task<bool> UpdateUserPassword(int userId, string password)
+        public async Task<bool> UpdateUserPassword(PasswordSetCriteria passwordCriteria)
         {
-            return new Random().Next(11) % 2 == 0;
-        }
+	        var response = await PutAsync(passwordCriteria);
+	        return GetResponseModel<bool>(response);
+		}
     }
 }

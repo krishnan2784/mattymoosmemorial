@@ -16,10 +16,15 @@ var shareservice_1 = require("../../services/helpers/shareservice");
 var userdataservice_1 = require("../../services/userdataservice");
 var Mediaservice = require("../../services/mediaservice");
 var MediaDataService = Mediaservice.MediaDataService;
+var brandingservice_1 = require("../../services/brandingservice");
 var AppComponent = (function () {
     function AppComponent(sharedService) {
         var _this = this;
         this.sharedService = sharedService;
+        this.appTheme = '';
+        sharedService.appThemeUpdated.subscribe(function (appTheme) {
+            _this.setAppTheme(appTheme);
+        });
         sharedService.pageTitleUpdated.subscribe(function (pageTitle) {
             _this.setPageTitle(pageTitle);
         });
@@ -39,6 +44,9 @@ var AppComponent = (function () {
     AppComponent.prototype.setMarketDropdownVisibility = function (value) {
         this.marketDropdownIsVisible = value;
     };
+    AppComponent.prototype.setAppTheme = function (value) {
+        this.appTheme = value;
+    };
     AppComponent.prototype.goBack = function () {
         this.sharedService.goBackEvent.emit();
     };
@@ -49,7 +57,9 @@ AppComponent = __decorate([
         selector: 'app',
         template: require('./app.component.html'),
         styles: [require('./app.component.css')],
-        providers: [feeddataservice_1.FeedDataService, marketdataservice_1.MarketDataService, shareservice_1.ShareService, userdataservice_1.UserDataService, MediaDataService]
+        providers: [feeddataservice_1.FeedDataService, marketdataservice_1.MarketDataService,
+            shareservice_1.ShareService, userdataservice_1.UserDataService,
+            MediaDataService, brandingservice_1.BrandingService]
     }),
     __metadata("design:paramtypes", [shareservice_1.ShareService])
 ], AppComponent);

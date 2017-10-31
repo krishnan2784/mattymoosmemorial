@@ -8,7 +8,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
 {
     public interface IRegistrationRepository
     {
-        Task<MLearningUser> GetUser(string userToken);
-        Task<bool> UpdateUserPassword(int userId, string password);
+        Task<User> GetUser(string userToken);
+        Task<bool> UpdateUserPassword(PasswordSetCriteria passwordCriteria);
     }
 }

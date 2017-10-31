@@ -38,6 +38,10 @@ export class BaseComponent implements  OnDestroy {
         this.sharedService.updateNavTabs(tabNavItems);
     }
 
+	public updateAppTheme(value) {
+		this.sharedService.updateAppTheme(value);
+	}
+
     public goBack() {
         
     }

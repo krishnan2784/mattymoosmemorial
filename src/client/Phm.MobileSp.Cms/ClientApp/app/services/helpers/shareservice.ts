@@ -8,6 +8,7 @@ import { NavItem } from "../../components/navmenu/tabnavmenu.component";
 import { UserDataService } from "../userdataservice";
 import { User } from "../../models/userclasses";
 import IFeedItem = FeedModel.IFeedItem;
+import {NavMenuOption} from "../../models/navmenuclasses";
 
 @Injectable()
 export class ShareService {
@@ -22,12 +23,19 @@ export class ShareService {
     public currentMarket: UserMarket = new UserMarket;
     public currentMarketId: number = this.currentMarket.id;
 
-    private pageTitleUpdate = new Subject<string>();
-    pageTitleUpdated = this.pageTitleUpdate.asObservable();
+	private pageTitleUpdate = new Subject<string>();
+	pageTitleUpdated = this.pageTitleUpdate.asObservable();
 
-    public updatePageTitle(pageTitle: string) {
-        this.pageTitleUpdate.next(pageTitle);
-    }
+	public updatePageTitle(pageTitle: string) {
+		this.pageTitleUpdate.next(pageTitle);
+	}
+
+	private appThemeUpdate = new Subject<string>();
+	appThemeUpdated = this.appThemeUpdate.asObservable();
+
+	public updateAppTheme(appTheme: string) {
+		this.appThemeUpdate.next(appTheme);
+	}
 
     private backButtonUpdate = new Subject<string>();
     backButtonUpdated = this.backButtonUpdate.asObservable();
@@ -77,6 +85,14 @@ export class ShareService {
     navTabsUpdated = this.tabNavUpdate.asObservable();
 
     public updateNavTabs(navItems: NavItem[]) {
-        this.tabNavUpdate.next(navItems);
+      this.tabNavUpdate.next(navItems);
     }    
+
+
+    private mainNavUpdate = new Subject<[NavMenuOption[],string]>();
+    mainNavUpdated = this.mainNavUpdate.asObservable();
+
+    public updateMainNavMenu(navItems: NavMenuOption[], backText: string = null) {
+      this.mainNavUpdate.next([navItems, backText]);
+  }    
 }

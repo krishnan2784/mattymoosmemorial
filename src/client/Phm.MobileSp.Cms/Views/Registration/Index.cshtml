@@ -43,7 +43,8 @@
 
             <div class="col-md-10 login-form">
                 <form action="/Registration/UpdatePassword" method="post" class="form-horizontal regstration-form" role="form">
-                    @Html.HiddenFor(x => x.Id);
+					@Html.HiddenFor(x => x.UserEmail);
+                    @Html.HiddenFor(x => x.RegistrationHash);
 
                     <div class="form-group">
                         <div class="col-md-offset-4 col-md-7">
