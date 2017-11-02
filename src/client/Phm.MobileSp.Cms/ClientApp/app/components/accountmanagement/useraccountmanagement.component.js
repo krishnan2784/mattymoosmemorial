@@ -32,10 +32,11 @@ var angular2_modal_1 = require("angular2-modal");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var String1 = require("../../classes/helpers/string");
 var StringEx = String1.StringEx;
+var tabnavmenu_component_1 = require("../navmenu/tabnavmenu.component");
 var UserAccountManagementComponent = (function (_super) {
     __extends(UserAccountManagementComponent, _super);
     function UserAccountManagementComponent(sharedService, userDataService, overlay, vcRef, confirmBox) {
-        var _this = _super.call(this, sharedService, 'Account Management', true) || this;
+        var _this = _super.call(this, sharedService, 'Account Management', true, '', tabnavmenu_component_1.DefaultTabNavs.accountManagementTabs) || this;
         _this.sharedService = sharedService;
         _this.userDataService = userDataService;
         _this.confirmBox = confirmBox;

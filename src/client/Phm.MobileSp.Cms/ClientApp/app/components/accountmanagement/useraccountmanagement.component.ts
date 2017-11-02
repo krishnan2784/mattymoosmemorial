@@ -15,6 +15,7 @@ import { Overlay } from 'angular2-modal';
 import { Modal } from 'angular2-modal/plugins/bootstrap';
 import String1 = require("../../classes/helpers/string");
 import StringEx = String1.StringEx;
+import {DefaultTabNavs} from "../navmenu/tabnavmenu.component";
 
 @Component({
     selector: 'useraccountmanagement',
@@ -57,7 +58,7 @@ export class UserAccountManagementComponent extends BaseComponent {
     };
 
     constructor(public sharedService: ShareService, public userDataService: UserDataService, overlay: Overlay, vcRef: ViewContainerRef, public confirmBox: Modal) {
-        super(sharedService, 'Account Management', true);
+		super(sharedService, 'Account Management', true, '', DefaultTabNavs.accountManagementTabs);
         overlay.defaultViewContainer = vcRef;
         this.setupSubscriptions();
         this.getData();

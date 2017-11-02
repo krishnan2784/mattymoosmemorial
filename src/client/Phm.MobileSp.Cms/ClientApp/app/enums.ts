@@ -104,3 +104,7 @@ export enum BrandingElementType {
 	Icon = 2,
 	CustomSelection = 3
 }
+export enum SecFeatureTypeEnum {
+	Cms = 0,
+	Mobile = 1
+}

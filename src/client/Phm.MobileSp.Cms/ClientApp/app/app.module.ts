@@ -97,6 +97,7 @@ import {BaseBrandingComponent} from
 import {FontPickerComponent} from "./components/common/editor/fontpicker.component";
 import {BrandingOptionPickerComponent} from
 	"./components/branding/components/brandingoptionpicker/brandingoptionpicker.component";
+import {UserGroupPermissionsIndexComponent} from "./components/accountmanagement/acl/indexes/usergroupindex.component";
 
 
 @NgModule({
@@ -119,7 +120,8 @@ import {BrandingOptionPickerComponent} from
         FeedIndexComponent,
         BrandingContainerComponent,
         BrandingContentSectionComponent,
-        BaseBrandingComponent,
+		BaseBrandingComponent,
+	    UserGroupPermissionsIndexComponent,
 
         // feed item forms
         FeedItemForm,
@@ -195,6 +197,7 @@ import {BrandingOptionPickerComponent} from
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
             { path: 'useraccountmanagement', component: UserAccountManagementComponent },
+			{ path: 'userpermissionmanagement', component: UserGroupPermissionsIndexComponent },
             { path: 'feed/:feedCat', component: FeedIndexComponent },
             { path: 'feed', component: FeedIndexComponent },
             { path: 'feeditem', component: FeedItemForm },
@@ -206,7 +209,7 @@ import {BrandingOptionPickerComponent} from
             { path: 'branding', component: BrandingContainerComponent },
             { path: '**', redirectTo: 'home' }
         ])
-    ]
+	]
 })
 export class AppModule {
 }

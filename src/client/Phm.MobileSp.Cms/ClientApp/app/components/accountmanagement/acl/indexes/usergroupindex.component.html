@@ -1,0 +1,21 @@
+<div *ngIf="!selectedModel">
+	<div class="loader" *ngIf="!marketUserGroups"></div>
+	<div *ngIf="marketUserGroups">
+		<div class="col-md-8">
+			<h5>Manage Permissions</h5>
+			<div *ngFor="let marketUserGroup of marketUserGroups" class="col-md-12 market-groups">
+				<div *ngFor="let securityGroup of marketUserGroup.securityGroupUsers" class="col-md-3 market-user-group">
+					<p>{{securityGroup.securityGroup.name}}</p>
+					<p>Market:</p>
+					<p>{{marketUserGroup.market.name}}</p>
+					<p *ngIf="securityGroup.users.length > 0">Users: {{securityGroup.users.length}}</p>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="col-md-4">
+			<h5>Legend</h5>
+		</div>
+		<div class="clearfix"></div>	
+	</div>
+</div>

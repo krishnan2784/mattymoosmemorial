@@ -56,7 +56,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
         [ResponseCache(CacheProfileName = "NoCache")]
         public async Task<JsonResult> GetSecGroups()
         {
-            var response = await _secGroupsRepository.GetSecGroupsAsync(CurrentMarketId);
+            var response = await _secGroupsRepository.GetSecGroupsByMarketAsync(CurrentMarketId);
             return Json(response);
         }
 

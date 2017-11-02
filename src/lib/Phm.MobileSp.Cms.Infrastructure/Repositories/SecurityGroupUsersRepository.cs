@@ -12,23 +12,19 @@ using Microsoft.Extensions.Options;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 {
-    public class SecurityGroupsRepository : BaseRepository, ISecurityGroupsRepository
-    {
+    public class SecurityGroupUsersRepository : BaseRepository, ISecurityGroupUsersRepository
+	{
         private readonly IMarketRepository _marketRepo;
         private readonly IUserConfigurationRepository _userConfigRepo;
-        public SecurityGroupsRepository(IHttpClientService client, IMarketRepository marketRepo, IUserConfigurationRepository userConfigRepo)
-            : base(client, "SecurityGroups") {
+        public SecurityGroupUsersRepository(IHttpClientService client, IMarketRepository marketRepo, IUserConfigurationRepository userConfigRepo)
+            : base(client, "SecurityGroupUsers") {
             _marketRepo = marketRepo;
             _userConfigRepo = userConfigRepo;
         }
 
-	    public async Task<BaseResponse<dynamic>> GetSecGroupsByMarketAsync(int marketMasterId)
+	    public async Task<BaseResponse<dynamic>> GetSecGroupsUsersAsync(int secGroupId)
 	    {
-		    return GetAPIResponse<dynamic>(await GetAsync(new { masterId = marketMasterId }));
+		    return GetAPIResponse<dynamic>(await GetAsync(secGroupId));
 		}
-	    public async Task<BaseResponse<dynamic>> GetSecGroupsByIdAsync(int secGroupId)
-	    {
-		    return GetAPIResponse<dynamic>(await GetAsync(new { secGroupId }));
-	    }
 	}
 }

@@ -117,4 +117,9 @@ var BrandingElementType;
     BrandingElementType[BrandingElementType["Icon"] = 2] = "Icon";
     BrandingElementType[BrandingElementType["CustomSelection"] = 3] = "CustomSelection";
 })(BrandingElementType = exports.BrandingElementType || (exports.BrandingElementType = {}));
+var SecFeatureTypeEnum;
+(function (SecFeatureTypeEnum) {
+    SecFeatureTypeEnum[SecFeatureTypeEnum["Cms"] = 0] = "Cms";
+    SecFeatureTypeEnum[SecFeatureTypeEnum["Mobile"] = 1] = "Mobile";
+})(SecFeatureTypeEnum = exports.SecFeatureTypeEnum || (exports.SecFeatureTypeEnum = {}));
 //# sourceMappingURL=enums.js.map

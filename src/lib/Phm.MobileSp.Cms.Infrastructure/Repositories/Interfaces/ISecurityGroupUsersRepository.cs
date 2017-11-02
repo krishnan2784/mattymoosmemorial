@@ -6,9 +6,8 @@ using Phm.MobileSp.Cms.Core.Models;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
 {
-    public interface ISecurityGroupsRepository
+    public interface ISecurityGroupUsersRepository
     {
-        Task<BaseResponse<dynamic>> GetSecGroupsByMarketAsync(int marketId);
-        Task<BaseResponse<dynamic>> GetSecGroupsByIdAsync(int id);
+        Task<BaseResponse<dynamic>> GetSecGroupsUsersAsync(int secGroupId);
 	}
 }

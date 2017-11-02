@@ -97,6 +97,7 @@ var brandingcontainer_component_1 = require("./components/branding/brandingnavme
 var basebrandingcomponent_component_1 = require("./components/branding/components/basebrandingcomponent/basebrandingcomponent.component");
 var fontpicker_component_1 = require("./components/common/editor/fontpicker.component");
 var brandingoptionpicker_component_1 = require("./components/branding/components/brandingoptionpicker/brandingoptionpicker.component");
+var usergroupindex_component_1 = require("./components/accountmanagement/acl/indexes/usergroupindex.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -123,6 +124,7 @@ AppModule = __decorate([
             brandingcontainer_component_1.BrandingContainerComponent,
             brandingcontentsection_component_1.BrandingContentSectionComponent,
             basebrandingcomponent_component_1.BaseBrandingComponent,
+            usergroupindex_component_1.UserGroupPermissionsIndexComponent,
             // feed item forms
             feeditemform_component_1.FeedItemForm,
             textfeeditem_component_1.TextFeedItemFormComponent,
@@ -191,6 +193,7 @@ AppModule = __decorate([
                 { path: 'counter', component: counter_component_1.CounterComponent },
                 { path: 'fetch-data', component: fetchdata_component_1.FetchDataComponent },
                 { path: 'useraccountmanagement', component: useraccountmanagement_component_1.UserAccountManagementComponent },
+                { path: 'userpermissionmanagement', component: usergroupindex_component_1.UserGroupPermissionsIndexComponent },
                 { path: 'feed/:feedCat', component: feedindex_component_1.FeedIndexComponent },
                 { path: 'feed', component: feedindex_component_1.FeedIndexComponent },
                 { path: 'feeditem', component: feeditemform_component_1.FeedItemForm },

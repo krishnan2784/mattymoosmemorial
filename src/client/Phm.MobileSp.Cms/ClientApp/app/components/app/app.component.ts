@@ -6,6 +6,8 @@ import { UserDataService } from "../../services/userdataservice";
 import Mediaservice = require("../../services/mediaservice");
 import MediaDataService = Mediaservice.MediaDataService;
 import {BrandingService} from "../../services/brandingservice";
+import {UserGroupPermissionDataService} from "../../services/usergrouppermissiondataservice";
+import {UserPermissionDataService} from "../../services/userpermissiondataservice";
 
 @Component({
     selector: 'app',
@@ -13,7 +15,8 @@ import {BrandingService} from "../../services/brandingservice";
     styles: [require('./app.component.css')],
 	providers: [FeedDataService, MarketDataService,
 		ShareService, UserDataService,
-		MediaDataService, BrandingService]
+		MediaDataService, BrandingService,
+		UserPermissionDataService, UserGroupPermissionDataService]
 })
 export class AppComponent {
     public pageTitle: string;

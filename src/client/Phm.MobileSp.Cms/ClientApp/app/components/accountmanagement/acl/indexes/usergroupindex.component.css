@@ -1,0 +1,10 @@
+﻿.market-groups {
+	background-color: #C6D0D1;
+	padding: 5px;
+	margin-bottom: 5px;
+	overflow-x: scroll;
+}
+.market-user-group {
+	background-color: #FEFEFE;
+	border-radius: 10px;
+}

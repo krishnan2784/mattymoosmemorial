@@ -60,5 +60,9 @@ DefaultTabNavs.reportsTabs = [
     new NavItem('Observation Reports', '/reports/' + enums_1.FeedTypeEnum.Observation, 'funk'),
     new NavItem('Leaderboard Reports', '/reports/leaderboard', 'teal')
 ];
+DefaultTabNavs.accountManagementTabs = [
+    new NavItem('User Accounts', '/useraccountmanagement', 'teal'),
+    new NavItem('Access Control Panel', '/userpermissionmanagement', 'teal')
+];
 exports.DefaultTabNavs = DefaultTabNavs;
 //# sourceMappingURL=tabnavmenu.component.js.map
