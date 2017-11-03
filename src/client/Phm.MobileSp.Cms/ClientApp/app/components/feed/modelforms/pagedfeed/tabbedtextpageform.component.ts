@@ -69,7 +69,7 @@ export class TabbedTextPageFormComponent implements OnInit, OnDestroy {
 
     addTab() {
         const control = <FormArray>this.form.controls['tabs'];
-        control.push(this.initTab(new TabText()));
+		control.push(this.initTab(new TabText({ mediaTabbedTextFeedPageId: this.model.id })));
         this.displayTab(control.length - 1);
     }
 

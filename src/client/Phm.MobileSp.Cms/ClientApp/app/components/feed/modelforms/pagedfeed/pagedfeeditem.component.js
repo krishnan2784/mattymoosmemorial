@@ -57,10 +57,9 @@ var PagedFeedItemFormComponent = (function (_super) {
         if (page === void 0) { page = null; }
         return new forms_1.FormGroup({
             id: new forms_1.FormControl(page.id, []),
-            masterId: new forms_1.FormControl(page.masterId, []),
+            createdAt: new forms_1.FormControl(page.createdAt, []),
+            updatedAt: new forms_1.FormControl(page.updatedAt, []),
             pageNumber: new forms_1.FormControl(page.pageNumber, []),
-            enabled: new forms_1.FormControl(page.enabled, []),
-            published: new forms_1.FormControl(page.published, []),
             basePageFeedType: new forms_1.FormControl(page.basePageFeedType, [forms_1.Validators.required]),
             pagedFeedId: new forms_1.FormControl(page.pagedFeedId, []),
             title: new forms_1.FormControl(page.title, [])
@@ -68,8 +67,8 @@ var PagedFeedItemFormComponent = (function (_super) {
     };
     PagedFeedItemFormComponent.prototype.addPage = function () {
         var control = this.form.controls['baseFeedPages'];
-        control.push(this.initPage(new Pagedfeedclasses.TextFeedPage({})));
-        this.model.baseFeedPages.push(new Pagedfeedclasses.TextFeedPage({}));
+        control.push(this.initPage(new Pagedfeedclasses.TextFeedPage({ pagedFeedId: this.model.id })));
+        this.model.baseFeedPages.push(new Pagedfeedclasses.TextFeedPage({ pagedFeedId: this.model.id }));
         this.displayPage(control.length - 1);
     };
     PagedFeedItemFormComponent.prototype.removePage = function (index) {

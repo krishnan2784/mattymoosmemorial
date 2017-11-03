@@ -12,10 +12,10 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
     {
         public MediaInfoRepository(IHttpClientService client): base(client, "MediaInfo") {       }
 
-        public async Task<MediaInfo> GetMediaInfo(int id)
+        public async Task<dynamic> GetMediaInfo(int id)
         {
             var response = await GetAsync(id);
-            return GetResponseModel<MediaInfo>(response);
+            return GetResponseModel<dynamic>(response);
         }
 
 

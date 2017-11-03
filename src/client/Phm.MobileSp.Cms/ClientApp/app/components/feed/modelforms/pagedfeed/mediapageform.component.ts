@@ -4,6 +4,7 @@ import Pagedfeedclasses = require("../../../../models/pagedfeedclasses");
 import MediaTextFeedPage = Pagedfeedclasses.MediaTextFeedPage;
 import Mediainfoclasses = require("../../../../models/mediainfoclasses");
 import MediaInfo = Mediainfoclasses.MediaInfo;
+import {MediaDataService} from "../../../../services/mediaservice";
 
 @Component({
     selector: 'media-page-form',
@@ -28,7 +29,10 @@ export class MediaPageFormComponent implements OnInit, OnDestroy {
     @Output()
     public mediaUploading: EventEmitter<any> = new EventEmitter();
 
-    ngOnInit() {
+	constructor(public mediaDataService: MediaDataService){}
+
+	ngOnInit() {
+		this.getMediaInfo();
         this.addFormControls();
     }
 
@@ -45,6 +49,14 @@ export class MediaPageFormComponent implements OnInit, OnDestroy {
     removeFormControls() {
         this.form.removeControl('mediaInfoId');
     };
+
+	public getMediaInfo() {
+		if (this.model && this.model.mediaInfoId > 0) {
+			this.mediaDataService.getMediaInfo(this.model.mediaInfoId).subscribe((result) => {
+				this.model.mediaInfo = result;
+			});
+		}
+	}
 
     attachMedia(media: MediaInfo) {
         this.uploadedMedia.emit(media);

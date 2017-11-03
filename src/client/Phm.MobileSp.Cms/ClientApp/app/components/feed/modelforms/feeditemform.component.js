@@ -171,6 +171,8 @@ var FeedItemForm = (function () {
                 return imagefeeditem_component_1.ImageFeedItemFormComponent;
             case Enums.FeedTypeEnum.Video:
                 return videofeeditem_component_1.VideoFeedItemFormComponent;
+            case Enums.FeedTypeEnum.Paged:
+                return PagedFeedItemFormComponent;
             default:
                 return textfeeditem_component_1.TextFeedItemFormComponent;
         }

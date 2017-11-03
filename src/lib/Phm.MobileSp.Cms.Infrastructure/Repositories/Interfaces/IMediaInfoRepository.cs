@@ -7,7 +7,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
 {
     public interface IMediaInfoRepository
     {
-        Task<MediaInfo> GetMediaInfo(int id);
+        Task<dynamic> GetMediaInfo(int id);
         Task<MediaInfo> CreateMediaInfo(MediaInfo file);
     }
 }

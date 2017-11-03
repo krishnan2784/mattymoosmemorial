@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Injectable, OnInit, AfterViewInit, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Injectable, OnInit, OnChanges, Input, Output, SimpleChange } from '@angular/core';
 import { MarketDataService } from "../../services/marketdataservice";
 import Userclasses = require("../../models/userclasses");
 import UserMarket = Userclasses.UserMarket;
@@ -19,7 +19,7 @@ declare var Materialize: any;
     template: require('./upload.component.html'),
     styles: [require('./upload.component.css')]
 })
-export class UploadMediaComponent implements OnInit {
+export class UploadMediaComponent implements OnInit, OnChanges {
 
     @Input() title: string = "";
     @Input() showPreview: boolean = true;
@@ -55,7 +55,17 @@ export class UploadMediaComponent implements OnInit {
         if (this.selectedMedia)
 			this.setPreviewImage(this.selectedMedia.azureUrl);
     }
-
+	ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
+		console.log(changes);
+		if (changes['selectedMedia']) {
+			if (this.selectedMedia)
+				this.setPreviewImage(this.selectedMedia.azureUrl);
+			else {
+				this.imagePreviewUrl = null;
+				this.videoPreviewUrl = null;
+			}
+		}
+	}
     uploadFile() {
         if (!this.files)
             return;

@@ -13,19 +13,27 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Enums = require("../enums");
 var Baseclasses = require("./baseclasses");
 var BaseModel = Baseclasses.BaseModel;
-var BaseFeedPage = (function (_super) {
-    __extends(BaseFeedPage, _super);
+var date_1 = require("../classes/helpers/date");
+var BaseFeedPage = (function () {
     function BaseFeedPage(options) {
         if (options === void 0) { options = {}; }
-        var _this = _super.call(this, options) || this;
-        _this.pagedFeedId = options['pagedFeedId'] || 0;
-        _this.basePageFeedType = options['basePageFeedType'] || Enums.BasePageFeedTypeEnum.Text;
-        _this.pageNumber = options['pageNumber'] || 0;
-        _this.title = options['title'] || '';
-        return _this;
+        this.id = options['id'] || 0;
+        this.createdAt = options['createdAt'];
+        this.updatedAt = options['updatedAt'];
+        this.pagedFeedId = options['pagedFeedId'] || 0;
+        this.basePageFeedType = options['basePageFeedType'] || Enums.BasePageFeedTypeEnum.Text;
+        this.pageNumber = options['pageNumber'] || 0;
+        this.title = options['title'] || '';
+        var d = date_1.DateEx.formatDate(new Date());
+        if (!this.createdAt) {
+            this.createdAt = d;
+        }
+        if (!this.updatedAt) {
+            this.updatedAt = d;
+        }
     }
     return BaseFeedPage;
-}(Baseclasses.BaseModel));
+}());
 exports.BaseFeedPage = BaseFeedPage;
 var TextFeedPage = (function (_super) {
     __extends(TextFeedPage, _super);

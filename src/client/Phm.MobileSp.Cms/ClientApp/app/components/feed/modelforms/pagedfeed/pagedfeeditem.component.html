@@ -19,11 +19,10 @@
             <div *ngFor="let page of form.controls.baseFeedPages.controls; let i=index">
                 <div [class.hidden]="currentPage!=i" class="col-md-10">
                     <div [formGroupName]="i">
-                        <input type="hidden" formControlName="id">
-                        <input type="hidden" formControlName="masterId">
+						<input type="hidden" formControlName="id">
+						<input type="hidden" formControlName="createdAt">
+                        <input type="hidden" formControlName="updatedAt">
                         <input type="hidden" formControlName="pageNumber">
-                        <input type="hidden" formControlName="enabled">
-                        <input type="hidden" formControlName="published">
                         <input type="hidden" formControlName="basePageFeedType">
                         <input type="hidden" formControlName="pagedFeedId">
                         <input type="hidden" formControlName="title">

@@ -56,7 +56,7 @@ var TabbedTextPageFormComponent = (function () {
     };
     TabbedTextPageFormComponent.prototype.addTab = function () {
         var control = this.form.controls['tabs'];
-        control.push(this.initTab(new TabText()));
+        control.push(this.initTab(new TabText({ mediaTabbedTextFeedPageId: this.model.id })));
         this.displayTab(control.length - 1);
     };
     TabbedTextPageFormComponent.prototype.removeTab = function (index) {

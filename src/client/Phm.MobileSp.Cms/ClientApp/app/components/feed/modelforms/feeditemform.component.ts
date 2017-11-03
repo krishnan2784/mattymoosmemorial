@@ -79,7 +79,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         public mediaDataService: MediaDataService) {
     }
 
-    ngOnInit() {
+	ngOnInit() {
         this.initialiseForm();
         this.getModel();
     }
@@ -197,9 +197,11 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             case Enums.FeedTypeEnum.Observation:
                 return ObservationFeedItemFormComponent;
             case Enums.FeedTypeEnum.Image:
-                return ImageFeedItemFormComponent;
-            case Enums.FeedTypeEnum.Video:
-                return VideoFeedItemFormComponent;
+				return ImageFeedItemFormComponent;
+			case Enums.FeedTypeEnum.Video:
+				return VideoFeedItemFormComponent;
+            case Enums.FeedTypeEnum.Paged:
+	            return PagedFeedItemFormComponent;
             default:
                 return TextFeedItemFormComponent;
         }

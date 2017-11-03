@@ -40,6 +40,17 @@ var UploadMediaComponent = (function () {
         if (this.selectedMedia)
             this.setPreviewImage(this.selectedMedia.azureUrl);
     };
+    UploadMediaComponent.prototype.ngOnChanges = function (changes) {
+        console.log(changes);
+        if (changes['selectedMedia']) {
+            if (this.selectedMedia)
+                this.setPreviewImage(this.selectedMedia.azureUrl);
+            else {
+                this.imagePreviewUrl = null;
+                this.videoPreviewUrl = null;
+            }
+        }
+    };
     UploadMediaComponent.prototype.uploadFile = function () {
         var _this = this;
         if (!this.files)
