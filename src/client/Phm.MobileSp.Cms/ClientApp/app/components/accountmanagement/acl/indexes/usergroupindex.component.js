@@ -30,7 +30,7 @@ var usergrouppermissionindexviewmodel_1 = require("../../../../models/viewmodels
 var UserGroupPermissionsIndexComponent = (function (_super) {
     __extends(UserGroupPermissionsIndexComponent, _super);
     function UserGroupPermissionsIndexComponent(route, router, ugPermissionDataService, userDataService, sharedService) {
-        var _this = _super.call(this, sharedService, '', true, '', tabnavmenu_component_1.DefaultTabNavs.accountManagementTabs) || this;
+        var _this = _super.call(this, sharedService, 'Accounts', true, '', tabnavmenu_component_1.DefaultTabNavs.accountManagementTabs) || this;
         _this.route = route;
         _this.router = router;
         _this.ugPermissionDataService = ugPermissionDataService;
@@ -60,13 +60,13 @@ var UserGroupPermissionsIndexComponent = (function (_super) {
                     result.forEach(function (z) {
                         _this.marketUserGroups.filter(function (y) { return y.market.masterId === x; })[0].securityGroupUsers
                             .push(new usergrouppermissionindexviewmodel_1.SecurityGroupUsers({ securityGroup: z }));
-                        _this.ugPermissionDataService.getSecurityGroupUsers(z.id).subscribe(function (result) {
-                            if (result) {
-                                _this.marketUserGroups.filter(function (y) { return y.market.masterId === x; })[0]
-                                    .securityGroupUsers.filter(function (yy) { return yy.securityGroup.id === z.id; })[0]
-                                    .users = result;
-                            }
-                        });
+                        //this.ugPermissionDataService.getSecurityGroupUsers(z.id).subscribe(result => {
+                        //	if (result) {
+                        //		this.marketUserGroups.filter(y => y.market.masterId === x)[0]
+                        //			.securityGroupUsers.filter(yy => yy.securityGroup.id === z.id)[0]
+                        //			.users = result;
+                        //	}
+                        //});
                     });
                 }
                 else

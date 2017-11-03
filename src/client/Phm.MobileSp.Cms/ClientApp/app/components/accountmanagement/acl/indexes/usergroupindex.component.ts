@@ -28,7 +28,7 @@ export class UserGroupPermissionsIndexComponent extends BaseComponent implements
 		public ugPermissionDataService: UserGroupPermissionDataService,
 		private userDataService: UserDataService,
 		sharedService: ShareService) {
-		super(sharedService, '', true, '', DefaultTabNavs.accountManagementTabs);
+		super(sharedService, 'Accounts', true, '', DefaultTabNavs.accountManagementTabs);
 		this.setupSubscriptions();
 		this.setupMarket();
 	}
@@ -54,13 +54,13 @@ export class UserGroupPermissionsIndexComponent extends BaseComponent implements
 					result.forEach(z => {
 						this.marketUserGroups.filter(y => y.market.masterId === x)[0].securityGroupUsers
 							.push(new SecurityGroupUsers({ securityGroup: z }));
-						this.ugPermissionDataService.getSecurityGroupUsers(z.id).subscribe(result => {
-							if (result) {
-								this.marketUserGroups.filter(y => y.market.masterId === x)[0]
-									.securityGroupUsers.filter(yy => yy.securityGroup.id === z.id)[0]
-									.users = result;
-							}
-						});
+						//this.ugPermissionDataService.getSecurityGroupUsers(z.id).subscribe(result => {
+						//	if (result) {
+						//		this.marketUserGroups.filter(y => y.market.masterId === x)[0]
+						//			.securityGroupUsers.filter(yy => yy.securityGroup.id === z.id)[0]
+						//			.users = result;
+						//	}
+						//});
 					});
 				} else
 					this.marketUserGroups = [];
