@@ -33,9 +33,10 @@ export class UploadMediaComponent implements OnInit, OnChanges {
     @Input() uploadUrl = '/Media/UploadFile';
 	@Input() form: FormGroup;
 	@Input() formControlId: string;
+	@Input() elementId: string;
 	@Input() disabled: boolean = false;
 	@Input() imagePreviewUrl: string;
-
+	
     public files: File[] = [];
     public uploading: boolean = false;
 
@@ -56,7 +57,6 @@ export class UploadMediaComponent implements OnInit, OnChanges {
 			this.setPreviewImage(this.selectedMedia.azureUrl);
     }
 	ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
-		console.log(changes);
 		if (changes['selectedMedia']) {
 			if (this.selectedMedia)
 				this.setPreviewImage(this.selectedMedia.azureUrl);

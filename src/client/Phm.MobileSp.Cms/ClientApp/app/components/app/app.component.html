@@ -8,7 +8,7 @@
 				<div class="header-bar">
 					<div class="header-bar-content">
 						<div *ngIf="backButtonText" class="back-button">
-							<a (click)="goBack()"><i class="material-icons">reply</i> {{backButtonText}}</a>
+							<a (click)="goBack()" id="header__btn-back"><i class="material-icons">reply</i> {{backButtonText}}</a>
 						</div>
 						<div class="col-md-8">
 							<h4 *ngIf="pageTitle!=''" class="page-title">

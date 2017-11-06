@@ -1,5 +1,5 @@
 <form [formGroup]="form" *ngIf="models" (ngSubmit)="save(form.value, form.valid)">
-	<button type="submit" class="btn btn-primary btn-save right" *ngIf="!disabled" [attr.disabled]="submitted ? 'disabled' : null">Save</button>
+	<button type="submit" class="btn btn-primary btn-save right" *ngIf="!disabled" [attr.disabled]="submitted ? 'disabled' : null" id="btn-save-banding">Save</button>
 	<div class="clearfix"></div>
 
 	<div *ngFor="let s of subGroups" class="subgroup-container">

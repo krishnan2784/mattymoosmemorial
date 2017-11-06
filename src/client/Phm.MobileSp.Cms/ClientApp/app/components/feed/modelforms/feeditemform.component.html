@@ -14,8 +14,8 @@
     <input type="hidden" formControlName="mainIconId">
 
 <div class="feed-item-form-buttons">
-    <a (click)="goBack()" class="btn btn-primary">Cancel</a>
-    <button type="submit" class="btn btn-primary btn-save" [disabled]="loading">Save</button>
+    <a (click)="goBack()" class="btn btn-primary" id="feed-item-form__btn-cancel">Cancel</a>
+    <button type="submit" class="btn btn-primary btn-save" [disabled]="loading"id="feed-item-form__btn-save">Save</button>
 </div>
 
 <div class="feed-form-navigation col-md-8">
@@ -38,23 +38,26 @@
                             Submit Surveys to get user feedback.
                         </p>
                         <div class="btn-holder">
-                            <a (click)="swapForm(this.textForm, feedCats.Learning)" class="btn btn-primary col-md-3 btn-3 waves-effect waves-light select-type-feed select-standard-feed"
+                            <a (click)="swapForm(this.textForm, feedCats.Learning)" id="feed-cat__btn-learning-standard" class="btn btn-primary col-md-3 btn-3 waves-effect waves-light select-type-feed select-standard-feed"
                                [class.active-type]="model.feedCategory == feedCats.Learning && (model.feedType == feedTypes.Text || model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)" [class.disabled]="model.id>0">
                                 <span class="type">
                                     Standard
                                 </span> 
                             </a>
-                            <a (click)="swapForm(this.pagedForm, feedCats.Learning)" class="btn btn-primary col-md-3 btn-3 waves-effect waves-light select-type-feed select-enhanced-feed" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Paged" [class.disabled]="model.id>0">
+	                        <a (click)="swapForm(this.pagedForm, feedCats.Learning)" id="feed-cat__btn-learning-paged" class="btn btn-primary col-md-3 btn-3 waves-effect waves-light select-type-feed select-enhanced-feed" 
+							   [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Paged" [class.disabled]="model.id>0">
                                 <span class="type">
                                     Enhanced
                                 </span> 
                             </a>
-                            <a (click)="swapForm(this.quizForm, feedCats.Learning)" class="btn btn-primary col-md-3 btn-3 waves-effect waves-light select-type-feed select-quiz-feed" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Quiz" [class.disabled]="model.id>0">
+	                        <a (click)="swapForm(this.quizForm, feedCats.Learning)" id="feed-cat__btn-learning-quiz" class="btn btn-primary col-md-3 btn-3 waves-effect waves-light select-type-feed select-quiz-feed" 
+							   [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Quiz" [class.disabled]="model.id>0">
                                 <span class="type">
                                     Quiz
                                 </span> 
                             </a>
-                            <a (click)="swapForm(this.surveyForm, feedCats.Learning)" class="btn btn-primary col-md-3 btn-3 waves-effect waves-light select-type-feed select-survey-feed" [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Survey" [class.disabled]="model.id>0">
+	                        <a (click)="swapForm(this.surveyForm, feedCats.Learning)" id="feed-cat__btn-learning-survey" class="btn btn-primary col-md-3 btn-3 waves-effect waves-light select-type-feed select-survey-feed" 
+							   [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Survey" [class.disabled]="model.id>0">
                                 <span class="type">
                                     Survey
                                 </span> 
@@ -73,18 +76,19 @@
                         Create as Survey to establish the performance of Campaigns directly from the dealer network.
                         </p>
                         <div class="btn-holder">
-                            <a (click)="swapForm(this.textForm, feedCats.Campaign)" class="btn btn-primary col-md-4 btn-2 waves-effect waves-light select-type-feed select-standard-feed"
-                               [class.active-type]="model.feedCategory == feedCats.Campaign && (model.feedType == feedTypes.Text || model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)" [class.disabled]="model.id>0">
+                            <a (click)="swapForm(this.textForm, feedCats.Campaign)" id="feed-cat__btn-campaign-standard" class="btn btn-primary col-md-4 btn-2 waves-effect waves-light select-type-feed select-standard-feed"
+                               [class.active-type]="model.feedCategory == feedCats.Campaign && (model.feedType == feedTypes.Text || model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)" 
+							   [class.disabled]="model.id>0">
                                 <span class="type">
                                     Standard
                                 </span> 
                             </a>
-                            <a (click)="swapForm(this.pagedForm, feedCats.Campaign)" class="btn btn-primary col-md-4 btn-3 waves-effect waves-light  select-type-feed select-enhanced-feed" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Paged" [class.disabled]="model.id>0">
+                            <a (click)="swapForm(this.pagedForm, feedCats.Campaign)" id="feed-cat__btn-campaign-paged" class="btn btn-primary col-md-4 btn-3 waves-effect waves-light  select-type-feed select-enhanced-feed" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Paged" [class.disabled]="model.id>0">
                                 <span class="type">
                                     Enhanced
                                 </span> 
                             </a>
-                            <a (click)="swapForm(this.surveyForm, feedCats.Campaign)" class="btn btn-primary col-md-4 btn-2 waves-effect waves-light select-type-feed select-survey-feed" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Survey" [class.disabled]="model.id>0">
+                            <a (click)="swapForm(this.surveyForm, feedCats.Campaign)" id="feed-cat__btn-campaign-survey" class="btn btn-primary col-md-4 btn-2 waves-effect waves-light select-type-feed select-survey-feed" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Survey" [class.disabled]="model.id>0">
                                 <span class="type">
                                     Survey
                                 </span>                                 
@@ -102,13 +106,15 @@
                         <h5>ANNOUNCEMENT</h5>
                         <p>Create and post internal memos or Announcements that are of interest to the users.</p>
                         <div class="btn-holder">
-                            <a (click)="swapForm(this.textForm, feedCats.Announcement)" class="btn btn-primary col-md-6 waves-effect waves-light select-type-feed select-standard-feed"
-                               [class.active-type]="model.feedCategory == feedCats.Announcement && (model.feedType == feedTypes.Text || model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)" [class.disabled]="model.id>0">
+                            <a (click)="swapForm(this.textForm, feedCats.Announcement)" id="feed-cat__btn-announcement-standard" class="btn btn-primary col-md-6 waves-effect waves-light select-type-feed select-standard-feed"
+                               [class.active-type]="model.feedCategory == feedCats.Announcement && (model.feedType == feedTypes.Text || model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)" 
+							   [class.disabled]="model.id>0">
                                 <span class="type">
                                     Standard
                                 </span> 
                             </a>
-                            <a (click)="swapForm(this.pagedForm, feedCats.Announcement)" class="btn btn-primary col-md-6 btn-3 waves-effect waves-light select-type-feed select-enhanced-feed" [class.active-type]="model.feedCategory == feedCats.Announcement && model.feedType == feedTypes.Paged" [class.disabled]="model.id>0">
+	                        <a (click)="swapForm(this.pagedForm, feedCats.Announcement)" id="feed-cat__btn-announcement-paged" class="btn btn-primary col-md-6 btn-3 waves-effect waves-light select-type-feed select-enhanced-feed" 
+							   [class.active-type]="model.feedCategory == feedCats.Announcement && model.feedType == feedTypes.Paged" [class.disabled]="model.id>0">
                                 <span class="type">
                                     Enhanced
                                 </span> 
@@ -123,12 +129,14 @@
                         <h5>NEWS</h5>
                         <p>Keep the dealer network updated with the latest news from the organisation or the automotive industry at large.</p>
                         <div class="btn-holder">
-                            <a (click)="swapForm(this.textForm, feedCats.News)" class="btn btn-primary col-md-6 waves-effect waves-light select-type-feed select-standard-feed" [class.active-type]="model.feedCategory == feedCats.News && (model.feedType == feedTypes.Text || model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)" [class.disabled]="model.id>0">
+	                        <a (click)="swapForm(this.textForm, feedCats.News)" id="feed-cat__btn-news-standard" class="btn btn-primary col-md-6 waves-effect waves-light select-type-feed select-standard-feed" 
+							   [class.active-type]="model.feedCategory == feedCats.News && (model.feedType == feedTypes.Text || model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)" [class.disabled]="model.id>0">
                                 <span class="type">
                                     Standard
                                 </span> 
                             </a>
-                            <a (click)="swapForm(this.pagedForm, feedCats.News)" class="btn btn-primary col-md-6 btn-3 waves-effect waves-light select-type-feed select-enhanced-feed" [class.active-type]="model.feedCategory == feedCats.News && model.feedType == feedTypes.Paged" [class.disabled]="model.id>0">
+	                        <a (click)="swapForm(this.pagedForm, feedCats.News)" id="feed-cat__btn-news-paged" class="btn btn-primary col-md-6 btn-3 waves-effect waves-light select-type-feed select-enhanced-feed" 
+							   [class.active-type]="model.feedCategory == feedCats.News && model.feedType == feedTypes.Paged" [class.disabled]="model.id>0">
                                 <span class="type">
                                     Enhanced
                                 </span>                                 
@@ -143,12 +151,14 @@
                         <h5>ARTICLE</h5>
                         <p>Post interesting articles on topics of interest to the users. Includes images or a link to a PDF.</p>
                         <div class="btn-holder">
-                            <a (click)="swapForm(this.textForm, feedCats.Article)" class="btn btn-primary col-md-6 waves-effect waves-light select-type-feed select-standard-feed" [class.active-type]="model.feedCategory == feedCats.Article && (model.feedType == feedTypes.Text || model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)" [class.disabled]="model.id>0">
+	                        <a (click)="swapForm(this.textForm, feedCats.Article)" id="feed-cat__btn-article-standard" class="btn btn-primary col-md-6 waves-effect waves-light select-type-feed select-standard-feed" 
+							   [class.active-type]="model.feedCategory == feedCats.Article && (model.feedType == feedTypes.Text || model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)" [class.disabled]="model.id>0">
                                 <span class="type">
                                     Standard
                                 </span> 
                             </a>
-                            <a (click)="swapForm(this.pagedForm, feedCats.Article)" class="btn btn-primary col-md-6 btn-3 waves-effect waves-light select-type-feed select-enhanced-feed" [class.active-type]="model.feedCategory == feedCats.Article && model.feedType == feedTypes.Paged" [class.disabled]="model.id>0">
+	                        <a (click)="swapForm(this.pagedForm, feedCats.Article)" id="feed-cat__btn-article-paged" class="btn btn-primary col-md-6 btn-3 waves-effect waves-light select-type-feed select-enhanced-feed" 
+							   [class.active-type]="model.feedCategory == feedCats.Article && model.feedType == feedTypes.Paged" [class.disabled]="model.id>0">
                                 <span class="type">
                                     Enhanced
                                 </span>                                 
@@ -167,7 +177,8 @@
                             <h5>OBSERVATION</h5>
                             <p>Observations are surveys allowing Sales Managers to report the progress of their staff to the NSC.</p>
                             <div class="btn-holder">
-                                <a (click)="swapForm(this.observationForm, feedCats.Learning)" class="btn btn-primary col-md-12 waves-effect waves-light select-type-feed select-observation-feed" [class.active-type]="model.feedType == feedTypes.Observation" [class.disabled]="model.id>0">
+	                            <a (click)="swapForm(this.observationForm, feedCats.Learning)" id="feed-cat__btn-observation" class="btn btn-primary col-md-12 waves-effect waves-light select-type-feed select-observation-feed" 
+								   [class.active-type]="model.feedType == feedTypes.Observation" [class.disabled]="model.id>0">
                                     <span class="type">
                                         Featured Survey
                                     </span>
@@ -240,7 +251,8 @@
 	        <upload (mediaUploaded)="attachMedia($event, 'mainIcon')" (mediaUploading)="loading=$event" 
 	                [selectedMedia]="model.mainIcon" [enforceExactDimensions]="true" 
 	                [maxWidth]="1280" [maxHeight]="640" [uploaderType]="uploaderTypes.Image" [title]="'Preview Image'" 
-	                [uploadUrl]="'/Media/UploadFeedItemIcon'" [previewText]="'Icon Preview'"></upload>
+	                [uploadUrl]="'/Media/UploadFeedItemIcon'" [previewText]="'Icon Preview'"
+					[elementId]="'mainIcon'"></upload>
 	        <small class="active-warning" [class.hidden]="form.controls.mainIconId.valid || !submitted">
 		        Please upload an image with a resolution of 1280 x 640px.
 	        </small>
@@ -264,7 +276,7 @@
                 <label for="allowFavourite">Allow Favourite</label>
                 <div class="switch">
                     <label>
-                        <input formControlName="allowFavourite" type="checkbox" [checked]="model.allowFavourite">
+                        <input formControlName="allowFavourite" type="checkbox" [checked]="model.allowFavourite"  id="allowFavourite">
                         <span class="lever"></span>
                     </label>
                     <div class="clearboth"></div>
@@ -281,12 +293,12 @@
 
             <div>
                 <label>Start Date</label>
-                <datepicker (dateSelected)="handleStartDate($event);" [initialDate]="model.startDate" [cannotSelectPast]="true" [minDay]="1" [minJsMonth]="2" [minYear]="2017"></datepicker>
+                <datepicker (dateSelected)="handleStartDate($event);" [initialDate]="model.startDate" [cannotSelectPast]="true" [minDay]="1" [minJsMonth]="2" [minYear]="2017" [elementId]="'startDate'"></datepicker>
             </div>
 
             <div>
                 <label>End Date</label>
-                <datepicker (dateSelected)="handleEndDate($event);" [initialDate]="model.endDate" [cannotSelectPast]="true" [minDay]="minDay" [minJsMonth]="minMonth" [minYear]="minYear"></datepicker>
+                <datepicker (dateSelected)="handleEndDate($event);" [initialDate]="model.endDate" [cannotSelectPast]="true" [minDay]="minDay" [minJsMonth]="minMonth" [minYear]="minYear" [elementId]="'endDate'"></datepicker>
             </div>
 
             <input type="hidden" formControlName="startDate">
@@ -297,17 +309,19 @@
     </div>
     
 <div [class.hidden]="!feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Media)" class="form-tab">
-    <upload (mediaUploaded)="attachMedia($event, '')" (mediaUploading)="loading=$event" *ngIf="model.id == 0" [title]="'Upload an image or video'"></upload>
+    <upload (mediaUploaded)="attachMedia($event, '')" (mediaUploading)="loading=$event" *ngIf="model.id == 0" [title]="'Upload an image or video'" [elementId]="mediaPicker"></upload>
 
     <upload (mediaUploaded)="attachMedia($event, 'mainImage')" (mediaUploading)="loading=$event"
             [uploaderType]="uploaderTypes.Image" 
             [selectedMedia]="model.mainImage" *ngIf="model.feedType == feedTypes.Image && model.id > 0" [title]="'Upload an image'"
-            [previewText]="'Main Image Preview'"></upload>
+            [previewText]="'Main Image Preview'"
+            [elementId]="mediaPicker"></upload>
 
     <upload (mediaUploaded)="attachMedia($event, 'mainVideo')" (mediaUploading)="loading=$event"
             [uploaderType]="uploaderTypes.Video" 
             [selectedMedia]="model.mainVideo" *ngIf="model.feedType == feedTypes.Video && model.id > 0" [title]="'Upload a video'"
-            [previewText]="'Video Preview'"></upload>
+            [previewText]="'Video Preview'"
+            [elementId]="mediaPicker"></upload>
 
     <h5 *ngIf="model.id > 0 && model.feedType != feedTypes.Image && model.feedType != feedTypes.Video">
         To upload an image or video please create a new feed item.

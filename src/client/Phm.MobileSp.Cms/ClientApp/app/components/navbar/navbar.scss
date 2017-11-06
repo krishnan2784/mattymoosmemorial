@@ -16,13 +16,14 @@ $optionWidth: 165px;
       display: inline-block;
     }
   .text {
-    position: absolute;
     padding-right: 20px;
     margin-top : 10px;
     cursor: pointer;
   }
   .selected .main-text {
     font-weight: 600;
+  }
+  .main-text {
     cursor: pointer;
   }
   .selected .additionalText {

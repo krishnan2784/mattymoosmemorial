@@ -9,13 +9,14 @@
     width: 165px;
     display: inline-block; }
   .navBarContents .text {
-    position: absolute;
     padding-right: 20px;
     margin-top: 10px;
     cursor: pointer; }
-  .navBarContents .selected .main-text {
-    font-weight: 600;
-    cursor: pointer; }
+.navBarContents .selected .main-text {
+	font-weight: 600;}  
+.navBarContents .main-text {
+	cursor: pointer;
+}
   .navBarContents .selected .additionalText {
     font-weight: 400; }
   .navBarContents .additionalText {

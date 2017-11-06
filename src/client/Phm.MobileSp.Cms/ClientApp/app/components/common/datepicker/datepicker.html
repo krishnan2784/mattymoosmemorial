@@ -1,11 +1,11 @@
 <div class="dp_content">
 
   <div class="inputRow">
-    <div class="fakeInput" (click)="toggleDisplay()">
+    <div class="fakeInput" (click)="toggleDisplay()" id="{{elementId}}">
         <div class="input">
             {{displayDate}}
         </div>
-      <div class="icon">
+      <div class="icon" id="btn_{{elementId}}">
         <i class="material-icons">today</i>
       </div>
     </div>

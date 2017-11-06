@@ -6,7 +6,7 @@
 
             <div class="input-field">
                 <label [class.active]="form.controls.email.value.length>0">Email</label>
-                <input type="email" formControlName="email">
+                <input type="email" formControlName="email" id="email">
                 <small class="active-warning" [class.hidden]="form.controls.email.valid || !submitted">
                     Please enter a valid email address.
                 </small>
@@ -14,7 +14,7 @@
 
             <div class="input-field">
                 <label [class.active]="form.controls.firstName.value.length>0">First Name</label>
-                <input type="text" formControlName="firstName">
+                <input type="text" formControlName="firstName" id="firstName">
                 <small class="active-warning" [class.hidden]="form.controls.firstName.valid || !submitted">
                     First name is required.
                 </small>
@@ -22,7 +22,7 @@
 
             <div class="input-field">
                 <label [class.active]="form.controls.lastName.value.length>0">Last Name</label>
-                <input type="text" formControlName="lastName">
+                <input type="text" formControlName="lastName" id="lastName">
                 <small class="active-warning" [class.hidden]="form.controls.lastName.valid || !submitted">
                     Last name is required.
                 </small>
@@ -38,7 +38,7 @@
 
             <div class="input-field">
                 <label [class.active]="form.controls.dealershipName.value.length>0">Dealership Name</label>
-                <input type="text" formControlName="dealershipName" class="autocomplete" list="dealershipNames">
+                <input type="text" formControlName="dealershipName" class="autocomplete" list="dealershipNames" id="dealershipName">
                 <small class="active-warning" [class.hidden]="form.controls.dealershipName.valid || !submitted">
                     Dealership is required.
                 </small>
@@ -46,7 +46,7 @@
 
             <div class="input-field">
                 <label [class.active]="form.controls.dealershipCode.value.length>0">Dealership Code</label>
-                <input type="text" formControlName="dealershipCode" class="autocomplete" list="dealershipCodes">
+                <input type="text" formControlName="dealershipCode" class="autocomplete" list="dealershipCodes" id="dealershipCode">
                 <small class="active-warning" [class.hidden]="form.controls.dealershipCode.valid || !submitted">
                     Dealership code is required.
                 </small>
@@ -54,7 +54,7 @@
 
             <div class="input-field">
                 <label [class.active]="form.controls.regionName.value.length>0">Region</label>
-                <input type="text" formControlName="regionName" class="autocomplete" list="regions">
+                <input type="text" formControlName="regionName" class="autocomplete" list="regions" id="regionName">
                 <small class="active-warning" [class.hidden]="form.controls.regionName.valid || !submitted">
                     Region is required.
                 </small>
@@ -62,7 +62,7 @@
 
             <div class="input-field">
                 <label [class.active]="form.controls.zoneName.value.length>0">Zone</label>
-                <input type="text" formControlName="zoneName" class="autocomplete" list="zones">
+                <input type="text" formControlName="zoneName" class="autocomplete" list="zones" id="zoneName">
                 <small class="active-warning" [class.hidden]="form.controls.zoneName.valid || !submitted">
                     A zone is required.
                 </small>
@@ -73,8 +73,8 @@
 
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary btn-save" [disabled]="loading">Save</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" id="edit-user__cancel">Close</button>
+        <button type="submit" class="btn btn-primary btn-save" [disabled]="loading" id="edit-user__save">Save</button>
     </div>
 </form>
 

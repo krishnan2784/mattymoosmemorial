@@ -51,7 +51,10 @@ export class RichTextEditorComponent implements OnInit, AfterViewInit, OnDestroy
       selector: '#' + this.elementId,
       plugins: ['link', 'paste', 'table','autoresize'],
       setup: editor => {
-          this.editor = editor;
+		  this.editor = editor;
+	      console.log(editor);
+		  console.log($(editor));
+
           editor.on('keyup',
               () => {
                   const content = editor.getContent();

@@ -45,7 +45,8 @@ export class TagInputComponent implements OnInit, AfterViewInit {
             //        return $.get('http://someservice.com');
             //    }
             //}
-        });
+		});
+		$('.bootstrap-tagsinput input').attr('id', 'input__' + this.elementId);
         $('.tag-contrainer input').keydown((event) => {
             if (event.keyCode == 13) {
                 event.preventDefault();

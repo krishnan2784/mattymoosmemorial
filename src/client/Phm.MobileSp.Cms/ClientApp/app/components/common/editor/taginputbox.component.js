@@ -37,6 +37,7 @@ var TagInputComponent = (function () {
             //    }
             //}
         });
+        $('.bootstrap-tagsinput input').attr('id', 'input__' + this.elementId);
         $('.tag-contrainer input').keydown(function (event) {
             if (event.keyCode == 13) {
                 event.preventDefault();

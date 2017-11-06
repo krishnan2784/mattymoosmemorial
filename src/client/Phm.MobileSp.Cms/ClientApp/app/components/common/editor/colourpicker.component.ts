@@ -13,7 +13,8 @@ import { FormGroup } from "@angular/forms";
 				    [cpOutputFormat]="hex"
 				    [cpOKButton]="true"
 				    [cpAlphaChannel]="disabled"
-				    (colorPickerSelect)="setColour($event)">{{form.controls[formControlId].value}}</span>
+				    (colorPickerSelect)="setColour($event)"
+					id="color-picker-{{elementId}}">{{form.controls[formControlId].value}}</span>
 			<span *ngIf="disabled">{{form.controls[formControlId].value}}</span>
 		</div>            
         <small class="active-warning" [class.hidden]="form.controls[formControlId].valid || !formSubmitted">

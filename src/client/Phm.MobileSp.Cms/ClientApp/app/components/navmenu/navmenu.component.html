@@ -4,7 +4,7 @@
 		    <img src="assets/images/MobileSP-LOGO-Landscape.png" class="header-logo" />
 		    <p>LearnComSP</p>
 	    </a>
-	    <a *ngIf="currentMenuOptions != baseMenuOptions" class='navbar-brand' [routerLink]="['/home']" (click)="resetNavMenu()">
+	    <a *ngIf="currentMenuOptions != baseMenuOptions" class='navbar-brand' [routerLink]="['/home']" (click)="resetNavMenu()" id="btn-reset-nav">
 		    <h5 class="back-container">
 			    <i class="material-icons">reply</i> <span class="back-text">{{backText}}</span>
 		    </h5>
@@ -25,13 +25,16 @@
             <div class='clearfix'></div>
             <div class='navbar-collapse collapse'>
                 
-                <a *ngIf="shareService.currentUser.email && currentMenuOptions == baseMenuOptions" class='dropdown-button btn' data-activates='nav-bar-dropdown'>{{shareService.currentUser.email}} <i class="material-icons right">keyboard_arrow_down</i></a>
+	            <a *ngIf="shareService.currentUser.email && currentMenuOptions == baseMenuOptions" class='dropdown-button btn'
+	               data-activates='nav-bar-dropdown' id="navbar__user-dropdown-open">
+		            {{shareService.currentUser.email}} <i class="material-icons right">keyboard_arrow_down</i>
+	            </a>
                 <ul id='nav-bar-dropdown' class='dropdown-content'>
                     <li>
-                        <a data-activates='nav-bar-dropdown'>{{shareService.currentUser.email}} <i class="material-icons right">keyboard_arrow_up</i></a>
+                        <a data-activates='nav-bar-dropdown' id="navbar__user-dropdown-close">{{shareService.currentUser.email}} <i class="material-icons right">keyboard_arrow_up</i></a>
                     </li>
                     <li>
-                        <a href="/account/logout" class="waves-effect waves-light">
+                        <a href="/account/logout" class="waves-effect waves-light" id="navbar__user-dropdown-logout">
                             Log out
                         </a>
                     </li>
@@ -39,10 +42,10 @@
               
               <ul class='nav navbar-nav'>
                 <li *ngFor="let m of currentMenuOptions; let i=index" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="m.routerLinkActiveOptions" [class.link-active]="m.activeLink">
-	                <a *ngIf="m.routerLink" [routerLink]="[m.routerLink]" (click)="m.onClick" class="waves-effect waves-light">
+	                <a *ngIf="m.routerLink" [routerLink]="[m.routerLink]" (click)="m.onClick" class="waves-effect waves-light" id="navbar__option-{{i}}">
 		                {{m.title}}
 	                </a>
-	                <a *ngIf="!m.routerLink" (click)="m.onClick(m.onClickParams);setActiveMenu(i)" class="waves-effect waves-light">
+	                <a *ngIf="!m.routerLink" (click)="m.onClick(m.onClickParams);setActiveMenu(i)" class="waves-effect waves-light" id="navbar__option-{{i}}">
 		                {{m.title}}
 	                </a>
                 </li>

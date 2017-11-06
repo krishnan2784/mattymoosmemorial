@@ -1,9 +1,9 @@
 <div *ngIf="navItems && navItems.length>0" class="tab-nav-container">
     <ul>
-        <li *ngFor="let navItem of navItems" class="tabnavitem" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{exact: true}">
+        <li *ngFor="let navItem of navItems; let i=index" class="tabnavitem" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{exact: true}">
             <div class="header-style {{navItem.colourClass}}"></div>
             <div class="clearfix"></div>
-            <a [routerLink]="['/' + navItem.link]" class="waves-effect waves-light">
+            <a [routerLink]="['/' + navItem.link]" class="waves-effect waves-light" id="tab-nav__option-{{i}}">
                 {{navItem.displayText}}
             </a>
         </li>

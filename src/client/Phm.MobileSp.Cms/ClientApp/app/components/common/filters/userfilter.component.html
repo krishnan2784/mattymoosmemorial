@@ -1,15 +1,15 @@
 <div class="filter-col">
     <div *ngIf="renderTextSearch" class="search-filter">
-        <input placeholder="Search" type="search" [(ngModel)]="criteria.searchString" (ngModelChange)="broadcastChanges()"/>
+        <input placeholder="Search" type="search" [(ngModel)]="criteria.searchString" (ngModelChange)="broadcastChanges()" id="search-input"/>
         <div class="clearfix"></div>
     </div>
     <div class="filter-container">
         <div class="filter-header filter-block" *ngIf="renderPointRange || renderUserGroupFilter || renderDealershipFilter || renderZoneFilter || renderRegionFilter">
-            <p>Refine by: <a class="right" (click)="clearFilters();broadcastChanges();">Clear all</a>
+            <p>Refine by: <a class="right" (click)="clearFilters();broadcastChanges();" id="btn-reset-all">Clear all</a>
             </p>
         </div>
         <div class="filter-block" *ngIf="renderUserGroupFilter">
-            <p>Role <a class="right" (click)="clearUserFilters();broadcastChanges();">Clear</a>
+            <p>Role <a class="right" (click)="clearUserFilters();broadcastChanges();" id="btn-reset-role">Clear</a>
             </p>
             <div class="loader" *ngIf="!this.criteria.allUserGroupFilters"></div>
             <div *ngIf="this.criteria.allUserGroupFilters" class="animate-bottom">
@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="filter-block" *ngIf="renderDealershipFilter">
-            <p>Dealership <a class="right" (click)="clearDealerFilters();broadcastChanges();">Clear</a>
+            <p>Dealership <a class="right" (click)="clearDealerFilters();broadcastChanges();" id="btn-reset-dealership">Clear</a>
             </p>
             <div class="filter-block">
                 <div class="loader" *ngIf="!this.criteria.allDealershipFilters"></div>
@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="filter-block" *ngIf="renderZoneFilter">
-            <p>Zone <a class="right" (click)="clearZoneFilters();broadcastChanges();">Clear</a>
+            <p>Zone <a class="right" (click)="clearZoneFilters();broadcastChanges();" id="btn-reset-zone">Clear</a>
             </p>
             <div class="filter-block">
                 <div class="loader" *ngIf="!this.criteria.allZoneFilters"></div>
@@ -43,7 +43,7 @@
             </div>
         </div>
         <div class="filter-block" *ngIf="renderRegionFilter">
-            <p>Region <a class="right" (click)="clearRegionFilters();broadcastChanges();">Clear</a>
+            <p>Region <a class="right" (click)="clearRegionFilters();broadcastChanges();" id="btn-reset-region">Clear</a>
             </p>
             <div class="filter-block">
                 <div class="loader" *ngIf="!this.criteria.allRegionFilters"></div>
@@ -56,7 +56,7 @@
             </div>
         </div>
         <div class="filter-block" *ngIf="renderPointRange">
-            <p>Range <a class="right" (click)="resetRange();broadcastChanges();">Reset</a>
+            <p>Range <a class="right" (click)="resetRange();broadcastChanges();" id="btn-reset-slider">Reset</a>
             </p>
             <input type="text" id="sliderElement" name="sliderElement" value="" />
         </div>

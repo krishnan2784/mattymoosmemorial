@@ -10,11 +10,11 @@
   <div *ngFor="let g of groups; let a = index">
     <div class="sectionRow groupBy">
       <div>{{g.groupName}}</div>
-      <div class="right pointer" (click)="clearGroup(a);broadcastChanges();">Clear</div>
+      <div class="right pointer" (click)="clearGroup(a);broadcastChanges();" id="btn-reset-{{a}}">Clear</div>
     </div>
     <div class="groups" [style.height]="g.height ? g.height : 'inherit'">
-        <div *ngFor="let i of g.items" class="item" (click)="i.selected = ! i.selected; broadcastChanges()">
-          <input type="checkbox" [(ngModel)]="i.selected">
+        <div *ngFor="let i of g.items; let b = index" class="item" (click)="i.selected = ! i.selected; broadcastChanges()">
+          <input type="checkbox" [(ngModel)]="i.selected" id="filter-input-{{a}}-{{b}}">
           <label>{{i.name}}</label>
         </div>
     </div>
@@ -22,7 +22,7 @@
   <div *ngIf="!hideRange" class="range">
     <div class="sectionRow">
       <div>Range</div>
-      <div class="right pointer" (click)="broadcastChanges();">Reset</div>
+      <div class="right pointer" (click)="broadcastChanges();" id="btn-reset-range">Reset</div>
     </div>
     <div class="lbSlider">
         <input type="text" id="sliderElement" name="sliderElement" value="" />

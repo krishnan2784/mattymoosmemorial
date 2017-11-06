@@ -1,7 +1,7 @@
 <div class="loader" *ngIf="!filteredUserAccounts"></div>
 
 <div *ngIf="filteredUserAccounts">
-    <a (click)="editUser()" class="btn-floating btn-large waves-effect waves-light btn-top-right" data-toggle="modal" data-backdrop="static" data-target="#edit-user">
+    <a (click)="editUser()" class="btn-floating btn-large waves-effect waves-light btn-top-right" data-toggle="modal" data-backdrop="static" data-target="#edit-user" id="btn-add-user">
         <i class="material-icons">person_add</i>
     </a>
     <div class="animate-bottom user-index-container">
@@ -63,7 +63,7 @@
                             </div>
                             <div class="col-md-2 user-index-controls">
                                 <div class="user-control">
-                                    <a class="action-btn" data-toggle="modal" data-backdrop="static" data-target="#edit-user" (click)="editUser(user)">
+                                    <a class="action-btn" data-toggle="modal" data-backdrop="static" data-target="#edit-user" (click)="editUser(user)" id="btn-edit-user-{{user.id}}">
                                         <i class="material-icons">edit</i>
                                         <p>Edit</p>
                                     </a>

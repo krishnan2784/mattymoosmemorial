@@ -41,7 +41,6 @@ var UploadMediaComponent = (function () {
             this.setPreviewImage(this.selectedMedia.azureUrl);
     };
     UploadMediaComponent.prototype.ngOnChanges = function (changes) {
-        console.log(changes);
         if (changes['selectedMedia']) {
             if (this.selectedMedia)
                 this.setPreviewImage(this.selectedMedia.azureUrl);
@@ -230,6 +229,10 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", String)
 ], UploadMediaComponent.prototype, "formControlId", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", String)
+], UploadMediaComponent.prototype, "elementId", void 0);
 __decorate([
     core_1.Input(),
     __metadata("design:type", Boolean)
