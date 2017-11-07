@@ -97,6 +97,7 @@ var brandingcontainer_component_1 = require("./components/branding/brandingnavme
 var basebrandingcomponent_component_1 = require("./components/branding/components/basebrandingcomponent/basebrandingcomponent.component");
 var fontpicker_component_1 = require("./components/common/editor/fontpicker.component");
 var brandingoptionpicker_component_1 = require("./components/branding/components/brandingoptionpicker/brandingoptionpicker.component");
+var orderBy_1 = require("./classes/orderBy");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -172,7 +173,8 @@ AppModule = __decorate([
             colourpicker_component_1.ColourPickerInputComponent,
             fontpicker_component_1.FontPickerComponent,
             brandingoptionpicker_component_1.BrandingOptionPickerComponent,
-            UploadMediaComponent
+            UploadMediaComponent,
+            orderBy_1.OrderBy
         ],
         imports: [
             angular2_universal_1.UniversalModule,

@@ -67,8 +67,8 @@ var PagedFeedItemFormComponent = (function (_super) {
     };
     PagedFeedItemFormComponent.prototype.addPage = function () {
         var control = this.form.controls['baseFeedPages'];
-        control.push(this.initPage(new Pagedfeedclasses.TextFeedPage({ pagedFeedId: this.model.id })));
-        this.model.baseFeedPages.push(new Pagedfeedclasses.TextFeedPage({ pagedFeedId: this.model.id }));
+        control.push(this.initPage(new Pagedfeedclasses.TextFeedPage({ pagedFeedId: this.model.id, pageNumber: control.length })));
+        this.model.baseFeedPages.push(new Pagedfeedclasses.TextFeedPage({ pagedFeedId: this.model.id, pageNumber: control.length }));
         this.displayPage(control.length - 1);
     };
     PagedFeedItemFormComponent.prototype.removePage = function (index) {
@@ -78,6 +78,15 @@ var PagedFeedItemFormComponent = (function (_super) {
         control.removeAt(index);
         this.model.baseFeedPages.splice(index, 1);
         this.form.markAsDirty();
+        this.updatePagenumbers(index);
+    };
+    PagedFeedItemFormComponent.prototype.updatePagenumbers = function (startIndex) {
+        var pages = this.form.controls['baseFeedPages'];
+        for (var i = startIndex; i < pages.length; i++) {
+            var p = pages.controls[i];
+            p.controls["pageNumber"].patchValue(p.controls["pageNumber"].value - 1, { onlySelf: true });
+            this.model.baseFeedPages[i].pageNumber = this.model.baseFeedPages[i].pageNumber - 1;
+        }
     };
     PagedFeedItemFormComponent.prototype.displayPage = function (index) {
         var pages = this.form.controls['baseFeedPages'];

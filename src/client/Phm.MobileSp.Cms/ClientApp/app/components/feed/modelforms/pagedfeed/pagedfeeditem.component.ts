@@ -57,8 +57,8 @@ export class PagedFeedItemFormComponent extends BasePartialItemFormComponent imp
 
     addPage() {
         const control = <FormArray>this.form.controls['baseFeedPages'];
-		control.push(this.initPage(new Pagedfeedclasses.TextFeedPage({ pagedFeedId: this.model.id })));
-		this.model.baseFeedPages.push(new Pagedfeedclasses.TextFeedPage({ pagedFeedId: this.model.id }));
+		control.push(this.initPage(new Pagedfeedclasses.TextFeedPage({ pagedFeedId: this.model.id, pageNumber: control.length })));
+		this.model.baseFeedPages.push(new Pagedfeedclasses.TextFeedPage({ pagedFeedId: this.model.id, pageNumber: control.length }));
         this.displayPage(control.length - 1);
     }
 
@@ -68,8 +68,18 @@ export class PagedFeedItemFormComponent extends BasePartialItemFormComponent imp
             this.displayPage(this.currentPage - 1);
         control.removeAt(index);
         this.model.baseFeedPages.splice(index, 1);
-        this.form.markAsDirty();
+		this.form.markAsDirty();
+	    this.updatePagenumbers(index);
     }
+
+	updatePagenumbers(startIndex) {
+		const pages = <FormArray>this.form.controls['baseFeedPages'];
+		for (let i = startIndex; i < pages.length; i++) {
+			var p: any = pages.controls[i];
+			p.controls["pageNumber"].patchValue(p.controls["pageNumber"].value - 1, { onlySelf: true });
+			this.model.baseFeedPages[i].pageNumber = this.model.baseFeedPages[i].pageNumber - 1;
+		}
+	}
 
     displayPage(index: number) {
         const pages = <FormArray>this.form.controls['baseFeedPages'];

@@ -25,6 +25,11 @@ var MediaPageFormComponent = (function () {
     MediaPageFormComponent.prototype.ngOnDestroy = function () {
         this.removeFormControls();
     };
+    MediaPageFormComponent.prototype.ngOnChanges = function (changes) {
+        if (changes['model']) {
+            this.getMediaInfo();
+        }
+    };
     MediaPageFormComponent.prototype.addFormControls = function () {
         var _this = this;
         setTimeout(function () {

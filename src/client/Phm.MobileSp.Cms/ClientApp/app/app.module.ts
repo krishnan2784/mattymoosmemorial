@@ -97,6 +97,7 @@ import {BaseBrandingComponent} from
 import {FontPickerComponent} from "./components/common/editor/fontpicker.component";
 import {BrandingOptionPickerComponent} from
 	"./components/branding/components/brandingoptionpicker/brandingoptionpicker.component";
+import {OrderBy} from "./classes/orderBy";
 
 
 @NgModule({
@@ -176,7 +177,8 @@ import {BrandingOptionPickerComponent} from
 		ColourPickerInputComponent,
 		FontPickerComponent,
 	    BrandingOptionPickerComponent,
-        UploadMediaComponent
+		UploadMediaComponent,
+	    OrderBy
     ],
     imports: [
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.

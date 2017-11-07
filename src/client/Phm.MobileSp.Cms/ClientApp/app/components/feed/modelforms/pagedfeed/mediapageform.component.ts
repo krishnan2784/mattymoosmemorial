@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, SimpleChange, OnChanges } from '@angular/core';
 import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms'
 import Pagedfeedclasses = require("../../../../models/pagedfeedclasses");
 import MediaTextFeedPage = Pagedfeedclasses.MediaTextFeedPage;
@@ -10,7 +10,7 @@ import {MediaDataService} from "../../../../services/mediaservice";
     selector: 'media-page-form',
     template: require('./mediapageform.component.html')
 })
-export class MediaPageFormComponent implements OnInit, OnDestroy {
+export class MediaPageFormComponent implements OnInit, OnDestroy, OnChanges {
 
     @Input('form')
     public form: FormGroup;
@@ -39,6 +39,12 @@ export class MediaPageFormComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.removeFormControls();
     }
+
+	ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
+		if (changes['model']) {
+			this.getMediaInfo();
+		}
+	}
 
 	addFormControls() {
 		setTimeout(() => {
