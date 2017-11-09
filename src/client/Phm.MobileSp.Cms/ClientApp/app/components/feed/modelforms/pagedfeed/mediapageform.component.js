@@ -43,14 +43,15 @@ var MediaPageFormComponent = (function () {
     ;
     MediaPageFormComponent.prototype.getMediaInfo = function () {
         var _this = this;
-        if (this.model && this.model.mediaInfoId > 0) {
+        if (this.model && this.model.mediaInfoId > 0 && (!this.model.mediaInfo || this.model.mediaInfoId !== this.model.mediaInfo.id)) {
             this.mediaDataService.getMediaInfo(this.model.mediaInfoId).subscribe(function (result) {
                 _this.model.mediaInfo = result;
             });
         }
     };
     MediaPageFormComponent.prototype.attachMedia = function (media) {
-        this.uploadedMedia.emit(media);
+        if (media && media.id > 0)
+            this.uploadedMedia.emit(media);
     };
     return MediaPageFormComponent;
 }());

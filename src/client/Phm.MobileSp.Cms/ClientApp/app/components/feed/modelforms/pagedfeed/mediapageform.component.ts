@@ -57,14 +57,15 @@ export class MediaPageFormComponent implements OnInit, OnDestroy, OnChanges {
     };
 
 	public getMediaInfo() {
-		if (this.model && this.model.mediaInfoId > 0) {
+		if (this.model && this.model.mediaInfoId > 0 && (!this.model.mediaInfo || this.model.mediaInfoId !== this.model.mediaInfo.id)) {
 			this.mediaDataService.getMediaInfo(this.model.mediaInfoId).subscribe((result) => {
 				this.model.mediaInfo = result;
 			});
 		}
 	}
 
-    attachMedia(media: MediaInfo) {
-        this.uploadedMedia.emit(media);
+	attachMedia(media: MediaInfo) {
+		if (media && media.id > 0)
+			this.uploadedMedia.emit(media);
     }
 }
