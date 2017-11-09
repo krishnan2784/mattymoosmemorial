@@ -27,29 +27,29 @@ require("rxjs/add/operator/publishReplay");
 var responsehelper_1 = require("./helpers/responsehelper");
 var Requesthelper = require("./helpers/requesthelper");
 var RequestHelper = Requesthelper.RequestHelper;
-var UserPermissionDataService = (function (_super) {
-    __extends(UserPermissionDataService, _super);
-    function UserPermissionDataService(http, zone) {
+var SecurityFeatureDataService = (function (_super) {
+    __extends(SecurityFeatureDataService, _super);
+    function SecurityFeatureDataService(http, zone) {
         var _this = _super.call(this, http) || this;
         _this.http = http;
         _this.zone = zone;
         return _this;
     }
-    UserPermissionDataService.prototype.getUsersFeaturePermission = function (userId) {
+    SecurityFeatureDataService.prototype.getSecurityFeatures = function () {
         var _this = this;
         return Observable_1.Observable.create(function (observer) {
-            _this.http.get('/api/SecurityFeaturePermission/GetUserPermissions/' + userId).subscribe(function (result) {
+            _this.http.get('/api/SecurityFeatures/GetSecurityFeatures').subscribe(function (result) {
                 var response = responsehelper_1.ResponseHelper.getResponse(result);
                 observer.next(response.content);
                 observer.complete();
             });
         });
     };
-    return UserPermissionDataService;
+    return SecurityFeatureDataService;
 }(RequestHelper));
-UserPermissionDataService = __decorate([
+SecurityFeatureDataService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [http_1.Http, core_1.NgZone])
-], UserPermissionDataService);
-exports.UserPermissionDataService = UserPermissionDataService;
-//# sourceMappingURL=userpermissiondataservice.js.map
+], SecurityFeatureDataService);
+exports.SecurityFeatureDataService = SecurityFeatureDataService;
+//# sourceMappingURL=securityfeaturedataservice.js.map

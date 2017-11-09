@@ -1,5 +1,6 @@
 ﻿import Enums = require("../enums");
 import {BaseModel} from "./baseclasses";
+import SecFeatureTypeEnum = Enums.SecFeatureTypeEnum;
 
 export class SecUserFeaturePermission {
     public id: number;
@@ -34,5 +35,45 @@ export class SecGroup extends BaseModel {
 		this.maxUserCount = options['maxUserCount'] || 0;
 		this.secEntityId = options['secEntityId'] || 0;
 		this.isBuiltIn = options['isBuiltIn'] || false;
+	}
+}
+
+export class SecFeature {
+	id: number;
+	createdAt: string;
+	updatedAt: string;
+	code: number;
+	uri: string;
+	httpVerb: string;
+	bitMaskValue: number;
+	secFeatureType: SecFeatureTypeEnum;
+
+	constructor(options: {} = {}) {
+		this.id = options['id'] || 0;
+		this.createdAt = options['createdAt'] || '';
+		this.updatedAt = options['updatedAt'] || '';
+		this.code = options['code'] || 0;
+		this.uri = options['uri'] || '';
+		this.httpVerb = options['httpVerb'] || '';
+		this.bitMaskValue = options['bitMaskValue'] || 0;
+		this.secFeatureType = options['secFeatureType'] || Enums.SecFeatureTypeEnum.Cms;
+	}
+}
+
+export class SecFeaturePermission {
+	id: number;
+	createdAt: string;
+	updatedAt: string;
+	secEntityId: number;
+	secFeatureId: number;
+	allow: boolean;
+
+	constructor(options: {} = {}) {
+		this.id = options['id'] || 0;
+		this.createdAt = options['createdAt'] || '';
+		this.updatedAt = options['updatedAt'] || '';
+		this.secEntityId = options['secEntityId'] || 0;
+		this.secFeatureId = options['secFeatureId'] || 0;
+		this.allow = options['allow'];
 	}
 }

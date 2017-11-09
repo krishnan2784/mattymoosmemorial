@@ -10,6 +10,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+var Enums = require("../enums");
 var baseclasses_1 = require("./baseclasses");
 var SecUserFeaturePermission = (function () {
     function SecUserFeaturePermission(options) {
@@ -40,4 +41,32 @@ var SecGroup = (function (_super) {
     return SecGroup;
 }(baseclasses_1.BaseModel));
 exports.SecGroup = SecGroup;
+var SecFeature = (function () {
+    function SecFeature(options) {
+        if (options === void 0) { options = {}; }
+        this.id = options['id'] || 0;
+        this.createdAt = options['createdAt'] || '';
+        this.updatedAt = options['updatedAt'] || '';
+        this.code = options['code'] || 0;
+        this.uri = options['uri'] || '';
+        this.httpVerb = options['httpVerb'] || '';
+        this.bitMaskValue = options['bitMaskValue'] || 0;
+        this.secFeatureType = options['secFeatureType'] || Enums.SecFeatureTypeEnum.Cms;
+    }
+    return SecFeature;
+}());
+exports.SecFeature = SecFeature;
+var SecFeaturePermission = (function () {
+    function SecFeaturePermission(options) {
+        if (options === void 0) { options = {}; }
+        this.id = options['id'] || 0;
+        this.createdAt = options['createdAt'] || '';
+        this.updatedAt = options['updatedAt'] || '';
+        this.secEntityId = options['secEntityId'] || 0;
+        this.secFeatureId = options['secFeatureId'] || 0;
+        this.allow = options['allow'];
+    }
+    return SecFeaturePermission;
+}());
+exports.SecFeaturePermission = SecFeaturePermission;
 //# sourceMappingURL=securityclasses.js.map

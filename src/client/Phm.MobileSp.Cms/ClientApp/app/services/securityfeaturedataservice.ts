@@ -9,19 +9,19 @@ import Userclasses = require("../models/userclasses");
 import { ApiResponse } from "../models/apiresponse";
 import Requesthelper = require("./helpers/requesthelper");
 import RequestHelper = Requesthelper.RequestHelper;
-import {IUserPermissionDataService} from "../interfaces/services/IUserPermissionDataService";
-import {SecUserFeaturePermission} from "../models/securityclasses";
+import {SecFeature} from "../models/securityclasses";
+import {ISecurityFeatureDataService} from "../interfaces/services/ISecurityFeatureDataService";
 
 @Injectable()
-export class UserPermissionDataService extends RequestHelper implements IUserPermissionDataService {
+export class SecurityFeatureDataService extends RequestHelper implements ISecurityFeatureDataService {
 
     constructor(public http: Http, private zone: NgZone) {
         super(http);
     }
 
-	public getUsersFeaturePermission(userId: number): Observable<SecUserFeaturePermission[]> {
+	public getSecurityFeatures(): Observable<SecFeature[]> {
 		return Observable.create(observer => {
-			this.http.get('/api/SecurityFeaturePermission/GetUserPermissions/' + userId).subscribe(result => {
+			this.http.get('/api/SecurityFeatures/GetSecurityFeatures').subscribe(result => {
 				let response = ResponseHelper.getResponse(result);
 				observer.next(response.content);
 				observer.complete();

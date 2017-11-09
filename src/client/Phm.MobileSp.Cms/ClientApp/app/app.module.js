@@ -97,7 +97,9 @@ var brandingcontainer_component_1 = require("./components/branding/brandingnavme
 var basebrandingcomponent_component_1 = require("./components/branding/components/basebrandingcomponent/basebrandingcomponent.component");
 var fontpicker_component_1 = require("./components/common/editor/fontpicker.component");
 var brandingoptionpicker_component_1 = require("./components/branding/components/brandingoptionpicker/brandingoptionpicker.component");
+var editentitypermissionslist_component_1 = require("./components/accountmanagement/acl/editentitypermissionslist/editentitypermissionslist.component");
 var usergroupindex_component_1 = require("./components/accountmanagement/acl/indexes/usergroupindex.component");
+var editusergrouppermissions_component_1 = require("./components/accountmanagement/acl/editusergrouppermissions/editusergrouppermissions.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -155,6 +157,8 @@ AppModule = __decorate([
             partition_component_1.PartitionComponent,
             // user management
             EditUser,
+            editentitypermissionslist_component_1.EditEntityPermissionsListComponent,
+            editusergrouppermissions_component_1.EditUserGroupComponent,
             // charts
             BarChart,
             GaugeChart,

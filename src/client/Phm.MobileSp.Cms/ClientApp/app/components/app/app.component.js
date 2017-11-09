@@ -18,7 +18,8 @@ var Mediaservice = require("../../services/mediaservice");
 var MediaDataService = Mediaservice.MediaDataService;
 var brandingservice_1 = require("../../services/brandingservice");
 var usergrouppermissiondataservice_1 = require("../../services/usergrouppermissiondataservice");
-var userpermissiondataservice_1 = require("../../services/userpermissiondataservice");
+var entitypermissiondataservice_1 = require("../../services/entitypermissiondataservice");
+var securityfeaturedataservice_1 = require("../../services/securityfeaturedataservice");
 var AppComponent = (function () {
     function AppComponent(sharedService) {
         var _this = this;
@@ -62,7 +63,8 @@ AppComponent = __decorate([
         providers: [feeddataservice_1.FeedDataService, marketdataservice_1.MarketDataService,
             shareservice_1.ShareService, userdataservice_1.UserDataService,
             MediaDataService, brandingservice_1.BrandingService,
-            userpermissiondataservice_1.UserPermissionDataService, usergrouppermissiondataservice_1.UserGroupPermissionDataService]
+            entitypermissiondataservice_1.EntityPermissionDataService, securityfeaturedataservice_1.SecurityFeatureDataService,
+            usergrouppermissiondataservice_1.UserGroupPermissionDataService]
     }),
     __metadata("design:paramtypes", [shareservice_1.ShareService])
 ], AppComponent);

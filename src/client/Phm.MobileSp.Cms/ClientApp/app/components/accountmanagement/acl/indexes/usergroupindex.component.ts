@@ -6,8 +6,10 @@ import {DefaultTabNavs} from "../../../navmenu/tabnavmenu.component";
 import {UserGroupPermissionDataService} from "../../../../services/usergrouppermissiondataservice";
 import {UserDataService} from "../../../../services/userdataservice";
 import {UserMarket} from "../../../../models/userclasses";
-import {SecGroup} from "../../../../models/securityclasses";
+import { SecGroup, SecFeature} from "../../../../models/securityclasses";
 import {UserGroupPermissionIndexViewModel, MarketUserGroup, SecurityGroupUsers } from "../../../../models/viewmodels/usergrouppermissionindexviewmodel";
+import { SecurityFeatureDataService } from "../../../../services/securityfeaturedataservice";
+import {StringEx} from "../../../../classes/helpers/string";
 
 
 declare var $: any;
@@ -19,14 +21,18 @@ declare var Materialize: any;
 	styles: [require('./usergroupindex.component.css')]
 })
 export class UserGroupPermissionsIndexComponent extends BaseComponent implements OnInit, OnDestroy {
-    selectedModel = null;
+	selectedSecEntityId = null;
+	editUsers = false;
 	userMarkets: UserMarket[] = [];
 	marketMasterIds: string[] = [];
 	marketUserGroups: MarketUserGroup[];
 
+	allSecurityFeatures: SecFeature[];
+
 	constructor(private route: ActivatedRoute, private router: Router,
 		public ugPermissionDataService: UserGroupPermissionDataService,
 		private userDataService: UserDataService,
+		private secFeatureDataService: SecurityFeatureDataService,
 		sharedService: ShareService) {
 		super(sharedService, 'Accounts', true, '', DefaultTabNavs.accountManagementTabs);
 		this.setupSubscriptions();
@@ -52,7 +58,9 @@ export class UserGroupPermissionsIndexComponent extends BaseComponent implements
 			this.ugPermissionDataService.getUserGroupsByMarketMasterId(x).subscribe(result => {
 				if (result) {
 					result.forEach(z => {
-						this.marketUserGroups.filter(y => y.market.masterId === x)[0].securityGroupUsers
+						var marketGroup = this.marketUserGroups.filter(y => y.market.masterId === x)[0];
+						if (marketGroup)
+							marketGroup.securityGroupUsers
 							.push(new SecurityGroupUsers({ securityGroup: z }));
 						//this.ugPermissionDataService.getSecurityGroupUsers(z.id).subscribe(result => {
 						//	if (result) {
@@ -65,6 +73,9 @@ export class UserGroupPermissionsIndexComponent extends BaseComponent implements
 				} else
 					this.marketUserGroups = [];
 			});
+		});
+		this.secFeatureDataService.getSecurityFeatures().subscribe(x => {
+			this.allSecurityFeatures = (!x || x.length === 0 ? [] : StringEx.sortArray(x, ['secFeatureType', 'uri', 'httpVerb']).reverse());
 		});
 	}
 
@@ -100,5 +111,10 @@ export class UserGroupPermissionsIndexComponent extends BaseComponent implements
 			}
 		});
 		this.getData();
+	}
+
+	editUserGroup(secEntityId, editUsers) {
+		this.selectedSecEntityId = secEntityId;
+		this.editUsers = editUsers;
 	}
 }

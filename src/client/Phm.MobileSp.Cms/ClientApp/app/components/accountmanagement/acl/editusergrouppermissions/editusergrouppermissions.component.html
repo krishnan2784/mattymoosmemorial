@@ -1,0 +1,12 @@
+<form [formGroup]="form" novalidate (ngSubmit)="save(form.value, form.valid)" class="user-group-permissions-container">
+
+	<div class="right form-buttons" *ngIf="!loading">
+		<a (click)="goBack()" class="btn btn-primary" id="btn-cancel-ugp-update">Cancel</a>
+		<button type="submit" class="btn btn-primary btn-save" [disabled]="loading" id="btn-save-ugp-update">Save</button>
+	</div>
+	<div class="clearfix"></div>
+
+	<editentitypermissionslist [form]="form" [allSecurityFeatures]="allSecurityFeatures" [secEntityId]="secEntityId" (formLoaded)="loading=false"></editentitypermissionslist>
+	<div class="clearfix"></div>
+
+</form>

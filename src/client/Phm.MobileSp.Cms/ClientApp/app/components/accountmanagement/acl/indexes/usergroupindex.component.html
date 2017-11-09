@@ -1,4 +1,4 @@
-<div *ngIf="!selectedModel">
+<div *ngIf="!selectedSecEntityId">
 	<div class="loader" *ngIf="!marketUserGroups"></div>
 	<div *ngIf="marketUserGroups">
 		<div class="col-md-8">
@@ -9,7 +9,7 @@
 			<div class="info-container permission-info">
 				Manage the permissions settings for the user groups by clicking on the groups below and a individual user belonging to the user group.
 			</div>
-			<div *ngFor="let marketUserGroup of marketUserGroups" class="scroll-container">
+			<div *ngFor="let marketUserGroup of marketUserGroups">
 				<div class="market-groups">
 					<div *ngFor="let securityGroup of marketUserGroup.securityGroupUsers" class="market-user-group-container">
 						<div class="market-user-group">
@@ -19,8 +19,8 @@
 							<p *ngIf="securityGroup.users.length > 0">Users: {{securityGroup.users.length}}</p>
 						</div>		
 						<div class="options">
-							<button class="btn">Group Permissions</button><br/>
-							<button class="btn">Users Permissions</button>
+							<button class="btn" (click)="editUserGroup(securityGroup.securityGroup.secEntityId, false)">Group Permissions</button><br/>
+							<button class="btn" (click)="editUserGroup(securityGroup.securityGroup.secEntityId, true)">Users Permissions</button>
 						</div>
 					</div>					
 				</div>
@@ -61,3 +61,4 @@
 		<div class="clearfix"></div>	
 	</div>
 </div>
+<editusergrouppermissions *ngIf="selectedSecEntityId" [allSecurityFeatures]="allSecurityFeatures" [secEntityId]="selectedSecEntityId"></editusergrouppermissions>

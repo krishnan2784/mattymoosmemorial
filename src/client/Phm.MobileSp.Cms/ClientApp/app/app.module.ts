@@ -97,7 +97,11 @@ import {BaseBrandingComponent} from
 import {FontPickerComponent} from "./components/common/editor/fontpicker.component";
 import {BrandingOptionPickerComponent} from
 	"./components/branding/components/brandingoptionpicker/brandingoptionpicker.component";
-import {UserGroupPermissionsIndexComponent} from "./components/accountmanagement/acl/indexes/usergroupindex.component";
+import {EditEntityPermissionsListComponent} from
+	"./components/accountmanagement/acl/editentitypermissionslist/editentitypermissionslist.component";
+import { UserGroupPermissionsIndexComponent } from "./components/accountmanagement/acl/indexes/usergroupindex.component";
+import {EditUserGroupComponent} from
+	"./components/accountmanagement/acl/editusergrouppermissions/editusergrouppermissions.component";
 
 
 @NgModule({
@@ -155,7 +159,9 @@ import {UserGroupPermissionsIndexComponent} from "./components/accountmanagement
         PartitionComponent,
 
         // user management
-        EditUser,
+		EditUser,
+	    EditEntityPermissionsListComponent,
+		EditUserGroupComponent,
 
         // charts
         BarChart,

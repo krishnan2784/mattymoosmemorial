@@ -123,10 +123,10 @@ namespace Phm.MobileSp.Cms
                 services.AddTransient<IUserRepository, UserRepository>();
                 services.AddTransient<IUserTemplateRepository, UserTemplateRepository>();
                 services.AddTransient<IBrandingConfigurationsRepository, BrandingConfigurationsRepository>();
-                services.AddTransient<ISecurityFeaturePermissionsRepository, SecurityFeaturePermissionsRepository>();
+                services.AddTransient<ISecurityFeaturesRepository, SecurityFeaturesRepository>();
+                services.AddTransient<ISecurityEntityFeaturesRepository, SecurityEntityFeaturesRepository>();
 				services.AddSingleton<IFeedItemModelBinder, FeedItemModelBinder>();
-
-	            
+				
 				services.AddSession(options =>
                 {
                     options.IdleTimeout = TimeSpan.FromHours(1);

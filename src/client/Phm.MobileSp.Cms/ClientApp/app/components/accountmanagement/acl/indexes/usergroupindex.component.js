@@ -27,15 +27,19 @@ var tabnavmenu_component_1 = require("../../../navmenu/tabnavmenu.component");
 var usergrouppermissiondataservice_1 = require("../../../../services/usergrouppermissiondataservice");
 var userdataservice_1 = require("../../../../services/userdataservice");
 var usergrouppermissionindexviewmodel_1 = require("../../../../models/viewmodels/usergrouppermissionindexviewmodel");
+var securityfeaturedataservice_1 = require("../../../../services/securityfeaturedataservice");
+var string_1 = require("../../../../classes/helpers/string");
 var UserGroupPermissionsIndexComponent = (function (_super) {
     __extends(UserGroupPermissionsIndexComponent, _super);
-    function UserGroupPermissionsIndexComponent(route, router, ugPermissionDataService, userDataService, sharedService) {
+    function UserGroupPermissionsIndexComponent(route, router, ugPermissionDataService, userDataService, secFeatureDataService, sharedService) {
         var _this = _super.call(this, sharedService, 'Accounts', true, '', tabnavmenu_component_1.DefaultTabNavs.accountManagementTabs) || this;
         _this.route = route;
         _this.router = router;
         _this.ugPermissionDataService = ugPermissionDataService;
         _this.userDataService = userDataService;
-        _this.selectedModel = null;
+        _this.secFeatureDataService = secFeatureDataService;
+        _this.selectedSecEntityId = null;
+        _this.editUsers = false;
         _this.userMarkets = [];
         _this.marketMasterIds = [];
         _this.setupSubscriptions();
@@ -58,8 +62,10 @@ var UserGroupPermissionsIndexComponent = (function (_super) {
             _this.ugPermissionDataService.getUserGroupsByMarketMasterId(x).subscribe(function (result) {
                 if (result) {
                     result.forEach(function (z) {
-                        _this.marketUserGroups.filter(function (y) { return y.market.masterId === x; })[0].securityGroupUsers
-                            .push(new usergrouppermissionindexviewmodel_1.SecurityGroupUsers({ securityGroup: z }));
+                        var marketGroup = _this.marketUserGroups.filter(function (y) { return y.market.masterId === x; })[0];
+                        if (marketGroup)
+                            marketGroup.securityGroupUsers
+                                .push(new usergrouppermissionindexviewmodel_1.SecurityGroupUsers({ securityGroup: z }));
                         //this.ugPermissionDataService.getSecurityGroupUsers(z.id).subscribe(result => {
                         //	if (result) {
                         //		this.marketUserGroups.filter(y => y.market.masterId === x)[0]
@@ -72,6 +78,9 @@ var UserGroupPermissionsIndexComponent = (function (_super) {
                 else
                     _this.marketUserGroups = [];
             });
+        });
+        this.secFeatureDataService.getSecurityFeatures().subscribe(function (x) {
+            _this.allSecurityFeatures = (!x || x.length === 0 ? [] : string_1.StringEx.sortArray(x, ['secFeatureType', 'uri', 'httpVerb']).reverse());
         });
     };
     UserGroupPermissionsIndexComponent.prototype.setupMarket = function () {
@@ -109,6 +118,10 @@ var UserGroupPermissionsIndexComponent = (function (_super) {
         });
         this.getData();
     };
+    UserGroupPermissionsIndexComponent.prototype.editUserGroup = function (secEntityId, editUsers) {
+        this.selectedSecEntityId = secEntityId;
+        this.editUsers = editUsers;
+    };
     return UserGroupPermissionsIndexComponent;
 }(base_component_1.BaseComponent));
 UserGroupPermissionsIndexComponent = __decorate([
@@ -120,6 +133,7 @@ UserGroupPermissionsIndexComponent = __decorate([
     __metadata("design:paramtypes", [router_1.ActivatedRoute, router_1.Router,
         usergrouppermissiondataservice_1.UserGroupPermissionDataService,
         userdataservice_1.UserDataService,
+        securityfeaturedataservice_1.SecurityFeatureDataService,
         shareservice_1.ShareService])
 ], UserGroupPermissionsIndexComponent);
 exports.UserGroupPermissionsIndexComponent = UserGroupPermissionsIndexComponent;

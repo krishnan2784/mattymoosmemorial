@@ -53,6 +53,7 @@
 	opacity: 0;
 	-webkit-animation: fadeOut 0.5s;
 	animation: fadeOut 0.5s;
+	width: 100%;
 }
 .deco-bar-container {
 	background-color: #fff;
@@ -75,7 +76,7 @@
 	animation: fadeIn 1s;
 }
 .options .btn:first-of-type {
-	margin: 18% 0 15%;
+	margin: 15% 0;
 }
 .options .btn {
 	background-color: transparent;
@@ -84,6 +85,7 @@
 	color: #fff;
 	padding: 8px 30px;
 	height: auto;
+	width: 100%;
 }
 .options .btn:hover{
 	 background-color: #02A8DA;
