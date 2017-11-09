@@ -96,9 +96,11 @@ namespace Phm.MobileSp.Cms.Controllers
 
         [AiHandleError]
         [HttpGet]
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
-            return View();
+	        await HttpContext.Authentication.SignOutAsync("MobileSPAuthCookie");
+			ClearCache();
+			return View();
         }
     }
 }
