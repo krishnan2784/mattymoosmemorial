@@ -1,6 +1,6 @@
 <div class="nav-container">
     <div class='navbar-header'>
-	    <a *ngIf="currentMenuOptions == baseMenuOptions" class='navbar-brand' [routerLink]="['/home']">
+	    <a *ngIf="currentMenuOptions == baseMenuOptions" class='navbar-brand' [routerLink]="['/home']" id="btn-home">
 		    <img src="assets/images/MobileSP-LOGO-Landscape.png" class="header-logo" />
 		    <p>LearnComSP</p>
 	    </a>
@@ -24,8 +24,8 @@
         <div class='navbar navbar-inverse'>
             <div class='clearfix'></div>
             <div class='navbar-collapse collapse'>
-	            <div  *ngIf="shareService.currentUser.email && currentMenuOptions == baseMenuOptions">
-					<a id="navbar__user-dropdown-open" class="dropdown-button" (click)="toggleDropdown=!toggleDropdown">
+	            <div *ngIf="shareService.currentUser.email && currentMenuOptions == baseMenuOptions">
+					<a id="navbar__user-dropdown-toggle" class="dropdown-button" (click)="toggleDropdown=!toggleDropdown">
 						{{shareService.currentUser.email}}
 						<i class="material-icons right" *ngIf="!toggleDropdown">keyboard_arrow_down</i>
 						<i class="material-icons right" *ngIf="toggleDropdown">keyboard_arrow_up</i>

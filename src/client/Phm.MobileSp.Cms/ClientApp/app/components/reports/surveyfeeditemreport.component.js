@@ -29,7 +29,7 @@ var SurveyFeedItemReport = (function () {
         this.model = this.injector.get('model');
         this.pageTitle = this.injector.get('pageTitle');
         this.feedTypeString = Enums.FeedTypeEnum[this.model.feedType];
-        this.sharedService.goBackEvent.subscribe(function () {
+        this.backSub = this.sharedService.goBackEvent.subscribe(function () {
             _this.onBackEvent.emit();
         });
     }
@@ -39,6 +39,8 @@ var SurveyFeedItemReport = (function () {
     SurveyFeedItemReport.prototype.ngAfterViewInit = function () {
     };
     SurveyFeedItemReport.prototype.ngOnDestroy = function () {
+        if (this.backSub)
+            this.backSub.unsubscribe();
     };
     SurveyFeedItemReport.prototype.getData = function () {
         var _this = this;
@@ -162,6 +164,7 @@ var SurveyFeedItemReport = (function () {
     SurveyFeedItemReport.prototype.goBack = function () {
         this.pageTitle = null;
         this.model = null;
+        this.backSub.unsubscribe();
         this.averageTimeData = null;
         this.onBackEvent.emit();
     };

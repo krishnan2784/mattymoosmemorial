@@ -36,7 +36,6 @@ var QuizFeedItemReport = (function () {
         this.pageTitle = this.injector.get('pageTitle');
         this.feedTypeString = Enums.FeedTypeEnum[this.model.feedType];
         this.backSub = this.sharedService.goBackEvent.subscribe(function () {
-            console.log('destroyed1');
             _this.onBackEvent.emit();
         });
     }
@@ -44,7 +43,6 @@ var QuizFeedItemReport = (function () {
         this.getData();
     };
     QuizFeedItemReport.prototype.ngOnDestroy = function () {
-        console.log('destroyed');
         this.backSub.unsubscribe();
     };
     QuizFeedItemReport.prototype.getData = function () {

@@ -112,7 +112,7 @@
                         <div class="loader" *ngIf="!filteredListData"></div>
                         <div *ngIf="filteredListData && filteredListData.length === 0" class="result-list-content">No results have been found for the selected filters.</div>
                         <div *ngIf="filteredListData && filteredListData.length > 0" class="result-list-content animate-bottom">
-                            <div *ngFor="let quizResult of filteredListData | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}" class="result-list-content-row">
+                            <div *ngFor="let quizResult of filteredListData | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}; let i = index" class="result-list-content-row">
                                 <div class="col-md-1">
                                     <i class="material-icons person-icon">person</i>
                                 </div>
@@ -130,7 +130,7 @@
                                     <span *ngIf="quizResult.resultPercentage!==100">{{ quizResult.resultPercentage }}%</span>
                                 </div>
                                 <div class="col-md-1">
-                                    <a (click)="viewQuizBreakdown(quizResult)">
+                                    <a (click)="viewQuizBreakdown(quizResult)" id="btn-view-user-results-{{i}}">
                                         <i class="material-icons right">keyboard_arrow_right</i>
                                     </a>                                    
                                 </div>

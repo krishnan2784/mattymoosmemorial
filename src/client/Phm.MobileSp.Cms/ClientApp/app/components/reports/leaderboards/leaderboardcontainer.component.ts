@@ -32,8 +32,10 @@ export class LeaderboardContainer extends BaseComponent implements OnDestroy {
     }
 
     ngOnDestroy() {
-        this.removeTooltip();
-    }
+		this.removeTooltip();
+		if (this.backSub)
+			this.backSub.unsubscribe();
+	}
 
     setupPageVariables() {
         this.updatePageTitle('Reports');
@@ -129,7 +131,7 @@ export class LeaderboardContainer extends BaseComponent implements OnDestroy {
 
     handleBack(){
         this.setupPageVariables();
-        this.backSub = null;
+		this.backSub.unsubscribe();
         this.selectedUser = null;
         this.reportData = null;
     }

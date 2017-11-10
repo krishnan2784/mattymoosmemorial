@@ -29,7 +29,7 @@ var ObservationFeedItemReport = (function () {
         this.model = this.injector.get('model');
         this.pageTitle = this.injector.get('pageTitle');
         this.feedTypeString = Enums.FeedTypeEnum[this.model.feedType];
-        this.sharedService.goBackEvent.subscribe(function () {
+        this.backSub = this.sharedService.goBackEvent.subscribe(function () {
             _this.onBackEvent.emit();
         });
     }
@@ -39,6 +39,8 @@ var ObservationFeedItemReport = (function () {
     ObservationFeedItemReport.prototype.ngAfterViewInit = function () {
     };
     ObservationFeedItemReport.prototype.ngOnDestroy = function () {
+        if (this.backSub)
+            this.backSub.unsubscribe();
     };
     ObservationFeedItemReport.prototype.getData = function () {
         var _this = this;
@@ -126,6 +128,7 @@ var ObservationFeedItemReport = (function () {
     ObservationFeedItemReport.prototype.goBack = function () {
         this.pageTitle = null;
         this.model = null;
+        this.backSub.unsubscribe();
         this.averageTimeData = null;
         this.onBackEvent.emit();
     };
