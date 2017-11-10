@@ -45,11 +45,8 @@ var TabbedTextPageFormComponent = (function () {
         if (tab === void 0) { tab = null; }
         return new forms_1.FormGroup({
             id: new forms_1.FormControl(tab.id, []),
-            masterId: new forms_1.FormControl(tab.masterId, []),
             order: new forms_1.FormControl(tab.order, []),
-            enabled: new forms_1.FormControl(tab.enabled, []),
-            published: new forms_1.FormControl(tab.published, []),
-            mediaTabbedTextFeedtabId: new forms_1.FormControl(tab.mediaTabbedTextFeedPageId, []),
+            mediaTabbedTextFeedPageId: new forms_1.FormControl(this.model.id, []),
             bodyText: new forms_1.FormControl(tab.bodyText, [forms_1.Validators.required]),
             title: new forms_1.FormControl(tab.title, [forms_1.Validators.required])
         });

@@ -11,8 +11,6 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Enums = require("../enums");
-var Baseclasses = require("./baseclasses");
-var BaseModel = Baseclasses.BaseModel;
 var date_1 = require("../classes/helpers/date");
 var BaseFeedPage = (function () {
     function BaseFeedPage(options) {
@@ -108,18 +106,25 @@ var TabbedTextFeedPage = (function (_super) {
     return TabbedTextFeedPage;
 }(BaseFeedPage));
 exports.TabbedTextFeedPage = TabbedTextFeedPage;
-var TabText = (function (_super) {
-    __extends(TabText, _super);
+var TabText = (function () {
     function TabText(options) {
         if (options === void 0) { options = {}; }
-        var _this = _super.call(this, options) || this;
-        _this.mediaTabbedTextFeedPageId = options['mediaTabbedTextFeedPageId'] || 0;
-        _this.title = options['title'] || '';
-        _this.bodyText = options['bodyText'] || '';
-        _this.order = options['order'] || 0;
-        return _this;
+        this.id = options['id'] || 0;
+        this.createdAt = options['createdAt'];
+        this.updatedAt = options['updatedAt'];
+        this.mediaTabbedTextFeedPageId = options['mediaTabbedTextFeedPageId'] || 0;
+        this.title = options['title'] || '';
+        this.bodyText = options['bodyText'] || '';
+        this.order = options['order'] || 0;
+        var d = date_1.DateEx.formatDate(new Date());
+        if (!this.createdAt) {
+            this.createdAt = d;
+        }
+        if (!this.updatedAt) {
+            this.updatedAt = d;
+        }
     }
     return TabText;
-}(BaseModel));
+}());
 exports.TabText = TabText;
 //# sourceMappingURL=pagedfeedclasses.js.map

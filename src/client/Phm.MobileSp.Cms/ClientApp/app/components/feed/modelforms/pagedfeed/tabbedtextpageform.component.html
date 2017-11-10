@@ -18,11 +18,8 @@
                 <div [class.hidden]="currentTab!=i">
                     <div [formGroupName]="i">
                         <input type="hidden" formControlName="id">
-                        <input type="hidden" formControlName="masterId">
                         <input type="hidden" formControlName="order">
-                        <input type="hidden" formControlName="enabled">
-                        <input type="hidden" formControlName="published">
-                        <input type="hidden" formControlName="mediaTabbedTextFeedtabId">
+                        <input type="hidden" formControlName="mediaTabbedTextFeedPageId">
                         <textinput [form]="tab" [formSubmitted]="submitted"
                                    [elementId]="'tabs-' + i + '-title'"
                                    [formControlId]="'title'"

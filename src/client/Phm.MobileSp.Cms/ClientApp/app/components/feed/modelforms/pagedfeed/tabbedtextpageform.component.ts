@@ -57,11 +57,8 @@ export class TabbedTextPageFormComponent implements OnInit, OnDestroy {
     initTab(tab: TabText = null): FormGroup {
         return new FormGroup({
             id: new FormControl(tab.id, []),
-            masterId: new FormControl(tab.masterId, []),
             order: new FormControl(tab.order, []),
-            enabled: new FormControl(tab.enabled, []),
-            published: new FormControl(tab.published, []),
-            mediaTabbedTextFeedtabId: new FormControl(tab.mediaTabbedTextFeedPageId, []),
+            mediaTabbedTextFeedPageId: new FormControl(this.model.id, []),
             bodyText: new FormControl(tab.bodyText, [<any>Validators.required]),
             title: new FormControl(tab.title, [<any>Validators.required])
         });

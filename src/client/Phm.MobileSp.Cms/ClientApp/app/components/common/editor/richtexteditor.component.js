@@ -40,8 +40,6 @@ var RichTextEditorComponent = (function () {
             plugins: ['link', 'paste', 'table', 'autoresize'],
             setup: function (editor) {
                 _this.editor = editor;
-                console.log(editor);
-                console.log($(editor));
                 editor.on('keyup', function () {
                     var content = editor.getContent();
                     _this.value = content;

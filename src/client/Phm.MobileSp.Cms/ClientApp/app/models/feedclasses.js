@@ -18,6 +18,7 @@ var Baseclasses = require("./baseclasses");
 var Date1 = require("../classes/helpers/date");
 var DateEx = Date1.DateEx;
 var Pagedfeedclasses = require("./pagedfeedclasses");
+var string_1 = require("../classes/helpers/string");
 var BaseFeed = (function (_super) {
     __extends(BaseFeed, _super);
     function BaseFeed(options) {
@@ -168,6 +169,8 @@ var PagedFeed = (function (_super) {
             _this.baseFeedPages = [];
             _this.baseFeedPages.push(new Pagedfeedclasses.TextFeedPage());
         }
+        else
+            _this.baseFeedPages = string_1.StringEx.sortArray(_this.baseFeedPages, ['pageNumber']);
         return _this;
     }
     return PagedFeed;

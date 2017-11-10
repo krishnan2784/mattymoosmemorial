@@ -16,7 +16,7 @@
         <div class="clearfix"></div>
 
         <div formArrayName="baseFeedPages">
-            <div *ngFor="let page of model.baseFeedPages | orderBy:['pageNumber']; let i=index">
+            <div *ngFor="let page of model.baseFeedPages; let i=index">
                 <div [class.hidden]="currentPage!=i" class="col-md-10">
                     <div [formGroupName]="i">
 						<input type="hidden" formControlName="id">

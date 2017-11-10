@@ -103,17 +103,30 @@ export class TabbedTextFeedPage extends BaseFeedPage {
     }
 }
 
-export class TabText extends BaseModel {
+export class TabText {
+	public id: number;
+	public createdAt: string;
+	public updatedAt: string;
     public mediaTabbedTextFeedPageId: number;
     public title: string;
     public bodyText: string;
     public order: number;
 
     constructor(options: {} = {}) {
-        super(options);
+	    this.id = options['id'] || 0;
+	    this.createdAt = options['createdAt'];
+	    this.updatedAt = options['updatedAt'];
         this.mediaTabbedTextFeedPageId = options['mediaTabbedTextFeedPageId'] || 0;
         this.title = options['title'] || '';
         this.bodyText = options['bodyText'] || '';
-        this.order = options['order'] || 0;
+		this.order = options['order'] || 0;
+
+	    let d = DateEx.formatDate(new Date());
+	    if (!this.createdAt) {
+		    this.createdAt = d;
+	    }
+	    if (!this.updatedAt) {
+		    this.updatedAt = d;
+	    }
     }
 }

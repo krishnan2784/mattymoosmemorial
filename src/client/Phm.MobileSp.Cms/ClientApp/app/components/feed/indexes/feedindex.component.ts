@@ -66,7 +66,7 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
         this.getData();
     }
 
-    ngOnInit() {
+	ngOnInit() {
         this.id_sub = this.route.params.subscribe(
             (params: any) => {
                 this.catId = +params["feedCat"];

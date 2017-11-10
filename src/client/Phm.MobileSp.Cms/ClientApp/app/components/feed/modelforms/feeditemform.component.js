@@ -63,6 +63,7 @@ var FeedItemForm = (function () {
     FeedItemForm.prototype.ngOnInit = function () {
         this.initialiseForm();
         this.getModel();
+        console.log(this.model);
     };
     FeedItemForm.prototype.swapForm = function (newFormType, feedCategory) {
         var newForm = (new newFormType());

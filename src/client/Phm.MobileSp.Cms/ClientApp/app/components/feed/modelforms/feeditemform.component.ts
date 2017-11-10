@@ -81,7 +81,9 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
 
 	ngOnInit() {
         this.initialiseForm();
-        this.getModel();
+		this.getModel();
+		console.log(this.model);
+
     }
 
     public swapForm<TFormType extends any>(newFormType: TFormType, feedCategory: FeedCategoryEnum) {

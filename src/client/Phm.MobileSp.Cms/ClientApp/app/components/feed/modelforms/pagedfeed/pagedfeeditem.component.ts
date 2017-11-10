@@ -12,6 +12,7 @@ import BaseFeedPage = Pagedfeedclasses.BaseFeedPage;
 import Mediainfoclasses = require("../../../../models/mediainfoclasses");
 import MediaInfo = Mediainfoclasses.MediaInfo;
 import Validators1 = require("../../../../classes/validators");
+import {StringEx} from "../../../../classes/helpers/string";
 
 @Component({
     selector: 'pagedfeeditem',
