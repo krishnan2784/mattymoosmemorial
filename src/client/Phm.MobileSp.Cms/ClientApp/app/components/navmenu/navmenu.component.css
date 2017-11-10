@@ -17,7 +17,7 @@ li .glyphicon {
     font-size: 13px;
 }
 
-.navbar ul:not(.dropdown-content) > li > a {
+.navbar ul:not(.nav-dropdown-content) > li > a {
     font-family: 'Verdana Bold', 'Verdana Regular', 'Verdana';
     font-weight: 700;
 }
@@ -36,7 +36,7 @@ li:not(.link-active) a:focus,
     border-top: 1px #3E3E3E solid;
     border-bottom: 1px #3E3E3E solid;
 }*/
-.navbar-brand:hover, .navbar-brand span:hover, .navbar-brand i:hover , .navbar-brand h5:hover {
+.navbar-brand:hover, .navbar-brand span:hover, .navbar-brand i:hover , .navbar-brand h5:hover, .navbar a {
 	cursor: pointer;
 }
  .navbar-brand {
@@ -163,7 +163,7 @@ li:not(.link-active) a:focus,
     .navbar ul {
         float: none;
     }
-    .navbar li {
+    .navbar li, .navbar a {
         float: none;
         font-size: 15px;
     }
@@ -204,24 +204,28 @@ li:not(.link-active) a:focus,
     z-index: 2;
 }
 .dropdown-button {
-    height: 40px;
-    padding: 0 10px 0 32px;
+    height: 50px;
+    padding: 15px 10px 15px 32px;
     color: #000;
     background-color: #fff;
     border-radius: 0;
     text-align: left;
+	display: block;
     font-weight: 200;
 }
-.dropdown-button, .dropdown-content {
+.nav-dropdown-content {
+	background-color: #fff;
+	margin-bottom: 0;
+}
+.dropdown-button {
     border-top: #999 1px solid;
 }
-.dropdown-button, .dropdown-content > li > a{
+.dropdown-button, .nav-dropdown-content > li > a{
     font-weight: 400!important;
+	color: #000;
+	text-decoration: none;
 }
-.dropdown-button{
-    padding: 0 10px 0 32px;
-}
-.dropdown-content > li > a{
+.nav-dropdown-content > li > a{
     padding-right: 10px;
 }
 .back-container {

@@ -18,7 +18,7 @@
       <td><i class="material-icons">account_circle</i> {{d.firstName}} {{d.lastName}}<!-- / {{d.region}}:{{d.zone}}--></td>
       <td class="reputation">{{d.points}}</td>
         <td>
-            <a (click)="viewUserBreakdown(d.user)" *ngIf="d.points">
+            <a (click)="viewUserBreakdown(d.user)" *ngIf="d.points" id="btn-view-user-{{i}}">
                 <i class="material-icons right">keyboard_arrow_right</i>
             </a>    
         </td>

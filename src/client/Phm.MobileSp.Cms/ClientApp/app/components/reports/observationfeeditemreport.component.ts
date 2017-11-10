@@ -30,13 +30,14 @@ export class ObservationFeedItemReport implements OnInit, AfterViewInit, OnDestr
     
     public submissionRateData;
     public averageTimeData;
+	public backSub;
 
     constructor(private sharedService: ShareService, public feedDataService: FeedDataService,
         private injector: Injector) { 
         this.model = this.injector.get('model');
         this.pageTitle = this.injector.get('pageTitle');
         this.feedTypeString = Enums.FeedTypeEnum[this.model.feedType];
-        this.sharedService.goBackEvent.subscribe(() => {
+	    this.backSub = this.sharedService.goBackEvent.subscribe(() => {
             this.onBackEvent.emit();
         });
     }
@@ -48,7 +49,9 @@ export class ObservationFeedItemReport implements OnInit, AfterViewInit, OnDestr
     ngAfterViewInit() {
     }
 
-    ngOnDestroy() {
+	ngOnDestroy() {
+		if (this.backSub)
+			this.backSub.unsubscribe();
     }
 
     private getData() {
@@ -128,7 +131,8 @@ export class ObservationFeedItemReport implements OnInit, AfterViewInit, OnDestr
 
     public goBack() {
         this.pageTitle = null;
-        this.model = null;
+		this.model = null;
+	    this.backSub.unsubscribe();
         this.averageTimeData = null;
         this.onBackEvent.emit();
     }

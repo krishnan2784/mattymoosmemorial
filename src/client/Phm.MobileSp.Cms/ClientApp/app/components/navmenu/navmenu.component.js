@@ -19,6 +19,7 @@ var NavMenuComponent = (function () {
         this.currentMenuOptions = [];
         this.baseMenuOptions = [];
         this.backText = null;
+        this.toggleDropdown = false;
         this.shareService.mainNavUpdated.subscribe(function (navMenu) {
             _this.currentMenuOptions = navMenu[0];
             _this.backText = navMenu[1];

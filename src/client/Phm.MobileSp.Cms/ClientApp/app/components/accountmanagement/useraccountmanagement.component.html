@@ -36,7 +36,7 @@
                     </div>
                     <div class="clearfix"></div>                    
                 </div>
-                    <div *ngFor="let user of filteredUserAccounts | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}" class="col-md-12 index-user-item">
+                    <div *ngFor="let user of filteredUserAccounts | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}; let i = index" class="col-md-12 index-user-item">
                         <div class="col-md-1 user-img">
                             <i class="material-icons table-avatar">person</i>
                         </div>
@@ -63,7 +63,7 @@
                             </div>
                             <div class="col-md-2 user-index-controls">
                                 <div class="user-control">
-                                    <a class="action-btn" data-toggle="modal" data-backdrop="static" data-target="#edit-user" (click)="editUser(user)" id="btn-edit-user-{{user.id}}">
+                                    <a class="action-btn" data-toggle="modal" data-backdrop="static" data-target="#edit-user" (click)="editUser(user)" id="btn-edit-user-{{i}}">
                                         <i class="material-icons">edit</i>
                                         <p>Edit</p>
                                     </a>

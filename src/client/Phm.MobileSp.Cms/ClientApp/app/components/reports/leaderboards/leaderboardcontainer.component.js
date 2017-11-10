@@ -42,6 +42,8 @@ var LeaderboardContainer = (function (_super) {
     }
     LeaderboardContainer.prototype.ngOnDestroy = function () {
         this.removeTooltip();
+        if (this.backSub)
+            this.backSub.unsubscribe();
     };
     LeaderboardContainer.prototype.setupPageVariables = function () {
         this.updatePageTitle('Reports');
@@ -134,7 +136,7 @@ var LeaderboardContainer = (function (_super) {
     };
     LeaderboardContainer.prototype.handleBack = function () {
         this.setupPageVariables();
-        this.backSub = null;
+        this.backSub.unsubscribe();
         this.selectedUser = null;
         this.reportData = null;
     };
