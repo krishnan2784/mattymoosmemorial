@@ -35,7 +35,6 @@ var OrderBy = OrderBy_1 = (function () {
     };
     OrderBy.prototype.transform = function (input, _a) {
         var _b = _a[0], config = _b === void 0 ? '+' : _b;
-        console.log(input, config);
         if (!Array.isArray(input))
             return input;
         if (!Array.isArray(config) || (Array.isArray(config) && config.length == 1)) {

@@ -13,6 +13,7 @@ export class NavMenuComponent implements OnInit{
     currentMenuOptions: NavMenuOption[] = [];
 	baseMenuOptions: NavMenuOption[] = [];
 	backText = null;
+	toggleDropdown=false;
 	constructor(public shareService: ShareService) { //, public securityService: any
 		this.shareService.mainNavUpdated.subscribe(navMenu => {
 			this.currentMenuOptions = navMenu[0];
