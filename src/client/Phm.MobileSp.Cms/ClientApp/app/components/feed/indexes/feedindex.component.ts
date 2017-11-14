@@ -53,9 +53,9 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
         this.sharedService.marketUpdated.subscribe((market) => {
             this.updateMarket();
         });
-        this.sharedService.feedItemUpdated.subscribe((feedItem) => {
-            this.updateFeedItem(feedItem);
-        });
+        //this.sharedService.feedItemUpdated.subscribe((feedItem) => {
+        //    this.updateFeedItem(feedItem);
+        //});
     }
 
     updateMarket() {
@@ -99,7 +99,7 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
 
         if (!this.filteredFeed) {
             this.getFeedItemsSub = this.feedDataService.getFeeditems().subscribe((result) => {
-                this.feedItems = this.sortFeed(result);
+				this.feedItems = this.sortFeed(result);
                 this.sharedService.updateMarketDropdownEnabledState(true);
             });
         } else {
@@ -150,7 +150,8 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
         this.selectedModel = feedItem;
     }
 
-    feedItemUpdated() {
+	feedItemUpdated() {
+		this.feedItems = null;
         this.setPageTitle();
         this.updateMarketDropdownVisibility(true);
         this.updateTabNavItems(DefaultTabNavs.feedIndexTabs);

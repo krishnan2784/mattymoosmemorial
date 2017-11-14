@@ -82,8 +82,6 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
 	ngOnInit() {
         this.initialiseForm();
 		this.getModel();
-		console.log(this.model);
-
     }
 
     public swapForm<TFormType extends any>(newFormType: TFormType, feedCategory: FeedCategoryEnum) {
@@ -154,8 +152,9 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     getModel() {
         if (this.model) {
             let baseModel = new Feedclasses.BaseFeed();
-            baseModel.formatFeedItemDates(this.model);
-            this.getIconModel();
+			baseModel.formatFeedItemDates(this.model);
+			if (this.model.mainIcon == null)
+				this.getIconModel();
             this.swapForm(this.getFeedType(this.model.feedType), this.model.feedCategory);
         } else {
             this.model = new Feedclasses.BaseFeed();
