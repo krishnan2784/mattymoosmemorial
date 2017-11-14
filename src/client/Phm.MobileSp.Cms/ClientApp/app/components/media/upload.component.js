@@ -29,6 +29,7 @@ var UploadMediaComponent = (function () {
         this.maxHeight = 0;
         this.uploadUrl = '/Media/UploadFile';
         this.disabled = false;
+        this.dimensionWarning = false;
         this.files = [];
         this.uploading = false;
         this.uploaderTypes = enums_1.UploaderType;
@@ -164,15 +165,19 @@ var UploadMediaComponent = (function () {
                 if (width != this.maxWidth || height != this.maxHeight) {
                     isValid = false;
                     failMessage = "The selected file does not meet the width and height requirements. (" + this.maxWidth + "px X " + this.maxHeight + "px)";
+                    this.dimensionWarning = true;
                     break stillValid;
                 }
+                this.dimensionWarning = false;
             }
             else {
                 if ((this.maxWidth > 0 && width > this.maxWidth) || (this.maxHeight > 0 && height > this.maxHeight)) {
                     isValid = false;
                     failMessage = "The selected file is too large. Please uplaod a file smaller than " + this.maxWidth + "px X " + this.maxHeight + "px.";
+                    this.dimensionWarning = true;
                     break stillValid;
                 }
+                this.dimensionWarning = false;
             }
         }
         if (!isValid)
@@ -241,6 +246,10 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", String)
 ], UploadMediaComponent.prototype, "imagePreviewUrl", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Boolean)
+], UploadMediaComponent.prototype, "dimensionWarning", void 0);
 __decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)

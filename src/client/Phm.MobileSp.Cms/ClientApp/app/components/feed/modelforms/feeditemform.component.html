@@ -252,13 +252,8 @@
 	                [selectedMedia]="model.mainIcon" [enforceExactDimensions]="true" 
 	                [maxWidth]="1280" [maxHeight]="640" [uploaderType]="uploaderTypes.Image" [title]="'Preview Image'" 
 	                [uploadUrl]="'/Media/UploadFeedItemIcon'" [previewText]="'Icon Preview'"
-					[elementId]="'mainIcon'"></upload>
-	        <small class="active-warning" [class.hidden]="form.controls.mainIconId.valid || !submitted">
-		        Please upload an image with a resolution of 1280 x 640px.
-	        </small>
-            <small [class.hidden]="!form.controls.mainIconId.valid && submitted">
-                Image must have a resolution of 1280 x 640px.
-            </small>
+	                [elementId]="'mainIcon'"
+					[dimensionWarning]="!form.controls.mainIconId.valid && submitted"></upload>
         </div>
 
         <div class="col-md-4">
