@@ -46,14 +46,14 @@ var TabbedTextPageFormComponent = (function () {
         return new forms_1.FormGroup({
             id: new forms_1.FormControl(tab.id, []),
             order: new forms_1.FormControl(tab.order, []),
-            mediaTabbedTextFeedPageId: new forms_1.FormControl(this.model.id, []),
+            tabbedTextFeedPageId: new forms_1.FormControl(tab.tabbedTextFeedPageId, []),
             bodyText: new forms_1.FormControl(tab.bodyText, [forms_1.Validators.required]),
             title: new forms_1.FormControl(tab.title, [forms_1.Validators.required])
         });
     };
     TabbedTextPageFormComponent.prototype.addTab = function () {
         var control = this.form.controls['tabs'];
-        control.push(this.initTab(new TabText({ mediaTabbedTextFeedPageId: this.model.id })));
+        control.push(this.initTab(new TabText({ tabbedTextFeedPageId: this.model.id })));
         this.displayTab(control.length - 1);
     };
     TabbedTextPageFormComponent.prototype.removeTab = function (index) {
