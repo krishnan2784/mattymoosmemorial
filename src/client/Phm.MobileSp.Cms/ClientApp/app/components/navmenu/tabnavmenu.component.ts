@@ -28,10 +28,14 @@ export class DefaultTabNavs {
         new NavItem('Article', '/feed/' + FeedCategoryEnum.Article),
         new NavItem('Campaign', '/feed/' + FeedCategoryEnum.Campaign),
         new NavItem('Learning', '/feed/' + FeedCategoryEnum.Learning),
-        new NavItem('News', '/feed/' + FeedCategoryEnum.News)];
-    public static reportsTabs: NavItem[] = [
-        new NavItem('Quiz Reports', '/reports', 'lightPurple'),
-        new NavItem('Survey Reports', '/reports/' + FeedTypeEnum.Survey, 'orange'),
-            new NavItem('Observation Reports', '/reports/' + FeedTypeEnum.Observation, 'funk'),
-            new NavItem('Leaderboard Reports', '/reports/leaderboard', 'teal')];
+		new NavItem('News', '/feed/' + FeedCategoryEnum.News)];
+	public static reportsTabs: NavItem[] = [
+		new NavItem('Quiz Reports', '/reports', 'lightPurple'),
+		new NavItem('Survey Reports', '/reports/' + FeedTypeEnum.Survey, 'orange'),
+		new NavItem('Observation Reports', '/reports/' + FeedTypeEnum.Observation, 'funk'),
+		new NavItem('Leaderboard Reports', '/reports/leaderboard', 'teal')];
+	public static competitionsTabs: NavItem[] = [
+		new NavItem('Competitions', '/competitions', 'teal'),
+		new NavItem('Reward Schemes', '/rewardschemes', 'orange'),
+		new NavItem('T&C', '/termsandconditions', 'funk')];
 }

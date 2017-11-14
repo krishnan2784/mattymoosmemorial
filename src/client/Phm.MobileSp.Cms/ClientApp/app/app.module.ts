@@ -98,6 +98,7 @@ import {FontPickerComponent} from "./components/common/editor/fontpicker.compone
 import {BrandingOptionPickerComponent} from
 	"./components/branding/components/brandingoptionpicker/brandingoptionpicker.component";
 import {OrderBy} from "./classes/orderBy";
+import {CompetitionIndexComponent} from "./components/competitions/indexes/competitionsindex.component";
 
 
 @NgModule({
@@ -120,7 +121,8 @@ import {OrderBy} from "./classes/orderBy";
         FeedIndexComponent,
         BrandingContainerComponent,
         BrandingContentSectionComponent,
-        BaseBrandingComponent,
+		BaseBrandingComponent,
+	    CompetitionIndexComponent,
 
         // feed item forms
         FeedItemForm,
@@ -206,6 +208,9 @@ import {OrderBy} from "./classes/orderBy";
             { path: 'reports', component: FeedReportIndexComponent },
             { path: 'reports/:feedType', component: FeedReportIndexComponent },
             { path: 'branding', component: BrandingContainerComponent },
+			{ path: 'competitions', component: CompetitionIndexComponent },
+			{ path: 'rewardschemes', component: CompetitionIndexComponent },
+			{ path: 'termsandconditions', component: CompetitionIndexComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ]
