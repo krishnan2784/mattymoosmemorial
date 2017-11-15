@@ -99,6 +99,7 @@ import {BrandingOptionPickerComponent} from
 	"./components/branding/components/brandingoptionpicker/brandingoptionpicker.component";
 import {OrderBy} from "./classes/orderBy";
 import {CompetitionIndexComponent} from "./components/competitions/indexes/competitionsindex.component";
+import { GenericFilterComponent } from "./components/common/filters/generic/genericfilter.component";
 
 
 @NgModule({
@@ -180,7 +181,8 @@ import {CompetitionIndexComponent} from "./components/competitions/indexes/compe
 		FontPickerComponent,
 	    BrandingOptionPickerComponent,
 		UploadMediaComponent,
-	    OrderBy
+		OrderBy,
+	    GenericFilterComponent
     ],
     imports: [
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.

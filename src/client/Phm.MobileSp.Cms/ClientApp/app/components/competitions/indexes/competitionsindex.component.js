@@ -26,6 +26,8 @@ var tabnavmenu_component_1 = require("../../navmenu/tabnavmenu.component");
 var competitionsdataservice_1 = require("../../../services/competitionsdataservice");
 var angular2_modal_1 = require("angular2-modal");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
+var genericfilter_component_1 = require("../../common/filters/generic/genericfilter.component");
+var string_1 = require("../../../classes/helpers/string");
 var CompetitionIndexComponent = (function (_super) {
     __extends(CompetitionIndexComponent, _super);
     function CompetitionIndexComponent(competitionDataService, sharedService, overlay, vcRef, confirmBox) {
@@ -33,6 +35,7 @@ var CompetitionIndexComponent = (function (_super) {
         _this.competitionDataService = competitionDataService;
         _this.confirmBox = confirmBox;
         _this.selectedModel = null;
+        _this.competitionFilters = genericfilter_component_1.DefaultFilterSets.competitionFilters;
         _this.setupSubscriptions();
         overlay.defaultViewContainer = vcRef;
         return _this;
@@ -46,7 +49,8 @@ var CompetitionIndexComponent = (function (_super) {
     CompetitionIndexComponent.prototype.updateMarket = function () {
         if (!this.sharedService.currentMarket || !this.sharedService.currentMarket.id)
             return;
-        this.competitions = null;
+        this.filteredCompetitions = null;
+        this.allCompetitions = null;
         this.getData();
     };
     CompetitionIndexComponent.prototype.ngOnInit = function () {
@@ -59,26 +63,27 @@ var CompetitionIndexComponent = (function (_super) {
     CompetitionIndexComponent.prototype.getData = function () {
         var _this = this;
         this.getCompetitionsItemsSub = this.competitionDataService.getCompetitions().subscribe(function (result) {
-            _this.competitions = result;
+            _this.allCompetitions = result;
+            _this.filteredCompetitions = result;
             _this.sharedService.updateMarketDropdownEnabledState(true);
         });
     };
     CompetitionIndexComponent.prototype.updateCompetition = function (competition, remove) {
         if (competition === void 0) { competition = null; }
         if (remove === void 0) { remove = false; }
-        if (competition != null && this.competitions != null) {
-            var origCompetition = this.competitions.find(function (x) { return x.id === competition.id; });
-            var index = this.competitions.indexOf(origCompetition);
+        if (competition != null && this.filteredCompetitions != null) {
+            var origCompetition = this.filteredCompetitions.find(function (x) { return x.id === competition.id; });
+            var index = this.filteredCompetitions.indexOf(origCompetition);
             if (!remove) {
                 if (index > -1) {
-                    this.competitions.splice(index, 1, competition);
+                    this.filteredCompetitions.splice(index, 1, competition);
                 }
                 else {
-                    this.competitions.unshift(competition);
+                    this.filteredCompetitions.unshift(competition);
                 }
             }
             else if (index > -1) {
-                this.competitions.splice(index, 1);
+                this.filteredCompetitions.splice(index, 1);
             }
         }
     };
@@ -118,6 +123,18 @@ var CompetitionIndexComponent = (function (_super) {
             //            });
         })
             .catch(function (err) { });
+    };
+    CompetitionIndexComponent.prototype.filterList = function (filters) {
+        if (filters.length === 0)
+            this.filteredCompetitions = this.allCompetitions.slice(0);
+        var a = this.allCompetitions.slice(0);
+        var sFilter = filters.filter(function (x) { return x.filterName === 'search'; })[0];
+        if (sFilter) {
+            a = string_1.StringEx.searchArray(sFilter.value.toLowerCase(), a, ['title']);
+        }
+        var dFilter = filters.filter(function (x) { return x.filterName === 'Date'; })[0];
+        var pFilter = filters.filter(function (x) { return x.filterName === 'Number of Participants'; })[0];
+        this.filteredCompetitions = a.slice(0);
     };
     return CompetitionIndexComponent;
 }(base_component_1.BaseComponent));

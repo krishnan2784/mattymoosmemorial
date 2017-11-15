@@ -1,0 +1,23 @@
+﻿.filter-container{
+	background-color: #fff;
+	padding: 0 15px;
+}
+.filter-group .bordered{
+	border: 1px solid #ccc;
+	padding: 10px;
+}
+.filter-group{
+}
+.filter-group:first-of-type{
+	padding-top: 10px;
+}
+.filter-group:last-of-type{
+	padding-bottom: 10px;
+}
+.clear-all{
+	float:right;
+}
+a, a:hover, a:active{
+	cursor:pointer;
+	text-decoration:none;
+}

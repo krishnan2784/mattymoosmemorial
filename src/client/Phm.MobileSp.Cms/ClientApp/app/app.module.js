@@ -99,6 +99,7 @@ var fontpicker_component_1 = require("./components/common/editor/fontpicker.comp
 var brandingoptionpicker_component_1 = require("./components/branding/components/brandingoptionpicker/brandingoptionpicker.component");
 var orderBy_1 = require("./classes/orderBy");
 var competitionsindex_component_1 = require("./components/competitions/indexes/competitionsindex.component");
+var genericfilter_component_1 = require("./components/common/filters/generic/genericfilter.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -176,7 +177,8 @@ AppModule = __decorate([
             fontpicker_component_1.FontPickerComponent,
             brandingoptionpicker_component_1.BrandingOptionPickerComponent,
             UploadMediaComponent,
-            orderBy_1.OrderBy
+            orderBy_1.OrderBy,
+            genericfilter_component_1.GenericFilterComponent
         ],
         imports: [
             angular2_universal_1.UniversalModule,
