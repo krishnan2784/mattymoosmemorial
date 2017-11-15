@@ -1,16 +1,21 @@
-﻿.index-competition-item {
-    padding: 0 10px 10px;
-    background-color: #fff;
-    margin-bottom: 10px;
+﻿.competition-index {
+	background-color: #fff;
+	padding-bottom: 10px;
+}
+
+.index-competition-item {
+	padding-bottom: 5px;
 }
 
 .competition-index .competition-img {
-    height: 48px;
-    margin: 25px 0 0;
+    height: 30px;
+    margin: 15px 0 0;
+	float: left;
 }
 
 .competition-index-controls {
-    margin-top: 30px;
+    margin-top: 10px;
+	float: right;
 }
 
 .competition-index-controls i, .competition-index-controls p {
@@ -19,6 +24,8 @@
 
 .competition-control {
     text-align: center;
+	float: right;
+	padding: 0 15px;
 }
 
 .competition-control a:hover, .competition-control div:hover {    
@@ -35,6 +42,12 @@
     margin-bottom: 5px;
 }
 
+.competition-item-title p {
+	font-weight: 600;
+	font-size: 1.2em;
+	margin: 15px 0 0;
+}
+
 .competition-item-title {
     font-weight: 600;
 }
@@ -44,6 +57,7 @@
 }
 
 .date-posted {
+	font-size: 0.8em;
     color: #1d9d19;
     font-weight: 600;
 }
@@ -73,12 +87,12 @@
     justify-content: space-between;
     padding-bottom: 20px;
 }
-.competition-item-title h5, .competition-item-dates, .competition-item-date{
+.competition-item-title p, .competition-item-dates, .competition-item-date{
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
     max-height: 26.400px;
 }
 .competition-item-date{
-    padding-right: 15px;
+    padding-left: 15px;
 }

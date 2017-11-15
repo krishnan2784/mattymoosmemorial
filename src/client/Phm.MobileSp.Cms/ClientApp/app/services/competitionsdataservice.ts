@@ -14,8 +14,8 @@ export class CompetitionsDataService extends RequestHelper implements ICompetiti
         super(http);
     }
 
-	public getCompetitions(): Observable<BaseModel> {
-        return this.getRequestBase('/api/Competitions/GetCompetitions');
+	public getCompetitions(): Observable<any> {
+        return this.getRequestBase('/api/Competition');
     }
 
 }

@@ -1,9 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewContainerRef } from '@angular/core';
 import { BaseComponent} from "../../base.component";
 import { ShareService } from "../../../services/helpers/shareservice";
 import { DefaultTabNavs } from "../../navmenu/tabnavmenu.component";
-import { Modal } from "angular2-modal/plugins/bootstrap/modal";
 import { CompetitionsDataService } from "../../../services/competitionsdataservice";
+
+import { Overlay } from 'angular2-modal';
+import { Modal } from 'angular2-modal/plugins/bootstrap';
 
 @Component({
 	selector: 'competitionsindex',
@@ -15,9 +17,12 @@ export class CompetitionIndexComponent extends BaseComponent implements OnInit, 
     public getCompetitionsItemsSub;
 	public competitions;
 
-	constructor(public competitionDataService: CompetitionsDataService, sharedService: ShareService, public confirmBox: Modal) {
+	constructor(public competitionDataService: CompetitionsDataService, sharedService: ShareService,
+		overlay: Overlay, vcRef: ViewContainerRef, public confirmBox: Modal) {
 		super(sharedService, 'Competitions Management', true, '', DefaultTabNavs.competitionsTabs);
-        this.setupSubscriptions();
+		this.setupSubscriptions();
+		overlay.defaultViewContainer = vcRef;
+
     }
 
     setupSubscriptions() {
@@ -28,13 +33,14 @@ export class CompetitionIndexComponent extends BaseComponent implements OnInit, 
 
     updateMarket() {
         if (!this.sharedService.currentMarket || !this.sharedService.currentMarket.id)
-            return;
+			return;
+	    this.competitions = null;
         this.getData();
     }
 
 	ngOnInit() {
-
-    }
+		this.getData();
+	}
 
     ngOnDestroy() {
         if (this.getCompetitionsItemsSub)

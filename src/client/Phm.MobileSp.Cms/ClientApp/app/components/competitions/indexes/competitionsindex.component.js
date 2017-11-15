@@ -23,16 +23,18 @@ var core_1 = require("@angular/core");
 var base_component_1 = require("../../base.component");
 var shareservice_1 = require("../../../services/helpers/shareservice");
 var tabnavmenu_component_1 = require("../../navmenu/tabnavmenu.component");
-var modal_1 = require("angular2-modal/plugins/bootstrap/modal");
 var competitionsdataservice_1 = require("../../../services/competitionsdataservice");
+var angular2_modal_1 = require("angular2-modal");
+var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var CompetitionIndexComponent = (function (_super) {
     __extends(CompetitionIndexComponent, _super);
-    function CompetitionIndexComponent(competitionDataService, sharedService, confirmBox) {
+    function CompetitionIndexComponent(competitionDataService, sharedService, overlay, vcRef, confirmBox) {
         var _this = _super.call(this, sharedService, 'Competitions Management', true, '', tabnavmenu_component_1.DefaultTabNavs.competitionsTabs) || this;
         _this.competitionDataService = competitionDataService;
         _this.confirmBox = confirmBox;
         _this.selectedModel = null;
         _this.setupSubscriptions();
+        overlay.defaultViewContainer = vcRef;
         return _this;
     }
     CompetitionIndexComponent.prototype.setupSubscriptions = function () {
@@ -44,9 +46,11 @@ var CompetitionIndexComponent = (function (_super) {
     CompetitionIndexComponent.prototype.updateMarket = function () {
         if (!this.sharedService.currentMarket || !this.sharedService.currentMarket.id)
             return;
+        this.competitions = null;
         this.getData();
     };
     CompetitionIndexComponent.prototype.ngOnInit = function () {
+        this.getData();
     };
     CompetitionIndexComponent.prototype.ngOnDestroy = function () {
         if (this.getCompetitionsItemsSub)
@@ -123,7 +127,8 @@ CompetitionIndexComponent = __decorate([
         template: require('./competitionsindex.component.html'),
         styles: [require('./competitionsindex.component.css')]
     }),
-    __metadata("design:paramtypes", [competitionsdataservice_1.CompetitionsDataService, shareservice_1.ShareService, modal_1.Modal])
+    __metadata("design:paramtypes", [competitionsdataservice_1.CompetitionsDataService, shareservice_1.ShareService,
+        angular2_modal_1.Overlay, core_1.ViewContainerRef, bootstrap_1.Modal])
 ], CompetitionIndexComponent);
 exports.CompetitionIndexComponent = CompetitionIndexComponent;
 //# sourceMappingURL=competitionsindex.component.js.map

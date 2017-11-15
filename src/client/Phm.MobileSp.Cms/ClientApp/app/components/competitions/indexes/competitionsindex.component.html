@@ -12,24 +12,21 @@
                 </div>
             </div>
 
-            <div class='competition-index col-xs-12 animate-bottom' *ngIf="this.competitions.length > 0">
+            <div class='competition-index col-xs-8 animate-bottom' *ngIf="this.competitions.length > 0">
                 <div *ngFor="let competition of this.competitions | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}; let i = index" class="col-xs-12 index-competition-item">
-                    <div class="col-xs-1">
-                        <img src="assets/images/Icon-Observation-b.png" class="competition-img" />
-                    </div>
-                    <div class="col-xs-11 no-pad">
-                        <div class="col-xs-8 no-pad">
+                    <img src="assets/images/Icon-Observation-b.png" class="competition-img" />
+                        <div class="col-xs-7 no-pad">
                             <div class="col-xs-12 competition-item-title">
-                                <h5 [innerHTML]="competition.title"></h5>
+                                <p [innerHTML]="competition.title"></p>
                             </div>
                             <div class="col-xs-12">
-                                <div *ngIf="competition.publishedLiveAt" class="col-xs-4 no-pad date-posted competition-item-date">
+                                <div *ngIf="competition.publishedLiveAt" class="date-posted competition-item-date">
                                     Date posted: {{ competition.publishedLiveAt | date:'short' }}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-4 competition-index-controls">
-                            <div class="competition-control col-xs-3" [class.col-xs-offset-3]="currentMarket && currentMarket.isLive">
+                        <div class="col-xs-4 no-pad competition-index-controls">
+                            <div class="competition-control" [class.col-xs-offset-3]="currentMarket && currentMarket.isLive">
                                 <div>
                                     <a (click)="editCompetition(competition)" id="competition-index-item__btn-edit-{{i}}">
                                         <i class="material-icons">edit</i>
@@ -37,18 +34,18 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="competition-control col-xs-3">
-                                <div>
-                                    <a (click)="deleteCompetition(competition)" id="competition-index-item__btn-delete-{{i}}">
-                                        <i class="material-icons">delete</i>
-                                        <p>Delete</p>
-                                    </a>
-                                </div>
-                            </div>
+	                        <div class="competition-control">
+		                        <div>
+			                        <a (click)="deleteCompetition(competition)" id="competition-index-item__btn-delete-{{i}}">
+				                        <i class="material-icons">delete</i>
+				                        <p>Delete</p>
+			                        </a>
+		                        </div>
+	                        </div>
+	                        <div class="clearfix"></div>
+
                         </div>
                         <div class="clearfix"></div>
-                    </div>
-                    <div class="clearfix"></div>
                 </div>
                 <pagination-controls (pageChange)="page = $event" id="1"
                                      maxSize="20"

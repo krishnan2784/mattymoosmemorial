@@ -32,7 +32,7 @@ var CompetitionsDataService = (function (_super) {
         return _this;
     }
     CompetitionsDataService.prototype.getCompetitions = function () {
-        return this.getRequestBase('/api/Competitions/GetCompetitions');
+        return this.getRequestBase('/api/Competition');
     };
     return CompetitionsDataService;
 }(requesthelper_1.RequestHelper));

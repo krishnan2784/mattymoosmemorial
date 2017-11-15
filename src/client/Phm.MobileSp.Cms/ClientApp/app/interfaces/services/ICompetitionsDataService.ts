@@ -2,5 +2,6 @@
 import {BaseModel} from "../../models/baseclasses";
 
 export interface ICompetitionsDataService {
-    getCompetitions(): Observable<BaseModel>;
+	getCompetitions(): Observable<any>;
+
 }
