@@ -58,7 +58,7 @@ export class TabbedTextPageFormComponent implements OnInit, OnDestroy {
         return new FormGroup({
             id: new FormControl(tab.id, []),
             order: new FormControl(tab.order, []),
-            mediaTabbedTextFeedPageId: new FormControl(this.model.id, []),
+			tabbedTextFeedPageId: new FormControl(tab.tabbedTextFeedPageId, []),
             bodyText: new FormControl(tab.bodyText, [<any>Validators.required]),
             title: new FormControl(tab.title, [<any>Validators.required])
         });
@@ -66,7 +66,7 @@ export class TabbedTextPageFormComponent implements OnInit, OnDestroy {
 
     addTab() {
         const control = <FormArray>this.form.controls['tabs'];
-		control.push(this.initTab(new TabText({ mediaTabbedTextFeedPageId: this.model.id })));
+		control.push(this.initTab(new TabText({ tabbedTextFeedPageId: this.model.id })));
         this.displayTab(control.length - 1);
     }
 

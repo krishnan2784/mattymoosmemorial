@@ -1,4 +1,4 @@
-<div [formGroup]="form" *ngIf="isVisible">
+<div [formGroup]="form">
     <small *ngIf="submitted && form.controls.tabs.hasError('minlength')" class="active-warning center">
         Please add at least one tab.
     </small>
@@ -19,13 +19,13 @@
                     <div [formGroupName]="i">
                         <input type="hidden" formControlName="id">
                         <input type="hidden" formControlName="order">
-                        <input type="hidden" formControlName="mediaTabbedTextFeedPageId">
+                        <input type="hidden" formControlName="tabbedTextFeedPageId">
                         <textinput [form]="tab" [formSubmitted]="submitted"
                                    [elementId]="'tabs-' + i + '-title'"
                                    [formControlId]="'title'"
                                    [label]="'Tab title'"
                                    [validationMessage]="'A tab title is required.'"></textinput>
-                        <richtexteditor [form]="tab" [formSubmitted]="submitted"
+                        <richtexteditor *ngIf="isVisible" [form]="tab" [formSubmitted]="submitted"
                                 [elementId]="'tabs-' + i + '-bodyText'"
                                 [formControlId]="'bodyText'"
                                 [label]="'Body text'"

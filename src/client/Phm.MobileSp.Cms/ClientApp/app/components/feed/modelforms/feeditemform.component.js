@@ -63,7 +63,6 @@ var FeedItemForm = (function () {
     FeedItemForm.prototype.ngOnInit = function () {
         this.initialiseForm();
         this.getModel();
-        console.log(this.model);
     };
     FeedItemForm.prototype.swapForm = function (newFormType, feedCategory) {
         var newForm = (new newFormType());
@@ -124,7 +123,8 @@ var FeedItemForm = (function () {
         if (this.model) {
             var baseModel = new Feedclasses.BaseFeed();
             baseModel.formatFeedItemDates(this.model);
-            this.getIconModel();
+            if (this.model.mainIcon == null)
+                this.getIconModel();
             this.swapForm(this.getFeedType(this.model.feedType), this.model.feedCategory);
         }
         else {

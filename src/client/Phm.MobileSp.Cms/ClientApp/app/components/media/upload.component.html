@@ -2,8 +2,11 @@
     {{title}}
 </h5>
 <p [class.warning]="!correctType">
-    <span *ngIf="uploaderType==uploaderTypes.Any || uploaderType==uploaderTypes.Image">Images must be jpeg or png format. </span>
-    <span *ngIf="uploaderType==uploaderTypes.Any || uploaderType==uploaderTypes.Video">Videos must be mp4. </span>     
+	<span *ngIf="uploaderType==uploaderTypes.Any || uploaderType==uploaderTypes.Image">Images must be jpeg or png format. </span>
+	<span *ngIf="uploaderType==uploaderTypes.Any || uploaderType==uploaderTypes.Video">Videos must be mp4. </span>     
+</p>
+<p [class.warning]="dimensionWarning" *ngIf="maxWidth > 0 || maxHeight > 0" class="warning">
+	<span>Please upload an image with a resolution of <span *ngIf="!enforceExactDimensions">at least </span>{{maxWidth}} x {{maxHeight}}px.</span>     
 </p>
 <div class="upload-container">
     <div class="file-field input-field">

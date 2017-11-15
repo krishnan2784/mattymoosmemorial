@@ -36,14 +36,14 @@ export class UploadMediaComponent implements OnInit, OnChanges {
 	@Input() elementId: string;
 	@Input() disabled: boolean = false;
 	@Input() imagePreviewUrl: string;
-	
+	@Input() dimensionWarning: boolean = false;
+
     public files: File[] = [];
     public uploading: boolean = false;
 
     public videoPreviewUrl: string;
     uploaderTypes: typeof UploaderType = UploaderType;
     public correctType: boolean = true;
-
     @Output()
     public mediaUploading: EventEmitter<boolean> = new EventEmitter();
     @Output()
@@ -184,17 +184,21 @@ export class UploadMediaComponent implements OnInit, OnChanges {
             if (this.enforceExactDimensions) {
                 if (width != this.maxWidth || height != this.maxHeight) {
                     isValid = false;
-                    failMessage = "The selected file does not meet the width and height requirements. (" + this.maxWidth + "px X " + this.maxHeight + "px)";
+					failMessage = "The selected file does not meet the width and height requirements. (" + this.maxWidth + "px X " + this.maxHeight + "px)";
+	                this.dimensionWarning = true;
                     break stillValid;
-                }
+				}
+	            this.dimensionWarning = false;
             } else {
                 if ((this.maxWidth > 0 && width > this.maxWidth) || (this.maxHeight > 0 && height > this.maxHeight)) {
                     isValid = false;
-                    failMessage = "The selected file is too large. Please uplaod a file smaller than " + this.maxWidth + "px X " + this.maxHeight + "px.";
+					failMessage = "The selected file is too large. Please uplaod a file smaller than " + this.maxWidth + "px X " + this.maxHeight + "px.";
+	                this.dimensionWarning = true;
                     break stillValid;
-                }
+				}
+	            this.dimensionWarning = false;
             }
-        }
+		}
 
         if (!isValid)
             this.failAlert(failMessage);

@@ -107,7 +107,7 @@ export class TabText {
 	public id: number;
 	public createdAt: string;
 	public updatedAt: string;
-    public mediaTabbedTextFeedPageId: number;
+	public tabbedTextFeedPageId: number;
     public title: string;
     public bodyText: string;
     public order: number;
@@ -116,7 +116,7 @@ export class TabText {
 	    this.id = options['id'] || 0;
 	    this.createdAt = options['createdAt'];
 	    this.updatedAt = options['updatedAt'];
-        this.mediaTabbedTextFeedPageId = options['mediaTabbedTextFeedPageId'] || 0;
+		this.tabbedTextFeedPageId = options['tabbedTextFeedPageId'] || 0;
         this.title = options['title'] || '';
         this.bodyText = options['bodyText'] || '';
 		this.order = options['order'] || 0;
