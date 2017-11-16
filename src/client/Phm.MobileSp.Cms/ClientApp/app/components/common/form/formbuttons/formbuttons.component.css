@@ -1,0 +1,9 @@
+.form-buttons {
+	position: absolute;
+	top: 50px;
+	right: 100px;
+}
+
+.btn-save {
+	margin-left: 30px;
+}

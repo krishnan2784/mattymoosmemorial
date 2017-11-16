@@ -71,7 +71,6 @@
     <ProjectReference Include="..\..\lib\Phm.MobileSp.Cms.Infrastructure\Phm.MobileSp.Cms.Infrastructure.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ClientApp\app\components\navbar\" />
     <Folder Include="ClientApp\plugins\" />
     <Folder Include="Connected Services\Application Insights" />
   </ItemGroup>

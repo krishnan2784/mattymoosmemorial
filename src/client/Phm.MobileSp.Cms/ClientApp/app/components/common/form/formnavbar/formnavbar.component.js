@@ -10,33 +10,38 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var NavBarComponent = (function () {
-    function NavBarComponent() {
+var FormNavBarComponent = (function () {
+    function FormNavBarComponent() {
         this.optionSelected = new core_1.EventEmitter();
     }
-    NavBarComponent.prototype.raiseEvent = function (id, index) {
+    FormNavBarComponent.prototype.ngOnInit = function () {
+        if (this.data && this.data.length > 0 && this.data.filter(function (x) { return x.select; }).length === 0) {
+            this.data[0].selected = true;
+        }
+    };
+    FormNavBarComponent.prototype.raiseEvent = function (id, index) {
         this.data.forEach(function (x) {
             x.selected = false;
         });
         this.data[index].selected = true;
         this.optionSelected.emit(id);
     };
-    return NavBarComponent;
+    return FormNavBarComponent;
 }());
 __decorate([
     core_1.Input(),
     __metadata("design:type", Object)
-], NavBarComponent.prototype, "data", void 0);
+], FormNavBarComponent.prototype, "data", void 0);
 __decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)
-], NavBarComponent.prototype, "optionSelected", void 0);
-NavBarComponent = __decorate([
+], FormNavBarComponent.prototype, "optionSelected", void 0);
+FormNavBarComponent = __decorate([
     core_1.Component({
-        selector: 'navbar',
-        styles: [require('./navbar.css')],
-        template: require('./navbar.html')
+        selector: 'formnavbar',
+        styles: [require('./formnavbar.component.css')],
+        template: require('./formnavbar.component.html')
     })
-], NavBarComponent);
-exports.NavBarComponent = NavBarComponent;
-//# sourceMappingURL=navbar.component.js.map
+], FormNavBarComponent);
+exports.FormNavBarComponent = FormNavBarComponent;
+//# sourceMappingURL=formnavbar.component.js.map

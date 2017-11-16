@@ -47,7 +47,6 @@ import FeedItemReportContainerComponent = Basefeeditemreportcomponent.FeedItemRe
 import Gaugechartcomponent = require("./components/charts/gaugechart.component");
 import GaugeChart = Gaugechartcomponent.GaugeChart;
 import Donutchartcomponent = require("./components/charts/donutchart.component");
-import { NavBarComponent } from "./components/navbar/navbar.component";
 import DonutChart = Donutchartcomponent.DonutChart;
 import Editusercomponent = require("./components/accountmanagement/modals/edituser.component");
 import EditUser = Editusercomponent.EditUser;
@@ -100,6 +99,9 @@ import {BrandingOptionPickerComponent} from
 import {OrderBy} from "./classes/orderBy";
 import {CompetitionIndexComponent} from "./components/competitions/indexes/competitionsindex.component";
 import { GenericFilterComponent } from "./components/common/filters/generic/genericfilter.component";
+import {CompetitionForm} from "./components/competitions/forms/competitionform/competitionform.component";
+import {FormButtons} from "./components/common/form/formbuttons/formbuttons.component";
+import {FormNavBarComponent} from "./components/common/form/formnavbar/formnavbar.component";
 
 
 @NgModule({
@@ -108,7 +110,8 @@ import { GenericFilterComponent } from "./components/common/filters/generic/gene
         AppComponent,
         BaseComponent,
         NavMenuComponent,
-        NavBarComponent,
+	    FormNavBarComponent,
+	    FormButtons,
         TabNavMenuComponent,
         FooterComponent,
         MarketDropdown,
@@ -154,7 +157,10 @@ import { GenericFilterComponent } from "./components/common/filters/generic/gene
         LeaderboardComponent,
         LbExecutivesTableComponent,
         LbrefineComponent,
-        PartitionComponent,
+		PartitionComponent,
+
+		// competitions
+	    CompetitionForm,
 
         // user management
         EditUser,

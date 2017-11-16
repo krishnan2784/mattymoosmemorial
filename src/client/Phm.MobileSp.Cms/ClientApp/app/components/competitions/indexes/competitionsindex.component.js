@@ -98,12 +98,13 @@ var CompetitionIndexComponent = (function (_super) {
         this.updateTabNavItems();
         this.selectedModel = competition;
     };
-    CompetitionIndexComponent.prototype.competitionUpdated = function () {
+    CompetitionIndexComponent.prototype.competitionUpdated = function (comp) {
         this.updatePageTitle("Competitions Management");
         this.updateMarketDropdownVisibility(true);
         this.updateTabNavItems(tabnavmenu_component_1.DefaultTabNavs.competitionsTabs);
         this.selectedModel = null;
-        this.getData();
+        if (comp)
+            this.getData();
     };
     CompetitionIndexComponent.prototype.deleteCompetition = function (competition) {
         this.confirmBox.confirm()

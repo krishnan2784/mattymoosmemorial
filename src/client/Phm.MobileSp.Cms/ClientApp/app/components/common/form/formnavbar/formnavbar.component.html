@@ -1,0 +1,13 @@
+<div class="form-navbar">
+	<div class="navBarContents">
+		<div *ngFor="let o of data ; let i=index" [ngClass]="{selected: o.selected}" class="option" (click)="raiseEvent(o.id, i)" id="sub-nav__option-{{i}}">
+			<div class="border-top"></div>
+			<div class="text">
+				<span class="main-text">{{o.text}}</span>
+				<span *ngIf="o.additionalText" class="additionalText">&nbsp;({{o.additionalText}})</span>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+</div>
+<div class="bottom-pad"></div>
