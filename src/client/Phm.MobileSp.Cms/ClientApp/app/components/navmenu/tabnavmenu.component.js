@@ -60,5 +60,10 @@ DefaultTabNavs.reportsTabs = [
     new NavItem('Observation Reports', '/reports/' + enums_1.FeedTypeEnum.Observation, 'funk'),
     new NavItem('Leaderboard Reports', '/reports/leaderboard', 'teal')
 ];
+DefaultTabNavs.competitionsTabs = [
+    new NavItem('Competitions', '/competitions', 'teal'),
+    new NavItem('Reward Schemes', '/rewardschemes', 'orange'),
+    new NavItem('T&C', '/termsandconditions', 'funk')
+];
 exports.DefaultTabNavs = DefaultTabNavs;
 //# sourceMappingURL=tabnavmenu.component.js.map

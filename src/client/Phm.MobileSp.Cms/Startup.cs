@@ -122,8 +122,8 @@ namespace Phm.MobileSp.Cms
                 services.AddTransient<IUserRepository, UserRepository>();
                 services.AddTransient<IUserTemplateRepository, UserTemplateRepository>();
                 services.AddTransient<IBrandingConfigurationsRepository, BrandingConfigurationsRepository>();
+                services.AddTransient<ICompetitionRepository, CompetitionRepository>();
 				services.AddSingleton<IFeedItemModelBinder, FeedItemModelBinder>();
-	            
 
 				services.AddSession(options =>
                 {

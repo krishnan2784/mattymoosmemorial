@@ -36,6 +36,7 @@ var NavMenuComponent = (function () {
             new navmenuclasses_1.NavMenuOption('Content', '/feed'),
             new navmenuclasses_1.NavMenuOption('Reports', '/reports', { routerLinkActiveOptions: { exact: false } }),
             new navmenuclasses_1.NavMenuOption('Accounts', '/useraccountmanagement', { routerLinkActiveOptions: { exact: false } })
+            // ,new NavMenuOption('Competition Management', '/competitions', { routerLinkActiveOptions: { exact: false } })
         ];
         this.resetNavMenu();
     };
