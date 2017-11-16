@@ -1,0 +1,3 @@
+.form-tab-content:not(.visible) {
+	visibility: hidden;
+}

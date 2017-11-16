@@ -1,5 +1,4 @@
 ﻿.feed-item-form-container {
-    padding-top: 20px;
     margin-bottom: 50px;
     min-height: 750px;
 }
@@ -85,43 +84,8 @@
 }
 
 .feed-item-form-container {
-    padding: 20px;
+    padding: 0 20px 20px;
 }
-
-.feed-item-form-buttons {
-    float: right;
-    padding: 20px 0;
-}
-
-.feed-form-navigation {
-    height: 50px;
-    padding: 0 15px;
-    vertical-align: middle;
-    margin-bottom: 40px;
-    position:absolute;
-    top: 100px;
-    left:3px;
-    background-color: #fff;
-    width: 100%;
-    border-top: 1px solid #D8DEDC;
-    border-bottom:2px solid #D8DEDC;
-
-}
-
-.btn-save {
-    margin-left: 30px;
-}
-
-.feed-form-navigation a {
-    text-decoration: none;
-}
-.feed-form-navigation span {
-    cursor: pointer;
-    display: inline-block;
-    width: 25%;
-    text-align: center;
-}
-
 .active-form-tab {
     background-color: #4F3A9F;
     color: #f9f9f9;
