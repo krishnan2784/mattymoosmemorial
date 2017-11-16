@@ -8,6 +8,7 @@ import { Overlay } from 'angular2-modal';
 import { Modal } from 'angular2-modal/plugins/bootstrap';
 import {GenericFilterSet, DefaultFilterSets, GenericFilter, StringFilter, DateRangeFilter, RangeFilter } from "../../common/filters/generic/genericfilter.component";
 import {StringEx} from "../../../classes/helpers/string";
+import {UserMarket} from "../../../models/userclasses";
 
 @Component({
 	selector: 'competitionsindex',
@@ -20,12 +21,13 @@ export class CompetitionIndexComponent extends BaseComponent implements OnInit, 
 	public allCompetitions;
 	public filteredCompetitions;
 	competitionFilters: GenericFilterSet = DefaultFilterSets.competitionFilters;
+	public currentMarket: UserMarket;
 
 	constructor(public competitionDataService: CompetitionsDataService, sharedService: ShareService,
 		overlay: Overlay, vcRef: ViewContainerRef, public confirmBox: Modal) {
 		super(sharedService, 'Competitions Management', true, '', DefaultTabNavs.competitionsTabs);
-		this.setupSubscriptions();
 		overlay.defaultViewContainer = vcRef;
+		this.setupSubscriptions();
 
     }
 
@@ -38,6 +40,7 @@ export class CompetitionIndexComponent extends BaseComponent implements OnInit, 
     updateMarket() {
         if (!this.sharedService.currentMarket || !this.sharedService.currentMarket.id)
 			return;
+	    this.currentMarket = this.sharedService.currentMarket;
 		this.filteredCompetitions = null;
 	    this.allCompetitions = null;
         this.getData();
@@ -77,7 +80,7 @@ export class CompetitionIndexComponent extends BaseComponent implements OnInit, 
         }
     }
 
-	editCompetition(competition) {
+	editCompetition(competition = new Competition) {
 		if (competition && competition.id > 0) {
             this.updatePageTitle("Edit Competition");
         } else {

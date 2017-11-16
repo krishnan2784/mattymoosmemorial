@@ -36,8 +36,8 @@ var CompetitionIndexComponent = (function (_super) {
         _this.confirmBox = confirmBox;
         _this.selectedModel = null;
         _this.competitionFilters = genericfilter_component_1.DefaultFilterSets.competitionFilters;
-        _this.setupSubscriptions();
         overlay.defaultViewContainer = vcRef;
+        _this.setupSubscriptions();
         return _this;
     }
     CompetitionIndexComponent.prototype.setupSubscriptions = function () {
@@ -49,6 +49,7 @@ var CompetitionIndexComponent = (function (_super) {
     CompetitionIndexComponent.prototype.updateMarket = function () {
         if (!this.sharedService.currentMarket || !this.sharedService.currentMarket.id)
             return;
+        this.currentMarket = this.sharedService.currentMarket;
         this.filteredCompetitions = null;
         this.allCompetitions = null;
         this.getData();
@@ -88,6 +89,7 @@ var CompetitionIndexComponent = (function (_super) {
         }
     };
     CompetitionIndexComponent.prototype.editCompetition = function (competition) {
+        if (competition === void 0) { competition = new Competition; }
         if (competition && competition.id > 0) {
             this.updatePageTitle("Edit Competition");
         }

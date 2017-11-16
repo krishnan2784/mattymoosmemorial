@@ -106,6 +106,12 @@
     <None Update="ClientApp\app\components\reports\observationfeeditemreport.component.ts">
       <DependentUpon>observationfeeditemreport.component.html</DependentUpon>
     </None>
+    <None Update="ClientApp\app\models\competitionclasses.js">
+      <DependentUpon>competitionclasses.ts</DependentUpon>
+    </None>
+    <None Update="ClientApp\app\models\securityclasses.js">
+      <DependentUpon>securityclasses.ts</DependentUpon>
+    </None>
     <None Update="ClientApp\app\models\reportclasses.js">
       <DependentUpon>reportclasses.ts</DependentUpon>
     </None>

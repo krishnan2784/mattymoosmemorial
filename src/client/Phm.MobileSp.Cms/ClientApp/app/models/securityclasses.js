@@ -10,23 +10,16 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Baseclasses = require("./baseclasses");
-var BaseModel = Baseclasses.BaseModel;
-var Market = (function (_super) {
-    __extends(Market, _super);
-    function Market(options) {
+var baseclasses_1 = require("./baseclasses");
+var SecEntity = (function (_super) {
+    __extends(SecEntity, _super);
+    function SecEntity(options) {
         if (options === void 0) { options = {}; }
         var _this = _super.call(this, options) || this;
-        _this.brandId = options['brandId'] || 0;
-        _this.code = options['dealershipCode'] || '';
-        _this.defaultLanguageId = options['defaultLanguageId'] || 0;
-        _this.isLive = options['isLive'] || false;
-        _this.isMaster = options['isMaster'] || false;
-        _this.name = options['name'] || '';
-        _this.useMetricSystem = options['useMetricSystem'] || false;
+        _this.secEntityType = options['secEntityType'];
         return _this;
     }
-    return Market;
-}(BaseModel));
-exports.Market = Market;
-//# sourceMappingURL=marketclasses.js.map
+    return SecEntity;
+}(baseclasses_1.BaseModel));
+exports.SecEntity = SecEntity;
+//# sourceMappingURL=securityclasses.js.map
