@@ -1,6 +1,13 @@
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {Competition} from "../../../../models/competitionclasses";
+import { CompetitionsDataService } from "../../../../services/competitionsdataservice";
+import {FormEx} from "../../../../classes/helpers/form";
+import {ShareService} from "../../../../services/helpers/shareservice";
 
+
+declare var $: any;
+declare var Materialize: any;
 @Component({
 	selector: 'competition-form',
 	template: require('./competitionform.component.html'),
@@ -8,17 +15,17 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class CompetitionForm implements OnInit {
 	@Output()
-	public competitionUpdated: EventEmitter<any> = new EventEmitter<any>();
+	public competitionUpdated: EventEmitter<Competition> = new EventEmitter<Competition>();
 
 	@Input()
-	public model: any;
+	public model: Competition;
 	public form: FormGroup;
 
 	navbarData;
 	currentStep;
 	loading: boolean = false;
 
-	constructor(public _fb: FormBuilder) {
+	constructor(public _fb: FormBuilder, public sharedService: ShareService, public competitionService: CompetitionsDataService) {
 
 	}
 
@@ -44,10 +51,22 @@ export class CompetitionForm implements OnInit {
 		this.currentStep = step;
 	}
 
-	save(competition, isValid: boolean) {
+	save(competition: Competition, isValid: boolean) {
+		if (!this.form.valid) {
+			console.log(FormEx.getFormValidationErrors(this.form));
+			$('.toast').remove();
+			return Materialize.toast('Please check that you have filled in all the required fields.', 6000, 'red');
+		}
 		this.loading = true;
-		console.log(competition);
-		this.loading = false;
+		this.competitionService.updateCompetition(competition).subscribe(result => {
+			if (result.success) {
+				this.model = result.content;
+				this.sharedService.updateFeedItem(result.content);
+				this.competitionUpdated.emit(result.content);
+			} else
+				this.loading = false;
+
+		});
 	}
 
 	goBack() {

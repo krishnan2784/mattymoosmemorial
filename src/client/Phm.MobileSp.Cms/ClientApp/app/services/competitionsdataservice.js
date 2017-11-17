@@ -34,6 +34,9 @@ var CompetitionsDataService = (function (_super) {
     CompetitionsDataService.prototype.getCompetitions = function () {
         return this.getRequestBase('/api/Competition');
     };
+    CompetitionsDataService.prototype.updateCompetition = function (competition) {
+        return this.postRequestFull('/api/Competition', competition);
+    };
     return CompetitionsDataService;
 }(requesthelper_1.RequestHelper));
 CompetitionsDataService = __decorate([

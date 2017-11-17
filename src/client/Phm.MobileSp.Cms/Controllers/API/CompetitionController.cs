@@ -32,14 +32,26 @@ namespace Phm.MobileSp.Cms.Controllers.API
             return Json(new BaseResponse<dynamic>(response));
         }
 
-        [HttpPost]
-        [JsonResponseWrapper]
-        public async Task<JsonResult> Update([FromBody]dynamic competition)
-        {
-            var response = await _competitionRepo.UpdateCompetitionAsync(competition);
-	        var success = response != null && response.Id > 0;
-            return Json(new BaseResponse<dynamic>(success, success ? "Competition was successfully updated." : "Failed to update competition. Please try again.", response));
-        }
+	    [HttpPost("[action]")]
+	    [JsonResponseWrapper]
+	    public async Task<JsonResult> Create([FromBody]Competition competition)
+	    {
+		    var response = await _competitionRepo.CreateCompetitionAsync(competition);
+		    var success = response != null && response.Id > 0;
+		    return Json(new BaseResponse<dynamic>(success, success ? "Competition was successfully created." : "Failed to create competition. Please try again.", response));
+	    }
 
-    }
+	    [HttpPost]
+	    [JsonResponseWrapper]
+	    public async Task<JsonResult> Update([FromBody]Competition competition)
+	    {
+		    if (competition.Id == 0)
+			    return await Create(competition);
+
+		    var response = await _competitionRepo.UpdateCompetitionAsync(competition);
+		    var success = response != null && response.Id > 0;
+		    return Json(new BaseResponse<dynamic>(success, success ? "Competition was successfully updated." : "Failed to update competition. Please try again.", response));
+	    }
+
+	}
 }

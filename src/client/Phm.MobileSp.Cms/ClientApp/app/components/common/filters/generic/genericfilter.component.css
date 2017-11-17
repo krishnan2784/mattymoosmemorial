@@ -1,6 +1,7 @@
 ﻿.filter-container{
 	background-color: #fff;
 	padding: 0 15px;
+	margin-bottom: 200px;
 }
 .filter-group .bordered{
 	border: 1px solid #ccc;

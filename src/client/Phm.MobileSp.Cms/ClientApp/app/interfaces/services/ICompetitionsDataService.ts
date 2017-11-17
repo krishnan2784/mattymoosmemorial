@@ -1,7 +1,8 @@
 ﻿import {Observable} from 'rxjs/Observable';
-import {BaseModel} from "../../models/baseclasses";
+import {Competition} from "../../models/competitionclasses";
+import {ApiResponse} from "../../models/apiresponse";
 
 export interface ICompetitionsDataService {
-	getCompetitions(): Observable<any>;
-
+	getCompetitions(): Observable<Competition[]>;
+	updateCompetition(competition: Competition): Observable<ApiResponse>;
 }
