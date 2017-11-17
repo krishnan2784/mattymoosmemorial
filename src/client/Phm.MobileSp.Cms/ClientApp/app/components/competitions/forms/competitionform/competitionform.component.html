@@ -5,14 +5,52 @@
 	<input type="hidden" formControlName="id">
 
 	<div class="form-tab" [class.visible]="currentStep==='description'">
-		<div class="rich-text-box">
+
+		<div class="col-md-5">
 			<enhancedtextarea [form]="form" [formSubmitted]="submitted"
 			                  [elementId]="'title'"
 			                  [formControlId]="'title'"
 			                  [label]="'Enter Title'"
 			                  [validationMessage]="'Title is required.'"
 			                  [maxLength]="160"></enhancedtextarea>
+
+
+			<enhancedtextarea [form]="form" [formSubmitted]="submitted"
+			                  [elementId]="'about'"
+			                  [formControlId]="'about'"
+			                  [label]="'About This Competition'"
+			                  [validationMessage]="'Please enter some information about this competition.'"
+			                  [maxLength]=""></enhancedtextarea>
 		</div>
+
+		<div class="col-md-6">
+			<upload (mediaUploading)="loading=$event" 
+			        [form]="form"
+			        [formControlId]="'mainImageId'"
+			        [selectedMedia]="model.mainImage" 
+			        [uploaderType]="uploaderTypes.Image" [title]="'Upload image (optional)'" 
+			        [previewText]="'Icon Preview'"
+			        [elementId]="'mainImageId'"
+			        [dimensionWarning]="!form.controls.mainImageId.valid && submitted"></upload>
+			
+			
+			<div class="checkbox-container">
+				<input type="checkbox" class="filled-in" id="makeImageLink" formControlName="makeImageLink" (click)="check()" />
+				<label htmlFor="makeImageLink">Make Image Link</label>
+			</div>
+			
+			<calltoaction
+				[form]="form"
+				[buttonLabelFormControlId]="'linkTitle'"
+				[additionalInfo]="'Button label e.g. Read More'"
+				[buttonLabelElementId]="'linkTitle'"
+				[urlFormControlId]="'linkUrl'"
+				[urlElementId]="'linkUrl'"
+				[formSubmitted]="submitted"></calltoaction>
+
+		</div>
+
+		<div class="clearfix"></div>
 	</div>
 
 	<div class="form-tab-content" [class.visible]="currentStep==='settings'">
@@ -20,3 +58,12 @@
 	</div>
 
 </form>
+
+<!--baseRewardSchemeId: [this.model.baseRewardSchemeId, []],
+termsAndConditionId: [this.model.termsAndConditionId, []],
+startDate: [this.model.startDate, []],
+endDate: [this.model.endDate, []],
+activeImageId: [this.model.activeImageId, []],
+makeActiveImageLink: [this.model.makeActiveImageLink, []],
+completedImageId: [this.model.completedImageId, []],
+makeCompletedImageLink: [this.model.makeCompletedImageLink, []]-->

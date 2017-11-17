@@ -15,6 +15,7 @@ var competitionclasses_1 = require("../../../../models/competitionclasses");
 var competitionsdataservice_1 = require("../../../../services/competitionsdataservice");
 var form_1 = require("../../../../classes/helpers/form");
 var shareservice_1 = require("../../../../services/helpers/shareservice");
+var enums_1 = require("../../../../enums");
 var CompetitionForm = (function () {
     function CompetitionForm(_fb, sharedService, competitionService) {
         this._fb = _fb;
@@ -22,6 +23,7 @@ var CompetitionForm = (function () {
         this.competitionService = competitionService;
         this.competitionUpdated = new core_1.EventEmitter();
         this.loading = false;
+        this.uploaderTypes = enums_1.UploaderType;
     }
     CompetitionForm.prototype.ngOnInit = function () {
         this.setupSteps();
@@ -30,7 +32,20 @@ var CompetitionForm = (function () {
     CompetitionForm.prototype.initialiseForm = function () {
         this.form = this._fb.group({
             id: [this.model.id, []],
-            title: [this.model.title, [forms_1.Validators.required, forms_1.Validators.maxLength(160)]]
+            title: [this.model.title, [forms_1.Validators.required, forms_1.Validators.maxLength(160)]],
+            about: [this.model.about, [forms_1.Validators.required]],
+            mainImageId: [this.model.mainImageId, []],
+            makeImageLink: [this.model.makeImageLink, []],
+            linkUrl: [this.model.linkUrl, []],
+            linkTitle: [this.model.linkTitle, []],
+            baseRewardSchemeId: [this.model.baseRewardSchemeId, []],
+            termsAndConditionId: [this.model.termsAndConditionId, []],
+            startDate: [this.model.startDate, []],
+            endDate: [this.model.endDate, []],
+            activeImageId: [this.model.activeImageId, []],
+            makeActiveImageLink: [this.model.makeActiveImageLink, []],
+            completedImageId: [this.model.completedImageId, []],
+            makeCompletedImageLink: [this.model.makeCompletedImageLink, []]
         });
     };
     CompetitionForm.prototype.setupSteps = function () {
@@ -40,6 +55,10 @@ var CompetitionForm = (function () {
     };
     CompetitionForm.prototype.updateCurrentStep = function (step) {
         this.currentStep = step;
+    };
+    CompetitionForm.prototype.checkbox = function () {
+        console.log('hi', this.form.controls.makeImageLink);
+        this.form.controls.makeImageLink.patchValue(true, { onlySelf: true });
     };
     CompetitionForm.prototype.save = function (competition, isValid) {
         var _this = this;

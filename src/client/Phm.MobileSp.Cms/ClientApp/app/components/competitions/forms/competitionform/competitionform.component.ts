@@ -4,6 +4,7 @@ import {Competition} from "../../../../models/competitionclasses";
 import { CompetitionsDataService } from "../../../../services/competitionsdataservice";
 import {FormEx} from "../../../../classes/helpers/form";
 import {ShareService} from "../../../../services/helpers/shareservice";
+import {UploaderType} from "../../../../enums";
 
 
 declare var $: any;
@@ -24,6 +25,7 @@ export class CompetitionForm implements OnInit {
 	navbarData;
 	currentStep;
 	loading: boolean = false;
+	uploaderTypes: typeof UploaderType = UploaderType;
 
 	constructor(public _fb: FormBuilder, public sharedService: ShareService, public competitionService: CompetitionsDataService) {
 
@@ -37,7 +39,20 @@ export class CompetitionForm implements OnInit {
 	public initialiseForm() {
 		this.form = this._fb.group({
 			id: [this.model.id, []],
-			title: [this.model.title, [<any>Validators.required, <any>Validators.maxLength(160)]]
+			title: [this.model.title, [<any>Validators.required, <any>Validators.maxLength(160)]],
+			about: [this.model.about, [<any>Validators.required]],
+			mainImageId: [this.model.mainImageId, []],
+			makeImageLink: [this.model.makeImageLink, []],
+			linkUrl: [this.model.linkUrl, []],
+			linkTitle: [this.model.linkTitle, []],
+			baseRewardSchemeId: [this.model.baseRewardSchemeId, []],
+			termsAndConditionId: [this.model.termsAndConditionId, []],
+			startDate: [this.model.startDate, []],
+			endDate: [this.model.endDate, []],
+			activeImageId: [this.model.activeImageId, []],
+			makeActiveImageLink: [this.model.makeActiveImageLink, []],
+			completedImageId: [this.model.completedImageId, []],
+			makeCompletedImageLink: [this.model.makeCompletedImageLink, []]
 		});
 	} 
 
@@ -49,6 +64,11 @@ export class CompetitionForm implements OnInit {
 
 	updateCurrentStep(step) {
 		this.currentStep = step;
+	}
+
+	checkbox() {
+		console.log('hi', this.form.controls.makeImageLink);
+		this.form.controls.makeImageLink.patchValue(true, { onlySelf: true });
 	}
 
 	save(competition: Competition, isValid: boolean) {

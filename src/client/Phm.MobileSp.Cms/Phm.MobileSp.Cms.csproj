@@ -91,6 +91,9 @@
     <None Update="ClientApp\app\components\common\editor\textarea.component.js">
       <DependentUpon>textarea.component.ts</DependentUpon>
     </None>
+    <None Update="ClientApp\app\components\common\editor\calltoaction.component.js">
+      <DependentUpon>calltoaction.component.ts</DependentUpon>
+    </None>
     <None Update="ClientApp\app\components\feed\modelforms\pagedfeed\bodytextpageform.component.css">
       <DependentUpon>bodytextpageform.component.html</DependentUpon>
     </None>

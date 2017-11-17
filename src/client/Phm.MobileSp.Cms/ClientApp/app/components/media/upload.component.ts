@@ -37,7 +37,6 @@ export class UploadMediaComponent implements OnInit, OnChanges {
 	@Input() disabled: boolean = false;
 	@Input() imagePreviewUrl: string;
 	@Input() dimensionWarning: boolean = false;
-
     public files: File[] = [];
     public uploading: boolean = false;
 

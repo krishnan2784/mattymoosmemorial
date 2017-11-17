@@ -102,6 +102,7 @@ var genericfilter_component_1 = require("./components/common/filters/generic/gen
 var competitionform_component_1 = require("./components/competitions/forms/competitionform/competitionform.component");
 var formbuttons_component_1 = require("./components/common/form/formbuttons/formbuttons.component");
 var formnavbar_component_1 = require("./components/common/form/formnavbar/formnavbar.component");
+var calltoaction_component_1 = require("./components/common/editor/calltoaction.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -177,6 +178,7 @@ AppModule = __decorate([
             TextAreaComponent,
             textbox_component_1.TextInputComponent,
             numbertextbox_component_1.NumberTextInputComponent,
+            calltoaction_component_1.CallToActionComponent,
             taginputbox_component_1.TagInputComponent,
             colourpicker_component_1.ColourPickerInputComponent,
             fontpicker_component_1.FontPickerComponent,
