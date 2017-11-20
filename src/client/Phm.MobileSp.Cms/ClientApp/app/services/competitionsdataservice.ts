@@ -11,7 +11,7 @@ import {ApiResponse} from "../models/apiresponse";
 @Injectable()
 export class CompetitionsDataService extends RequestHelper implements ICompetitionsDataService {
 
-    constructor(public http: Http) {
+	constructor(public http: Http) {
         super(http);
     }
 
@@ -22,5 +22,9 @@ export class CompetitionsDataService extends RequestHelper implements ICompetiti
 	public updateCompetition(competition: Competition): Observable<ApiResponse> {
 		return this.postRequestFull('/api/Competition', competition);
 	}
-	 
+
+	public deleteCompetition(id: number): Observable<boolean> {
+		return this.postRequestBase('/api/Competition/Delete?id=' + id, null);
+	}
+
 }

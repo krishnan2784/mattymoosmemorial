@@ -103,6 +103,8 @@ import {CompetitionForm} from "./components/competitions/forms/competitionform/c
 import {FormButtons} from "./components/common/form/formbuttons/formbuttons.component";
 import {FormNavBarComponent} from "./components/common/form/formnavbar/formnavbar.component";
 import {CallToActionComponent} from "./components/common/editor/calltoaction.component";
+import {SelectListComponent} from "./components/common/editor/selectlist.component";
+import {DateRangeComponent} from "./components/common/editor/daterange.component";
 
 
 @NgModule({
@@ -183,6 +185,8 @@ import {CallToActionComponent} from "./components/common/editor/calltoaction.com
         TextAreaComponent,
         TextInputComponent,
 		NumberTextInputComponent, 
+		SelectListComponent,
+	    DateRangeComponent,
 	    CallToActionComponent,
         TagInputComponent,
 		ColourPickerInputComponent,

@@ -103,6 +103,8 @@ var competitionform_component_1 = require("./components/competitions/forms/compe
 var formbuttons_component_1 = require("./components/common/form/formbuttons/formbuttons.component");
 var formnavbar_component_1 = require("./components/common/form/formnavbar/formnavbar.component");
 var calltoaction_component_1 = require("./components/common/editor/calltoaction.component");
+var selectlist_component_1 = require("./components/common/editor/selectlist.component");
+var daterange_component_1 = require("./components/common/editor/daterange.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -178,6 +180,8 @@ AppModule = __decorate([
             TextAreaComponent,
             textbox_component_1.TextInputComponent,
             numbertextbox_component_1.NumberTextInputComponent,
+            selectlist_component_1.SelectListComponent,
+            daterange_component_1.DateRangeComponent,
             calltoaction_component_1.CallToActionComponent,
             taginputbox_component_1.TagInputComponent,
             colourpicker_component_1.ColourPickerInputComponent,

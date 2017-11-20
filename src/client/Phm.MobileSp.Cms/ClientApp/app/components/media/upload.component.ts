@@ -33,7 +33,10 @@ export class UploadMediaComponent implements OnInit, OnChanges {
     @Input() uploadUrl = '/Media/UploadFile';
 	@Input() form: FormGroup;
 	@Input() formControlId: string;
+	@Input() validationMessage: string = '';
+	@Input() formSubmitted: boolean = false;
 	@Input() elementId: string;
+	@Input() savePreviewUrl: boolean = false;
 	@Input() disabled: boolean = false;
 	@Input() imagePreviewUrl: string;
 	@Input() dimensionWarning: boolean = false;
@@ -54,6 +57,14 @@ export class UploadMediaComponent implements OnInit, OnChanges {
     ngOnInit() {       
         if (this.selectedMedia)
 			this.setPreviewImage(this.selectedMedia.azureUrl);
+		else if (this.form && !this.savePreviewUrl && this.form.controls[this.formControlId] && this.form.controls[this.formControlId].value > 0) {
+			this.mediaService.getMediaInfo(this.form.controls[this.formControlId].value).subscribe(x => {
+				if (x) {
+					this.selectedMedia = x;
+					this.setPreviewImage(this.selectedMedia.azureUrl);
+				}
+	        });
+        }
     }
 	ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
 		if (changes['selectedMedia']) {
@@ -109,7 +120,7 @@ export class UploadMediaComponent implements OnInit, OnChanges {
 			return;
 
 		if (this.form)
-			this.form.controls[this.formControlId].patchValue(this.selectedMedia.azureUrl, {});
+			this.form.controls[this.formControlId].patchValue(this.savePreviewUrl ? this.selectedMedia.azureUrl : this.selectedMedia.id, {});
 	}
 
     public filesSelectHandler(fileInput: any) {
@@ -177,8 +188,6 @@ export class UploadMediaComponent implements OnInit, OnChanges {
                 failMessage = "The selected file is too large. Please select a file smaller than " + this.maxSizeBytes / 1024 / 1024 + "MB.";
                 break stillValid;
             }
-
-
 
             if (this.enforceExactDimensions) {
                 if (width != this.maxWidth || height != this.maxHeight) {

@@ -24,27 +24,27 @@ var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/publishReplay");
 var requesthelper_1 = require("./helpers/requesthelper");
-var CompetitionsDataService = (function (_super) {
-    __extends(CompetitionsDataService, _super);
-    function CompetitionsDataService(http) {
+var TermsAndConditionsDataService = (function (_super) {
+    __extends(TermsAndConditionsDataService, _super);
+    function TermsAndConditionsDataService(http) {
         var _this = _super.call(this, http) || this;
         _this.http = http;
         return _this;
     }
-    CompetitionsDataService.prototype.getCompetitions = function () {
-        return this.getRequestBase('/api/Competition');
+    TermsAndConditionsDataService.prototype.getTermsAndConditions = function () {
+        return this.getRequestBase('/api/TermsAndConditions');
     };
-    CompetitionsDataService.prototype.updateCompetition = function (competition) {
-        return this.postRequestFull('/api/Competition', competition);
+    TermsAndConditionsDataService.prototype.updateTermsAndCondition = function (termsAndConditions) {
+        return this.postRequestFull('/api/TermsAndConditions', termsAndConditions);
     };
-    CompetitionsDataService.prototype.deleteCompetition = function (id) {
-        return this.postRequestBase('/api/Competition/Delete?id=' + id, null);
+    TermsAndConditionsDataService.prototype.deleteTermsAndCondition = function (id) {
+        return this.postRequestBase('/api/TermsAndConditions/Delete', id);
     };
-    return CompetitionsDataService;
+    return TermsAndConditionsDataService;
 }(requesthelper_1.RequestHelper));
-CompetitionsDataService = __decorate([
+TermsAndConditionsDataService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [http_1.Http])
-], CompetitionsDataService);
-exports.CompetitionsDataService = CompetitionsDataService;
-//# sourceMappingURL=competitionsdataservice.js.map
+], TermsAndConditionsDataService);
+exports.TermsAndConditionsDataService = TermsAndConditionsDataService;
+//# sourceMappingURL=termsandconditionsdataservice.js.map

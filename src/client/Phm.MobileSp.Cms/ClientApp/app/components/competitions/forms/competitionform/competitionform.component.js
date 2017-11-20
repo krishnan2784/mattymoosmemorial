@@ -16,18 +16,43 @@ var competitionsdataservice_1 = require("../../../../services/competitionsdatase
 var form_1 = require("../../../../classes/helpers/form");
 var shareservice_1 = require("../../../../services/helpers/shareservice");
 var enums_1 = require("../../../../enums");
+var termsandconditionsdataservice_1 = require("../../../../services/termsandconditionsdataservice");
+var rewardschemedataservice_1 = require("../../../../services/rewardschemedataservice");
 var CompetitionForm = (function () {
-    function CompetitionForm(_fb, sharedService, competitionService) {
+    function CompetitionForm(_fb, sharedService, competitionService, termsAndConditionsDataService, rewardSchemesDataService) {
         this._fb = _fb;
         this.sharedService = sharedService;
         this.competitionService = competitionService;
+        this.termsAndConditionsDataService = termsAndConditionsDataService;
+        this.rewardSchemesDataService = rewardSchemesDataService;
         this.competitionUpdated = new core_1.EventEmitter();
+        this.submitted = false;
         this.loading = false;
         this.uploaderTypes = enums_1.UploaderType;
+        this.rewardScheme = [];
+        this.termsAndConditions = [];
     }
     CompetitionForm.prototype.ngOnInit = function () {
+        console.log(this.model);
         this.setupSteps();
+        this.getData();
         this.initialiseForm();
+    };
+    CompetitionForm.prototype.getData = function () {
+        var _this = this;
+        this.model = new competitionclasses_1.Competition(this.model);
+        this.termsAndConditionsDataService.getTermsAndConditions().subscribe(function (result) {
+            if (result)
+                _this.termsAndConditions = result.map(function (x) {
+                    return { name: x.title, value: x.id };
+                });
+        });
+        this.rewardSchemesDataService.getRewardScheme().subscribe(function (result) {
+            if (result)
+                _this.rewardScheme = result.map(function (x) {
+                    return { name: x.title, value: x.id };
+                });
+        });
     };
     CompetitionForm.prototype.initialiseForm = function () {
         this.form = this._fb.group({
@@ -38,13 +63,13 @@ var CompetitionForm = (function () {
             makeImageLink: [this.model.makeImageLink, []],
             linkUrl: [this.model.linkUrl, []],
             linkTitle: [this.model.linkTitle, []],
-            baseRewardSchemeId: [this.model.baseRewardSchemeId, []],
-            termsAndConditionId: [this.model.termsAndConditionId, []],
-            startDate: [this.model.startDate, []],
-            endDate: [this.model.endDate, []],
-            activeImageId: [this.model.activeImageId, []],
+            baseRewardSchemeId: [this.model.baseRewardSchemeId, [forms_1.Validators.required]],
+            termsAndConditionId: [this.model.termsAndConditionId, [forms_1.Validators.required]],
+            startDate: [this.model.startDate, [forms_1.Validators.required]],
+            endDate: [this.model.endDate, [forms_1.Validators.required]],
+            activeImageId: [this.model.activeImageId, [forms_1.Validators.required]],
             makeActiveImageLink: [this.model.makeActiveImageLink, []],
-            completedImageId: [this.model.completedImageId, []],
+            completedImageId: [this.model.completedImageId, [forms_1.Validators.required]],
             makeCompletedImageLink: [this.model.makeCompletedImageLink, []]
         });
     };
@@ -57,16 +82,18 @@ var CompetitionForm = (function () {
         this.currentStep = step;
     };
     CompetitionForm.prototype.checkbox = function () {
-        console.log('hi', this.form.controls.makeImageLink);
         this.form.controls.makeImageLink.patchValue(true, { onlySelf: true });
     };
     CompetitionForm.prototype.save = function (competition, isValid) {
         var _this = this;
+        this.submitted = true;
         if (!this.form.valid) {
             console.log(form_1.FormEx.getFormValidationErrors(this.form));
             $('.toast').remove();
             return Materialize.toast('Please check that you have filled in all the required fields.', 6000, 'red');
         }
+        console.log(this.model);
+        console.log(competition);
         this.loading = true;
         this.competitionService.updateCompetition(competition).subscribe(function (result) {
             if (result.success) {
@@ -97,7 +124,9 @@ CompetitionForm = __decorate([
         template: require('./competitionform.component.html'),
         styles: [require('./competitionform.component.css')]
     }),
-    __metadata("design:paramtypes", [forms_1.FormBuilder, shareservice_1.ShareService, competitionsdataservice_1.CompetitionsDataService])
+    __metadata("design:paramtypes", [forms_1.FormBuilder, shareservice_1.ShareService,
+        competitionsdataservice_1.CompetitionsDataService, termsandconditionsdataservice_1.TermsAndConditionsDataService,
+        rewardschemedataservice_1.RewardSchemesDataService])
 ], CompetitionForm);
 exports.CompetitionForm = CompetitionForm;
 //# sourceMappingURL=competitionform.component.js.map

@@ -10,5 +10,6 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
         Task<dynamic> GetCompetitionAsync(int marketId);
 		Task<Competition> CreateCompetitionAsync(Competition competition);
 		Task<Competition> UpdateCompetitionAsync(Competition competition);
+		Task<bool> DeleteCompetitionAsync(int id);
 	}
 }

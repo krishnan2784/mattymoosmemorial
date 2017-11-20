@@ -121,10 +121,10 @@ export class CompetitionIndexComponent extends BaseComponent implements OnInit, 
             .catch((err: any) => console.log('ERROR: ' + err))
             .then((dialog: any) => { return dialog.result })
             .then((result: any) => {
-				//this.competitionDataService.deleteFeeditem(competition.id).subscribe((result) => {
-    //                if (result)
-				//		this.updateCompetition(competition, true);
-    //            });
+				this.competitionDataService.deleteCompetition(competition.id).subscribe((result) => {
+                    if (result)
+						this.updateCompetition(competition, true);
+                });
             })
             .catch((err: any) => { });
 	}

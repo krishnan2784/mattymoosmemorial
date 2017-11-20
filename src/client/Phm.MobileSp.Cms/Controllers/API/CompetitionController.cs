@@ -51,6 +51,14 @@ namespace Phm.MobileSp.Cms.Controllers.API
 		    var response = await _competitionRepo.UpdateCompetitionAsync(competition);
 		    var success = response != null && response.Id > 0;
 		    return Json(new BaseResponse<dynamic>(success, success ? "Competition was successfully updated." : "Failed to update competition. Please try again.", response));
+		}
+
+	    [HttpPost("[action]")]
+		[JsonResponseWrapper]
+	    public async Task<JsonResult> Delete(int id)
+	    {
+		    var response = await _competitionRepo.DeleteCompetitionAsync(id);
+		    return Json(new BaseResponse<dynamic>(response, response ? "Competition was successfully deleted." : "Failed to delete competition. Please try again.", response));
 	    }
 
 	}

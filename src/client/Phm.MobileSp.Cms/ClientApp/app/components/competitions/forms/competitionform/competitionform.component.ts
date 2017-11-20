@@ -5,6 +5,9 @@ import { CompetitionsDataService } from "../../../../services/competitionsdatase
 import {FormEx} from "../../../../classes/helpers/form";
 import {ShareService} from "../../../../services/helpers/shareservice";
 import {UploaderType} from "../../../../enums";
+import {TermsAndConditionsDataService} from
+	"../../../../services/termsandconditionsdataservice";
+import {RewardSchemesDataService} from "../../../../services/rewardschemedataservice";
 
 
 declare var $: any;
@@ -24,16 +27,39 @@ export class CompetitionForm implements OnInit {
 
 	navbarData;
 	currentStep;
+	submitted: boolean = false;
 	loading: boolean = false;
 	uploaderTypes: typeof UploaderType = UploaderType;
+	rewardScheme: { name: string, value: any }[] = [];
+	termsAndConditions: { name: string, value: any }[] = [];
 
-	constructor(public _fb: FormBuilder, public sharedService: ShareService, public competitionService: CompetitionsDataService) {
+	constructor(public _fb: FormBuilder, public sharedService: ShareService,
+		public competitionService: CompetitionsDataService, public termsAndConditionsDataService: TermsAndConditionsDataService,
+		public rewardSchemesDataService: RewardSchemesDataService) {
 
 	}
 
 	ngOnInit() {
+		console.log(this.model);
 		this.setupSteps();
+		this.getData();
 		this.initialiseForm();
+	}
+
+	getData() {
+		this.model = new Competition(this.model);
+		this.termsAndConditionsDataService.getTermsAndConditions().subscribe(result => {
+			if (result)
+				this.termsAndConditions = result.map(x => {
+					return { name: x.title, value: x.id };
+				});
+		});
+		this.rewardSchemesDataService.getRewardScheme().subscribe(result => {
+			if (result)
+				this.rewardScheme = result.map(x => {
+					return { name: x.title, value: x.id };
+				});
+		});
 	}
 
 	public initialiseForm() {
@@ -45,13 +71,13 @@ export class CompetitionForm implements OnInit {
 			makeImageLink: [this.model.makeImageLink, []],
 			linkUrl: [this.model.linkUrl, []],
 			linkTitle: [this.model.linkTitle, []],
-			baseRewardSchemeId: [this.model.baseRewardSchemeId, []],
-			termsAndConditionId: [this.model.termsAndConditionId, []],
-			startDate: [this.model.startDate, []],
-			endDate: [this.model.endDate, []],
-			activeImageId: [this.model.activeImageId, []],
+			baseRewardSchemeId: [this.model.baseRewardSchemeId, [<any>Validators.required]],
+			termsAndConditionId: [this.model.termsAndConditionId, [<any>Validators.required]],
+			startDate: [this.model.startDate, [<any>Validators.required]],
+			endDate: [this.model.endDate, [<any>Validators.required]],
+			activeImageId: [this.model.activeImageId, [<any>Validators.required]],
 			makeActiveImageLink: [this.model.makeActiveImageLink, []],
-			completedImageId: [this.model.completedImageId, []],
+			completedImageId: [this.model.completedImageId, [<any>Validators.required]],
 			makeCompletedImageLink: [this.model.makeCompletedImageLink, []]
 		});
 	} 
@@ -67,16 +93,18 @@ export class CompetitionForm implements OnInit {
 	}
 
 	checkbox() {
-		console.log('hi', this.form.controls.makeImageLink);
 		this.form.controls.makeImageLink.patchValue(true, { onlySelf: true });
 	}
 
 	save(competition: Competition, isValid: boolean) {
+		this.submitted = true;
 		if (!this.form.valid) {
 			console.log(FormEx.getFormValidationErrors(this.form));
 			$('.toast').remove();
 			return Materialize.toast('Please check that you have filled in all the required fields.', 6000, 'red');
 		}
+		console.log(this.model);
+		console.log(competition);
 		this.loading = true;
 		this.competitionService.updateCompetition(competition).subscribe(result => {
 			if (result.success) {

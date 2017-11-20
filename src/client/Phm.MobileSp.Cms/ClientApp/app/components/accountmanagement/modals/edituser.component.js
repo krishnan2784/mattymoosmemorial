@@ -45,7 +45,12 @@ var EditUser = (function (_super) {
         _this.loading = false;
         if (injector) {
             _this.model = injector.get('model');
-            _this.roles = injector.get('roles');
+            var r = injector.get('roles');
+            if (r && r.length > 0)
+                _this.roles = r.map(function (x) {
+                    return { name: x.name, value: x };
+                });
+            console.log(_this.model);
         }
         _this.initialiseForm();
         _this.getAutoCompleteData();
@@ -72,7 +77,7 @@ var EditUser = (function (_super) {
             secGroup: new forms_1.FormControl(this.model.secGroup, [forms_1.Validators.required, Validators1.validUserRole()])
         });
         if (this.roles && this.roles.length > 0 && this.model && this.model.secGroup && this.model.secGroup.id > 0)
-            this.model.secGroup = this.roles.find(function (x) { return x.id == _this.model.secGroup.id; });
+            this.model.secGroup = this.roles.find(function (x) { return x.value.id == _this.model.secGroup.id; }).value;
     };
     EditUser.prototype.getAutoCompleteData = function () {
         var _this = this;

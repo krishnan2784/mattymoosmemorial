@@ -24,27 +24,28 @@ var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/publishReplay");
 var requesthelper_1 = require("./helpers/requesthelper");
-var CompetitionsDataService = (function (_super) {
-    __extends(CompetitionsDataService, _super);
-    function CompetitionsDataService(http) {
+var RewardSchemesDataService = (function (_super) {
+    __extends(RewardSchemesDataService, _super);
+    function RewardSchemesDataService(http) {
         var _this = _super.call(this, http) || this;
         _this.http = http;
         return _this;
     }
-    CompetitionsDataService.prototype.getCompetitions = function () {
-        return this.getRequestBase('/api/Competition');
+    RewardSchemesDataService.prototype.getRewardScheme = function () {
+        return this.getRequestBase('/api/RewardSchemes');
     };
-    CompetitionsDataService.prototype.updateCompetition = function (competition) {
-        return this.postRequestFull('/api/Competition', competition);
+    RewardSchemesDataService.prototype.updateRewardScheme = function (rewardScheme) {
+        return this.postRequestFull('/api/RewardSchemes', rewardScheme);
     };
-    CompetitionsDataService.prototype.deleteCompetition = function (id) {
-        return this.postRequestBase('/api/Competition/Delete?id=' + id, null);
+    RewardSchemesDataService.prototype.deleteRewardScheme = function (id) {
+        return this.postRequestBase('/api/RewardSchemes/Delete', id);
     };
-    return CompetitionsDataService;
+    ;
+    return RewardSchemesDataService;
 }(requesthelper_1.RequestHelper));
-CompetitionsDataService = __decorate([
+RewardSchemesDataService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [http_1.Http])
-], CompetitionsDataService);
-exports.CompetitionsDataService = CompetitionsDataService;
-//# sourceMappingURL=competitionsdataservice.js.map
+], RewardSchemesDataService);
+exports.RewardSchemesDataService = RewardSchemesDataService;
+//# sourceMappingURL=rewardschemedataservice.js.map

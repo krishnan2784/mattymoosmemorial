@@ -114,6 +114,7 @@ var CompetitionIndexComponent = (function (_super) {
             this.getData();
     };
     CompetitionIndexComponent.prototype.deleteCompetition = function (competition) {
+        var _this = this;
         this.confirmBox.confirm()
             .size('sm')
             .showClose(false)
@@ -125,10 +126,10 @@ var CompetitionIndexComponent = (function (_super) {
             .catch(function (err) { return console.log('ERROR: ' + err); })
             .then(function (dialog) { return dialog.result; })
             .then(function (result) {
-            //this.competitionDataService.deleteFeeditem(competition.id).subscribe((result) => {
-            //                if (result)
-            //		this.updateCompetition(competition, true);
-            //            });
+            _this.competitionDataService.deleteCompetition(competition.id).subscribe(function (result) {
+                if (result)
+                    _this.updateCompetition(competition, true);
+            });
         })
             .catch(function (err) { });
     };

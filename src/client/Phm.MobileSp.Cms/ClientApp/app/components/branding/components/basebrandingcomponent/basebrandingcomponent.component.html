@@ -28,6 +28,7 @@
 		        [disabled]="disabled"
 		        [form]="form.controls[index]"
 		        [formControlId]="'value'"
+				[savePreviewUrl]="false"
 		        [imagePreviewUrl]="model.value"
 		        [uploaderType]="uploaderTypes.Image"
 		        (mediaUploading)="loading=$event"></upload>

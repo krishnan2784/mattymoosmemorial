@@ -35,8 +35,8 @@
 			
 			
 			<div class="checkbox-container">
-				<input type="checkbox" class="filled-in" id="makeImageLink" formControlName="makeImageLink" (click)="check()" />
-				<label htmlFor="makeImageLink">Make Image Link</label>
+				<input type="checkbox" class="filled-in" id="makeImageLink" formControlName="makeImageLink" />
+				<label for="makeImageLink">Make Image Link</label>
 			</div>
 			
 			<calltoaction
@@ -53,10 +53,78 @@
 		<div class="clearfix"></div>
 	</div>
 
-	<div class="form-tab-content" [class.visible]="currentStep==='settings'">
+	<div class="form-tab" [class.visible]="currentStep==='settings'">
+		<div class="col-md-6">
+			<selectlist [form]="form"
+			            [values]="rewardScheme"
+			            [selectedValue]="model.baseRewardSchemeId"
+			            [formControlId]="'baseRewardSchemeId'"
+			            [elementId]="'baseRewardSchemeId'"
+			            [label]="'Prize Scheme'"
+			            [validationMessage]="'You must select a prize scheme.'"
+			            [formSubmitted]="submitted"></selectlist>	
 
+		</div>
+
+		<div class="col-md-6">
+			<selectlist [form]="form"
+						[values]="termsAndConditions"
+						[selectedValue]="model.termsAndConditionId"
+						[formControlId]="'termsAndConditionId'"
+						[elementId]="'termsAndConditionId'"
+						[label]="'T&C'"
+						[validationMessage]="'You must select the terms and conditions'"
+			            [formSubmitted]="submitted"></selectlist>	
+
+
+		</div>
+		<div class="clearfix"></div>
+		
+		<date-range [form]="form"
+		            [date1FormControlId]="'startDate'"
+		            [date1Label]="'Start Date'"
+		            [date1ElementId]="'startDate'"
+		            [date2FormControlId]="'endDate'"
+		            [date2Label]="'End Date'"
+		            [date2ElementId]="'endDate'"
+		></date-range>
+		
+
+		<div class="col-md-6">
+			<upload (mediaUploading)="loading=$event" 
+			        [form]="form"
+			        [formControlId]="'activeImageId'"
+			        [selectedMedia]="model.activeImage" 
+			        [uploaderType]="uploaderTypes.Image" 
+			        [title]="'Active Overlay Image'" 
+			        [previewText]="'Active Image Preview'"
+			        [elementId]="'activeImageId'"
+			        [formSubmitted]="submitted"
+			        [validationMessage]="'An active image is required. This will be displayed in the app while the competition is still running.'"></upload>
+
+			<div class="checkbox-container">
+				<input type="checkbox" class="filled-in" id="makeActiveImageLink" formControlName="makeActiveImageLink" />
+				<label for="makeActiveImageLink">Make Image Link</label>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<upload (mediaUploading)="loading=$event" 
+			        [form]="form"
+			        [formControlId]="'completedImageId'"
+			        [selectedMedia]="model.completedImage" 
+			        [uploaderType]="uploaderTypes.Image" [title]="'Completed Overlay Image'" 
+			        [previewText]="'Completed Overlay Preview'"
+			        [elementId]="'completedImageId'"
+			        [formSubmitted]="submitted"
+			        [validationMessage]="'A completed image is required. This will be displayed in the app while the competition is over.'"></upload>
+
+			<div class="checkbox-container">
+				<input type="checkbox" class="filled-in" id="makeCompletedImageLink" formControlName="makeCompletedImageLink" />
+				<label for="makeCompletedImageLink">Make Image Link</label>
+			</div>
+		</div>
+		<div class="clearfix"></div>
 	</div>
-
 </form>
 
 <!--baseRewardSchemeId: [this.model.baseRewardSchemeId, []],

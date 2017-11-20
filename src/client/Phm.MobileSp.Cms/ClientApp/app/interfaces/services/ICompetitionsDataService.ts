@@ -5,4 +5,5 @@ import {ApiResponse} from "../../models/apiresponse";
 export interface ICompetitionsDataService {
 	getCompetitions(): Observable<Competition[]>;
 	updateCompetition(competition: Competition): Observable<ApiResponse>;
+	deleteCompetition(id: number): Observable<boolean>;
 }
