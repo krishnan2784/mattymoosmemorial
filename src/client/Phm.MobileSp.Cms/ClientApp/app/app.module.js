@@ -107,6 +107,8 @@ var daterange_component_1 = require("./components/common/editor/daterange.compon
 var competitionsindex_component_1 = require("./components/competitions/indexes/competitionsindex/competitionsindex.component");
 var rewardschemesindex_component_1 = require("./components/competitions/indexes/rewardschemesindex/rewardschemesindex.component");
 var rewardschemeform_component_1 = require("./components/competitions/forms/rewardschemeform/rewardschemeform.component");
+var termsandconditionsindex_component_1 = require("./components/competitions/indexes/termsandconditionsindex/termsandconditionsindex.component");
+var termsandconditionsform_component_1 = require("./components/competitions/forms/termsandconditionsform/termsandconditionsform.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -136,6 +138,7 @@ AppModule = __decorate([
             basebrandingcomponent_component_1.BaseBrandingComponent,
             competitionsindex_component_1.CompetitionIndexComponent,
             rewardschemesindex_component_1.RewardSchemeIndexComponent,
+            termsandconditionsindex_component_1.TermsAndConditionsIndexComponent,
             // feed item forms
             feeditemform_component_1.FeedItemForm,
             textfeeditem_component_1.TextFeedItemFormComponent,
@@ -167,6 +170,7 @@ AppModule = __decorate([
             // competitions
             competitionform_component_1.CompetitionForm,
             rewardschemeform_component_1.RewardSchemeForm,
+            termsandconditionsform_component_1.TermsAndConditionForm,
             // user management
             EditUser,
             // charts
@@ -223,7 +227,7 @@ AppModule = __decorate([
                 { path: 'branding', component: brandingcontainer_component_1.BrandingContainerComponent },
                 { path: 'competitions', component: competitionsindex_component_1.CompetitionIndexComponent },
                 { path: 'competitions/rewardschemes', component: rewardschemesindex_component_1.RewardSchemeIndexComponent },
-                { path: 'competitions/termsandconditions', component: competitionsindex_component_1.CompetitionIndexComponent },
+                { path: 'competitions/termsandconditions', component: termsandconditionsindex_component_1.TermsAndConditionsIndexComponent },
                 { path: '**', redirectTo: 'home' }
             ])
         ]

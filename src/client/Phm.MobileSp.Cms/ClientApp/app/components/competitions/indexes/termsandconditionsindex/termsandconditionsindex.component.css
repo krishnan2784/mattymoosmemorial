@@ -1,0 +1,102 @@
+﻿.terms-and-conditions-index {
+	background-color: #fff;
+	padding-bottom: 10px;
+}
+
+.index-terms-and-conditions-item {
+	padding-bottom: 5px;
+}
+
+.index-terms-and-conditions-item:nth-child(even) {
+	 background-color: #F5F9F8;
+}
+
+.terms-and-conditions-index .terms-and-conditions-img {
+    height: 30px;
+    margin: 15px 0 0;
+	float: left;
+}
+
+.terms-and-conditions-index-controls {
+    margin-top: 10px;
+	float: right;
+}
+
+.terms-and-conditions-index-controls i, .terms-and-conditions-index-controls p {
+    color: #010101;
+}
+
+.terms-and-conditions-control {
+    text-align: center;
+	float: right;
+	padding: 0 15px;
+}
+
+.terms-and-conditions-control a:hover, .terms-and-conditions-control div:hover {    
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.terms-and-conditions-control p, .terms-and-conditions-control p:hover, .terms-and-conditions-control p:active,
+.terms-and-conditions-control:hover, .terms-and-conditions-control:active{
+    text-decoration: none;
+}
+
+.terms-and-conditions-item-title, .terms-and-conditions-item-markets {
+    margin-bottom: 5px;
+}
+
+.terms-and-conditions-item-title p {
+	font-weight: 600;
+	font-size: 1.2em;
+	margin: 15px 0 0;
+}
+
+.terms-and-conditions-item-title {
+    font-weight: 600;
+}
+
+.terms-and-conditions-item-markets {
+    height: 20px;
+}
+
+.date-posted {
+	font-size: 0.8em;
+    color: #1d9d19;
+    font-weight: 600;
+}
+
+.no-pad {
+    padding: 0;
+}
+
+.terms-and-conditions-cat-index {
+    font-weight: 200;
+    text-decoration: none;
+    cursor: pointer;
+    color: #010101 !important;
+    font-size: 1.6em;
+}
+
+.terms-and-conditions-cat-index:hover, .terms-and-conditions-cat-index:active {
+    text-decoration: none;
+}
+
+.link-active .terms-and-conditions-cat-index {
+    font-weight: 600;
+}
+
+.terms-and-conditions-index-type-container {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+}
+.terms-and-conditions-item-title p, .terms-and-conditions-item-dates, .terms-and-conditions-item-date{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-height: 26.400px;
+}
+.terms-and-conditions-item-date{
+    padding-left: 15px;
+}

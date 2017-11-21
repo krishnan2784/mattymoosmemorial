@@ -23,117 +23,117 @@ var core_1 = require("@angular/core");
 var angular2_modal_1 = require("angular2-modal");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var base_component_1 = require("../../../base.component");
-var rewardschemedataservice_1 = require("../../../../services/rewardschemedataservice");
 var shareservice_1 = require("../../../../services/helpers/shareservice");
 var tabnavmenu_component_1 = require("../../../navmenu/tabnavmenu.component");
 var competitionclasses_1 = require("../../../../models/competitionclasses");
-var RewardSchemeIndexComponent = (function (_super) {
-    __extends(RewardSchemeIndexComponent, _super);
-    function RewardSchemeIndexComponent(rewardSchemesDataService, sharedService, overlay, vcRef, confirmBox) {
-        var _this = _super.call(this, sharedService, 'Reward Schemes', true, '', tabnavmenu_component_1.DefaultTabNavs.competitionsTabs) || this;
-        _this.rewardSchemesDataService = rewardSchemesDataService;
+var termsandconditionsdataservice_1 = require("../../../../services/termsandconditionsdataservice");
+var TermsAndConditionsIndexComponent = (function (_super) {
+    __extends(TermsAndConditionsIndexComponent, _super);
+    function TermsAndConditionsIndexComponent(termsAndConditionsDataService, sharedService, overlay, vcRef, confirmBox) {
+        var _this = _super.call(this, sharedService, 'Terms and Conditions', true, '', tabnavmenu_component_1.DefaultTabNavs.competitionsTabs) || this;
+        _this.termsAndConditionsDataService = termsAndConditionsDataService;
         _this.confirmBox = confirmBox;
         _this.selectedModel = null;
         overlay.defaultViewContainer = vcRef;
         _this.setupSubscriptions();
         return _this;
     }
-    RewardSchemeIndexComponent.prototype.setupSubscriptions = function () {
+    TermsAndConditionsIndexComponent.prototype.setupSubscriptions = function () {
         var _this = this;
         this.sharedService.marketUpdated.subscribe(function (market) {
             _this.updateMarket();
         });
     };
-    RewardSchemeIndexComponent.prototype.updateMarket = function () {
+    TermsAndConditionsIndexComponent.prototype.updateMarket = function () {
         if (!this.sharedService.currentMarket || !this.sharedService.currentMarket.id)
             return;
         this.currentMarket = this.sharedService.currentMarket;
-        this.rewardSchemes = null;
+        this.termsAndConditions = null;
         this.getData();
     };
-    RewardSchemeIndexComponent.prototype.ngOnInit = function () {
+    TermsAndConditionsIndexComponent.prototype.ngOnInit = function () {
         this.updateMarket();
     };
-    RewardSchemeIndexComponent.prototype.ngOnDestroy = function () {
-        if (this.getRewardScehemesSub)
-            this.getRewardScehemesSub.unsubscribe();
+    TermsAndConditionsIndexComponent.prototype.ngOnDestroy = function () {
+        if (this.getTermsAndConditionsSub)
+            this.getTermsAndConditionsSub.unsubscribe();
     };
-    RewardSchemeIndexComponent.prototype.getData = function () {
+    TermsAndConditionsIndexComponent.prototype.getData = function () {
         var _this = this;
-        this.getRewardScehemesSub = this.rewardSchemesDataService.getRewardScheme().subscribe(function (result) {
-            _this.rewardSchemes = result;
+        this.getTermsAndConditionsSub = this.termsAndConditionsDataService.getTermsAndConditions().subscribe(function (result) {
+            _this.termsAndConditions = result;
             _this.sharedService.updateMarketDropdownEnabledState(true);
         });
     };
-    RewardSchemeIndexComponent.prototype.updateRewardScheme = function (rewardScheme, remove) {
-        if (rewardScheme === void 0) { rewardScheme = null; }
+    TermsAndConditionsIndexComponent.prototype.updateTermsAndConditions = function (termsAndConditions, remove) {
+        if (termsAndConditions === void 0) { termsAndConditions = null; }
         if (remove === void 0) { remove = false; }
-        if (rewardScheme != null && this.rewardSchemes != null) {
-            var origRewardScheme = this.rewardSchemes.find(function (x) { return x.id === rewardScheme.id; });
-            var index = this.rewardSchemes.indexOf(origRewardScheme);
+        if (termsAndConditions != null && this.termsAndConditions != null) {
+            var origTermsAndConditions = this.termsAndConditions.find(function (x) { return x.id === termsAndConditions.id; });
+            var index = this.termsAndConditions.indexOf(origTermsAndConditions);
             if (!remove) {
                 if (index > -1) {
-                    this.rewardSchemes.splice(index, 1, rewardScheme);
+                    this.termsAndConditions.splice(index, 1, termsAndConditions);
                 }
                 else {
-                    this.rewardSchemes.unshift(rewardScheme);
+                    this.termsAndConditions.unshift(termsAndConditions);
                 }
             }
             else if (index > -1) {
-                this.rewardSchemes.splice(index, 1);
+                this.termsAndConditions.splice(index, 1);
             }
         }
     };
-    RewardSchemeIndexComponent.prototype.editRewardScheme = function (rewardScheme) {
-        if (rewardScheme === void 0) { rewardScheme = new competitionclasses_1.BaseRewardScheme(); }
-        if (rewardScheme && rewardScheme.id > 0) {
-            this.updatePageTitle("Edit Reward Scheme");
+    TermsAndConditionsIndexComponent.prototype.editTermsAndConditions = function (termsAndConditions) {
+        if (termsAndConditions === void 0) { termsAndConditions = new competitionclasses_1.TermsAndCondition(); }
+        if (termsAndConditions && termsAndConditions.id > 0) {
+            this.updatePageTitle("Edit Terms and Conditions");
         }
         else {
-            this.updatePageTitle("New Reward Scheme");
+            this.updatePageTitle("New Terms and Conditions");
         }
         this.updateMarketDropdownVisibility(false);
         this.updateTabNavItems();
-        this.selectedModel = rewardScheme;
+        this.selectedModel = termsAndConditions;
     };
-    RewardSchemeIndexComponent.prototype.rewardSchemeUpdated = function (scheme) {
-        this.updatePageTitle("Reward Schemes");
+    TermsAndConditionsIndexComponent.prototype.termsAndConditionsUpdated = function (termsAndConditions) {
+        this.updatePageTitle("Terms and Conditions");
         this.updateMarketDropdownVisibility(true);
         this.updateTabNavItems(tabnavmenu_component_1.DefaultTabNavs.competitionsTabs);
         this.selectedModel = null;
-        if (scheme)
+        if (termsAndConditions)
             this.getData();
     };
-    RewardSchemeIndexComponent.prototype.deleteRewardScheme = function (rewardScheme) {
+    TermsAndConditionsIndexComponent.prototype.deleteTermsAndConditions = function (termsAndConditions) {
         var _this = this;
         this.confirmBox.confirm()
             .size('sm')
             .showClose(false)
             .title('Delete')
-            .body("Are you sure to delete " + rewardScheme.title + '?')
+            .body("Are you sure to delete " + termsAndConditions.title + '?')
             .okBtn('Confirm')
             .cancelBtn('Cancel')
             .open()
             .catch(function (err) { return console.log('ERROR: ' + err); })
             .then(function (dialog) { return dialog.result; })
             .then(function (result) {
-            _this.rewardSchemesDataService.deleteRewardScheme(rewardScheme.id).subscribe(function (result) {
+            _this.termsAndConditionsDataService.deleteTermsAndCondition(termsAndConditions.id).subscribe(function (result) {
                 if (result)
-                    _this.updateRewardScheme(rewardScheme, true);
+                    _this.updateTermsAndConditions(termsAndConditions, true);
             });
         })
             .catch(function (err) { });
     };
-    return RewardSchemeIndexComponent;
+    return TermsAndConditionsIndexComponent;
 }(base_component_1.BaseComponent));
-RewardSchemeIndexComponent = __decorate([
+TermsAndConditionsIndexComponent = __decorate([
     core_1.Component({
-        selector: 'rewardschemesindex',
-        template: require('./rewardschemesindex.component.html'),
-        styles: [require('./rewardschemesindex.component.css')]
+        selector: 'termsandconditionsindex',
+        template: require('./termsandconditionsindex.component.html'),
+        styles: [require('./termsandconditionsindex.component.css')]
     }),
-    __metadata("design:paramtypes", [rewardschemedataservice_1.RewardSchemesDataService, shareservice_1.ShareService,
+    __metadata("design:paramtypes", [termsandconditionsdataservice_1.TermsAndConditionsDataService, shareservice_1.ShareService,
         angular2_modal_1.Overlay, core_1.ViewContainerRef, bootstrap_1.Modal])
-], RewardSchemeIndexComponent);
-exports.RewardSchemeIndexComponent = RewardSchemeIndexComponent;
-//# sourceMappingURL=rewardschemesindex.component.js.map
+], TermsAndConditionsIndexComponent);
+exports.TermsAndConditionsIndexComponent = TermsAndConditionsIndexComponent;
+//# sourceMappingURL=termsandconditionsindex.component.js.map

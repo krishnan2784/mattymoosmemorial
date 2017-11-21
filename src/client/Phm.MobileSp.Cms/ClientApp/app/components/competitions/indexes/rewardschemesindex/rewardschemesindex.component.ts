@@ -90,12 +90,12 @@ export class RewardSchemeIndexComponent extends BaseComponent implements OnInit,
 		this.selectedModel = rewardScheme;
     }
 
-    rewardSchemeUpdated(comp) {
+    rewardSchemeUpdated(scheme) {
 		this.updatePageTitle("Reward Schemes");
         this.updateMarketDropdownVisibility(true);
 		this.updateTabNavItems(DefaultTabNavs.competitionsTabs);
 		this.selectedModel = null;
-		if (comp)
+		if (scheme)
 			this.getData();
     }
 	
