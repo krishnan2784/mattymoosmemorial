@@ -122,4 +122,33 @@ var Competition = (function (_super) {
     return Competition;
 }(baseclasses_1.BaseModel));
 exports.Competition = Competition;
+var ActiveCompetition = (function () {
+    function ActiveCompetition(options) {
+        if (options === void 0) { options = {}; }
+        this.id = options['id'] || 0;
+        this.title = options['title'] || '';
+        this.startDate = options['startDate'];
+        this.endDate = options['endDate'];
+        this.participants = options['participants'] || 0;
+        this.formatDates();
+    }
+    ActiveCompetition.prototype.formatDates = function (competition) {
+        if (competition === void 0) { competition = this; }
+        var d = new Date();
+        if (competition.startDate) {
+            d = new Date(competition.startDate);
+        }
+        competition.startDate = date_1.DateEx.formatDate(d);
+        var d2 = new Date();
+        if (competition.endDate) {
+            d2 = new Date(competition.endDate);
+        }
+        else {
+            d2.setDate(d.getDate() + 14);
+        }
+        competition.endDate = date_1.DateEx.formatDate(d2);
+    };
+    return ActiveCompetition;
+}());
+exports.ActiveCompetition = ActiveCompetition;
 //# sourceMappingURL=competitionclasses.js.map

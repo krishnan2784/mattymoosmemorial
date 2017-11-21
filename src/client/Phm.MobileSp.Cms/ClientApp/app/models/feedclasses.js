@@ -44,6 +44,7 @@ var BaseFeed = (function (_super) {
         _this.callToActionText = options['callToActionText'] || '';
         _this.callToActionUrl = options['callToActionUrl'] || '';
         _this.tagText = options['tagText'] || '';
+        _this.competitionId = options['competitionId'] || null;
         _this.formatFeedItemDates();
         return _this;
     }

@@ -132,3 +132,35 @@ export class Competition extends BaseModel {
 		competition.endDate = DateEx.formatDate(d2);
 	}
 }
+
+export class ActiveCompetition {
+	id: number;
+	title: string;
+	startDate: string;
+	endDate: string;
+	participants: number;
+
+	constructor(options: {} = {}) {
+		this.id = options['id'] || 0;
+		this.title = options['title'] || '';
+		this.startDate = options['startDate'];
+		this.endDate = options['endDate'];
+		this.participants = options['participants'] || 0;
+		this.formatDates();
+	}
+
+	public formatDates(competition: ActiveCompetition = this) {
+		let d = new Date();
+		if (competition.startDate) {
+			d = new Date(competition.startDate);
+		}
+		competition.startDate = DateEx.formatDate(d);
+		let d2 = new Date();
+		if (competition.endDate) {
+			d2 = new Date(competition.endDate);
+		} else {
+			d2.setDate(d.getDate() + 14);
+		}
+		competition.endDate = DateEx.formatDate(d2);
+	}
+}

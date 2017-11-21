@@ -34,5 +34,6 @@ namespace Phm.MobileSp.Cms.Core.Models
         public virtual string CallToActionText { get; set; }
         public virtual string CallToActionUrl { get; set; }
         public virtual string TagText { get; set; }
-    }
+	    public virtual int? CompetitionId { get; set; }
+	}
 }

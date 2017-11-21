@@ -20,6 +20,7 @@ var brandingservice_1 = require("../../services/brandingservice");
 var competitionsdataservice_1 = require("../../services/competitionsdataservice");
 var termsandconditionsdataservice_1 = require("../../services/termsandconditionsdataservice");
 var rewardschemedataservice_1 = require("../../services/rewardschemedataservice");
+var activecompetitionsdataservice_1 = require("../../services/activecompetitionsdataservice");
 var AppComponent = (function () {
     function AppComponent(sharedService) {
         var _this = this;
@@ -64,7 +65,7 @@ AppComponent = __decorate([
             shareservice_1.ShareService, userdataservice_1.UserDataService,
             MediaDataService, brandingservice_1.BrandingService,
             competitionsdataservice_1.CompetitionsDataService, termsandconditionsdataservice_1.TermsAndConditionsDataService,
-            rewardschemedataservice_1.RewardSchemesDataService]
+            rewardschemedataservice_1.RewardSchemesDataService, activecompetitionsdataservice_1.ActiveCompetitionsDataService]
     }),
     __metadata("design:paramtypes", [shareservice_1.ShareService])
 ], AppComponent);

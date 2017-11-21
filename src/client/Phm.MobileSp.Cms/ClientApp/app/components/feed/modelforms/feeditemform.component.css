@@ -159,3 +159,10 @@
 .observation-container{
     padding-bottom: 0;
 }
+
+.right-col label{
+	padding-top: 10px;
+}
+.allow-favourite {
+	margin: -10px 0 40px !important;
+}

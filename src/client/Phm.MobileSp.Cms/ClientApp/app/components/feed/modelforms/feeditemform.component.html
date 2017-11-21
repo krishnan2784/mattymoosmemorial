@@ -249,7 +249,7 @@
 					[dimensionWarning]="!form.controls.mainIconId.valid && submitted"></upload>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-4 right-col">
             <h5>Details</h5>
             <hr />
 
@@ -260,7 +260,7 @@
                              [validationMessage]="'Reward points are required.'"
                              [class.hidden]="model.feedType == feedTypes.Observation"></numbertextinput>
 
-            <div class="input-field">
+            <div class="input-field allow-favourite">
                 <label for="allowFavourite">Allow Favourite</label>
                 <div class="switch">
                     <label>
@@ -277,9 +277,17 @@
                              [label]="'Reading Time (mins)'"
                              [validationMessage]="'Estimated time is required'"
                              [class.hidden]="model.feedType == feedTypes.Observation"></numbertextinput>
+			
+	        <selectlist [form]="form"
+	                    [values]="competitions"
+	                    [selectedValue]="model.competitionId"
+	                    [formControlId]="'competitionId'"
+	                    [elementId]="'competitionId'"
+	                    [label]="'Add to Competition'"
+	                    [formSubmitted]="submitted"
+						[disabled]="competitionDisabled"></selectlist>	
 
-
-            <div>
+	        <div>
                 <label>Start Date</label>
                 <datepicker (dateSelected)="handleStartDate($event);" [initialDate]="model.startDate" [cannotSelectPast]="true" [minDay]="1" [minJsMonth]="2" [minYear]="2017" [elementId]="'startDate'"></datepicker>
             </div>

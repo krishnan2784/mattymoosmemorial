@@ -18,6 +18,7 @@ var SelectListComponent = (function () {
         this.label = '';
         this.validationMessage = '';
         this.formSubmitted = false;
+        this.disabled = false;
     }
     SelectListComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -61,10 +62,14 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Boolean)
 ], SelectListComponent.prototype, "formSubmitted", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Boolean)
+], SelectListComponent.prototype, "disabled", void 0);
 SelectListComponent = __decorate([
     core_1.Component({
         selector: 'selectlist',
-        template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n\t        <label *ngIf=\"label\" [attr.for]=\"elementId\">{{label}}</label>\n\t        <select id=\"{{elementId}}\" formControlName=\"{{formControlId}}\" materialize=\"material_select\" [(ngModel)]=\"selectedValue\" class=\"browser-default\">\n\t\t        <option *ngFor=\"let v of values\" [ngValue]=\"v.value\">{{v.name}}</option>\n\t        </select>\n\t        <small *ngIf=\"validationMessage\" class=\"active-warning\" [class.hidden]=\"form.controls[formControlId].valid || !formSubmitted\">\n\t\t        {{validationMessage}}\n\t        </small>\n    </div>\n"
+        template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n\t        <label *ngIf=\"label\" [attr.for]=\"elementId\">{{label}}</label>\n\t        <select id=\"{{elementId}}\" formControlName=\"{{formControlId}}\" materialize=\"material_select\" [(ngModel)]=\"selectedValue\" class=\"browser-default\" [attr.disabled]=\"disabled ? 'disabled' : null\">\n\t\t        <option *ngFor=\"let v of values\" [ngValue]=\"v.value\">{{v.name}}</option>\n\t        </select>\n\t        <small *ngIf=\"validationMessage\" class=\"active-warning\" [class.hidden]=\"form.controls[formControlId].valid || !formSubmitted\">\n\t\t        {{validationMessage}}\n\t        </small>\n    </div>\n"
     })
 ], SelectListComponent);
 exports.SelectListComponent = SelectListComponent;

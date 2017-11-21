@@ -27,5 +27,6 @@ export interface IFeedItem {
     shortDescription: string;
     webUrlLink: string;
     callToActionText: string;
-    callToActionUrl: string;
+	callToActionUrl: string;
+	competitionId: number;
 }

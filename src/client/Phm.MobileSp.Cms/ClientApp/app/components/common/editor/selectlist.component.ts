@@ -7,7 +7,7 @@ declare var $: any;
   template: `
     <div [formGroup]="form" *ngIf="form">
 	        <label *ngIf="label" [attr.for]="elementId">{{label}}</label>
-	        <select id="{{elementId}}" formControlName="{{formControlId}}" materialize="material_select" [(ngModel)]="selectedValue" class="browser-default">
+	        <select id="{{elementId}}" formControlName="{{formControlId}}" materialize="material_select" [(ngModel)]="selectedValue" class="browser-default" [attr.disabled]="disabled ? 'disabled' : null">
 		        <option *ngFor="let v of values" [ngValue]="v.value">{{v.name}}</option>
 	        </select>
 	        <small *ngIf="validationMessage" class="active-warning" [class.hidden]="form.controls[formControlId].valid || !formSubmitted">
@@ -25,6 +25,7 @@ export class SelectListComponent implements OnInit {
     @Input() label: string = '';
     @Input() validationMessage: string = '';
     @Input() formSubmitted: boolean = false;
+	@Input() disabled: boolean = false;
 
 	ngOnInit() {
 		//if (!this.selectedValue)

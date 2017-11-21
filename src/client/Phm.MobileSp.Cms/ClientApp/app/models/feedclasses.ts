@@ -39,8 +39,9 @@ export class BaseFeed extends Baseclasses.BaseModel implements FeedModel.IFeedIt
     callToActionText: string;
     callToActionUrl: string;
     tagText: string;
-    
-    constructor(options: {} = {}) {
+	competitionId: number;
+
+	constructor(options: {} = {}) {
         super(options);
         this.title = options['title'] || '';
         this.shortDescription = options['shortDescription'] || '';
@@ -61,7 +62,8 @@ export class BaseFeed extends Baseclasses.BaseModel implements FeedModel.IFeedIt
         this.webUrlLink = options['webUrlLink'] || '';
         this.callToActionText = options['callToActionText'] || '';
         this.callToActionUrl = options['callToActionUrl'] || '';
-        this.tagText = options['tagText'] || '';
+		this.tagText = options['tagText'] || '';
+		this.competitionId = options['competitionId'] || null;
         this.formatFeedItemDates();
     }
 
