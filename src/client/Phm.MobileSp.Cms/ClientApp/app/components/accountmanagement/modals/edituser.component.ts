@@ -26,7 +26,7 @@ export class EditUser extends BaseModalContent implements OnInit, AfterViewInit,
 
     title: string;
     model: UserTemplate;
-    roles: {id: number, name:string}[];
+    roles: {name: string, value:any}[];
     public form: FormGroup;
 
     public regions : string[] = [ 'Region 1', 'Region 2' , 'Region 3'];
@@ -41,7 +41,13 @@ export class EditUser extends BaseModalContent implements OnInit, AfterViewInit,
         super();
         if (injector) {
             this.model = injector.get('model');
-            this.roles = injector.get('roles');
+			var r = injector.get('roles');
+			if (r && r.length > 0)
+		        this.roles = r.map(x => {
+			        return { name: x.name, value: x };
+				});
+	        console.log(this.model);
+
         }
         this.initialiseForm();
         this.getAutoCompleteData();
@@ -69,7 +75,7 @@ export class EditUser extends BaseModalContent implements OnInit, AfterViewInit,
             secGroup: new FormControl(this.model.secGroup, [<any>Validators.required, Validators1.validUserRole()])
         });
         if (this.roles && this.roles.length > 0 && this.model && this.model.secGroup && this.model.secGroup.id > 0)
-            this.model.secGroup = this.roles.find(x => x.id == this.model.secGroup.id);
+            this.model.secGroup = this.roles.find(x => x.value.id == this.model.secGroup.id).value;
     }
 
     getAutoCompleteData() {

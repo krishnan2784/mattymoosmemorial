@@ -28,6 +28,7 @@ var angular2_modal_1 = require("angular2-modal");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var genericfilter_component_1 = require("../../common/filters/generic/genericfilter.component");
 var string_1 = require("../../../classes/helpers/string");
+var competitionclasses_1 = require("../../../models/competitionclasses");
 var CompetitionIndexComponent = (function (_super) {
     __extends(CompetitionIndexComponent, _super);
     function CompetitionIndexComponent(competitionDataService, sharedService, overlay, vcRef, confirmBox) {
@@ -36,8 +37,8 @@ var CompetitionIndexComponent = (function (_super) {
         _this.confirmBox = confirmBox;
         _this.selectedModel = null;
         _this.competitionFilters = genericfilter_component_1.DefaultFilterSets.competitionFilters;
-        _this.setupSubscriptions();
         overlay.defaultViewContainer = vcRef;
+        _this.setupSubscriptions();
         return _this;
     }
     CompetitionIndexComponent.prototype.setupSubscriptions = function () {
@@ -49,6 +50,7 @@ var CompetitionIndexComponent = (function (_super) {
     CompetitionIndexComponent.prototype.updateMarket = function () {
         if (!this.sharedService.currentMarket || !this.sharedService.currentMarket.id)
             return;
+        this.currentMarket = this.sharedService.currentMarket;
         this.filteredCompetitions = null;
         this.allCompetitions = null;
         this.getData();
@@ -66,7 +68,11 @@ var CompetitionIndexComponent = (function (_super) {
             _this.allCompetitions = result;
             _this.filteredCompetitions = result;
             _this.sharedService.updateMarketDropdownEnabledState(true);
+            _this.updateFilters();
         });
+    };
+    CompetitionIndexComponent.prototype.updateFilters = function () {
+        this.competitionFilters.filterGroups[1].filters.filter(function (x) { return x.filterName === 'Number of Participants'; })[0]['maxValue'] = Math.max.apply(Math, this.allCompetitions.map(function (x) { return x.participants; }));
     };
     CompetitionIndexComponent.prototype.updateCompetition = function (competition, remove) {
         if (competition === void 0) { competition = null; }
@@ -88,6 +94,7 @@ var CompetitionIndexComponent = (function (_super) {
         }
     };
     CompetitionIndexComponent.prototype.editCompetition = function (competition) {
+        if (competition === void 0) { competition = new competitionclasses_1.Competition(); }
         if (competition && competition.id > 0) {
             this.updatePageTitle("Edit Competition");
         }
@@ -107,6 +114,7 @@ var CompetitionIndexComponent = (function (_super) {
             this.getData();
     };
     CompetitionIndexComponent.prototype.deleteCompetition = function (competition) {
+        var _this = this;
         this.confirmBox.confirm()
             .size('sm')
             .showClose(false)
@@ -118,10 +126,10 @@ var CompetitionIndexComponent = (function (_super) {
             .catch(function (err) { return console.log('ERROR: ' + err); })
             .then(function (dialog) { return dialog.result; })
             .then(function (result) {
-            //this.competitionDataService.deleteFeeditem(competition.id).subscribe((result) => {
-            //                if (result)
-            //		this.updateCompetition(competition, true);
-            //            });
+            _this.competitionDataService.deleteCompetition(competition.id).subscribe(function (result) {
+                if (result)
+                    _this.updateCompetition(competition, true);
+            });
         })
             .catch(function (err) { });
     };
@@ -134,7 +142,19 @@ var CompetitionIndexComponent = (function (_super) {
             a = string_1.StringEx.searchArray(sFilter.value.toLowerCase(), a, ['title']);
         }
         var dFilter = filters.filter(function (x) { return x.filterName === 'Date'; })[0];
+        if (dFilter) {
+            var fd1 = new Date(dFilter.date1);
+            var fd2 = new Date(dFilter.date2);
+            fd2.setHours(23, 59, 59);
+            if (dFilter.date1)
+                a = a.filter(function (x) { return (x.startDate && new Date(x.startDate) >= fd1) || (x.endDate && new Date(x.endDate) >= fd1); }); // competitions which ended after the start date
+            if (dFilter.date2)
+                a = a.filter(function (x) { return (x.startDate && new Date(x.startDate) <= fd2) || (x.endDate && new Date(x.endDate) <= fd2); }); // competitions which started before the end date
+        }
         var pFilter = filters.filter(function (x) { return x.filterName === 'Number of Participants'; })[0];
+        if (pFilter) {
+            a = a.filter(function (x) { return x.participants >= pFilter.bottomValue && x.participants <= pFilter.topValue; });
+        }
         this.filteredCompetitions = a.slice(0);
     };
     return CompetitionIndexComponent;

@@ -5,6 +5,9 @@
 	<span *ngIf="uploaderType==uploaderTypes.Any || uploaderType==uploaderTypes.Image">Images must be jpeg or png format. </span>
 	<span *ngIf="uploaderType==uploaderTypes.Any || uploaderType==uploaderTypes.Video">Videos must be mp4. </span>     
 </p>
+<small *ngIf="validationMessage" class="active-warning" [class.hidden]="form.controls[formControlId].valid || !formSubmitted">
+	{{validationMessage}}
+</small>
 <p [class.warning]="dimensionWarning" *ngIf="maxWidth > 0 || maxHeight > 0" class="warning">
 	<span>Please upload an image with a resolution of <span *ngIf="!enforceExactDimensions">at least </span>{{maxWidth}} x {{maxHeight}}px.</span>     
 </p>

@@ -18,6 +18,8 @@ var Mediaservice = require("../../services/mediaservice");
 var MediaDataService = Mediaservice.MediaDataService;
 var brandingservice_1 = require("../../services/brandingservice");
 var competitionsdataservice_1 = require("../../services/competitionsdataservice");
+var termsandconditionsdataservice_1 = require("../../services/termsandconditionsdataservice");
+var rewardschemedataservice_1 = require("../../services/rewardschemedataservice");
 var AppComponent = (function () {
     function AppComponent(sharedService) {
         var _this = this;
@@ -61,7 +63,8 @@ AppComponent = __decorate([
         providers: [feeddataservice_1.FeedDataService, marketdataservice_1.MarketDataService,
             shareservice_1.ShareService, userdataservice_1.UserDataService,
             MediaDataService, brandingservice_1.BrandingService,
-            competitionsdataservice_1.CompetitionsDataService]
+            competitionsdataservice_1.CompetitionsDataService, termsandconditionsdataservice_1.TermsAndConditionsDataService,
+            rewardschemedataservice_1.RewardSchemesDataService]
     }),
     __metadata("design:paramtypes", [shareservice_1.ShareService])
 ], AppComponent);

@@ -102,6 +102,9 @@ import { GenericFilterComponent } from "./components/common/filters/generic/gene
 import {CompetitionForm} from "./components/competitions/forms/competitionform/competitionform.component";
 import {FormButtons} from "./components/common/form/formbuttons/formbuttons.component";
 import {FormNavBarComponent} from "./components/common/form/formnavbar/formnavbar.component";
+import {CallToActionComponent} from "./components/common/editor/calltoaction.component";
+import {SelectListComponent} from "./components/common/editor/selectlist.component";
+import {DateRangeComponent} from "./components/common/editor/daterange.component";
 
 
 @NgModule({
@@ -181,7 +184,10 @@ import {FormNavBarComponent} from "./components/common/form/formnavbar/formnavba
         RichTextEditorComponent,
         TextAreaComponent,
         TextInputComponent,
-        NumberTextInputComponent,
+		NumberTextInputComponent, 
+		SelectListComponent,
+	    DateRangeComponent,
+	    CallToActionComponent,
         TagInputComponent,
 		ColourPickerInputComponent,
 		FontPickerComponent,

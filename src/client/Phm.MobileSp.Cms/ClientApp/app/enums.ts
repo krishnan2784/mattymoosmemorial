@@ -104,3 +104,7 @@ export enum BrandingElementType {
 	Icon = 2,
 	CustomSelection = 3
 }
+export enum SecEntityTypeEnum {
+	SecUser = 0,
+	SecGroup = 1 
+}

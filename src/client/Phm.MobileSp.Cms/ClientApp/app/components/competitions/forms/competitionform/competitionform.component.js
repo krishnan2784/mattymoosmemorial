@@ -11,20 +11,66 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+var competitionclasses_1 = require("../../../../models/competitionclasses");
+var competitionsdataservice_1 = require("../../../../services/competitionsdataservice");
+var form_1 = require("../../../../classes/helpers/form");
+var shareservice_1 = require("../../../../services/helpers/shareservice");
+var enums_1 = require("../../../../enums");
+var termsandconditionsdataservice_1 = require("../../../../services/termsandconditionsdataservice");
+var rewardschemedataservice_1 = require("../../../../services/rewardschemedataservice");
 var CompetitionForm = (function () {
-    function CompetitionForm(_fb) {
+    function CompetitionForm(_fb, sharedService, competitionService, termsAndConditionsDataService, rewardSchemesDataService) {
         this._fb = _fb;
+        this.sharedService = sharedService;
+        this.competitionService = competitionService;
+        this.termsAndConditionsDataService = termsAndConditionsDataService;
+        this.rewardSchemesDataService = rewardSchemesDataService;
         this.competitionUpdated = new core_1.EventEmitter();
+        this.submitted = false;
         this.loading = false;
+        this.uploaderTypes = enums_1.UploaderType;
+        this.rewardScheme = [];
+        this.termsAndConditions = [];
     }
     CompetitionForm.prototype.ngOnInit = function () {
+        console.log(this.model);
         this.setupSteps();
+        this.getData();
         this.initialiseForm();
+    };
+    CompetitionForm.prototype.getData = function () {
+        var _this = this;
+        this.model = new competitionclasses_1.Competition(this.model);
+        this.termsAndConditionsDataService.getTermsAndConditions().subscribe(function (result) {
+            if (result)
+                _this.termsAndConditions = result.map(function (x) {
+                    return { name: x.title, value: x.id };
+                });
+        });
+        this.rewardSchemesDataService.getRewardScheme().subscribe(function (result) {
+            if (result)
+                _this.rewardScheme = result.map(function (x) {
+                    return { name: x.title, value: x.id };
+                });
+        });
     };
     CompetitionForm.prototype.initialiseForm = function () {
         this.form = this._fb.group({
             id: [this.model.id, []],
-            title: [this.model.title, [forms_1.Validators.required, forms_1.Validators.maxLength(160)]]
+            title: [this.model.title, [forms_1.Validators.required, forms_1.Validators.maxLength(160)]],
+            about: [this.model.about, [forms_1.Validators.required]],
+            mainImageId: [this.model.mainImageId, []],
+            makeImageLink: [this.model.makeImageLink, []],
+            linkUrl: [this.model.linkUrl, []],
+            linkTitle: [this.model.linkTitle, []],
+            baseRewardSchemeId: [this.model.baseRewardSchemeId, [forms_1.Validators.required]],
+            termsAndConditionId: [this.model.termsAndConditionId, [forms_1.Validators.required]],
+            startDate: [this.model.startDate, [forms_1.Validators.required]],
+            endDate: [this.model.endDate, [forms_1.Validators.required]],
+            activeImageId: [this.model.activeImageId, [forms_1.Validators.required]],
+            makeActiveImageLink: [this.model.makeActiveImageLink, []],
+            completedImageId: [this.model.completedImageId, [forms_1.Validators.required]],
+            makeCompletedImageLink: [this.model.makeCompletedImageLink, []]
         });
     };
     CompetitionForm.prototype.setupSteps = function () {
@@ -35,10 +81,29 @@ var CompetitionForm = (function () {
     CompetitionForm.prototype.updateCurrentStep = function (step) {
         this.currentStep = step;
     };
+    CompetitionForm.prototype.checkbox = function () {
+        this.form.controls.makeImageLink.patchValue(true, { onlySelf: true });
+    };
     CompetitionForm.prototype.save = function (competition, isValid) {
-        this.loading = true;
+        var _this = this;
+        this.submitted = true;
+        if (!this.form.valid) {
+            console.log(form_1.FormEx.getFormValidationErrors(this.form));
+            $('.toast').remove();
+            return Materialize.toast('Please check that you have filled in all the required fields.', 6000, 'red');
+        }
+        console.log(this.model);
         console.log(competition);
-        this.loading = false;
+        this.loading = true;
+        this.competitionService.updateCompetition(competition).subscribe(function (result) {
+            if (result.success) {
+                _this.model = result.content;
+                _this.sharedService.updateFeedItem(result.content);
+                _this.competitionUpdated.emit(result.content);
+            }
+            else
+                _this.loading = false;
+        });
     };
     CompetitionForm.prototype.goBack = function () {
         this.competitionUpdated.emit(null);
@@ -51,7 +116,7 @@ __decorate([
 ], CompetitionForm.prototype, "competitionUpdated", void 0);
 __decorate([
     core_1.Input(),
-    __metadata("design:type", Object)
+    __metadata("design:type", competitionclasses_1.Competition)
 ], CompetitionForm.prototype, "model", void 0);
 CompetitionForm = __decorate([
     core_1.Component({
@@ -59,7 +124,9 @@ CompetitionForm = __decorate([
         template: require('./competitionform.component.html'),
         styles: [require('./competitionform.component.css')]
     }),
-    __metadata("design:paramtypes", [forms_1.FormBuilder])
+    __metadata("design:paramtypes", [forms_1.FormBuilder, shareservice_1.ShareService,
+        competitionsdataservice_1.CompetitionsDataService, termsandconditionsdataservice_1.TermsAndConditionsDataService,
+        rewardschemedataservice_1.RewardSchemesDataService])
 ], CompetitionForm);
 exports.CompetitionForm = CompetitionForm;
 //# sourceMappingURL=competitionform.component.js.map

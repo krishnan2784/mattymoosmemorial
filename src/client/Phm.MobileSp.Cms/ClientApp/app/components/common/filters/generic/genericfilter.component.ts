@@ -289,11 +289,11 @@ export class DateRangeFilter extends GenericFilter {
 }
 
 export class RangeFilter extends GenericFilter {
-	public minValue: string;
-	public maxValue: string;
-	public bottomValue: string = '';
-	public topValue: string = '';
-	constructor(filterName: string, minValue: string = '0', maxValue: string ='100') {
+	public minValue: number;
+	public maxValue: number;
+	public bottomValue: number = 0;
+	public topValue: number = 0;
+	constructor(filterName: string, minValue: number = 0, maxValue: number =100) {
 		super(filterName, FilterType.Range);
 		this.minValue = minValue;
 		this.maxValue = maxValue;
@@ -316,7 +316,7 @@ export class DefaultFilterSets {
 		], ''),
 		new GenericFilterGroup(true, [
 			new DateRangeFilter('Date'),
-			new RangeFilter('Number of Participants', '0', '100')
+			new RangeFilter('Number of Participants', 0, 100)
 		])
 	]);
 }

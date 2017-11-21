@@ -320,34 +320,20 @@
 <imagefeeditem *ngIf="model.feedType === feedTypes.Image" [form]="form" [feedFormSteps]="feedFormSteps" [model]="model" [submitted]="submitted"></imagefeeditem>
 <videofeeditem *ngIf="model.feedType === feedTypes.Video" [form]="form" [feedFormSteps]="feedFormSteps" [model]="model" [submitted]="submitted"></videofeeditem>
 
-    <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Links)" class="form-tab">
-        <h5>Call-To-Action</h5>
-        <div class="col-md-9">
-            <div class="col-md-4">
-                <textinput [form]="form" [formSubmitted]="submitted"
-                           [formControlId]="'callToActionText'"
-                           [label]="'Button label'"></textinput>
-            </div>
-            <div class="col-md-8">
-                <textinput [form]="form" [formSubmitted]="submitted"
-                           [formControlId]="'callToActionUrl'"
-                           [label]="'Url'"></textinput>
-            </div>
-            <div class="clearfix"></div>
-            <small class="col-lg-12">
-                Use Call-To-Action to link the user to additional information
-            </small>
-        </div>
-        <div class="col-md-3">
-            <a class="button btn" *ngIf="form.controls.callToActionUrl.value.length>5"
-               href="{{form.controls.callToActionUrl.value.indexOf('http') == 0 ? form.controls.callToActionUrl.value : 'http://' + form.controls.callToActionUrl.value}}" target="_blank">
-                <!--(click)="form.controls.callToActionUrl.value = form.controls.callToActionUrl.value.indexOf('http') == 0 ? form.controls.callToActionUrl.value : 'http://' + form.controls.callToActionUrl.value"-->
-                <!--<span *ngIf="form.controls.callToActionText.value > 0">{{model.callToActionText}}</span>-->
-                <span>Test URL</span>
-            </a>
-        </div>
-        <div class="clearfix"></div>
-    </div>
+<div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Links)" class="form-tab">
+	<calltoaction
+				  [title]="'Call-To-Action'"
+				  [additionalInfo]="'Use Call-To-Action to link the user to additional information'"
+				  [form]="form"
+				  [buttonLabelFormControlId]="'callToActionText'"
+				  [buttonLabelLabel]="'Button label'"
+				  [buttonLabelElementId]="'callToActionText'"
+				  [urlFormControlId]="'callToActionUrl'"
+				  [urlLabel]="'Url'"
+				  [urlElementId]="'callToActionUrl'"
+				  [formSubmitted]="submitted"></calltoaction>
+
+</div>
     
 <div *ngIf="model">
     <textfeeditem *ngIf="model.feedType === feedTypes.Text" [form]="form" [feedFormSteps]="feedFormSteps" [model]="model" [submitted]="submitted"></textfeeditem>

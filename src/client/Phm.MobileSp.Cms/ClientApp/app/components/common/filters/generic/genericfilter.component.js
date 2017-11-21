@@ -301,11 +301,11 @@ exports.DateRangeFilter = DateRangeFilter;
 var RangeFilter = (function (_super) {
     __extends(RangeFilter, _super);
     function RangeFilter(filterName, minValue, maxValue) {
-        if (minValue === void 0) { minValue = '0'; }
-        if (maxValue === void 0) { maxValue = '100'; }
+        if (minValue === void 0) { minValue = 0; }
+        if (maxValue === void 0) { maxValue = 100; }
         var _this = _super.call(this, filterName, FilterType.Range) || this;
-        _this.bottomValue = '';
-        _this.topValue = '';
+        _this.bottomValue = 0;
+        _this.topValue = 0;
         _this.minValue = minValue;
         _this.maxValue = maxValue;
         _this.bottomValue = minValue;
@@ -333,7 +333,7 @@ DefaultFilterSets.competitionFilters = new GenericFilterSet('competitionFilterSe
     ], ''),
     new GenericFilterGroup(true, [
         new DateRangeFilter('Date'),
-        new RangeFilter('Number of Participants', '0', '100')
+        new RangeFilter('Number of Participants', 0, 100)
     ])
 ]);
 exports.DefaultFilterSets = DefaultFilterSets;

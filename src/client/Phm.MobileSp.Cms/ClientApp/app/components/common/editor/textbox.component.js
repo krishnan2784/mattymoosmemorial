@@ -23,7 +23,7 @@ var TextInputComponent = (function () {
     TextInputComponent.prototype.ngOnInit = function () {
         if (this.elementId == '')
             this.elementId = this.formControlId;
-        if (this.form && this.form.controls[this.formControlId]) {
+        if (this.form && this.form.controls[this.formControlId] && this.form.controls[this.formControlId].value) {
             this.activeClass = this.form.controls[this.formControlId].value.toString().length > 0 ? "active" : "";
         }
     };
@@ -63,7 +63,7 @@ __decorate([
 TextInputComponent = __decorate([
     core_1.Component({
         selector: 'textinput',
-        template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n        <div class=\"input-field\">\n            <input id=\"{{elementId}}\" type=\"text\" formControlName=\"{{formControlId}}\" [attr.maxLength]=\"maxLength > 0 ? maxLength : null\" [attr.data-length]=\"maxLength > 0 ? maxLength : null\">\n            <label [attr.for]=\"elementId\" class=\"{{activeClass}}\">{{label}}</label>\n            <small class=\"active-warning\" [class.hidden]=\"form.controls[formControlId].valid || !formSubmitted\">\n                {{validationMessage}}\n            </small>\n        </div>\n    </div>\n"
+        template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n        <div class=\"input-field\">\n            <input id=\"{{elementId}}\" type=\"text\" formControlName=\"{{formControlId}}\" [attr.maxLength]=\"maxLength > 0 ? maxLength : null\" [attr.data-length]=\"maxLength > 0 ? maxLength : null\">\n            <label *ngIf=\"label\" [attr.for]=\"elementId\" class=\"{{activeClass}}\">{{label}}</label>\n            <small *ngIf=\"validationMessage\" class=\"active-warning\" [class.hidden]=\"form.controls[formControlId].valid || !formSubmitted\">\n                {{validationMessage}}\n            </small>\n        </div>\n    </div>\n"
     })
 ], TextInputComponent);
 exports.TextInputComponent = TextInputComponent;

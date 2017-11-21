@@ -28,6 +28,9 @@ var UploadMediaComponent = (function () {
         this.maxWidth = 0;
         this.maxHeight = 0;
         this.uploadUrl = '/Media/UploadFile';
+        this.validationMessage = '';
+        this.formSubmitted = false;
+        this.savePreviewUrl = false;
         this.disabled = false;
         this.dimensionWarning = false;
         this.files = [];
@@ -38,8 +41,17 @@ var UploadMediaComponent = (function () {
         this.mediaUploaded = new core_1.EventEmitter();
     }
     UploadMediaComponent.prototype.ngOnInit = function () {
+        var _this = this;
         if (this.selectedMedia)
             this.setPreviewImage(this.selectedMedia.azureUrl);
+        else if (this.form && !this.savePreviewUrl && this.form.controls[this.formControlId] && this.form.controls[this.formControlId].value > 0) {
+            this.mediaService.getMediaInfo(this.form.controls[this.formControlId].value).subscribe(function (x) {
+                if (x) {
+                    _this.selectedMedia = x;
+                    _this.setPreviewImage(_this.selectedMedia.azureUrl);
+                }
+            });
+        }
     };
     UploadMediaComponent.prototype.ngOnChanges = function (changes) {
         if (changes['selectedMedia']) {
@@ -93,7 +105,7 @@ var UploadMediaComponent = (function () {
         if (!this.selectedMedia)
             return;
         if (this.form)
-            this.form.controls[this.formControlId].patchValue(this.selectedMedia.azureUrl, {});
+            this.form.controls[this.formControlId].patchValue(this.savePreviewUrl ? this.selectedMedia.azureUrl : this.selectedMedia.id, {});
     };
     UploadMediaComponent.prototype.filesSelectHandler = function (fileInput) {
         var FileList = fileInput.target.files;
@@ -237,7 +249,19 @@ __decorate([
 __decorate([
     core_1.Input(),
     __metadata("design:type", String)
+], UploadMediaComponent.prototype, "validationMessage", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Boolean)
+], UploadMediaComponent.prototype, "formSubmitted", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", String)
 ], UploadMediaComponent.prototype, "elementId", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Boolean)
+], UploadMediaComponent.prototype, "savePreviewUrl", void 0);
 __decorate([
     core_1.Input(),
     __metadata("design:type", Boolean)

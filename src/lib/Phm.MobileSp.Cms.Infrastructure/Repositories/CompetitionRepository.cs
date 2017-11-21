@@ -8,26 +8,29 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 {
 	public class CompetitionRepository : BaseRepository, ICompetitionRepository
 	{
-		public CompetitionRepository(IHttpClientService client): base(client, "Competition") {       }
+		public CompetitionRepository(IHttpClientService client): base(client, "Competitions") {       }
 
 		public async Task<dynamic> GetCompetitionAsync(int marketId)
 		{
-			return new List<BaseFeed>
-			{
-				new BaseFeed() { Id = 1, Title = "Test Model 1", PublishedLiveAt = new DateTime()},
-				new BaseFeed() {Id = 2, Title = "Test Model 2", PublishedLiveAt = new DateTime()},
-				new BaseFeed() {Id = 3, Title = "Test Model 3", PublishedLiveAt = new DateTime()}
-			};
-
 			var response = await GetAsync(new {marketId});
 			return GetResponseModel<dynamic>(response);
 		}
 
-		public async Task<dynamic> UpdateCompetitionAsync(dynamic competition)
+		public async Task<Competition> CreateCompetitionAsync(Competition competition)
 		{
-			return new BaseFeed { Id = 1, Title = "Test Model" };
+			var response = await PostAsync(competition);
+			return GetResponseModel<Competition>(response);
+		}
 
+		public async Task<Competition> UpdateCompetitionAsync(Competition competition)
+		{
 			var response = await PutAsync(competition);
+			return GetResponseModel<Competition>(response);
+		}
+	
+		public async Task<bool> DeleteCompetitionAsync(int id)
+		{
+			var response = await DeleteAsync(id);
 			return GetResponseModel<dynamic>(response);
 		}
 	}

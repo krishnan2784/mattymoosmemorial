@@ -8,6 +8,8 @@ import { Overlay } from 'angular2-modal';
 import { Modal } from 'angular2-modal/plugins/bootstrap';
 import {GenericFilterSet, DefaultFilterSets, GenericFilter, StringFilter, DateRangeFilter, RangeFilter } from "../../common/filters/generic/genericfilter.component";
 import {StringEx} from "../../../classes/helpers/string";
+import {UserMarket} from "../../../models/userclasses";
+import { Competition } from "../../../models/competitionclasses";
 
 @Component({
 	selector: 'competitionsindex',
@@ -15,19 +17,22 @@ import {StringEx} from "../../../classes/helpers/string";
 	styles: [require('./competitionsindex.component.css')]
 })
 export class CompetitionIndexComponent extends BaseComponent implements OnInit, OnDestroy {
-    selectedModel = null;
-    public getCompetitionsItemsSub;
-	public allCompetitions;
-	public filteredCompetitions;
+	selectedModel: Competition = null;
+	public getCompetitionsItemsSub;
+
+	public allCompetitions: Competition[];
+	public filteredCompetitions: Competition[];
+
 	competitionFilters: GenericFilterSet = DefaultFilterSets.competitionFilters;
+
+	public currentMarket: UserMarket;
 
 	constructor(public competitionDataService: CompetitionsDataService, sharedService: ShareService,
 		overlay: Overlay, vcRef: ViewContainerRef, public confirmBox: Modal) {
 		super(sharedService, 'Competitions Management', true, '', DefaultTabNavs.competitionsTabs);
-		this.setupSubscriptions();
 		overlay.defaultViewContainer = vcRef;
-
-    }
+		this.setupSubscriptions();
+	}
 
     setupSubscriptions() {
         this.sharedService.marketUpdated.subscribe((market) => {
@@ -38,6 +43,7 @@ export class CompetitionIndexComponent extends BaseComponent implements OnInit, 
     updateMarket() {
         if (!this.sharedService.currentMarket || !this.sharedService.currentMarket.id)
 			return;
+	    this.currentMarket = this.sharedService.currentMarket;
 		this.filteredCompetitions = null;
 	    this.allCompetitions = null;
         this.getData();
@@ -56,9 +62,14 @@ export class CompetitionIndexComponent extends BaseComponent implements OnInit, 
 		this.getCompetitionsItemsSub = this.competitionDataService.getCompetitions().subscribe((result) => {
 			this.allCompetitions = result;
 			this.filteredCompetitions = result;
-		    this.sharedService.updateMarketDropdownEnabledState(true);
-	    });
-    }
+			this.sharedService.updateMarketDropdownEnabledState(true);
+			this.updateFilters();
+		});
+	}
+
+	updateFilters() {
+		this.competitionFilters.filterGroups[1].filters.filter(x => x.filterName === 'Number of Participants')[0]['maxValue'] = Math.max.apply(Math, this.allCompetitions.map(x=> x.participants));
+	}
 
     updateCompetition(competition = null, remove: boolean = false) {
 		if (competition != null && this.filteredCompetitions != null) {
@@ -77,7 +88,7 @@ export class CompetitionIndexComponent extends BaseComponent implements OnInit, 
         }
     }
 
-	editCompetition(competition) {
+	editCompetition(competition = new Competition()) {
 		if (competition && competition.id > 0) {
             this.updatePageTitle("Edit Competition");
         } else {
@@ -110,10 +121,10 @@ export class CompetitionIndexComponent extends BaseComponent implements OnInit, 
             .catch((err: any) => console.log('ERROR: ' + err))
             .then((dialog: any) => { return dialog.result })
             .then((result: any) => {
-				//this.competitionDataService.deleteFeeditem(competition.id).subscribe((result) => {
-    //                if (result)
-				//		this.updateCompetition(competition, true);
-    //            });
+				this.competitionDataService.deleteCompetition(competition.id).subscribe((result) => {
+                    if (result)
+						this.updateCompetition(competition, true);
+                });
             })
             .catch((err: any) => { });
 	}
@@ -129,8 +140,22 @@ export class CompetitionIndexComponent extends BaseComponent implements OnInit, 
 		}
 
 		var dFilter = filters.filter(x => x.filterName === 'Date')[0] as DateRangeFilter;
-		var pFilter = filters.filter(x => x.filterName === 'Number of Participants')[0] as RangeFilter;
-		this.filteredCompetitions = a.slice(0);
+		if (dFilter) {
+			var fd1 = new Date(dFilter.date1);
+			var fd2 = new Date(dFilter.date2);
+			fd2.setHours(23, 59, 59);
 
+			if (dFilter.date1) 
+				a = a.filter((x) => (x.startDate && new Date(x.startDate) >= fd1) || (x.endDate && new Date(x.endDate) >= fd1)); // competitions which ended after the start date
+			if (dFilter.date2)
+				a = a.filter((x) => (x.startDate && new Date(x.startDate) <= fd2) || (x.endDate && new Date(x.endDate) <= fd2)); // competitions which started before the end date
+		}
+
+		var pFilter = filters.filter(x => x.filterName === 'Number of Participants')[0] as RangeFilter;
+		if (pFilter) {
+			a = a.filter(x => x.participants >= pFilter.bottomValue && x.participants <= pFilter.topValue);
+		}
+
+		this.filteredCompetitions = a.slice(0);
 	}
 }

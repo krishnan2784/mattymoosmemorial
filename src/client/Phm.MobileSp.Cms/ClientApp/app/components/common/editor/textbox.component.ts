@@ -8,8 +8,8 @@ declare var $: any;
     <div [formGroup]="form" *ngIf="form">
         <div class="input-field">
             <input id="{{elementId}}" type="text" formControlName="{{formControlId}}" [attr.maxLength]="maxLength > 0 ? maxLength : null" [attr.data-length]="maxLength > 0 ? maxLength : null">
-            <label [attr.for]="elementId" class="{{activeClass}}">{{label}}</label>
-            <small class="active-warning" [class.hidden]="form.controls[formControlId].valid || !formSubmitted">
+            <label *ngIf="label" [attr.for]="elementId" class="{{activeClass}}">{{label}}</label>
+            <small *ngIf="validationMessage" class="active-warning" [class.hidden]="form.controls[formControlId].valid || !formSubmitted">
                 {{validationMessage}}
             </small>
         </div>
@@ -28,7 +28,7 @@ export class TextInputComponent implements OnInit, AfterViewInit {
     ngOnInit() {
         if (this.elementId == '')
             this.elementId = this.formControlId;
-        if (this.form && this.form.controls[this.formControlId]) {
+		if (this.form && this.form.controls[this.formControlId] && this.form.controls[this.formControlId].value) {
             this.activeClass = this.form.controls[this.formControlId].value.toString().length > 0 ? "active" : "";
         }
     }
