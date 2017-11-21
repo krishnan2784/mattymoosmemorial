@@ -45,6 +45,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
 		[JsonResponseWrapper]
 		public async Task<JsonResult> Update([FromBody]TermsAndCondition termsAndConditions)
 		{
+			termsAndConditions.MarketId = CurrentMarketId;
 			if (termsAndConditions.Id == 0)
 				return await Create(termsAndConditions);
 

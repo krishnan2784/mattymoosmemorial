@@ -82,8 +82,6 @@ var RewardSchemeForm = (function () {
             $('.toast').remove();
             return Materialize.toast('Please check that you have filled in all the required fields.', 6000, 'red');
         }
-        console.log(this.model);
-        console.log(rewarScheme);
         this.loading = true;
         this.rewardSchemesDataService.updateRewardScheme(rewarScheme).subscribe(function (result) {
             if (result.success) {

@@ -99,8 +99,6 @@ export class RewardSchemeForm implements OnInit {
 			$('.toast').remove();
 			return Materialize.toast('Please check that you have filled in all the required fields.', 6000, 'red');
 		}
-		console.log(this.model);
-		console.log(rewarScheme);
 		this.loading = true;
 		this.rewardSchemesDataService.updateRewardScheme(rewarScheme).subscribe(result => {
 			if (result.success) {
@@ -108,7 +106,6 @@ export class RewardSchemeForm implements OnInit {
 				this.rewardSchemeUpdated.emit(result.content);
 			} else
 				this.loading = false;
-
 		});
 	}
 

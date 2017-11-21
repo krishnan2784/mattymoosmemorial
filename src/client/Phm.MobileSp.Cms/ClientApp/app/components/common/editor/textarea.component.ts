@@ -10,7 +10,7 @@ declare var $: any;
         <div class="input-field">
               <label [attr.for]="elementId" class="{{activeClass}}">{{label}}</label>
               <textarea id="{{elementId}}" formControlName="{{formControlId}}" *ngIf="formControlId" class="materialize-textarea" [attr.maxLength]="maxLength > 0 ? maxLength : null" 
-[attr.data-length]="maxLength > 0 ? maxLength : null" [attr.disabled]="disabled ? disabled : null" [attr.placeholder]="placeHolder"></textarea>
+[attr.data-length]="maxLength > 0 ? maxLength : null" [attr.disabled]="disabled ? disabled : null" [attr.placeholder]="placeholder"></textarea>
                 <small class="active-warning" [class.hidden]="form.controls[formControlId].valid || !formSubmitted">
                     {{validationMessage}}
                 </small>
@@ -28,7 +28,7 @@ export class TextAreaComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() validationMessage: string = '';
     @Input() formSubmitted: boolean = false;
 	@Output() onEditorKeyup = new EventEmitter<any>();
-	@Input() placeHolder: string = '';
+	@Input() placeholder: string = '';
     editor;
     activeClass: string = '';
     ngOnInit() {
@@ -37,7 +37,7 @@ export class TextAreaComponent implements OnInit, AfterViewInit, OnDestroy {
         if (this.elementId == '')
             this.elementId = this.formControlId;
         if (this.form && this.form.controls[this.formControlId]) 
-			this.activeClass = this.placeHolder !== '' || this.form.controls[this.formControlId].value.toString().length > 0 ? "active" : "";
+			this.activeClass = this.placeholder !== '' || this.form.controls[this.formControlId].value.toString().length > 0 ? "active" : "";
     }
   ngAfterViewInit()
   {
