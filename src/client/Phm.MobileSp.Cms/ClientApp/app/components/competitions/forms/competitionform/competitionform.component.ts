@@ -91,11 +91,7 @@ export class CompetitionForm implements OnInit {
 	updateCurrentStep(step) {
 		this.currentStep = step;
 	}
-
-	checkbox() {
-		this.form.controls.makeImageLink.patchValue(true, { onlySelf: true });
-	}
-
+	
 	save(competition: Competition, isValid: boolean) {
 		this.submitted = true;
 		if (!this.form.valid) {
@@ -109,7 +105,6 @@ export class CompetitionForm implements OnInit {
 		this.competitionService.updateCompetition(competition).subscribe(result => {
 			if (result.success) {
 				this.model = result.content;
-				this.sharedService.updateFeedItem(result.content);
 				this.competitionUpdated.emit(result.content);
 			} else
 				this.loading = false;

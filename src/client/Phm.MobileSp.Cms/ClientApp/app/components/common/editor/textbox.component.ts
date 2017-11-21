@@ -7,7 +7,7 @@ declare var $: any;
   template: `
     <div [formGroup]="form" *ngIf="form">
         <div class="input-field">
-            <input id="{{elementId}}" type="text" formControlName="{{formControlId}}" [attr.maxLength]="maxLength > 0 ? maxLength : null" [attr.data-length]="maxLength > 0 ? maxLength : null">
+            <input id="{{elementId}}" type="text" formControlName="{{formControlId}}" [attr.maxLength]="maxLength > 0 ? maxLength : null" [attr.data-length]="maxLength > 0 ? maxLength : null" [attr.placeholder]="placeHolder">
             <label *ngIf="label" [attr.for]="elementId" class="{{activeClass}}">{{label}}</label>
             <small *ngIf="validationMessage" class="active-warning" [class.hidden]="form.controls[formControlId].valid || !formSubmitted">
                 {{validationMessage}}
@@ -23,13 +23,14 @@ export class TextInputComponent implements OnInit, AfterViewInit {
     @Input() label: string = '';
     @Input() validationMessage: string = '';
     @Input() formSubmitted: boolean = false;
-    @Input() maxLength: number = 0;
+	@Input() maxLength: number = 0;
+	@Input() placeHolder: string = '';
     activeClass: string = '';
     ngOnInit() {
         if (this.elementId == '')
             this.elementId = this.formControlId;
 		if (this.form && this.form.controls[this.formControlId] && this.form.controls[this.formControlId].value) {
-            this.activeClass = this.form.controls[this.formControlId].value.toString().length > 0 ? "active" : "";
+            this.activeClass = this.placeHolder !== '' || this.form.controls[this.formControlId].value.toString().length > 0 ? "active" : "";
         }
     }
     ngAfterViewInit() {

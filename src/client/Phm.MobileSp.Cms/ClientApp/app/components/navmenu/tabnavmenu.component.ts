@@ -36,6 +36,6 @@ export class DefaultTabNavs {
 		new NavItem('Leaderboard Reports', '/reports/leaderboard', 'teal')];
 	public static competitionsTabs: NavItem[] = [
 		new NavItem('Competitions', '/competitions', 'teal'),
-		new NavItem('Reward Schemes', '/rewardschemes', 'orange'),
-		new NavItem('T&C', '/termsandconditions', 'funk')];
+		new NavItem('Reward Schemes', '/competitions/rewardschemes', 'orange'),
+		new NavItem('T&C', '/competitions/termsandconditions', 'funk')];
 }

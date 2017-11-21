@@ -24,6 +24,6 @@ export class RewardSchemesDataService extends RequestHelper implements IRewardSc
 	}
 
 	public deleteRewardScheme(id: number): Observable<boolean> {
-		return this.postRequestBase('/api/RewardSchemes/Delete', id);
+		return this.postRequestBase('/api/RewardSchemes/Delete?id=' + id, null);
 	};
 }

@@ -38,7 +38,7 @@ var TermsAndConditionsDataService = (function (_super) {
         return this.postRequestFull('/api/TermsAndConditions', termsAndConditions);
     };
     TermsAndConditionsDataService.prototype.deleteTermsAndCondition = function (id) {
-        return this.postRequestBase('/api/TermsAndConditions/Delete', id);
+        return this.postRequestBase('/api/TermsAndConditions/Delete?id=' + id, null);
     };
     return TermsAndConditionsDataService;
 }(requesthelper_1.RequestHelper));

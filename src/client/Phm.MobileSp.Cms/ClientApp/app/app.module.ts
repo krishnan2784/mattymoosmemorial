@@ -108,6 +108,7 @@ import {CompetitionIndexComponent} from
 	"./components/competitions/indexes/competitionsindex/competitionsindex.component";
 import {RewardSchemeIndexComponent} from
 	"./components/competitions/indexes/rewardschemesindex/rewardschemesindex.component";
+import {RewardSchemeForm} from "./components/competitions/forms/rewardschemeform/rewardschemeform.component";
 
 
 @NgModule({
@@ -168,6 +169,7 @@ import {RewardSchemeIndexComponent} from
 
 		// competitions
 	    CompetitionForm,
+		RewardSchemeForm,
 
         // user management
         EditUser,
@@ -227,8 +229,8 @@ import {RewardSchemeIndexComponent} from
             { path: 'reports/:feedType', component: FeedReportIndexComponent },
             { path: 'branding', component: BrandingContainerComponent },
 			{ path: 'competitions', component: CompetitionIndexComponent },
-			{ path: 'rewardschemes', component: RewardSchemeIndexComponent },
-			{ path: 'termsandconditions', component: CompetitionIndexComponent },
+			{ path: 'competitions/rewardschemes', component: RewardSchemeIndexComponent },
+			{ path: 'competitions/termsandconditions', component: CompetitionIndexComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ]

@@ -19,13 +19,13 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 		public async Task<BaseRewardScheme> CreateRewardSchemesAsync(BaseRewardScheme rewardSchemes)
 		{
 			var response = await PostAsync(rewardSchemes);
-			return GetResponseModel<dynamic>(response);
+			return GetResponseModel<PositionXBoosterRewardScheme>(response);
 		}
 
 		public async Task<BaseRewardScheme> UpdateRewardSchemesAsync(BaseRewardScheme rewardSchemes)
 		{
 			var response = await PutAsync(rewardSchemes);
-			return GetResponseModel<dynamic>(response);
+			return GetResponseModel<PositionXBoosterRewardScheme>(response);
 		}
 	
 		public async Task<bool> DeleteRewardSchemesAsync(int id)

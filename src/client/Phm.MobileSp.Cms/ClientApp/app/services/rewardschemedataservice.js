@@ -38,7 +38,7 @@ var RewardSchemesDataService = (function (_super) {
         return this.postRequestFull('/api/RewardSchemes', rewardScheme);
     };
     RewardSchemesDataService.prototype.deleteRewardScheme = function (id) {
-        return this.postRequestBase('/api/RewardSchemes/Delete', id);
+        return this.postRequestBase('/api/RewardSchemes/Delete?id=' + id, null);
     };
     ;
     return RewardSchemesDataService;

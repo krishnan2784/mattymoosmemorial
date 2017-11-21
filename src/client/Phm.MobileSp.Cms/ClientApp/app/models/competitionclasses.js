@@ -48,11 +48,11 @@ var PositionXBoosterItem = (function (_super) {
     function PositionXBoosterItem(options) {
         if (options === void 0) { options = {}; }
         var _this = _super.call(this, options) || this;
-        _this.positionXBoosterRewardScheme = options['positionXBoosterRewardScheme'] || new PositionXBoosterRewardScheme();
+        _this.positionXBoosterRewardScheme = options['positionXBoosterRewardScheme'];
         _this.positionXBoosterRewardSchemeId = options['positionXBoosterRewardSchemeId'] || 0;
-        _this.startPosition = options['startPosition'] || 0;
-        _this.endPosition = options['endPosition'] || 0;
-        _this.xBooster = options['xBooster'] || 0;
+        _this.startPosition = options['startPosition'];
+        _this.endPosition = options['endPosition'];
+        _this.xBooster = options['xBooster'];
         return _this;
     }
     return PositionXBoosterItem;
@@ -63,7 +63,9 @@ var PositionXBoosterRewardScheme = (function (_super) {
     function PositionXBoosterRewardScheme(options) {
         if (options === void 0) { options = {}; }
         var _this = _super.call(this, options) || this;
-        _this.items = options['items'];
+        _this.items = options['items'] || [];
+        if (_this.items.length === 0)
+            _this.items.push(new PositionXBoosterItem({}));
         return _this;
     }
     return PositionXBoosterRewardScheme;

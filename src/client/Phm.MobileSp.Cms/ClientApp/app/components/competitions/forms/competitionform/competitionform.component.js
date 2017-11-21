@@ -81,9 +81,6 @@ var CompetitionForm = (function () {
     CompetitionForm.prototype.updateCurrentStep = function (step) {
         this.currentStep = step;
     };
-    CompetitionForm.prototype.checkbox = function () {
-        this.form.controls.makeImageLink.patchValue(true, { onlySelf: true });
-    };
     CompetitionForm.prototype.save = function (competition, isValid) {
         var _this = this;
         this.submitted = true;
@@ -98,7 +95,6 @@ var CompetitionForm = (function () {
         this.competitionService.updateCompetition(competition).subscribe(function (result) {
             if (result.success) {
                 _this.model = result.content;
-                _this.sharedService.updateFeedItem(result.content);
                 _this.competitionUpdated.emit(result.content);
             }
             else

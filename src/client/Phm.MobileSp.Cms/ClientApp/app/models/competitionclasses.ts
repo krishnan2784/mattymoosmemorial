@@ -43,11 +43,11 @@ export class PositionXBoosterItem extends BaseModel {
 
 	constructor(options: {} = {}) {
 		super(options);
-		this.positionXBoosterRewardScheme = options['positionXBoosterRewardScheme'] || new PositionXBoosterRewardScheme();
+		this.positionXBoosterRewardScheme = options['positionXBoosterRewardScheme'];
 		this.positionXBoosterRewardSchemeId = options['positionXBoosterRewardSchemeId'] || 0;
-		this.startPosition = options['startPosition'] || 0;
-		this.endPosition = options['endPosition'] || 0;
-		this.xBooster = options['xBooster'] || 0;
+		this.startPosition = options['startPosition'];
+		this.endPosition = options['endPosition'];
+		this.xBooster = options['xBooster'];
 	}
 }
 
@@ -56,7 +56,9 @@ export class PositionXBoosterRewardScheme extends BaseRewardScheme {
 
 	constructor(options: {} = {}) {
 		super(options);
-		this.items = options['items'];
+		this.items = options['items'] || [];
+		if (this.items.length === 0)
+			this.items.push(new PositionXBoosterItem({}));
 	}
 }
 

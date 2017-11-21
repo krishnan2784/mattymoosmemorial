@@ -34,7 +34,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
 
 		[HttpPost("[action]")]
 		[JsonResponseWrapper]
-		public async Task<JsonResult> Create([FromBody]BaseRewardScheme rewardSchemes)
+		public async Task<JsonResult> Create([FromBody]PositionXBoosterRewardScheme rewardSchemes)
 		{
 			var response = await _rewardSchemesRepo.CreateRewardSchemesAsync(rewardSchemes);
 			var success = response != null && response.Id > 0;
@@ -43,7 +43,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
 
 		[HttpPost]
 		[JsonResponseWrapper]
-		public async Task<JsonResult> Update([FromBody]BaseRewardScheme rewardSchemes)
+		public async Task<JsonResult> Update([FromBody]PositionXBoosterRewardScheme rewardSchemes)
 		{
 			if (rewardSchemes.Id == 0)
 				return await Create(rewardSchemes);

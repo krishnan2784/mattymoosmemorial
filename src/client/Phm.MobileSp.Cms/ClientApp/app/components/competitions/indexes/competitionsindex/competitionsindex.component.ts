@@ -50,7 +50,7 @@ export class CompetitionIndexComponent extends BaseComponent implements OnInit, 
     }
 
 	ngOnInit() {
-		this.getData();
+		this.updateMarket();
 	}
 
     ngOnDestroy() {

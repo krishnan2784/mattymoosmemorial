@@ -52,7 +52,7 @@ var RewardSchemeIndexComponent = (function (_super) {
         this.getData();
     };
     RewardSchemeIndexComponent.prototype.ngOnInit = function () {
-        this.getData();
+        this.updateMarket();
     };
     RewardSchemeIndexComponent.prototype.ngOnDestroy = function () {
         if (this.getRewardScehemesSub)

@@ -56,7 +56,7 @@ var CompetitionIndexComponent = (function (_super) {
         this.getData();
     };
     CompetitionIndexComponent.prototype.ngOnInit = function () {
-        this.getData();
+        this.updateMarket();
     };
     CompetitionIndexComponent.prototype.ngOnDestroy = function () {
         if (this.getCompetitionsItemsSub)

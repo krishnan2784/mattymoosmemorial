@@ -106,6 +106,7 @@ var selectlist_component_1 = require("./components/common/editor/selectlist.comp
 var daterange_component_1 = require("./components/common/editor/daterange.component");
 var competitionsindex_component_1 = require("./components/competitions/indexes/competitionsindex/competitionsindex.component");
 var rewardschemesindex_component_1 = require("./components/competitions/indexes/rewardschemesindex/rewardschemesindex.component");
+var rewardschemeform_component_1 = require("./components/competitions/forms/rewardschemeform/rewardschemeform.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -165,6 +166,7 @@ AppModule = __decorate([
             partition_component_1.PartitionComponent,
             // competitions
             competitionform_component_1.CompetitionForm,
+            rewardschemeform_component_1.RewardSchemeForm,
             // user management
             EditUser,
             // charts
@@ -220,8 +222,8 @@ AppModule = __decorate([
                 { path: 'reports/:feedType', component: feedreportindex_component_1.FeedReportIndexComponent },
                 { path: 'branding', component: brandingcontainer_component_1.BrandingContainerComponent },
                 { path: 'competitions', component: competitionsindex_component_1.CompetitionIndexComponent },
-                { path: 'rewardschemes', component: rewardschemesindex_component_1.RewardSchemeIndexComponent },
-                { path: 'termsandconditions', component: competitionsindex_component_1.CompetitionIndexComponent },
+                { path: 'competitions/rewardschemes', component: rewardschemesindex_component_1.RewardSchemeIndexComponent },
+                { path: 'competitions/termsandconditions', component: competitionsindex_component_1.CompetitionIndexComponent },
                 { path: '**', redirectTo: 'home' }
             ])
         ]

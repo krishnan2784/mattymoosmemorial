@@ -46,7 +46,7 @@ export class RewardSchemeIndexComponent extends BaseComponent implements OnInit,
     }
 
 	ngOnInit() {
-		this.getData();
+		this.updateMarket();
 	}
 
     ngOnDestroy() {
