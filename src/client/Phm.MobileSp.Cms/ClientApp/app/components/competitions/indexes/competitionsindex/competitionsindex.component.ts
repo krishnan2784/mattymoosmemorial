@@ -1,15 +1,15 @@
 import { Component, OnInit, OnDestroy, ViewContainerRef } from '@angular/core';
-import { BaseComponent} from "../../base.component";
-import { ShareService } from "../../../services/helpers/shareservice";
-import { DefaultTabNavs } from "../../navmenu/tabnavmenu.component";
-import { CompetitionsDataService } from "../../../services/competitionsdataservice";
-
 import { Overlay } from 'angular2-modal';
 import { Modal } from 'angular2-modal/plugins/bootstrap';
-import {GenericFilterSet, DefaultFilterSets, GenericFilter, StringFilter, DateRangeFilter, RangeFilter } from "../../common/filters/generic/genericfilter.component";
-import {StringEx} from "../../../classes/helpers/string";
-import {UserMarket} from "../../../models/userclasses";
-import { Competition } from "../../../models/competitionclasses";
+import { CompetitionsDataService } from "../../../../services/competitionsdataservice";
+import { BaseComponent } from "../../../base.component";
+import { GenericFilterSet, DefaultFilterSets, DateRangeFilter, RangeFilter, GenericFilter, StringFilter } from "../../../common/filters/generic/genericfilter.component";
+import { UserMarket } from "../../../../models/userclasses";
+import { RewardSchemesDataService } from "../../../../services/rewardschemedataservice";
+import { ShareService } from "../../../../services/helpers/shareservice";
+import { DefaultTabNavs } from "../../../navmenu/tabnavmenu.component";
+import { StringEx } from "../../../../classes/helpers/string";
+import { Competition } from "../../../../models/competitionclasses";
 
 @Component({
 	selector: 'competitionsindex',

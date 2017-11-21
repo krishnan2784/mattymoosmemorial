@@ -97,7 +97,6 @@ var basebrandingcomponent_component_1 = require("./components/branding/component
 var fontpicker_component_1 = require("./components/common/editor/fontpicker.component");
 var brandingoptionpicker_component_1 = require("./components/branding/components/brandingoptionpicker/brandingoptionpicker.component");
 var orderBy_1 = require("./classes/orderBy");
-var competitionsindex_component_1 = require("./components/competitions/indexes/competitionsindex.component");
 var genericfilter_component_1 = require("./components/common/filters/generic/genericfilter.component");
 var competitionform_component_1 = require("./components/competitions/forms/competitionform/competitionform.component");
 var formbuttons_component_1 = require("./components/common/form/formbuttons/formbuttons.component");
@@ -105,6 +104,8 @@ var formnavbar_component_1 = require("./components/common/form/formnavbar/formna
 var calltoaction_component_1 = require("./components/common/editor/calltoaction.component");
 var selectlist_component_1 = require("./components/common/editor/selectlist.component");
 var daterange_component_1 = require("./components/common/editor/daterange.component");
+var competitionsindex_component_1 = require("./components/competitions/indexes/competitionsindex/competitionsindex.component");
+var rewardschemesindex_component_1 = require("./components/competitions/indexes/rewardschemesindex/rewardschemesindex.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -133,6 +134,7 @@ AppModule = __decorate([
             brandingcontentsection_component_1.BrandingContentSectionComponent,
             basebrandingcomponent_component_1.BaseBrandingComponent,
             competitionsindex_component_1.CompetitionIndexComponent,
+            rewardschemesindex_component_1.RewardSchemeIndexComponent,
             // feed item forms
             feeditemform_component_1.FeedItemForm,
             textfeeditem_component_1.TextFeedItemFormComponent,
@@ -218,7 +220,7 @@ AppModule = __decorate([
                 { path: 'reports/:feedType', component: feedreportindex_component_1.FeedReportIndexComponent },
                 { path: 'branding', component: brandingcontainer_component_1.BrandingContainerComponent },
                 { path: 'competitions', component: competitionsindex_component_1.CompetitionIndexComponent },
-                { path: 'rewardschemes', component: competitionsindex_component_1.CompetitionIndexComponent },
+                { path: 'rewardschemes', component: rewardschemesindex_component_1.RewardSchemeIndexComponent },
                 { path: 'termsandconditions', component: competitionsindex_component_1.CompetitionIndexComponent },
                 { path: '**', redirectTo: 'home' }
             ])

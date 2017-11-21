@@ -20,15 +20,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var base_component_1 = require("../../base.component");
-var shareservice_1 = require("../../../services/helpers/shareservice");
-var tabnavmenu_component_1 = require("../../navmenu/tabnavmenu.component");
-var competitionsdataservice_1 = require("../../../services/competitionsdataservice");
 var angular2_modal_1 = require("angular2-modal");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
-var genericfilter_component_1 = require("../../common/filters/generic/genericfilter.component");
-var string_1 = require("../../../classes/helpers/string");
-var competitionclasses_1 = require("../../../models/competitionclasses");
+var competitionsdataservice_1 = require("../../../../services/competitionsdataservice");
+var base_component_1 = require("../../../base.component");
+var genericfilter_component_1 = require("../../../common/filters/generic/genericfilter.component");
+var shareservice_1 = require("../../../../services/helpers/shareservice");
+var tabnavmenu_component_1 = require("../../../navmenu/tabnavmenu.component");
+var string_1 = require("../../../../classes/helpers/string");
+var competitionclasses_1 = require("../../../../models/competitionclasses");
 var CompetitionIndexComponent = (function (_super) {
     __extends(CompetitionIndexComponent, _super);
     function CompetitionIndexComponent(competitionDataService, sharedService, overlay, vcRef, confirmBox) {
