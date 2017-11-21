@@ -7,6 +7,10 @@
 	padding-bottom: 5px;
 }
 
+.index-competition-item:nth-child(even) {
+	 background-color: #F5F9F8;
+}
+
 .competition-index .competition-img {
     height: 30px;
     margin: 15px 0 0;
