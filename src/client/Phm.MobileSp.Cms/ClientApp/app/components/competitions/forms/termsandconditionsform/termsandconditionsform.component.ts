@@ -1,13 +1,9 @@
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import {Competition} from "../../../../models/competitionclasses";
-import { CompetitionsDataService } from "../../../../services/competitionsdataservice";
+import { TermsAndCondition } from "../../../../models/competitionclasses";
 import {FormEx} from "../../../../classes/helpers/form";
 import {ShareService} from "../../../../services/helpers/shareservice";
-import {UploaderType} from "../../../../enums";
-import {TermsAndConditionsDataService} from
-	"../../../../services/termsandconditionsdataservice";
-import {RewardSchemesDataService} from "../../../../services/rewardschemedataservice";
+import {TermsAndConditionsDataService} from "../../../../services/termsandconditionsdataservice";
 
 
 declare var $: any;
@@ -19,23 +15,19 @@ declare var Materialize: any;
 })
 export class TermsAndConditionForm implements OnInit {
 	@Output()
-	public competitionUpdated: EventEmitter<Competition> = new EventEmitter<Competition>();
+	public termsAndConditionsUpdated: EventEmitter<TermsAndCondition> = new EventEmitter<TermsAndCondition>();
 
 	@Input()
-	public model: Competition;
+	public model: TermsAndCondition;
 	public form: FormGroup;
 
 	navbarData;
 	currentStep;
 	submitted: boolean = false;
 	loading: boolean = false;
-	uploaderTypes: typeof UploaderType = UploaderType;
-	rewardScheme: { name: string, value: any }[] = [];
-	termsAndConditions: { name: string, value: any }[] = [];
 
 	constructor(public _fb: FormBuilder, public sharedService: ShareService,
-		public competitionService: CompetitionsDataService, public termsAndConditionsDataService: TermsAndConditionsDataService,
-		public rewardSchemesDataService: RewardSchemesDataService) {
+		public termsAndConditionsDataService: TermsAndConditionsDataService) {
 
 	}
 
@@ -47,44 +39,19 @@ export class TermsAndConditionForm implements OnInit {
 	}
 
 	getData() {
-		this.model = new Competition(this.model);
-		this.termsAndConditionsDataService.getTermsAndConditions().subscribe(result => {
-			if (result)
-				this.termsAndConditions = result.map(x => {
-					return { name: x.title, value: x.id };
-				});
-		});
-		this.rewardSchemesDataService.getRewardScheme().subscribe(result => {
-			if (result)
-				this.rewardScheme = result.map(x => {
-					return { name: x.title, value: x.id };
-				});
-		});
+		this.model = new TermsAndCondition(this.model);
 	}
 
 	public initialiseForm() {
 		this.form = this._fb.group({
 			id: [this.model.id, []],
 			title: [this.model.title, [<any>Validators.required, <any>Validators.maxLength(160)]],
-			about: [this.model.about, [<any>Validators.required]],
-			mainImageId: [this.model.mainImageId, []],
-			makeImageLink: [this.model.makeImageLink, []],
-			linkUrl: [this.model.linkUrl, []],
-			linkTitle: [this.model.linkTitle, []],
-			baseRewardSchemeId: [this.model.baseRewardSchemeId, [<any>Validators.required]],
-			termsAndConditionId: [this.model.termsAndConditionId, [<any>Validators.required]],
-			startDate: [this.model.startDate, [<any>Validators.required]],
-			endDate: [this.model.endDate, [<any>Validators.required]],
-			activeImageId: [this.model.activeImageId, [<any>Validators.required]],
-			makeActiveImageLink: [this.model.makeActiveImageLink, []],
-			completedImageId: [this.model.completedImageId, [<any>Validators.required]],
-			makeCompletedImageLink: [this.model.makeCompletedImageLink, []]
+			fullDescription: [this.model.fullDescription, [<any>Validators.required]]
 		});
 	} 
 
 	setupSteps() {
-		this.navbarData = [{ id: 'description', text: 'Description' },
-			{ id: 'settings', text: 'Settings' }];
+		this.navbarData = [{ id: 'description', text: 'Description' }];
 		this.currentStep = 'description';
 	}
 
@@ -92,27 +59,24 @@ export class TermsAndConditionForm implements OnInit {
 		this.currentStep = step;
 	}
 	
-	save(competition: Competition, isValid: boolean) {
+	save(termsAndConditions: TermsAndCondition, isValid: boolean) {
 		this.submitted = true;
 		if (!this.form.valid) {
 			console.log(FormEx.getFormValidationErrors(this.form));
 			$('.toast').remove();
 			return Materialize.toast('Please check that you have filled in all the required fields.', 6000, 'red');
 		}
-		console.log(this.model);
-		console.log(competition);
 		this.loading = true;
-		this.competitionService.updateCompetition(competition).subscribe(result => {
+		this.termsAndConditionsDataService.updateTermsAndCondition(termsAndConditions).subscribe(result => {
 			if (result.success) {
 				this.model = result.content;
-				this.competitionUpdated.emit(result.content);
+				this.termsAndConditionsUpdated.emit(result.content);
 			} else
 				this.loading = false;
-
 		});
 	}
 
 	goBack() {
-		this.competitionUpdated.emit(null);
+		this.termsAndConditionsUpdated.emit(null);
 	}
 }

@@ -99,8 +99,6 @@ export class CompetitionForm implements OnInit {
 			$('.toast').remove();
 			return Materialize.toast('Please check that you have filled in all the required fields.', 6000, 'red');
 		}
-		console.log(this.model);
-		console.log(competition);
 		this.loading = true;
 		this.competitionService.updateCompetition(competition).subscribe(result => {
 			if (result.success) {

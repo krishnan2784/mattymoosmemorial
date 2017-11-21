@@ -12,7 +12,7 @@
 							  [label]="'Enter Title'"
 							  [validationMessage]="'Title is required.'"
 			                  [maxLength]="160"
-			                  [placeHolder]="'Type title here'"></enhancedtextarea>			
+			                  [placeholder]="'Type title here'"></enhancedtextarea>			
 		</div>
 
 		
@@ -32,14 +32,14 @@
 							                 [elementId]="'item-' + i + '-start-position'"
 							                 [formControlId]="'startPosition'"
 							                 [validationMessage]="'Start position is required.'"
-											 [placeHolder]="'(min)'"></numbertextinput>
+											 [placeholder]="'(min)'"></numbertextinput>
 						</div>
 						<div class="col-md-6">
 							<numbertextinput [form]="item" [formSubmitted]="submitted"
 							                 [elementId]="'item-' + i + '-end-position'"
 							                 [formControlId]="'endPosition'"
 							                 [validationMessage]="'End position is required.'"
-							                 [placeHolder]="'(max)'"></numbertextinput>
+							                 [placeholder]="'(max)'"></numbertextinput>
 						</div>
 					</div>
 					<div class="col-md-5">

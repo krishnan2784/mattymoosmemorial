@@ -19,13 +19,13 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 		public async Task<TermsAndCondition> CreateTermsAndConditionsAsync(TermsAndCondition termsAndCondition)
 		{
 			var response = await PostAsync(termsAndCondition);
-			return GetResponseModel<dynamic>(response);
+			return GetResponseModel<TermsAndCondition>(response);
 		}
 
 		public async Task<TermsAndCondition> UpdateTermsAndConditionsAsync(TermsAndCondition termsAndCondition)
 		{
 			var response = await PutAsync(termsAndCondition);
-			return GetResponseModel<dynamic>(response);
+			return GetResponseModel<TermsAndCondition>(response);
 		}
 	
 		public async Task<bool> DeleteTermsAndConditionsAsync(int id)
