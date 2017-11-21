@@ -97,7 +97,6 @@ import {FontPickerComponent} from "./components/common/editor/fontpicker.compone
 import {BrandingOptionPickerComponent} from
 	"./components/branding/components/brandingoptionpicker/brandingoptionpicker.component";
 import {OrderBy} from "./classes/orderBy";
-import {CompetitionIndexComponent} from "./components/competitions/indexes/competitionsindex.component";
 import { GenericFilterComponent } from "./components/common/filters/generic/genericfilter.component";
 import {CompetitionForm} from "./components/competitions/forms/competitionform/competitionform.component";
 import {FormButtons} from "./components/common/form/formbuttons/formbuttons.component";
@@ -105,6 +104,10 @@ import {FormNavBarComponent} from "./components/common/form/formnavbar/formnavba
 import {CallToActionComponent} from "./components/common/editor/calltoaction.component";
 import {SelectListComponent} from "./components/common/editor/selectlist.component";
 import {DateRangeComponent} from "./components/common/editor/daterange.component";
+import {CompetitionIndexComponent} from
+	"./components/competitions/indexes/competitionsindex/competitionsindex.component";
+import {RewardSchemeIndexComponent} from
+	"./components/competitions/indexes/rewardschemesindex/rewardschemesindex.component";
 
 
 @NgModule({
@@ -130,6 +133,7 @@ import {DateRangeComponent} from "./components/common/editor/daterange.component
         BrandingContentSectionComponent,
 		BaseBrandingComponent,
 	    CompetitionIndexComponent,
+	    RewardSchemeIndexComponent,
 
         // feed item forms
         FeedItemForm,
@@ -223,7 +227,7 @@ import {DateRangeComponent} from "./components/common/editor/daterange.component
             { path: 'reports/:feedType', component: FeedReportIndexComponent },
             { path: 'branding', component: BrandingContainerComponent },
 			{ path: 'competitions', component: CompetitionIndexComponent },
-			{ path: 'rewardschemes', component: CompetitionIndexComponent },
+			{ path: 'rewardschemes', component: RewardSchemeIndexComponent },
 			{ path: 'termsandconditions', component: CompetitionIndexComponent },
             { path: '**', redirectTo: 'home' }
         ])
