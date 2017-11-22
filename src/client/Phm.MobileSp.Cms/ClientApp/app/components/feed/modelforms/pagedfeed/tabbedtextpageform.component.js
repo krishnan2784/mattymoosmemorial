@@ -45,18 +45,15 @@ var TabbedTextPageFormComponent = (function () {
         if (tab === void 0) { tab = null; }
         return new forms_1.FormGroup({
             id: new forms_1.FormControl(tab.id, []),
-            masterId: new forms_1.FormControl(tab.masterId, []),
             order: new forms_1.FormControl(tab.order, []),
-            enabled: new forms_1.FormControl(tab.enabled, []),
-            published: new forms_1.FormControl(tab.published, []),
-            mediaTabbedTextFeedtabId: new forms_1.FormControl(tab.mediaTabbedTextFeedPageId, []),
+            tabbedTextFeedPageId: new forms_1.FormControl(tab.tabbedTextFeedPageId, []),
             bodyText: new forms_1.FormControl(tab.bodyText, [forms_1.Validators.required]),
             title: new forms_1.FormControl(tab.title, [forms_1.Validators.required])
         });
     };
     TabbedTextPageFormComponent.prototype.addTab = function () {
         var control = this.form.controls['tabs'];
-        control.push(this.initTab(new TabText()));
+        control.push(this.initTab(new TabText({ tabbedTextFeedPageId: this.model.id })));
         this.displayTab(control.length - 1);
     };
     TabbedTextPageFormComponent.prototype.removeTab = function (index) {

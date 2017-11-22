@@ -1,0 +1,55 @@
+<div class="filter-container">
+	<div class="filter-group" *ngFor="let group of filterSet.filterGroups; let i = index">
+		<div [class.bordered]="group.filters && group.filters.length > 1">
+			<p *ngIf="group.renderClear || group.groupName!=''">
+				{{group.groupName}}
+				<a *ngIf="group.renderClear" class="clear-all" (click)="clearFilterGroup(i);broadcastChanges();">Clear all</a>
+			</p>
+			<div class="filter" *ngFor="let filter of group.filters; let ii = index">
+
+				<div *ngIf="filter.filterType === filterTypes.Text" class="search-filter">
+					<input placeholder="Search" type="search" [(ngModel)]="filter.value" (ngModelChange)="broadcastChanges()" id="search-input" />
+					<div class="clearfix"></div>
+				</div>
+
+				<div *ngIf="filter.filterType != filterTypes.Text" class="search-filter">
+
+					<p *ngIf="filter.filterType !== filterTypes.DateRange">
+						{{filter.filterName}} <a class="right" (click)="clearFilter(i, ii, filter);broadcastChanges();" id="btn-reset-{{i}}-{{ii}}">Clear</a>
+					</p>
+
+					<div *ngIf="filter.filterType === filterTypes.Checkbox && filter.values" class="checkbox-filter-group">
+						<div class="loader" *ngIf="filter.values.length === 0"></div>
+						<div *ngIf="filter.values.length > 0" class="animate-bottom">
+							<div *ngFor="let cbk of filter.values; let iii = index">
+								<input type="checkbox" id="cbk_{{i}}_{{ii}}_{{iii}}" [(ngModel)]="cbk.checked" (click)="broadcastChanges()"><label [attr.for]="'cbk_' + i + '_' + ii + '_' + iii">{{cbk.name}}</label>
+							</div>
+						</div>
+					</div>
+
+					<div *ngIf="filter.filterType === filterTypes.DateRange" class="date-filter-group">
+						<p>
+							Start Date <a class="right" (click)="clearFilter(i, ii, filter);broadcastChanges();" id="btn-reset-{{i}}-{{ii}}">Clear</a>
+						</p>
+						<datepicker (dateSelected)="handleStartDate(i,ii,$event);broadcastChanges();"
+									[initialDate]="filter.date1"
+									[cannotSelectPast]="false"></datepicker>
+						<p>End Date</p>
+						<datepicker (dateSelected)="handleEndDate(i,ii,$event);broadcastChanges();"
+									[initialDate]="filter.date2"
+									[cannotSelectPast]="false"
+									[minDay]="filter.minDay"
+									[minJsMonth]="filter.minMonth"
+									[minYear]="filter.minYear"></datepicker>
+					</div>
+
+					<div *ngIf="filter.filterType === filterTypes.Range" class="range-filter-group">
+						<input type="text" id="range_{{i}}_{{ii}}" name="range_{{i}}_{{ii}}" value="" />
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

@@ -39,4 +39,8 @@ export class DefaultTabNavs {
 	public static accountManagementTabs: NavItem[] = [
 		new NavItem('User Accounts', '/useraccountmanagement', 'teal'),
 		new NavItem('Access Control Panel', '/userpermissionmanagement', 'teal')];
+	public static competitionsTabs: NavItem[] = [
+		new NavItem('Competitions', '/competitions', 'teal'),
+		new NavItem('Reward Schemes', '/competitions/rewardschemes', 'orange'),
+		new NavItem('T&C', '/competitions/termsandconditions', 'funk')];
 }

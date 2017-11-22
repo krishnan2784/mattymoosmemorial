@@ -3,19 +3,33 @@ import Baseclasses = require("./baseclasses");
 import BaseModel = Baseclasses.BaseModel;
 import Mediainfoclasses = require("./mediainfoclasses");
 import MediaInfo = Mediainfoclasses.MediaInfo;
+import {DateEx} from "../classes/helpers/date";
 
-export class BaseFeedPage extends Baseclasses.BaseModel {
+export class BaseFeedPage {
+	public id: number;
+	public createdAt: string;
+	public updatedAt: string;
     public pagedFeedId: number;
     public basePageFeedType: Enums.BasePageFeedTypeEnum;
     public pageNumber: number;
     public title: string;
 
-    constructor(options: {} = {}) {
-        super(options);
+	constructor(options: {} = {}) {
+		this.id = options['id'] || 0;
+		this.createdAt = options['createdAt'];
+		this.updatedAt = options['updatedAt'];
         this.pagedFeedId = options['pagedFeedId'] || 0;
         this.basePageFeedType = options['basePageFeedType'] || Enums.BasePageFeedTypeEnum.Text;
         this.pageNumber = options['pageNumber'] || 0;
-        this.title = options['title'] || '';
+		this.title = options['title'] || '';
+
+		let d = DateEx.formatDate(new Date());
+		if (!this.createdAt) {
+			this.createdAt = d;
+		}
+		if (!this.updatedAt) {
+			this.updatedAt = d;
+		}
     }
 }
 
@@ -89,17 +103,30 @@ export class TabbedTextFeedPage extends BaseFeedPage {
     }
 }
 
-export class TabText extends BaseModel {
-    public mediaTabbedTextFeedPageId: number;
+export class TabText {
+	public id: number;
+	public createdAt: string;
+	public updatedAt: string;
+	public tabbedTextFeedPageId: number;
     public title: string;
     public bodyText: string;
     public order: number;
 
     constructor(options: {} = {}) {
-        super(options);
-        this.mediaTabbedTextFeedPageId = options['mediaTabbedTextFeedPageId'] || 0;
+	    this.id = options['id'] || 0;
+	    this.createdAt = options['createdAt'];
+	    this.updatedAt = options['updatedAt'];
+		this.tabbedTextFeedPageId = options['tabbedTextFeedPageId'] || 0;
         this.title = options['title'] || '';
         this.bodyText = options['bodyText'] || '';
-        this.order = options['order'] || 0;
+		this.order = options['order'] || 0;
+
+	    let d = DateEx.formatDate(new Date());
+	    if (!this.createdAt) {
+		    this.createdAt = d;
+	    }
+	    if (!this.updatedAt) {
+		    this.updatedAt = d;
+	    }
     }
 }

@@ -3,22 +3,22 @@
     <div class="form-group">
         <div class="col-md-5">
             <select class="form-control" multiple="multiple" [(ngModel)]="selectedUserMarket">
-                <option *ngFor="let userMarket of this.userMarkets" [ngValue]="userMarket">{{userMarket.name}}</option>
+                <option *ngFor="let userMarket of this.userMarkets; let i = index" [ngValue]="userMarket" id="user-market-{{i}}">{{userMarket.name}}</option>
             </select>
         </div>
         <div class="col-md-2 button-col">
             <br><br>
-            <a (click)="copyToMarket()" class="btn">
+            <a (click)="copyToMarket()" class="btn" id="btn-movetomarket">
                 <i class="material-icons">arrow_forward</i>
             </a>
             <br><br>
-            <a (click)="removeFromMarket()" class="btn">
+            <a (click)="removeFromMarket()" class="btn" id="btn-movefrommarket">
                 <i class="material-icons">arrow_back</i>
             </a>
         </div>
         <div class="col-md-5">
             <select class="form-control" multiple="multiple" [(ngModel)]="selectedMarket">
-                <option *ngFor="let currentMarket of this.currentMarkets" [ngValue]="currentMarket" [attr.disabled]="currentMarket.isCopied ? 'disabled' : null">{{currentMarket.name}}</option>
+                <option *ngFor="let currentMarket of this.currentMarkets; let i = index" [ngValue]="currentMarket" [attr.disabled]="currentMarket.isCopied ? 'disabled' : null" id="current-market-{{i}}">{{currentMarket.name}}</option>
             </select>
         </div>
         <div class="clearfix"></div>
@@ -26,8 +26,8 @@
 </div>
 
 <div class="modal-footer">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    <a class="btn btn-primary" (click)="saveChanges()" [attr.disabled]="!loading && unsavedChanges ? null : 'disabled'">Save changes</a>
+    <button type="button" class="btn btn-default" data-dismiss="modal" id="btn-cancel-copytomarket">Close</button>
+    <a class="btn btn-primary" (click)="saveChanges()" [attr.disabled]="!loading && unsavedChanges ? null : 'disabled'" id="btn-save-copytomarket">Save changes</a>
 </div>
 
 

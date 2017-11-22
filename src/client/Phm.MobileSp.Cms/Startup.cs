@@ -125,8 +125,13 @@ namespace Phm.MobileSp.Cms
                 services.AddTransient<IBrandingConfigurationsRepository, BrandingConfigurationsRepository>();
                 services.AddTransient<ISecurityFeaturesRepository, SecurityFeaturesRepository>();
                 services.AddTransient<ISecurityEntityFeaturesRepository, SecurityEntityFeaturesRepository>();
-				services.AddSingleton<IFeedItemModelBinder, FeedItemModelBinder>();
-				
+                services.AddTransient<ICompetitionRepository, CompetitionRepository>();
+				services.AddSingleton<ITermsAndConditionsRepository, TermsAndConditionsRepository>();
+				services.AddSingleton<IRewardSchemesRepository, RewardSchemesRepository>();
+				services.AddSingleton<IActiveCompetitionRepository, ActiveCompetitionRepository>();				
+services.AddSingleton<IFeedItemModelBinder, FeedItemModelBinder>();
+	            
+
 				services.AddSession(options =>
                 {
                     options.IdleTimeout = TimeSpan.FromHours(1);

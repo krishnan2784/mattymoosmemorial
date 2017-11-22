@@ -38,8 +38,9 @@ var Form = require("../../../classes/helpers/form");
 var FormEx = Form.FormEx;
 var Pagedfeeditemcomponent = require("./pagedfeed/pagedfeeditem.component");
 var PagedFeedItemFormComponent = Pagedfeeditemcomponent.PagedFeedItemFormComponent;
+var activecompetitionsdataservice_1 = require("../../../services/activecompetitionsdataservice");
 var FeedItemForm = (function () {
-    function FeedItemForm(_fb, http, route, router, feedDataService, sharedService, mediaDataService) {
+    function FeedItemForm(_fb, http, route, router, feedDataService, sharedService, mediaDataService, activeCompetitionDataService) {
         this._fb = _fb;
         this.http = http;
         this.route = route;
@@ -47,6 +48,7 @@ var FeedItemForm = (function () {
         this.feedDataService = feedDataService;
         this.sharedService = sharedService;
         this.mediaDataService = mediaDataService;
+        this.activeCompetitionDataService = activeCompetitionDataService;
         this.feedFormData = null;
         this.feedUpdated = new core_1.EventEmitter();
         this.feedTypes = Enums.FeedTypeEnum;
@@ -59,10 +61,13 @@ var FeedItemForm = (function () {
         this.pagedForm = PagedFeedItemFormComponent;
         this.feedFormSteps = new FeedFormSteps();
         this.navbarData = [];
+        this.competitions = [{ name: 'Select a Competition', value: null }];
+        this.competitionDisabled = true;
     }
     FeedItemForm.prototype.ngOnInit = function () {
         this.initialiseForm();
         this.getModel();
+        this.setupCompetitions();
     };
     FeedItemForm.prototype.swapForm = function (newFormType, feedCategory) {
         var newForm = (new newFormType());
@@ -93,6 +98,19 @@ var FeedItemForm = (function () {
         });
         this.navbarData[this.feedFormSteps.currentStepIndex()].selected = true;
     };
+    FeedItemForm.prototype.setupCompetitions = function () {
+        var _this = this;
+        this.activeCompetitionDataService.getActiveCompetitions().subscribe(function (result) {
+            if (result && result.length > 0) {
+                result.forEach(function (x) {
+                    _this.competitions.push({ name: x.title, value: x.id });
+                });
+                var x = result.filter(function (x) { return x.id === _this.model.competitionId; })[0];
+                console.log(x);
+                _this.competitionDisabled = (x && x.participants > 0);
+            }
+        });
+    };
     FeedItemForm.prototype.initialiseForm = function () {
         this.form = this._fb.group({
             id: ['', []],
@@ -116,6 +134,7 @@ var FeedItemForm = (function () {
             endDate: ['', [forms_1.Validators.required]],
             mainIconId: ['', [forms_1.Validators.required]],
             bodyText: ['', []],
+            competitionId: ['', []],
             tagText: ['', [forms_1.Validators.required]]
         });
     };
@@ -123,7 +142,8 @@ var FeedItemForm = (function () {
         if (this.model) {
             var baseModel = new Feedclasses.BaseFeed();
             baseModel.formatFeedItemDates(this.model);
-            this.getIconModel();
+            if (this.model.mainIcon == null)
+                this.getIconModel();
             this.swapForm(this.getFeedType(this.model.feedType), this.model.feedCategory);
         }
         else {
@@ -171,6 +191,8 @@ var FeedItemForm = (function () {
                 return imagefeeditem_component_1.ImageFeedItemFormComponent;
             case Enums.FeedTypeEnum.Video:
                 return videofeeditem_component_1.VideoFeedItemFormComponent;
+            case Enums.FeedTypeEnum.Paged:
+                return PagedFeedItemFormComponent;
             default:
                 return textfeeditem_component_1.TextFeedItemFormComponent;
         }
@@ -271,7 +293,7 @@ FeedItemForm = __decorate([
     }),
     __metadata("design:paramtypes", [forms_1.FormBuilder, http_1.Http, router_1.ActivatedRoute,
         router_1.Router, feeddataservice_1.FeedDataService, ShareService,
-        mediaservice_1.MediaDataService])
+        mediaservice_1.MediaDataService, activecompetitionsdataservice_1.ActiveCompetitionsDataService])
 ], FeedItemForm);
 exports.FeedItemForm = FeedItemForm;
 //# sourceMappingURL=feeditemform.component.js.map

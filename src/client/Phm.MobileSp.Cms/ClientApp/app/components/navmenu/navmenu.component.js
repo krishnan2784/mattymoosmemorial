@@ -19,6 +19,7 @@ var NavMenuComponent = (function () {
         this.currentMenuOptions = [];
         this.baseMenuOptions = [];
         this.backText = null;
+        this.toggleDropdown = false;
         this.shareService.mainNavUpdated.subscribe(function (navMenu) {
             _this.currentMenuOptions = navMenu[0];
             _this.backText = navMenu[1];
@@ -34,7 +35,8 @@ var NavMenuComponent = (function () {
             new navmenuclasses_1.NavMenuOption('Dashboard', '/home', { activeLink: true }),
             new navmenuclasses_1.NavMenuOption('Content', '/feed'),
             new navmenuclasses_1.NavMenuOption('Reports', '/reports', { routerLinkActiveOptions: { exact: false } }),
-            new navmenuclasses_1.NavMenuOption('Accounts', '/useraccountmanagement', { routerLinkActiveOptions: { exact: false } })
+            new navmenuclasses_1.NavMenuOption('Accounts', '/useraccountmanagement', { routerLinkActiveOptions: { exact: false } }),
+            new navmenuclasses_1.NavMenuOption('Competition Management', '/competitions', { routerLinkActiveOptions: { exact: false } })
         ];
         this.resetNavMenu();
     };

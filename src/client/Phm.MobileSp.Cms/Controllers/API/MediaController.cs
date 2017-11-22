@@ -27,7 +27,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
         public async Task<JsonResult> GetMediaInfo(int id)
         {
             var response = await _mediaInfoRepository.GetMediaInfo(id);
-            return Json(new BaseResponse<MediaInfo>(response));
+            return Json(new BaseResponse<dynamic>(response));
         }
 
         [HttpPost]

@@ -10,8 +10,19 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Enums = require("../enums");
 var baseclasses_1 = require("./baseclasses");
+var enums_1 = require("../enums");
+var SecEntity = (function (_super) {
+    __extends(SecEntity, _super);
+    function SecEntity(options) {
+        if (options === void 0) { options = {}; }
+        var _this = _super.call(this, options) || this;
+        _this.secEntityType = options['secEntityType'];
+        return _this;
+    }
+    return SecEntity;
+}(baseclasses_1.BaseModel));
+exports.SecEntity = SecEntity;
 var SecUserFeaturePermission = (function () {
     function SecUserFeaturePermission(options) {
         if (options === void 0) { options = {}; }
@@ -51,7 +62,7 @@ var SecFeature = (function () {
         this.uri = options['uri'] || '';
         this.httpVerb = options['httpVerb'] || '';
         this.bitMaskValue = options['bitMaskValue'] || 0;
-        this.secFeatureType = options['secFeatureType'] || Enums.SecFeatureTypeEnum.Cms;
+        this.secFeatureType = options['secFeatureType'] || enums_1.SecFeatureTypeEnum.Cms;
     }
     return SecFeature;
 }());

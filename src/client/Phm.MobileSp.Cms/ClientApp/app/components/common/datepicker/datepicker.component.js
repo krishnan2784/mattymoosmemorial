@@ -291,6 +291,10 @@ __decorate([
     __metadata("design:type", Boolean)
 ], DatepickerComponent.prototype, "rightAlign", void 0);
 __decorate([
+    core_1.Input(),
+    __metadata("design:type", String)
+], DatepickerComponent.prototype, "elementId", void 0);
+__decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)
 ], DatepickerComponent.prototype, "dateSelected", void 0);

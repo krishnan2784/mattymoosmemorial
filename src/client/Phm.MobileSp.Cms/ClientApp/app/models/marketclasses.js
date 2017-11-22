@@ -17,9 +17,9 @@ var Market = (function (_super) {
     function Market(options) {
         if (options === void 0) { options = {}; }
         var _this = _super.call(this, options) || this;
-        _this.brandId = options['brandId'] || '';
+        _this.brandId = options['brandId'] || 0;
         _this.code = options['dealershipCode'] || '';
-        _this.defaultLanguageId = options['defaultLanguageId'] || '';
+        _this.defaultLanguageId = options['defaultLanguageId'] || 0;
         _this.isLive = options['isLive'] || false;
         _this.isMaster = options['isMaster'] || false;
         _this.name = options['name'] || '';

@@ -7,9 +7,9 @@ declare var $: any;
   template: `
     <div [formGroup]="form" *ngIf="form">
         <div class="input-field">
-            <input id="{{elementId}}" type="text" formControlName="{{formControlId}}" [attr.maxLength]="maxLength > 0 ? maxLength : null" [attr.data-length]="maxLength > 0 ? maxLength : null">
-            <label [attr.for]="elementId" class="{{activeClass}}">{{label}}</label>
-            <small class="active-warning" [class.hidden]="form.controls[formControlId].valid || !formSubmitted">
+            <input id="{{elementId}}" type="text" formControlName="{{formControlId}}" [attr.maxLength]="maxLength > 0 ? maxLength : null" [attr.data-length]="maxLength > 0 ? maxLength : null" [attr.placeholder]="placeholder">
+            <label *ngIf="label" [attr.for]="elementId" class="{{activeClass}}">{{label}}</label>
+            <small *ngIf="validationMessage" class="active-warning" [class.hidden]="form.controls[formControlId].valid || !formSubmitted">
                 {{validationMessage}}
             </small>
         </div>
@@ -23,13 +23,14 @@ export class TextInputComponent implements OnInit, AfterViewInit {
     @Input() label: string = '';
     @Input() validationMessage: string = '';
     @Input() formSubmitted: boolean = false;
-    @Input() maxLength: number = 0;
+	@Input() maxLength: number = 0;
+	@Input() placeholder: string = '';
     activeClass: string = '';
     ngOnInit() {
         if (this.elementId == '')
             this.elementId = this.formControlId;
-        if (this.form && this.form.controls[this.formControlId]) {
-            this.activeClass = this.form.controls[this.formControlId].value.toString().length > 0 ? "active" : "";
+		if (this.form && this.form.controls[this.formControlId] && this.form.controls[this.formControlId].value) {
+            this.activeClass = this.placeholder !== '' || this.form.controls[this.formControlId].value.toString().length > 0 ? "active" : "";
         }
     }
     ngAfterViewInit() {

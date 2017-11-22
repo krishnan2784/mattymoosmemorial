@@ -1,15 +1,16 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, SimpleChange, OnChanges } from '@angular/core';
 import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms'
 import Pagedfeedclasses = require("../../../../models/pagedfeedclasses");
 import MediaTextFeedPage = Pagedfeedclasses.MediaTextFeedPage;
 import Mediainfoclasses = require("../../../../models/mediainfoclasses");
 import MediaInfo = Mediainfoclasses.MediaInfo;
+import {MediaDataService} from "../../../../services/mediaservice";
 
 @Component({
     selector: 'media-page-form',
     template: require('./mediapageform.component.html')
 })
-export class MediaPageFormComponent implements OnInit, OnDestroy {
+export class MediaPageFormComponent implements OnInit, OnDestroy, OnChanges {
 
     @Input('form')
     public form: FormGroup;
@@ -28,13 +29,22 @@ export class MediaPageFormComponent implements OnInit, OnDestroy {
     @Output()
     public mediaUploading: EventEmitter<any> = new EventEmitter();
 
-    ngOnInit() {
+	constructor(public mediaDataService: MediaDataService){}
+
+	ngOnInit() {
+		this.getMediaInfo();
         this.addFormControls();
     }
 
     ngOnDestroy() {
         this.removeFormControls();
     }
+
+	ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
+		if (changes['model']) {
+			this.getMediaInfo();
+		}
+	}
 
 	addFormControls() {
 		setTimeout(() => {
@@ -46,7 +56,16 @@ export class MediaPageFormComponent implements OnInit, OnDestroy {
         this.form.removeControl('mediaInfoId');
     };
 
-    attachMedia(media: MediaInfo) {
-        this.uploadedMedia.emit(media);
+	public getMediaInfo() {
+		if (this.model && this.model.mediaInfoId > 0 && (!this.model.mediaInfo || this.model.mediaInfoId !== this.model.mediaInfo.id)) {
+			this.mediaDataService.getMediaInfo(this.model.mediaInfoId).subscribe((result) => {
+				this.model.mediaInfo = result;
+			});
+		}
+	}
+
+	attachMedia(media: MediaInfo) {
+		if (media && media.id > 0)
+			this.uploadedMedia.emit(media);
     }
 }

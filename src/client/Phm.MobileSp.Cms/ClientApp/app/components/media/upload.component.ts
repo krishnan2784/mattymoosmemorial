@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Injectable, OnInit, AfterViewInit, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Injectable, OnInit, OnChanges, Input, Output, SimpleChange } from '@angular/core';
 import { MarketDataService } from "../../services/marketdataservice";
 import Userclasses = require("../../models/userclasses");
 import UserMarket = Userclasses.UserMarket;
@@ -19,7 +19,7 @@ declare var Materialize: any;
     template: require('./upload.component.html'),
     styles: [require('./upload.component.css')]
 })
-export class UploadMediaComponent implements OnInit {
+export class UploadMediaComponent implements OnInit, OnChanges {
 
     @Input() title: string = "";
     @Input() showPreview: boolean = true;
@@ -33,16 +33,19 @@ export class UploadMediaComponent implements OnInit {
     @Input() uploadUrl = '/Media/UploadFile';
 	@Input() form: FormGroup;
 	@Input() formControlId: string;
+	@Input() validationMessage: string = '';
+	@Input() formSubmitted: boolean = false;
+	@Input() elementId: string;
+	@Input() savePreviewUrl: boolean = false;
 	@Input() disabled: boolean = false;
 	@Input() imagePreviewUrl: string;
-
+	@Input() dimensionWarning: boolean = false;
     public files: File[] = [];
     public uploading: boolean = false;
 
     public videoPreviewUrl: string;
     uploaderTypes: typeof UploaderType = UploaderType;
     public correctType: boolean = true;
-
     @Output()
     public mediaUploading: EventEmitter<boolean> = new EventEmitter();
     @Output()
@@ -54,8 +57,25 @@ export class UploadMediaComponent implements OnInit {
     ngOnInit() {       
         if (this.selectedMedia)
 			this.setPreviewImage(this.selectedMedia.azureUrl);
+		else if (this.form && !this.savePreviewUrl && this.form.controls[this.formControlId] && this.form.controls[this.formControlId].value > 0) {
+			this.mediaService.getMediaInfo(this.form.controls[this.formControlId].value).subscribe(x => {
+				if (x) {
+					this.selectedMedia = x;
+					this.setPreviewImage(this.selectedMedia.azureUrl);
+				}
+	        });
+        }
     }
-
+	ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
+		if (changes['selectedMedia']) {
+			if (this.selectedMedia)
+				this.setPreviewImage(this.selectedMedia.azureUrl);
+			else {
+				this.imagePreviewUrl = null;
+				this.videoPreviewUrl = null;
+			}
+		}
+	}
     uploadFile() {
         if (!this.files)
             return;
@@ -100,7 +120,7 @@ export class UploadMediaComponent implements OnInit {
 			return;
 
 		if (this.form)
-			this.form.controls[this.formControlId].patchValue(this.selectedMedia.azureUrl, {});
+			this.form.controls[this.formControlId].patchValue(this.savePreviewUrl ? this.selectedMedia.azureUrl : this.selectedMedia.id, {});
 	}
 
     public filesSelectHandler(fileInput: any) {
@@ -169,22 +189,24 @@ export class UploadMediaComponent implements OnInit {
                 break stillValid;
             }
 
-
-
             if (this.enforceExactDimensions) {
                 if (width != this.maxWidth || height != this.maxHeight) {
                     isValid = false;
-                    failMessage = "The selected file does not meet the width and height requirements. (" + this.maxWidth + "px X " + this.maxHeight + "px)";
+					failMessage = "The selected file does not meet the width and height requirements. (" + this.maxWidth + "px X " + this.maxHeight + "px)";
+	                this.dimensionWarning = true;
                     break stillValid;
-                }
+				}
+	            this.dimensionWarning = false;
             } else {
                 if ((this.maxWidth > 0 && width > this.maxWidth) || (this.maxHeight > 0 && height > this.maxHeight)) {
                     isValid = false;
-                    failMessage = "The selected file is too large. Please uplaod a file smaller than " + this.maxWidth + "px X " + this.maxHeight + "px.";
+					failMessage = "The selected file is too large. Please uplaod a file smaller than " + this.maxWidth + "px X " + this.maxHeight + "px.";
+	                this.dimensionWarning = true;
                     break stillValid;
-                }
+				}
+	            this.dimensionWarning = false;
             }
-        }
+		}
 
         if (!isValid)
             this.failAlert(failMessage);

@@ -13,6 +13,7 @@ export class NavMenuComponent implements OnInit{
     currentMenuOptions: NavMenuOption[] = [];
 	baseMenuOptions: NavMenuOption[] = [];
 	backText = null;
+	toggleDropdown=false;
 	constructor(public shareService: ShareService) { //, public securityService: any
 		this.shareService.mainNavUpdated.subscribe(navMenu => {
 			this.currentMenuOptions = navMenu[0];
@@ -30,7 +31,8 @@ export class NavMenuComponent implements OnInit{
 		  new NavMenuOption('Dashboard', '/home', {activeLink: true}),
         new NavMenuOption('Content', '/feed'),
         new NavMenuOption('Reports', '/reports', { routerLinkActiveOptions: { exact: false } }),
-        new NavMenuOption('Accounts', '/useraccountmanagement', { routerLinkActiveOptions: { exact: false } })
+		new NavMenuOption('Accounts', '/useraccountmanagement', { routerLinkActiveOptions: { exact: false } }),
+		new NavMenuOption('Competition Management', '/competitions', { routerLinkActiveOptions: { exact: false } })
       ];
       this.resetNavMenu();
     }

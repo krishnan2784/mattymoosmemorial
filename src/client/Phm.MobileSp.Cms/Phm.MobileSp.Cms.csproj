@@ -71,7 +71,6 @@
     <ProjectReference Include="..\..\lib\Phm.MobileSp.Cms.Infrastructure\Phm.MobileSp.Cms.Infrastructure.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ClientApp\app\components\navbar\" />
     <Folder Include="ClientApp\plugins\" />
     <Folder Include="Connected Services\Application Insights" />
   </ItemGroup>
@@ -89,8 +88,17 @@
     <None Update="ClientApp\app\classes\feedformstepsclasses - Copy.js">
       <DependentUpon>feedformstepsclasses.ts</DependentUpon>
     </None>
+    <None Update="ClientApp\app\components\common\editor\daterange.component.js">
+      <DependentUpon>daterange.component.ts</DependentUpon>
+    </None>
     <None Update="ClientApp\app\components\common\editor\textarea.component.js">
       <DependentUpon>textarea.component.ts</DependentUpon>
+    </None>
+    <None Update="ClientApp\app\components\common\editor\calltoaction.component.js">
+      <DependentUpon>calltoaction.component.ts</DependentUpon>
+    </None>
+    <None Update="ClientApp\app\components\common\editor\selectlist.component.js">
+      <DependentUpon>selectlist.component.ts</DependentUpon>
     </None>
     <None Update="ClientApp\app\components\feed\modelforms\pagedfeed\bodytextpageform.component.css">
       <DependentUpon>bodytextpageform.component.html</DependentUpon>
@@ -106,6 +114,18 @@
     </None>
     <None Update="ClientApp\app\components\reports\observationfeeditemreport.component.ts">
       <DependentUpon>observationfeeditemreport.component.html</DependentUpon>
+    </None>
+    <None Update="ClientApp\app\interfaces\services\IRewardSchemesDataService.js">
+      <DependentUpon>IRewardSchemesDataService.ts</DependentUpon>
+    </None>
+    <None Update="ClientApp\app\interfaces\services\IRewardSchemesDataService.js.map">
+      <DependentUpon>IRewardSchemesDataService.js</DependentUpon>
+    </None>
+    <None Update="ClientApp\app\models\competitionclasses.js">
+      <DependentUpon>competitionclasses.ts</DependentUpon>
+    </None>
+    <None Update="ClientApp\app\models\securityclasses.js">
+      <DependentUpon>securityclasses.ts</DependentUpon>
     </None>
     <None Update="ClientApp\app\models\reportclasses.js">
       <DependentUpon>reportclasses.ts</DependentUpon>

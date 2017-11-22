@@ -6,7 +6,7 @@ import { FormGroup } from "@angular/forms";
   template: `
     <div [formGroup]="form" *ngIf="form">
         <div class="input-field">
-            <input id="{{elementId}}" type="number" formControlName="{{formControlId}}" (keypress)="filterInput($event)">
+            <input id="{{elementId}}" type="number" formControlName="{{formControlId}}" (keypress)="filterInput($event)" [attr.placeholder]="placeholder">
             <label [attr.for]="elementId" class="{{activeClass}}">{{label}}</label>
             <small class="active-warning" [class.hidden]="form.controls[formControlId].valid || !formSubmitted">
                 {{validationMessage}}
@@ -22,15 +22,16 @@ export class NumberTextInputComponent implements OnInit {
     @Input() label: string = '';
     @Input() validationMessage: string = '';
     @Input() formSubmitted: boolean = false;
-    @Input() allowFractions: boolean = false;
+	@Input() allowFractions: boolean = false;
+	@Input() placeholder: string = '';
     hasPoint: boolean = false;
     activeClass: string = '';
     ngOnInit() {
         if (this.elementId == '')
             this.elementId = this.formControlId;
         if (this.form && this.form.controls[this.formControlId]) {
-          this.activeClass = this.form.controls[this.formControlId].value
-            && this.form.controls[this.formControlId].value.toString().length > 0 ? "active" : "";
+			this.activeClass = this.placeholder !== '' || (this.form.controls[this.formControlId].value
+            && this.form.controls[this.formControlId].value.toString().length > 0) ? "active" : "";
         }
     }
     filterInput(e) {

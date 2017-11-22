@@ -5,17 +5,17 @@
   position: relative;
   margin-top: -12px; }
   .navBarContents .option {
-    float: left;
     width: 165px;
     display: inline-block; }
   .navBarContents .text {
-    position: absolute;
     padding-right: 20px;
     margin-top: 10px;
     cursor: pointer; }
-  .navBarContents .selected .main-text {
-    font-weight: 600;
-    cursor: pointer; }
+.navBarContents .selected .main-text {
+	font-weight: 600;}  
+.navBarContents .main-text {
+	cursor: pointer;
+}
   .navBarContents .selected .additionalText {
     font-weight: 400; }
   .navBarContents .additionalText {
@@ -30,3 +30,28 @@
 
 .selected .border-top {
   border-color: #01A8DC; }
+.form-navbar {
+	height: 50px;
+	padding: 0 15px;
+	vertical-align: middle;
+	margin-bottom: 40px;
+	position:absolute;
+	top: 100px;
+	left:3px;
+	background-color: #fff;
+	width: 100%;
+	border-top: 1px solid #D8DEDC;
+	border-bottom:2px solid #D8DEDC;
+}
+.form-navbar a {
+	text-decoration: none;
+}
+.form-navbar span {
+	cursor: pointer;
+	display: inline-block;
+	text-align: center;
+}
+.bottom-pad {
+	height: 50px;
+	width: 100%;
+}

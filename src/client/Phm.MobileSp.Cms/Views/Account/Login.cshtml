@@ -14,7 +14,6 @@
                     <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
 
                         <div class="form-group">
-
                             <div class="col-md-offset-4 col-md-7">
                                 <label class="control-label">Username</label>
                                 @Html.TextBoxFor(m => m.UserName, Model.UserName, new { type = "text", required = "required" })
@@ -41,7 +40,7 @@
 
                         <div class="form-group">
                             <div class="col-md-offset-4 col-md-7">
-                                <button type="submit" class="waves-effect waves-light btn btn-primary right">Log in</button>
+                                <button type="submit" class="waves-effect waves-light btn btn-primary right" id="btn-login">Log in</button>
                             </div>
                         </div>
                     </form>

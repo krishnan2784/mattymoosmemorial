@@ -1,0 +1,27 @@
+<formnavbar *ngIf="navbarData" [data]="navbarData" (optionSelected)="updateCurrentStep($event);"></formnavbar>
+
+<form [formGroup]="form" *ngIf="model && form" (ngSubmit)="save(form.value, form.valid)">
+	<form-buttons [cancelId]="terms-and-conditions-form__btn-cancel" [saveId]="terms-and-conditions-form__btn-save" [loading]="loading" (goBack)="goBack()"></form-buttons>
+	<input type="hidden" formControlName="id">
+
+	<div class="form-tab" [class.visible]="currentStep==='description'">
+
+		<enhancedtextarea [form]="form" [formSubmitted]="submitted"
+		                  [elementId]="'title'"
+		                  [formControlId]="'title'"
+		                  [label]="'Enter Title'"
+		                  [validationMessage]="'Title is required.'"
+		                  [maxLength]="160"></enhancedtextarea>
+
+
+		<richtexteditor [form]="form" [formSubmitted]="submitted"
+		                  [elementId]="'fullDescription'"
+		                  [formControlId]="'fullDescription'"
+		                  [label]="'Body Text'"
+		                  [validationMessage]="'Please enter the terms and conditions.'"
+		                  [maxLength]=""></richtexteditor>
+
+		<div class="clearfix"></div>
+	</div>
+
+</form>

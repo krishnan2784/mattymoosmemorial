@@ -17,6 +17,7 @@ export class DatepickerComponent implements OnInit, OnChanges, OnDestroy {
   @Input() cannotSelectPast: boolean;
   @Input() initialDate: Date;
   @Input() rightAlign: boolean = false;
+  @Input() elementId: string;
   @Output() dateSelected: EventEmitter<any> = new EventEmitter();
   pastDays;
   selectedDay;

@@ -20,6 +20,7 @@ var TextAreaComponent = (function () {
         this.validationMessage = '';
         this.formSubmitted = false;
         this.onEditorKeyup = new core_1.EventEmitter();
+        this.placeholder = '';
         this.activeClass = '';
     }
     TextAreaComponent.prototype.ngOnInit = function () {
@@ -28,7 +29,7 @@ var TextAreaComponent = (function () {
         if (this.elementId == '')
             this.elementId = this.formControlId;
         if (this.form && this.form.controls[this.formControlId])
-            this.activeClass = this.form.controls[this.formControlId].value.toString().length > 0 ? "active" : "";
+            this.activeClass = this.placeholder !== '' || this.form.controls[this.formControlId].value.toString().length > 0 ? "active" : "";
     };
     TextAreaComponent.prototype.ngAfterViewInit = function () {
         $('#' + this.elementId).trigger('autoresize').characterCounter();
@@ -78,10 +79,14 @@ __decorate([
     core_1.Output(),
     __metadata("design:type", Object)
 ], TextAreaComponent.prototype, "onEditorKeyup", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", String)
+], TextAreaComponent.prototype, "placeholder", void 0);
 TextAreaComponent = __decorate([
     core_1.Component({
         selector: 'enhancedtextarea',
-        template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n        <div class=\"input-field\">\n              <label [attr.for]=\"elementId\" class=\"{{activeClass}}\">{{label}}</label>\n              <textarea id=\"{{elementId}}\" formControlName=\"{{formControlId}}\" *ngIf=\"formControlId\" class=\"materialize-textarea\" [attr.maxLength]=\"maxLength > 0 ? maxLength : null\" [attr.data-length]=\"maxLength > 0 ? maxLength : null\" [attr.disabled]=\"disabled ? disabled : null\"></textarea>\n                <small class=\"active-warning\" [class.hidden]=\"form.controls[formControlId].valid || !formSubmitted\">\n                    {{validationMessage}}\n                </small>\n        </div>\n    </div>"
+        template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n        <div class=\"input-field\">\n              <label [attr.for]=\"elementId\" class=\"{{activeClass}}\">{{label}}</label>\n              <textarea id=\"{{elementId}}\" formControlName=\"{{formControlId}}\" *ngIf=\"formControlId\" class=\"materialize-textarea\" [attr.maxLength]=\"maxLength > 0 ? maxLength : null\" \n[attr.data-length]=\"maxLength > 0 ? maxLength : null\" [attr.disabled]=\"disabled ? disabled : null\" [attr.placeholder]=\"placeholder\"></textarea>\n                <small class=\"active-warning\" [class.hidden]=\"form.controls[formControlId].valid || !formSubmitted\">\n                    {{validationMessage}}\n                </small>\n        </div>\n    </div>"
     })
 ], TextAreaComponent);
 exports.TextAreaComponent = TextAreaComponent;

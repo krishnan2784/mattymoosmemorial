@@ -64,5 +64,10 @@ DefaultTabNavs.accountManagementTabs = [
     new NavItem('User Accounts', '/useraccountmanagement', 'teal'),
     new NavItem('Access Control Panel', '/userpermissionmanagement', 'teal')
 ];
+DefaultTabNavs.competitionsTabs = [
+    new NavItem('Competitions', '/competitions', 'teal'),
+    new NavItem('Reward Schemes', '/competitions/rewardschemes', 'orange'),
+    new NavItem('T&C', '/competitions/termsandconditions', 'funk')
+];
 exports.DefaultTabNavs = DefaultTabNavs;
 //# sourceMappingURL=tabnavmenu.component.js.map

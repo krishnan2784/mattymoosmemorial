@@ -1,6 +1,15 @@
-﻿import Enums = require("../enums");
 import {BaseModel} from "./baseclasses";
-import SecFeatureTypeEnum = Enums.SecFeatureTypeEnum;
+import {MediaInfo} from "./mediainfoclasses";
+import { SecEntityTypeEnum, SecFeatureTypeEnum } from "../enums";
+
+export class SecEntity extends BaseModel {
+	secEntityType: SecEntityTypeEnum;
+
+	constructor(options: {} = {}) {
+		super(options);
+		this.secEntityType = options['secEntityType'];
+	}
+}
 
 export class SecUserFeaturePermission {
     public id: number;
@@ -9,7 +18,7 @@ export class SecUserFeaturePermission {
 	public featureUri: string;
 	public featureHttpVerb: string;
     public allow: boolean;
-	public secFeatureType: Enums.SecFeatureTypeEnum;
+	public secFeatureType: SecFeatureTypeEnum;
 	
     constructor(options: {} = {}) {
         this.id = options['id'] || 0;
@@ -56,7 +65,7 @@ export class SecFeature {
 		this.uri = options['uri'] || '';
 		this.httpVerb = options['httpVerb'] || '';
 		this.bitMaskValue = options['bitMaskValue'] || 0;
-		this.secFeatureType = options['secFeatureType'] || Enums.SecFeatureTypeEnum.Cms;
+		this.secFeatureType = options['secFeatureType'] || SecFeatureTypeEnum.Cms;
 	}
 }
 

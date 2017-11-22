@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+//bootstrap-tagsinput
 var TagInputComponent = (function () {
     function TagInputComponent() {
         this.elementId = '';
@@ -19,6 +20,7 @@ var TagInputComponent = (function () {
         this.formSubmitted = false;
         this.maxLength = 0;
         this.activeClass = '';
+        this.displayMaxWarn = false;
     }
     TagInputComponent.prototype.ngOnInit = function () {
         if (this.elementId === '')
@@ -37,15 +39,33 @@ var TagInputComponent = (function () {
             //    }
             //}
         });
+        $('.bootstrap-tagsinput input').attr('id', 'input__' + this.elementId);
         $('.tag-contrainer input').keydown(function (event) {
-            if (event.keyCode == 13) {
+            if (event.keyCode == 13 || event.keyCode == 188) {
                 event.preventDefault();
-                $('#' + _this.elementId).tagsinput('add', $('.tag-contrainer input').val());
+                $('#' + _this.elementId).tagsinput('add', $('.tag-contrainer input').val().replace(',', ''));
                 $('.tag-contrainer input').val('');
+            }
+        });
+        $('.tag-contrainer input').keyup(function (event) {
+            _this.displayMaxWarn =
+                $('.tag-contrainer .tag').length > _this.maxLength - 1 && $('.tag-contrainer input').val() !== '';
+        });
+        var self = this;
+        $('#' + this.elementId).on('beforeItemAdd', function (event) {
+            if ($('.tag-contrainer input').val().indexOf(',') > -1) {
+                event.cancel = true;
+                var tags = $('.tag-contrainer input').val().split(',');
+                $('.tag-contrainer input').val('');
+                tags.forEach(function (tag) {
+                    console.log(tag, self);
+                    $('#' + self.elementId).tagsinput('add', tag);
+                });
             }
         });
         $('#' + this.elementId).on('itemAdded', function (event) {
             _this.setFormValue();
+            $('.tag-contrainer input').val('');
         });
         $('#' + this.elementId).on('itemRemoved', function (event) {
             _this.setFormValue();
@@ -87,7 +107,7 @@ __decorate([
 TagInputComponent = __decorate([
     core_1.Component({
         selector: 'taginputbox',
-        template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n        <div class=\"input-field\">\n            <label [attr.for]=\"elementId\" class=\"active\">{{label}}</label>\n            <input type=\"hidden\" formControlName=\"{{formControlId}}\">\n            <div class=\"tag-contrainer\">\n                <input type=\"text\" id=\"{{elementId}}\" data-role=\"tagsinput\" value=\"{{form.controls[this.formControlId].value}}\">\n            </div>\n            <small class=\"active-warning\" [class.hidden]=\"form.controls[formControlId].valid || !formSubmitted\">\n                {{validationMessage}}\n            </small>\n        </div>\n    </div>\n",
+        template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n        <div class=\"input-field\">\n            <label [attr.for]=\"elementId\" class=\"active\">{{label}}</label>\n            <input type=\"hidden\" formControlName=\"{{formControlId}}\">\n            <div class=\"tag-contrainer\">\n                <input type=\"text\" id=\"{{elementId}}\" data-role=\"tagsinput\" value=\"{{form.controls[this.formControlId].value}}\">\n            </div>\n\t        <small class=\"active-warning\" [class.hidden]=\"form.controls[formControlId].valid || !formSubmitted\">\n\t\t        {{validationMessage}}\n\t        </small>\n\t        <small *ngIf=\"displayMaxWarn\" class=\"active-warning\">\n\t\t        You can not enter more than {{maxLength}} tags.\n\t        </small>\n        </div>\n    </div>\n",
         styles: [require('./taginputbox.component.css')]
     })
 ], TagInputComponent);

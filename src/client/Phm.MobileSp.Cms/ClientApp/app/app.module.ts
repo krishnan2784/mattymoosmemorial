@@ -47,7 +47,6 @@ import FeedItemReportContainerComponent = Basefeeditemreportcomponent.FeedItemRe
 import Gaugechartcomponent = require("./components/charts/gaugechart.component");
 import GaugeChart = Gaugechartcomponent.GaugeChart;
 import Donutchartcomponent = require("./components/charts/donutchart.component");
-import { NavBarComponent } from "./components/navbar/navbar.component";
 import DonutChart = Donutchartcomponent.DonutChart;
 import Editusercomponent = require("./components/accountmanagement/modals/edituser.component");
 import EditUser = Editusercomponent.EditUser;
@@ -102,6 +101,23 @@ import {EditEntityPermissionsListComponent} from
 import { UserGroupPermissionsIndexComponent } from "./components/accountmanagement/acl/indexes/usergroupindex.component";
 import {EditUserGroupComponent} from
 	"./components/accountmanagement/acl/editusergrouppermissions/editusergrouppermissions.component";
+import {OrderBy} from "./classes/orderBy";
+import { GenericFilterComponent } from "./components/common/filters/generic/genericfilter.component";
+import {CompetitionForm} from "./components/competitions/forms/competitionform/competitionform.component";
+import {FormButtons} from "./components/common/form/formbuttons/formbuttons.component";
+import {FormNavBarComponent} from "./components/common/form/formnavbar/formnavbar.component";
+import {CallToActionComponent} from "./components/common/editor/calltoaction.component";
+import {SelectListComponent} from "./components/common/editor/selectlist.component";
+import {DateRangeComponent} from "./components/common/editor/daterange.component";
+import {CompetitionIndexComponent} from
+	"./components/competitions/indexes/competitionsindex/competitionsindex.component";
+import {RewardSchemeIndexComponent} from
+	"./components/competitions/indexes/rewardschemesindex/rewardschemesindex.component";
+import {RewardSchemeForm} from "./components/competitions/forms/rewardschemeform/rewardschemeform.component";
+import {TermsAndConditionsIndexComponent} from
+	"./components/competitions/indexes/termsandconditionsindex/termsandconditionsindex.component";
+import {TermsAndConditionForm} from
+	"./components/competitions/forms/termsandconditionsform/termsandconditionsform.component";
 
 
 @NgModule({
@@ -110,7 +126,8 @@ import {EditUserGroupComponent} from
         AppComponent,
         BaseComponent,
         NavMenuComponent,
-        NavBarComponent,
+	    FormNavBarComponent,
+	    FormButtons,
         TabNavMenuComponent,
         FooterComponent,
         MarketDropdown,
@@ -126,6 +143,9 @@ import {EditUserGroupComponent} from
         BrandingContentSectionComponent,
 		BaseBrandingComponent,
 	    UserGroupPermissionsIndexComponent,
+	    CompetitionIndexComponent,
+	    RewardSchemeIndexComponent,
+	    TermsAndConditionsIndexComponent,
 
         // feed item forms
         FeedItemForm,
@@ -156,7 +176,12 @@ import {EditUserGroupComponent} from
         LeaderboardComponent,
         LbExecutivesTableComponent,
         LbrefineComponent,
-        PartitionComponent,
+		PartitionComponent,
+
+		// competitions
+	    CompetitionForm,
+		RewardSchemeForm,
+		TermsAndConditionForm,
 
         // user management
 		EditUser,
@@ -179,12 +204,17 @@ import {EditUserGroupComponent} from
         RichTextEditorComponent,
         TextAreaComponent,
         TextInputComponent,
-        NumberTextInputComponent,
+		NumberTextInputComponent, 
+		SelectListComponent,
+	    DateRangeComponent,
+	    CallToActionComponent,
         TagInputComponent,
 		ColourPickerInputComponent,
 		FontPickerComponent,
 	    BrandingOptionPickerComponent,
-        UploadMediaComponent
+		UploadMediaComponent,
+		OrderBy,
+	    GenericFilterComponent
     ],
     imports: [
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
@@ -213,6 +243,9 @@ import {EditUserGroupComponent} from
             { path: 'reports', component: FeedReportIndexComponent },
             { path: 'reports/:feedType', component: FeedReportIndexComponent },
             { path: 'branding', component: BrandingContainerComponent },
+			{ path: 'competitions', component: CompetitionIndexComponent },
+			{ path: 'competitions/rewardschemes', component: RewardSchemeIndexComponent },
+			{ path: 'competitions/termsandconditions', component: TermsAndConditionsIndexComponent },
             { path: '**', redirectTo: 'home' }
         ])
 	]

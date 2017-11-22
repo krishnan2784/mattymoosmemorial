@@ -11,17 +11,23 @@ namespace Phm.MobileSp.Cms.Helpers.CustomModelBinding.FeedItems
         {
             dynamic pageM = JsonConvert.DeserializeObject<dynamic>(requestBody);
             var pages = pageM["baseFeedPages"];
+	        try
+	        {
+		        var pageModel = JsonConvert.DeserializeObject<PagedFeed>(requestBody);
 
-            var pageModel = JsonConvert.DeserializeObject<PagedFeed>(requestBody);
+		        for (var i = 0; i < pageModel.BaseFeedPages.Count; i++)
+		        {
+			        var pageType = pageModel.BaseFeedPages[i].BasePageFeedType.ToString();
+			        var type = Type.GetType($"Phm.MobileSp.Cms.Core.Models.{pageType}FeedPage, Phm.MobileSp.Cms.Core", true);
+			        pageModel.BaseFeedPages[i] = pages[i].ToObject(type);
+		        }
 
-            for (var i = 0; i < pageModel.BaseFeedPages.Count; i++)
-            {
-                var pageType = pageModel.BaseFeedPages[i].BasePageFeedType.ToString();
-                var type = Type.GetType($"Phm.MobileSp.Cms.Core.Models.{pageType}FeedPage, Phm.MobileSp.Cms.Core", true);
-                pageModel.BaseFeedPages[i] = pages[i].ToObject(type);
-            }
-
-            return pageModel;
+		        return pageModel;
+	        }
+	        catch (Exception e)
+	        {
+		        return null;
+	        }
         }
     }
 }

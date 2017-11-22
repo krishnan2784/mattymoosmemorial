@@ -30,9 +30,11 @@ namespace Phm.MobileSp.Cms.Helpers
 
         public void SetAuthToken(string authToken)
         {
-            if (string.IsNullOrWhiteSpace(authToken) || _client.DefaultRequestHeaders.Authorization != null)
-                return;
-            _client.DefaultRequestHeaders.Add("Authorization", authToken);            
+			if(_client.DefaultRequestHeaders.Authorization != null)
+				_client.DefaultRequestHeaders.Remove("Authorization");
+	        if (string.IsNullOrWhiteSpace(authToken))
+		        return;
+			_client.DefaultRequestHeaders.Add("Authorization", authToken);            
         }
     }
 }

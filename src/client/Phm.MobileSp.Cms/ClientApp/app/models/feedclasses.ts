@@ -15,6 +15,7 @@ import Date1 = require("../classes/helpers/date");
 import DateEx = Date1.DateEx;
 import Pagedfeedclasses = require("./pagedfeedclasses");
 import BaseFeedPage = Pagedfeedclasses.BaseFeedPage;
+import {StringEx} from "../classes/helpers/string";
 
 export class BaseFeed extends Baseclasses.BaseModel implements FeedModel.IFeedItem {
     allowFavourite: boolean;
@@ -38,8 +39,9 @@ export class BaseFeed extends Baseclasses.BaseModel implements FeedModel.IFeedIt
     callToActionText: string;
     callToActionUrl: string;
     tagText: string;
-    
-    constructor(options: {} = {}) {
+	competitionId: number;
+
+	constructor(options: {} = {}) {
         super(options);
         this.title = options['title'] || '';
         this.shortDescription = options['shortDescription'] || '';
@@ -60,7 +62,8 @@ export class BaseFeed extends Baseclasses.BaseModel implements FeedModel.IFeedIt
         this.webUrlLink = options['webUrlLink'] || '';
         this.callToActionText = options['callToActionText'] || '';
         this.callToActionUrl = options['callToActionUrl'] || '';
-        this.tagText = options['tagText'] || '';
+		this.tagText = options['tagText'] || '';
+		this.competitionId = options['competitionId'] || null;
         this.formatFeedItemDates();
     }
 
@@ -176,9 +179,10 @@ export class PagedFeed extends BaseFeed {
         super(options);
         this.feedType = FeedTypeEnum.Paged;
         this.baseFeedPages = options['baseFeedPages'] || [];
-        if (!this.baseFeedPages || this.baseFeedPages.length === 0) {
-            this.baseFeedPages = [];
-            this.baseFeedPages.push(new Pagedfeedclasses.TextFeedPage());
-        }
+	    if (!this.baseFeedPages || this.baseFeedPages.length === 0) {
+		    this.baseFeedPages = [];
+		    this.baseFeedPages.push(new Pagedfeedclasses.TextFeedPage());
+	    } else
+		    this.baseFeedPages = StringEx.sortArray(this.baseFeedPages, ['pageNumber']);
     }
 }

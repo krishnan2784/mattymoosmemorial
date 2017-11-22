@@ -32,6 +32,8 @@ import Form = require("../../../classes/helpers/form");
 import FormEx = Form.FormEx;
 import Pagedfeeditemcomponent = require("./pagedfeed/pagedfeeditem.component");
 import PagedFeedItemFormComponent = Pagedfeeditemcomponent.PagedFeedItemFormComponent;
+import {ActiveCompetitionsDataService} from "../../../services/activecompetitionsdataservice";
+
 declare var $: any;
 declare var Materialize: any;
 declare var tinymce: any;
@@ -74,15 +76,18 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     minMonth;
     minYear;
 
+	competitions: { name: string, value: any }[] = [{ name: 'Select a Competition', value: null }];
+	competitionDisabled: boolean = true;
     constructor(public _fb: FormBuilder, public http: Http, public route: ActivatedRoute,
         private router: Router, public feedDataService: FeedDataService, public sharedService: ShareService,
-        public mediaDataService: MediaDataService) {
+		public mediaDataService: MediaDataService, public activeCompetitionDataService: ActiveCompetitionsDataService) {
     }
 
-    ngOnInit() {
+	ngOnInit() {
         this.initialiseForm();
-        this.getModel();
-    }
+		this.getModel();
+		this.setupCompetitions();
+	}
 
     public swapForm<TFormType extends any>(newFormType: TFormType, feedCategory: FeedCategoryEnum) {
         let newForm = (new newFormType()) as IFeedItemComponents.IFeedItemPartialForm;
@@ -120,7 +125,21 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         });
         this.navbarData[this.feedFormSteps.currentStepIndex()].selected = true;
 
-    }
+	}
+
+	public setupCompetitions() {
+		this.activeCompetitionDataService.getActiveCompetitions().subscribe(result => {
+			if (result && result.length > 0) {
+				result.forEach(x => {
+					this.competitions.push({ name: x.title, value: x.id });
+				});
+
+				var x = result.filter(x => x.id === this.model.competitionId)[0];
+				console.log(x);
+				this.competitionDisabled = (x && x.participants > 0);
+			}
+		});
+	}
 
     public initialiseForm() {
         this.form = this._fb.group({
@@ -144,7 +163,8 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             startDate: ['', [<any>Validators.required]],
             endDate: ['', [<any>Validators.required]],
             mainIconId: ['', [<any>Validators.required]],
-            bodyText: ['', []],
+			bodyText: ['', []],
+            competitionId: ['', []],
             tagText: ['', [<any>Validators.required]]
         });
     } 
@@ -152,8 +172,9 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     getModel() {
         if (this.model) {
             let baseModel = new Feedclasses.BaseFeed();
-            baseModel.formatFeedItemDates(this.model);
-            this.getIconModel();
+			baseModel.formatFeedItemDates(this.model);
+			if (this.model.mainIcon == null)
+				this.getIconModel();
             this.swapForm(this.getFeedType(this.model.feedType), this.model.feedCategory);
         } else {
             this.model = new Feedclasses.BaseFeed();
@@ -197,9 +218,11 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
             case Enums.FeedTypeEnum.Observation:
                 return ObservationFeedItemFormComponent;
             case Enums.FeedTypeEnum.Image:
-                return ImageFeedItemFormComponent;
-            case Enums.FeedTypeEnum.Video:
-                return VideoFeedItemFormComponent;
+				return ImageFeedItemFormComponent;
+			case Enums.FeedTypeEnum.Video:
+				return VideoFeedItemFormComponent;
+            case Enums.FeedTypeEnum.Paged:
+	            return PagedFeedItemFormComponent;
             default:
                 return TextFeedItemFormComponent;
         }

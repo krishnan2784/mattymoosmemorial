@@ -56,9 +56,9 @@ var FeedIndexComponent = (function (_super) {
         this.sharedService.marketUpdated.subscribe(function (market) {
             _this.updateMarket();
         });
-        this.sharedService.feedItemUpdated.subscribe(function (feedItem) {
-            _this.updateFeedItem(feedItem);
-        });
+        //this.sharedService.feedItemUpdated.subscribe((feedItem) => {
+        //    this.updateFeedItem(feedItem);
+        //});
     };
     FeedIndexComponent.prototype.updateMarket = function () {
         if (!this.sharedService.currentMarket || !this.sharedService.currentMarket.id)
@@ -154,6 +154,7 @@ var FeedIndexComponent = (function (_super) {
         this.selectedModel = feedItem;
     };
     FeedIndexComponent.prototype.feedItemUpdated = function () {
+        this.feedItems = null;
         this.setPageTitle();
         this.updateMarketDropdownVisibility(true);
         this.updateTabNavItems(tabnavmenu_component_1.DefaultTabNavs.feedIndexTabs);

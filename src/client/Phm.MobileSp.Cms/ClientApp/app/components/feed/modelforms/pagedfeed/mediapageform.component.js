@@ -11,16 +11,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+var mediaservice_1 = require("../../../../services/mediaservice");
 var MediaPageFormComponent = (function () {
-    function MediaPageFormComponent() {
+    function MediaPageFormComponent(mediaDataService) {
+        this.mediaDataService = mediaDataService;
         this.uploadedMedia = new core_1.EventEmitter;
         this.mediaUploading = new core_1.EventEmitter();
     }
     MediaPageFormComponent.prototype.ngOnInit = function () {
+        this.getMediaInfo();
         this.addFormControls();
     };
     MediaPageFormComponent.prototype.ngOnDestroy = function () {
         this.removeFormControls();
+    };
+    MediaPageFormComponent.prototype.ngOnChanges = function (changes) {
+        if (changes['model']) {
+            this.getMediaInfo();
+        }
     };
     MediaPageFormComponent.prototype.addFormControls = function () {
         var _this = this;
@@ -33,8 +41,17 @@ var MediaPageFormComponent = (function () {
         this.form.removeControl('mediaInfoId');
     };
     ;
+    MediaPageFormComponent.prototype.getMediaInfo = function () {
+        var _this = this;
+        if (this.model && this.model.mediaInfoId > 0 && (!this.model.mediaInfo || this.model.mediaInfoId !== this.model.mediaInfo.id)) {
+            this.mediaDataService.getMediaInfo(this.model.mediaInfoId).subscribe(function (result) {
+                _this.model.mediaInfo = result;
+            });
+        }
+    };
     MediaPageFormComponent.prototype.attachMedia = function (media) {
-        this.uploadedMedia.emit(media);
+        if (media && media.id > 0)
+            this.uploadedMedia.emit(media);
     };
     return MediaPageFormComponent;
 }());
@@ -66,7 +83,8 @@ MediaPageFormComponent = __decorate([
     core_1.Component({
         selector: 'media-page-form',
         template: require('./mediapageform.component.html')
-    })
+    }),
+    __metadata("design:paramtypes", [mediaservice_1.MediaDataService])
 ], MediaPageFormComponent);
 exports.MediaPageFormComponent = MediaPageFormComponent;
 //# sourceMappingURL=mediapageform.component.js.map

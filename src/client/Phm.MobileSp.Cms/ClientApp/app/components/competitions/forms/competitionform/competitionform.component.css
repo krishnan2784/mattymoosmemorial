@@ -1,0 +1,6 @@
+.form-tab:not(.visible) {
+	display: none;
+}
+.form-tab {
+	min-height: 500px;
+}

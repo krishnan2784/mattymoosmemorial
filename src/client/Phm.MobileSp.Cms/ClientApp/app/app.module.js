@@ -51,7 +51,6 @@ var FeedItemReportContainerComponent = Basefeeditemreportcomponent.FeedItemRepor
 var Gaugechartcomponent = require("./components/charts/gaugechart.component");
 var GaugeChart = Gaugechartcomponent.GaugeChart;
 var Donutchartcomponent = require("./components/charts/donutchart.component");
-var navbar_component_1 = require("./components/navbar/navbar.component");
 var DonutChart = Donutchartcomponent.DonutChart;
 var Editusercomponent = require("./components/accountmanagement/modals/edituser.component");
 var EditUser = Editusercomponent.EditUser;
@@ -100,6 +99,19 @@ var brandingoptionpicker_component_1 = require("./components/branding/components
 var editentitypermissionslist_component_1 = require("./components/accountmanagement/acl/editentitypermissionslist/editentitypermissionslist.component");
 var usergroupindex_component_1 = require("./components/accountmanagement/acl/indexes/usergroupindex.component");
 var editusergrouppermissions_component_1 = require("./components/accountmanagement/acl/editusergrouppermissions/editusergrouppermissions.component");
+var orderBy_1 = require("./classes/orderBy");
+var genericfilter_component_1 = require("./components/common/filters/generic/genericfilter.component");
+var competitionform_component_1 = require("./components/competitions/forms/competitionform/competitionform.component");
+var formbuttons_component_1 = require("./components/common/form/formbuttons/formbuttons.component");
+var formnavbar_component_1 = require("./components/common/form/formnavbar/formnavbar.component");
+var calltoaction_component_1 = require("./components/common/editor/calltoaction.component");
+var selectlist_component_1 = require("./components/common/editor/selectlist.component");
+var daterange_component_1 = require("./components/common/editor/daterange.component");
+var competitionsindex_component_1 = require("./components/competitions/indexes/competitionsindex/competitionsindex.component");
+var rewardschemesindex_component_1 = require("./components/competitions/indexes/rewardschemesindex/rewardschemesindex.component");
+var rewardschemeform_component_1 = require("./components/competitions/forms/rewardschemeform/rewardschemeform.component");
+var termsandconditionsindex_component_1 = require("./components/competitions/indexes/termsandconditionsindex/termsandconditionsindex.component");
+var termsandconditionsform_component_1 = require("./components/competitions/forms/termsandconditionsform/termsandconditionsform.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -112,7 +124,8 @@ AppModule = __decorate([
             app_component_1.AppComponent,
             base_component_1.BaseComponent,
             navmenu_component_1.NavMenuComponent,
-            navbar_component_1.NavBarComponent,
+            formnavbar_component_1.FormNavBarComponent,
+            formbuttons_component_1.FormButtons,
             tabnavmenu_component_1.TabNavMenuComponent,
             footer_component_1.FooterComponent,
             marketdropdown_component_1.MarketDropdown,
@@ -127,6 +140,9 @@ AppModule = __decorate([
             brandingcontentsection_component_1.BrandingContentSectionComponent,
             basebrandingcomponent_component_1.BaseBrandingComponent,
             usergroupindex_component_1.UserGroupPermissionsIndexComponent,
+            competitionsindex_component_1.CompetitionIndexComponent,
+            rewardschemesindex_component_1.RewardSchemeIndexComponent,
+            termsandconditionsindex_component_1.TermsAndConditionsIndexComponent,
             // feed item forms
             feeditemform_component_1.FeedItemForm,
             textfeeditem_component_1.TextFeedItemFormComponent,
@@ -155,6 +171,10 @@ AppModule = __decorate([
             lbexecutivestable_component_1.LbExecutivesTableComponent,
             lbrefine_component_1.LbrefineComponent,
             partition_component_1.PartitionComponent,
+            // competitions
+            competitionform_component_1.CompetitionForm,
+            rewardschemeform_component_1.RewardSchemeForm,
+            termsandconditionsform_component_1.TermsAndConditionForm,
             // user management
             EditUser,
             editentitypermissionslist_component_1.EditEntityPermissionsListComponent,
@@ -174,11 +194,16 @@ AppModule = __decorate([
             TextAreaComponent,
             textbox_component_1.TextInputComponent,
             numbertextbox_component_1.NumberTextInputComponent,
+            selectlist_component_1.SelectListComponent,
+            daterange_component_1.DateRangeComponent,
+            calltoaction_component_1.CallToActionComponent,
             taginputbox_component_1.TagInputComponent,
             colourpicker_component_1.ColourPickerInputComponent,
             fontpicker_component_1.FontPickerComponent,
             brandingoptionpicker_component_1.BrandingOptionPickerComponent,
-            UploadMediaComponent
+            UploadMediaComponent,
+            orderBy_1.OrderBy,
+            genericfilter_component_1.GenericFilterComponent
         ],
         imports: [
             angular2_universal_1.UniversalModule,
@@ -207,6 +232,9 @@ AppModule = __decorate([
                 { path: 'reports', component: feedreportindex_component_1.FeedReportIndexComponent },
                 { path: 'reports/:feedType', component: feedreportindex_component_1.FeedReportIndexComponent },
                 { path: 'branding', component: brandingcontainer_component_1.BrandingContainerComponent },
+                { path: 'competitions', component: competitionsindex_component_1.CompetitionIndexComponent },
+                { path: 'competitions/rewardschemes', component: rewardschemesindex_component_1.RewardSchemeIndexComponent },
+                { path: 'competitions/termsandconditions', component: termsandconditionsindex_component_1.TermsAndConditionsIndexComponent },
                 { path: '**', redirectTo: 'home' }
             ])
         ]

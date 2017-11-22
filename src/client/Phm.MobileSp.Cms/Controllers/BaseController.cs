@@ -35,8 +35,8 @@ namespace Phm.MobileSp.Cms.Controllers
             return Json(new BaseResponse<string>(AuthToken));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Logout()
+		[HttpGet("[action]")]
+		public async Task<IActionResult> Logout()
         {
             await HttpContext.Authentication.SignOutAsync("MobileSPAuthCookie");
             ClearCache();

@@ -9,7 +9,8 @@ declare var $: any;
     <div [formGroup]="form" *ngIf="form">
         <div class="input-field">
               <label [attr.for]="elementId" class="{{activeClass}}">{{label}}</label>
-              <textarea id="{{elementId}}" formControlName="{{formControlId}}" *ngIf="formControlId" class="materialize-textarea" [attr.maxLength]="maxLength > 0 ? maxLength : null" [attr.data-length]="maxLength > 0 ? maxLength : null" [attr.disabled]="disabled ? disabled : null"></textarea>
+              <textarea id="{{elementId}}" formControlName="{{formControlId}}" *ngIf="formControlId" class="materialize-textarea" [attr.maxLength]="maxLength > 0 ? maxLength : null" 
+[attr.data-length]="maxLength > 0 ? maxLength : null" [attr.disabled]="disabled ? disabled : null" [attr.placeholder]="placeholder"></textarea>
                 <small class="active-warning" [class.hidden]="form.controls[formControlId].valid || !formSubmitted">
                     {{validationMessage}}
                 </small>
@@ -26,7 +27,8 @@ export class TextAreaComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() label: string = '';
     @Input() validationMessage: string = '';
     @Input() formSubmitted: boolean = false;
-    @Output() onEditorKeyup = new EventEmitter<any>();
+	@Output() onEditorKeyup = new EventEmitter<any>();
+	@Input() placeholder: string = '';
     editor;
     activeClass: string = '';
     ngOnInit() {
@@ -35,7 +37,7 @@ export class TextAreaComponent implements OnInit, AfterViewInit, OnDestroy {
         if (this.elementId == '')
             this.elementId = this.formControlId;
         if (this.form && this.form.controls[this.formControlId]) 
-            this.activeClass = this.form.controls[this.formControlId].value.toString().length > 0 ? "active" : "";
+			this.activeClass = this.placeholder !== '' || this.form.controls[this.formControlId].value.toString().length > 0 ? "active" : "";
     }
   ngAfterViewInit()
   {
