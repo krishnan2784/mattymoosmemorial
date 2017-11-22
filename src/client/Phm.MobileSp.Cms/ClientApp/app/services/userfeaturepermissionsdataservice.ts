@@ -14,8 +14,8 @@ export class UserFeaturePermissionsDataService extends RequestHelper implements 
         super(http);
     }
 
-	updateEntityPermissions(entityPermissions: SecFeaturePermission[]): Observable<ApiResponse> {
-		return this.postRequestFull('/api/UserFeaturePermissions', entityPermissions);
+	updateEntityPermissions(secEntityPermissions: SecFeaturePermission[]): Observable<ApiResponse> {
+		return this.postRequestFull('/api/UserFeaturePermissions', secEntityPermissions);
 	}
 
 	deleteEntityPermissions(id: number): Observable<boolean> {

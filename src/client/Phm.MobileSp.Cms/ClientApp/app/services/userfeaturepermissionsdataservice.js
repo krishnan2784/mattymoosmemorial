@@ -31,8 +31,8 @@ var UserFeaturePermissionsDataService = (function (_super) {
         _this.http = http;
         return _this;
     }
-    UserFeaturePermissionsDataService.prototype.updateEntityPermissions = function (entityPermissions) {
-        return this.postRequestFull('/api/UserFeaturePermissions', entityPermissions);
+    UserFeaturePermissionsDataService.prototype.updateEntityPermissions = function (secEntityPermissions) {
+        return this.postRequestFull('/api/UserFeaturePermissions', secEntityPermissions);
     };
     UserFeaturePermissionsDataService.prototype.deleteEntityPermissions = function (id) {
         return this.postRequestBase('/api/UserFeaturePermissions/Delete?id=' + id, null);

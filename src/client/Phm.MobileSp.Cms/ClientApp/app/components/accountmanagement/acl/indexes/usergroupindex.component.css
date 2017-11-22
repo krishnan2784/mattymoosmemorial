@@ -48,7 +48,7 @@
 	left: 0;
 	height: 200px;
 	background-color: rgba(53,65,81, 0.8);
-	padding: 0 20px;
+	padding: 0 5px;
 	align-content: center;
 	opacity: 0;
 	-webkit-animation: fadeOut 0.5s;
@@ -76,7 +76,7 @@
 	animation: fadeIn 1s;
 }
 .options .btn:first-of-type {
-	margin: 15% 0;
+	margin: 5% 0;
 }
 .options .btn {
 	background-color: transparent;
@@ -86,6 +86,8 @@
 	padding: 8px 30px;
 	height: auto;
 	width: 100%;
+	white-space: initial;
+	line-height: 1.5;
 }
 .options .btn:hover{
 	 background-color: #02A8DA;

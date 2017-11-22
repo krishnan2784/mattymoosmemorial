@@ -1,8 +1,8 @@
 <div class="loader" *ngIf="!entityFeaturePermissions"></div>
 <div *ngIf="allSecurityFeatures && entityFeaturePermissions">
 	<div [formGroup]="form">
-		<div formArrayName="featurePermissions">
-			<div *ngFor="let fp of form.controls.featurePermissions.controls; let i=index" class="feature-permission">
+		<div formArrayName="secEntityPermissions">
+			<div *ngFor="let fp of form.controls.secEntityPermissions.controls; let i=index" class="feature-permission">
 				<div [formGroupName]="i">
 					<input type="hidden" formControlName="secEntityId">
 					<input type="hidden" formControlName="secFeatureId">

@@ -13,10 +13,13 @@ var core_1 = require("@angular/core");
 var shareservice_1 = require("../../../../services/helpers/shareservice");
 var entitypermissiondataservice_1 = require("../../../../services/entitypermissiondataservice");
 var forms_1 = require("@angular/forms");
+var userfeaturepermissionsdataservice_1 = require("../../../../services/userfeaturepermissionsdataservice");
 var EditUserGroupComponent = (function () {
-    function EditUserGroupComponent(epDataService, sharedService) {
+    function EditUserGroupComponent(epDataService, entityPermissionDataService, sharedService) {
         this.epDataService = epDataService;
+        this.entityPermissionDataService = entityPermissionDataService;
         this.sharedService = sharedService;
+        this.permissionsUpdated = new core_1.EventEmitter();
         this.loading = true;
         this.form = new forms_1.FormGroup({});
     }
@@ -25,7 +28,18 @@ var EditUserGroupComponent = (function () {
     EditUserGroupComponent.prototype.ngOnDestroy = function () {
     };
     EditUserGroupComponent.prototype.save = function (secFeaturePermissions, isValid) {
+        var _this = this;
         console.log(secFeaturePermissions);
+        this.loading = true;
+        this.entityPermissionDataService.updateEntityPermissions(secFeaturePermissions.secEntityPermissions).subscribe(function (x) {
+            _this.loading = false;
+            if (x && x.success) {
+                _this.permissionsUpdated.emit(x.content);
+            }
+        });
+    };
+    EditUserGroupComponent.prototype.goBack = function () {
+        this.permissionsUpdated.emit(null);
     };
     return EditUserGroupComponent;
 }());
@@ -37,6 +51,10 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Number)
 ], EditUserGroupComponent.prototype, "secEntityId", void 0);
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", core_1.EventEmitter)
+], EditUserGroupComponent.prototype, "permissionsUpdated", void 0);
 EditUserGroupComponent = __decorate([
     core_1.Component({
         selector: 'editusergrouppermissions',
@@ -44,6 +62,7 @@ EditUserGroupComponent = __decorate([
         styles: [require('./editusergrouppermissions.component.css')]
     }),
     __metadata("design:paramtypes", [entitypermissiondataservice_1.EntityPermissionDataService,
+        userfeaturepermissionsdataservice_1.UserFeaturePermissionsDataService,
         shareservice_1.ShareService])
 ], EditUserGroupComponent);
 exports.EditUserGroupComponent = EditUserGroupComponent;

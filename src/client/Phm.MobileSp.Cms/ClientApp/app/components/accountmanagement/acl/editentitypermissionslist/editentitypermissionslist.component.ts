@@ -60,7 +60,7 @@ export class EditEntityPermissionsListComponent implements OnInit, OnDestroy {
 					allow: false
 				})));
 		});
-		this.form.addControl('featurePermissions', formArray);
+		this.form.addControl('secEntityPermissions', formArray);
 	}
 
 	initFeature(feature: SecFeaturePermission = null): FormGroup {
@@ -72,7 +72,7 @@ export class EditEntityPermissionsListComponent implements OnInit, OnDestroy {
 	}
 
 	setPermission(i, permitted) {
-		var permissions = <FormArray>this.form.controls['featurePermissions'];
+		var permissions = <FormArray>this.form.controls['secEntityPermissions'];
 		var thisPermission: any = permissions.controls[i];
 		thisPermission.controls.allow.setValue(permitted, { onlySelf: true });
 		thisPermission.controls.allow.updateValueAndValidity();

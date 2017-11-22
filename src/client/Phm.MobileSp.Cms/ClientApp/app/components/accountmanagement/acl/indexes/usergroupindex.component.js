@@ -118,9 +118,19 @@ var UserGroupPermissionsIndexComponent = (function (_super) {
         });
         this.getData();
     };
-    UserGroupPermissionsIndexComponent.prototype.editUserGroup = function (secEntityId, editUsers) {
-        this.selectedSecEntityId = secEntityId;
+    UserGroupPermissionsIndexComponent.prototype.editUserGroup = function (securityGroup, editUsers) {
+        this.selectedSecEntityId = securityGroup.secEntityId;
+        this.updatePageTitle(securityGroup.name);
+        this.updateTabNavItems();
         this.editUsers = editUsers;
+        this.updateMarketDropdownVisibility(false);
+    };
+    UserGroupPermissionsIndexComponent.prototype.permissionsUpdated = function () {
+        this.selectedSecEntityId = null;
+        this.editUsers = null;
+        this.updateTabNavItems(tabnavmenu_component_1.DefaultTabNavs.accountManagementTabs);
+        this.updateMarketDropdownVisibility(true);
+        this.updatePageTitle('Accounts');
     };
     return UserGroupPermissionsIndexComponent;
 }(base_component_1.BaseComponent));

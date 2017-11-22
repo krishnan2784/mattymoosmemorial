@@ -113,8 +113,19 @@ export class UserGroupPermissionsIndexComponent extends BaseComponent implements
 		this.getData();
 	}
 
-	editUserGroup(secEntityId, editUsers) {
-		this.selectedSecEntityId = secEntityId;
+	editUserGroup(securityGroup, editUsers) {
+		this.selectedSecEntityId = securityGroup.secEntityId;
+		this.updatePageTitle(securityGroup.name);
+        this.updateTabNavItems();
 		this.editUsers = editUsers;
+		this.updateMarketDropdownVisibility(false);
+	}
+
+	permissionsUpdated() {
+		this.selectedSecEntityId = null;
+		this.editUsers = null;
+		this.updateTabNavItems(DefaultTabNavs.accountManagementTabs);
+		this.updateMarketDropdownVisibility(true);
+		this.updatePageTitle('Accounts');
 	}
 }

@@ -50,7 +50,7 @@ var EditEntityPermissionsListComponent = (function () {
                     allow: false
                 })));
         });
-        this.form.addControl('featurePermissions', formArray);
+        this.form.addControl('secEntityPermissions', formArray);
     };
     EditEntityPermissionsListComponent.prototype.initFeature = function (feature) {
         if (feature === void 0) { feature = null; }
@@ -61,7 +61,7 @@ var EditEntityPermissionsListComponent = (function () {
         });
     };
     EditEntityPermissionsListComponent.prototype.setPermission = function (i, permitted) {
-        var permissions = this.form.controls['featurePermissions'];
+        var permissions = this.form.controls['secEntityPermissions'];
         var thisPermission = permissions.controls[i];
         thisPermission.controls.allow.setValue(permitted, { onlySelf: true });
         thisPermission.controls.allow.updateValueAndValidity();

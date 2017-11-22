@@ -4,6 +4,6 @@ import {TermsAndCondition} from "../../models/competitionclasses";
 import {SecFeaturePermission} from "../../models/securityclasses";
 
 export interface IUserFeaturePermissionsDataService {
-	updateEntityPermissions(entityPermissions: SecFeaturePermission[]): Observable<ApiResponse>;
+	updateEntityPermissions(secEntityPermissions: SecFeaturePermission[]): Observable<ApiResponse>;
 	deleteEntityPermissions(id: number): Observable<boolean>;
 }
