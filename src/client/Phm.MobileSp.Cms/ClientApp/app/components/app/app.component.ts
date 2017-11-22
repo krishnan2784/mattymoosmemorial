@@ -13,6 +13,7 @@ import {CompetitionsDataService} from "../../services/competitionsdataservice";
 import {TermsAndConditionsDataService} from "../../services/termsandconditionsdataservice";
 import {RewardSchemesDataService} from "../../services/rewardschemedataservice";
 import {ActiveCompetitionsDataService} from "../../services/activecompetitionsdataservice";
+import {UserFeaturePermissionsDataService} from "../../services/userfeaturepermissionsdataservice";
 
 @Component({
     selector: 'app',
@@ -23,7 +24,7 @@ import {ActiveCompetitionsDataService} from "../../services/activecompetitionsda
 		MediaDataService, BrandingService,
 		EntityPermissionDataService, SecurityFeatureDataService,
 		UserGroupPermissionDataService, CompetitionsDataService, TermsAndConditionsDataService,
-		RewardSchemesDataService, ActiveCompetitionsDataService]
+		RewardSchemesDataService, ActiveCompetitionsDataService, UserFeaturePermissionsDataService]
 })
 export class AppComponent {
     public pageTitle: string;
