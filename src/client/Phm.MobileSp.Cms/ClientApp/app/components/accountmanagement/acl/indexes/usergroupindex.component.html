@@ -62,4 +62,4 @@
 	</div>
 </div>
 <editusergrouppermissions *ngIf="selectedSecEntityId" [allSecurityFeatures]="allSecurityFeatures" [secEntityId]="selectedSecEntityId"
-						  (permissionsUpdated)="permissionsUpdated()"></editusergrouppermissions>
+						  [currentStep]="currentStep" (permissionsUpdated)="permissionsUpdated()"></editusergrouppermissions>

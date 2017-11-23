@@ -39,9 +39,9 @@ var UserGroupPermissionsIndexComponent = (function (_super) {
         _this.userDataService = userDataService;
         _this.secFeatureDataService = secFeatureDataService;
         _this.selectedSecEntityId = null;
-        _this.editUsers = false;
         _this.userMarkets = [];
         _this.marketMasterIds = [];
+        _this.currentStep = '';
         _this.setupSubscriptions();
         _this.setupMarket();
         return _this;
@@ -119,17 +119,17 @@ var UserGroupPermissionsIndexComponent = (function (_super) {
         this.getData();
     };
     UserGroupPermissionsIndexComponent.prototype.editUserGroup = function (securityGroup, editUsers) {
+        this.currentStep = editUsers ? 'users' : 'group';
         this.selectedSecEntityId = securityGroup.secEntityId;
         this.updatePageTitle(securityGroup.name);
         this.updateTabNavItems();
-        this.editUsers = editUsers;
         this.updateMarketDropdownVisibility(false);
     };
     UserGroupPermissionsIndexComponent.prototype.permissionsUpdated = function () {
         this.selectedSecEntityId = null;
-        this.editUsers = null;
         this.updateTabNavItems(tabnavmenu_component_1.DefaultTabNavs.accountManagementTabs);
         this.updateMarketDropdownVisibility(true);
+        this.currentStep = '';
         this.updatePageTitle('Accounts');
     };
     return UserGroupPermissionsIndexComponent;

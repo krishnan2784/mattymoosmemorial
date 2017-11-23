@@ -1,8 +1,32 @@
-<form [formGroup]="form" novalidate (ngSubmit)="save(form.value, form.valid)" class="user-group-permissions-container">
+<formnavbar *ngIf="navbarData" [data]="navbarData" (optionSelected)="updateCurrentStep($event);"></formnavbar>
+<div *ngIf="!groupFeaturePermissions" class="loader"></div>
+<div *ngIf="groupFeaturePermissions">
+	<div class="form-tab" *ngIf="currentStep==='group'">
 
-	<form-buttons [cancelId]="acl-form__btn-cancel" [saveId]="acl-form__btn-save" [loading]="loading" (goBack)="goBack()"></form-buttons>
+		<form [formGroup]="form" novalidate (ngSubmit)="save(form.value, form.valid)" class="user-group-permissions-container">
 
-	<editentitypermissionslist [form]="form" [allSecurityFeatures]="allSecurityFeatures" [secEntityId]="secEntityId" (formLoaded)="loading=false"></editentitypermissionslist>
-	<div class="clearfix"></div>
+			<form-buttons [cancelId]="acl-form__btn-cancel" [saveId]="acl-form__btn-save" [loading]="loading" (goBack)="goBack()"></form-buttons>
 
-</form>
+			<editentitypermissionslist [form]="form" [allSecurityFeatures]="allSecurityFeatures" [groupFeaturePermissions]="groupFeaturePermissions"
+			                           [secEntityId]="secEntityId" (formLoaded)="loading=false" [groupMode]="true"></editentitypermissionslist>
+			<div class="clearfix"></div>
+
+		</form>
+	</div>
+	<div class="form-tab" *ngIf="currentStep==='users'">
+		<div class="loader" *ngIf="!usersInGroup"></div>
+		<div *ngIf="usersInGroup">
+			<h5 *ngIf="usersInGroup.length===0">
+				There are no users in this group.
+			</h5>
+			<div *ngIf="usersInGroup.length>0">
+				<edituserpermissions *ngFor="let user of usersInGroup" [allSecurityFeatures]="allSecurityFeatures"
+				                     [groupFeaturePermissions]="groupFeaturePermissions" [secEntityId]="secEntityId" 
+				                     [user]="user" (savePermissions)="save($event,true,false)"></edituserpermissions>
+			<!--need to change this to users sec id which we don't have at the moment-->
+			
+			</div>
+		</div>
+
+	</div>
+</div>

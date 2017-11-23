@@ -8,7 +8,7 @@ export class FormNavBarComponent implements  OnInit {
     @Input() data: any;
 	@Output() optionSelected: EventEmitter<any> = new EventEmitter();
 	ngOnInit() {
-		if (this.data && this.data.length > 0 && this.data.filter(x => x.select).length === 0) {
+		if (this.data && this.data.length > 0 && this.data.filter(x => x.selected).length === 0) {
 			this.data[0].selected = true;
 		}
 	}

@@ -22,11 +22,10 @@ declare var Materialize: any;
 })
 export class UserGroupPermissionsIndexComponent extends BaseComponent implements OnInit, OnDestroy {
 	selectedSecEntityId = null;
-	editUsers = false;
 	userMarkets: UserMarket[] = [];
 	marketMasterIds: string[] = [];
 	marketUserGroups: MarketUserGroup[];
-
+	currentStep = '';
 	allSecurityFeatures: SecFeature[];
 
 	constructor(private route: ActivatedRoute, private router: Router,
@@ -114,18 +113,18 @@ export class UserGroupPermissionsIndexComponent extends BaseComponent implements
 	}
 
 	editUserGroup(securityGroup, editUsers) {
+		this.currentStep = editUsers ? 'users' : 'group';
 		this.selectedSecEntityId = securityGroup.secEntityId;
 		this.updatePageTitle(securityGroup.name);
         this.updateTabNavItems();
-		this.editUsers = editUsers;
 		this.updateMarketDropdownVisibility(false);
 	}
 
 	permissionsUpdated() {
 		this.selectedSecEntityId = null;
-		this.editUsers = null;
 		this.updateTabNavItems(DefaultTabNavs.accountManagementTabs);
 		this.updateMarketDropdownVisibility(true);
+		this.currentStep = '';
 		this.updatePageTitle('Accounts');
 	}
 }

@@ -3,7 +3,7 @@ import {ShareService} from "../../../../services/helpers/shareservice";
 import { SecFeature, SecFeaturePermission } from "../../../../models/securityclasses";
 import {EntityPermissionDataService} from "../../../../services/entitypermissiondataservice";
 import { FormGroup, FormArray, FormControl } from "@angular/forms";
-import {SecFeatureTypeEnum} from "../../../../enums";
+import { SecFeatureTypeEnum } from "../../../../enums";
 
 
 @Component({
@@ -18,20 +18,28 @@ export class EditEntityPermissionsListComponent implements OnInit, OnDestroy {
 	secEntityId: number;
 	@Input()
 	form: FormGroup;
+	@Input()
+	groupFeaturePermissions: SecFeaturePermission[] = [];
+	@Input()
+	groupMode ; 
 
 	@Output()
 	formLoaded = new EventEmitter<any>();
-
-	entityFeaturePermissions: SecFeaturePermission[];
 	secFeatureTypeEnum: typeof SecFeatureTypeEnum = SecFeatureTypeEnum;
-
+	entityFeaturePermissions: SecFeaturePermission[];
 	constructor(public epDataService: EntityPermissionDataService,
 		public sharedService: ShareService) {
 	}
 
 	ngOnInit() {
-		this.getData();
-
+		if (this.groupMode) {
+			setTimeout(() => {
+				this.entityFeaturePermissions = this.groupFeaturePermissions;
+				this.setupForm();
+				this.formLoaded.emit(true);
+			},10);
+		} else
+			this.getData();
     }
 
 	ngOnDestroy() {
@@ -51,6 +59,9 @@ export class EditEntityPermissionsListComponent implements OnInit, OnDestroy {
 		var formArray = new FormArray([]);
 		this.allSecurityFeatures.forEach(x => {
 			var up = this.entityFeaturePermissions.filter(y => x.id === y.secFeatureId)[0];
+			if (!up && this.groupFeaturePermissions)
+				up = this.groupFeaturePermissions.filter(y => x.id === y.secFeatureId)[0];
+
 			if (up)
 				formArray.push(this.initFeature(up));
 			else

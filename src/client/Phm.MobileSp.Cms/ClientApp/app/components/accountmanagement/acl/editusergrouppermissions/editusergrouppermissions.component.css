@@ -5,3 +5,7 @@
 .form-buttons {
 	margin-bottom: 20px;
 }
+
+.form-tab {
+	min-height: 500px;
+}

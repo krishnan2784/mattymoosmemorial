@@ -4,6 +4,8 @@ import { SecFeature, SecFeaturePermission } from "../../../../models/securitycla
 import {EntityPermissionDataService} from "../../../../services/entitypermissiondataservice";
 import { FormGroup } from "@angular/forms";
 import {UserFeaturePermissionsDataService} from "../../../../services/userfeaturepermissionsdataservice";
+import {UserGroupPermissionDataService} from "../../../../services/usergrouppermissiondataservice";
+import {User} from "../../../../models/userclasses";
 
 
 @Component({
@@ -16,34 +18,57 @@ export class EditUserGroupComponent implements OnInit, OnDestroy {
 	allSecurityFeatures: SecFeature[];
 	@Input()
 	secEntityId: number;
-	
+	@Input()
+	currentStep;
+
 	@Output()
 	public permissionsUpdated: EventEmitter<SecFeaturePermission[]> = new EventEmitter<SecFeaturePermission[]>();
 
 	form: FormGroup;
 	loading: boolean = true;
-
+	navbarData;
+	groupFeaturePermissions: SecFeaturePermission[];
+	usersInGroup: User[];
 	constructor(public epDataService: EntityPermissionDataService,
 		public entityPermissionDataService: UserFeaturePermissionsDataService,
+		public userGroupPermissionDataService: UserGroupPermissionDataService,
 		public sharedService: ShareService) {
 		this.form = new FormGroup({});
 	}
 
 	ngOnInit() {
-    }
+		this.getData();
+		this.setupSteps();
+	}
 
 	ngOnDestroy() {
 
 	}
 
-	save(secFeaturePermissions, isValid: boolean) {
+	getData() {
+		this.userGroupPermissionDataService.getSecurityGroupUsers(this.secEntityId).subscribe(x => {
+			this.usersInGroup = x ? x : [];
+		});
+		this.epDataService.getEntityPermissions(this.secEntityId).subscribe(x => {
+			this.groupFeaturePermissions = (!x || x.length === 0 ? [] : x);
+		});
+	}
 
-		console.log(secFeaturePermissions);
+	setupSteps() {
+		this.navbarData = [{ id: 'group', text: 'Group Permissions', selected: this.currentStep === 'group' },
+			{ id: 'users', text: 'Users Permissions', selected: this.currentStep === 'users' }];
+	}
+	
+	updateCurrentStep(step) {
+		this.currentStep = step;
+	}
+
+	save(secFeaturePermissions, isValid: boolean, goBack = true) {
 		this.loading = true;
 
 		this.entityPermissionDataService.updateEntityPermissions(secFeaturePermissions.secEntityPermissions).subscribe(x => {
 			this.loading = false;
-			if (x && x.success) {
+			if (goBack && x && x.success) {
 				this.permissionsUpdated.emit(x.content);
 			}
 		});
@@ -51,6 +76,6 @@ export class EditUserGroupComponent implements OnInit, OnDestroy {
 
 
 	goBack() {
-				this.permissionsUpdated.emit(null);
+		this.permissionsUpdated.emit(null);
 	}
 }

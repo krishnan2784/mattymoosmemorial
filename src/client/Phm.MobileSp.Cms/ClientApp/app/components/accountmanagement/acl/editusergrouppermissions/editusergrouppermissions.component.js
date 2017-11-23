@@ -14,26 +14,46 @@ var shareservice_1 = require("../../../../services/helpers/shareservice");
 var entitypermissiondataservice_1 = require("../../../../services/entitypermissiondataservice");
 var forms_1 = require("@angular/forms");
 var userfeaturepermissionsdataservice_1 = require("../../../../services/userfeaturepermissionsdataservice");
+var usergrouppermissiondataservice_1 = require("../../../../services/usergrouppermissiondataservice");
 var EditUserGroupComponent = (function () {
-    function EditUserGroupComponent(epDataService, entityPermissionDataService, sharedService) {
+    function EditUserGroupComponent(epDataService, entityPermissionDataService, userGroupPermissionDataService, sharedService) {
         this.epDataService = epDataService;
         this.entityPermissionDataService = entityPermissionDataService;
+        this.userGroupPermissionDataService = userGroupPermissionDataService;
         this.sharedService = sharedService;
         this.permissionsUpdated = new core_1.EventEmitter();
         this.loading = true;
         this.form = new forms_1.FormGroup({});
     }
     EditUserGroupComponent.prototype.ngOnInit = function () {
+        this.getData();
+        this.setupSteps();
     };
     EditUserGroupComponent.prototype.ngOnDestroy = function () {
     };
-    EditUserGroupComponent.prototype.save = function (secFeaturePermissions, isValid) {
+    EditUserGroupComponent.prototype.getData = function () {
         var _this = this;
-        console.log(secFeaturePermissions);
+        this.userGroupPermissionDataService.getSecurityGroupUsers(this.secEntityId).subscribe(function (x) {
+            _this.usersInGroup = x ? x : [];
+        });
+        this.epDataService.getEntityPermissions(this.secEntityId).subscribe(function (x) {
+            _this.groupFeaturePermissions = (!x || x.length === 0 ? [] : x);
+        });
+    };
+    EditUserGroupComponent.prototype.setupSteps = function () {
+        this.navbarData = [{ id: 'group', text: 'Group Permissions', selected: this.currentStep === 'group' },
+            { id: 'users', text: 'Users Permissions', selected: this.currentStep === 'users' }];
+    };
+    EditUserGroupComponent.prototype.updateCurrentStep = function (step) {
+        this.currentStep = step;
+    };
+    EditUserGroupComponent.prototype.save = function (secFeaturePermissions, isValid, goBack) {
+        var _this = this;
+        if (goBack === void 0) { goBack = true; }
         this.loading = true;
         this.entityPermissionDataService.updateEntityPermissions(secFeaturePermissions.secEntityPermissions).subscribe(function (x) {
             _this.loading = false;
-            if (x && x.success) {
+            if (goBack && x && x.success) {
                 _this.permissionsUpdated.emit(x.content);
             }
         });
@@ -52,6 +72,10 @@ __decorate([
     __metadata("design:type", Number)
 ], EditUserGroupComponent.prototype, "secEntityId", void 0);
 __decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], EditUserGroupComponent.prototype, "currentStep", void 0);
+__decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)
 ], EditUserGroupComponent.prototype, "permissionsUpdated", void 0);
@@ -63,6 +87,7 @@ EditUserGroupComponent = __decorate([
     }),
     __metadata("design:paramtypes", [entitypermissiondataservice_1.EntityPermissionDataService,
         userfeaturepermissionsdataservice_1.UserFeaturePermissionsDataService,
+        usergrouppermissiondataservice_1.UserGroupPermissionDataService,
         shareservice_1.ShareService])
 ], EditUserGroupComponent);
 exports.EditUserGroupComponent = EditUserGroupComponent;

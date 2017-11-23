@@ -19,11 +19,21 @@ var EditEntityPermissionsListComponent = (function () {
     function EditEntityPermissionsListComponent(epDataService, sharedService) {
         this.epDataService = epDataService;
         this.sharedService = sharedService;
+        this.groupFeaturePermissions = [];
         this.formLoaded = new core_1.EventEmitter();
         this.secFeatureTypeEnum = enums_1.SecFeatureTypeEnum;
     }
     EditEntityPermissionsListComponent.prototype.ngOnInit = function () {
-        this.getData();
+        var _this = this;
+        if (this.groupMode) {
+            setTimeout(function () {
+                _this.entityFeaturePermissions = _this.groupFeaturePermissions;
+                _this.setupForm();
+                _this.formLoaded.emit(true);
+            }, 10);
+        }
+        else
+            this.getData();
     };
     EditEntityPermissionsListComponent.prototype.ngOnDestroy = function () {
     };
@@ -41,6 +51,8 @@ var EditEntityPermissionsListComponent = (function () {
         var formArray = new forms_1.FormArray([]);
         this.allSecurityFeatures.forEach(function (x) {
             var up = _this.entityFeaturePermissions.filter(function (y) { return x.id === y.secFeatureId; })[0];
+            if (!up && _this.groupFeaturePermissions)
+                up = _this.groupFeaturePermissions.filter(function (y) { return x.id === y.secFeatureId; })[0];
             if (up)
                 formArray.push(_this.initFeature(up));
             else
@@ -80,6 +92,14 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", forms_1.FormGroup)
 ], EditEntityPermissionsListComponent.prototype, "form", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Array)
+], EditEntityPermissionsListComponent.prototype, "groupFeaturePermissions", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], EditEntityPermissionsListComponent.prototype, "groupMode", void 0);
 __decorate([
     core_1.Output(),
     __metadata("design:type", Object)

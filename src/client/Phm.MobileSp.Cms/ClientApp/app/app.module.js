@@ -112,6 +112,7 @@ var rewardschemesindex_component_1 = require("./components/competitions/indexes/
 var rewardschemeform_component_1 = require("./components/competitions/forms/rewardschemeform/rewardschemeform.component");
 var termsandconditionsindex_component_1 = require("./components/competitions/indexes/termsandconditionsindex/termsandconditionsindex.component");
 var termsandconditionsform_component_1 = require("./components/competitions/forms/termsandconditionsform/termsandconditionsform.component");
+var edituserpermissions_component_1 = require("./components/accountmanagement/acl/edituserpermissions/edituserpermissions.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -179,6 +180,7 @@ AppModule = __decorate([
             EditUser,
             editentitypermissionslist_component_1.EditEntityPermissionsListComponent,
             editusergrouppermissions_component_1.EditUserGroupComponent,
+            edituserpermissions_component_1.EditUserPermissionsComponent,
             // charts
             BarChart,
             GaugeChart,
@@ -222,7 +224,7 @@ AppModule = __decorate([
                 { path: 'counter', component: counter_component_1.CounterComponent },
                 { path: 'fetch-data', component: fetchdata_component_1.FetchDataComponent },
                 { path: 'useraccountmanagement', component: useraccountmanagement_component_1.UserAccountManagementComponent },
-                { path: 'userpermissionmanagement', component: usergroupindex_component_1.UserGroupPermissionsIndexComponent },
+                { path: 'useraccountmanagement/userpermissionmanagement', component: usergroupindex_component_1.UserGroupPermissionsIndexComponent },
                 { path: 'feed/:feedCat', component: feedindex_component_1.FeedIndexComponent },
                 { path: 'feed', component: feedindex_component_1.FeedIndexComponent },
                 { path: 'feeditem', component: feeditemform_component_1.FeedItemForm },

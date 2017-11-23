@@ -118,6 +118,8 @@ import {TermsAndConditionsIndexComponent} from
 	"./components/competitions/indexes/termsandconditionsindex/termsandconditionsindex.component";
 import {TermsAndConditionForm} from
 	"./components/competitions/forms/termsandconditionsform/termsandconditionsform.component";
+import {EditUserPermissionsComponent} from
+	"./components/accountmanagement/acl/edituserpermissions/edituserpermissions.component";
 
 
 @NgModule({
@@ -187,6 +189,7 @@ import {TermsAndConditionForm} from
 		EditUser,
 	    EditEntityPermissionsListComponent,
 		EditUserGroupComponent,
+		EditUserPermissionsComponent,
 
         // charts
         BarChart,
@@ -233,7 +236,7 @@ import {TermsAndConditionForm} from
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
             { path: 'useraccountmanagement', component: UserAccountManagementComponent },
-			{ path: 'userpermissionmanagement', component: UserGroupPermissionsIndexComponent },
+			{ path: 'useraccountmanagement/userpermissionmanagement', component: UserGroupPermissionsIndexComponent },
             { path: 'feed/:feedCat', component: FeedIndexComponent },
             { path: 'feed', component: FeedIndexComponent },
             { path: 'feeditem', component: FeedItemForm },
