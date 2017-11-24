@@ -86,3 +86,19 @@ export class SecFeaturePermission {
 		this.allow = options['allow'];
 	}
 }
+
+export class UserSecFeaturePermission {
+	uri: string;
+	httpVerb: string;
+	bitMaskValue: number;
+	secFeatureType: SecFeatureTypeEnum;
+	allow: boolean;
+
+	constructor(options: {} = {}) {
+		this.uri = options['uri'] || '';
+		this.httpVerb = options['httpVerb'] || '';
+		this.bitMaskValue = options['bitMaskValue'] || 0;
+		this.secFeatureType = options['secFeatureType'] || SecFeatureTypeEnum.Cms;
+		this.allow = options['allow'];
+	}
+}

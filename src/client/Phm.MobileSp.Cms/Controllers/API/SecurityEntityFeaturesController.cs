@@ -9,6 +9,7 @@ using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Helpers.Attributes;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 using System;
+using System.Linq;
 using Phm.MobileSp.Cms.Core.Models.Interfaces;
 
 namespace Phm.MobileSp.Cms.Controllers.API
@@ -19,11 +20,15 @@ namespace Phm.MobileSp.Cms.Controllers.API
     public class SecurityEntityFeaturesController : BaseController
     {
         private readonly ISecurityEntityFeaturesRepository _secEntityFeaturesRepo;
+        private readonly IUserTemplateRepository _userTemplateRepo;
 
-        public SecurityEntityFeaturesController(IMemoryCache memoryCache, ISecurityEntityFeaturesRepository secEntityFeaturesRepo) 
+		public SecurityEntityFeaturesController(IMemoryCache memoryCache, ISecurityEntityFeaturesRepository secEntityFeaturesRepo,
+			IUserTemplateRepository userTemplateRepo) 
             : base(memoryCache)
         {
 	        _secEntityFeaturesRepo = secEntityFeaturesRepo;
+	        _userTemplateRepo = userTemplateRepo;
+
         }
 
 	    [HttpGet("[action]")]
@@ -32,7 +37,28 @@ namespace Phm.MobileSp.Cms.Controllers.API
 	    {
 		    var response = await _secEntityFeaturesRepo.GetEntityPermissions(id);
 		    return Json(new BaseResponse<dynamic>(response));
-		}
-		
-    }
+	    }
+
+	    [HttpGet("[action]")]
+	    [JsonResponseWrapper]
+	    public async Task<JsonResult> GetUserPermissions(int userId = 0)
+	    {
+		    if (userId == 0)
+			    userId = UserId;
+
+		    var cacheResult = await _cache.GetOrCreateAsync(CacheKeys.USERPERMISSIONS + userId, async entry =>
+		    {
+			    var userProfile = (await _userTemplateRepo.GetUsersAsync(0, userId)).FirstOrDefault();
+
+			    if (userProfile?.SecGroup?.Id > 0)
+			    {
+				    var response = await _secEntityFeaturesRepo.GetEntityPermissions(userProfile.SecGroup.Id);
+				    return Json(new BaseResponse<dynamic>(new {permissions = response, secEntityId = userProfile.SecGroup.Id }));
+			    }
+				return Json(new BaseResponse<dynamic>(false, "Failed to get permissions.", null));
+			});
+		    return cacheResult;
+	    }
+
+	}
 }

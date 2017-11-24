@@ -18,7 +18,7 @@
 	<form *ngIf="editMode" [formGroup]="form" novalidate (ngSubmit)="save(form.value, form.valid)" class="user-permissions-form-container">
 
 		<editentitypermissionslist [form]="form" [allSecurityFeatures]="allSecurityFeatures" [groupFeaturePermissions]="groupFeaturePermissions"
-								   [secEntityId]="secEntityId" (formLoaded)="loading=false"></editentitypermissionslist>
+		                           [secEntityId]="secEntityId" [userId]="user.id" [groupMode]="false" (formLoaded)="loading=false"></editentitypermissionslist>
 
 		<div class="form-buttons">
 			<a (click)="goBack();" class="btn btn-primary" [attr.disabled]="loading ? 'disabled' : null" id="acl-form__btn-cancel-{{secEntityId}}">Cancel</a>

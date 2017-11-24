@@ -21,7 +21,9 @@ export class EditEntityPermissionsListComponent implements OnInit, OnDestroy {
 	@Input()
 	groupFeaturePermissions: SecFeaturePermission[] = [];
 	@Input()
-	groupMode ; 
+	groupMode; 
+	@Input()
+	userId;
 
 	@Output()
 	formLoaded = new EventEmitter<any>();
@@ -47,15 +49,23 @@ export class EditEntityPermissionsListComponent implements OnInit, OnDestroy {
     }
 
 	getData() {
-		this.epDataService.getEntityPermissions(this.secEntityId).subscribe(x => {
-			this.entityFeaturePermissions = (!x || x.length === 0 ? [] : x);
-			this.setupForm();
-			this.formLoaded.emit(true);
-		});
+		if (this.groupMode)
+			this.epDataService.getEntityPermissions(this.secEntityId).subscribe(x => {
+				this.entityFeaturePermissions = (!x || x.length === 0 ? [] : x);
+				this.setupForm();
+				this.formLoaded.emit(true);
+			});
+		else {
+			this.epDataService.getUserPermissions(this.userId).subscribe(x => {
+				this.entityFeaturePermissions = (!x || x.permissions.length === 0 ? [] : x.permissions);
+				this.secEntityId = x.secEntityId;
+				this.setupForm();
+				this.formLoaded.emit(true);
+			});
+		}
 	}
 
 	setupForm() {
-		this.form.valueChanges.subscribe(x => { console.log(x); });
 		var formArray = new FormArray([]);
 		this.allSecurityFeatures.forEach(x => {
 			var up = this.entityFeaturePermissions.filter(y => x.id === y.secFeatureId)[0];
@@ -76,7 +86,7 @@ export class EditEntityPermissionsListComponent implements OnInit, OnDestroy {
 
 	initFeature(feature: SecFeaturePermission = null): FormGroup {
 		return new FormGroup({
-			secEntityId: new FormControl(feature.secEntityId, []),
+			secEntityId: new FormControl(this.secEntityId, []),
 			secFeatureId: new FormControl(feature.secFeatureId, []),
 			allow: new FormControl(feature.allow, []),
 		});

@@ -39,15 +39,23 @@ var EditEntityPermissionsListComponent = (function () {
     };
     EditEntityPermissionsListComponent.prototype.getData = function () {
         var _this = this;
-        this.epDataService.getEntityPermissions(this.secEntityId).subscribe(function (x) {
-            _this.entityFeaturePermissions = (!x || x.length === 0 ? [] : x);
-            _this.setupForm();
-            _this.formLoaded.emit(true);
-        });
+        if (this.groupMode)
+            this.epDataService.getEntityPermissions(this.secEntityId).subscribe(function (x) {
+                _this.entityFeaturePermissions = (!x || x.length === 0 ? [] : x);
+                _this.setupForm();
+                _this.formLoaded.emit(true);
+            });
+        else {
+            this.epDataService.getUserPermissions(this.userId).subscribe(function (x) {
+                _this.entityFeaturePermissions = (!x || x.permissions.length === 0 ? [] : x.permissions);
+                _this.secEntityId = x.secEntityId;
+                _this.setupForm();
+                _this.formLoaded.emit(true);
+            });
+        }
     };
     EditEntityPermissionsListComponent.prototype.setupForm = function () {
         var _this = this;
-        this.form.valueChanges.subscribe(function (x) { console.log(x); });
         var formArray = new forms_1.FormArray([]);
         this.allSecurityFeatures.forEach(function (x) {
             var up = _this.entityFeaturePermissions.filter(function (y) { return x.id === y.secFeatureId; })[0];
@@ -67,7 +75,7 @@ var EditEntityPermissionsListComponent = (function () {
     EditEntityPermissionsListComponent.prototype.initFeature = function (feature) {
         if (feature === void 0) { feature = null; }
         return new forms_1.FormGroup({
-            secEntityId: new forms_1.FormControl(feature.secEntityId, []),
+            secEntityId: new forms_1.FormControl(this.secEntityId, []),
             secFeatureId: new forms_1.FormControl(feature.secFeatureId, []),
             allow: new forms_1.FormControl(feature.allow, []),
         });
@@ -100,6 +108,10 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Object)
 ], EditEntityPermissionsListComponent.prototype, "groupMode", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], EditEntityPermissionsListComponent.prototype, "userId", void 0);
 __decorate([
     core_1.Output(),
     __metadata("design:type", Object)

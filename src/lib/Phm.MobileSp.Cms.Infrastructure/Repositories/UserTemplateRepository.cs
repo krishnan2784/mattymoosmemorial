@@ -20,9 +20,9 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             _marketRepo = marketRepo;
         }
 
-        public async Task<dynamic> GetUsersAsync(int MarketId, int? UserId)
+        public async Task<List<UserTemplate>> GetUsersAsync(int MarketId, int? UserId)
         {
-            return GetResponseModel<dynamic>(await GetAsync(new { MarketId, UserId }));
+            return GetResponseModel<List<UserTemplate>>(await GetAsync(new { MarketId, UserId }));
         }
 
         public async Task<BaseResponse<UserTemplate>> CreateUserAsync(UserTemplate user)

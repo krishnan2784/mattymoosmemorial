@@ -21,6 +21,7 @@ import { Overlay } from 'angular2-modal';
 import { Modal } from 'angular2-modal/plugins/bootstrap';
 import Feedclasses = require("../../../models/feedclasses");
 import BaseFeed = Feedclasses.BaseFeed;
+import { PermissionService, CommonOperationPermissions } from "../../../services/helpers/permissionservice";
 
 declare var $: any;
 declare var Materialize: any;
@@ -42,12 +43,18 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
     public id_sub: any;
     public currentMarket: UserMarket;
     public getFeedItemsSub;
+	public userPermissions: CommonOperationPermissions;
 
-    constructor(private route: ActivatedRoute, private router: Router, public feedDataService: FeedDataService, sharedService: ShareService, overlay: Overlay, vcRef: ViewContainerRef, public confirmBox: Modal) {
-        super(sharedService, '', true, '', DefaultTabNavs.feedIndexTabs);
+	constructor(private route: ActivatedRoute, private router: Router,
+		public feedDataService: FeedDataService, sharedService: ShareService,
+		overlay: Overlay, vcRef: ViewContainerRef, public confirmBox: Modal,
+		public permissionService: PermissionService) {
+		super(sharedService, '', true, '', DefaultTabNavs.feedIndexTabs);
+
         this.setupSubscriptions();
-        overlay.defaultViewContainer = vcRef;
-    }
+		overlay.defaultViewContainer = vcRef;
+		this.userPermissions = permissionService.getCrudPermissions('/feed');
+	}
 
     setupSubscriptions() {
         this.sharedService.marketUpdated.subscribe((market) => {

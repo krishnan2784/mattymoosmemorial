@@ -10,12 +10,14 @@ namespace Phm.MobileSp.Cms.Controllers
             {
                 FEEDITEMS,
                 USERLIST,
-                USERMARKETS
-            };
+                USERMARKETS,
+	            USERPERMISSIONS
+			};
         }
  
         public const string FEEDITEMS = "FeedItems";
         public const string USERLIST = "UserList";
         public const string USERMARKETS = "UserMarkets";
-    }
+        public const string USERPERMISSIONS = "UserPermissions";
+	}
 }

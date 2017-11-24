@@ -45,6 +45,17 @@ var EntityPermissionDataService = (function (_super) {
             });
         });
     };
+    EntityPermissionDataService.prototype.getUserPermissions = function (userId) {
+        var _this = this;
+        if (userId === void 0) { userId = 0; }
+        return Observable_1.Observable.create(function (observer) {
+            _this.http.get('/api/SecurityEntityFeatures/GetUserPermissions?userId=' + userId).subscribe(function (result) {
+                var response = responsehelper_1.ResponseHelper.getResponse(result);
+                observer.next(response.content);
+                observer.complete();
+            });
+        });
+    };
     return EntityPermissionDataService;
 }(RequestHelper));
 EntityPermissionDataService = __decorate([

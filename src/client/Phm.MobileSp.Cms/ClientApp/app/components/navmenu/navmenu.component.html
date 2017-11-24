@@ -4,7 +4,7 @@
 		    <img src="assets/images/MobileSP-LOGO-Landscape.png" class="header-logo" />
 		    <p>LearnComSP</p>
 	    </a>
-	    <a *ngIf="currentMenuOptions != baseMenuOptions" class='navbar-brand' [routerLink]="['/home']" (click)="resetNavMenu()" id="btn-reset-nav">
+	    <a *ngIf="currentMenuOptions && currentMenuOptions.length > 0 && currentMenuOptions != baseMenuOptions" class='navbar-brand' [routerLink]="['/home']" (click)="resetNavMenu()" id="btn-reset-nav">
 		    <h5 class="back-container">
 			    <i class="material-icons">reply</i> <span class="back-text">{{backText}}</span>
 		    </h5>
@@ -40,7 +40,8 @@
                     </li>
                 </ul>
               
-              <ul class='nav navbar-nav'>
+	            <div class='loader' *ngIf="!currentMenuOptions || currentMenuOptions.length === 0"></div>
+	            <ul class='nav navbar-nav' *ngIf="currentMenuOptions && currentMenuOptions.length > 0">
                 <li *ngFor="let m of currentMenuOptions; let i=index" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="m.routerLinkActiveOptions" [class.link-active]="m.activeLink">
 	                <a *ngIf="m.routerLink" [routerLink]="[m.routerLink]" (click)="m.onClick" class="waves-effect waves-light" id="navbar__option-{{i}}">
 		                {{m.title}}

@@ -6,6 +6,7 @@ import { FormGroup } from "@angular/forms";
 import {UserFeaturePermissionsDataService} from "../../../../services/userfeaturepermissionsdataservice";
 import {UserGroupPermissionDataService} from "../../../../services/usergrouppermissiondataservice";
 import {User} from "../../../../models/userclasses";
+import {PermissionService} from "../../../../services/helpers/permissionservice";
 
 
 @Component({
@@ -32,7 +33,7 @@ export class EditUserGroupComponent implements OnInit, OnDestroy {
 	constructor(public epDataService: EntityPermissionDataService,
 		public entityPermissionDataService: UserFeaturePermissionsDataService,
 		public userGroupPermissionDataService: UserGroupPermissionDataService,
-		public sharedService: ShareService) {
+		public sharedService: ShareService, public permissionService: PermissionService) {
 		this.form = new FormGroup({});
 	}
 
@@ -68,8 +69,12 @@ export class EditUserGroupComponent implements OnInit, OnDestroy {
 
 		this.entityPermissionDataService.updateEntityPermissions(secFeaturePermissions.secEntityPermissions).subscribe(x => {
 			this.loading = false;
-			if (goBack && x && x.success) {
-				this.permissionsUpdated.emit(x.content);
+			if (x && x.success) {
+				this.permissionService.refreshData();
+
+				if (goBack) {
+					this.permissionsUpdated.emit(x.content);
+				}
 			}
 		});
 	}

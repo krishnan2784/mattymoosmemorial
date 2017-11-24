@@ -80,4 +80,16 @@ var SecFeaturePermission = (function () {
     return SecFeaturePermission;
 }());
 exports.SecFeaturePermission = SecFeaturePermission;
+var UserSecFeaturePermission = (function () {
+    function UserSecFeaturePermission(options) {
+        if (options === void 0) { options = {}; }
+        this.uri = options['uri'] || '';
+        this.httpVerb = options['httpVerb'] || '';
+        this.bitMaskValue = options['bitMaskValue'] || 0;
+        this.secFeatureType = options['secFeatureType'] || enums_1.SecFeatureTypeEnum.Cms;
+        this.allow = options['allow'];
+    }
+    return UserSecFeaturePermission;
+}());
+exports.UserSecFeaturePermission = UserSecFeaturePermission;
 //# sourceMappingURL=securityclasses.js.map

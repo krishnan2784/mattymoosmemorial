@@ -3,6 +3,7 @@ import Enums = require("../../enums");
 import { ShareService } from "../../services/helpers/shareservice";
 import { User } from "../../models/userclasses";
 import {NavMenuOption} from "../../models/navmenuclasses";
+import {PermissionService} from "../../services/helpers/permissionservice";
 
 @Component({
     selector: 'nav-menu',
@@ -14,29 +15,19 @@ export class NavMenuComponent implements OnInit{
 	baseMenuOptions: NavMenuOption[] = [];
 	backText = null;
 	toggleDropdown=false;
-	constructor(public shareService: ShareService) { //, public securityService: any
+	constructor(public shareService: ShareService, public permissionService: PermissionService) {
 		this.shareService.mainNavUpdated.subscribe(navMenu => {
+			if (navMenu[2])
+				this.baseMenuOptions = navMenu[0];
+
 			this.currentMenuOptions = navMenu[0];
 			this.backText = navMenu[1];
 		});
     }
 
     ngOnInit() {
-      //this.securityService.getNavigationMenu(result => {
-      //  this.baseMenuOptions = result;
-      //  this.shareService.updateMainNavMenu(result);
-      //});
-      // until we have permission based menus
-      this.baseMenuOptions = [
-		  new NavMenuOption('Dashboard', '/home', {activeLink: true}),
-        new NavMenuOption('Content', '/feed'),
-        new NavMenuOption('Reports', '/reports', { routerLinkActiveOptions: { exact: false } }),
-		new NavMenuOption('Accounts', '/useraccountmanagement', { routerLinkActiveOptions: { exact: false } }),
-		new NavMenuOption('Competition Management', '/competitions', { routerLinkActiveOptions: { exact: false } })
-      ];
-      this.resetNavMenu();
     }
-    resetNavMenu() {
+	resetNavMenu() {
 		this.currentMenuOptions = this.baseMenuOptions;
 	    this.shareService.updateAppTheme('');
 	}

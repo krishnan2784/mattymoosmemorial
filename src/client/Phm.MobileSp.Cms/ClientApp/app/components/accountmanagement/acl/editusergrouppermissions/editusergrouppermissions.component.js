@@ -15,12 +15,14 @@ var entitypermissiondataservice_1 = require("../../../../services/entitypermissi
 var forms_1 = require("@angular/forms");
 var userfeaturepermissionsdataservice_1 = require("../../../../services/userfeaturepermissionsdataservice");
 var usergrouppermissiondataservice_1 = require("../../../../services/usergrouppermissiondataservice");
+var permissionservice_1 = require("../../../../services/helpers/permissionservice");
 var EditUserGroupComponent = (function () {
-    function EditUserGroupComponent(epDataService, entityPermissionDataService, userGroupPermissionDataService, sharedService) {
+    function EditUserGroupComponent(epDataService, entityPermissionDataService, userGroupPermissionDataService, sharedService, permissionService) {
         this.epDataService = epDataService;
         this.entityPermissionDataService = entityPermissionDataService;
         this.userGroupPermissionDataService = userGroupPermissionDataService;
         this.sharedService = sharedService;
+        this.permissionService = permissionService;
         this.permissionsUpdated = new core_1.EventEmitter();
         this.loading = true;
         this.form = new forms_1.FormGroup({});
@@ -53,8 +55,11 @@ var EditUserGroupComponent = (function () {
         this.loading = true;
         this.entityPermissionDataService.updateEntityPermissions(secFeaturePermissions.secEntityPermissions).subscribe(function (x) {
             _this.loading = false;
-            if (goBack && x && x.success) {
-                _this.permissionsUpdated.emit(x.content);
+            if (x && x.success) {
+                _this.permissionService.refreshData();
+                if (goBack) {
+                    _this.permissionsUpdated.emit(x.content);
+                }
             }
         });
     };
@@ -88,7 +93,7 @@ EditUserGroupComponent = __decorate([
     __metadata("design:paramtypes", [entitypermissiondataservice_1.EntityPermissionDataService,
         userfeaturepermissionsdataservice_1.UserFeaturePermissionsDataService,
         usergrouppermissiondataservice_1.UserGroupPermissionDataService,
-        shareservice_1.ShareService])
+        shareservice_1.ShareService, permissionservice_1.PermissionService])
 ], EditUserGroupComponent);
 exports.EditUserGroupComponent = EditUserGroupComponent;
 //# sourceMappingURL=editusergrouppermissions.component.js.map
