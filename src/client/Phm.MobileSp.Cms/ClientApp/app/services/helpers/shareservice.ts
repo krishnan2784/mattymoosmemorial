@@ -9,16 +9,18 @@ import { UserDataService } from "../userdataservice";
 import { User } from "../../models/userclasses";
 import IFeedItem = FeedModel.IFeedItem;
 import {NavMenuOption} from "../../models/navmenuclasses";
+import {SecFeaturePermission} from "../../models/securityclasses";
+import {EntityPermissionDataService} from "../entitypermissiondataservice";
 
 @Injectable()
 export class ShareService {
     public currentUser: User = new User();
 
-    constructor(public userDataService: UserDataService) {
+	constructor(public userDataService: UserDataService, public entityPermissionDataService: EntityPermissionDataService) {
         userDataService.getCurrentUser().subscribe(response => {
             this.currentUser = response;
         });
-    }
+	}
 
     public currentMarket: UserMarket = new UserMarket;
     public currentMarketId: number = this.currentMarket.id;
@@ -89,10 +91,10 @@ export class ShareService {
     }    
 
 
-    private mainNavUpdate = new Subject<[NavMenuOption[],string]>();
+	private mainNavUpdate = new Subject<[NavMenuOption[], string, boolean]>();
     mainNavUpdated = this.mainNavUpdate.asObservable();
 
-    public updateMainNavMenu(navItems: NavMenuOption[], backText: string = null) {
-      this.mainNavUpdate.next([navItems, backText]);
+	public updateMainNavMenu(navItems: NavMenuOption[], backText: string = null, overwriteBase: boolean = false) {
+		this.mainNavUpdate.next([navItems, backText, overwriteBase]);
   }    
 }

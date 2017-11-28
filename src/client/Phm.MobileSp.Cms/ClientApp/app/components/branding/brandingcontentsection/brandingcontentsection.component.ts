@@ -64,9 +64,10 @@ export class BrandingContentSectionComponent implements OnInit, OnDestroy, OnCha
 
 	calculateSubGroups() {
 		this.subGroups = [];
-		for (let i = 0; i < this.models.length; i++) {
-			this.addSubGroup(this.models[i]);
-		}
+		if (this.models)
+			for (let i = 0; i < this.models.length; i++) {
+				this.addSubGroup(this.models[i]);
+			}
 	}
 
 	addSubGroup(element: BrandingElement) {

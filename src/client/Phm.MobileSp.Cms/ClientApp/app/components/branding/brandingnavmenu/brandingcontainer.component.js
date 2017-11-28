@@ -55,15 +55,17 @@ var BrandingContainerComponent = (function (_super) {
         var _this = this;
         this.brandingService.getBranding().subscribe(function (result) {
             _this.brandingConfigurations = [];
-            if (!result)
+            if (!result || result.brandingConfigurations.length == 0) {
+                _this.activeBrandingSections = [];
                 return;
+            }
             if (Array.isArray(result.brandingConfigurations))
                 _this.brandingConfigurations = result.brandingConfigurations;
             else
                 _this.brandingConfigurations.push(new brandingclasses_1.BaseBrandingConfiguration(result.brandingConfigurations));
             _this.brandingOptions = result.brandingOptions;
             var marketConfig = _this.brandingConfigurations.find(function (x) { return (new brandingclasses_1.MarketBrandingConfiguration(x)).marketId > 0; });
-            if (marketConfig != null) {
+            if (marketConfig != null && _this.brandingConfigurations[_this.brandingConfigurations.indexOf(marketConfig)]) {
                 _this.brandingSections =
                     _this.brandingConfigurations[_this.brandingConfigurations.indexOf(marketConfig)].brandingElements;
                 _this.disabled = false;
@@ -72,15 +74,16 @@ var BrandingContainerComponent = (function (_super) {
             else
                 _this.marketBranding = false;
             //	this.disabled = this.shareService.currentMarket.id > 1;
-            if (_this.brandingSections == null)
+            if (_this.brandingSections == null && _this.brandingConfigurations[0])
                 _this.brandingSections = _this.brandingConfigurations[0].brandingElements;
-            for (var i = 0; i < _this.brandingSections.length; i++) {
-                _this.brandingSections[i] = new brandingclasses_1.BrandingElement(_this.brandingSections[i]);
-                if (_this.brandSectionNames.indexOf(_this.brandingSections[i].groupName.split('>')[0]) > -1)
-                    continue;
-                _this.brandSectionNames.push(_this.brandingSections[i].groupName.split('>')[0]);
-            }
-            if (_this.brandSectionNames.length > 0) {
+            if (_this.brandingSections !== null)
+                for (var i = 0; i < _this.brandingSections.length; i++) {
+                    _this.brandingSections[i] = new brandingclasses_1.BrandingElement(_this.brandingSections[i]);
+                    if (_this.brandSectionNames.indexOf(_this.brandingSections[i].groupName.split('>')[0]) > -1)
+                        continue;
+                    _this.brandSectionNames.push(_this.brandingSections[i].groupName.split('>')[0]);
+                }
+            if (_this.brandSectionNames && _this.brandSectionNames.length > 0) {
                 var menu = [];
                 for (var i = 0; i < _this.brandSectionNames.length; i++) {
                     menu.push(new navmenuclasses_1.NavMenuOption(_this.brandSectionNames[i], null, {

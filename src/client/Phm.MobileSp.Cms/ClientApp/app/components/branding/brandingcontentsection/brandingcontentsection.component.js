@@ -55,9 +55,10 @@ var BrandingContentSectionComponent = (function () {
     };
     BrandingContentSectionComponent.prototype.calculateSubGroups = function () {
         this.subGroups = [];
-        for (var i = 0; i < this.models.length; i++) {
-            this.addSubGroup(this.models[i]);
-        }
+        if (this.models)
+            for (var i = 0; i < this.models.length; i++) {
+                this.addSubGroup(this.models[i]);
+            }
     };
     BrandingContentSectionComponent.prototype.addSubGroup = function (element) {
         var a = element.groupName.split('>');

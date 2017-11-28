@@ -1,0 +1,39 @@
+﻿.feature-permission {
+	height: 60px;
+	background-color: #fff;
+	border-bottom: 2px #EBEBEB solid;
+	margin: 0 -10px;
+	padding: 0 10px 0 20px;
+}
+.feature-permission__type, .feature-permission__uri {
+	height: 100%;
+	display: inline-block;
+	vertical-align: middle;
+}
+.feature-permission__type {
+	width: 5%;
+}
+.feature-permission__uri {
+	width: 55%;
+}
+.feature-permission__button {
+	width: 15%;
+	height: 60px;
+	height: 58px;
+	color: #000;
+	display: inline-block;
+}
+.feature-permission__button, .feature-permission__button p {
+	text-align: center;
+	text-decoration: none !important;
+	cursor: pointer;
+}
+.active {
+	 font-weight: 600;
+}
+.is-allowed.active {
+	background-color: #CDEFEE;
+}
+.is-denied.active {
+	background-color: #EDCBCB;
+}

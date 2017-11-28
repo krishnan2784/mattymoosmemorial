@@ -96,6 +96,9 @@ var brandingcontainer_component_1 = require("./components/branding/brandingnavme
 var basebrandingcomponent_component_1 = require("./components/branding/components/basebrandingcomponent/basebrandingcomponent.component");
 var fontpicker_component_1 = require("./components/common/editor/fontpicker.component");
 var brandingoptionpicker_component_1 = require("./components/branding/components/brandingoptionpicker/brandingoptionpicker.component");
+var editentitypermissionslist_component_1 = require("./components/accountmanagement/acl/editentitypermissionslist/editentitypermissionslist.component");
+var usergroupindex_component_1 = require("./components/accountmanagement/acl/indexes/usergroupindex.component");
+var editusergrouppermissions_component_1 = require("./components/accountmanagement/acl/editusergrouppermissions/editusergrouppermissions.component");
 var orderBy_1 = require("./classes/orderBy");
 var genericfilter_component_1 = require("./components/common/filters/generic/genericfilter.component");
 var competitionform_component_1 = require("./components/competitions/forms/competitionform/competitionform.component");
@@ -109,6 +112,7 @@ var rewardschemesindex_component_1 = require("./components/competitions/indexes/
 var rewardschemeform_component_1 = require("./components/competitions/forms/rewardschemeform/rewardschemeform.component");
 var termsandconditionsindex_component_1 = require("./components/competitions/indexes/termsandconditionsindex/termsandconditionsindex.component");
 var termsandconditionsform_component_1 = require("./components/competitions/forms/termsandconditionsform/termsandconditionsform.component");
+var edituserpermissions_component_1 = require("./components/accountmanagement/acl/edituserpermissions/edituserpermissions.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -136,6 +140,7 @@ AppModule = __decorate([
             brandingcontainer_component_1.BrandingContainerComponent,
             brandingcontentsection_component_1.BrandingContentSectionComponent,
             basebrandingcomponent_component_1.BaseBrandingComponent,
+            usergroupindex_component_1.UserGroupPermissionsIndexComponent,
             competitionsindex_component_1.CompetitionIndexComponent,
             rewardschemesindex_component_1.RewardSchemeIndexComponent,
             termsandconditionsindex_component_1.TermsAndConditionsIndexComponent,
@@ -173,6 +178,9 @@ AppModule = __decorate([
             termsandconditionsform_component_1.TermsAndConditionForm,
             // user management
             EditUser,
+            editentitypermissionslist_component_1.EditEntityPermissionsListComponent,
+            editusergrouppermissions_component_1.EditUserGroupComponent,
+            edituserpermissions_component_1.EditUserPermissionsComponent,
             // charts
             BarChart,
             GaugeChart,
@@ -216,6 +224,7 @@ AppModule = __decorate([
                 { path: 'counter', component: counter_component_1.CounterComponent },
                 { path: 'fetch-data', component: fetchdata_component_1.FetchDataComponent },
                 { path: 'useraccountmanagement', component: useraccountmanagement_component_1.UserAccountManagementComponent },
+                { path: 'useraccountmanagement/userpermissionmanagement', component: usergroupindex_component_1.UserGroupPermissionsIndexComponent },
                 { path: 'feed/:feedCat', component: feedindex_component_1.FeedIndexComponent },
                 { path: 'feed', component: feedindex_component_1.FeedIndexComponent },
                 { path: 'feeditem', component: feeditemform_component_1.FeedItemForm },

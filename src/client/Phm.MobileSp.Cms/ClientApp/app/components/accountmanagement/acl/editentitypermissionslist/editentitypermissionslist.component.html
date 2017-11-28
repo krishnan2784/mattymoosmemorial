@@ -1,0 +1,26 @@
+<div class="loader" *ngIf="!entityFeaturePermissions"></div>
+<div *ngIf="allSecurityFeatures && entityFeaturePermissions">
+	<div [formGroup]="form">
+		<div formArrayName="secEntityPermissions">
+			<div *ngFor="let fp of form.controls.secEntityPermissions.controls; let i=index" class="feature-permission">
+				<div [formGroupName]="i">
+					<input type="hidden" formControlName="secEntityId">
+					<input type="hidden" formControlName="secFeatureId">
+					<input type="hidden" formControlName="allow">
+				</div>
+				<div class="feature-permission__type">{{secFeatureTypeEnum[allSecurityFeatures[i].secFeatureType]}}</div>
+				<div class="feature-permission__uri">{{allSecurityFeatures[i].uri}}/{{allSecurityFeatures[i].httpVerb}}</div>
+				
+				<a class="is-allowed feature-permission__button" [class.active]="fp.controls.allow.value===true" (click)="setPermission(i, true)">
+					<i class="material-icons">done</i>
+					<p>Yes, Allow</p>
+				</a>
+				<a class="is-denied feature-permission__button" [class.active]="fp.controls.allow.value===false" (click)="setPermission(i, false)">
+					<i class="material-icons">remove</i>
+					<p>No, don't Allow</p>
+				</a>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+</div>

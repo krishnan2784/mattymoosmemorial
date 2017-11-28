@@ -35,20 +35,23 @@ var angular2_modal_1 = require("angular2-modal");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var Feedclasses = require("../../../models/feedclasses");
 var BaseFeed = Feedclasses.BaseFeed;
+var permissionservice_1 = require("../../../services/helpers/permissionservice");
 var FeedIndexComponent = (function (_super) {
     __extends(FeedIndexComponent, _super);
-    function FeedIndexComponent(route, router, feedDataService, sharedService, overlay, vcRef, confirmBox) {
+    function FeedIndexComponent(route, router, feedDataService, sharedService, overlay, vcRef, confirmBox, permissionService) {
         var _this = _super.call(this, sharedService, '', true, '', tabnavmenu_component_1.DefaultTabNavs.feedIndexTabs) || this;
         _this.route = route;
         _this.router = router;
         _this.feedDataService = feedDataService;
         _this.confirmBox = confirmBox;
+        _this.permissionService = permissionService;
         _this.selectedModel = null;
         _this.modalData = null;
         _this.feedTypes = FeedTypeEnum;
         _this.feedCats = FeedCategoryEnum;
         _this.setupSubscriptions();
         overlay.defaultViewContainer = vcRef;
+        _this.userPermissions = permissionService.getCrudPermissions('/feed');
         return _this;
     }
     FeedIndexComponent.prototype.setupSubscriptions = function () {
@@ -228,7 +231,10 @@ FeedIndexComponent = __decorate([
         template: require('./feedindex.component.html'),
         styles: [require('./feedindex.component.css')]
     }),
-    __metadata("design:paramtypes", [router_1.ActivatedRoute, router_1.Router, feeddataservice_1.FeedDataService, shareservice_1.ShareService, angular2_modal_1.Overlay, core_1.ViewContainerRef, bootstrap_1.Modal])
+    __metadata("design:paramtypes", [router_1.ActivatedRoute, router_1.Router,
+        feeddataservice_1.FeedDataService, shareservice_1.ShareService,
+        angular2_modal_1.Overlay, core_1.ViewContainerRef, bootstrap_1.Modal,
+        permissionservice_1.PermissionService])
 ], FeedIndexComponent);
 exports.FeedIndexComponent = FeedIndexComponent;
 //# sourceMappingURL=feedindex.component.js.map

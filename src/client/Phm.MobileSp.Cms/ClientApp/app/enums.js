@@ -122,4 +122,9 @@ var SecEntityTypeEnum;
     SecEntityTypeEnum[SecEntityTypeEnum["SecUser"] = 0] = "SecUser";
     SecEntityTypeEnum[SecEntityTypeEnum["SecGroup"] = 1] = "SecGroup";
 })(SecEntityTypeEnum = exports.SecEntityTypeEnum || (exports.SecEntityTypeEnum = {}));
+var SecFeatureTypeEnum;
+(function (SecFeatureTypeEnum) {
+    SecFeatureTypeEnum[SecFeatureTypeEnum["Cms"] = 0] = "Cms";
+    SecFeatureTypeEnum[SecFeatureTypeEnum["Mobile"] = 1] = "Mobile";
+})(SecFeatureTypeEnum = exports.SecFeatureTypeEnum || (exports.SecFeatureTypeEnum = {}));
 //# sourceMappingURL=enums.js.map

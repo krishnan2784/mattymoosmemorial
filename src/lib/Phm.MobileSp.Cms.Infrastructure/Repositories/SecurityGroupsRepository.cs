@@ -22,9 +22,13 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
             _userConfigRepo = userConfigRepo;
         }
 
-        public async Task<BaseResponse<dynamic>> GetSecGroupsAsync(int MarketId)
-        {
-            return GetAPIResponse<dynamic>(await GetAsync(new { MarketId }));
-        }
-    }
+	    public async Task<BaseResponse<dynamic>> GetSecGroupsByMarketAsync(int marketMasterId)
+	    {
+		    return GetAPIResponse<dynamic>(await GetAsync(new { masterId = marketMasterId }));
+		}
+	    public async Task<BaseResponse<dynamic>> GetSecGroupsByIdAsync(int secGroupId)
+	    {
+		    return GetAPIResponse<dynamic>(await GetAsync(new { secGroupId }));
+	    }
+	}
 }

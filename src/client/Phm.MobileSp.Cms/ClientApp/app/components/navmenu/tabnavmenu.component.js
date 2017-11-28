@@ -60,6 +60,10 @@ DefaultTabNavs.reportsTabs = [
     new NavItem('Observation Reports', '/reports/' + enums_1.FeedTypeEnum.Observation, 'funk'),
     new NavItem('Leaderboard Reports', '/reports/leaderboard', 'teal')
 ];
+DefaultTabNavs.accountManagementTabs = [
+    new NavItem('User Accounts', '/useraccountmanagement', 'teal'),
+    new NavItem('Access Control Panel', '/useraccountmanagement/userpermissionmanagement', 'teal')
+];
 DefaultTabNavs.competitionsTabs = [
     new NavItem('Competitions', '/competitions', 'teal'),
     new NavItem('Reward Schemes', '/competitions/rewardschemes', 'orange'),

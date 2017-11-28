@@ -1,0 +1,33 @@
+<div class="user-permissions-container">
+	<div class="user-row">
+		<div class="col-md-4">
+			{{user.firstName}} {{user.lastName}}
+		</div>
+		<div class="col-md-3">
+			{{user.userName}}
+		</div>
+		<div class="col-md-3">
+			{{user.email}}
+		</div>
+		<div class="col-md-2">
+			<a (click)="editMode=!editMode" id="btn-edit-toggle-{{secEntityId}}" class="btn-edit"><i class="material-icons">mode_edit</i></a>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+
+	<form *ngIf="editMode" [formGroup]="form" novalidate (ngSubmit)="save(form.value, form.valid)" class="user-permissions-form-container">
+
+		<editentitypermissionslist [form]="form" [allSecurityFeatures]="allSecurityFeatures" [groupFeaturePermissions]="groupFeaturePermissions"
+		                           [secEntityId]="secEntityId" [userId]="user.id" [groupMode]="false" (formLoaded)="loading=false"></editentitypermissionslist>
+
+		<div class="form-buttons">
+			<a (click)="goBack();" class="btn btn-primary" [attr.disabled]="loading ? 'disabled' : null" id="acl-form__btn-cancel-{{secEntityId}}">Cancel</a>
+			<button type="submit" class="btn btn-primary btn-save" [disabled]="loading" id="acl-form__btn-save-{{secEntityId}}">Save</button>
+		</div>
+		<div class="clearfix"></div>
+
+	</form>
+</div>
+
+
+

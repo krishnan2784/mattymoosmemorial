@@ -49,13 +49,15 @@ export class UserAccount {
 
 export class UserMarket {
     id: number;
-    name: string;
+    masterId: string;
+	name: string;
     isDefault: boolean;
     isMaster: boolean;
     isLive: boolean;
     constructor(options: {
         id?: number,
         name?: string,
+	    masterId?: string,
         isDefault?: boolean,
         isMaster?: boolean,
         isLive?: boolean
@@ -63,7 +65,8 @@ export class UserMarket {
     } = {}) {
 
         this.id = options.id || null;
-        this.name = options.name || '';
+		this.masterId = options.masterId || '';
+		this.name = options.name || '';
         this.isDefault = options.isDefault || false;
         this.isMaster = options.isMaster || false;
         this.isLive = options.isLive || false;
@@ -81,8 +84,6 @@ export class ContentMarket extends UserMarket {
 
 
 export class User extends BaseModel {
-    dealershipCode: string;
-    dealershipName: string;
     email: string;
     firstName: string;
     lastName: string;
@@ -93,8 +94,6 @@ export class User extends BaseModel {
 
     constructor(options: {} = {}) {
         super(options);
-        this.dealershipCode = options['dealershipCode'] || '';
-        this.dealershipName = options['dealershipName'] || '';
         this.email = options['email'] || '';
         this.firstName = options['firstName'] || '';
         this.lastName = options['lastName'] || '';

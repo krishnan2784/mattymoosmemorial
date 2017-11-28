@@ -32,12 +32,15 @@ var angular2_modal_1 = require("angular2-modal");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var String1 = require("../../classes/helpers/string");
 var StringEx = String1.StringEx;
+var tabnavmenu_component_1 = require("../navmenu/tabnavmenu.component");
+var permissionservice_1 = require("../../services/helpers/permissionservice");
 var UserAccountManagementComponent = (function (_super) {
     __extends(UserAccountManagementComponent, _super);
-    function UserAccountManagementComponent(sharedService, userDataService, overlay, vcRef, confirmBox) {
-        var _this = _super.call(this, sharedService, 'Account Management', true) || this;
+    function UserAccountManagementComponent(sharedService, userDataService, permissionService, overlay, vcRef, confirmBox) {
+        var _this = _super.call(this, sharedService, 'Account Management', true, '', tabnavmenu_component_1.DefaultTabNavs.accountManagementTabs) || this;
         _this.sharedService = sharedService;
         _this.userDataService = userDataService;
+        _this.permissionService = permissionService;
         _this.confirmBox = confirmBox;
         _this.modalData = null;
         _this.filterCriteria = new UserFilters();
@@ -70,6 +73,7 @@ var UserAccountManagementComponent = (function (_super) {
         overlay.defaultViewContainer = vcRef;
         _this.setupSubscriptions();
         _this.getData();
+        _this.userPermissions = permissionService.getCrudPermissions('/UserTemplate');
         return _this;
     }
     UserAccountManagementComponent.prototype.getData = function () {
@@ -214,7 +218,8 @@ UserAccountManagementComponent = __decorate([
         template: require('./useraccountmanagement.component.html'),
         styles: [require('./useraccountmanagement.component.css')]
     }),
-    __metadata("design:paramtypes", [shareservice_1.ShareService, userdataservice_1.UserDataService, angular2_modal_1.Overlay, core_1.ViewContainerRef, bootstrap_1.Modal])
+    __metadata("design:paramtypes", [shareservice_1.ShareService, userdataservice_1.UserDataService, permissionservice_1.PermissionService,
+        angular2_modal_1.Overlay, core_1.ViewContainerRef, bootstrap_1.Modal])
 ], UserAccountManagementComponent);
 exports.UserAccountManagementComponent = UserAccountManagementComponent;
 //# sourceMappingURL=useraccountmanagement.component.js.map

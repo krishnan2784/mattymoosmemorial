@@ -8,6 +8,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
 {
     public interface ISecurityGroupsRepository
     {
-        Task<BaseResponse<dynamic>> GetSecGroupsAsync(int marketId);
-    }
+        Task<BaseResponse<dynamic>> GetSecGroupsByMarketAsync(int marketId);
+        Task<BaseResponse<dynamic>> GetSecGroupsByIdAsync(int id);
+	}
 }

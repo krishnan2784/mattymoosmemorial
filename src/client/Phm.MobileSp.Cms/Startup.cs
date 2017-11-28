@@ -117,17 +117,23 @@ namespace Phm.MobileSp.Cms
                 services.AddTransient<IMediaRepository, MediaRepository>();
                 services.AddTransient<IRegistrationRepository, RegistrationRepository>();
                 services.AddTransient<ISecurityGroupsRepository, SecurityGroupsRepository>();
-                services.AddTransient<IUserConfigurationRepository, UserConfigurationRepository>();
+                services.AddTransient<ISecurityGroupUsersRepository, SecurityGroupUsersRepository>();
+				services.AddTransient<IUserConfigurationRepository, UserConfigurationRepository>();
                 services.AddTransient<IUserQuizResultsRepository, UserQuizResultsRepository>();
                 services.AddTransient<IUserRepository, UserRepository>();
                 services.AddTransient<IUserTemplateRepository, UserTemplateRepository>();
                 services.AddTransient<IBrandingConfigurationsRepository, BrandingConfigurationsRepository>();
+                services.AddTransient<ISecurityFeaturesRepository, SecurityFeaturesRepository>();
+                services.AddTransient<ISecurityEntityFeaturesRepository, SecurityEntityFeaturesRepository>();
                 services.AddTransient<ICompetitionRepository, CompetitionRepository>();
 				services.AddSingleton<ITermsAndConditionsRepository, TermsAndConditionsRepository>();
 				services.AddSingleton<IRewardSchemesRepository, RewardSchemesRepository>();
 				services.AddSingleton<IActiveCompetitionRepository, ActiveCompetitionRepository>();
+				services.AddSingleton<IUserFeaturePermissionsRepository, UserFeaturePermissionsRepository>();
+				
 				services.AddSingleton<IFeedItemModelBinder, FeedItemModelBinder>();
 	            
+
 				services.AddSession(options =>
                 {
                     options.IdleTimeout = TimeSpan.FromHours(1);
