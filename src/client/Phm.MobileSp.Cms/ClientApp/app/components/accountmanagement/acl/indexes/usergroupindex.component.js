@@ -42,6 +42,7 @@ var UserGroupPermissionsIndexComponent = (function (_super) {
         _this.userMarkets = [];
         _this.marketMasterIds = [];
         _this.currentStep = '';
+        _this.loading = true;
         _this.setupSubscriptions();
         _this.setupMarket();
         return _this;
@@ -77,6 +78,7 @@ var UserGroupPermissionsIndexComponent = (function (_super) {
                 }
                 else
                     _this.marketUserGroups = [];
+                _this.loading = false;
             });
         });
         this.secFeatureDataService.getSecurityFeatures().subscribe(function (x) {

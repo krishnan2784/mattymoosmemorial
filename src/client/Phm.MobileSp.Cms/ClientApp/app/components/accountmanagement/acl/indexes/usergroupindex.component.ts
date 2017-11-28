@@ -27,6 +27,7 @@ export class UserGroupPermissionsIndexComponent extends BaseComponent implements
 	marketUserGroups: MarketUserGroup[];
 	currentStep = '';
 	allSecurityFeatures: SecFeature[];
+	loading: boolean = true;
 
 	constructor(private route: ActivatedRoute, private router: Router,
 		public ugPermissionDataService: UserGroupPermissionDataService,
@@ -71,6 +72,7 @@ export class UserGroupPermissionsIndexComponent extends BaseComponent implements
 					});
 				} else
 					this.marketUserGroups = [];
+				this.loading = false;
 			});
 		});
 		this.secFeatureDataService.getSecurityFeatures().subscribe(x => {

@@ -1,6 +1,6 @@
 <div *ngIf="!selectedSecEntityId">
-	<div class="loader" *ngIf="!marketUserGroups"></div>
-	<div *ngIf="marketUserGroups">
+	<div class="loader" *ngIf="loading"></div>
+	<div *ngIf="!loading">
 		<div class="col-md-8">
 			<h5>Manage Permissions</h5>
 			<div class="deco-bar-container">
