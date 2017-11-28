@@ -15,6 +15,8 @@ import { Overlay } from 'angular2-modal';
 import { Modal } from 'angular2-modal/plugins/bootstrap';
 import String1 = require("../../classes/helpers/string");
 import StringEx = String1.StringEx;
+import {DefaultTabNavs} from "../navmenu/tabnavmenu.component";
+import {PermissionService, CommonOperationPermissions } from "../../services/helpers/permissionservice";
 
 @Component({
     selector: 'useraccountmanagement',
@@ -44,8 +46,9 @@ export class UserAccountManagementComponent extends BaseComponent {
     public maxSize: number = 5;
     public numPages: number = 1;
     public length: number = 0;
-    
-    public config: any = {
+	public userPermissions: CommonOperationPermissions;
+
+	public config: any = {
         paging: true,
         sorting: { columns: this.columns },
         filtering: {
@@ -56,11 +59,14 @@ export class UserAccountManagementComponent extends BaseComponent {
         className: ['table-bordered','table-hover']
     };
 
-    constructor(public sharedService: ShareService, public userDataService: UserDataService, overlay: Overlay, vcRef: ViewContainerRef, public confirmBox: Modal) {
-        super(sharedService, 'Account Management', true);
+	constructor(public sharedService: ShareService, public userDataService: UserDataService, public permissionService: PermissionService,
+		overlay: Overlay, vcRef: ViewContainerRef, public confirmBox: Modal) {
+		super(sharedService, 'Account Management', true, '', DefaultTabNavs.accountManagementTabs);
         overlay.defaultViewContainer = vcRef;
         this.setupSubscriptions();
-        this.getData();
+		this.getData();
+		this.userPermissions = permissionService.getCrudPermissions('/UserTemplate');
+
     }
 
     getData() {

@@ -35,6 +35,7 @@ var UserMarket = (function () {
     function UserMarket(options) {
         if (options === void 0) { options = {}; }
         this.id = options.id || null;
+        this.masterId = options.masterId || '';
         this.name = options.name || '';
         this.isDefault = options.isDefault || false;
         this.isMaster = options.isMaster || false;
@@ -59,8 +60,6 @@ var User = (function (_super) {
     function User(options) {
         if (options === void 0) { options = {}; }
         var _this = _super.call(this, options) || this;
-        _this.dealershipCode = options['dealershipCode'] || '';
-        _this.dealershipName = options['dealershipName'] || '';
         _this.email = options['email'] || '';
         _this.firstName = options['firstName'] || '';
         _this.lastName = options['lastName'] || '';

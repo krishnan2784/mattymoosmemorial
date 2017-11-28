@@ -11,34 +11,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var shareservice_1 = require("../../services/helpers/shareservice");
-var navmenuclasses_1 = require("../../models/navmenuclasses");
+var permissionservice_1 = require("../../services/helpers/permissionservice");
 var NavMenuComponent = (function () {
-    function NavMenuComponent(shareService) {
+    function NavMenuComponent(shareService, permissionService) {
         var _this = this;
         this.shareService = shareService;
+        this.permissionService = permissionService;
         this.currentMenuOptions = [];
         this.baseMenuOptions = [];
         this.backText = null;
         this.toggleDropdown = false;
         this.shareService.mainNavUpdated.subscribe(function (navMenu) {
+            if (navMenu[2])
+                _this.baseMenuOptions = navMenu[0];
             _this.currentMenuOptions = navMenu[0];
             _this.backText = navMenu[1];
         });
     }
     NavMenuComponent.prototype.ngOnInit = function () {
-        //this.securityService.getNavigationMenu(result => {
-        //  this.baseMenuOptions = result;
-        //  this.shareService.updateMainNavMenu(result);
-        //});
-        // until we have permission based menus
-        this.baseMenuOptions = [
-            new navmenuclasses_1.NavMenuOption('Dashboard', '/home', { activeLink: true }),
-            new navmenuclasses_1.NavMenuOption('Content', '/feed'),
-            new navmenuclasses_1.NavMenuOption('Reports', '/reports', { routerLinkActiveOptions: { exact: false } }),
-            new navmenuclasses_1.NavMenuOption('Accounts', '/useraccountmanagement', { routerLinkActiveOptions: { exact: false } }),
-            new navmenuclasses_1.NavMenuOption('Competition Management', '/competitions', { routerLinkActiveOptions: { exact: false } })
-        ];
-        this.resetNavMenu();
     };
     NavMenuComponent.prototype.resetNavMenu = function () {
         this.currentMenuOptions = this.baseMenuOptions;
@@ -56,7 +46,7 @@ NavMenuComponent = __decorate([
         template: require('./navmenu.component.html'),
         styles: [require('./navmenu.component.css')]
     }),
-    __metadata("design:paramtypes", [shareservice_1.ShareService])
+    __metadata("design:paramtypes", [shareservice_1.ShareService, permissionservice_1.PermissionService])
 ], NavMenuComponent);
 exports.NavMenuComponent = NavMenuComponent;
 //# sourceMappingURL=navmenu.component.js.map

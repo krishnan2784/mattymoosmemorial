@@ -108,3 +108,7 @@ export enum SecEntityTypeEnum {
 	SecUser = 0,
 	SecGroup = 1 
 }
+export enum SecFeatureTypeEnum {
+	Cms = 0,
+	Mobile = 1
+}

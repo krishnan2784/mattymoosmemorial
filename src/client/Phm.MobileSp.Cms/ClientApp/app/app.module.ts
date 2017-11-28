@@ -96,6 +96,11 @@ import {BaseBrandingComponent} from
 import {FontPickerComponent} from "./components/common/editor/fontpicker.component";
 import {BrandingOptionPickerComponent} from
 	"./components/branding/components/brandingoptionpicker/brandingoptionpicker.component";
+import {EditEntityPermissionsListComponent} from
+	"./components/accountmanagement/acl/editentitypermissionslist/editentitypermissionslist.component";
+import { UserGroupPermissionsIndexComponent } from "./components/accountmanagement/acl/indexes/usergroupindex.component";
+import {EditUserGroupComponent} from
+	"./components/accountmanagement/acl/editusergrouppermissions/editusergrouppermissions.component";
 import {OrderBy} from "./classes/orderBy";
 import { GenericFilterComponent } from "./components/common/filters/generic/genericfilter.component";
 import {CompetitionForm} from "./components/competitions/forms/competitionform/competitionform.component";
@@ -113,6 +118,8 @@ import {TermsAndConditionsIndexComponent} from
 	"./components/competitions/indexes/termsandconditionsindex/termsandconditionsindex.component";
 import {TermsAndConditionForm} from
 	"./components/competitions/forms/termsandconditionsform/termsandconditionsform.component";
+import {EditUserPermissionsComponent} from
+	"./components/accountmanagement/acl/edituserpermissions/edituserpermissions.component";
 
 
 @NgModule({
@@ -137,6 +144,7 @@ import {TermsAndConditionForm} from
         BrandingContainerComponent,
         BrandingContentSectionComponent,
 		BaseBrandingComponent,
+	    UserGroupPermissionsIndexComponent,
 	    CompetitionIndexComponent,
 	    RewardSchemeIndexComponent,
 	    TermsAndConditionsIndexComponent,
@@ -178,7 +186,10 @@ import {TermsAndConditionForm} from
 		TermsAndConditionForm,
 
         // user management
-        EditUser,
+		EditUser,
+	    EditEntityPermissionsListComponent,
+		EditUserGroupComponent,
+		EditUserPermissionsComponent,
 
         // charts
         BarChart,
@@ -225,6 +236,7 @@ import {TermsAndConditionForm} from
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
             { path: 'useraccountmanagement', component: UserAccountManagementComponent },
+			{ path: 'useraccountmanagement/userpermissionmanagement', component: UserGroupPermissionsIndexComponent },
             { path: 'feed/:feedCat', component: FeedIndexComponent },
             { path: 'feed', component: FeedIndexComponent },
             { path: 'feeditem', component: FeedItemForm },
@@ -239,7 +251,7 @@ import {TermsAndConditionForm} from
 			{ path: 'competitions/termsandconditions', component: TermsAndConditionsIndexComponent },
             { path: '**', redirectTo: 'home' }
         ])
-    ]
+	]
 })
 export class AppModule {
 }

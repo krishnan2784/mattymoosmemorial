@@ -121,6 +121,9 @@
     <None Update="ClientApp\app\interfaces\services\IRewardSchemesDataService.js.map">
       <DependentUpon>IRewardSchemesDataService.js</DependentUpon>
     </None>
+    <None Update="ClientApp\app\interfaces\services\IUserFeaturePermissionsDataService.js">
+      <DependentUpon>IUserFeaturePermissionsDataService.ts</DependentUpon>
+    </None>
     <None Update="ClientApp\app\models\competitionclasses.js">
       <DependentUpon>competitionclasses.ts</DependentUpon>
     </None>
@@ -129,6 +132,9 @@
     </None>
     <None Update="ClientApp\app\models\reportclasses.js">
       <DependentUpon>reportclasses.ts</DependentUpon>
+    </None>
+    <None Update="ClientApp\app\services\userfeaturepermissionsdataservice.js">
+      <DependentUpon>userfeaturepermissionsdataservice.ts</DependentUpon>
     </None>
   </ItemGroup>
 </Project>

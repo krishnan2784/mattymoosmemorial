@@ -33,4 +33,13 @@ namespace Phm.MobileSp.Cms.Core.Models
         public bool MakeCompletedImageLink { get; set; }
 	    public int Participants { get; set; }
 	}
+
+	public class ActiveCompetition : BaseModel
+	{
+		public int Id { get; set; }
+		public string Title { get; set; }
+		public DateTime? StartDate { get; set; }
+		public DateTime? EndDate { get; set; }
+		public int Participants { get; set; }
+	}
 }

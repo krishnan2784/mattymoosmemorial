@@ -15,7 +15,7 @@ var FormNavBarComponent = (function () {
         this.optionSelected = new core_1.EventEmitter();
     }
     FormNavBarComponent.prototype.ngOnInit = function () {
-        if (this.data && this.data.length > 0 && this.data.filter(function (x) { return x.select; }).length === 0) {
+        if (this.data && this.data.length > 0 && this.data.filter(function (x) { return x.selected; }).length === 0) {
             this.data[0].selected = true;
         }
     };

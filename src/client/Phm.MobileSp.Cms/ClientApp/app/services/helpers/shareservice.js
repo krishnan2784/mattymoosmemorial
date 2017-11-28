@@ -15,10 +15,12 @@ var Userclasses = require("../../models/userclasses");
 var UserMarket = Userclasses.UserMarket;
 var userdataservice_1 = require("../userdataservice");
 var userclasses_1 = require("../../models/userclasses");
+var entitypermissiondataservice_1 = require("../entitypermissiondataservice");
 var ShareService = (function () {
-    function ShareService(userDataService) {
+    function ShareService(userDataService, entityPermissionDataService) {
         var _this = this;
         this.userDataService = userDataService;
+        this.entityPermissionDataService = entityPermissionDataService;
         this.currentUser = new userclasses_1.User();
         this.currentMarket = new UserMarket;
         this.currentMarketId = this.currentMarket.id;
@@ -75,15 +77,16 @@ var ShareService = (function () {
     ShareService.prototype.updateNavTabs = function (navItems) {
         this.tabNavUpdate.next(navItems);
     };
-    ShareService.prototype.updateMainNavMenu = function (navItems, backText) {
+    ShareService.prototype.updateMainNavMenu = function (navItems, backText, overwriteBase) {
         if (backText === void 0) { backText = null; }
-        this.mainNavUpdate.next([navItems, backText]);
+        if (overwriteBase === void 0) { overwriteBase = false; }
+        this.mainNavUpdate.next([navItems, backText, overwriteBase]);
     };
     return ShareService;
 }());
 ShareService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [userdataservice_1.UserDataService])
+    __metadata("design:paramtypes", [userdataservice_1.UserDataService, entitypermissiondataservice_1.EntityPermissionDataService])
 ], ShareService);
 exports.ShareService = ShareService;
 //# sourceMappingURL=shareservice.js.map

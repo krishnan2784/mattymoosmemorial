@@ -6,9 +6,15 @@ import { UserDataService } from "../../services/userdataservice";
 import Mediaservice = require("../../services/mediaservice");
 import MediaDataService = Mediaservice.MediaDataService;
 import {BrandingService} from "../../services/brandingservice";
+import {UserGroupPermissionDataService} from "../../services/usergrouppermissiondataservice";
+import {EntityPermissionDataService} from "../../services/entitypermissiondataservice";
+import {SecurityFeatureDataService} from "../../services/securityfeaturedataservice";
 import {CompetitionsDataService} from "../../services/competitionsdataservice";
 import {TermsAndConditionsDataService} from "../../services/termsandconditionsdataservice";
 import {RewardSchemesDataService} from "../../services/rewardschemedataservice";
+import {ActiveCompetitionsDataService} from "../../services/activecompetitionsdataservice";
+import {UserFeaturePermissionsDataService} from "../../services/userfeaturepermissionsdataservice";
+import {PermissionService} from "../../services/helpers/permissionservice";
 
 @Component({
     selector: 'app',
@@ -17,8 +23,10 @@ import {RewardSchemesDataService} from "../../services/rewardschemedataservice";
 	providers: [FeedDataService, MarketDataService,
 		ShareService, UserDataService,
 		MediaDataService, BrandingService,
-		CompetitionsDataService, TermsAndConditionsDataService,
-		RewardSchemesDataService]
+		EntityPermissionDataService, SecurityFeatureDataService,
+		UserGroupPermissionDataService, CompetitionsDataService, TermsAndConditionsDataService,
+		RewardSchemesDataService, ActiveCompetitionsDataService, UserFeaturePermissionsDataService,
+		PermissionService]
 })
 export class AppComponent {
     public pageTitle: string;

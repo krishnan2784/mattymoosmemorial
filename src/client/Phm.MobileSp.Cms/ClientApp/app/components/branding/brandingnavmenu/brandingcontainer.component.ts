@@ -44,8 +44,10 @@ export class BrandingContainerComponent extends BaseComponent implements OnInit,
 	getBranding() {
 		this.brandingService.getBranding().subscribe(result => {
 			this.brandingConfigurations = [];
-			if (!result)
+			if (!result || result.brandingConfigurations.length == 0) {
+				this.activeBrandingSections = [];
 				return;
+			}
 			if (Array.isArray(result.brandingConfigurations))
 				this.brandingConfigurations = result.brandingConfigurations;
 			else
@@ -54,7 +56,7 @@ export class BrandingContainerComponent extends BaseComponent implements OnInit,
 
 			let marketConfig = this.brandingConfigurations.find(x => (new MarketBrandingConfiguration(x)).marketId > 0);
 
-			if (marketConfig != null) {
+			if (marketConfig != null && this.brandingConfigurations[this.brandingConfigurations.indexOf(marketConfig)]) {
 				this.brandingSections =
 					this.brandingConfigurations[this.brandingConfigurations.indexOf(marketConfig)].brandingElements;
 				this.disabled = false;
@@ -63,16 +65,17 @@ export class BrandingContainerComponent extends BaseComponent implements OnInit,
 				this.marketBranding = false;
 			//	this.disabled = this.shareService.currentMarket.id > 1;
 
-			if (this.brandingSections == null)
+			if (this.brandingSections == null && this.brandingConfigurations[0])
 				this.brandingSections = this.brandingConfigurations[0].brandingElements;
 
-			for (let i = 0; i < this.brandingSections.length; i++) {
-				this.brandingSections[i] = new BrandingElement(this.brandingSections[i]);
-				if (this.brandSectionNames.indexOf(this.brandingSections[i].groupName.split('>')[0]) > -1) continue;
-				this.brandSectionNames.push(this.brandingSections[i].groupName.split('>')[0]);
-			}
+			if (this.brandingSections !== null)
+				for (let i = 0; i < this.brandingSections.length; i++) {
+					this.brandingSections[i] = new BrandingElement(this.brandingSections[i]);
+					if (this.brandSectionNames.indexOf(this.brandingSections[i].groupName.split('>')[0]) > -1) continue;
+					this.brandSectionNames.push(this.brandingSections[i].groupName.split('>')[0]);
+				}
 
-			if (this.brandSectionNames.length > 0) {
+			if (this.brandSectionNames && this.brandSectionNames.length > 0) {
 				var menu = [];
 				for (let i = 0; i < this.brandSectionNames.length; i++) {
 					menu.push(new NavMenuOption(this.brandSectionNames[i],
