@@ -38,9 +38,9 @@ var Form = require("../../../classes/helpers/form");
 var FormEx = Form.FormEx;
 var Pagedfeeditemcomponent = require("./pagedfeed/pagedfeeditem.component");
 var PagedFeedItemFormComponent = Pagedfeeditemcomponent.PagedFeedItemFormComponent;
-var activecompetitionsdataservice_1 = require("../../../services/activecompetitionsdataservice");
+var competitionsubsetdataservice_1 = require("../../../services/competitionsubsetdataservice");
 var FeedItemForm = (function () {
-    function FeedItemForm(_fb, http, route, router, feedDataService, sharedService, mediaDataService, activeCompetitionDataService) {
+    function FeedItemForm(_fb, http, route, router, feedDataService, sharedService, mediaDataService, competitionSubsetDataService) {
         this._fb = _fb;
         this.http = http;
         this.route = route;
@@ -48,7 +48,7 @@ var FeedItemForm = (function () {
         this.feedDataService = feedDataService;
         this.sharedService = sharedService;
         this.mediaDataService = mediaDataService;
-        this.activeCompetitionDataService = activeCompetitionDataService;
+        this.competitionSubsetDataService = competitionSubsetDataService;
         this.feedFormData = null;
         this.feedUpdated = new core_1.EventEmitter();
         this.feedTypes = Enums.FeedTypeEnum;
@@ -100,7 +100,7 @@ var FeedItemForm = (function () {
     };
     FeedItemForm.prototype.setupCompetitions = function () {
         var _this = this;
-        this.activeCompetitionDataService.getActiveCompetitions().subscribe(function (result) {
+        this.competitionSubsetDataService.getCompetitionSubsets().subscribe(function (result) {
             if (result && result.length > 0) {
                 result.forEach(function (x) {
                     _this.competitions.push({ name: x.title, value: x.id });
@@ -293,7 +293,7 @@ FeedItemForm = __decorate([
     }),
     __metadata("design:paramtypes", [forms_1.FormBuilder, http_1.Http, router_1.ActivatedRoute,
         router_1.Router, feeddataservice_1.FeedDataService, ShareService,
-        mediaservice_1.MediaDataService, activecompetitionsdataservice_1.ActiveCompetitionsDataService])
+        mediaservice_1.MediaDataService, competitionsubsetdataservice_1.CompetitionSubsetsDataService])
 ], FeedItemForm);
 exports.FeedItemForm = FeedItemForm;
 //# sourceMappingURL=feeditemform.component.js.map

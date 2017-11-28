@@ -113,7 +113,15 @@ namespace Phm.MobileSp.Cms.Controllers
             return Json(result);
         }
 
-        public override void OnActionExecuted(ActionExecutedContext context)
+	    [HttpPost("[action]")]
+	    [JsonResponseWrapper]
+	    public async Task<JsonResult> CopyToMarket(CopiedElementTypeEnum contentType, int id, List<int> marketIds)
+	    {
+		    var response = await _contentRepository.CopyToMarket(contentType, id, marketIds);
+		    return Json(response);
+	    }
+
+		public override void OnActionExecuted(ActionExecutedContext context)
         {
             base.OnActionExecuted(context);
             if (context.HttpContext.Request.Method == "POST" && context.Exception == null)

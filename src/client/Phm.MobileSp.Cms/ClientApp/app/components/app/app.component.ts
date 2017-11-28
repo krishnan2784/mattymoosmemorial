@@ -12,9 +12,9 @@ import {SecurityFeatureDataService} from "../../services/securityfeaturedataserv
 import {CompetitionsDataService} from "../../services/competitionsdataservice";
 import {TermsAndConditionsDataService} from "../../services/termsandconditionsdataservice";
 import {RewardSchemesDataService} from "../../services/rewardschemedataservice";
-import {ActiveCompetitionsDataService} from "../../services/activecompetitionsdataservice";
 import {UserFeaturePermissionsDataService} from "../../services/userfeaturepermissionsdataservice";
 import {PermissionService} from "../../services/helpers/permissionservice";
+import {CompetitionSubsetsDataService} from "../../services/competitionsubsetdataservice";
 
 @Component({
     selector: 'app',
@@ -25,7 +25,7 @@ import {PermissionService} from "../../services/helpers/permissionservice";
 		MediaDataService, BrandingService,
 		EntityPermissionDataService, SecurityFeatureDataService,
 		UserGroupPermissionDataService, CompetitionsDataService, TermsAndConditionsDataService,
-		RewardSchemesDataService, ActiveCompetitionsDataService, UserFeaturePermissionsDataService,
+		RewardSchemesDataService, CompetitionSubsetsDataService, UserFeaturePermissionsDataService,
 		PermissionService]
 })
 export class AppComponent {

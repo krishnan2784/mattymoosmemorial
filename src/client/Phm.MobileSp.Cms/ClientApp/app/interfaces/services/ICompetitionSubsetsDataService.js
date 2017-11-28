@@ -1,3 +1,3 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=IActiveCompetitionsDataService.js.map
+//# sourceMappingURL=ICompetitionSubsetsDataService.js.map

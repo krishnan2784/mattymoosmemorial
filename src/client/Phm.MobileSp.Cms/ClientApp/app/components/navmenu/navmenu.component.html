@@ -1,8 +1,7 @@
 <div class="nav-container">
     <div class='navbar-header'>
 	    <a *ngIf="currentMenuOptions == baseMenuOptions" class='navbar-brand' [routerLink]="['/home']" id="btn-home">
-		    <img src="assets/images/MobileSP-LOGO-Landscape.png" class="header-logo" />
-		    <p>LearnComSP</p>
+		    <img src="assets/images/logos/ConnectSP-logo@2x.png" class="header-logo" />
 	    </a>
 	    <a *ngIf="currentMenuOptions && currentMenuOptions.length > 0 && currentMenuOptions != baseMenuOptions" class='navbar-brand' [routerLink]="['/home']" (click)="resetNavMenu()" id="btn-reset-nav">
 		    <h5 class="back-container">
@@ -41,16 +40,16 @@
                 </ul>
               
 	            <div class='loader' *ngIf="!currentMenuOptions || currentMenuOptions.length === 0"></div>
-	            <ul class='nav navbar-nav' *ngIf="currentMenuOptions && currentMenuOptions.length > 0">
-                <li *ngFor="let m of currentMenuOptions; let i=index" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="m.routerLinkActiveOptions" [class.link-active]="m.activeLink">
-	                <a *ngIf="m.routerLink" [routerLink]="[m.routerLink]" (click)="m.onClick" class="waves-effect waves-light" id="navbar__option-{{i}}">
-		                {{m.title}}
-	                </a>
-	                <a *ngIf="!m.routerLink" (click)="m.onClick(m.onClickParams);setActiveMenu(i)" class="waves-effect waves-light" id="navbar__option-{{i}}">
-		                {{m.title}}
-	                </a>
-                </li>
-              </ul>
+	            <ul class='nav navbar-nav animate-bottom' *ngIf="currentMenuOptions && currentMenuOptions.length > 0">
+		            <li *ngFor="let m of currentMenuOptions; let i=index" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="m.routerLinkActiveOptions" [class.link-active]="m.activeLink">
+			            <a *ngIf="m.routerLink" [routerLink]="[m.routerLink]" (click)="m.onClick" class="waves-effect waves-light" id="navbar__option-{{i}}">
+				            {{m.title}}
+			            </a>
+			            <a *ngIf="!m.routerLink" (click)="m.onClick(m.onClickParams);setActiveMenu(i)" class="waves-effect waves-light" id="navbar__option-{{i}}">
+				            {{m.title}}
+			            </a>
+		            </li>
+				</ul>
             </div>
         </div>
     </div>

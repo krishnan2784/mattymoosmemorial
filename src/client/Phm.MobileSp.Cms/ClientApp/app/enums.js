@@ -65,6 +65,7 @@ var CopiedElementTypeEnum;
     CopiedElementTypeEnum[CopiedElementTypeEnum["CompetitorsAssign"] = 13] = "CompetitorsAssign";
     CopiedElementTypeEnum[CopiedElementTypeEnum["VEDBandGroup"] = 14] = "VEDBandGroup";
     CopiedElementTypeEnum[CopiedElementTypeEnum["Feed"] = 15] = "Feed";
+    CopiedElementTypeEnum[CopiedElementTypeEnum["Competition"] = 16] = "Competition";
 })(CopiedElementTypeEnum = exports.CopiedElementTypeEnum || (exports.CopiedElementTypeEnum = {}));
 var PublishToTestObjectTypeEnum;
 (function (PublishToTestObjectTypeEnum) {

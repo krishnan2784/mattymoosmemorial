@@ -32,7 +32,6 @@ var PermissionService = (function () {
         this.usersPermissions = [];
         this.securityFeatureDataService.getSecurityFeatures().subscribe(function (result) {
             _this.allFeatures = result ? result : [];
-            console.log(result);
             _this.entityPermissionDataService.getUserPermissions().subscribe(function (response) {
                 _this.currentUsersPermissions = response ? response.permissions : [];
                 _this.allFeatures.forEach(function (x) {

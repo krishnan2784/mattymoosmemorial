@@ -1,19 +1,12 @@
 ﻿import { Component, Input, Output, ViewContainerRef, ViewChild, ReflectiveInjector, ComponentFactoryResolver, EventEmitter } from '@angular/core';
-import Copytomarketcomponent = require("../feed/modals/copytomarket.component");
-import FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
-import Feedindexcomponent = require("../feed/indexes/feedindex.component");
-import FeedIndexComponent = Feedindexcomponent.FeedIndexComponent;
-import ModalContent = require("../../interfaces/components/IModalContent");
-import IModalContent = ModalContent.IModalContent;
 import Editusercomponent = require("../accountmanagement/modals/edituser.component");
 import EditUser = Editusercomponent.EditUser;
-import Basemodalcontentcomponent = require("./basemodalcontent.component");
-import BaseModalContent = Basemodalcontentcomponent.BaseModalContent;
+import {CopyToMarketContent} from "./copytomarket/content/copytomarketcontent.component";
 declare var $: any;
 
 @Component({
     selector: 'base-modal',
-    entryComponents: [FeedItemCopyToMarket, EditUser], 
+	entryComponents: [EditUser, CopyToMarketContent], 
     template: require('./basemodal.component.html'),
     styles: [require('./basemodal.component.css')],
 })

@@ -29,6 +29,7 @@ var shareservice_1 = require("../../../../services/helpers/shareservice");
 var tabnavmenu_component_1 = require("../../../navmenu/tabnavmenu.component");
 var string_1 = require("../../../../classes/helpers/string");
 var competitionclasses_1 = require("../../../../models/competitionclasses");
+var enums_1 = require("../../../../enums");
 var CompetitionIndexComponent = (function (_super) {
     __extends(CompetitionIndexComponent, _super);
     function CompetitionIndexComponent(competitionDataService, sharedService, overlay, vcRef, confirmBox) {
@@ -36,7 +37,9 @@ var CompetitionIndexComponent = (function (_super) {
         _this.competitionDataService = competitionDataService;
         _this.confirmBox = confirmBox;
         _this.selectedModel = null;
+        _this.selectedCopyToMarketModel = null;
         _this.competitionFilters = genericfilter_component_1.DefaultFilterSets.competitionFilters;
+        _this.contentTypeEnum = enums_1.CopiedElementTypeEnum;
         overlay.defaultViewContainer = vcRef;
         _this.setupSubscriptions();
         return _this;
@@ -112,6 +115,36 @@ var CompetitionIndexComponent = (function (_super) {
         this.selectedModel = null;
         if (comp)
             this.getData();
+    };
+    CompetitionIndexComponent.prototype.copyCompetitionToMarket = function (comp) {
+        this.selectedCopyToMarketModel = comp;
+    };
+    CompetitionIndexComponent.prototype.publishCompetitionTolive = function (competition) {
+        var _this = this;
+        var confirmText;
+        if (competition.published) {
+            confirmText = competition.title + " has already been published. Are you sure to overwrite it?";
+        }
+        else {
+            confirmText = "Are you sure to publish " + competition.title + "?";
+        }
+        this.confirmBox.confirm()
+            .size('sm')
+            .showClose(false)
+            .title('Publish')
+            .body(confirmText)
+            .okBtn('Confirm')
+            .cancelBtn('Cancel')
+            .open()
+            .catch(function (err) { return console.log('ERROR: ' + err); })
+            .then(function (dialog) { return dialog.result; })
+            .then(function (result) {
+            _this.competitionDataService.publishContentToLive(competition.id).subscribe(function (result) {
+                if (result) {
+                }
+            });
+        })
+            .catch(function (err) { });
     };
     CompetitionIndexComponent.prototype.deleteCompetition = function (competition) {
         var _this = this;

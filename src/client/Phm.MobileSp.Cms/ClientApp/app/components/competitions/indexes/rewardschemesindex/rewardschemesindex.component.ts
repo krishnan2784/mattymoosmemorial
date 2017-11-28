@@ -56,7 +56,7 @@ export class RewardSchemeIndexComponent extends BaseComponent implements OnInit,
 
     getData() {
 		this.getRewardScehemesSub = this.rewardSchemesDataService.getRewardScheme().subscribe((result) => {
-			this.rewardSchemes = result;
+			this.rewardSchemes = result ? result : [];
 			this.sharedService.updateMarketDropdownEnabledState(true);
 		});
 	}

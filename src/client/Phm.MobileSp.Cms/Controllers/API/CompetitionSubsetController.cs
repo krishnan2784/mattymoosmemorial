@@ -13,14 +13,14 @@ namespace Phm.MobileSp.Cms.Controllers.API
 	[Authorize]
     [Route("api/[controller]")]
     [AiHandleError]
-    public class ActiveCompetitionController : BaseController
+    public class CompetitionSubsetController : BaseController
     {
-        private readonly IActiveCompetitionRepository _activeCompetitionRepo;
+        private readonly ICompetitionSubsetRepository _competitionSubsetRepo;
 
-        public ActiveCompetitionController(IMemoryCache memoryCache, IActiveCompetitionRepository activeCompetitionRepo) 
+        public CompetitionSubsetController(IMemoryCache memoryCache, ICompetitionSubsetRepository competitionSubsetRepo) 
             : base(memoryCache)
         {
-	        _activeCompetitionRepo = activeCompetitionRepo;
+	        _competitionSubsetRepo = competitionSubsetRepo;
         }
         
         [HttpGet]
@@ -28,7 +28,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
         [ResponseCache(CacheProfileName = "NoCache")]
 		public async Task<JsonResult> Get()
         {
-            var response = await _activeCompetitionRepo.GetActiveCompetitionAsync(CurrentMarketId);
+            var response = await _competitionSubsetRepo.GetCompetitionSubsetAsync(CurrentMarketId);
             return Json(new BaseResponse<dynamic>(response));
         }
 

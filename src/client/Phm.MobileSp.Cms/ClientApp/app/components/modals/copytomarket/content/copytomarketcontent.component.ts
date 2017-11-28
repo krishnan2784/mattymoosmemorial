@@ -1,29 +1,20 @@
 import { Component, Output, EventEmitter, Injector, Input, OnInit } from '@angular/core';
-import ModalContent = require("../../../interfaces/components/IModalContent");
-import IModalContent = ModalContent.IModalContent;
-import Basemodalcontentcomponent = require("../../modals/basemodalcontent.component");
-import BaseModalContent = Basemodalcontentcomponent.BaseModalContent;
-import Datashareservice = require("../../../services/helpers/shareservice");
-import ShareService = Datashareservice.ShareService;
-import Marketdataservice = require("../../../services/marketdataservice");
-import MarketDataService = Marketdataservice.MarketDataService;
-import Userclasses = require("../../../models/userclasses");
-import MarketContentService = require("../../../interfaces/services/IMarketContentService");
-import IMarketContentService = MarketContentService.IMarketContentService;
-import Baseclasses = require("../../../models/baseclasses");
-import BaseModel = Baseclasses.BaseModel;
-import Enums = require("../../../enums");
-import CopiedElementTypeEnum = Enums.CopiedElementTypeEnum;
-import Userdataservice = require("../../../services/userdataservice");
-import UserDataService = Userdataservice.UserDataService;
-import ContentMarket = Userclasses.ContentMarket;
+import {BaseModalContent} from "../../basemodalcontent.component";
+import {IModalContent} from "../../../../interfaces/components/IModalContent";
+import {BaseModel} from "../../../../models/baseclasses";
+import {CopiedElementTypeEnum} from "../../../../enums";
+import {IMarketContentService} from "../../../../interfaces/services/IMarketContentService";
+import {ContentMarket} from "../../../../models/userclasses";
+import {ShareService} from "../../../../services/helpers/shareservice";
+import {MarketDataService} from "../../../../services/marketdataservice";
+import {UserDataService} from "../../../../services/userdataservice";
 
 @Component({
-    selector: 'feeditem-copytomarket',
-    template: require('./copytomarket.component.html'),
-    styles: [require('./copytomarket.component.css')]
+    selector: 'copytomarketcontent',
+    template: require('./copytomarketcontent.component.html'),
+	styles: [require('./copytomarketcontent.component.css')]
 })
-export class FeedItemCopyToMarket extends BaseModalContent implements OnInit, IModalContent {
+export class CopyToMarketContent extends BaseModalContent implements OnInit, IModalContent {
 
     title: string;
     model: BaseModel;

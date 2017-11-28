@@ -254,3 +254,8 @@ li:not(.link-active) a:focus,
 	font-weight: 400!important;
 
 }
+.loader {
+	margin: 15% 27%;
+	border-color: transparent;
+	border-top-color: #ffffff
+}

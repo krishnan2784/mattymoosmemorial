@@ -24,6 +24,7 @@ var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/publishReplay");
 var requesthelper_1 = require("./helpers/requesthelper");
+var enums_1 = require("../enums");
 var CompetitionsDataService = (function (_super) {
     __extends(CompetitionsDataService, _super);
     function CompetitionsDataService(http) {
@@ -39,6 +40,12 @@ var CompetitionsDataService = (function (_super) {
     };
     CompetitionsDataService.prototype.deleteCompetition = function (id) {
         return this.postRequestBase('/api/Competition/Delete?id=' + id, null);
+    };
+    CompetitionsDataService.prototype.copyItemToMarket = function (id, marketIds) {
+        return this.copyToMarket('/api/Competition/CopyToMarket', id, marketIds, enums_1.CopiedElementTypeEnum.Competition);
+    };
+    CompetitionsDataService.prototype.publishContentToLive = function (contentId) {
+        return this.publishToLive(enums_1.CopiedElementTypeEnum.Competition, contentId);
     };
     return CompetitionsDataService;
 }(requesthelper_1.RequestHelper));

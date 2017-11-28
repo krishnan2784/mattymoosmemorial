@@ -28,7 +28,6 @@ export class PermissionService {
 		this.usersPermissions = [];
 		this.securityFeatureDataService.getSecurityFeatures().subscribe(result => {
 			this.allFeatures = result ? result : [];
-			console.log(result);
 			this.entityPermissionDataService.getUserPermissions().subscribe(response => {
 				this.currentUsersPermissions = response ? response.permissions : [];
 				this.allFeatures.forEach(x => {

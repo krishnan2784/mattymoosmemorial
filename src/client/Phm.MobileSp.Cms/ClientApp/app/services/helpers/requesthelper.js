@@ -62,8 +62,9 @@ var RequestHelper = (function () {
             });
         });
     };
-    RequestHelper.prototype.copyToMarket = function (url, id, marketIds) {
+    RequestHelper.prototype.copyToMarket = function (url, id, marketIds, contentType) {
         var _this = this;
+        if (contentType === void 0) { contentType = null; }
         if (!marketIds || marketIds.length === 0)
             return null;
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
@@ -73,7 +74,7 @@ var RequestHelper = (function () {
             marketQueryString += '&marketIds=' + m;
         }
         return Observable_1.Observable.create(function (observer) {
-            _this.http.post(url + '?id=' + id + marketQueryString, null, headers).subscribe(function (result) {
+            _this.http.post(url + '?id=' + id + marketQueryString + (contentType ? '&contentType=' + contentType : ''), null, headers).subscribe(function (result) {
                 var response = responsehelper_1.ResponseHelper.getResponse(result);
                 if (response.success) {
                     Materialize.toast(response.message, 5000, 'green');
