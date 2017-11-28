@@ -122,17 +122,19 @@ var Competition = (function (_super) {
     return Competition;
 }(baseclasses_1.BaseModel));
 exports.Competition = Competition;
-var ActiveCompetition = (function () {
-    function ActiveCompetition(options) {
+var CompetitionSubset = (function () {
+    function CompetitionSubset(options) {
         if (options === void 0) { options = {}; }
         this.id = options['id'] || 0;
         this.title = options['title'] || '';
+        this.baseRewardSchemeId = options['baseRewardSchemeId'];
+        this.termsAndConditionId = options['termsAndConditionId'];
         this.startDate = options['startDate'];
         this.endDate = options['endDate'];
         this.participants = options['participants'] || 0;
         this.formatDates();
     }
-    ActiveCompetition.prototype.formatDates = function (competition) {
+    CompetitionSubset.prototype.formatDates = function (competition) {
         if (competition === void 0) { competition = this; }
         var d = new Date();
         if (competition.startDate) {
@@ -148,7 +150,7 @@ var ActiveCompetition = (function () {
         }
         competition.endDate = date_1.DateEx.formatDate(d2);
     };
-    return ActiveCompetition;
+    return CompetitionSubset;
 }());
-exports.ActiveCompetition = ActiveCompetition;
+exports.CompetitionSubset = CompetitionSubset;
 //# sourceMappingURL=competitionclasses.js.map

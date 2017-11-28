@@ -10,10 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var Copytomarketcomponent = require("../feed/modals/copytomarket.component");
-var FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
 var Editusercomponent = require("../accountmanagement/modals/edituser.component");
 var EditUser = Editusercomponent.EditUser;
+var copytomarketcontent_component_1 = require("./copytomarket/content/copytomarketcontent.component");
 var BaseModalComponent = (function () {
     function BaseModalComponent(resolver) {
         this.resolver = resolver;
@@ -85,7 +84,7 @@ __decorate([
 BaseModalComponent = __decorate([
     core_1.Component({
         selector: 'base-modal',
-        entryComponents: [FeedItemCopyToMarket, EditUser],
+        entryComponents: [EditUser, copytomarketcontent_component_1.CopyToMarketContent],
         template: require('./basemodal.component.html'),
         styles: [require('./basemodal.component.css')],
     }),

@@ -128,7 +128,7 @@ namespace Phm.MobileSp.Cms
                 services.AddTransient<ICompetitionRepository, CompetitionRepository>();
 				services.AddSingleton<ITermsAndConditionsRepository, TermsAndConditionsRepository>();
 				services.AddSingleton<IRewardSchemesRepository, RewardSchemesRepository>();
-				services.AddSingleton<IActiveCompetitionRepository, ActiveCompetitionRepository>();
+				services.AddSingleton<ICompetitionSubsetRepository, CompetitionSubsetRepository>();
 				services.AddSingleton<IUserFeaturePermissionsRepository, UserFeaturePermissionsRepository>();
 				
 				services.AddSingleton<IFeedItemModelBinder, FeedItemModelBinder>();

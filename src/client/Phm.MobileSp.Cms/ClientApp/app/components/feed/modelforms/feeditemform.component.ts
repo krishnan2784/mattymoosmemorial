@@ -32,7 +32,7 @@ import Form = require("../../../classes/helpers/form");
 import FormEx = Form.FormEx;
 import Pagedfeeditemcomponent = require("./pagedfeed/pagedfeeditem.component");
 import PagedFeedItemFormComponent = Pagedfeeditemcomponent.PagedFeedItemFormComponent;
-import {ActiveCompetitionsDataService} from "../../../services/activecompetitionsdataservice";
+import {CompetitionSubsetsDataService} from "../../../services/competitionsubsetdataservice";
 
 declare var $: any;
 declare var Materialize: any;
@@ -80,7 +80,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
 	competitionDisabled: boolean = true;
     constructor(public _fb: FormBuilder, public http: Http, public route: ActivatedRoute,
         private router: Router, public feedDataService: FeedDataService, public sharedService: ShareService,
-		public mediaDataService: MediaDataService, public activeCompetitionDataService: ActiveCompetitionsDataService) {
+		public mediaDataService: MediaDataService, public competitionSubsetDataService: CompetitionSubsetsDataService) {
     }
 
 	ngOnInit() {
@@ -128,7 +128,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
 	}
 
 	public setupCompetitions() {
-		this.activeCompetitionDataService.getActiveCompetitions().subscribe(result => {
+		this.competitionSubsetDataService.getCompetitionSubsets().subscribe(result => {
 			if (result && result.length > 0) {
 				result.forEach(x => {
 					this.competitions.push({ name: x.title, value: x.id });

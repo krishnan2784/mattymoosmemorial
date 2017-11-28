@@ -61,7 +61,7 @@ var TermsAndConditionsIndexComponent = (function (_super) {
     TermsAndConditionsIndexComponent.prototype.getData = function () {
         var _this = this;
         this.getTermsAndConditionsSub = this.termsAndConditionsDataService.getTermsAndConditions().subscribe(function (result) {
-            _this.termsAndConditions = result;
+            _this.termsAndConditions = result ? result : [];
             _this.sharedService.updateMarketDropdownEnabledState(true);
         });
     };

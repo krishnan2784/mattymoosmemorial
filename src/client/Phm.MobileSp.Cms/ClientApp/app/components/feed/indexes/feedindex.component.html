@@ -100,6 +100,6 @@
 </div>
 
 <feeditemform *ngIf="selectedModel" [model]="selectedModel" (feedUpdated)="feedItemUpdated($event)"></feeditemform>
-
-
-<base-modal [modalData]="modalData" [modalId]="'feeditem-copytomarket'" [modalHeader]="'Copy to market'" [modalDescription]="''" (modelClosed)="updateFeedItem($event)"></base-modal>
+<copytomarket [model]="selectedCopyToMarketModel" [contentType]="contentTypeEnum.Feed" [marketContentService]="feedDataService" 
+              [modalId]="'feeditem-copytomarket'" [modalHeader]="'Copy to market'" [modalDescription]="''" 
+              (updateItem)="selectedCopyToMarketModel = null"></copytomarket>

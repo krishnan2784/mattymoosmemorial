@@ -20,19 +20,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var Basemodalcontentcomponent = require("../../modals/basemodalcontent.component");
-var BaseModalContent = Basemodalcontentcomponent.BaseModalContent;
-var Datashareservice = require("../../../services/helpers/shareservice");
-var ShareService = Datashareservice.ShareService;
-var Marketdataservice = require("../../../services/marketdataservice");
-var MarketDataService = Marketdataservice.MarketDataService;
-var Userclasses = require("../../../models/userclasses");
-var Userdataservice = require("../../../services/userdataservice");
-var UserDataService = Userdataservice.UserDataService;
-var ContentMarket = Userclasses.ContentMarket;
-var FeedItemCopyToMarket = (function (_super) {
-    __extends(FeedItemCopyToMarket, _super);
-    function FeedItemCopyToMarket(injector, sharedService, marketService, userDataService) {
+var basemodalcontent_component_1 = require("../../basemodalcontent.component");
+var userclasses_1 = require("../../../../models/userclasses");
+var shareservice_1 = require("../../../../services/helpers/shareservice");
+var marketdataservice_1 = require("../../../../services/marketdataservice");
+var userdataservice_1 = require("../../../../services/userdataservice");
+var CopyToMarketContent = (function (_super) {
+    __extends(CopyToMarketContent, _super);
+    function CopyToMarketContent(injector, sharedService, marketService, userDataService) {
         var _this = _super.call(this) || this;
         _this.injector = injector;
         _this.sharedService = sharedService;
@@ -49,14 +44,14 @@ var FeedItemCopyToMarket = (function (_super) {
         }
         return _this;
     }
-    FeedItemCopyToMarket.prototype.ngOnInit = function () {
+    CopyToMarketContent.prototype.ngOnInit = function () {
         this.setupMarkets();
     };
-    FeedItemCopyToMarket.prototype.setupMarkets = function () {
+    CopyToMarketContent.prototype.setupMarkets = function () {
         var _this = this;
         this.marketService.getMarketsByMasterId(this.contentType, this.model.masterId).subscribe(function (result) {
             if (result && result.length > 0) {
-                _this.currentMarkets = _this.filterMarkets(result.map(function (x) { return new ContentMarket(x); }));
+                _this.currentMarkets = _this.filterMarkets(result.map(function (x) { return new userclasses_1.ContentMarket(x); }));
                 _this.markMarketsAsCopied();
             }
             _this.userDataService.getUserMarkets().subscribe(function (result) {
@@ -64,12 +59,12 @@ var FeedItemCopyToMarket = (function (_super) {
                     if (_this.currentMarkets && _this.currentMarkets.length > 0)
                         result = result.filter(function (x) { return _this.currentMarkets.filter(function (y) { return y.id === x.id; }).length === 0; });
                     result = result.filter(function (x) { return !x.isLive; });
-                    _this.userMarkets = _this.filterMarkets(result.map(function (x) { return new ContentMarket(x); }));
+                    _this.userMarkets = _this.filterMarkets(result.map(function (x) { return new userclasses_1.ContentMarket(x); }));
                 }
             });
         });
     };
-    FeedItemCopyToMarket.prototype.filterMarkets = function (markets) {
+    CopyToMarketContent.prototype.filterMarkets = function (markets) {
         var _this = this;
         // we will need to filter Global and Pan EU out when viewing the Pan EU market
         // and filter out Global when viewing the global market
@@ -81,7 +76,7 @@ var FeedItemCopyToMarket = (function (_super) {
         markets = markets.filter(function (x) { return x.id !== _this.sharedService.currentMarket.id; });
         return markets;
     };
-    FeedItemCopyToMarket.prototype.markMarketsAsCopied = function () {
+    CopyToMarketContent.prototype.markMarketsAsCopied = function () {
         var _loop_1 = function (x) {
             var origItem = this_1.currentMarkets.find(function (y) { return y.id === x.id; });
             var index = this_1.currentMarkets.indexOf(origItem);
@@ -94,29 +89,29 @@ var FeedItemCopyToMarket = (function (_super) {
         }
         this.checkForChanges();
     };
-    FeedItemCopyToMarket.prototype.copyToMarket = function () {
+    CopyToMarketContent.prototype.copyToMarket = function () {
         var _this = this;
         if (this.selectedUserMarket[0] && this.currentMarkets.filter(function (x) { return x.id === _this.selectedUserMarket[0].id; }).length === 0) {
-            this.currentMarkets.push(new ContentMarket(this.selectedUserMarket[0]));
+            this.currentMarkets.push(new userclasses_1.ContentMarket(this.selectedUserMarket[0]));
             var origItem = this.userMarkets.find(function (x) { return x.id === _this.selectedUserMarket[0].id; });
             var index = this.userMarkets.indexOf(origItem);
             this.userMarkets.splice(index, 1);
             this.checkForChanges();
         }
     };
-    FeedItemCopyToMarket.prototype.removeFromMarket = function () {
+    CopyToMarketContent.prototype.removeFromMarket = function () {
         var _this = this;
         if (this.selectedMarket[0] && !this.selectedMarket[0].isCopied &&
             this.userMarkets.filter(function (x) { return x.id === _this.selectedMarket[0].id; }).length === 0) {
-            this.userMarkets.push(new ContentMarket(this.selectedMarket[0]));
+            this.userMarkets.push(new userclasses_1.ContentMarket(this.selectedMarket[0]));
             var origItem = this.currentMarkets.find(function (x) { return x.id === _this.selectedMarket[0].id; });
             var index = this.currentMarkets.indexOf(origItem);
             this.currentMarkets.splice(index, 1);
             this.checkForChanges();
         }
     };
-    FeedItemCopyToMarket.prototype.checkForChanges = function () { this.unsavedChanges = this.currentMarkets.filter(function (x) { return !x.isCopied; }).length > 0; };
-    FeedItemCopyToMarket.prototype.saveChanges = function () {
+    CopyToMarketContent.prototype.checkForChanges = function () { this.unsavedChanges = this.currentMarkets.filter(function (x) { return !x.isCopied; }).length > 0; };
+    CopyToMarketContent.prototype.saveChanges = function () {
         var _this = this;
         this.loading = true;
         var marketIds = this.currentMarkets.map(function (x) { return x.id; });
@@ -127,16 +122,16 @@ var FeedItemCopyToMarket = (function (_super) {
             _this.loading = false;
         });
     };
-    return FeedItemCopyToMarket;
-}(BaseModalContent));
-FeedItemCopyToMarket = __decorate([
+    return CopyToMarketContent;
+}(basemodalcontent_component_1.BaseModalContent));
+CopyToMarketContent = __decorate([
     core_1.Component({
-        selector: 'feeditem-copytomarket',
-        template: require('./copytomarket.component.html'),
-        styles: [require('./copytomarket.component.css')]
+        selector: 'copytomarketcontent',
+        template: require('./copytomarketcontent.component.html'),
+        styles: [require('./copytomarketcontent.component.css')]
     }),
-    __metadata("design:paramtypes", [core_1.Injector, ShareService,
-        MarketDataService, UserDataService])
-], FeedItemCopyToMarket);
-exports.FeedItemCopyToMarket = FeedItemCopyToMarket;
-//# sourceMappingURL=copytomarket.component.js.map
+    __metadata("design:paramtypes", [core_1.Injector, shareservice_1.ShareService,
+        marketdataservice_1.MarketDataService, userdataservice_1.UserDataService])
+], CopyToMarketContent);
+exports.CopyToMarketContent = CopyToMarketContent;
+//# sourceMappingURL=copytomarketcontent.component.js.map

@@ -74,7 +74,7 @@ export class RequestHelper {
         });
     }
 
-    public copyToMarket(url: string, id: number, marketIds: number[]): Observable<ApiResponse> {
+	public copyToMarket(url: string, id: number, marketIds: number[], contentType: CopiedElementTypeEnum = null): Observable<ApiResponse> {
         if (!marketIds || marketIds.length === 0)
             return null;
         let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -83,7 +83,7 @@ export class RequestHelper {
             marketQueryString += '&marketIds=' + m;
         }
         return Observable.create(observer => {
-            this.http.post(url + '?id=' + id + marketQueryString, null, headers).subscribe(
+			this.http.post(url + '?id=' + id + marketQueryString + (contentType ? '&contentType=' + contentType : ''), null, headers).subscribe(
                 (result) => {
                     let response = ResponseHelper.getResponse(result);
                     if (response.success) {

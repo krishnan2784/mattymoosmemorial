@@ -55,7 +55,7 @@ export class TermsAndConditionsIndexComponent extends BaseComponent implements O
 
     getData() {
 		this.getTermsAndConditionsSub = this.termsAndConditionsDataService.getTermsAndConditions().subscribe((result) => {
-			this.termsAndConditions = result;
+			this.termsAndConditions = result ? result : [];
 			this.sharedService.updateMarketDropdownEnabledState(true);
 		});
 	}

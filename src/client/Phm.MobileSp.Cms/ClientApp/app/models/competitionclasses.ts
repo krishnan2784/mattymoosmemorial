@@ -133,8 +133,10 @@ export class Competition extends BaseModel {
 	}
 }
 
-export class ActiveCompetition {
+export class CompetitionSubset {
 	id: number;
+	baseRewardSchemeId:number;
+	termsAndConditionId: number;
 	title: string;
 	startDate: string;
 	endDate: string;
@@ -143,13 +145,15 @@ export class ActiveCompetition {
 	constructor(options: {} = {}) {
 		this.id = options['id'] || 0;
 		this.title = options['title'] || '';
+		this.baseRewardSchemeId = options['baseRewardSchemeId'];
+		this.termsAndConditionId = options['termsAndConditionId'];
 		this.startDate = options['startDate'];
 		this.endDate = options['endDate'];
 		this.participants = options['participants'] || 0;
 		this.formatDates();
 	}
 
-	public formatDates(competition: ActiveCompetition = this) {
+	public formatDates(competition: CompetitionSubset = this) {
 		let d = new Date();
 		if (competition.startDate) {
 			d = new Date(competition.startDate);

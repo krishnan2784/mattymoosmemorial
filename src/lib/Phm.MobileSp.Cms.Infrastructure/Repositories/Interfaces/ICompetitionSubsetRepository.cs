@@ -5,8 +5,8 @@ using Phm.MobileSp.Cms.Core.Models;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
 {
-    public interface IActiveCompetitionRepository
+    public interface ICompetitionSubsetRepository
 	{
-        Task<List<ActiveCompetition>> GetActiveCompetitionAsync(int marketId);
+        Task<List<CompetitionSubset>> GetCompetitionSubsetAsync(int marketId);
 	}
 }

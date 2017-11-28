@@ -36,7 +36,6 @@ export class UserGroupPermissionDataService extends RequestHelper implements IUs
 		return Observable.create(observer => {
 			this.http.get('/api/SecurityGroup/GetSecGroupUsers/?id=' + userGroupId).subscribe(result => {
 				let response = ResponseHelper.getResponse(result);
-				console.log('hi',result);
 				observer.next(response.content);
 				observer.complete();
 			});

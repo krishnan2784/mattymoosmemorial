@@ -56,6 +56,7 @@ export enum CopiedElementTypeEnum {
     CompetitorsAssign = 13,
     VEDBandGroup = 14,
     Feed = 15,
+	Competition = 16,
 }
 export enum PublishToTestObjectTypeEnum {
     CarModel = 0,

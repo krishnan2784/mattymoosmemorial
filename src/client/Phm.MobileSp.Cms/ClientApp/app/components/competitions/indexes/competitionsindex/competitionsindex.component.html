@@ -42,6 +42,20 @@
 							        </a>
 						        </div>
 					        </div>
+					        <div class="competition-control">
+						        <div  *ngIf="currentMarket && !currentMarket.isLive && currentMarket.isMaster">
+							        <a (click)="copyCompetitionToMarket(competition)" data-toggle="modal" data-target="#competition-copytomarket" id="competition-index-item__btn-copy-to-market-{{i}}">
+								        <i class="material-icons">content_copy</i>
+								        <p>Copy</p>
+							        </a>
+						        </div>
+						        <div  *ngIf="currentMarket && !currentMarket.isLive && !currentMarket.isMaster">
+							        <a (click)="publishCompetitionTolive(competition)" id="competition-index-item__btn-publish-{{i}}">
+								        <i class="material-icons">launch</i>
+								        <p>Publish</p>
+							        </a>
+						        </div>
+					        </div>
 					        <div class="clearfix"></div>
 
 				        </div>
@@ -64,3 +78,5 @@
 </div>
 
 <competition-form *ngIf="selectedModel" [model]="selectedModel" (competitionUpdated)="competitionUpdated($event)"></competition-form>
+<copytomarket [model]="selectedCopyToMarketModel" [contentType]="contentTypeEnum.Competition" [marketContentService]="competitionDataService" 
+              [modalId]="'competition-copytomarket'" [modalHeader]="'Copy to market'" [modalDescription]="''"></copytomarket>

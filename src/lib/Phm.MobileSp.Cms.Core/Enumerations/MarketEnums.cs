@@ -18,7 +18,8 @@
         CompetitorsAssign = 13,
         VEDBandGroup = 14,
         Feed = 15,
-    }
+        Competitions = 16,
+	}
 
     public enum PublishToTestObjectTypeEnum
     {

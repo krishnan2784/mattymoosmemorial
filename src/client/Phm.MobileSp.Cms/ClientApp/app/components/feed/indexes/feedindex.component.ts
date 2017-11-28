@@ -11,9 +11,7 @@ import { BaseComponent} from "../../base.component";
 import { ShareService } from "../../../services/helpers/shareservice";
 import Userclasses = require("../../../models/userclasses");
 import UserMarket = Userclasses.UserMarket;
-import Copytomarketcomponent = require("../modals/copytomarket.component");
 import { DefaultTabNavs } from "../../navmenu/tabnavmenu.component";
-import FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
 import CopiedElementTypeEnum = Enums.CopiedElementTypeEnum;
 
 
@@ -32,12 +30,14 @@ declare var Materialize: any;
     styles: [require('./feedindex.component.css')]
 })
 export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestroy {
-    selectedModel = null;
+	selectedModel = null;
+	selectedCopyToMarketModel = null;
     modalData = null;
 
     public feedItems: IFeedItem[];
     feedTypes: typeof Enums.FeedTypeEnum = FeedTypeEnum;
-    feedCats: typeof FeedCategoryEnum = FeedCategoryEnum;
+	feedCats: typeof FeedCategoryEnum = FeedCategoryEnum;
+	contentTypeEnum: typeof CopiedElementTypeEnum = CopiedElementTypeEnum;
     public catId : number;
     public filteredFeed: boolean;
     public id_sub: any;
@@ -166,14 +166,8 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
         this.getData();
     }
 
-    copyFeedItemToMarket(feedItem: IFeedItem) {
-        let inputs = { model: feedItem, contentType: CopiedElementTypeEnum.Feed, marketContentService: this.feedDataService };
-        var modelData = FeedItemCopyToMarket;
-
-        this.modalData = {
-            modalContent: modelData,
-            inputs: inputs
-        };
+	copyFeedItemToMarket(feedItem: IFeedItem) {
+		this.selectedCopyToMarketModel = feedItem;
     }
 
     deleteFeeditem(feedItem: IFeedItem) {

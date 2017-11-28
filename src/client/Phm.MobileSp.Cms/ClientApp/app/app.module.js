@@ -40,8 +40,6 @@ var observationfeeditem_component_1 = require("./components/feed/modelforms/obse
 var questionform_component_1 = require("./components/feed/modelforms/questionform.component");
 var Basemodalcomponent = require("./components/modals/basemodal.component");
 var BaseModalComponent = Basemodalcomponent.BaseModalComponent;
-var Copytomarketcomponent = require("./components/feed/modals/copytomarket.component");
-var FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
 var feedreportindex_component_1 = require("./components/reports/indexes/feedreportindex.component");
 var quizfeeditemreport_component_1 = require("./components/reports/quizfeeditemreport.component");
 var Barchartcomponent = require("./components/charts/barchart.component");
@@ -113,6 +111,8 @@ var rewardschemeform_component_1 = require("./components/competitions/forms/rewa
 var termsandconditionsindex_component_1 = require("./components/competitions/indexes/termsandconditionsindex/termsandconditionsindex.component");
 var termsandconditionsform_component_1 = require("./components/competitions/forms/termsandconditionsform/termsandconditionsform.component");
 var edituserpermissions_component_1 = require("./components/accountmanagement/acl/edituserpermissions/edituserpermissions.component");
+var copytomarket_component_1 = require("./components/modals/copytomarket/copytomarket.component");
+var copytomarketcontent_component_1 = require("./components/modals/copytomarket/content/copytomarketcontent.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -189,7 +189,8 @@ AppModule = __decorate([
             monobargraph_component_1.MonobarGraphComponent,
             gaugegraph_component_1.GaugeGraphComponent,
             //modals
-            FeedItemCopyToMarket,
+            copytomarketcontent_component_1.CopyToMarketContent,
+            copytomarket_component_1.CopyToMarket,
             //shared
             UserFilter,
             richtexteditor_component_1.RichTextEditorComponent,

@@ -53,7 +53,6 @@ var UserGroupPermissionDataService = (function (_super) {
         return Observable_1.Observable.create(function (observer) {
             _this.http.get('/api/SecurityGroup/GetSecGroupUsers/?id=' + userGroupId).subscribe(function (result) {
                 var response = responsehelper_1.ResponseHelper.getResponse(result);
-                console.log('hi', result);
                 observer.next(response.content);
                 observer.complete();
             });

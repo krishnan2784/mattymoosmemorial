@@ -61,7 +61,7 @@ var RewardSchemeIndexComponent = (function (_super) {
     RewardSchemeIndexComponent.prototype.getData = function () {
         var _this = this;
         this.getRewardScehemesSub = this.rewardSchemesDataService.getRewardScheme().subscribe(function (result) {
-            _this.rewardSchemes = result;
+            _this.rewardSchemes = result ? result : [];
             _this.sharedService.updateMarketDropdownEnabledState(true);
         });
     };

@@ -36,8 +36,6 @@ import { ObservationFeedItemFormComponent } from "./components/feed/modelforms/o
 import { QuestionFormComponent } from "./components/feed/modelforms/questionform.component";
 import Basemodalcomponent = require("./components/modals/basemodal.component");
 import BaseModalComponent = Basemodalcomponent.BaseModalComponent;
-import Copytomarketcomponent = require("./components/feed/modals/copytomarket.component");
-import FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
 import { FeedReportIndexComponent } from "./components/reports/indexes/feedreportindex.component";
 import { QuizFeedItemReport } from "./components/reports/quizfeeditemreport.component";
 import Barchartcomponent = require("./components/charts/barchart.component");
@@ -120,6 +118,8 @@ import {TermsAndConditionForm} from
 	"./components/competitions/forms/termsandconditionsform/termsandconditionsform.component";
 import {EditUserPermissionsComponent} from
 	"./components/accountmanagement/acl/edituserpermissions/edituserpermissions.component";
+import {CopyToMarket} from "./components/modals/copytomarket/copytomarket.component";
+import {CopyToMarketContent} from "./components/modals/copytomarket/content/copytomarketcontent.component";
 
 
 @NgModule({
@@ -200,7 +200,8 @@ import {EditUserPermissionsComponent} from
         GaugeGraphComponent,
 
         //modals
-        FeedItemCopyToMarket,
+	    CopyToMarketContent,
+		CopyToMarket,
 
         //shared
         UserFilter,

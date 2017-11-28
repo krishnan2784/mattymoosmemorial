@@ -24,21 +24,21 @@ var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/publishReplay");
 var requesthelper_1 = require("./helpers/requesthelper");
-var ActiveCompetitionsDataService = (function (_super) {
-    __extends(ActiveCompetitionsDataService, _super);
-    function ActiveCompetitionsDataService(http) {
+var CompetitionSubsetsDataService = (function (_super) {
+    __extends(CompetitionSubsetsDataService, _super);
+    function CompetitionSubsetsDataService(http) {
         var _this = _super.call(this, http) || this;
         _this.http = http;
         return _this;
     }
-    ActiveCompetitionsDataService.prototype.getActiveCompetitions = function () {
-        return this.getRequestBase('/api/ActiveCompetition');
+    CompetitionSubsetsDataService.prototype.getCompetitionSubsets = function () {
+        return this.getRequestBase('/api/CompetitionSubset');
     };
-    return ActiveCompetitionsDataService;
+    return CompetitionSubsetsDataService;
 }(requesthelper_1.RequestHelper));
-ActiveCompetitionsDataService = __decorate([
+CompetitionSubsetsDataService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [http_1.Http])
-], ActiveCompetitionsDataService);
-exports.ActiveCompetitionsDataService = ActiveCompetitionsDataService;
-//# sourceMappingURL=activecompetitionsdataservice.js.map
+], CompetitionSubsetsDataService);
+exports.CompetitionSubsetsDataService = CompetitionSubsetsDataService;
+//# sourceMappingURL=competitionsubsetdataservice.js.map

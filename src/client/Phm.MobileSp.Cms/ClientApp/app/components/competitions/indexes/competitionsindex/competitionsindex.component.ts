@@ -10,6 +10,7 @@ import { ShareService } from "../../../../services/helpers/shareservice";
 import { DefaultTabNavs } from "../../../navmenu/tabnavmenu.component";
 import { StringEx } from "../../../../classes/helpers/string";
 import { Competition } from "../../../../models/competitionclasses";
+import {CopiedElementTypeEnum} from "../../../../enums";
 
 @Component({
 	selector: 'competitionsindex',
@@ -18,6 +19,7 @@ import { Competition } from "../../../../models/competitionclasses";
 })
 export class CompetitionIndexComponent extends BaseComponent implements OnInit, OnDestroy {
 	selectedModel: Competition = null;
+	selectedCopyToMarketModel: Competition = null;
 	public getCompetitionsItemsSub;
 
 	public allCompetitions: Competition[];
@@ -26,6 +28,7 @@ export class CompetitionIndexComponent extends BaseComponent implements OnInit, 
 	competitionFilters: GenericFilterSet = DefaultFilterSets.competitionFilters;
 
 	public currentMarket: UserMarket;
+	contentTypeEnum: typeof CopiedElementTypeEnum = CopiedElementTypeEnum;
 
 	constructor(public competitionDataService: CompetitionsDataService, sharedService: ShareService,
 		overlay: Overlay, vcRef: ViewContainerRef, public confirmBox: Modal) {
@@ -100,14 +103,44 @@ export class CompetitionIndexComponent extends BaseComponent implements OnInit, 
 		this.selectedModel = competition;
     }
 
-    competitionUpdated(comp) {
+	competitionUpdated(comp) {
 		this.updatePageTitle("Competitions Management");
         this.updateMarketDropdownVisibility(true);
 		this.updateTabNavItems(DefaultTabNavs.competitionsTabs);
 		this.selectedModel = null;
 		if (comp)
 			this.getData();
-    }
+	}
+
+	copyCompetitionToMarket(comp: Competition) {
+		this.selectedCopyToMarketModel = comp;
+	}
+
+	publishCompetitionTolive(competition: Competition) {
+		var confirmText;
+		if (competition.published) {
+			confirmText = competition.title + " has already been published. Are you sure to overwrite it?";
+		} else {
+			confirmText = "Are you sure to publish " + competition.title + "?";
+		}
+		this.confirmBox.confirm()
+			.size('sm')
+			.showClose(false)
+			.title('Publish')
+			.body(confirmText)
+			.okBtn('Confirm')
+			.cancelBtn('Cancel')
+			.open()
+			.catch((err: any) => console.log('ERROR: ' + err))
+			.then((dialog: any) => { return dialog.result })
+			.then((result: any) => {
+				this.competitionDataService.publishContentToLive(competition.id).subscribe((result) => {
+					if (result) {
+					}
+				});
+			})
+			.catch((err: any) => { });
+	}
 	
     deleteCompetition(competition) {
         this.confirmBox.confirm()

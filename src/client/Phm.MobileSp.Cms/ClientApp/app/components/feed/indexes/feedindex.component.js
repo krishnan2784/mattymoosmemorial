@@ -27,9 +27,7 @@ var FeedTypeEnum = Enums.FeedTypeEnum;
 var FeedCategoryEnum = Enums.FeedCategoryEnum;
 var base_component_1 = require("../../base.component");
 var shareservice_1 = require("../../../services/helpers/shareservice");
-var Copytomarketcomponent = require("../modals/copytomarket.component");
 var tabnavmenu_component_1 = require("../../navmenu/tabnavmenu.component");
-var FeedItemCopyToMarket = Copytomarketcomponent.FeedItemCopyToMarket;
 var CopiedElementTypeEnum = Enums.CopiedElementTypeEnum;
 var angular2_modal_1 = require("angular2-modal");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
@@ -46,9 +44,11 @@ var FeedIndexComponent = (function (_super) {
         _this.confirmBox = confirmBox;
         _this.permissionService = permissionService;
         _this.selectedModel = null;
+        _this.selectedCopyToMarketModel = null;
         _this.modalData = null;
         _this.feedTypes = FeedTypeEnum;
         _this.feedCats = FeedCategoryEnum;
+        _this.contentTypeEnum = CopiedElementTypeEnum;
         _this.setupSubscriptions();
         overlay.defaultViewContainer = vcRef;
         _this.userPermissions = permissionService.getCrudPermissions('/feed');
@@ -165,12 +165,7 @@ var FeedIndexComponent = (function (_super) {
         this.getData();
     };
     FeedIndexComponent.prototype.copyFeedItemToMarket = function (feedItem) {
-        var inputs = { model: feedItem, contentType: CopiedElementTypeEnum.Feed, marketContentService: this.feedDataService };
-        var modelData = FeedItemCopyToMarket;
-        this.modalData = {
-            modalContent: modelData,
-            inputs: inputs
-        };
+        this.selectedCopyToMarketModel = feedItem;
     };
     FeedIndexComponent.prototype.deleteFeeditem = function (feedItem) {
         var _this = this;
