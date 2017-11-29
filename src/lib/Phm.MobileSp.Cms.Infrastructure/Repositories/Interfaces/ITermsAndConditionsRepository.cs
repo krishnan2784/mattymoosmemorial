@@ -9,7 +9,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
 	{
         Task<dynamic> GetTermsAndConditionsAsync(int marketId);
 		Task<TermsAndCondition> CreateTermsAndConditionsAsync(TermsAndCondition termsAndCondition);
-		Task<TermsAndCondition> UpdateTermsAndConditionsAsync(TermsAndCondition termsAndCondition);
+		Task<bool> UpdateTermsAndConditionsAsync(TermsAndCondition termsAndCondition);
 		Task<bool> DeleteTermsAndConditionsAsync(int id);
 	}
 }

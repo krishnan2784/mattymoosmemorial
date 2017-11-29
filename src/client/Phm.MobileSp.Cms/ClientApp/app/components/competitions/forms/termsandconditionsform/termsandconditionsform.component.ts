@@ -69,7 +69,6 @@ export class TermsAndConditionForm implements OnInit {
 		this.loading = true;
 		this.termsAndConditionsDataService.updateTermsAndCondition(termsAndConditions).subscribe(result => {
 			if (result.success) {
-				this.model = result.content;
 				this.termsAndConditionsUpdated.emit(result.content);
 			} else
 				this.loading = false;

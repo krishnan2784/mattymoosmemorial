@@ -63,8 +63,6 @@ export class RewardSchemeForm implements OnInit {
 	initItem(condition: PositionXBoosterItem = new PositionXBoosterItem()) {
 		return new FormGroup({
 			id: new FormControl(condition.id, []),
-			enabled: new FormControl(condition.enabled, []),
-			published: new FormControl(condition.published, []),
 			positionXBoosterRewardSchemeId: new FormControl(condition.positionXBoosterRewardSchemeId, []),
 			startPosition: new FormControl(condition.startPosition, [<any>Validators.required]),
 			endPosition: new FormControl(condition.endPosition, [<any>Validators.required]),
@@ -102,7 +100,6 @@ export class RewardSchemeForm implements OnInit {
 		this.loading = true;
 		this.rewardSchemesDataService.updateRewardScheme(rewarScheme).subscribe(result => {
 			if (result.success) {
-				this.model = result.content;
 				this.rewardSchemeUpdated.emit(result.content);
 			} else
 				this.loading = false;

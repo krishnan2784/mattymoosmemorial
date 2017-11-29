@@ -9,7 +9,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
 	{
         Task<dynamic> GetRewardSchemesAsync(int marketId);
 		Task<BaseRewardScheme> CreateRewardSchemesAsync(BaseRewardScheme competition);
-		Task<BaseRewardScheme> UpdateRewardSchemesAsync(BaseRewardScheme competition);
+		Task<bool> UpdateRewardSchemesAsync(BaseRewardScheme competition);
 		Task<bool> DeleteRewardSchemesAsync(int id);
 	}
 }

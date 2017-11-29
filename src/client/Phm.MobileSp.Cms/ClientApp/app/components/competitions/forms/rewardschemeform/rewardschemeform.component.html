@@ -21,8 +21,6 @@
 			<div formArrayName="items" *ngIf="form.controls.items">
 				<div *ngFor="let item of form.controls['items'].controls; let i=index" [formGroupName]="i" class="condition">
 					<input type="hidden" formControlName="id">
-					<input type="hidden" formControlName="enabled">
-					<input type="hidden" formControlName="published">
 					<input type="hidden" formControlName="positionXBoosterRewardSchemeId">
 
 					<div class="col-md-5 no-pad">

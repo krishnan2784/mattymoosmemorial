@@ -47,17 +47,17 @@ export class PermissionService {
 	}
 
 	hasPermission(uri: string, httpVerb: string, secFeatureType: SecFeatureTypeEnum = SecFeatureTypeEnum.Cms): boolean {
-		var up = this.usersPermissions.filter(x => x.uri.toLowerCase() === uri.toLowerCase() &&
+		var up = this.usersPermissions ? this.usersPermissions.filter(x => x.uri.toLowerCase() === uri.toLowerCase() &&
 			x.httpVerb.toLowerCase() === httpVerb.toLowerCase() &&
 			x.secFeatureType == secFeatureType &&
-			x.allow)[0];
+			x.allow)[0] : undefined;
 		if (up !== undefined)
 			return true;
 		// if the user does not have explicit permission we need to check that the permissiob being requested exists in the database
 		// this will enable things like competitions to be visible because they do not currently have values in the FeaturePermissions table
-		var noPermissionSet = this.allFeatures.filter(x => x.uri.toLowerCase() === uri.toLowerCase() &&
+		var noPermissionSet = this.allFeatures ? this.allFeatures.filter(x => x.uri.toLowerCase() === uri.toLowerCase() &&
 			x.httpVerb.toLowerCase() === httpVerb.toLowerCase() &&
-			x.secFeatureType == secFeatureType)[0];
+			x.secFeatureType == secFeatureType)[0] : undefined;
 		return noPermissionSet === undefined;
 	}
 
@@ -90,10 +90,10 @@ export class PermissionService {
 }
 export class CommonOperationPermissions {
 	constructor(
-	public canGet,
-	public canCreate,
-	public canEdit,
-	public canDelete,
-	public canCopyToMarket,
-	public canPublishToLive){}
+	public canGet = false,
+	public canCreate = false,
+	public canEdit = false,
+	public canDelete = false,
+	public canCopyToMarket = false,
+	public canPublishToLive = false){}
 }

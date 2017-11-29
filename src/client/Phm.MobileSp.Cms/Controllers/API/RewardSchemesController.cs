@@ -45,12 +45,12 @@ namespace Phm.MobileSp.Cms.Controllers.API
 		[JsonResponseWrapper]
 		public async Task<JsonResult> Update([FromBody]PositionXBoosterRewardScheme rewardSchemes)
 		{
+			rewardSchemes.MarketId = CurrentMarketId;
 			if (rewardSchemes.Id == 0)
 				return await Create(rewardSchemes);
 
 			var response = await _rewardSchemesRepo.UpdateRewardSchemesAsync(rewardSchemes);
-			var success = response != null && response.Id > 0;
-			return Json(new BaseResponse<dynamic>(success, success ? "Reward scheme was successfully updated." : "Failed to update reward scheme. Please try again.", response));
+			return Json(new BaseResponse<dynamic>(response, response ? "Reward scheme was successfully updated." : "Failed to update reward scheme. Please try again.", response));
 		}
 
 		[HttpPost("[action]")]

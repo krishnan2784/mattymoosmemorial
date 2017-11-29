@@ -103,12 +103,12 @@ export class CompetitionIndexComponent extends BaseComponent implements OnInit, 
 		this.selectedModel = competition;
     }
 
-	competitionUpdated(comp) {
+	competitionUpdated(updated) {
 		this.updatePageTitle("Competitions Management");
         this.updateMarketDropdownVisibility(true);
 		this.updateTabNavItems(DefaultTabNavs.competitionsTabs);
 		this.selectedModel = null;
-		if (comp)
+		if (updated)
 			this.getData();
 	}
 

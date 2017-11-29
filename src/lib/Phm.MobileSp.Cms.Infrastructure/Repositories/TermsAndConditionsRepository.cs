@@ -22,10 +22,10 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 			return GetResponseModel<TermsAndCondition>(response);
 		}
 
-		public async Task<TermsAndCondition> UpdateTermsAndConditionsAsync(TermsAndCondition termsAndCondition)
+		public async Task<bool> UpdateTermsAndConditionsAsync(TermsAndCondition termsAndCondition)
 		{
 			var response = await PutAsync(termsAndCondition);
-			return GetResponseModel<TermsAndCondition>(response);
+			return GetResponseModel<bool>(response);
 		}
 	
 		public async Task<bool> DeleteTermsAndConditionsAsync(int id)

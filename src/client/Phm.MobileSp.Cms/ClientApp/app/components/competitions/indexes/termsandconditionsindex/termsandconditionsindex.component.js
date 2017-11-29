@@ -96,12 +96,12 @@ var TermsAndConditionsIndexComponent = (function (_super) {
         this.updateTabNavItems();
         this.selectedModel = termsAndConditions;
     };
-    TermsAndConditionsIndexComponent.prototype.termsAndConditionsUpdated = function (termsAndConditions) {
+    TermsAndConditionsIndexComponent.prototype.termsAndConditionsUpdated = function (updated) {
         this.updatePageTitle("Terms and Conditions");
         this.updateMarketDropdownVisibility(true);
         this.updateTabNavItems(tabnavmenu_component_1.DefaultTabNavs.competitionsTabs);
         this.selectedModel = null;
-        if (termsAndConditions)
+        if (updated)
             this.getData();
     };
     TermsAndConditionsIndexComponent.prototype.deleteTermsAndConditions = function (termsAndConditions) {

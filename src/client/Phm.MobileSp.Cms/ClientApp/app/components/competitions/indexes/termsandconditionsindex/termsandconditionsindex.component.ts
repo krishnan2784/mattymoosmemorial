@@ -89,12 +89,12 @@ export class TermsAndConditionsIndexComponent extends BaseComponent implements O
 		this.selectedModel = termsAndConditions;
     }
 
-    termsAndConditionsUpdated(termsAndConditions) {
+    termsAndConditionsUpdated(updated) {
 		this.updatePageTitle("Terms and Conditions");
         this.updateMarketDropdownVisibility(true);
 		this.updateTabNavItems(DefaultTabNavs.competitionsTabs);
 		this.selectedModel = null;
-		if (termsAndConditions)
+		if (updated)
 			this.getData();
     }
 	

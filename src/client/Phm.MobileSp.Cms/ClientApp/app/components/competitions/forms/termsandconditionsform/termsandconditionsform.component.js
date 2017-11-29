@@ -58,7 +58,6 @@ var TermsAndConditionForm = (function () {
         this.loading = true;
         this.termsAndConditionsDataService.updateTermsAndCondition(termsAndConditions).subscribe(function (result) {
             if (result.success) {
-                _this.model = result.content;
                 _this.termsAndConditionsUpdated.emit(result.content);
             }
             else

@@ -1,4 +1,4 @@
-﻿import {BaseModel} from "./baseclasses";
+﻿import {BaseModel, BasicBaseModel } from "./baseclasses";
 import {MediaInfo} from "./mediainfoclasses";
 import {Market} from "./marketclasses";
 import {SecEntity} from "./securityclasses";
@@ -34,7 +34,7 @@ export class BaseRewardScheme extends BaseModel {
 	}
 }
 
-export class PositionXBoosterItem extends BaseModel {
+export class PositionXBoosterItem extends BasicBaseModel {
 	positionXBoosterRewardScheme: PositionXBoosterRewardScheme;
 	positionXBoosterRewardSchemeId: number;
 	startPosition: number;

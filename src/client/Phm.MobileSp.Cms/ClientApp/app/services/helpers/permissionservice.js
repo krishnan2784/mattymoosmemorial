@@ -50,17 +50,17 @@ var PermissionService = (function () {
     };
     PermissionService.prototype.hasPermission = function (uri, httpVerb, secFeatureType) {
         if (secFeatureType === void 0) { secFeatureType = enums_1.SecFeatureTypeEnum.Cms; }
-        var up = this.usersPermissions.filter(function (x) { return x.uri.toLowerCase() === uri.toLowerCase() &&
+        var up = this.usersPermissions ? this.usersPermissions.filter(function (x) { return x.uri.toLowerCase() === uri.toLowerCase() &&
             x.httpVerb.toLowerCase() === httpVerb.toLowerCase() &&
             x.secFeatureType == secFeatureType &&
-            x.allow; })[0];
+            x.allow; })[0] : undefined;
         if (up !== undefined)
             return true;
         // if the user does not have explicit permission we need to check that the permissiob being requested exists in the database
         // this will enable things like competitions to be visible because they do not currently have values in the FeaturePermissions table
-        var noPermissionSet = this.allFeatures.filter(function (x) { return x.uri.toLowerCase() === uri.toLowerCase() &&
+        var noPermissionSet = this.allFeatures ? this.allFeatures.filter(function (x) { return x.uri.toLowerCase() === uri.toLowerCase() &&
             x.httpVerb.toLowerCase() === httpVerb.toLowerCase() &&
-            x.secFeatureType == secFeatureType; })[0];
+            x.secFeatureType == secFeatureType; })[0] : undefined;
         return noPermissionSet === undefined;
     };
     PermissionService.prototype.setupBaseNavMenu = function () {
@@ -91,6 +91,12 @@ PermissionService = __decorate([
 exports.PermissionService = PermissionService;
 var CommonOperationPermissions = (function () {
     function CommonOperationPermissions(canGet, canCreate, canEdit, canDelete, canCopyToMarket, canPublishToLive) {
+        if (canGet === void 0) { canGet = false; }
+        if (canCreate === void 0) { canCreate = false; }
+        if (canEdit === void 0) { canEdit = false; }
+        if (canDelete === void 0) { canDelete = false; }
+        if (canCopyToMarket === void 0) { canCopyToMarket = false; }
+        if (canPublishToLive === void 0) { canPublishToLive = false; }
         this.canGet = canGet;
         this.canCreate = canCreate;
         this.canEdit = canEdit;

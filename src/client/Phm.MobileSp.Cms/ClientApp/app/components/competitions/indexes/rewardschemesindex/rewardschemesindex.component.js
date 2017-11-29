@@ -96,12 +96,12 @@ var RewardSchemeIndexComponent = (function (_super) {
         this.updateTabNavItems();
         this.selectedModel = rewardScheme;
     };
-    RewardSchemeIndexComponent.prototype.rewardSchemeUpdated = function (scheme) {
+    RewardSchemeIndexComponent.prototype.rewardSchemeUpdated = function (updated) {
         this.updatePageTitle("Reward Schemes");
         this.updateMarketDropdownVisibility(true);
         this.updateTabNavItems(tabnavmenu_component_1.DefaultTabNavs.competitionsTabs);
         this.selectedModel = null;
-        if (scheme)
+        if (updated)
             this.getData();
     };
     RewardSchemeIndexComponent.prototype.deleteRewardScheme = function (rewardScheme) {

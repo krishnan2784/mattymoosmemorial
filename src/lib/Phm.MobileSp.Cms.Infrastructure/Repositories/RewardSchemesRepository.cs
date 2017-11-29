@@ -22,10 +22,10 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 			return GetResponseModel<PositionXBoosterRewardScheme>(response);
 		}
 
-		public async Task<BaseRewardScheme> UpdateRewardSchemesAsync(BaseRewardScheme rewardSchemes)
+		public async Task<bool> UpdateRewardSchemesAsync(BaseRewardScheme rewardSchemes)
 		{
 			var response = await PutAsync(rewardSchemes);
-			return GetResponseModel<PositionXBoosterRewardScheme>(response);
+			return GetResponseModel<bool>(response);
 		}
 	
 		public async Task<bool> DeleteRewardSchemesAsync(int id)

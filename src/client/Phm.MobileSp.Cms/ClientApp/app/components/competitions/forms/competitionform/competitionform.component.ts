@@ -102,7 +102,6 @@ export class CompetitionForm implements OnInit {
 		this.loading = true;
 		this.competitionService.updateCompetition(competition).subscribe(result => {
 			if (result.success) {
-				this.model = result.content;
 				this.competitionUpdated.emit(result.content);
 			} else
 				this.loading = false;

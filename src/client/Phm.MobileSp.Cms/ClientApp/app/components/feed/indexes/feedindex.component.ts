@@ -43,7 +43,7 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
     public id_sub: any;
     public currentMarket: UserMarket;
     public getFeedItemsSub;
-	public userPermissions: CommonOperationPermissions;
+	public userPermissions: CommonOperationPermissions = new CommonOperationPermissions();
 
 	constructor(private route: ActivatedRoute, private router: Router,
 		public feedDataService: FeedDataService, sharedService: ShareService,

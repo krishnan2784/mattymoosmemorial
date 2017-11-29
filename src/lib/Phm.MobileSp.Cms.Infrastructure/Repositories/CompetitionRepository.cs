@@ -22,10 +22,10 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 			return GetResponseModel<Competition>(response);
 		}
 
-		public async Task<Competition> UpdateCompetitionAsync(Competition competition)
+		public async Task<bool> UpdateCompetitionAsync(Competition competition)
 		{
 			var response = await PutAsync(competition);
-			return GetResponseModel<Competition>(response);
+			return GetResponseModel<bool>(response);
 		}
 	
 		public async Task<bool> DeleteCompetitionAsync(int id)

@@ -92,7 +92,6 @@ var CompetitionForm = (function () {
         this.loading = true;
         this.competitionService.updateCompetition(competition).subscribe(function (result) {
             if (result.success) {
-                _this.model = result.content;
                 _this.competitionUpdated.emit(result.content);
             }
             else

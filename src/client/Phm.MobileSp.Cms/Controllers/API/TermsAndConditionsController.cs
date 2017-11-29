@@ -50,8 +50,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
 				return await Create(termsAndConditions);
 
 			var response = await _termsAndConditionsRepo.UpdateTermsAndConditionsAsync(termsAndConditions);
-			var success = response != null && response.Id > 0;
-			return Json(new BaseResponse<dynamic>(success, success ? "Terms and conditions were successfully updated." : "Failed to update terms and conditions. Please try again.", response));
+			return Json(new BaseResponse<dynamic>(response, response ? "Terms and conditions were successfully updated." : "Failed to update terms and conditions. Please try again.", response));
 		}
 
 		[HttpPost("[action]")]

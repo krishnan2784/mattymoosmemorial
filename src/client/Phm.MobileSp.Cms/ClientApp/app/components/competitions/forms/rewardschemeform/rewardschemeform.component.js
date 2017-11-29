@@ -50,8 +50,6 @@ var RewardSchemeForm = (function () {
         if (condition === void 0) { condition = new competitionclasses_1.PositionXBoosterItem(); }
         return new forms_1.FormGroup({
             id: new forms_1.FormControl(condition.id, []),
-            enabled: new forms_1.FormControl(condition.enabled, []),
-            published: new forms_1.FormControl(condition.published, []),
             positionXBoosterRewardSchemeId: new forms_1.FormControl(condition.positionXBoosterRewardSchemeId, []),
             startPosition: new forms_1.FormControl(condition.startPosition, [forms_1.Validators.required]),
             endPosition: new forms_1.FormControl(condition.endPosition, [forms_1.Validators.required]),
@@ -85,7 +83,6 @@ var RewardSchemeForm = (function () {
         this.loading = true;
         this.rewardSchemesDataService.updateRewardScheme(rewarScheme).subscribe(function (result) {
             if (result.success) {
-                _this.model = result.content;
                 _this.rewardSchemeUpdated.emit(result.content);
             }
             else

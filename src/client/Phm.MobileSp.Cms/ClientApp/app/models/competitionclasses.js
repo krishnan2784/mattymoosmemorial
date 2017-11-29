@@ -56,7 +56,7 @@ var PositionXBoosterItem = (function (_super) {
         return _this;
     }
     return PositionXBoosterItem;
-}(baseclasses_1.BaseModel));
+}(baseclasses_1.BasicBaseModel));
 exports.PositionXBoosterItem = PositionXBoosterItem;
 var PositionXBoosterRewardScheme = (function (_super) {
     __extends(PositionXBoosterRewardScheme, _super);

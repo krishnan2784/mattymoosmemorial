@@ -49,6 +49,7 @@ var FeedIndexComponent = (function (_super) {
         _this.feedTypes = FeedTypeEnum;
         _this.feedCats = FeedCategoryEnum;
         _this.contentTypeEnum = CopiedElementTypeEnum;
+        _this.userPermissions = new permissionservice_1.CommonOperationPermissions();
         _this.setupSubscriptions();
         overlay.defaultViewContainer = vcRef;
         _this.userPermissions = permissionService.getCrudPermissions('/feed');
