@@ -51,7 +51,7 @@ export class FeedIndexComponent extends IndexComponent implements OnInit, OnDest
 		permissionService: PermissionService) {
 
 		super(sharedService, permissionService, '', true, '',
-			DefaultTabNavs.feedIndexTabs, '/fee');
+			DefaultTabNavs.feedIndexTabs, '/feed');
 
         this.setupSubscriptions();
 		overlay.defaultViewContainer = vcRef;

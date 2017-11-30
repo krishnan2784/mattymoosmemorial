@@ -37,7 +37,7 @@ var index_component_1 = require("../../index.component");
 var FeedIndexComponent = (function (_super) {
     __extends(FeedIndexComponent, _super);
     function FeedIndexComponent(route, router, feedDataService, sharedService, overlay, vcRef, confirmBox, permissionService) {
-        var _this = _super.call(this, sharedService, permissionService, '', true, '', tabnavmenu_component_1.DefaultTabNavs.feedIndexTabs, '/fee') || this;
+        var _this = _super.call(this, sharedService, permissionService, '', true, '', tabnavmenu_component_1.DefaultTabNavs.feedIndexTabs, '/feed') || this;
         _this.route = route;
         _this.router = router;
         _this.feedDataService = feedDataService;
