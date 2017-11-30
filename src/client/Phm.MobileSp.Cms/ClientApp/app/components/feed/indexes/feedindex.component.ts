@@ -20,6 +20,7 @@ import { Modal } from 'angular2-modal/plugins/bootstrap';
 import Feedclasses = require("../../../models/feedclasses");
 import BaseFeed = Feedclasses.BaseFeed;
 import { PermissionService, CommonOperationPermissions } from "../../../services/helpers/permissionservice";
+import {IndexComponent} from "../../index.component";
 
 declare var $: any;
 declare var Materialize: any;
@@ -29,7 +30,7 @@ declare var Materialize: any;
     template: require('./feedindex.component.html'),
     styles: [require('./feedindex.component.css')]
 })
-export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestroy {
+export class FeedIndexComponent extends IndexComponent implements OnInit, OnDestroy {
 	selectedModel = null;
 	selectedCopyToMarketModel = null;
     modalData = null;
@@ -43,17 +44,17 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
     public id_sub: any;
     public currentMarket: UserMarket;
     public getFeedItemsSub;
-	public userPermissions: CommonOperationPermissions = new CommonOperationPermissions();
 
 	constructor(private route: ActivatedRoute, private router: Router,
 		public feedDataService: FeedDataService, sharedService: ShareService,
 		overlay: Overlay, vcRef: ViewContainerRef, public confirmBox: Modal,
-		public permissionService: PermissionService) {
-		super(sharedService, '', true, '', DefaultTabNavs.feedIndexTabs);
+		permissionService: PermissionService) {
+
+		super(sharedService, permissionService, '', true, '',
+			DefaultTabNavs.feedIndexTabs, '/fee');
 
         this.setupSubscriptions();
 		overlay.defaultViewContainer = vcRef;
-		this.userPermissions = permissionService.getCrudPermissions('/feed');
 	}
 
     setupSubscriptions() {
@@ -99,7 +100,7 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
         }
     }
 
-    getData() {
+	getData() {
         if (this.getFeedItemsSub)
             this.getFeedItemsSub.unsubscribe();
         this.sharedService.updateMarketDropdownEnabledState(false);

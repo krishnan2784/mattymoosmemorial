@@ -43,6 +43,8 @@ var ShareService = (function () {
         this.navTabsUpdated = this.tabNavUpdate.asObservable();
         this.mainNavUpdate = new Subject_1.Subject();
         this.mainNavUpdated = this.mainNavUpdate.asObservable();
+        this.permissionsUpdate = new Subject_1.Subject();
+        this.permissionsUpdated = this.permissionsUpdate.asObservable();
         userDataService.getCurrentUser().subscribe(function (response) {
             _this.currentUser = response;
         });
@@ -81,6 +83,9 @@ var ShareService = (function () {
         if (backText === void 0) { backText = null; }
         if (overwriteBase === void 0) { overwriteBase = false; }
         this.mainNavUpdate.next([navItems, backText, overwriteBase]);
+    };
+    ShareService.prototype.emitPermissionsUpdateNotification = function () {
+        this.permissionsUpdate.next(true);
     };
     return ShareService;
 }());

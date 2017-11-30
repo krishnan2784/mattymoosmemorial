@@ -57,8 +57,7 @@ var BaseComponent = (function () {
 }());
 BaseComponent = __decorate([
     core_1.Component({
-        template: '',
-        providers: [shareservice_1.ShareService]
+        template: ''
     }),
     __metadata("design:paramtypes", [shareservice_1.ShareService, String, Boolean, String, Array])
 ], BaseComponent);

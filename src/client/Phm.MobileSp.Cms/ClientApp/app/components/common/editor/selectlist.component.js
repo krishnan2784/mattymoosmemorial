@@ -14,6 +14,7 @@ var forms_1 = require("@angular/forms");
 var SelectListComponent = (function () {
     function SelectListComponent() {
         this.values = [];
+        this.selectedValue = '';
         this.elementId = '';
         this.label = '';
         this.validationMessage = '';
@@ -34,6 +35,10 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Array)
 ], SelectListComponent.prototype, "values", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", String)
+], SelectListComponent.prototype, "defaultValue", void 0);
 __decorate([
     core_1.Input(),
     __metadata("design:type", Object)
@@ -69,7 +74,7 @@ __decorate([
 SelectListComponent = __decorate([
     core_1.Component({
         selector: 'selectlist',
-        template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n\t        <label *ngIf=\"label\" [attr.for]=\"elementId\">{{label}}</label>\n\t        <select id=\"{{elementId}}\" formControlName=\"{{formControlId}}\" materialize=\"material_select\" [(ngModel)]=\"selectedValue\" class=\"browser-default\" [attr.disabled]=\"disabled ? 'disabled' : null\">\n\t\t        <option *ngFor=\"let v of values\" [ngValue]=\"v.value\">{{v.name}}</option>\n\t        </select>\n\t        <small *ngIf=\"validationMessage\" class=\"active-warning\" [class.hidden]=\"form.controls[formControlId].valid || !formSubmitted\">\n\t\t        {{validationMessage}}\n\t        </small>\n    </div>\n"
+        template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n\t        <label *ngIf=\"label\" [attr.for]=\"elementId\">{{label}}</label>\n\t        <select id=\"{{elementId}}\" formControlName=\"{{formControlId}}\" materialize=\"material_select\" [(ngModel)]=\"selectedValue\" class=\"browser-default\" [attr.disabled]=\"disabled ? 'disabled' : null\">\n\n\t\t        <option *ngFor=\"let v of values\" [ngValue]=\"v.value\">{{v.name}}</option>\n\t        </select>\n\t        <small *ngIf=\"validationMessage\" class=\"active-warning\" [class.hidden]=\"form.controls[formControlId].valid || !formSubmitted\">\n\t\t        {{validationMessage}}\n\t        </small>\n    </div>\n"
     })
 ], SelectListComponent);
 exports.SelectListComponent = SelectListComponent;

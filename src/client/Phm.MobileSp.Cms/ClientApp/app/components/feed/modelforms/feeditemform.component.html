@@ -281,12 +281,13 @@
 			
 	        <selectlist [form]="form"
 	                    [values]="competitions"
-	                    [selectedValue]="model.competitionId"
+	                    [selectedValue]="model.competitionId ? model.competitionId : ''"
 	                    [formControlId]="'competitionId'"
 	                    [elementId]="'competitionId'"
 	                    [label]="'Add to Competition'"
 	                    [formSubmitted]="submitted"
-						[disabled]="competitionDisabled"></selectlist>	
+	                    [disabled]="competitionDisabled"
+						[defaultValue]="'Select a Competition'"></selectlist>	
 
 	        <div>
                 <label>Start Date</label>

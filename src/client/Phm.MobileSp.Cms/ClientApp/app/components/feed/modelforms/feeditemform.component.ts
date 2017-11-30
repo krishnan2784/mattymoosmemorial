@@ -76,7 +76,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
     minMonth;
     minYear;
 
-	competitions: { name: string, value: any }[] = [{ name: 'Select a Competition', value: null }];
+	competitions: { name: string, value: any }[] = [{ name: 'Select a Competition', value: '' }];
 	competitionDisabled: boolean = true;
     constructor(public _fb: FormBuilder, public http: Http, public route: ActivatedRoute,
         private router: Router, public feedDataService: FeedDataService, public sharedService: ShareService,
@@ -135,7 +135,6 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
 				});
 
 				var x = result.filter(x => x.id === this.model.competitionId)[0];
-				console.log(x);
 				this.competitionDisabled = (x && x.participants > 0);
 			}
 		});
@@ -169,7 +168,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
         });
     } 
 
-    getModel() {
+	getModel() {
         if (this.model) {
             let baseModel = new Feedclasses.BaseFeed();
 			baseModel.formatFeedItemDates(this.model);

@@ -25,7 +25,6 @@ var feeddataservice_1 = require("../../../services/feeddataservice");
 var Enums = require("../../../enums");
 var FeedTypeEnum = Enums.FeedTypeEnum;
 var FeedCategoryEnum = Enums.FeedCategoryEnum;
-var base_component_1 = require("../../base.component");
 var shareservice_1 = require("../../../services/helpers/shareservice");
 var tabnavmenu_component_1 = require("../../navmenu/tabnavmenu.component");
 var CopiedElementTypeEnum = Enums.CopiedElementTypeEnum;
@@ -34,25 +33,23 @@ var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var Feedclasses = require("../../../models/feedclasses");
 var BaseFeed = Feedclasses.BaseFeed;
 var permissionservice_1 = require("../../../services/helpers/permissionservice");
+var index_component_1 = require("../../index.component");
 var FeedIndexComponent = (function (_super) {
     __extends(FeedIndexComponent, _super);
     function FeedIndexComponent(route, router, feedDataService, sharedService, overlay, vcRef, confirmBox, permissionService) {
-        var _this = _super.call(this, sharedService, '', true, '', tabnavmenu_component_1.DefaultTabNavs.feedIndexTabs) || this;
+        var _this = _super.call(this, sharedService, permissionService, '', true, '', tabnavmenu_component_1.DefaultTabNavs.feedIndexTabs, '/fee') || this;
         _this.route = route;
         _this.router = router;
         _this.feedDataService = feedDataService;
         _this.confirmBox = confirmBox;
-        _this.permissionService = permissionService;
         _this.selectedModel = null;
         _this.selectedCopyToMarketModel = null;
         _this.modalData = null;
         _this.feedTypes = FeedTypeEnum;
         _this.feedCats = FeedCategoryEnum;
         _this.contentTypeEnum = CopiedElementTypeEnum;
-        _this.userPermissions = new permissionservice_1.CommonOperationPermissions();
         _this.setupSubscriptions();
         overlay.defaultViewContainer = vcRef;
-        _this.userPermissions = permissionService.getCrudPermissions('/feed');
         return _this;
     }
     FeedIndexComponent.prototype.setupSubscriptions = function () {
@@ -220,7 +217,7 @@ var FeedIndexComponent = (function (_super) {
             .catch(function (err) { });
     };
     return FeedIndexComponent;
-}(base_component_1.BaseComponent));
+}(index_component_1.IndexComponent));
 FeedIndexComponent = __decorate([
     core_1.Component({
         selector: 'feedindex',

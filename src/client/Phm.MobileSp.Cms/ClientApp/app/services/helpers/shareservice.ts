@@ -96,5 +96,12 @@ export class ShareService {
 
 	public updateMainNavMenu(navItems: NavMenuOption[], backText: string = null, overwriteBase: boolean = false) {
 		this.mainNavUpdate.next([navItems, backText, overwriteBase]);
-  }    
+	}    
+
+	private permissionsUpdate = new Subject<boolean>();
+	permissionsUpdated = this.permissionsUpdate.asObservable();
+
+	public emitPermissionsUpdateNotification() {
+		this.permissionsUpdate.next(true);
+	}    
 }

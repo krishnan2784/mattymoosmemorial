@@ -26,9 +26,11 @@ namespace Phm.MobileSp.Cms.Controllers.API
         [HttpGet]
         [JsonResponseWrapper]
         [ResponseCache(CacheProfileName = "NoCache")]
-		public async Task<JsonResult> Get()
+		public async Task<JsonResult> Get(DateTime? searchDate)
         {
-            var response = await _competitionSubsetRepo.GetCompetitionSubsetAsync(CurrentMarketId);
+		    var sDate = searchDate ?? DateTime.Now;
+
+			var response = await _competitionSubsetRepo.GetCompetitionSubsetAsync(CurrentMarketId, sDate);
             return Json(new BaseResponse<dynamic>(response));
         }
 

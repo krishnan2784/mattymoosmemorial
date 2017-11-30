@@ -2,18 +2,19 @@ import { Component, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { ShareService } from "../services/helpers/shareservice";
 import { NavItem } from "./navmenu/tabnavmenu.component";
+import {CommonOperationPermissions} from "../services/helpers/permissionservice";
 
 @Component({
-    template: '',
-    providers: [ShareService]
+    template: ''
 })
-export class BaseComponent implements  OnDestroy {
+export class BaseComponent implements OnDestroy {
     constructor(public sharedService: ShareService, pageTitle: string,
-        marketDropdownVisiblity: boolean, goBackText: string = '', tabNavItems: NavItem[]=[]) {
+		marketDropdownVisiblity: boolean, goBackText: string = '', tabNavItems: NavItem[] = []) {
         this.updatePageTitle(pageTitle);
         this.updateMarketDropdownVisibility(marketDropdownVisiblity);
         this.updateBackText(goBackText);
-        this.updateTabNavItems(tabNavItems);
+		this.updateTabNavItems(tabNavItems);
+		
     }
 
     public updatePageTitle(pageTitle: string = '') {
@@ -44,7 +45,7 @@ export class BaseComponent implements  OnDestroy {
 
     public goBack() {
         
-    }
+	}
 
     ngOnDestroy() {
         this.updatePageTitle('');

@@ -3,7 +3,7 @@ import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angul
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/publishReplay';
-import {ShareService as ShareService1} from "./shareservice";
+import {ShareService} from "./shareservice";
 import {SecFeaturePermission, SecFeature, UserSecFeaturePermission } from "../../models/securityclasses";
 import {EntityPermissionDataService} from "../entitypermissiondataservice";
 import {NavMenuOption} from "../../models/navmenuclasses";
@@ -16,7 +16,7 @@ export class PermissionService {
 	public allFeatures: SecFeature[];
 	public usersPermissions: UserSecFeaturePermission[] =[];
 
-	constructor(public shareService: ShareService1,
+	constructor(public shareService: ShareService,
 				public entityPermissionDataService: EntityPermissionDataService,
 				public securityFeatureDataService: SecurityFeatureDataService) {
 		this.refreshData();
@@ -30,7 +30,7 @@ export class PermissionService {
 			this.allFeatures = result ? result : [];
 			this.entityPermissionDataService.getUserPermissions().subscribe(response => {
 				this.currentUsersPermissions = response ? response.permissions : [];
-				console.log(response);
+				//console.log(response);
 				this.allFeatures.forEach(x => {
 					var up = this.currentUsersPermissions.filter(y => y.secFeatureId === x.id && y.allow)[0];
 					this.usersPermissions.push({
@@ -65,7 +65,7 @@ export class PermissionService {
 	}
 
 	setupBaseNavMenu() {
-		console.log(this.currentUsersPermissions, this.usersPermissions, this.allFeatures);
+		//console.log(this.currentUsersPermissions, this.usersPermissions, this.allFeatures);
 
 		var options = [new NavMenuOption('Dashboard', '/home', { activeLink: true })];
 		if (this.hasPermission('/Feed', 'Get'))
@@ -81,6 +81,7 @@ export class PermissionService {
 		if (this.hasPermission('/BrandingConfigurations', 'Get'))
 			options.push(new NavMenuOption('Branding', '/branding', { routerLinkActiveOptions: { exact: false } }));
 
+		this.shareService.emitPermissionsUpdateNotification();
 		this.shareService.updateMainNavMenu(options, '', true);
 	}
 

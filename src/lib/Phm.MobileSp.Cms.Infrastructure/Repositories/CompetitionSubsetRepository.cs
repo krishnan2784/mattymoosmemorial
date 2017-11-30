@@ -11,9 +11,9 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 	{
 		public CompetitionSubsetRepository(IHttpClientService client): base(client, "SubsetCompetitions") {       }
 
-		public async Task<List<CompetitionSubset>> GetCompetitionSubsetAsync(int marketId)
+		public async Task<List<CompetitionSubset>> GetCompetitionSubsetAsync(int marketId, DateTime searchDate)
 		{
-			var response = await GetAsync(new { marketId });
+			var response = await GetAsync(new { marketId, searchDate });
 			var r = GetResponseModel<List<CompetitionSubset>>(response);
 			return r;
 		}

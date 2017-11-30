@@ -57,6 +57,9 @@ export class EditEntityPermissionsListComponent implements OnInit, OnDestroy {
 			});
 		else {
 			this.epDataService.getUserPermissions(this.userId).subscribe(x => {
+				//console.log(this.secEntityId);
+				//console.log(x);
+
 				this.entityFeaturePermissions = (!x || x.permissions.length === 0 ? [] : x.permissions);
 				this.secEntityId = x.secEntityId;
 				this.setupForm();

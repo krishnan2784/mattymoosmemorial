@@ -34,7 +34,7 @@ var PermissionService = (function () {
             _this.allFeatures = result ? result : [];
             _this.entityPermissionDataService.getUserPermissions().subscribe(function (response) {
                 _this.currentUsersPermissions = response ? response.permissions : [];
-                console.log(response);
+                //console.log(response);
                 _this.allFeatures.forEach(function (x) {
                     var up = _this.currentUsersPermissions.filter(function (y) { return y.secFeatureId === x.id && y.allow; })[0];
                     _this.usersPermissions.push({
@@ -67,7 +67,7 @@ var PermissionService = (function () {
         return noPermissionSet === undefined;
     };
     PermissionService.prototype.setupBaseNavMenu = function () {
-        console.log(this.currentUsersPermissions, this.usersPermissions, this.allFeatures);
+        //console.log(this.currentUsersPermissions, this.usersPermissions, this.allFeatures);
         var options = [new navmenuclasses_1.NavMenuOption('Dashboard', '/home', { activeLink: true })];
         if (this.hasPermission('/Feed', 'Get'))
             options.push(new navmenuclasses_1.NavMenuOption('Content', '/feed'));
@@ -79,6 +79,7 @@ var PermissionService = (function () {
             options.push(new navmenuclasses_1.NavMenuOption('Accounts', '/useraccountmanagement', { routerLinkActiveOptions: { exact: false } }));
         if (this.hasPermission('/BrandingConfigurations', 'Get'))
             options.push(new navmenuclasses_1.NavMenuOption('Branding', '/branding', { routerLinkActiveOptions: { exact: false } }));
+        this.shareService.emitPermissionsUpdateNotification();
         this.shareService.updateMainNavMenu(options, '', true);
     };
     PermissionService.prototype.getCrudPermissions = function (uri) {

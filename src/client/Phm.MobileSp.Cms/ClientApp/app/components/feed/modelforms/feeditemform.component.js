@@ -61,7 +61,7 @@ var FeedItemForm = (function () {
         this.pagedForm = PagedFeedItemFormComponent;
         this.feedFormSteps = new FeedFormSteps();
         this.navbarData = [];
-        this.competitions = [{ name: 'Select a Competition', value: null }];
+        this.competitions = [{ name: 'Select a Competition', value: '' }];
         this.competitionDisabled = true;
     }
     FeedItemForm.prototype.ngOnInit = function () {
@@ -106,7 +106,6 @@ var FeedItemForm = (function () {
                     _this.competitions.push({ name: x.title, value: x.id });
                 });
                 var x = result.filter(function (x) { return x.id === _this.model.competitionId; })[0];
-                console.log(x);
                 _this.competitionDisabled = (x && x.participants > 0);
             }
         });

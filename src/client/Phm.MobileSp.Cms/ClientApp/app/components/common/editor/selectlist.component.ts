@@ -8,6 +8,7 @@ declare var $: any;
     <div [formGroup]="form" *ngIf="form">
 	        <label *ngIf="label" [attr.for]="elementId">{{label}}</label>
 	        <select id="{{elementId}}" formControlName="{{formControlId}}" materialize="material_select" [(ngModel)]="selectedValue" class="browser-default" [attr.disabled]="disabled ? 'disabled' : null">
+
 		        <option *ngFor="let v of values" [ngValue]="v.value">{{v.name}}</option>
 	        </select>
 	        <small *ngIf="validationMessage" class="active-warning" [class.hidden]="form.controls[formControlId].valid || !formSubmitted">
@@ -18,7 +19,8 @@ declare var $: any;
 })
 export class SelectListComponent implements OnInit {
 	@Input() values: {name:string, value:any}[] = [];
-	@Input() selectedValue: any;
+	@Input() defaultValue: string;
+	@Input() selectedValue: any = '';
     @Input() form: FormGroup;
     @Input() formControlId: string;
     @Input() elementId: string = '';

@@ -71,7 +71,6 @@ export class EditUserGroupComponent implements OnInit, OnDestroy {
 			this.loading = false;
 			if (x && x.success) {
 				this.permissionService.refreshData();
-
 				if (goBack) {
 					this.permissionsUpdated.emit(x.content);
 				}

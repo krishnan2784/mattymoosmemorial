@@ -47,6 +47,8 @@ var EditEntityPermissionsListComponent = (function () {
             });
         else {
             this.epDataService.getUserPermissions(this.userId).subscribe(function (x) {
+                //console.log(this.secEntityId);
+                //console.log(x);
                 _this.entityFeaturePermissions = (!x || x.permissions.length === 0 ? [] : x.permissions);
                 _this.secEntityId = x.secEntityId;
                 _this.setupForm();
