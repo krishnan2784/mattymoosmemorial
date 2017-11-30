@@ -246,7 +246,8 @@
 	                [maxWidth]="1280" [maxHeight]="640" [uploaderType]="uploaderTypes.Image" [title]="'Preview Image'" 
 	                [uploadUrl]="'/Media/UploadFeedItemIcon'" [previewText]="'Icon Preview'"
 	                [elementId]="'mainIcon'"
-					[dimensionWarning]="!form.controls.mainIconId.valid && submitted"></upload>
+	                [dimensionWarning]="!form.controls.mainIconId.valid && submitted"
+					[canClear]="model.feedType == feedTypes.Quiz || model.feedType == feedTypes.Survey || model.feedType == feedTypes.Observation"></upload>
         </div>
 
         <div class="col-md-4 right-col">
@@ -305,7 +306,10 @@
     </div>
     
 <div [class.hidden]="!feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Media)" class="form-tab">
-    <upload (mediaUploaded)="attachMedia($event, '')" (mediaUploading)="loading=$event" *ngIf="model.id == 0" [title]="'Upload an image or video'" [elementId]="mediaPicker"></upload>
+	<upload (mediaUploaded)="attachMedia($event, '')" (mediaUploading)="loading=$event" 
+	        *ngIf="model.id == 0" [title]="'Upload an image or video'" 
+	        [elementId]="mediaPicker"
+			[canClear]="true"></upload>
 
     <upload (mediaUploaded)="attachMedia($event, 'mainImage')" (mediaUploading)="loading=$event"
             [uploaderType]="uploaderTypes.Image" 

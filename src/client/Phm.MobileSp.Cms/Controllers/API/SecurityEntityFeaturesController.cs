@@ -11,6 +11,7 @@ using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 using System;
 using System.Linq;
 using Phm.MobileSp.Cms.Core.Models.Interfaces;
+using Phm.MobileSp.Cms.Helpers;
 
 namespace Phm.MobileSp.Cms.Controllers.API
 {
@@ -46,19 +47,31 @@ namespace Phm.MobileSp.Cms.Controllers.API
 		    if (userId == 0)
 			    userId = UserId;
 
-		    var cacheResult = await _cache.GetOrCreateAsync(CacheKeys.USERPERMISSIONS + userId, async entry =>
-		    {
-			    var userProfile = (await _userTemplateRepo.GetUsersAsync(0, userId)).FirstOrDefault();
-
-			    if (userProfile?.SecGroup?.Id > 0)
+		    if (userId == UserId)
+		    { // this is gross, but i need to come up with a better caching solution where i can add keys
+			    var cacheResult = await _cache.GetOrCreateAsync(CacheKeys.USERPERMISSIONS, async entry =>
 			    {
-				    var response = await _secEntityFeaturesRepo.GetEntityPermissions(userProfile.SecGroup.Id);
-				    return Json(new BaseResponse<dynamic>(new {permissions = response, secEntityId = userProfile.SecGroup.Id }));
-			    }
-				return Json(new BaseResponse<dynamic>(false, "Failed to get permissions.", null));
-			});
-		    return cacheResult;
-	    }
+				    var userProfile = (await _userTemplateRepo.GetUsersAsync(0, userId)).FirstOrDefault();
 
+				    if (userProfile?.SecGroup?.Id > 0)
+				    {
+					    var response = await _secEntityFeaturesRepo.GetEntityPermissions(userProfile.SecGroup.Id);
+					    return Json(new BaseResponse<dynamic>(new {permissions = response, secEntityId = userProfile.SecGroup.Id}));
+				    }
+				    return Json(new BaseResponse<dynamic>(false, "Failed to get permissions.", null));
+			    });
+			    return cacheResult;
+		    }
+		    else {
+				var userProfile = (await _userTemplateRepo.GetUsersAsync(0, userId)).FirstOrDefault();
+
+				if (userProfile?.SecGroup?.Id > 0)
+				{
+					var response = await _secEntityFeaturesRepo.GetEntityPermissions(userProfile.SecGroup.Id);
+					return Json(new BaseResponse<dynamic>(new { permissions = response, secEntityId = userProfile.SecGroup.Id }));
+				}
+				return Json(new BaseResponse<dynamic>(false, "Failed to get permissions.", null));
+		    }
+		}
 	}
 }

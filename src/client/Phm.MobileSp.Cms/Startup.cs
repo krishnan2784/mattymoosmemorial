@@ -191,13 +191,9 @@ namespace Phm.MobileSp.Cms
                 app.UseStaticFiles();
 
                 app.UseMvc(routes =>
-                {
-                    routes.MapRoute("logout", "account/logout",
-                        new { controller = "Base", action = "Logout" });
-
-                    routes.MapRoute("logout-page", "logout",
-                        new { controller = "Account", action = "Logout" });
-
+				{
+					routes.MapRoute("logout-page", "logout",
+                        new { controller = "CurrentUser", action = "Logout" });
 
                     routes.MapRoute("register", "register",
                         new { controller = "Registration", action = "Index" });

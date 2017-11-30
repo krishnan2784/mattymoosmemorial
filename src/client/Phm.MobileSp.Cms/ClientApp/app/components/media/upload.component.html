@@ -20,7 +20,7 @@
             <input type="file" (change)="filesSelectHandler($event)" [disabled]="uploading || disabled" accept="video/mp4" *ngIf="uploaderType==uploaderTypes.Video" id="{{elementId ? elementId + '-' : ''}}media-input">
         </div>
         <div class="file-path-wrapper">
-            <input class="file-path validate" type="text" [attr.disabled]="disabled ? disabled : null">
+            <input class="file-path validate" [(ngModel)]="filePath" type="text" [attr.disabled]="disabled ? disabled : null">
         </div>
     </div>
     <span class="input-group-btn">
@@ -33,7 +33,10 @@
 				<img *ngIf="imagePreviewUrl" src="{{imagePreviewUrl}}" class="preview-image" />
 				<video *ngIf="videoPreviewUrl" controls class="preview-image"><source src="{{videoPreviewUrl}}" type="video/mp4"></video>		        
 	        </div>
-            <div class="clearfix"></div>
+	        <div class="clearfix"></div>
+	        <span *ngIf="canClear" class="input-group-btn">
+		        <span class="btn btn-primary btn-clear" (click)="clearUpload()" [class.disabled]="uploading" id="{{elementId ? elementId + '-' : ''}}btn-clear">Clear</span>
+	        </span>
             <hr />
         </div>
         <div *ngIf="uploading" class="loader"></div>

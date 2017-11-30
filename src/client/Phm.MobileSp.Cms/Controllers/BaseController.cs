@@ -35,23 +35,6 @@ namespace Phm.MobileSp.Cms.Controllers
             return Json(new BaseResponse<string>(AuthToken));
         }
 
-		[HttpGet("[action]")]
-		public async Task<IActionResult> Logout()
-        {
-            await HttpContext.Authentication.SignOutAsync("MobileSPAuthCookie");
-            ClearCache();
-            ClearRepoValues();
-            return Redirect("/Logout");
-        }
-
-        public void ClearRepoValues()
-        {
-            _AuthToken = string.Empty;
-            _UserName = string.Empty;
-            _CurrentMarketId = 0;
-            _UserId = 0;
-        }
-
         public string AuthToken
         {
             get

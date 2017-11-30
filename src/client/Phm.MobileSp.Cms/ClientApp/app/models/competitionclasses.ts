@@ -102,7 +102,7 @@ export class Competition extends BaseModel {
 		this.about = options['about'] || '';
 		this.startDate = options['startDate'];
 		this.endDate = options['endDate'];
-		this.mainImageId = options['mainImageId'] || 0;
+		this.mainImageId = options['mainImageId'];
 		this.mainImage = options['mainImage'] || new MediaInfo();
 		this.makeImageLink = options['makeImageLink'] || false;
 		this.linkTitle = options['linkTitle'] || '';

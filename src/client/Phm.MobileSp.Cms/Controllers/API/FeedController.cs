@@ -10,6 +10,7 @@ using Phm.MobileSp.Cms.Helpers.Attributes;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 using System;
 using Phm.MobileSp.Cms.Core.Models.Interfaces;
+using Phm.MobileSp.Cms.Helpers;
 using Phm.MobileSp.Cms.Helpers.CustomModelBinding;
 using Phm.MobileSp.Cms.Helpers.CustomModelBinding.FeedItems;
 

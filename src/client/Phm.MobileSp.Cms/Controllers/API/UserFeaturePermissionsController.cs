@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Phm.MobileSp.Cms.Core.Models;
+using Phm.MobileSp.Cms.Helpers;
 using Phm.MobileSp.Cms.Helpers.Attributes;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 
@@ -29,7 +30,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
 		{
 			var response = await _userFeaturePermissionsRepository.UpdateEntityPermissions(secEntityPermissions);
 			var success = response != null && secEntityPermissions.Count > 0;
-			_cache.Remove(CacheKeys.USERPERMISSIONS+secEntityPermissions[0]?.SecEntityId);
+			_cache.Remove(CacheKeys.USERPERMISSIONS);
 			return Json(new BaseResponse<dynamic>(success, success ? "Permissions were successfully updated." : "Failed to update permissions. Please try again.", response));
 		}
 

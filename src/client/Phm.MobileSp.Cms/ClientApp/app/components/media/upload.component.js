@@ -33,6 +33,7 @@ var UploadMediaComponent = (function () {
         this.savePreviewUrl = false;
         this.disabled = false;
         this.dimensionWarning = false;
+        this.canClear = false;
         this.files = [];
         this.uploading = false;
         this.uploaderTypes = enums_1.UploaderType;
@@ -91,6 +92,14 @@ var UploadMediaComponent = (function () {
             this.failAlert("An error occurred during the upload process.");
         this.uploading = false;
         this.mediaUploading.emit(false);
+    };
+    UploadMediaComponent.prototype.clearUpload = function () {
+        this.setPreviewImage('');
+        this.mediaUploaded.emit(new mediainfoclasses_1.MediaInfo({ mediaType: this.selectedMedia ? this.selectedMedia.mediaType : null }));
+        this.selectedMedia = null;
+        this.filePath = '';
+        if (this.form)
+            this.form.controls[this.formControlId].patchValue(null, {});
     };
     UploadMediaComponent.prototype.failAlert = function (message) {
         Materialize.toast(message, 5000, 'red');
@@ -274,6 +283,10 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Boolean)
 ], UploadMediaComponent.prototype, "dimensionWarning", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Boolean)
+], UploadMediaComponent.prototype, "canClear", void 0);
 __decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)

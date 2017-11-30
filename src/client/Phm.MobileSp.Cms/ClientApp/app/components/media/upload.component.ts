@@ -40,8 +40,10 @@ export class UploadMediaComponent implements OnInit, OnChanges {
 	@Input() disabled: boolean = false;
 	@Input() imagePreviewUrl: string;
 	@Input() dimensionWarning: boolean = false;
+	@Input() canClear: boolean = false;
     public files: File[] = [];
     public uploading: boolean = false;
+	public filePath: string;
 
     public videoPreviewUrl: string;
     uploaderTypes: typeof UploaderType = UploaderType;
@@ -102,7 +104,16 @@ export class UploadMediaComponent implements OnInit, OnChanges {
             this.failAlert("An error occurred during the upload process.");      
         this.uploading = false;
         this.mediaUploading.emit(false);
-    }
+	}
+
+	clearUpload() {
+		this.setPreviewImage('');
+		this.mediaUploaded.emit(new MediaInfo({ mediaType: this.selectedMedia ? this.selectedMedia.mediaType: null}));
+		this.selectedMedia = null;
+		this.filePath = '';
+		if (this.form)
+			this.form.controls[this.formControlId].patchValue(null, {});
+	}
 
     failAlert(message) {
         Materialize.toast(message, 5000, 'red');      

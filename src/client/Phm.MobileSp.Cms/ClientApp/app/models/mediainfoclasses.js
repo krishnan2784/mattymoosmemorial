@@ -16,6 +16,7 @@ var MediaInfo = (function (_super) {
     function MediaInfo(options) {
         if (options === void 0) { options = {}; }
         var _this = _super.call(this, options) || this;
+        _this.id = options['id'];
         _this.extension = options['extension'] || '';
         _this.marketId = options['marketId'];
         _this.mediaId = options['mediaId'];

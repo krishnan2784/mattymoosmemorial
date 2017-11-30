@@ -93,14 +93,5 @@ namespace Phm.MobileSp.Cms.Controllers
 
             return LocalRedirect(returnUrl);
         }
-
-        [AiHandleError]
-        [HttpGet]
-        public async Task<IActionResult> Logout()
-        {
-	        await HttpContext.Authentication.SignOutAsync("MobileSPAuthCookie");
-			ClearCache();
-			return View();
-        }
     }
 }

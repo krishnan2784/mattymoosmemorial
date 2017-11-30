@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using Phm.MobileSp.Cms.Helpers;
 using Phm.MobileSp.Cms.Helpers.Attributes;
 
 namespace Phm.MobileSp.Cms.Controllers
@@ -16,7 +17,7 @@ namespace Phm.MobileSp.Cms.Controllers
 
         public void ClearCache()
         {
-            foreach (var key in CacheKeys.AllKeys())
+            foreach (var key in CacheKeys.AllKeys)
             {
                 _cache.Remove(key);
             }

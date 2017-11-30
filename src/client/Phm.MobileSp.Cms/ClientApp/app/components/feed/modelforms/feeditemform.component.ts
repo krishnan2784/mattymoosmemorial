@@ -243,7 +243,7 @@ export class FeedItemForm implements IFeedItemComponents.IFeedItemForm {
 
         let model = this.model;
 
-        model[fieldIdName] = media.id;
+		model[fieldIdName] = media ? media.id : null;
         model[fieldName] = media;
         
         this.model = model;

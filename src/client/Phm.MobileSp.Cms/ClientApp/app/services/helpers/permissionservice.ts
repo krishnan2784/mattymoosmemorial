@@ -30,6 +30,7 @@ export class PermissionService {
 			this.allFeatures = result ? result : [];
 			this.entityPermissionDataService.getUserPermissions().subscribe(response => {
 				this.currentUsersPermissions = response ? response.permissions : [];
+				console.log(response);
 				this.allFeatures.forEach(x => {
 					var up = this.currentUsersPermissions.filter(y => y.secFeatureId === x.id && y.allow)[0];
 					this.usersPermissions.push({
@@ -47,21 +48,25 @@ export class PermissionService {
 	}
 
 	hasPermission(uri: string, httpVerb: string, secFeatureType: SecFeatureTypeEnum = SecFeatureTypeEnum.Cms): boolean {
-		var up = this.usersPermissions ? this.usersPermissions.filter(x => x.uri.toLowerCase() === uri.toLowerCase() &&
+		if (!this.usersPermissions || !this.allFeatures || this.allFeatures.length === 0)
+			return false;
+		var up = this.usersPermissions.filter(x => x.uri.toLowerCase() === uri.toLowerCase() &&
 			x.httpVerb.toLowerCase() === httpVerb.toLowerCase() &&
 			x.secFeatureType == secFeatureType &&
-			x.allow)[0] : undefined;
+			x.allow)[0];
 		if (up !== undefined)
 			return true;
 		// if the user does not have explicit permission we need to check that the permissiob being requested exists in the database
 		// this will enable things like competitions to be visible because they do not currently have values in the FeaturePermissions table
-		var noPermissionSet = this.allFeatures ? this.allFeatures.filter(x => x.uri.toLowerCase() === uri.toLowerCase() &&
+		var noPermissionSet = this.allFeatures.filter(x => x.uri.toLowerCase() === uri.toLowerCase() &&
 			x.httpVerb.toLowerCase() === httpVerb.toLowerCase() &&
-			x.secFeatureType == secFeatureType)[0] : undefined;
+			x.secFeatureType == secFeatureType)[0];
 		return noPermissionSet === undefined;
 	}
 
 	setupBaseNavMenu() {
+		console.log(this.currentUsersPermissions, this.usersPermissions, this.allFeatures);
+
 		var options = [new NavMenuOption('Dashboard', '/home', { activeLink: true })];
 		if (this.hasPermission('/Feed', 'Get'))
 			options.push(new NavMenuOption('Content', '/feed'));

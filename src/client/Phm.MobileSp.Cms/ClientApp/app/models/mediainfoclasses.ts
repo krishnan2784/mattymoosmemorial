@@ -15,7 +15,8 @@ export class MediaInfo extends Baseclasses.BaseModel {
 
     constructor(options: {} = {}) {
         super(options);
-        this.extension = options['extension'] || '';
+        this.id = options['id'];
+		this.extension = options['extension'] || '';
         this.marketId = options['marketId'];
         this.mediaId = options['mediaId'];
         this.mediaType = options['mediaType'];

@@ -209,7 +209,7 @@ var FeedItemForm = (function () {
         }
         var fieldIdName = fieldName + "Id";
         var model = this.model;
-        model[fieldIdName] = media.id;
+        model[fieldIdName] = media ? media.id : null;
         model[fieldName] = media;
         this.model = model;
         if (fieldName == "mainImage") {
