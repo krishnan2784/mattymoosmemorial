@@ -20,11 +20,6 @@ namespace Phm.MobileSp.Cms.Controllers
     [AiHandleError]
     public class BaseController : CacheController
     {
-        private static string _AuthToken { get; set; }
-        private static string _UserName { get; set; }
-        private static int _CurrentMarketId { get; set; }
-        private static int _UserId { get; set; }
-        
         public BaseController(IMemoryCache memoryCache) :base(memoryCache){}
 
         [HttpGet("[action]")]
@@ -39,22 +34,14 @@ namespace Phm.MobileSp.Cms.Controllers
         {
             get
             {
-                if (string.IsNullOrEmpty(_AuthToken))
-                {
-                    _AuthToken = HttpContext?.User.Claims.FirstOrDefault(x => x.Type == "sessionguid").Value;
-                }
-                return _AuthToken;
+				return HttpContext?.User.Claims.FirstOrDefault(x => x.Type == "sessionguid").Value;
             }
         }
 
         public string UserName
         {
             get {
-                if (string.IsNullOrEmpty(_UserName))
-                {
-                    _UserName = HttpContext?.User.Claims.FirstOrDefault(x => x.Type == "name").Value;
-                }
-                return _UserName;
+				return HttpContext?.User.Claims.FirstOrDefault(x => x.Type == "name").Value;
             }
         }
 
@@ -62,18 +49,13 @@ namespace Phm.MobileSp.Cms.Controllers
         {
             get
             {
-                if (_CurrentMarketId == 0)
-                {
-                    _CurrentMarketId = Convert.ToInt16(HttpContext?.User.Claims.FirstOrDefault(x => x.Type == "currentmarketid").Value);
-                }
-                return _CurrentMarketId;
+                return Convert.ToInt16(HttpContext?.User.Claims.FirstOrDefault(x => x.Type == "currentmarketid").Value);
             }
             set
             {
                 var identity = new ClaimsIdentity(User.Identity);
                 identity.RemoveClaim(identity.FindFirst("currentmarketid"));
                 identity.AddClaim(new Claim("currentmarketid", value.ToString()));
-                _CurrentMarketId = value;
             }
         }
 
@@ -81,11 +63,7 @@ namespace Phm.MobileSp.Cms.Controllers
         {
             get
             {
-                if (_UserId == 0)
-                {
-                    _UserId = Convert.ToInt16(HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userid").Value);
-                }
-                return _UserId;
+                return Convert.ToInt16(HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userid").Value);
             }
         }
     }
