@@ -11,6 +11,7 @@ using System.Net.Http;
 using System.Net;
 using Phm.MobileSp.Cms.Core.Models.Interfaces;
 using Phm.MobileSp.Cms.Core.Models;
+using Phm.MobileSp.Cms.Helpers;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 using Phm.MobileSp.Cms.Infrastructure.Repositories;
 
@@ -30,41 +31,16 @@ namespace Phm.MobileSp.Cms.Controllers
             return Json(new BaseResponse<string>(AuthToken));
         }
 
-        public string AuthToken
-        {
-            get
-            {
-				return HttpContext?.User.Claims.FirstOrDefault(x => x.Type == "sessionguid").Value;
-            }
-        }
+        public string AuthToken => HttpContext.GetClaimValue<string>("sessionguid");
 
-        public string UserName
-        {
-            get {
-				return HttpContext?.User.Claims.FirstOrDefault(x => x.Type == "name").Value;
-            }
-        }
+	    public string UserName => HttpContext.GetClaimValue<string>("name");
 
         public int CurrentMarketId
         {
-            get
-            {
-                return Convert.ToInt16(HttpContext?.User.Claims.FirstOrDefault(x => x.Type == "currentmarketid").Value);
-            }
-            set
-            {
-                var identity = new ClaimsIdentity(User.Identity);
-                identity.RemoveClaim(identity.FindFirst("currentmarketid"));
-                identity.AddClaim(new Claim("currentmarketid", value.ToString()));
-            }
+            get => HttpContext.GetClaimValue<int>("currentmarketid");
+	        set => HttpContext.AddUpdateClaim("currentmarketid", value.ToString());
         }
 
-        public int UserId
-        {
-            get
-            {
-                return Convert.ToInt16(HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userid").Value);
-            }
-        }
+        public int UserId => HttpContext.GetClaimValue<int>("userid");
     }
 }
