@@ -101,7 +101,9 @@
 			        [previewText]="'Active Image Preview'"
 			        [elementId]="'activeImageId'"
 			        [formSubmitted]="submitted"
-			        [validationMessage]="'An active image is required. This will be displayed in the app while the competition is still running.'"></upload>
+			        [validationMessage]="'An active image is required. This will be displayed in the app while the competition is still running.'"
+			        [maxWidth]="1280" [maxHeight]="640" [enforceExactDimensions]="true"
+			        [uploadUrl]="'/Media/UploadItemIcon'"></upload>
 
 			<div class="checkbox-container">
 				<input type="checkbox" class="filled-in" id="makeActiveImageLink" formControlName="makeActiveImageLink" />
@@ -117,7 +119,9 @@
 			        [previewText]="'Completed Overlay Preview'"
 			        [elementId]="'completedImageId'"
 			        [formSubmitted]="submitted"
-			        [validationMessage]="'A completed image is required. This will be displayed in the app while the competition is over.'"></upload>
+			        [validationMessage]="'A completed image is required. This will be displayed in the app while the competition is over.'"
+			        [maxWidth]="1280" [maxHeight]="640" [enforceExactDimensions]="true"
+			        [uploadUrl]="'/Media/UploadItemIcon'"></upload>
 
 			<div class="checkbox-container">
 				<input type="checkbox" class="filled-in" id="makeCompletedImageLink" formControlName="makeCompletedImageLink" />

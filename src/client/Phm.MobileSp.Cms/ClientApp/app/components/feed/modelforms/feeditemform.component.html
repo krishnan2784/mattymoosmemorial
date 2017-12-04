@@ -244,7 +244,7 @@
 	        <upload (mediaUploaded)="attachMedia($event, 'mainIcon')" (mediaUploading)="loading=$event" 
 	                [selectedMedia]="model.mainIcon" [enforceExactDimensions]="true" 
 	                [maxWidth]="1280" [maxHeight]="640" [uploaderType]="uploaderTypes.Image" [title]="'Preview Image'" 
-	                [uploadUrl]="'/Media/UploadFeedItemIcon'" [previewText]="'Icon Preview'"
+	                [uploadUrl]="'/Media/UploadItemIcon'" [previewText]="'Icon Preview'"
 	                [elementId]="'mainIcon'"
 	                [dimensionWarning]="!form.controls.mainIconId.valid && submitted"
 					[canClear]="model.feedType == feedTypes.Quiz || model.feedType == feedTypes.Survey || model.feedType == feedTypes.Observation"></upload>
@@ -278,13 +278,16 @@
                              [label]="'Reading Time (mins)'"
                              [validationMessage]="'Estimated time is required'"
                              [class.hidden]="model.feedType == feedTypes.Observation"></numbertextinput>
-			
+	        <div class="competition-label">
+				<label>Add to competition </label>
+				<img src="assets/images/icons/Competition-icon-colour_1x.png" class="competition-img" />		        
+	        </div>
+
 	        <selectlist [form]="form"
 	                    [values]="competitions"
 	                    [selectedValue]="model.competitionId ? model.competitionId : ''"
 	                    [formControlId]="'competitionId'"
 	                    [elementId]="'competitionId'"
-	                    [label]="'Add to Competition'"
 	                    [formSubmitted]="submitted"
 	                    [disabled]="competitionDisabled"
 						[defaultValue]="'Select a Competition'"></selectlist>	
