@@ -17,7 +17,6 @@ export class IndexComponent extends BaseComponent {
 		this.userPermissions = permissionService.getCrudPermissions(this.pageKey);
 
 		sharedService.permissionsUpdated.subscribe(() => {
-
 			this.userPermissions = this.permissionService.getCrudPermissions(pageKey);
 	    });
     }

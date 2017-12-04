@@ -14,7 +14,6 @@ export class BaseComponent implements OnDestroy {
         this.updateMarketDropdownVisibility(marketDropdownVisiblity);
         this.updateBackText(goBackText);
 		this.updateTabNavItems(tabNavItems);
-		
     }
 
     public updatePageTitle(pageTitle: string = '') {

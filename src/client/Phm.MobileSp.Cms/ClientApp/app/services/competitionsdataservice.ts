@@ -31,7 +31,7 @@ export class CompetitionsDataService extends RequestHelper implements ICompetiti
 	}
 
 	public copyItemToMarket(id: number, marketIds: number[]): Observable<ApiResponse> {
-		return this.copyToMarket('/api/Competition/CopyToMarket', id, marketIds, CopiedElementTypeEnum.Competition);
+		return this.copyToMarket('/api/Competition/CopyToMarket', id, marketIds);
 	}
 
 	public publishContentToLive(contentId: number) {
