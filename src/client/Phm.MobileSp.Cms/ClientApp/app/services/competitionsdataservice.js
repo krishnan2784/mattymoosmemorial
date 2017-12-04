@@ -42,7 +42,7 @@ var CompetitionsDataService = (function (_super) {
         return this.postRequestBase('/api/Competition/Delete?id=' + id, null);
     };
     CompetitionsDataService.prototype.copyItemToMarket = function (id, marketIds) {
-        return this.copyToMarket('/api/Competition/CopyToMarket', id, marketIds, enums_1.CopiedElementTypeEnum.Competition);
+        return this.copyToMarket('/api/Competition/CopyToMarket', id, marketIds);
     };
     CompetitionsDataService.prototype.publishContentToLive = function (contentId) {
         return this.publishToLive(enums_1.CopiedElementTypeEnum.Competition, contentId);

@@ -33,5 +33,17 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 			var response = await DeleteAsync(id);
 			return GetResponseModel<dynamic>(response);
 		}
+
+		public async Task<bool> CopyToMarketAsync(int competitionId, List<int> marketIds)
+		{
+			var response = true;
+			foreach (var marketId in marketIds)
+			{
+				response = GetResponseModel<bool>(await PostAsync($"/api/competitions/{competitionId}/markets/{marketId}", null));
+				if (!response)
+					break;
+			}
+			return response;          
+		}
 	}
 }

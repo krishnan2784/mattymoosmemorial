@@ -11,5 +11,6 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
 		Task<Competition> CreateCompetitionAsync(Competition competition);
 		Task<bool> UpdateCompetitionAsync(Competition competition);
 		Task<bool> DeleteCompetitionAsync(int id);
+		Task<bool> CopyToMarketAsync(int competitionId, List<int> marketIds);
 	}
 }
