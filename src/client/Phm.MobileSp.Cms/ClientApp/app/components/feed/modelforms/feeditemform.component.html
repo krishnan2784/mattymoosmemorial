@@ -261,7 +261,7 @@
                              [validationMessage]="'Reward points are required.'"
                              [class.hidden]="model.feedType == feedTypes.Observation"></numbertextinput>
 
-            <div class="input-field allow-favourite">
+            <div class="input-field" [class.allow-favourite]="model.feedType != feedTypes.Observation">
                 <label for="allowFavourite">Allow Favourite</label>
                 <div class="switch">
                     <label>
@@ -278,19 +278,22 @@
                              [label]="'Reading Time (mins)'"
                              [validationMessage]="'Estimated time is required'"
                              [class.hidden]="model.feedType == feedTypes.Observation"></numbertextinput>
-	        <div class="competition-label">
-				<label>Add to competition </label>
-				<img src="assets/images/icons/Competition-icon-colour_1x.png" class="competition-img" />		        
-	        </div>
 
-	        <selectlist [form]="form"
-	                    [values]="competitions"
-	                    [selectedValue]="model.competitionId ? model.competitionId : ''"
-	                    [formControlId]="'competitionId'"
-	                    [elementId]="'competitionId'"
-	                    [formSubmitted]="submitted"
-	                    [disabled]="competitionDisabled"
-						[defaultValue]="'Select a Competition'"></selectlist>	
+
+			<div *ngIf="model.feedType != feedTypes.Observation">
+				<div class="competition-label">
+					<label>Add to competition </label>
+					<img src="assets/images/icons/Competition-icon-colour_1x.png" class="competition-img" />
+				</div>
+				<selectlist [form]="form"
+							[values]="competitions"
+							[selectedValue]="model.competitionId ? model.competitionId : ''"
+							[formControlId]="'competitionId'"
+							[elementId]="'competitionId'"
+							[formSubmitted]="submitted"
+							[disabled]="competitionDisabled"
+							[defaultValue]="'Select a Competition'"></selectlist>
+			</div>	
 
 	        <div>
                 <label>Start Date</label>

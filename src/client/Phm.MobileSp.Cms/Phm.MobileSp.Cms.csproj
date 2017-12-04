@@ -85,9 +85,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Update="ClientApp\app\classes\feedformstepsclasses - Copy.js">
-      <DependentUpon>feedformstepsclasses.ts</DependentUpon>
-    </None>
     <None Update="ClientApp\app\components\common\editor\daterange.component.js">
       <DependentUpon>daterange.component.ts</DependentUpon>
     </None>
