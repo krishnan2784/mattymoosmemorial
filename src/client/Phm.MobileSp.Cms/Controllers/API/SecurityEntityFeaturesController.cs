@@ -22,15 +22,16 @@ namespace Phm.MobileSp.Cms.Controllers.API
     {
         private readonly ISecurityEntityFeaturesRepository _secEntityFeaturesRepo;
         private readonly IUserTemplateRepository _userTemplateRepo;
+	    private readonly ISecurityGroupsRepository _securityGroupsRepository;
 
 		public SecurityEntityFeaturesController(IMemoryCache memoryCache, ISecurityEntityFeaturesRepository secEntityFeaturesRepo,
-			IUserTemplateRepository userTemplateRepo) 
+			IUserTemplateRepository userTemplateRepo, ISecurityGroupsRepository securityGroupsRepository) 
             : base(memoryCache)
         {
 	        _secEntityFeaturesRepo = secEntityFeaturesRepo;
 	        _userTemplateRepo = userTemplateRepo;
-
-        }
+			_securityGroupsRepository = securityGroupsRepository;
+		}
 
 	    [HttpGet("[action]")]
 	    [JsonResponseWrapper]
@@ -52,23 +53,30 @@ namespace Phm.MobileSp.Cms.Controllers.API
 			    var cacheResult = await _cache.GetOrCreateAsync(CacheKeys.USERPERMISSIONS, async entry =>
 			    {
 				    var userProfile = (await _userTemplateRepo.GetUsersAsync(0, userId)).FirstOrDefault();
-
 				    if (userProfile?.SecGroup?.Id > 0)
 				    {
-					    var response = await _secEntityFeaturesRepo.GetEntityPermissions(userProfile.SecGroup.Id);
-					    return Json(new BaseResponse<dynamic>(new {permissions = response, secEntityId = userProfile.SecGroup.Id}));
+					    var secGroup = await _securityGroupsRepository.GetSecGroupById(userProfile.SecGroup.Id);
+					    if (secGroup?.SecEntityId > 0)
+					    {
+
+						    var response = await _secEntityFeaturesRepo.GetEntityPermissions((int)secGroup.SecEntityId);
+						    return Json(new BaseResponse<dynamic>(new { permissions = response, secEntityId = secGroup.SecEntityId }));
+					    }
 				    }
 				    return Json(new BaseResponse<dynamic>(false, "Failed to get permissions.", null));
-			    });
+				});
 			    return cacheResult;
 		    }
 		    else {
 				var userProfile = (await _userTemplateRepo.GetUsersAsync(0, userId)).FirstOrDefault();
-
 				if (userProfile?.SecGroup?.Id > 0)
 				{
-					var response = await _secEntityFeaturesRepo.GetEntityPermissions(userProfile.SecGroup.Id);
-					return Json(new BaseResponse<dynamic>(new { permissions = response, secEntityId = userProfile.SecGroup.Id }));
+					var secGroup = await _securityGroupsRepository.GetSecGroupById(userProfile.SecGroup.Id);
+					if (secGroup?.SecEntityId > 0){
+
+						var response = await _secEntityFeaturesRepo.GetEntityPermissions((int)secGroup.SecEntityId);
+						return Json(new BaseResponse<dynamic>(new { permissions = response, secEntityId = secGroup.SecEntityId }));
+					}
 				}
 				return Json(new BaseResponse<dynamic>(false, "Failed to get permissions.", null));
 		    }

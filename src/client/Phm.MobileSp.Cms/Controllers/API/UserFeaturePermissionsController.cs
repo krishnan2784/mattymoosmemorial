@@ -30,7 +30,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
 		{
 			var response = await _userFeaturePermissionsRepository.UpdateEntityPermissions(secEntityPermissions);
 			var success = response != null && secEntityPermissions.Count > 0;
-			_cache.Remove(CacheKeys.USERPERMISSIONS);
+			ClearCache();
 			return Json(new BaseResponse<dynamic>(success, success ? "Permissions were successfully updated." : "Failed to update permissions. Please try again.", response));
 		}
 

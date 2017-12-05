@@ -93,7 +93,7 @@ namespace Phm.MobileSp.Cms.Controllers.API
 	    public async Task<JsonResult> CopyFeedItemToMarket(int id, List<int> marketIds)
 	    {
 		    var response = await _feedRepository.CopyFeedItemToMarketAsync(id, marketIds);
-		    return Json(response);
+		    return Json(new BaseResponse<bool>(response, response ? "Feed item copied sucessfully" : "Feed item could not be copied", response));
 	    }
 	}
 }
