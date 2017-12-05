@@ -62,49 +62,6 @@ var RequestHelper = (function () {
             });
         });
     };
-    RequestHelper.prototype.copyToMarket = function (url, id, marketIds, contentType) {
-        var _this = this;
-        if (contentType === void 0) { contentType = null; }
-        if (!marketIds || marketIds.length === 0)
-            return null;
-        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
-        var marketQueryString = '';
-        for (var _i = 0, marketIds_1 = marketIds; _i < marketIds_1.length; _i++) {
-            var m = marketIds_1[_i];
-            marketQueryString += '&marketIds=' + m;
-        }
-        return Observable_1.Observable.create(function (observer) {
-            _this.http.post(url + '?id=' + id + marketQueryString + (contentType ? '&contentType=' + contentType : ''), null, headers).subscribe(function (result) {
-                var response = responsehelper_1.ResponseHelper.getResponse(result);
-                if (response.success) {
-                    Materialize.toast(response.message, 5000, 'green');
-                }
-                else {
-                    Materialize.toast(response.message, 5000, 'red');
-                }
-                observer.next(response);
-                observer.complete();
-            });
-        });
-    };
-    RequestHelper.prototype.publishToLive = function (contentType, contentId, url) {
-        var _this = this;
-        if (url === void 0) { url = '/api/Market/PublishContentToLive'; }
-        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
-        return Observable_1.Observable.create(function (observer) {
-            _this.http.post(url + '?contentType=' + contentType + '&contentId=' + contentId, null, headers).subscribe(function (result) {
-                var response = responsehelper_1.ResponseHelper.getResponse(result);
-                if (response.success) {
-                    Materialize.toast(response.message, 5000, 'green');
-                }
-                else {
-                    Materialize.toast(response.message, 5000, 'red');
-                }
-                observer.next(response);
-                observer.complete();
-            });
-        });
-    };
     RequestHelper.getResponse = function (response) {
         response = new apiresponse_1.ApiResponse(response.json());
         return response;

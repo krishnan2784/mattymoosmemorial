@@ -23,12 +23,12 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/publishReplay");
-var requesthelper_1 = require("./helpers/requesthelper");
 var enums_1 = require("../enums");
+var marketcontentdataservice_1 = require("./marketcontentdataservice ");
 var CompetitionsDataService = (function (_super) {
     __extends(CompetitionsDataService, _super);
     function CompetitionsDataService(http) {
-        var _this = _super.call(this, http) || this;
+        var _this = _super.call(this, http, enums_1.CopiedElementTypeEnum.Feed, 'Competition') || this;
         _this.http = http;
         return _this;
     }
@@ -41,14 +41,8 @@ var CompetitionsDataService = (function (_super) {
     CompetitionsDataService.prototype.deleteCompetition = function (id) {
         return this.postRequestBase('/api/Competition/Delete?id=' + id, null);
     };
-    CompetitionsDataService.prototype.copyItemToMarket = function (id, marketIds) {
-        return this.copyToMarket('/api/Competition/CopyToMarket', id, marketIds);
-    };
-    CompetitionsDataService.prototype.publishContentToLive = function (contentId) {
-        return this.publishToLive(enums_1.CopiedElementTypeEnum.Competition, contentId);
-    };
     return CompetitionsDataService;
-}(requesthelper_1.RequestHelper));
+}(marketcontentdataservice_1.MarketContentDataService));
 CompetitionsDataService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [http_1.Http])

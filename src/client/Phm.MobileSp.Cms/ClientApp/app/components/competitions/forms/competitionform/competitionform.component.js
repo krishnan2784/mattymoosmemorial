@@ -57,6 +57,7 @@ var CompetitionForm = (function () {
     CompetitionForm.prototype.initialiseForm = function () {
         this.form = this._fb.group({
             id: [this.model.id, []],
+            published: [this.model.published, []],
             title: [this.model.title, [forms_1.Validators.required, forms_1.Validators.maxLength(160)]],
             about: [this.model.about, [forms_1.Validators.required]],
             mainImageId: [this.model.mainImageId, []],

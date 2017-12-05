@@ -21,6 +21,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var basemodalcontent_component_1 = require("../../basemodalcontent.component");
+var enums_1 = require("../../../../enums");
 var userclasses_1 = require("../../../../models/userclasses");
 var shareservice_1 = require("../../../../services/helpers/shareservice");
 var marketdataservice_1 = require("../../../../services/marketdataservice");
@@ -49,7 +50,8 @@ var CopyToMarketContent = (function (_super) {
     };
     CopyToMarketContent.prototype.setupMarkets = function () {
         var _this = this;
-        this.marketService.getMarketsByMasterId(this.contentType, this.model.masterId).subscribe(function (result) {
+        var id = this.contentType !== enums_1.CopiedElementTypeEnum.Feed ? this.model.id : this.model.masterId;
+        this.marketContentService.getMarketsByContentId(id).subscribe(function (result) {
             if (result && result.length > 0) {
                 _this.currentMarkets = _this.filterMarkets(result.map(function (x) { return new userclasses_1.ContentMarket(x); }));
                 _this.markMarketsAsCopied();
@@ -115,7 +117,7 @@ var CopyToMarketContent = (function (_super) {
         var _this = this;
         this.loading = true;
         var marketIds = this.currentMarkets.map(function (x) { return x.id; });
-        this.marketContentService.copyItemToMarket(this.model.id, marketIds).subscribe(function (result) {
+        this.marketContentService.copyContentToMarket(this.model.id, marketIds).subscribe(function (result) {
             if (result.success) {
                 _this.closeModal();
             }

@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Phm.MobileSp.Cms.Core.Enumerations;
 using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 {
-	public class CompetitionRepository : BaseRepository, ICompetitionRepository
+	public class CompetitionRepository : MarketContentRepository, ICompetitionRepository
 	{
-		public CompetitionRepository(IHttpClientService client): base(client, "Competitions") {       }
+		public CompetitionRepository(IHttpClientService client): base(client, CopiedElementTypeEnum.Competitions, "Competitions") {       }
 
 		public async Task<dynamic> GetCompetitionAsync(int marketId)
 		{
@@ -34,16 +35,5 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 			return GetResponseModel<dynamic>(response);
 		}
 
-		public async Task<bool> CopyToMarketAsync(int competitionId, List<int> marketIds)
-		{
-			var response = true;
-			foreach (var marketId in marketIds)
-			{
-				response = GetResponseModel<bool>(await PostAsync($"/api/competitions/{competitionId}/markets/{marketId}", null));
-				if (!response)
-					break;
-			}
-			return response;          
-		}
 	}
 }

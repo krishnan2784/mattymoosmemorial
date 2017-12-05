@@ -18,23 +18,23 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
     {
         public IHttpClientService _clientService;
         private HttpClient _client { get { return _clientService._client; } }
-        private string _repoUrl;
+        public string RepoUrl;
 
         protected BaseRepository(IHttpClientService clientService, string repoUrl)
         {
             _clientService = clientService;
-            _repoUrl = repoUrl;
+            RepoUrl = repoUrl;
         }
 
         public async Task<BaseRepoResponse> GetAsync()
         {
-            HttpResponseMessage response = await _client.GetAsync(_repoUrl);
+            HttpResponseMessage response = await _client.GetAsync(RepoUrl);
             return await GetResponse(response);
         }
 
         public async Task<BaseRepoResponse> GetAsync(int id)
         {
-            HttpResponseMessage response = await _client.GetAsync($"{_repoUrl}/{ id}");
+            HttpResponseMessage response = await _client.GetAsync($"{RepoUrl}/{ id}");
             return await GetResponse(response, false);
         }
 
@@ -46,7 +46,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 
         public async Task<BaseRepoResponse> GetAsync(dynamic criteria)
         {
-            var requestString = await GetRequestUrl(_repoUrl, criteria);
+            var requestString = await GetRequestUrl(RepoUrl, criteria);
             HttpResponseMessage response = await _client.GetAsync(requestString);
             return await GetResponse(response, false);
         }
@@ -60,14 +60,14 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
         
         public async Task<BaseRepoResponse> CreateAsync(dynamic model)
         {
-            HttpResponseMessage response = await _client.PostAsync(_repoUrl, GetRequestBody(model));
+            HttpResponseMessage response = await _client.PostAsync(RepoUrl, GetRequestBody(model));
             return await GetResponse(response);
         }
 
         public async Task<BaseRepoResponse> UpdateAsync(dynamic model)
         {
             var method = new HttpMethod("PATCH");
-            var request = new HttpRequestMessage(method, _client.BaseAddress + _repoUrl) {
+            var request = new HttpRequestMessage(method, _client.BaseAddress + RepoUrl) {
                 Content = GetRequestBody(model)
             };
             HttpResponseMessage response = await _client.SendAsync(request);
@@ -76,13 +76,13 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 
         public async Task<BaseRepoResponse> DeleteAsync(int id)
         {
-            HttpResponseMessage response = await _client.DeleteAsync($"{_repoUrl}/{id}");
+            HttpResponseMessage response = await _client.DeleteAsync($"{RepoUrl}/{id}");
             return await GetResponse(response);
         }
 
         public async Task<BaseRepoResponse> PostAsync(dynamic model)
         {
-            HttpResponseMessage response = await _client.PostAsync(_repoUrl, GetRequestBody(model));
+            HttpResponseMessage response = await _client.PostAsync(RepoUrl, GetRequestBody(model));
             return await GetResponse(response);
         }
 
@@ -94,7 +94,7 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 
         public async Task<BaseRepoResponse> PutAsync(dynamic model)
         {
-            HttpResponseMessage response = await _client.PutAsync(_repoUrl, GetRequestBody(model));
+            HttpResponseMessage response = await _client.PutAsync(RepoUrl, GetRequestBody(model));
             return await GetResponse(response);
         }
 

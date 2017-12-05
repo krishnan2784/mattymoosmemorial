@@ -6,8 +6,8 @@ using System;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces
 {
-    public interface IFeedRepository
-    {
+    public interface IFeedRepository : IMarketContentRepository
+	{
         Task<dynamic> GetFeedItemAsync(int feedItemId);
         Task<dynamic> GetMarketFeedItems(int marketId);
         Task<dynamic> GetFeedItems(FeedCriteria criteria);

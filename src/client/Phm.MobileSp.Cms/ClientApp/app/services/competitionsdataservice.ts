@@ -7,15 +7,16 @@ import { RequestHelper } from "./helpers/requesthelper";
 import {ICompetitionsDataService} from "../interfaces/services/ICompetitionsDataService";
 import {Competition} from "../models/competitionclasses";
 import {ApiResponse} from "../models/apiresponse";
-import {IMarketContentService} from "../interfaces/services/IMarketContentService";
 import * as Apiresponse from "../models/apiresponse";
-import {CopiedElementTypeEnum} from "../enums";
+import { CopiedElementTypeEnum } from "../enums";
+import { MarketContentDataService } from "./marketcontentdataservice ";
+import { IMarketContentService } from "../interfaces/services/IMarketContentService";
 
 @Injectable()
-export class CompetitionsDataService extends RequestHelper implements ICompetitionsDataService, IMarketContentService {
+export class CompetitionsDataService extends MarketContentDataService implements ICompetitionsDataService, IMarketContentService {
 
 	constructor(public http: Http) {
-        super(http);
+		super(http, CopiedElementTypeEnum.Feed, 'Competition');
     }
 
 	public getCompetitions(): Observable<Competition[]> {
@@ -30,11 +31,4 @@ export class CompetitionsDataService extends RequestHelper implements ICompetiti
 		return this.postRequestBase('/api/Competition/Delete?id=' + id, null);
 	}
 
-	public copyItemToMarket(id: number, marketIds: number[]): Observable<ApiResponse> {
-		return this.copyToMarket('/api/Competition/CopyToMarket', id, marketIds);
-	}
-
-	public publishContentToLive(contentId: number) {
-		return this.publishToLive(CopiedElementTypeEnum.Competition, contentId);
-	}
 }

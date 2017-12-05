@@ -3,6 +3,7 @@
 <form [formGroup]="form" *ngIf="model && form" (ngSubmit)="save(form.value, form.valid)">
 	<form-buttons [cancelId]="reward-scheme-form__btn-cancel" [saveId]="reward-scheme-form__btn-save" [loading]="loading" (goBack)="goBack()"></form-buttons>
 	<input type="hidden" formControlName="id">
+	<input type="hidden" formControlName="published">
 
 	<div class="form-tab" [class.visible]="currentStep==='description'">
 		<div class="reward-scheme-title">

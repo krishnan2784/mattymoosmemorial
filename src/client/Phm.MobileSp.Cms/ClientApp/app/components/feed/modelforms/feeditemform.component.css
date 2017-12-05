@@ -153,6 +153,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.observation-explanation{
+	overflow-y:auto;
+}
 .observation-explanation p{
     text-align:left;
 }

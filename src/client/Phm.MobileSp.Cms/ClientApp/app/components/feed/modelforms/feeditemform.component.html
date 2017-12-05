@@ -181,7 +181,7 @@
                         <div class="col-md-6 observation-partial observation-explanation">
                             <p>
                                 <b>What Observations are:</b><br />
-                                Observations are a way to reveive feedback on how your market's sales force is performing.
+                                Observations are a way to receive feedback on how your market's sales force is performing.
                             </p>
                             <p>
                                 <b>How it works:</b><br />
@@ -262,7 +262,7 @@
                              [class.hidden]="model.feedType == feedTypes.Observation"></numbertextinput>
 
             <div class="input-field" [class.allow-favourite]="model.feedType != feedTypes.Observation">
-                <label for="allowFavourite">Allow Favourite</label>
+                <label for="allowFavourite">Allow to be favourite</label>
                 <div class="switch">
                     <label>
                         <input formControlName="allowFavourite" type="checkbox" [checked]="model.allowFavourite"  id="allowFavourite">
@@ -276,7 +276,7 @@
                              [formSubmitted]="submitted"
                              [formControlId]="'readingTime'"
                              [label]="'Reading Time (mins)'"
-                             [validationMessage]="'Estimated time is required'"
+                             [validationMessage]="'Estimated duration is required'"
                              [class.hidden]="model.feedType == feedTypes.Observation"></numbertextinput>
 
 

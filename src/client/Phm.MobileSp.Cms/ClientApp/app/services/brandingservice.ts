@@ -13,7 +13,7 @@ import {IBrandingService} from "../interfaces/services/IBrandingService";
 import {BaseBrandingConfiguration, BrandingElement } from "../models/brandingclasses";
 
 @Injectable()
-export class BrandingService extends RequestHelper implements IBrandingService, IMarketContentService {
+export class BrandingService extends RequestHelper implements IBrandingService {
 
     constructor(public http: Http) {
         super(http);
@@ -27,12 +27,12 @@ export class BrandingService extends RequestHelper implements IBrandingService, 
 		return this.postRequestBase('/api/Branding/Update', brandingElements);
 	}
 
-    public copyItemToMarket(id: number, marketIds: number[]): Observable<Apiresponse.ApiResponse> {
-      return this.copyToMarket('/api/Branding/CopyFeedItemToMarket', id, marketIds);
-    }
+    //public copyItemToMarket(id: number, marketIds: number[]): Observable<Apiresponse.ApiResponse> {
+    //  return this.copyToMarket('/api/Branding/CopyFeedItemToMarket', id, marketIds);
+    //}
 
-    public publishContentToLive(contentId: number) {
-        return this.publishToLive(CopiedElementTypeEnum.Feed, contentId);
-    }
+    //public publishContentToLive(contentId: number) {
+    //    return this.publishToLive(CopiedElementTypeEnum.Feed, contentId);
+    //}
 
 }

@@ -16,6 +16,7 @@ export class TermsAndCondition extends BaseModel {
 		this.fullDescription = options['fullDescription'] || '';
 		this.marketId = options['marketId'] || 0;
 		this.market = options['market'] || new Market();
+		this.published = true;
 	}
 }
 
@@ -31,6 +32,7 @@ export class BaseRewardScheme extends BaseModel {
 		this.about = options['about'] || '';
 		this.marketId = options['marketId'] || 0;
 		this.market = options['market'] || new Market();
+		this.published = true;
 	}
 }
 
@@ -114,6 +116,7 @@ export class Competition extends BaseModel {
 		this.completedImageId = options['completedImageId'];
 		this.makeCompletedImageLink = options['makeCompletedImageLink'] || false;
 		this.participants = options['participants'] || 0;
+		this.published = true;
 		this.formatDates();
 	}
 

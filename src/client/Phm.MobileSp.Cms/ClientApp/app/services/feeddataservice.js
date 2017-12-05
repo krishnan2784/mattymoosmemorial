@@ -24,14 +24,14 @@ var http_1 = require("@angular/http");
 var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/publishReplay");
-var requesthelper_1 = require("./helpers/requesthelper");
 var Enums = require("../enums");
 var date_1 = require("../classes/helpers/date");
 var CopiedElementTypeEnum = Enums.CopiedElementTypeEnum;
+var marketcontentdataservice_1 = require("./marketcontentdataservice ");
 var FeedDataService = (function (_super) {
     __extends(FeedDataService, _super);
     function FeedDataService(http) {
-        var _this = _super.call(this, http) || this;
+        var _this = _super.call(this, http, CopiedElementTypeEnum.Feed, 'Feed', '/GetMarketsByMasterId', '/CopyFeedItemToMarket') || this;
         _this.http = http;
         return _this;
     }
@@ -66,7 +66,10 @@ var FeedDataService = (function (_super) {
         var _this = this;
         return Observable_1.Observable.create(function (observer) {
             _this.getRequestBase('/api/Feed/GetFeedItem?id=' + feedId).subscribe(function (result) {
-                observer.next(result);
+                if (result.length > 0)
+                    observer.next(result[0]);
+                else
+                    observer.next(null);
                 observer.complete();
             });
         });
@@ -77,12 +80,12 @@ var FeedDataService = (function (_super) {
     FeedDataService.prototype.deleteFeeditem = function (feedItemId) {
         return this.postRequestBase('/api/Feed/DeleteFeedItem', feedItemId);
     };
-    FeedDataService.prototype.copyItemToMarket = function (id, marketIds) {
-        return this.copyToMarket('/api/Feed/CopyFeedItemToMarket', id, marketIds);
-    };
-    FeedDataService.prototype.publishContentToLive = function (contentId) {
-        return this.publishToLive(CopiedElementTypeEnum.Feed, contentId);
-    };
+    //public copyItemToMarket(id: number, marketIds: number[]): Observable<Apiresponse.ApiResponse> {
+    //    return this.copyContentToMarket('/api/Feed/CopyFeedItemToMarket', id, marketIds);
+    //}
+    //public publishToLive(contentId: number) {
+    //    return this.publishContentToLive(CopiedElementTypeEnum.Feed, contentId);
+    //}
     FeedDataService.prototype.getQuizFeedItemReport = function (feedItemId) {
         return this.getRequestFull('/api/FeedSummaries/GetQuizFeedSummaries?feedItemId=' + feedItemId);
     };
@@ -120,7 +123,7 @@ var FeedDataService = (function (_super) {
         return this.getRequestBase(requestUrl);
     };
     return FeedDataService;
-}(requesthelper_1.RequestHelper));
+}(marketcontentdataservice_1.MarketContentDataService));
 FeedDataService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [http_1.Http])

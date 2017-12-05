@@ -41,8 +41,7 @@ var FeedItemSummaryEx = (function (_super) {
         _this.resultPercentage = options['resultPercentage'] || 0;
         _this.startedAt = options['startedAt'];
         _this.totalQuestions = options['totalQuestions'] || 0;
-        _this.totalRightAnswers = options['totalRightAnswers'] || 0;
-        _this.totalWrongAnswers = options['totalWrongAnswers'] || 0;
+        _this.totalRightQuestions = options['totalRightQuestions'] || 0;
         _this.user = options['user'];
         return _this;
     }

@@ -11,16 +11,17 @@ import FeedModel = require("../interfaces/models/IFeedModel");
 import FeedItem = FeedModel.IFeedItem;
 import Feedclasses = require("../models/feedclasses");
 import Apiresponse = require("../models/apiresponse");
-import MarketContentService = require("../interfaces/services/IMarketContentService");
+
 import { DateEx } from "../classes/helpers/date";
-import IMarketContentService = MarketContentService.IMarketContentService;
 import CopiedElementTypeEnum = Enums.CopiedElementTypeEnum;
+import { MarketContentDataService } from "./marketcontentdataservice ";
+import { IMarketContentService } from "../interfaces/services/IMarketContentService";
 
 @Injectable()
-export class FeedDataService extends RequestHelper implements IFeedDataService, IMarketContentService {
+export class FeedDataService extends MarketContentDataService implements IFeedDataService, IMarketContentService {
 
     constructor(public http: Http) {
-        super(http);
+		super(http, CopiedElementTypeEnum.Feed, 'Feed', '/GetMarketsByMasterId', '/CopyFeedItemToMarket');
     }
 
     public getFeeditems(): Observable<FeedModel.IFeedItem[]> {
@@ -53,8 +54,12 @@ export class FeedDataService extends RequestHelper implements IFeedDataService, 
 
     public getFeeditem(feedId: number): Observable<FeedModel.IFeedItem>  {
         return Observable.create(observer => {
-            this.getRequestBase('/api/Feed/GetFeedItem?id=' + feedId).subscribe((result) => {
-                observer.next(result);
+			this.getRequestBase('/api/Feed/GetFeedItem?id=' + feedId).subscribe((result) => {
+				if (result.length > 0)
+					observer.next(result[0]);
+				else
+					observer.next(null);
+
                 observer.complete();
             });
         });
@@ -66,15 +71,15 @@ export class FeedDataService extends RequestHelper implements IFeedDataService, 
 
     public deleteFeeditem(feedItemId: number): Observable<boolean> {
         return this.postRequestBase('/api/Feed/DeleteFeedItem',  feedItemId);
-    }
+	}
 
-    public copyItemToMarket(id: number, marketIds: number[]): Observable<Apiresponse.ApiResponse> {
-        return this.copyToMarket('/api/Feed/CopyFeedItemToMarket', id, marketIds);
-    }
+    //public copyItemToMarket(id: number, marketIds: number[]): Observable<Apiresponse.ApiResponse> {
+    //    return this.copyContentToMarket('/api/Feed/CopyFeedItemToMarket', id, marketIds);
+    //}
 
-    public publishContentToLive(contentId: number) {
-        return this.publishToLive(CopiedElementTypeEnum.Feed, contentId);
-    }
+    //public publishToLive(contentId: number) {
+    //    return this.publishContentToLive(CopiedElementTypeEnum.Feed, contentId);
+    //}
 
     public getQuizFeedItemReport(feedItemId: number): Observable<any> {
         return this.getRequestFull('/api/FeedSummaries/GetQuizFeedSummaries?feedItemId=' + feedItemId);

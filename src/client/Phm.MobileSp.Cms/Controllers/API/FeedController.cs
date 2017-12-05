@@ -9,6 +9,7 @@ using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Helpers.Attributes;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 using System;
+using Phm.MobileSp.Cms.Core.Enumerations;
 using Phm.MobileSp.Cms.Core.Models.Interfaces;
 using Phm.MobileSp.Cms.Helpers;
 using Phm.MobileSp.Cms.Helpers.CustomModelBinding;
@@ -19,14 +20,13 @@ namespace Phm.MobileSp.Cms.Controllers.API
     [Authorize]
     [Route("api/[controller]")]
     [AiHandleError]
-    public class FeedController : MarketController
+    public class FeedController : MarketContentController
     {
         private readonly IFeedRepository _feedRepository;
 
-        public FeedController(IMemoryCache memoryCache, IFeedRepository feedRepository, IUserRepository userRepository, IMarketRepository marketRepository,
-            IUserConfigurationRepository userConfigRepository, IMarketUserRepository marketUserRepository,
-            IContentRepository contentRepository) 
-            : base(memoryCache, userRepository, marketRepository, userConfigRepository, marketUserRepository, contentRepository)
+        public FeedController(IMemoryCache memoryCache, IFeedRepository feedRepository, IMarketRepository marketRepository,
+            IUserConfigurationRepository userConfigRepository, IMarketUserRepository marketUserRepository) 
+            : base(memoryCache, marketRepository, userConfigRepository, marketUserRepository, feedRepository)
         {
             _feedRepository = feedRepository;
         }
@@ -79,28 +79,21 @@ namespace Phm.MobileSp.Cms.Controllers.API
             var feedItemResponse = await _feedRepository.DeleteFeedItemAsync(feedItemId);
             return Json(new BaseResponse<bool>(feedItemResponse, feedItemResponse ? "Feed item successfuly deleted" : "Failed to delete feed item", feedItemResponse));
         }
-        
-        [HttpPost("[action]")]
-        [JsonResponseWrapper]
-        public async Task<JsonResult> CopyFeedItemToMarket(int id, List<int> marketIds)
-        {
-            var feedItemResponse = await _feedRepository.CopyFeedItemToMarketAsync(id, marketIds);
-            return Json(new BaseResponse<bool>(feedItemResponse, feedItemResponse ? "Feed item successfuly copied" : "Failed to copy feed item", feedItemResponse));
-        }
 
-        //[JsonResponseWrapper]
-        //public async Task<JsonResult> UpdateTextFeedItem([FromBody] JToken feedItem)
-        //{
-        //    try
-        //    {
-        //        return await UpdateFeedItem<TextFeed, TextFeedDto>(feedItem.ToObject<TextFeed>());
+	    [HttpGet("[action]")]
+	    [JsonResponseWrapper]
+	    [ResponseCache(CacheProfileName = "NoCache")]
+	    public async Task<JsonResult> GetMarketsByMasterId(string contentId)
+	    {
+		    return await GetContentMarketsByMasterId(CopiedElementTypeEnum.Feed, contentId);
+	    }
 
-        //    }
-        //    catch (Exception e)
-        //    {
-
-        //    }
-        //    return null;
-        //}
-    }
+	    [HttpPost("[action]")]
+	    [JsonResponseWrapper]
+	    public async Task<JsonResult> CopyFeedItemToMarket(int id, List<int> marketIds)
+	    {
+		    var response = await _feedRepository.CopyFeedItemToMarketAsync(id, marketIds);
+		    return Json(response);
+	    }
+	}
 }

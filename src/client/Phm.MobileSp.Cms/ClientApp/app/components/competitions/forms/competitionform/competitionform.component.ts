@@ -65,6 +65,7 @@ export class CompetitionForm implements OnInit {
 	public initialiseForm() {
 		this.form = this._fb.group({
 			id: [this.model.id, []],
+			published: [this.model.published, []],
 			title: [this.model.title, [<any>Validators.required, <any>Validators.maxLength(160)]],
 			about: [this.model.about, [<any>Validators.required]],
 			mainImageId: [this.model.mainImageId, []],

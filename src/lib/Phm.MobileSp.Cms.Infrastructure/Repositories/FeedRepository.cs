@@ -14,14 +14,14 @@ using Newtonsoft.Json;
 
 namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 {
-    public class FeedRepository : BaseRepository, IFeedRepository
+    public class FeedRepository : MarketContentRepository, IFeedRepository
     {
-        public FeedRepository(IHttpClientService client): base(client, "Feed") {       }
+        public FeedRepository(IHttpClientService client): base(client, CopiedElementTypeEnum.Feed, "Feed") {       }
 
         public async Task<dynamic> GetFeedItemAsync(int feedItemId)
         {
-            var response = await GetAsync(feedItemId);
-            return GetResponseModel<List<dynamic>>(response).First();
+	        var f = await GetFeedItems(new FeedCriteria() {Id = feedItemId, Enabled = null });
+			return f;
 
             //var type = Type.GetType($"Phm.MobileSp.Cms.Core.Models.{Enum.GetName(typeof(FeedTypeEnum),feed.FeedType)}Feed", true);
             //var model = JsonConvert.DeserializeObject(feed, type);

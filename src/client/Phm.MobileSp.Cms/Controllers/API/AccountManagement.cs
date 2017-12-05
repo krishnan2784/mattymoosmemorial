@@ -18,18 +18,15 @@ namespace Phm.MobileSp.Cms.Controllers.API
     public class AccountManagement : MarketController
     {
         private readonly IUserRepository _userRepository;
-        private readonly IMarketRepository _marketRepository;
         private readonly IUserTemplateRepository _userTemplateRepository;
         private readonly ISecurityGroupsRepository _secGroupsRepository;
         
         public AccountManagement(IMemoryCache memoryCache, IUserRepository userRepository, IMarketRepository marketRepository,
-            IUserConfigurationRepository userConfigRepository, IMarketUserRepository marketUserRepository,
-            IContentRepository contentRepository, IUserTemplateRepository userTemplateRepository,
+            IUserConfigurationRepository userConfigRepository, IMarketUserRepository marketUserRepository, IUserTemplateRepository userTemplateRepository,
             ISecurityGroupsRepository secGroupsRepository) 
-            : base(memoryCache, userRepository, marketRepository, userConfigRepository, marketUserRepository, contentRepository)
+            : base(memoryCache, marketRepository, userConfigRepository, marketUserRepository)
         {
             _userRepository = userRepository;
-            _marketRepository = marketRepository;
             _userTemplateRepository = userTemplateRepository;
             _secGroupsRepository = secGroupsRepository;
         }

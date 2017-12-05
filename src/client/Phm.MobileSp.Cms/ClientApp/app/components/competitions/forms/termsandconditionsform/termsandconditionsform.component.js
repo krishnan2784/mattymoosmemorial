@@ -25,7 +25,6 @@ var TermsAndConditionForm = (function () {
         this.loading = false;
     }
     TermsAndConditionForm.prototype.ngOnInit = function () {
-        console.log(this.model);
         this.setupSteps();
         this.getData();
         this.initialiseForm();
@@ -36,6 +35,7 @@ var TermsAndConditionForm = (function () {
     TermsAndConditionForm.prototype.initialiseForm = function () {
         this.form = this._fb.group({
             id: [this.model.id, []],
+            published: [this.model.published, []],
             title: [this.model.title, [forms_1.Validators.required, forms_1.Validators.maxLength(160)]],
             fullDescription: [this.model.fullDescription, [forms_1.Validators.required]]
         });

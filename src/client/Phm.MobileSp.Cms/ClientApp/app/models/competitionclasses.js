@@ -24,6 +24,7 @@ var TermsAndCondition = (function (_super) {
         _this.fullDescription = options['fullDescription'] || '';
         _this.marketId = options['marketId'] || 0;
         _this.market = options['market'] || new marketclasses_1.Market();
+        _this.published = true;
         return _this;
     }
     return TermsAndCondition;
@@ -38,6 +39,7 @@ var BaseRewardScheme = (function (_super) {
         _this.about = options['about'] || '';
         _this.marketId = options['marketId'] || 0;
         _this.market = options['market'] || new marketclasses_1.Market();
+        _this.published = true;
         return _this;
     }
     return BaseRewardScheme;
@@ -100,6 +102,7 @@ var Competition = (function (_super) {
         _this.completedImageId = options['completedImageId'];
         _this.makeCompletedImageLink = options['makeCompletedImageLink'] || false;
         _this.participants = options['participants'] || 0;
+        _this.published = true;
         _this.formatDates();
         return _this;
     }

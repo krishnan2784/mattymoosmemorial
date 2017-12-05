@@ -45,8 +45,9 @@ export class CopyToMarketContent extends BaseModalContent implements OnInit, IMo
         this.setupMarkets();
     }
 
-    setupMarkets() {
-        this.marketService.getMarketsByMasterId(this.contentType, this.model.masterId).subscribe((result) => {
+	setupMarkets() {		
+		let id: any = this.contentType !== CopiedElementTypeEnum.Feed ? this.model.id : this.model.masterId;
+		this.marketContentService.getMarketsByContentId(id).subscribe((result) => {
             if (result && result.length > 0) {
                 this.currentMarkets = this.filterMarkets(result.map((x) => { return new ContentMarket(x); }));
                 this.markMarketsAsCopied();
@@ -109,7 +110,7 @@ export class CopyToMarketContent extends BaseModalContent implements OnInit, IMo
     saveChanges() {
         this.loading = true;
         var marketIds = this.currentMarkets.map((x) => { return x.id; });
-        this.marketContentService.copyItemToMarket(this.model.id, marketIds).subscribe((result) => {
+        this.marketContentService.copyContentToMarket(this.model.id, marketIds).subscribe((result) => {
             if (result.success) {
                 this.closeModal();
             }

@@ -32,7 +32,6 @@ export class TermsAndConditionForm implements OnInit {
 	}
 
 	ngOnInit() {
-		console.log(this.model);
 		this.setupSteps();
 		this.getData();
 		this.initialiseForm();
@@ -45,6 +44,7 @@ export class TermsAndConditionForm implements OnInit {
 	public initialiseForm() {
 		this.form = this._fb.group({
 			id: [this.model.id, []],
+			published: [this.model.published, []],
 			title: [this.model.title, [<any>Validators.required, <any>Validators.maxLength(160)]],
 			fullDescription: [this.model.fullDescription, [<any>Validators.required]]
 		});

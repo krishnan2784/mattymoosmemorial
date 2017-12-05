@@ -74,48 +74,6 @@ export class RequestHelper {
         });
     }
 
-	public copyToMarket(url: string, id: number, marketIds: number[], contentType: CopiedElementTypeEnum = null): Observable<ApiResponse> {
-        if (!marketIds || marketIds.length === 0)
-            return null;
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let marketQueryString = '';
-        for(let m of  marketIds) {
-            marketQueryString += '&marketIds=' + m;
-        }
-        return Observable.create(observer => {
-			this.http.post(url + '?id=' + id + marketQueryString + (contentType ? '&contentType=' + contentType : ''), null, headers).subscribe(
-                (result) => {
-                    let response = ResponseHelper.getResponse(result);
-                    if (response.success) {
-                        Materialize.toast(response.message, 5000, 'green');
-                    } else {
-                        Materialize.toast(response.message, 5000, 'red');
-                    }
-                    observer.next(response);
-                    observer.complete();
-                }
-            );
-        });
-    }
-
-    protected publishToLive(contentType: CopiedElementTypeEnum, contentId: number, url: string = '/api/Market/PublishContentToLive') {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        return Observable.create(observer => {
-            this.http.post(url + '?contentType=' + contentType + '&contentId=' + contentId, null, headers).subscribe(
-                (result) => {
-                    let response = ResponseHelper.getResponse(result);
-                    if (response.success) {
-                        Materialize.toast(response.message, 5000, 'green');
-                    } else {
-                        Materialize.toast(response.message, 5000, 'red');
-                    }
-                    observer.next(response);
-                    observer.complete();
-                }
-            );
-        });
-    }
-
     public static getResponse(response: any): ApiResponse {
         response = new ApiResponse(response.json());
         return response;

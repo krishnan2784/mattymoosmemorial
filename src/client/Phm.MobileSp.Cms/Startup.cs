@@ -105,8 +105,7 @@ namespace Phm.MobileSp.Cms
                 services.AddTransient<IMLearningCoreContract, MLearningCoreContractClient>();
                 services.AddTransient<ICoreContract, CoreContractClient>();
                 services.AddTransient<ISecurityContract, SecurityContractClient>();
-
-                services.AddTransient<IContentRepository, ContentRepository>();
+				
                 services.AddTransient<IFeedRepository, FeedRepository>();
                 services.AddTransient<IFeedSummariesRepository, FeedSummariesRepository>();
                 services.AddTransient<ILeaderBoardDataRepository, LeaderBoardDataRepository>();

@@ -13,13 +13,14 @@ namespace Phm.MobileSp.Cms.Controllers.API
 	[Authorize]
     [Route("api/[controller]")]
     [AiHandleError]
-    public class CompetitionController : BaseController
-    {
+    public class CompetitionController : MarketContentController
+	{
         private readonly ICompetitionRepository _competitionRepo;
 
-        public CompetitionController(IMemoryCache memoryCache, ICompetitionRepository competitionRepo) 
-            : base(memoryCache)
-        {
+        public CompetitionController(IMemoryCache memoryCache, ICompetitionRepository competitionRepo, IMarketRepository marketRepository,
+	        IUserConfigurationRepository userConfigRepository, IMarketUserRepository marketUserRepository)
+	        : base(memoryCache, marketRepository, userConfigRepository, marketUserRepository, competitionRepo)
+		{
 			_competitionRepo = competitionRepo;
         }
         
@@ -59,14 +60,6 @@ namespace Phm.MobileSp.Cms.Controllers.API
 	    {
 		    var response = await _competitionRepo.DeleteCompetitionAsync(id);
 		    return Json(new BaseResponse<dynamic>(response, response ? "Competition was successfully deleted." : "Failed to delete competition. Please try again.", response));
-	    }
-
-	    [HttpPost("[action]")]
-	    [JsonResponseWrapper]
-	    public async Task<JsonResult> CopyToMarket(int id, List<int> marketIds)
-	    {
-		    var response = await _competitionRepo.CopyToMarketAsync(id, marketIds);
-		    return Json(new BaseResponse<bool>(response, response ? "Competition successfuly copied" : "Failed to copy competition", response));
 	    }
 
 	}

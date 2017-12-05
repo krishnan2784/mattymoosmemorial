@@ -24,8 +24,6 @@ var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/publishReplay");
 var requesthelper_1 = require("./helpers/requesthelper");
-var Enums = require("../enums");
-var CopiedElementTypeEnum = Enums.CopiedElementTypeEnum;
 var BrandingService = (function (_super) {
     __extends(BrandingService, _super);
     function BrandingService(http) {
@@ -38,12 +36,6 @@ var BrandingService = (function (_super) {
     };
     BrandingService.prototype.updateBranding = function (brandingElements) {
         return this.postRequestBase('/api/Branding/Update', brandingElements);
-    };
-    BrandingService.prototype.copyItemToMarket = function (id, marketIds) {
-        return this.copyToMarket('/api/Branding/CopyFeedItemToMarket', id, marketIds);
-    };
-    BrandingService.prototype.publishContentToLive = function (contentId) {
-        return this.publishToLive(CopiedElementTypeEnum.Feed, contentId);
     };
     return BrandingService;
 }(requesthelper_1.RequestHelper));

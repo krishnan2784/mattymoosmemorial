@@ -35,8 +35,7 @@ export class FeedItemSummaryEx extends BaseModel
     public resultPercentage: number;
     public startedAt: Date;
     public totalQuestions: number;
-    public totalRightAnswers: number;
-    public totalWrongAnswers: number;
+    public totalRightQuestions: number;
     public user: User;
 
     constructor(options: {} = {})
@@ -52,8 +51,7 @@ export class FeedItemSummaryEx extends BaseModel
         this.resultPercentage = options['resultPercentage'] || 0;
         this.startedAt = options['startedAt'];
         this.totalQuestions = options['totalQuestions'] || 0;
-        this.totalRightAnswers = options['totalRightAnswers'] || 0;
-        this.totalWrongAnswers = options['totalWrongAnswers'] || 0;
+		this.totalRightQuestions = options['totalRightQuestions'] || 0;
         this.user = options['user'];
     }
 }

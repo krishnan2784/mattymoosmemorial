@@ -54,6 +54,7 @@ export class RewardSchemeForm implements OnInit {
 		this.model.items.forEach(x => formArray.push(this.initItem(x)));
 		this.form = this._fb.group({
 			id: [this.model.id, []],
+			published: [this.model.published, []],
 			title: [this.model.title, [<any>Validators.required, <any>Validators.maxLength(160)]],
 			about: [this.model.about, []],
 			items: formArray

@@ -13,7 +13,7 @@
             </div>
 		        <div *ngIf="rewardSchemes.length > 0" class='reward-scheme-index no-pad animate-bottom'>
 			        <div *ngFor="let rewardScheme of rewardSchemes | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}; let i = index" class="col-xs-12 index-reward-scheme-item">
-				        <img src="assets/images/Icon-Observation-b.png" class="reward-scheme-img" />
+				        <img src="assets/images/icons/Competition-icon-b_2x.png" class="reward-scheme-img" />
 				        <div class="col-xs-7 no-pad">
 					        <div class="col-xs-12 reward-scheme-item-title">
 						        <p [innerHTML]="rewardScheme.title"></p>

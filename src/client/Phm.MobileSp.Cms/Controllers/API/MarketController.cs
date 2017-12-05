@@ -22,21 +22,16 @@ namespace Phm.MobileSp.Cms.Controllers
     [AiHandleError]
     public class MarketController : BaseController
     {
-        private readonly IUserRepository _userRepository;
         private readonly IMarketRepository _marketRepository;
         private readonly IMarketUserRepository _marketUserRepository;
         private readonly IUserConfigurationRepository _userConfigRepository;
-        private readonly IContentRepository _contentRepository;
 
-        public MarketController(IMemoryCache memoryCache, IUserRepository userRepository, IMarketRepository marketRepository,
-            IUserConfigurationRepository userConfigRepository, IMarketUserRepository marketUserRepository,
-            IContentRepository contentRepository) : base(memoryCache)
+        public MarketController(IMemoryCache memoryCache, IMarketRepository marketRepository,
+            IUserConfigurationRepository userConfigRepository, IMarketUserRepository marketUserRepository) : base(memoryCache)
         {
-            _userRepository = userRepository;
             _marketRepository = marketRepository;
             _userConfigRepository = userConfigRepository;
             _marketUserRepository = marketUserRepository;
-            _contentRepository = contentRepository;
         }
         
         [HttpGet("[action]")]
@@ -88,38 +83,20 @@ namespace Phm.MobileSp.Cms.Controllers
         [HttpGet("[action]")]
         [JsonResponseWrapper]
         [ResponseCache(CacheProfileName = "NoCache")]
-        public async Task<JsonResult> GetMarketsByMasterId(CopiedElementTypeEnum contentType, string masterId)
-        {
-            Guid master = new Guid(masterId);
-            var markets = await _marketRepository.GetMarketsByMasterIdAsync(contentType, master);
-            return Json(new BaseResponse<IEnumerable<Market>>(markets));
-        }
-
-        [HttpGet("[action]")]
-        [JsonResponseWrapper]
-        [ResponseCache(CacheProfileName = "NoCache")]
         public async Task<JsonResult> GetMarketUserFilters()
         {
             var marketFilters = await _marketUserRepository.GetMarketUserFilters(CurrentMarketId);
             return Json(new BaseResponse<dynamic>(marketFilters));
         }
 
-
-        [HttpPost("[action]")]
-        [JsonResponseWrapper]
-        [ResponseCache(CacheProfileName = "NoCache")]
-        public async Task<JsonResult> PublishContentToLive(CopiedElementTypeEnum contentType, int contentId)
-        {
-            var result = await _contentRepository.PublishContentToLive(contentType, contentId);
-            return Json(result);
-        }
-
-	    [HttpPost("[action]")]
+	    [HttpGet("[action]")]
 	    [JsonResponseWrapper]
-	    public async Task<JsonResult> CopyToMarket(CopiedElementTypeEnum contentType, int id, List<int> marketIds)
+	    [ResponseCache(CacheProfileName = "NoCache")]
+	    public async Task<JsonResult> GetContentMarketsByMasterId(CopiedElementTypeEnum contentType, string masterId)
 	    {
-		    var response = await _contentRepository.CopyToMarket(contentType, id, marketIds);
-		    return Json(response);
+		    Guid master = new Guid(masterId);
+		    var markets = await _marketRepository.GetMarketsByMasterIdAsync(contentType, master);
+		    return Json(new BaseResponse<IEnumerable<Market>>(markets));
 	    }
 
 		public override void OnActionExecuted(ActionExecutedContext context)
