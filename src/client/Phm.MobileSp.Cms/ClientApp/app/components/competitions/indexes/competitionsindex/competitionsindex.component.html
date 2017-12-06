@@ -26,7 +26,7 @@
 					        </div>
 				        </div>
 				        <div class="col-xs-4 no-pad competition-index-controls">
-					        <div class="competition-control" [class.col-xs-offset-3]="currentMarket && currentMarket.isLive">
+					        <div class="competition-control">
 						        <div>
 							        <a (click)="editCompetition(competition)" id="competition-index-item__btn-edit-{{i}}">
 								        <i class="material-icons">edit</i>
@@ -34,7 +34,7 @@
 							        </a>
 						        </div>
 					        </div>
-					        <div class="competition-control">
+					        <div class="competition-control" [class.col-xs-offset-3]="currentMarket && currentMarket.isLive">
 						        <div>
 							        <a (click)="deleteCompetition(competition)" id="competition-index-item__btn-delete-{{i}}">
 								        <i class="material-icons">delete</i>
