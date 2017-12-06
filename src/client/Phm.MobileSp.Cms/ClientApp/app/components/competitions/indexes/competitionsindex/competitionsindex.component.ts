@@ -63,6 +63,7 @@ export class CompetitionIndexComponent extends BaseComponent implements OnInit, 
 
     getData() {
 		this.getCompetitionsItemsSub = this.competitionDataService.getCompetitions().subscribe((result) => {
+			console.log(result);
 			this.allCompetitions = result;
 			this.filteredCompetitions = result;
 			this.sharedService.updateMarketDropdownEnabledState(true);

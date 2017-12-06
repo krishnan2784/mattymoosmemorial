@@ -49,23 +49,14 @@ export class EditEntityPermissionsListComponent implements OnInit, OnDestroy {
     }
 
 	getData() {
-		if (this.groupMode)
-			this.epDataService.getEntityPermissions(this.secEntityId).subscribe(x => {
-				this.entityFeaturePermissions = (!x || x.length === 0 ? [] : x);
-				this.setupForm();
-				this.formLoaded.emit(true);
-			});
-		else {
-			this.epDataService.getUserPermissions(this.userId).subscribe(x => {
-				//console.log(this.secEntityId);
-				//console.log(x);
-
-				this.entityFeaturePermissions = (!x || x.permissions.length === 0 ? [] : x.permissions);
-				this.secEntityId = x.secEntityId;
-				this.setupForm();
-				this.formLoaded.emit(true);
-			});
-		}
+		this.epDataService.getEntityPermissions(this.secEntityId).subscribe(x => {
+			if (!x || x.length === 0)
+				this.entityFeaturePermissions = (this.groupMode ? this.groupFeaturePermissions : []);
+			else
+				this.entityFeaturePermissions = x;
+			this.setupForm();
+			this.formLoaded.emit(true);
+		});
 	}
 
 	setupForm() {

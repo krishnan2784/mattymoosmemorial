@@ -37,49 +37,17 @@ namespace Phm.MobileSp.Cms.Controllers.API
 	    [JsonResponseWrapper]
 	    public async Task<JsonResult> GetEntityPermissions(int id)
 	    {
-		    var response = await _secEntityFeaturesRepo.GetEntityPermissions(id);
-		    return Json(new BaseResponse<dynamic>(response));
-	    }
-
-	    [HttpGet("[action]")]
-	    [JsonResponseWrapper]
-	    public async Task<JsonResult> GetUserPermissions(int userId = 0)
-	    {
-		    if (userId == 0)
-			    userId = UserId;
-
-		    if (userId == UserId)
-		    { // this is gross, but i need to come up with a better caching solution where i can add keys
+		    if (id == 0 || id == CurrentUserSecEntityId)
+		    { 
 			    var cacheResult = await _cache.GetOrCreateAsync(CacheKeys.USERPERMISSIONS, async entry =>
 			    {
-				    var userProfile = (await _userTemplateRepo.GetUsersAsync(0, userId)).FirstOrDefault();
-				    if (userProfile?.SecGroup?.Id > 0)
-				    {
-					    var secGroup = await _securityGroupsRepository.GetSecGroupById(userProfile.SecGroup.Id);
-					    if (secGroup?.SecEntityId > 0)
-					    {
-
-						    var response = await _secEntityFeaturesRepo.GetEntityPermissions((int)secGroup.SecEntityId);
-						    return Json(new BaseResponse<dynamic>(new { permissions = response, secEntityId = secGroup.SecEntityId }));
-					    }
-				    }
-				    return Json(new BaseResponse<dynamic>(false, "Failed to get permissions.", null));
-				});
+				    var response = await _secEntityFeaturesRepo.GetCurrentUsersPermissions(UserId, CurrentUserSecEntityId);
+				    return Json(new BaseResponse<dynamic>(response));
+			    });
 			    return cacheResult;
 		    }
-		    else {
-				var userProfile = (await _userTemplateRepo.GetUsersAsync(0, userId)).FirstOrDefault();
-				if (userProfile?.SecGroup?.Id > 0)
-				{
-					var secGroup = await _securityGroupsRepository.GetSecGroupById(userProfile.SecGroup.Id);
-					if (secGroup?.SecEntityId > 0){
-
-						var response = await _secEntityFeaturesRepo.GetEntityPermissions((int)secGroup.SecEntityId);
-						return Json(new BaseResponse<dynamic>(new { permissions = response, secEntityId = secGroup.SecEntityId }));
-					}
-				}
-				return Json(new BaseResponse<dynamic>(false, "Failed to get permissions.", null));
-		    }
-		}
+			var r = await _secEntityFeaturesRepo.GetEntityPermissions(id);
+			return Json(new BaseResponse<dynamic>(r));
+	    }
 	}
 }

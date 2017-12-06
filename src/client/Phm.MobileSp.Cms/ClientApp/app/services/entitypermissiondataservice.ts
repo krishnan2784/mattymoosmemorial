@@ -28,14 +28,4 @@ export class EntityPermissionDataService extends RequestHelper implements IEntit
 			});
 		});
 	}
-
-	public getUserPermissions(userId: number = 0): Observable<{ permissions: SecFeaturePermission[], secEntityId :number}> {
-		return Observable.create(observer => {
-			this.http.get('/api/SecurityEntityFeatures/GetUserPermissions?userId=' + userId).subscribe(result => {
-				let response = ResponseHelper.getResponse(result);
-				observer.next(response.content);
-				observer.complete();
-			});
-		});
-	}
 }

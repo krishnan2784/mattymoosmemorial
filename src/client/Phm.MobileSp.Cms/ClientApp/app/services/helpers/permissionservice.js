@@ -32,9 +32,8 @@ var PermissionService = (function () {
         this.usersPermissions = [];
         this.securityFeatureDataService.getSecurityFeatures().subscribe(function (result) {
             _this.allFeatures = result ? result : [];
-            _this.entityPermissionDataService.getUserPermissions().subscribe(function (response) {
-                _this.currentUsersPermissions = response ? response.permissions : [];
-                //console.log(response);
+            _this.entityPermissionDataService.getEntityPermissions(_this.shareService.currentUser.secEntityId).subscribe(function (response) {
+                _this.currentUsersPermissions = response ? response : [];
                 _this.allFeatures.forEach(function (x) {
                     var up = _this.currentUsersPermissions.filter(function (y) { return y.secFeatureId === x.id && y.allow; })[0];
                     _this.usersPermissions.push({

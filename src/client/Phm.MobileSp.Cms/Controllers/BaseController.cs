@@ -42,5 +42,6 @@ namespace Phm.MobileSp.Cms.Controllers
         }
 
         public int UserId => HttpContext.GetClaimValue<int>("userid");
-    }
+        public int CurrentUserSecEntityId => HttpContext.GetClaimValue<int>("secentityid");
+	}
 }

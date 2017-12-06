@@ -23,7 +23,9 @@ namespace Phm.MobileSp.Cms.Core.Models
 
         public int SessionExpireMinutes { get; set; }
 
-        public string UserName { get; set; }
+	    public int? SecEntityId { get; set; }
+
+		public string UserName { get; set; }
 
         public List<UserConfiguration> UserConfigurationList { get; set; }
 

@@ -70,8 +70,9 @@ namespace Phm.MobileSp.Cms.Controllers
                 new Claim("sessionguid", user.SessionGuid),
                 new Claim("userid", user.UserDetails.Id.ToString()),
                 new Claim("currentmarketid", user.UserDetails.DefaultMarketId.ToString()),
-                new Claim("name", user.UserDetails.Email)
-            };
+                new Claim("name", user.UserDetails.Email),
+                new Claim("secentityid", user.UserDetails.SecEntityId.ToString())
+			};
 
             try
             {

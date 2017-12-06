@@ -39,22 +39,14 @@ var EditEntityPermissionsListComponent = (function () {
     };
     EditEntityPermissionsListComponent.prototype.getData = function () {
         var _this = this;
-        if (this.groupMode)
-            this.epDataService.getEntityPermissions(this.secEntityId).subscribe(function (x) {
-                _this.entityFeaturePermissions = (!x || x.length === 0 ? [] : x);
-                _this.setupForm();
-                _this.formLoaded.emit(true);
-            });
-        else {
-            this.epDataService.getUserPermissions(this.userId).subscribe(function (x) {
-                //console.log(this.secEntityId);
-                //console.log(x);
-                _this.entityFeaturePermissions = (!x || x.permissions.length === 0 ? [] : x.permissions);
-                _this.secEntityId = x.secEntityId;
-                _this.setupForm();
-                _this.formLoaded.emit(true);
-            });
-        }
+        this.epDataService.getEntityPermissions(this.secEntityId).subscribe(function (x) {
+            if (!x || x.length === 0)
+                _this.entityFeaturePermissions = (_this.groupMode ? _this.groupFeaturePermissions : []);
+            else
+                _this.entityFeaturePermissions = x;
+            _this.setupForm();
+            _this.formLoaded.emit(true);
+        });
     };
     EditEntityPermissionsListComponent.prototype.setupForm = function () {
         var _this = this;

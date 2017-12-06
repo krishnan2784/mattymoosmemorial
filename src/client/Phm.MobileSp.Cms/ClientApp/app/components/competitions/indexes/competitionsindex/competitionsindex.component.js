@@ -68,6 +68,7 @@ var CompetitionIndexComponent = (function (_super) {
     CompetitionIndexComponent.prototype.getData = function () {
         var _this = this;
         this.getCompetitionsItemsSub = this.competitionDataService.getCompetitions().subscribe(function (result) {
+            console.log(result);
             _this.allCompetitions = result;
             _this.filteredCompetitions = result;
             _this.sharedService.updateMarketDropdownEnabledState(true);
