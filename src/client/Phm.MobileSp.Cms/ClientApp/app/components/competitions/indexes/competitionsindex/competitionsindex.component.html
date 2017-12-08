@@ -79,4 +79,5 @@
 
 <competition-form *ngIf="selectedModel" [model]="selectedModel" (competitionUpdated)="competitionUpdated($event)"></competition-form>
 <copytomarket [model]="selectedCopyToMarketModel" [contentType]="contentTypeEnum.Competition" [marketContentService]="competitionDataService" 
-              [modalId]="'competition-copytomarket'" [modalHeader]="'Copy to market'" [modalDescription]="''"></copytomarket>
+              [modalId]="'competition-copytomarket'" [modalHeader]="'Copy to market'" [modalDescription]="''"
+              (updateItem)="selectedCopyToMarketModel = null"></copytomarket>

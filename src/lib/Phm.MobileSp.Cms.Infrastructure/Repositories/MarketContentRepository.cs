@@ -39,11 +39,14 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 		    var response = true;
 		    foreach (var marketId in marketIds)
 		    {
-			    var r = GetResponseModel<Competition>(await PostAsync($"/api/{RepoUrl}/{id}/markets/{marketId}", null));
-			    if (r == null || r.Id == 0)
+			    try
+			    {
+				    await PostAsync($"/api/{RepoUrl}/{id}/markets/{marketId}", null);
+			    }
+			    catch
 			    {
 				    response = false;
-			    }
+				}
 		    }
 			return new BaseResponse<bool>(response, response ? "Item copied sucessfully" : "Item could not be copied", response);
 		}
