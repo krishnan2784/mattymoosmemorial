@@ -203,7 +203,7 @@
         </div>
     </div> 
 
-    <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Main)" class="form-tab">    
+    <div [class.hidden]="!feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Main)" class="form-tab">    
 
         <div class="col-md-8">
             <div class="rich-text-box">
@@ -224,7 +224,8 @@
                         [maxLength]="120"></enhancedtextarea>
             </div>
 
-            <div class="rich-text-box" *ngIf="model.feedType == feedTypes.Text ||  model.feedType == feedTypes.Image || model.feedType == feedTypes.Video">
+	        <div class="rich-text-box" *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Main) && 
+				 (model.feedType == feedTypes.Text ||  model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)">
                 <richtexteditor [form]="form" [formSubmitted]="submitted"
                         [elementId]="'bodyText'"
                         [formControlId]="'bodyText'"

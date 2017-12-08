@@ -66,6 +66,6 @@ export class MediaPageFormComponent implements OnInit, OnDestroy, OnChanges {
 
 	attachMedia(media: MediaInfo) {
 		if (media && media.id > 0)
-			this.uploadedMedia.emit(media);
+			this.uploadedMedia.emit({ media, index: this.index })};
     }
 }

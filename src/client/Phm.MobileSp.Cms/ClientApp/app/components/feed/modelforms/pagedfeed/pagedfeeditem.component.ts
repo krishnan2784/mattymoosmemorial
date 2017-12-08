@@ -29,9 +29,13 @@ export class PagedFeedItemFormComponent extends BasePartialItemFormComponent imp
     } 
 
     currPage(): any {
-        var pages = <FormArray>this.form.controls['baseFeedPages'];
-        return pages.controls[this.currentPage];
+	    return this.getPage(this.currentPage);
     }
+
+	getPage(index) {
+		var pages = <FormArray>this.form.controls['baseFeedPages'];
+		return pages.controls[index];
+	}
 
     addFormControls() {
 		var formArray = new FormArray([], <any>Validators.minLength(2));
@@ -89,12 +93,11 @@ export class PagedFeedItemFormComponent extends BasePartialItemFormComponent imp
         this.currentPage = index;
     }
 
-    attachMedia(media: MediaInfo) {
-        var m = this.currPage().value;
-        m.mediaInfoId = media.id;
-        m.mediaInfo = media;
-        this.model.baseFeedPages[this.currentPage] = m;
-        this.currPage().controls.mediaInfoId.patchValue(media.id, { onlySelf: true });
+    attachMedia(e: {media: MediaInfo, index:number}) {
+        var m: any = this.getPage(e.index).value;
+        m.mediaInfoId = e.media.id;
+        m.mediaInfo = e.media;
+        this.model.baseFeedPages[e.index] = m;
         this.form.updateValueAndValidity();
     }
 

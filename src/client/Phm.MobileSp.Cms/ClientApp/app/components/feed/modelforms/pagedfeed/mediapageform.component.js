@@ -51,8 +51,9 @@ var MediaPageFormComponent = (function () {
     };
     MediaPageFormComponent.prototype.attachMedia = function (media) {
         if (media && media.id > 0)
-            this.uploadedMedia.emit(media);
+            this.uploadedMedia.emit({ media: media, index: this.index });
     };
+    ;
     return MediaPageFormComponent;
 }());
 __decorate([

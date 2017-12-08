@@ -74,6 +74,7 @@ export class SurveyFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     private getData() {
         this.feedDataService.getSurveyFeedSummaries(this.model.id).subscribe(result => {
             if (result.content) {
+	            console.log(result.content);
                 this.summaryData = new ObservationItemSummary(result.content);
                 this.updateGaugeData();
                 this.updateBarData();

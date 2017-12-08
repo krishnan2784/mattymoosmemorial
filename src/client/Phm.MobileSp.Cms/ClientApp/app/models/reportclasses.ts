@@ -82,8 +82,9 @@ export class SurveyItemSummary extends FeedItemSummary {
         super(options);
         this.surveyFeedResults = options["surveyQuestionSummaries"];
         this.surveyFeedId = options["surveyFeedId"] || 0;
+	    this.submitted = options["submitted"] || 0;
         this.totalRecipents = options["totalRecipents"] || 0;
-        this.submitted = options["submitted"] || 0;
+	    this.totalRecipents = this.totalRecipents > this.submitted ? this.totalRecipents : this.submitted;
     }
 }
 

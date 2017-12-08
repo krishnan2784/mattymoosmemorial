@@ -46,6 +46,7 @@ var SurveyFeedItemReport = (function () {
         var _this = this;
         this.feedDataService.getSurveyFeedSummaries(this.model.id).subscribe(function (result) {
             if (result.content) {
+                console.log(result.content);
                 _this.summaryData = new reportclasses_1.ObservationItemSummary(result.content);
                 _this.updateGaugeData();
                 _this.updateBarData();

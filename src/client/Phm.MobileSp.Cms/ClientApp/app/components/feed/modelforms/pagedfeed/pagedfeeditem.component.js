@@ -38,8 +38,11 @@ var PagedFeedItemFormComponent = (function (_super) {
         return _this;
     }
     PagedFeedItemFormComponent.prototype.currPage = function () {
+        return this.getPage(this.currentPage);
+    };
+    PagedFeedItemFormComponent.prototype.getPage = function (index) {
         var pages = this.form.controls['baseFeedPages'];
-        return pages.controls[this.currentPage];
+        return pages.controls[index];
     };
     PagedFeedItemFormComponent.prototype.addFormControls = function () {
         var _this = this;
@@ -94,12 +97,11 @@ var PagedFeedItemFormComponent = (function (_super) {
             return;
         this.currentPage = index;
     };
-    PagedFeedItemFormComponent.prototype.attachMedia = function (media) {
-        var m = this.currPage().value;
-        m.mediaInfoId = media.id;
-        m.mediaInfo = media;
-        this.model.baseFeedPages[this.currentPage] = m;
-        this.currPage().controls.mediaInfoId.patchValue(media.id, { onlySelf: true });
+    PagedFeedItemFormComponent.prototype.attachMedia = function (e) {
+        var m = this.getPage(e.index).value;
+        m.mediaInfoId = e.media.id;
+        m.mediaInfo = e.media;
+        this.model.baseFeedPages[e.index] = m;
         this.form.updateValueAndValidity();
     };
     PagedFeedItemFormComponent.prototype.pageHasProperty = function (modelType, propertyName) {

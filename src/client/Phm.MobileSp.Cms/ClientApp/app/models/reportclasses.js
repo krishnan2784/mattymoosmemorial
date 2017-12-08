@@ -70,8 +70,9 @@ var SurveyItemSummary = (function (_super) {
         var _this = _super.call(this, options) || this;
         _this.surveyFeedResults = options["surveyQuestionSummaries"];
         _this.surveyFeedId = options["surveyFeedId"] || 0;
-        _this.totalRecipents = options["totalRecipents"] || 0;
         _this.submitted = options["submitted"] || 0;
+        _this.totalRecipents = options["totalRecipents"] || 0;
+        _this.totalRecipents = _this.totalRecipents > _this.submitted ? _this.totalRecipents : _this.submitted;
         return _this;
     }
     return SurveyItemSummary;
