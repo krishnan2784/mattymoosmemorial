@@ -89,9 +89,9 @@ var LeaderboardContainer = (function (_super) {
                         items: regions_1
                     });
                 }
-                if (result.areas.length > 0) {
+                if (result.zones.length > 0) {
                     var zones_1 = [];
-                    result.areas.forEach(function (zone) {
+                    result.zones.forEach(function (zone) {
                         zones_1.push({ id: zone.replace(" ", ""), name: zone });
                     });
                     _this.refineGroups.push({

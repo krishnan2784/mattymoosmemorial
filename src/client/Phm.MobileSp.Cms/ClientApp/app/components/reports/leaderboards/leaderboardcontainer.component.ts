@@ -69,8 +69,8 @@ export class LeaderboardContainer extends BaseComponent implements OnDestroy {
         });
         this.marketDataService.getMarketUserFilters().subscribe((result) => {
             if (result && (result.regions.length > 0 || result.zones.length > 0)) {
-                this.refineGroups = [];
-                if (result.regions.length > 0) {
+				this.refineGroups = [];
+				if (result.regions.length > 0) {
                     let regions = [];
                     result.regions.forEach((group) => {
                         regions.push({ id: group.replace(" ", ""), name: group });
@@ -82,9 +82,9 @@ export class LeaderboardContainer extends BaseComponent implements OnDestroy {
                         items: regions
                     });
                 }
-                if (result.areas.length > 0) {
+                if (result.zones.length > 0) {
                     let zones = [];
-                    result.areas.forEach((zone) => {
+					result.zones.forEach((zone) => {
                         zones.push({ id: zone.replace(" ", ""), name: zone });
                     });
                     this.refineGroups.push({
