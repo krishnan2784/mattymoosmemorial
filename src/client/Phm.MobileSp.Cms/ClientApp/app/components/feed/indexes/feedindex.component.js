@@ -48,6 +48,7 @@ var FeedIndexComponent = (function (_super) {
         _this.feedTypes = FeedTypeEnum;
         _this.feedCats = FeedCategoryEnum;
         _this.contentTypeEnum = CopiedElementTypeEnum;
+        _this.canPublish = true;
         _this.setupSubscriptions();
         overlay.defaultViewContainer = vcRef;
         return _this;
@@ -187,6 +188,8 @@ var FeedIndexComponent = (function (_super) {
     };
     FeedIndexComponent.prototype.publishFeedItemTolive = function (feedItem) {
         var _this = this;
+        if (!this.canPublish)
+            return;
         var confirmText;
         if (feedItem.published && feedItem.publishedLiveAt) {
             confirmText = feedItem.title + " has already been published. Are you sure to overwrite it?";
@@ -205,6 +208,7 @@ var FeedIndexComponent = (function (_super) {
             .catch(function (err) { return console.log('ERROR: ' + err); })
             .then(function (dialog) { return dialog.result; })
             .then(function (result) {
+            _this.canPublish = false;
             _this.feedDataService.publishContentToLive(feedItem.id).subscribe(function (result) {
                 if (result) {
                     _this.feedDataService.getFeeditem(feedItem.id).subscribe(function (result) {
@@ -212,9 +216,10 @@ var FeedIndexComponent = (function (_super) {
                             _this.updateFeedItem(result, false);
                     });
                 }
+                _this.canPublish = true;
             });
         })
-            .catch(function (err) { });
+            .catch(function (err) { _this.canPublish = true; });
     };
     return FeedIndexComponent;
 }(index_component_1.IndexComponent));

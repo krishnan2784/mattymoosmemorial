@@ -43,7 +43,9 @@ export class FeedIndexComponent extends IndexComponent implements OnInit, OnDest
     public filteredFeed: boolean;
     public id_sub: any;
     public currentMarket: UserMarket;
-    public getFeedItemsSub;
+	public getFeedItemsSub;
+
+	canPublish: boolean = true;
 
 	constructor(private route: ActivatedRoute, private router: Router,
 		public feedDataService: FeedDataService, sharedService: ShareService,
@@ -192,7 +194,9 @@ export class FeedIndexComponent extends IndexComponent implements OnInit, OnDest
     }
 
 
-    publishFeedItemTolive(feedItem: IFeedItem) {
+	publishFeedItemTolive(feedItem: IFeedItem) {
+		if (!this.canPublish)
+			return;
         var confirmText;
         if (feedItem.published && feedItem.publishedLiveAt) {
             confirmText = feedItem.title + " has already been published. Are you sure to overwrite it?";
@@ -209,17 +213,19 @@ export class FeedIndexComponent extends IndexComponent implements OnInit, OnDest
             .open()
             .catch((err: any) => console.log('ERROR: ' + err))
             .then((dialog: any) => { return dialog.result })
-            .then((result: any) => {
+			.then((result: any) => {
+		        this.canPublish = false;
                 this.feedDataService.publishContentToLive(feedItem.id).subscribe((result) => {
                     if (result) {
                         this.feedDataService.getFeeditem(feedItem.id).subscribe((result) => {
                             if (result)
                                 this.updateFeedItem(result, false);
                         });
-                    }
+					}
+	                this.canPublish = true;
                 });
             })
-            .catch((err: any) => { });
+			.catch((err: any) => { this.canPublish = true; });
     }
     
 }

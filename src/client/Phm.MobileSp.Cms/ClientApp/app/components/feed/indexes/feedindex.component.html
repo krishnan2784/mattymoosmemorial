@@ -68,13 +68,13 @@
                                 </div>
                             </div>
                             <div class="feed-control col-xs-3">
-                                <div  *ngIf="userPermissions.canCopyToMarket && currentMarket && !currentMarket.isLive && currentMarket.isMaster">
+                                <div *ngIf="userPermissions.canCopyToMarket && currentMarket && !currentMarket.isLive && currentMarket.isMaster">
                                     <a (click)="copyFeedItemToMarket(feedItem)" data-toggle="modal" data-target="#feeditem-copytomarket" id="feed-index-item__btn-copy-to-market-{{i}}">
                                         <i class="material-icons">content_copy</i>
                                         <p>Copy</p>
                                     </a>
                                 </div>
-                                <div  *ngIf="userPermissions.canPublishToLive && currentMarket && !currentMarket.isLive && !currentMarket.isMaster">
+                                <div *ngIf="userPermissions.canPublishToLive && currentMarket && !currentMarket.isLive && !currentMarket.isMaster">
                                     <a (click)="publishFeedItemTolive(feedItem)" id="feed-index-item__btn-publish-{{i}}">
                                         <i class="material-icons">launch</i>
                                         <p>Publish</p>

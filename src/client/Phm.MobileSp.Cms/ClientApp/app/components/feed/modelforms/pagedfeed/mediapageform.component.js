@@ -53,7 +53,6 @@ var MediaPageFormComponent = (function () {
         if (media && media.id > 0)
             this.uploadedMedia.emit({ media: media, index: this.index });
     };
-    ;
     return MediaPageFormComponent;
 }());
 __decorate([
