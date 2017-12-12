@@ -114,8 +114,8 @@ export class FeedDataService extends MarketContentDataService implements IFeedDa
 
     public getUserPointsHistory(userId: number, startDate: string = null, endDate: string = null) {
         var requestUrl = '/api/Leaderboard/GetUserPointsHistory?userId=' + userId
-                + (startDate ? '&startDate=' + startDate : '')
-                + (endDate ? '&endDate=' + endDate : '');
+                + (startDate ? '&startDate=' + DateEx.formatDate(startDate) : '')
+                + (endDate ? '&endDate=' + DateEx.formatDate(endDate) : '');
         return this.getRequestBase(requestUrl);
     }
 }

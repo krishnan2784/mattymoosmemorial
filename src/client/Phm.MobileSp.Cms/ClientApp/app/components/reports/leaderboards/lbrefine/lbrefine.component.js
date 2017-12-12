@@ -102,6 +102,14 @@ __decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)
 ], LbrefineComponent.prototype, "criteriaChanged", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], LbrefineComponent.prototype, "date1", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], LbrefineComponent.prototype, "date2", void 0);
 LbrefineComponent = __decorate([
     core_1.Component({
         selector: 'lbrefine',

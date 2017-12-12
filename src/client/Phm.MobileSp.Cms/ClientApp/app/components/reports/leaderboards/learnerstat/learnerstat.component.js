@@ -13,10 +13,12 @@ var core_1 = require("@angular/core");
 var Angular2_csv_1 = require("angular2-csv/Angular2-csv");
 var date_1 = require("../../../../classes/helpers/date");
 var D3 = require("d3");
+var array_1 = require("../../../../classes/helpers/array");
 var LearnerStatComponent = (function () {
     function LearnerStatComponent() {
         this.pieData = [];
         this.headerMin = false;
+        this.totalPoints = 0;
         this.groupBy = [];
         this.max = 0;
         this.lines = [];
@@ -73,7 +75,11 @@ var LearnerStatComponent = (function () {
             _loop_1(i);
         }
         this.data = d2.filter(function (x) { return x.points > 0; });
+        this.updateTotalPoints();
         this.groupPieData();
+    };
+    LearnerStatComponent.prototype.updateTotalPoints = function () {
+        this.totalPoints = array_1.ArrayEx.sumArrayValues(this.data, 'points');
     };
     LearnerStatComponent.prototype.groupPieData = function () {
         this.groupBy = [];
@@ -96,10 +102,14 @@ var LearnerStatComponent = (function () {
         this.groupBy = this.groupBy.filter(function (x) { return x.points > 0; });
     };
     LearnerStatComponent.prototype.ngOnInit = function () {
-        this.date1 = new Date(this.data[0].createdAt);
-        this.date1 = new Date(this.date1.getFullYear(), this.date1.getMonth(), this.date1.getDate(), 0, 0, 0);
-        this.date2 = new Date(this.data[this.data.length - 1].createdAt);
-        this.date2 = new Date(this.date2.getFullYear(), this.date2.getMonth(), this.date2.getDate(), 23, 59, 59);
+        if (!this.date1) {
+            this.date1 = new Date(this.data[0].createdAt);
+            this.date1 = new Date(this.date1.getFullYear(), this.date1.getMonth(), this.date1.getDate(), 0, 0, 0);
+        }
+        if (!this.date2) {
+            this.date2 = new Date(this.data[this.data.length - 1].createdAt);
+            this.date2 = new Date(this.date2.getFullYear(), this.date2.getMonth(), this.date2.getDate(), 23, 59, 59);
+        }
         this.setMinDate(this.date1);
         this.dateRange = this.getDateDiff(this.date1, this.date2) + 1;
         this.dDates = this.displayedDates();
@@ -259,6 +269,7 @@ var LearnerStatComponent = (function () {
         this.dDates = this.displayedDates();
         this.dateRange = this.getDateDiff(this.date1, this.date2) + 1;
         this.setMaxHeight();
+        this.updateTotalPoints();
         this.updatePie();
     };
     LearnerStatComponent.prototype.getDateOffset = function (d) {
@@ -300,6 +311,14 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Object)
 ], LearnerStatComponent.prototype, "user", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], LearnerStatComponent.prototype, "date1", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], LearnerStatComponent.prototype, "date2", void 0);
 __decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)

@@ -64,8 +64,10 @@ var PartitionComponent = (function () {
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
         function format_description(d) {
-            var description = d.description;
-            return '<b>' + d.name + '</b></br>' + d.description + '<br> (' + format_number(d.value) + ')';
+            var tipText = d.description != d.name ?
+                '<b>' + d.name + '</b></br>' + d.description + '<br>' :
+                d.description + '<br>';
+            return tipText + '(' + format_number(d.value) + ')';
         }
         function computeTextRotation(d) {
             var angle = (d.x + d.dx / 2) * 180 / Math.PI - 90;
@@ -121,7 +123,7 @@ var PartitionComponent = (function () {
             center.append("title")
                 .text("zoom out");
             center.append("svg:image")
-                .attr("xlink:href", "./assets/zoomOut.png")
+                .attr("xlink:href", "")
                 .attr("width", "27")
                 .attr("height", "27")
                 .attr("left", "10")
@@ -169,6 +171,8 @@ var PartitionComponent = (function () {
                 zoom(p, p);
             }
             function zoomOut(p) {
+                if (!p)
+                    return;
                 if (!p.parent) {
                     levelEvent.emit({
                         displayLevel: 'region',

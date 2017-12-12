@@ -39,7 +39,7 @@
       </div>
     </div>
     <div class="refine">
-      <lbrefine [groups]="refineGroups" [hideDates]="false" [hideRange]="true" (criteriaChanged)="handleRefine($event)"></lbrefine>
+      <lbrefine [groups]="refineGroups" [hideDates]="false" [hideRange]="true" (criteriaChanged)="handleRefine($event)" [date1]="curDate1" [date2]="curDate2"></lbrefine>
     </div>
     <div class="all">
       <div class="tableTops">

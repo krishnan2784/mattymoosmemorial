@@ -427,7 +427,7 @@ var LeaderboardComponent = (function () {
         new Angular2_csv_1.Angular2Csv(report, 'Leaderboard_' + date_1.DateEx.formatDate(new Date()));
     };
     LeaderboardComponent.prototype.viewUserBreakdown = function (e) {
-        this.userSelected.emit(e);
+        this.userSelected.emit({ user: e, date1: this.curDate1, date2: this.curDate2 });
     };
     return LeaderboardComponent;
 }());
@@ -459,6 +459,14 @@ __decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)
 ], LeaderboardComponent.prototype, "userSelected", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], LeaderboardComponent.prototype, "curDate1", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], LeaderboardComponent.prototype, "curDate2", void 0);
 LeaderboardComponent = __decorate([
     core_1.Component({
         selector: 'leaderboard',

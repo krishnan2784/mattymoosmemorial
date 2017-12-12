@@ -1,9 +1,10 @@
 import { Component, Input, Output, EventEmitter, OnInit, ViewChild, AfterViewInit, ElementRef} from '@angular/core';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 import { DateEx } from "../../../../classes/helpers/date";
+import { ArrayEx } from "../../../../classes/helpers/array";
 
 import * as D3 from 'd3';
-import { UserPointType } from "../../../../enums";
+
 @Component({
   selector: 'learnerstat',
   template: require('./learnerstat.html'),
@@ -21,13 +22,14 @@ export class LearnerStatComponent implements OnInit, AfterViewInit {
   headerMin = false;
   @Input() data;
   @Input() user;
+  totalPoints: number = 0;
   fullData;
   dDates;
   groupBy = [];
   max = 0;
   lines = [];
-  date1;
-  date2;
+  @Input() date1;
+  @Input() date2;
   dateRange;
   minDay;
   minMonth;
@@ -80,9 +82,13 @@ export class LearnerStatComponent implements OnInit, AfterViewInit {
               });
           d2[i].points = filteredSet.map(x => x.points).reduce((a, b) => a + b, 0);
       }
-      this.data = d2.filter(x => x.points > 0);
+	  this.data = d2.filter(x => x.points > 0);
+	  this.updateTotalPoints();
       this.groupPieData();
-    }
+  }
+	updateTotalPoints() {
+		this.totalPoints = ArrayEx.sumArrayValues(this.data, 'points');
+	}
   groupPieData() {
     this.groupBy = [];
     for(let i=0; i < this.types.length; i++) {
@@ -104,10 +110,14 @@ export class LearnerStatComponent implements OnInit, AfterViewInit {
     this.groupBy = this.groupBy.filter(x=>x.points > 0);
   }
   ngOnInit() {
-      this.date1 = new Date(this.data[0].createdAt);
-      this.date1 = new Date(this.date1.getFullYear(), this.date1.getMonth(), this.date1.getDate(), 0, 0, 0);
-      this.date2 = new Date(this.data[this.data.length - 1].createdAt);
-      this.date2 = new Date(this.date2.getFullYear(), this.date2.getMonth(), this.date2.getDate(), 23, 59, 59);
+	  if (!this.date1) {
+		  this.date1 = new Date(this.data[0].createdAt);
+		  this.date1 = new Date(this.date1.getFullYear(), this.date1.getMonth(), this.date1.getDate(), 0, 0, 0);
+	  }
+	  if (!this.date2) {
+		  this.date2 = new Date(this.data[this.data.length - 1].createdAt);
+		  this.date2 = new Date(this.date2.getFullYear(), this.date2.getMonth(), this.date2.getDate(), 23, 59, 59);
+	  }
       this.setMinDate(this.date1);
       this.dateRange = this.getDateDiff(this.date1, this.date2) + 1;
       this.dDates = this.displayedDates();
@@ -268,7 +278,8 @@ export class LearnerStatComponent implements OnInit, AfterViewInit {
           this.data = this.fullData.filter((x) => new Date(x.createdAt) <= this.date2);
       this.dDates = this.displayedDates();
       this.dateRange = this.getDateDiff(this.date1, this.date2) + 1;
-      this.setMaxHeight();
+	  this.setMaxHeight();
+	  this.updateTotalPoints();
       this.updatePie();
   }
   getDateOffset(d) {

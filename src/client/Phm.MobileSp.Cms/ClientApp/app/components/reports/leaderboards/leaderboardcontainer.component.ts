@@ -23,7 +23,9 @@ export class LeaderboardContainer extends BaseComponent implements OnDestroy {
     refineGroups = [];
     public reportData = null;
     public selectedUser = null;
-    backSub = null;
+	backSub = null;
+	date1;
+	date2;
 
     constructor(public feedDataService: FeedDataService, sharedService: ShareService, public marketDataService: MarketDataService) {
         super(sharedService, 'Reports', true, '', DefaultTabNavs.reportsTabs);
@@ -63,7 +65,7 @@ export class LeaderboardContainer extends BaseComponent implements OnDestroy {
     }
 
     getData() {
-        this.feedDataService.getLeaderBoard().subscribe(result => {
+        this.feedDataService.getLeaderBoard(this.date1, this.date2).subscribe(result => {
             this.leaderBoard = result;
             this.loading = false;
         });
@@ -119,10 +121,13 @@ export class LeaderboardContainer extends BaseComponent implements OnDestroy {
         this.updateTabNavItems();
         this.backSub = this.sharedService.goBackEvent.subscribe(() => {
             this.handleBack();
-        });
-        this.selectedUser = event;
+		});
+
+	    this.date1 = event.date1;
+		this.date2 = event.date2;
+        this.selectedUser = event.user;
         this.removeTooltip();
-        this.feedDataService.getUserPointsHistory(event.currentUser.id).subscribe(result => {  
+        this.feedDataService.getUserPointsHistory(event.user.currentUser.id, this.date1, this.date2).subscribe(result => {  
             if (result && result.length > 0) {
                 this.reportData = result;
             }

@@ -70,7 +70,7 @@ var LeaderboardContainer = (function (_super) {
     };
     LeaderboardContainer.prototype.getData = function () {
         var _this = this;
-        this.feedDataService.getLeaderBoard().subscribe(function (result) {
+        this.feedDataService.getLeaderBoard(this.date1, this.date2).subscribe(function (result) {
             _this.leaderBoard = result;
             _this.loading = false;
         });
@@ -126,9 +126,11 @@ var LeaderboardContainer = (function (_super) {
         this.backSub = this.sharedService.goBackEvent.subscribe(function () {
             _this.handleBack();
         });
-        this.selectedUser = event;
+        this.date1 = event.date1;
+        this.date2 = event.date2;
+        this.selectedUser = event.user;
         this.removeTooltip();
-        this.feedDataService.getUserPointsHistory(event.currentUser.id).subscribe(function (result) {
+        this.feedDataService.getUserPointsHistory(event.user.currentUser.id, this.date1, this.date2).subscribe(function (result) {
             if (result && result.length > 0) {
                 _this.reportData = result;
             }

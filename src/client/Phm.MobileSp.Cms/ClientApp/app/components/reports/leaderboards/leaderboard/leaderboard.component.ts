@@ -32,8 +32,8 @@ export class LeaderboardComponent implements OnInit, OnChanges {
         description: "Bilevel Partition",
         children: []
     };
-    curDate1;
-    curDate2;
+	@Input() curDate1;
+	@Input() curDate2;
     salesExecList;
     pageStep = 0;
     useUpdatedData = false;
@@ -418,6 +418,6 @@ export class LeaderboardComponent implements OnInit, OnChanges {
         new Angular2Csv(report, 'Leaderboard_' + DateEx.formatDate(new Date()));
     }
     public viewUserBreakdown(e) {
-        this.userSelected.emit(e);
+	    this.userSelected.emit({ user: e, date1: this.curDate1, date2: this.curDate2 });
     }
 }

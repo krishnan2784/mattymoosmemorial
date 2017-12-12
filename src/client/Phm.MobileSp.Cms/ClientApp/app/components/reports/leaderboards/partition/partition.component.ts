@@ -77,8 +77,10 @@ export class PartitionComponent implements OnInit {
 
 
     function format_description(d) {
-      var description = d.description;
-      return '<b>' + d.name + '</b></br>' + d.description + '<br> (' + format_number(d.value) + ')';
+		var tipText = d.description != d.name ?
+			'<b>' + d.name + '</b></br>' + d.description + '<br>' :
+			d.description + '<br>';
+		return tipText + '(' + format_number(d.value) + ')';
     }
 
     function computeTextRotation(d) {
@@ -145,13 +147,13 @@ export class PartitionComponent implements OnInit {
         .text("zoom out");
 
       center.append("svg:image")
-        .attr("xlink:href","./assets/zoomOut.png")
+        .attr("xlink:href","")
         .attr("width", "27")
         .attr("height", "27")
         .attr("left", "10")
         .attr("top", "10")
 
-      var partitioned_data = partition.nodes(root).slice(1)
+	    var partitioned_data = partition.nodes(root).slice(1);
 
       var path = svg.selectAll("path")
         .data(partitioned_data)
@@ -196,15 +198,16 @@ export class PartitionComponent implements OnInit {
         zoom(p, p);
       }
 
-      function zoomOut(p) {
+	  function zoomOut(p) {
+		  if (!p)
+			  return;
         if (!p.parent) {
             levelEvent.emit({
                 displayLevel: 'region',
                 selectionType: null,
                 selection: null
             });
-          return
-            ;
+          return;
         }
         if( p.displayLevel === 'dealership') {
           levelEvent.emit({

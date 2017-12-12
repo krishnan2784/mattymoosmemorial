@@ -13,8 +13,8 @@ export class LbrefineComponent implements AfterViewInit {
   @Input() hideDates: boolean;
   @Input() hideRange: boolean;
   @Output() criteriaChanged: EventEmitter<any> = new EventEmitter();
-  date1;
-  date2;
+  @Input()date1;
+  @Input()date2;
   rangeFrom = 0;
   rangeTo = 100;
   minDay;

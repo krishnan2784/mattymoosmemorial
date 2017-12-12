@@ -118,8 +118,8 @@ var FeedDataService = (function (_super) {
         if (startDate === void 0) { startDate = null; }
         if (endDate === void 0) { endDate = null; }
         var requestUrl = '/api/Leaderboard/GetUserPointsHistory?userId=' + userId
-            + (startDate ? '&startDate=' + startDate : '')
-            + (endDate ? '&endDate=' + endDate : '');
+            + (startDate ? '&startDate=' + date_1.DateEx.formatDate(startDate) : '')
+            + (endDate ? '&endDate=' + date_1.DateEx.formatDate(endDate) : '');
         return this.getRequestBase(requestUrl);
     };
     return FeedDataService;
