@@ -27,6 +27,8 @@ export class CompetitionIndexComponent extends BaseComponent implements OnInit, 
 
 	competitionFilters: GenericFilterSet = DefaultFilterSets.competitionFilters;
 
+	marketSub;
+
 	public currentMarket: UserMarket;
 	contentTypeEnum: typeof CopiedElementTypeEnum = CopiedElementTypeEnum;
 
@@ -34,44 +36,52 @@ export class CompetitionIndexComponent extends BaseComponent implements OnInit, 
 		overlay: Overlay, vcRef: ViewContainerRef, public confirmBox: Modal) {
 		super(sharedService, 'Competitions Management', true, '', DefaultTabNavs.competitionsTabs);
 		overlay.defaultViewContainer = vcRef;
-		this.setupSubscriptions();
 	}
 
-    setupSubscriptions() {
-        this.sharedService.marketUpdated.subscribe((market) => {
-            this.updateMarket();
-        });
-    }
-
-    updateMarket() {
-        if (!this.sharedService.currentMarket || !this.sharedService.currentMarket.id)
-			return;
-	    this.currentMarket = this.sharedService.currentMarket;
-		this.filteredCompetitions = null;
-	    this.allCompetitions = null;
-        this.getData();
-    }
-
 	ngOnInit() {
+		this.setupSubscriptions();
 		this.updateMarket();
 	}
 
-    ngOnDestroy() {
-        if (this.getCompetitionsItemsSub)
-            this.getCompetitionsItemsSub.unsubscribe();        
-    }
+	ngOnDestroy() {
+		this.removeSubscriptions();
+	}
+
+	setupSubscriptions() {
+		this.marketSub = this.sharedService.marketUpdated.subscribe((market) => {
+			this.updateMarket();
+		});
+	}
+
+	removeSubscriptions() {
+		if (this.getCompetitionsItemsSub)
+			this.getCompetitionsItemsSub.unsubscribe();
+		if (this.marketSub)
+			this.marketSub.unsubscribe();        
+	}
+
+	updateMarket() {
+		if (!this.sharedService.currentMarket || !this.sharedService.currentMarket.id)
+			return;
+		this.currentMarket = this.sharedService.currentMarket;
+		this.filteredCompetitions = null;
+		this.allCompetitions = null;
+		this.getData();
+	}
 
     getData() {
 		this.getCompetitionsItemsSub = this.competitionDataService.getCompetitions().subscribe((result) => {
-			this.allCompetitions = result;
-			this.filteredCompetitions = result;
+			let comps = result && Array.isArray(result) ? result : [];
+			this.allCompetitions = comps;
+			this.filteredCompetitions = comps;
 			this.sharedService.updateMarketDropdownEnabledState(true);
 			this.updateFilters();
 		});
 	}
 
 	updateFilters() {
-		this.competitionFilters.filterGroups[1].filters.filter(x => x.filterName === 'Number of Participants')[0]['maxValue'] = Math.max.apply(Math, this.allCompetitions.map(x=> x.participants));
+		let maxValue = this.allCompetitions ? Math.max.apply(Math, this.allCompetitions.map(x => x.participants)) : 0;
+		this.competitionFilters.filterGroups[1].filters.filter(x => x.filterName === 'Number of Participants')[0]['maxValue'] = maxValue;
 	}
 
     updateCompetition(competition = null, remove: boolean = false) {

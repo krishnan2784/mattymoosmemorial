@@ -41,14 +41,26 @@ var CompetitionIndexComponent = (function (_super) {
         _this.competitionFilters = genericfilter_component_1.DefaultFilterSets.competitionFilters;
         _this.contentTypeEnum = enums_1.CopiedElementTypeEnum;
         overlay.defaultViewContainer = vcRef;
-        _this.setupSubscriptions();
         return _this;
     }
+    CompetitionIndexComponent.prototype.ngOnInit = function () {
+        this.setupSubscriptions();
+        this.updateMarket();
+    };
+    CompetitionIndexComponent.prototype.ngOnDestroy = function () {
+        this.removeSubscriptions();
+    };
     CompetitionIndexComponent.prototype.setupSubscriptions = function () {
         var _this = this;
-        this.sharedService.marketUpdated.subscribe(function (market) {
+        this.marketSub = this.sharedService.marketUpdated.subscribe(function (market) {
             _this.updateMarket();
         });
+    };
+    CompetitionIndexComponent.prototype.removeSubscriptions = function () {
+        if (this.getCompetitionsItemsSub)
+            this.getCompetitionsItemsSub.unsubscribe();
+        if (this.marketSub)
+            this.marketSub.unsubscribe();
     };
     CompetitionIndexComponent.prototype.updateMarket = function () {
         if (!this.sharedService.currentMarket || !this.sharedService.currentMarket.id)
@@ -58,24 +70,19 @@ var CompetitionIndexComponent = (function (_super) {
         this.allCompetitions = null;
         this.getData();
     };
-    CompetitionIndexComponent.prototype.ngOnInit = function () {
-        this.updateMarket();
-    };
-    CompetitionIndexComponent.prototype.ngOnDestroy = function () {
-        if (this.getCompetitionsItemsSub)
-            this.getCompetitionsItemsSub.unsubscribe();
-    };
     CompetitionIndexComponent.prototype.getData = function () {
         var _this = this;
         this.getCompetitionsItemsSub = this.competitionDataService.getCompetitions().subscribe(function (result) {
-            _this.allCompetitions = result;
-            _this.filteredCompetitions = result;
+            var comps = result && Array.isArray(result) ? result : [];
+            _this.allCompetitions = comps;
+            _this.filteredCompetitions = comps;
             _this.sharedService.updateMarketDropdownEnabledState(true);
             _this.updateFilters();
         });
     };
     CompetitionIndexComponent.prototype.updateFilters = function () {
-        this.competitionFilters.filterGroups[1].filters.filter(function (x) { return x.filterName === 'Number of Participants'; })[0]['maxValue'] = Math.max.apply(Math, this.allCompetitions.map(function (x) { return x.participants; }));
+        var maxValue = this.allCompetitions ? Math.max.apply(Math, this.allCompetitions.map(function (x) { return x.participants; })) : 0;
+        this.competitionFilters.filterGroups[1].filters.filter(function (x) { return x.filterName === 'Number of Participants'; })[0]['maxValue'] = maxValue;
     };
     CompetitionIndexComponent.prototype.updateCompetition = function (competition, remove) {
         if (competition === void 0) { competition = null; }
