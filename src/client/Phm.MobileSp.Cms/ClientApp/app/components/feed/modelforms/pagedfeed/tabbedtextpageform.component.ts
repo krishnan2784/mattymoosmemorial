@@ -5,6 +5,7 @@ import Mediainfoclasses = require("../../../../models/mediainfoclasses");
 import MediaInfo = Mediainfoclasses.MediaInfo;
 import MediaTabbedTextFeedPage = PagedFeedClasses.MediaTabbedTextFeedPage;
 import TabText = PagedFeedClasses.TabText;
+import {StringEx} from "../../../../classes/helpers/string";
 
 @Component({
     selector: 'tabbed-text-page-form',
@@ -45,7 +46,7 @@ export class TabbedTextPageFormComponent implements OnInit, OnDestroy {
 
     addFormControls() {
         var formArray = new FormArray([], <any>Validators.minLength(2));
-        this.model.tabs.forEach((x, i) => formArray.push(this.initTab(x)));
+	    StringEx.sortArray(this.model.tabs,['order']).forEach((x, i) => formArray.push(this.initTab(x)));
         this.form.addControl('tabs', formArray);
         this.form.controls['tabs'].setValidators(Validators.maxLength(3));
     };
@@ -66,7 +67,7 @@ export class TabbedTextPageFormComponent implements OnInit, OnDestroy {
 
     addTab() {
         const control = <FormArray>this.form.controls['tabs'];
-		control.push(this.initTab(new TabText({ tabbedTextFeedPageId: this.model.id })));
+		control.push(this.initTab(new TabText({ tabbedTextFeedPageId: this.model.id, order: control.length })));
         this.displayTab(control.length - 1);
     }
 
@@ -75,8 +76,19 @@ export class TabbedTextPageFormComponent implements OnInit, OnDestroy {
         if (this.currentTab > 0)
             this.displayTab(this.currentTab - 1);
         control.removeAt(index);
-        this.form.markAsDirty();
+		this.form.markAsDirty();
+		this.updateTabOrder(index);
     }
+
+	updateTabOrder(startIndex) {
+		const tabs = <FormArray>this.form.controls['tabs'];
+		for (let i = startIndex; i < tabs.length; i++) {
+			var p: any = tabs.controls[i];
+			p.controls["order"].patchValue(p.controls["order"].value - 1, { onlySelf: true });
+			this.model.tabs[i].order = this.model.tabs[i].order - 1;
+		}
+	}
+
 
     displayTab(index: number) {
         const tabs = <FormArray>this.form.controls['tabs'];

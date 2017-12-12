@@ -14,6 +14,7 @@ var forms_1 = require("@angular/forms");
 var PagedFeedClasses = require("../../../../models/pagedfeedclasses");
 var MediaTabbedTextFeedPage = PagedFeedClasses.MediaTabbedTextFeedPage;
 var TabText = PagedFeedClasses.TabText;
+var string_1 = require("../../../../classes/helpers/string");
 var TabbedTextPageFormComponent = (function () {
     function TabbedTextPageFormComponent() {
         this.currentTab = 0;
@@ -32,7 +33,7 @@ var TabbedTextPageFormComponent = (function () {
     TabbedTextPageFormComponent.prototype.addFormControls = function () {
         var _this = this;
         var formArray = new forms_1.FormArray([], forms_1.Validators.minLength(2));
-        this.model.tabs.forEach(function (x, i) { return formArray.push(_this.initTab(x)); });
+        string_1.StringEx.sortArray(this.model.tabs, ['order']).forEach(function (x, i) { return formArray.push(_this.initTab(x)); });
         this.form.addControl('tabs', formArray);
         this.form.controls['tabs'].setValidators(forms_1.Validators.maxLength(3));
     };
@@ -53,7 +54,7 @@ var TabbedTextPageFormComponent = (function () {
     };
     TabbedTextPageFormComponent.prototype.addTab = function () {
         var control = this.form.controls['tabs'];
-        control.push(this.initTab(new TabText({ tabbedTextFeedPageId: this.model.id })));
+        control.push(this.initTab(new TabText({ tabbedTextFeedPageId: this.model.id, order: control.length })));
         this.displayTab(control.length - 1);
     };
     TabbedTextPageFormComponent.prototype.removeTab = function (index) {
@@ -62,6 +63,15 @@ var TabbedTextPageFormComponent = (function () {
             this.displayTab(this.currentTab - 1);
         control.removeAt(index);
         this.form.markAsDirty();
+        this.updateTabOrder(index);
+    };
+    TabbedTextPageFormComponent.prototype.updateTabOrder = function (startIndex) {
+        var tabs = this.form.controls['tabs'];
+        for (var i = startIndex; i < tabs.length; i++) {
+            var p = tabs.controls[i];
+            p.controls["order"].patchValue(p.controls["order"].value - 1, { onlySelf: true });
+            this.model.tabs[i].order = this.model.tabs[i].order - 1;
+        }
     };
     TabbedTextPageFormComponent.prototype.displayTab = function (index) {
         var tabs = this.form.controls['tabs'];
