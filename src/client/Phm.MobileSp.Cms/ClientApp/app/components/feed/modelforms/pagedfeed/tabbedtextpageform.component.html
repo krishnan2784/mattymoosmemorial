@@ -26,7 +26,7 @@
                                    [label]="'Tab title'"
                                    [validationMessage]="'A tab title is required.'"></textinput>
                         <richtexteditor *ngIf="isVisible" [form]="tab" [formSubmitted]="submitted"
-                                [elementId]="'tabs-' + i + '-bodyText'"
+                                [elementId]="'page-' + index + '-tabs-' + i + '-bodyText'"
                                 [formControlId]="'bodyText'"
                                 [label]="'Body text'"
                                 [validationMessage]="'Body text is required.'"></richtexteditor>
