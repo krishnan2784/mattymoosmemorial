@@ -1,10 +1,9 @@
 .ggContent {
-  width: 334px;
-  height: 200px;
+  width: 80%;
+  height: 80%;
   position: relative;
   background-color: transparent;
-  margin-left: 15%;
-  margin-top: -45px; }
+  margin-left: 10%; }
   .ggContent .circles {
     width: calc(100% - 60px);
     background-color: white;
@@ -46,7 +45,7 @@
   .ggContent .pointerWrapper {
     width: 40px;
     position: absolute;
-    height: 280px;
+    height: 122%;
     top: 30px;
     left: calc(50% - 20px);
     z-index: 3000;

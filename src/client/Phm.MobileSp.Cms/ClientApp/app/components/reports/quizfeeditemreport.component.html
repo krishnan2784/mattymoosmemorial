@@ -20,7 +20,7 @@
                     <div class="header-border"></div>
                     <div class="stat-block">
                         <div class="stat-title">
-                            <div class="col-md-4 total-learners">
+                            <div class="col-xs-6 total-learners">
                                 <h5 *ngIf="summaryData">
                                     {{summaryData.submitted}}
                                 </h5>
@@ -32,7 +32,7 @@
 
                         <div class="stat-body">
                             <div class="loader" *ngIf="passRatioData == null"></div>
-                            <div *ngIf="passRatioData != null">
+                            <div *ngIf="passRatioData != null" class="gauge-container">
                                 <gaugegraph [percent]="passRatioData"></gaugegraph>
                                 <h5 *ngIf="summaryData">
                                     <b>{{summaryData.submitted}} <span>submitted / </span></b>
@@ -113,23 +113,23 @@
                         <div *ngIf="filteredListData && filteredListData.length === 0" class="result-list-content">No results have been found for the selected filters.</div>
                         <div *ngIf="filteredListData && filteredListData.length > 0" class="result-list-content animate-bottom">
                             <div *ngFor="let quizResult of filteredListData | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}; let i = index" class="result-list-content-row">
-                                <div class="col-md-1">
+                                <div class="col-xs-1">
                                     <i class="material-icons person-icon">person</i>
                                 </div>
-                                <div class="col-md-3 border-bottom">
+                                <div class="col-xs-3 border-bottom">
                                     {{quizResult.user.firstName}} {{quizResult.user.lastName}}
                                 </div>
-                                <div class="col-md-3 border-bottom">
+                                <div class="col-xs-3 border-bottom">
                                     {{ quizResult.mainUserGroup }}
                                 </div>
-                                <div class="col-md-3 border-bottom">
+                                <div class="col-xs-3 border-bottom">
                                     {{ quizResult.dealerShipName }}
                                 </div>
-                                <div class="col-md-1 border-bottom">
+                                <div class="col-xs-1 border-bottom">
                                     <img src="assets/images/Icon-Leaderboard-b.png" class="leaderboard-icon" *ngIf="quizResult.resultPercentage===100" />
                                     <span *ngIf="quizResult.resultPercentage!==100">{{ quizResult.resultPercentage }}%</span>
                                 </div>
-                                <div class="col-md-1">
+                                <div class="col-xs-1">
                                     <a (click)="viewQuizBreakdown(quizResult)" id="btn-view-user-results-{{i}}">
                                         <i class="material-icons right">keyboard_arrow_right</i>
                                     </a>                                    

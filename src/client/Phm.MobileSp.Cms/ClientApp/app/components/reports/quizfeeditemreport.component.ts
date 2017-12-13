@@ -128,10 +128,18 @@ export class QuizFeedItemReport implements OnInit, OnDestroy {
     }
 
     public updateDonutData() {
-        var donutData = new DonutChartData({
+		var donutData = new DonutChartData({
+			width: 170,
+			height: 170,
             showLegend: false,
             showTooltip: false,
-            title: this.summaryData.averageScore + '%',
+			title: this.summaryData.averageScore + '%',
+			margin: {
+				top: 0,
+				right: 0,
+				bottom: 0,
+				left: 0
+			},
             chartData: [
                 {
                     name: 'Average Score',
