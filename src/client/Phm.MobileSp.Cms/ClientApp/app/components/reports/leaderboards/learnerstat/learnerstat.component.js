@@ -12,8 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var Angular2_csv_1 = require("angular2-csv/Angular2-csv");
 var date_1 = require("../../../../classes/helpers/date");
-var D3 = require("d3");
 var array_1 = require("../../../../classes/helpers/array");
+var D3 = require("d3");
 var LearnerStatComponent = (function () {
     function LearnerStatComponent() {
         this.pieData = [];

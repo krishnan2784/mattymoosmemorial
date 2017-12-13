@@ -9,7 +9,7 @@
     display: inline-block; }
   .navBarContents .text {
     padding-right: 20px;
-    margin-top: 10px;
+    margin-top: 5px;
     cursor: pointer; }
 .navBarContents .selected .main-text {
 	font-weight: 600;}  
@@ -42,6 +42,9 @@
 	width: 100%;
 	border-top: 1px solid #D8DEDC;
 	border-bottom:2px solid #D8DEDC;
+	white-space:nowrap;
+	overflow-y:hidden;
+	overflow-x:auto;
 }
 .form-navbar a {
 	text-decoration: none;

@@ -40,11 +40,12 @@ li:not(.link-active) a:focus,
 	cursor: pointer;
 }
  .navbar-brand {
-     padding-top: 20px;
      background-color: white;
      text-align: center;
      color: #000;
      font-size: 0.8em;
+	 float: none;
+	 height: 100%;
 }
 .navbar-brand p{
      margin-top: -7px;
@@ -86,11 +87,13 @@ li:not(.link-active) a:focus,
 }
 
 .header-content {
-    margin-top: 20px;
+	position: absolute;
+	right: 0;
+	top: 50px;
 }
 
 .navbar-header {
-    background-color: transparent!important;
+    background-color: #fff!important;
     height: 160px;
 }
 
@@ -112,12 +115,12 @@ li:not(.link-active) a:focus,
     margin: 12px;
 }
 
-.navbar-default .navbar-toggle .icon-bar {
-  background-color: #EDEDED;
+.navbar-toggle:focus {
+  background-color: #fff;
 }
 
 .navbar-toggle .icon-bar {
-  background-color: #EDEDED;
+  background-color: #2ab7a9;
 }
 
 .nav-top-menu-item a:hover, 
@@ -144,8 +147,8 @@ li:not(.link-active) a:focus,
     }
 
     .main-nav, .navbar-brand {
-        height: 100%;
-        width: 100%;
+        /*height: 100%;
+        width: 100%;*/
     }
     .navbar {
         border-radius: 0;
@@ -258,4 +261,9 @@ li:not(.link-active) a:focus,
 	margin: 15% 27%;
 	border-color: transparent;
 	border-top-color: #ffffff
+}
+
+.user-toggle-arrow {
+	position: absolute;
+	right: 5px;
 }

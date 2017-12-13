@@ -49,7 +49,7 @@
 
 
 .btn-holder {
-    height:120px;
+    height:70px;
     width: 100%;
     position: absolute;
     bottom: 0;
@@ -57,7 +57,7 @@
 
 @media (min-width: 1500px) {
   .btn-holder a{
-      padding: 0 0 0 100px;
+      padding: 0 0 0 60px;
   }
 }
 
@@ -174,4 +174,43 @@
 }
 .competition-img {
 	margin: 0 0 20px 10px;
+}
+
+@media (min-width: 1500px) {
+	.select-type-feed {
+		background: no-repeat transparent 10px 10px !important;
+	}
+	.select-standard-feed {
+		background-image: url('~/assets/images/icons/StandardPost-B.png') !important;
+		background-position: 15px 20px !important;
+	}
+	.select-standard-feed.active-type {
+		background-image: url('~/assets/images/icons/StandardPost-W.png') !important;
+	}
+	.select-enhanced-feed {
+		background-image: url('~/assets/images/icons/EnhancedPost-B.png') !important;
+	}
+	.select-enhanced-feed.active-type {
+		background-image: url('~/assets/images/icons/EnhancedPost-W.png') !important;
+	}
+	.select-quiz-feed {
+		background-image: url('~/assets/images/icons/QuizPost-B.png') !important;
+	}
+	.select-quiz-feed.active-type {
+		background-image: url('~/assets/images/icons/QuizPost-W.png') !important;
+	}
+	.select-survey-feed {
+		background-image: url('~/assets/images/icons/SurveyPost-B.png') !important;
+	}
+	.select-survey-feed.active-type {
+		background-image: url('~/assets/images/icons/SurveyPost-W.png') !important;
+	}
+	.select-observation-feed {
+		padding: 0 50% !important;
+		background-image: url('~/assets/images/icons/FeaturedSurveyPost-B.png') !important;
+		background-position: 30% 20px !important;
+	}
+	.select-observation-feed.active-type {
+		background-image: url('~/assets/images/icons/FeaturedSurveyPost-W.png') !important;
+	}    
 }

@@ -16,7 +16,7 @@ $optionWidth: 165px;
     }
   .text {
     padding-right: 20px;
-    margin-top : 10px;
+    margin-top : 5px;
     cursor: pointer;
   }
   .selected .main-text {
@@ -55,6 +55,9 @@ $optionWidth: 165px;
     width: 100%;
     border-top: 1px solid #D8DEDC;
     border-bottom:2px solid #D8DEDC;
+	white-space:nowrap;
+	overflow-y:hidden;
+	overflow-x:auto;
 }
 .form-navbar  a {
     text-decoration: none;

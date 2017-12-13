@@ -20,6 +20,12 @@
     color: #010101;
 }
 
+@media (max-width: 959px) {
+	.feed-index-controls p {
+		display: none;
+	}
+}
+
 .feed-control {
     text-align: center;
 }
