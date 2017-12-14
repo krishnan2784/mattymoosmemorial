@@ -34,12 +34,18 @@ var UploadMediaComponent = (function () {
         this.disabled = false;
         this.dimensionWarning = false;
         this.canClear = false;
+        this.canUploadMultipleFiles = false;
         this.files = [];
         this.uploading = false;
+        this.acceptString = 'video/mp4,image/png,image/jpg,image/jpeg';
         this.uploaderTypes = enums_1.UploaderType;
         this.correctType = true;
         this.mediaUploading = new core_1.EventEmitter();
         this.mediaUploaded = new core_1.EventEmitter();
+        this.btnSaveId = 'btn-save';
+        this.btnClearId = 'btn-clear';
+        this.btnPickerId = 'btn-picker';
+        this.inputMediaPathId = 'media-input';
     }
     UploadMediaComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -52,6 +58,16 @@ var UploadMediaComponent = (function () {
                     _this.setPreviewImage(_this.selectedMedia.azureUrl);
                 }
             });
+        }
+        if (this.uploaderType === enums_1.UploaderType.Image)
+            this.acceptString = 'image/png,image/jpg,image/jpeg';
+        else if (this.uploaderType === enums_1.UploaderType.Video)
+            this.acceptString = 'video/mp4';
+        if (this.elementId) {
+            this.btnSaveId = this.elementId + '-' + 'btn-save';
+            this.btnClearId = this.elementId + '-' + 'btn-clear';
+            this.btnPickerId = this.elementId + '-' + 'btn-picker';
+            this.inputMediaPathId = this.elementId + '-' + 'media-input';
         }
     };
     UploadMediaComponent.prototype.ngOnChanges = function (changes) {
@@ -142,12 +158,14 @@ var UploadMediaComponent = (function () {
         if (index === void 0) { index = 0; }
         if (width === void 0) { width = 0; }
         if (height === void 0) { height = 0; }
+        if (!this.canUploadMultipleFiles)
+            this.files = [];
         if (this.fileIsValid(file, width, height)) {
             this.files.push(file);
         }
         else {
             this.correctType = false;
-            this.files.splice(index, 1);
+            this.filePath = '';
         }
     };
     UploadMediaComponent.prototype.fileIsValid = function (file, width, height) {
@@ -287,6 +305,10 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Boolean)
 ], UploadMediaComponent.prototype, "canClear", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Boolean)
+], UploadMediaComponent.prototype, "canUploadMultipleFiles", void 0);
 __decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)

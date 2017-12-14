@@ -316,20 +316,20 @@
 <div [class.hidden]="!feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Media)" class="form-tab">
 	<upload (mediaUploaded)="attachMedia($event, '')" (mediaUploading)="loading=$event" 
 	        *ngIf="model.id == 0" [title]="'Upload an image or video'" 
-	        [elementId]="mediaPicker"
+	        [elementId]="'mediaPicker'"
 			[canClear]="true"></upload>
 
     <upload (mediaUploaded)="attachMedia($event, 'mainImage')" (mediaUploading)="loading=$event"
             [uploaderType]="uploaderTypes.Image" 
             [selectedMedia]="model.mainImage" *ngIf="model.feedType == feedTypes.Image && model.id > 0" [title]="'Upload an image'"
             [previewText]="'Main Image Preview'"
-            [elementId]="mediaPicker"></upload>
+            [elementId]="'mediaPicker'"></upload>
 
     <upload (mediaUploaded)="attachMedia($event, 'mainVideo')" (mediaUploading)="loading=$event"
             [uploaderType]="uploaderTypes.Video" 
             [selectedMedia]="model.mainVideo" *ngIf="model.feedType == feedTypes.Video && model.id > 0" [title]="'Upload a video'"
             [previewText]="'Video Preview'"
-            [elementId]="mediaPicker"></upload>
+            [elementId]="'mediaPicker'"></upload>
 
     <h5 *ngIf="model.id > 0 && model.feedType != feedTypes.Image && model.feedType != feedTypes.Video">
         To upload an image or video please create a new feed item.

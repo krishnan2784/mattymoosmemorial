@@ -41,9 +41,11 @@ export class UploadMediaComponent implements OnInit, OnChanges {
 	@Input() imagePreviewUrl: string;
 	@Input() dimensionWarning: boolean = false;
 	@Input() canClear: boolean = false;
+	@Input() canUploadMultipleFiles: boolean = false;
     public files: File[] = [];
     public uploading: boolean = false;
 	public filePath: string;
+	public acceptString: string = 'video/mp4,image/png,image/jpg,image/jpeg';
 
     public videoPreviewUrl: string;
     uploaderTypes: typeof UploaderType = UploaderType;
@@ -52,6 +54,11 @@ export class UploadMediaComponent implements OnInit, OnChanges {
     public mediaUploading: EventEmitter<boolean> = new EventEmitter();
     @Output()
     public mediaUploaded: EventEmitter<any> = new EventEmitter();
+
+	btnSaveId = 'btn-save';
+	btnClearId = 'btn-clear';
+	btnPickerId = 'btn-picker';
+	inputMediaPathId = 'media-input';
 
     constructor(public mediaService: MediaDataService) {
     }
@@ -66,7 +73,18 @@ export class UploadMediaComponent implements OnInit, OnChanges {
 					this.setPreviewImage(this.selectedMedia.azureUrl);
 				}
 	        });
-        }
+		}
+	    if (this.uploaderType === UploaderType.Image)
+			this.acceptString = 'image/png,image/jpg,image/jpeg';
+		else if (this.uploaderType === UploaderType.Video)
+			this.acceptString = 'video/mp4';
+
+		if (this.elementId) {
+			this.btnSaveId = this.elementId + '-' + 'btn-save';
+			this.btnClearId = this.elementId + '-' + 'btn-clear';
+			this.btnPickerId = this.elementId + '-' + 'btn-picker';
+			this.inputMediaPathId = this.elementId + '-' + 'media-input';
+		}
     }
 	ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
 		if (changes['selectedMedia']) {
@@ -158,12 +176,14 @@ export class UploadMediaComponent implements OnInit, OnChanges {
         }
     }
 
-    processFile(file: File, index = 0, width = 0, height = 0) {
+	processFile(file: File, index = 0, width = 0, height = 0) {
+		if (!this.canUploadMultipleFiles)
+			this.files = [];
         if (this.fileIsValid(file, width, height)) {
             this.files.push(file);
         } else {
-            this.correctType = false;
-            this.files.splice(index, 1);
+			this.correctType = false;
+			this.filePath = '';
         }
     }
 

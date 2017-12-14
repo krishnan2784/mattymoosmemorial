@@ -51,7 +51,6 @@ export class NumberTextInputComponent implements OnInit {
         currValue = this.form && this.form.controls[this.formControlId]
           && this.form.controls[this.formControlId].value ? this.form.controls[this.formControlId].value.toString() : '';
 	  var success;
-	    console.log(char,currValue);
 		if (e.key === '.') {
 			if (!this.allowFractions || this.hasPoint || currValue.length === 0) {
 				e.preventDefault();
