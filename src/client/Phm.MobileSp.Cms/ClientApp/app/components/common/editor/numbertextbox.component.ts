@@ -6,7 +6,9 @@ import { FormGroup } from "@angular/forms";
   template: `
     <div [formGroup]="form" *ngIf="form">
         <div class="input-field">
-            <input id="{{elementId}}" type="number" formControlName="{{formControlId}}" (keypress)="filterInput($event)" [attr.placeholder]="placeholder">
+            <input id="{{elementId}}" type="{{allowFractions ? 'text' : 'number'}}"
+				formControlName="{{formControlId}}" (keydown)="handleInput($event)" (keyup)="checkPoint()" 
+				[attr.placeholder]="placeholder">
             <label [attr.for]="elementId" class="{{activeClass}}">{{label}}</label>
             <small class="active-warning" [class.hidden]="form.controls[formControlId].valid || !formSubmitted">
                 {{validationMessage}}
@@ -23,6 +25,7 @@ export class NumberTextInputComponent implements OnInit {
     @Input() validationMessage: string = '';
     @Input() formSubmitted: boolean = false;
 	@Input() allowFractions: boolean = false;
+	@Input() decimalPlaces :number = 2;
 	@Input() placeholder: string = '';
     hasPoint: boolean = false;
     activeClass: string = '';
@@ -32,8 +35,14 @@ export class NumberTextInputComponent implements OnInit {
         if (this.form && this.form.controls[this.formControlId]) {
 			this.activeClass = this.placeholder !== '' || (this.form.controls[this.formControlId].value
             && this.form.controls[this.formControlId].value.toString().length > 0) ? "active" : "";
-        }
+		}
+	    this.checkPoint();
     }
+	handleInput(e) {
+		if (e.key === 'Backspace' || e.key === 'Delete' || e.key === 'ArrowLeft' || e.key === 'ArrowRight')
+			return;
+		this.filterInput(e);
+	}
     filterInput(e) {
       // setting the type to number doesn't prevent the current versions of firefox and edge accepting 
       // non-numerical characters and only fails validation. To maintain consistency with Chrome we are 
@@ -42,19 +51,30 @@ export class NumberTextInputComponent implements OnInit {
         currValue = this.form && this.form.controls[this.formControlId]
           && this.form.controls[this.formControlId].value ? this.form.controls[this.formControlId].value.toString() : '';
 	  var success;
-      if (e.key === '.') {
-        if (!this.allowFractions || this.hasPoint || currValue.length === 0) {
-          e.preventDefault();
-          return;
-        }
-        this.hasPoint = true;
-        success = true;
-      } else {
-        this.hasPoint = currValue.includes('.');
-        success = char.match(/[0-9]/);
-      }
-      if (!success) {
-          e.preventDefault();
-      } 
-    }
+	    console.log(char,currValue);
+		if (e.key === '.') {
+			if (!this.allowFractions || this.hasPoint || currValue.length === 0) {
+				e.preventDefault();
+				return;
+			}
+			this.hasPoint = true;
+			success = true;
+		} else {
+			success = char.match(/[0-9]/);
+			if (success && this.allowFractions && this.hasPoint)
+				  success = currValue.length < (currValue.indexOf('.') + 1) + this.decimalPlaces;
+		}
+		if (!success) {
+			e.preventDefault();
+		} 
+	}
+	checkPoint() {
+		if (this.allowFractions) {
+			let currValue = this.form && this.form.controls[this.formControlId] && this.form.controls[this.formControlId].value
+				? this.form.controls[this.formControlId].value.toString()
+				: '';
+			this.hasPoint = currValue.includes('.');
+		}
+		return this.hasPoint;
+	}
 }

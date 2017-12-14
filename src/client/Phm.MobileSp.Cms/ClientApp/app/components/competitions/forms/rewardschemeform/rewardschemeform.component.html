@@ -46,7 +46,8 @@
 						<numbertextinput [form]="item" [formSubmitted]="submitted"
 						                 [elementId]="'item-' + i + '-x-booster'"
 						                 [formControlId]="'xBooster'"
-						                 [validationMessage]="'Booster is required.'"></numbertextinput>
+						                 [validationMessage]="'Booster is required.'"
+										 [allowFractions]="true"></numbertextinput>
 					</div>
 					<div class="col-md-1 condition-btn-container">
 						<a (click)="addCondition()" *ngIf="i === form.controls.items.length-1" class="condition-btn btn-add" id="btn-add-condition"><i class="material-icons">add</i></a>

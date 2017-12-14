@@ -18,6 +18,7 @@ var NumberTextInputComponent = (function () {
         this.validationMessage = '';
         this.formSubmitted = false;
         this.allowFractions = false;
+        this.decimalPlaces = 2;
         this.placeholder = '';
         this.hasPoint = false;
         this.activeClass = '';
@@ -29,6 +30,12 @@ var NumberTextInputComponent = (function () {
             this.activeClass = this.placeholder !== '' || (this.form.controls[this.formControlId].value
                 && this.form.controls[this.formControlId].value.toString().length > 0) ? "active" : "";
         }
+        this.checkPoint();
+    };
+    NumberTextInputComponent.prototype.handleInput = function (e) {
+        if (e.key === 'Backspace' || e.key === 'Delete' || e.key === 'ArrowLeft' || e.key === 'ArrowRight')
+            return;
+        this.filterInput(e);
     };
     NumberTextInputComponent.prototype.filterInput = function (e) {
         // setting the type to number doesn't prevent the current versions of firefox and edge accepting 
@@ -37,6 +44,7 @@ var NumberTextInputComponent = (function () {
         var char = e.key, currValue = this.form && this.form.controls[this.formControlId]
             && this.form.controls[this.formControlId].value ? this.form.controls[this.formControlId].value.toString() : '';
         var success;
+        console.log(char, currValue);
         if (e.key === '.') {
             if (!this.allowFractions || this.hasPoint || currValue.length === 0) {
                 e.preventDefault();
@@ -46,12 +54,22 @@ var NumberTextInputComponent = (function () {
             success = true;
         }
         else {
-            this.hasPoint = currValue.includes('.');
             success = char.match(/[0-9]/);
+            if (success && this.allowFractions && this.hasPoint)
+                success = currValue.length < (currValue.indexOf('.') + 1) + this.decimalPlaces;
         }
         if (!success) {
             e.preventDefault();
         }
+    };
+    NumberTextInputComponent.prototype.checkPoint = function () {
+        if (this.allowFractions) {
+            var currValue = this.form && this.form.controls[this.formControlId] && this.form.controls[this.formControlId].value
+                ? this.form.controls[this.formControlId].value.toString()
+                : '';
+            this.hasPoint = currValue.includes('.');
+        }
+        return this.hasPoint;
     };
     return NumberTextInputComponent;
 }());
@@ -85,12 +103,16 @@ __decorate([
 ], NumberTextInputComponent.prototype, "allowFractions", void 0);
 __decorate([
     core_1.Input(),
+    __metadata("design:type", Number)
+], NumberTextInputComponent.prototype, "decimalPlaces", void 0);
+__decorate([
+    core_1.Input(),
     __metadata("design:type", String)
 ], NumberTextInputComponent.prototype, "placeholder", void 0);
 NumberTextInputComponent = __decorate([
     core_1.Component({
         selector: 'numbertextinput',
-        template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n        <div class=\"input-field\">\n            <input id=\"{{elementId}}\" type=\"number\" formControlName=\"{{formControlId}}\" (keypress)=\"filterInput($event)\" [attr.placeholder]=\"placeholder\">\n            <label [attr.for]=\"elementId\" class=\"{{activeClass}}\">{{label}}</label>\n            <small class=\"active-warning\" [class.hidden]=\"form.controls[formControlId].valid || !formSubmitted\">\n                {{validationMessage}}\n            </small>\n        </div>\n    </div>\n"
+        template: "\n    <div [formGroup]=\"form\" *ngIf=\"form\">\n        <div class=\"input-field\">\n            <input id=\"{{elementId}}\" type=\"{{allowFractions ? 'text' : 'number'}}\"\n\t\t\t\tformControlName=\"{{formControlId}}\" (keydown)=\"handleInput($event)\" (keyup)=\"checkPoint()\" \n\t\t\t\t[attr.placeholder]=\"placeholder\">\n            <label [attr.for]=\"elementId\" class=\"{{activeClass}}\">{{label}}</label>\n            <small class=\"active-warning\" [class.hidden]=\"form.controls[formControlId].valid || !formSubmitted\">\n                {{validationMessage}}\n            </small>\n        </div>\n    </div>\n"
     })
 ], NumberTextInputComponent);
 exports.NumberTextInputComponent = NumberTextInputComponent;
