@@ -26,9 +26,9 @@ namespace Phm.MobileSp.Cms.Infrastructure.Repositories
 	    {
 		    return GetResponseModel<List<SecGroup>>(await GetAsync(new { SecGroupId = id }))[0];
 		}
-	    public async Task<BaseResponse<dynamic>> GetSecGroupsByMarketAsync(int marketMasterId)
+	    public async Task<BaseResponse<dynamic>> GetSecGroupsByMarketAsync(int marketId)
 	    {
-		    return GetAPIResponse<dynamic>(await GetAsync(new { masterId = marketMasterId }));
+		    return GetAPIResponse<dynamic>(await GetAsync(new { marketId }));
 	    }
 		public async Task<BaseResponse<dynamic>> GetSecGroupsByIdAsync(int secGroupId)
 	    {
