@@ -18,187 +18,189 @@
 
 <div class="clear-both"></div>
 
-    <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Category)" class="no-pad">
-        <div>
-            <div class="col-md-12 no-pad">
-                <div class="col-md-6">
-                    <div class="feed-cat-container" [class.active-cat]="model.feedCategory == feedCats.Learning && model.feedType != feedTypes.Observation">
-                        <img src="assets/images/Icon-Learning-b.png" class="feed-cat-img" />
-                        <h5>LEARNING</h5>
-                        <p>
-                            Post small, fun learning content with optional Quizzes to test engagement.<br /> 
-                            Track results in the reports and on the leaderboard.<br /> 
-                            Submit Surveys to get user feedback.
-                        </p>
-                        <div class="btn-holder">
-                            <a (click)="swapForm(this.textForm, feedCats.Learning)" id="feed-cat__btn-learning-standard" class="btn btn-primary col-md-3 btn-3 waves-effect waves-light select-type-feed select-standard-feed"
-                               [class.active-type]="model.feedCategory == feedCats.Learning && (model.feedType == feedTypes.Text || model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)" [class.disabled]="model.id>0">
-                                <span class="type">
-                                    Standard
-                                </span> 
-                            </a>
-	                        <a (click)="swapForm(this.pagedForm, feedCats.Learning)" id="feed-cat__btn-learning-paged" class="btn btn-primary col-md-3 btn-3 waves-effect waves-light select-type-feed select-enhanced-feed" 
-							   [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Paged" [class.disabled]="model.id>0">
-                                <span class="type">
-                                    Enhanced
-                                </span> 
-                            </a>
-	                        <a (click)="swapForm(this.quizForm, feedCats.Learning)" id="feed-cat__btn-learning-quiz" class="btn btn-primary col-md-3 btn-3 waves-effect waves-light select-type-feed select-quiz-feed" 
-							   [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Quiz" [class.disabled]="model.id>0">
-                                <span class="type">
-                                    Quiz
-                                </span> 
-                            </a>
-	                        <a (click)="swapForm(this.surveyForm, feedCats.Learning)" id="feed-cat__btn-learning-survey" class="btn btn-primary col-md-3 btn-3 waves-effect waves-light select-type-feed select-survey-feed" 
-							   [class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Survey" [class.disabled]="model.id>0">
-                                <span class="type">
-                                    Survey
-                                </span> 
-                            </a>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
+<div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Category)" class="no-pad">
+	<div *ngIf="submitted && (!form.controls.feedType.valid || !form.controls.feedCategory.valid)" class=" center active-warning">
+		Please select the category of feed item you would like to create.
+	</div>
 
-                <div class="col-md-6">
-                    <div class="feed-cat-container" [class.active-cat]="model.feedCategory == feedCats.Campaign">
-                        <img src="assets/images/Icon-Campaign-b.png" class="feed-cat-img" />
-                        <h5>CAMPAIGN</h5>
-                        <p>
-                        Post marketing Campaigns and promotions to the feed to remind sales people to communicate them to the customer.<br /> 
-                        Create as Survey to establish the performance of Campaigns directly from the dealer network.
-                        </p>
-                        <div class="btn-holder">
-                            <a (click)="swapForm(this.textForm, feedCats.Campaign)" id="feed-cat__btn-campaign-standard" class="btn btn-primary col-md-4 btn-2 waves-effect waves-light select-type-feed select-standard-feed"
-                               [class.active-type]="model.feedCategory == feedCats.Campaign && (model.feedType == feedTypes.Text || model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)" 
-							   [class.disabled]="model.id>0">
-                                <span class="type">
-                                    Standard
-                                </span> 
-                            </a>
-                            <a (click)="swapForm(this.pagedForm, feedCats.Campaign)" id="feed-cat__btn-campaign-paged" class="btn btn-primary col-md-4 btn-3 waves-effect waves-light  select-type-feed select-enhanced-feed" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Paged" [class.disabled]="model.id>0">
-                                <span class="type">
-                                    Enhanced
-                                </span> 
-                            </a>
-                            <a (click)="swapForm(this.surveyForm, feedCats.Campaign)" id="feed-cat__btn-campaign-survey" class="btn btn-primary col-md-4 btn-2 waves-effect waves-light select-type-feed select-survey-feed" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Survey" [class.disabled]="model.id>0">
-                                <span class="type">
-                                    Survey
-                                </span>                                 
-                            </a>
-                        </div>
+        <div class="col-md-12 no-pad">
+            <div class="col-md-6">
+                <div class="feed-cat-container" [class.active-cat]="model.feedCategory == feedCats.Learning && model.feedType != feedTypes.Observation">
+                    <img src="assets/images/Icon-Learning-b.png" class="feed-cat-img" />
+                    <h5>LEARNING</h5>
+                    <p>
+                        Post small, fun learning content with optional Quizzes to test engagement.<br /> 
+                        Track results in the reports and on the leaderboard.<br /> 
+                        Submit Surveys to get user feedback.
+                    </p>
+                    <div class="btn-holder">
+                        <a (click)="swapForm(this.textForm, feedCats.Learning)" id="feed-cat__btn-learning-standard" class="btn btn-primary col-md-3 btn-3 waves-effect waves-light select-type-feed select-standard-feed"
+                            [class.active-type]="model.feedCategory == feedCats.Learning && (model.feedType == feedTypes.Text || model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)" [class.disabled]="model.id>0">
+                            <span class="type">
+                                Standard
+                            </span> 
+                        </a>
+	                    <a (click)="swapForm(this.pagedForm, feedCats.Learning)" id="feed-cat__btn-learning-paged" class="btn btn-primary col-md-3 btn-3 waves-effect waves-light select-type-feed select-enhanced-feed" 
+							[class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Paged" [class.disabled]="model.id>0">
+                            <span class="type">
+                                Enhanced
+                            </span> 
+                        </a>
+	                    <a (click)="swapForm(this.quizForm, feedCats.Learning)" id="feed-cat__btn-learning-quiz" class="btn btn-primary col-md-3 btn-3 waves-effect waves-light select-type-feed select-quiz-feed" 
+							[class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Quiz" [class.disabled]="model.id>0">
+                            <span class="type">
+                                Quiz
+                            </span> 
+                        </a>
+	                    <a (click)="swapForm(this.surveyForm, feedCats.Learning)" id="feed-cat__btn-learning-survey" class="btn btn-primary col-md-3 btn-3 waves-effect waves-light select-type-feed select-survey-feed" 
+							[class.active-type]="model.feedCategory == feedCats.Learning && model.feedType == feedTypes.Survey" [class.disabled]="model.id>0">
+                            <span class="type">
+                                Survey
+                            </span> 
+                        </a>
                     </div>
-                    <div class="clear-both"></div>
-                </div>
-            </div>
-
-            <div class="col-md-12 no-pad">
-                <div class="col-md-4">
-                    <div class="feed-cat-container" [class.active-cat]="model.feedCategory == feedCats.Announcement">
-                        <img src="assets/images/Icon-Announcement-b.png" class="feed-cat-img" />
-                        <h5>ANNOUNCEMENT</h5>
-                        <p>Create and post internal memos or Announcements that are of interest to the users.</p>
-                        <div class="btn-holder">
-                            <a (click)="swapForm(this.textForm, feedCats.Announcement)" id="feed-cat__btn-announcement-standard" class="btn btn-primary col-md-6 waves-effect waves-light select-type-feed select-standard-feed"
-                               [class.active-type]="model.feedCategory == feedCats.Announcement && (model.feedType == feedTypes.Text || model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)" 
-							   [class.disabled]="model.id>0">
-                                <span class="type">
-                                    Standard
-                                </span> 
-                            </a>
-	                        <a (click)="swapForm(this.pagedForm, feedCats.Announcement)" id="feed-cat__btn-announcement-paged" class="btn btn-primary col-md-6 btn-3 waves-effect waves-light select-type-feed select-enhanced-feed" 
-							   [class.active-type]="model.feedCategory == feedCats.Announcement && model.feedType == feedTypes.Paged" [class.disabled]="model.id>0">
-                                <span class="type">
-                                    Enhanced
-                                </span> 
-                            </a>
-                        </div>
-                    </div>
-                    <div class="clear-both"></div>
-                </div>
-                <div class="col-md-4">
-                    <div class="feed-cat-container" [class.active-cat]="model.feedCategory == feedCats.News">
-                        <img src="assets/images/Icon-News-b.png" class="feed-cat-img" />
-                        <h5>NEWS</h5>
-                        <p>Keep the dealer network updated with the latest news from the organisation or the automotive industry at large.</p>
-                        <div class="btn-holder">
-	                        <a (click)="swapForm(this.textForm, feedCats.News)" id="feed-cat__btn-news-standard" class="btn btn-primary col-md-6 waves-effect waves-light select-type-feed select-standard-feed" 
-							   [class.active-type]="model.feedCategory == feedCats.News && (model.feedType == feedTypes.Text || model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)" [class.disabled]="model.id>0">
-                                <span class="type">
-                                    Standard
-                                </span> 
-                            </a>
-	                        <a (click)="swapForm(this.pagedForm, feedCats.News)" id="feed-cat__btn-news-paged" class="btn btn-primary col-md-6 btn-3 waves-effect waves-light select-type-feed select-enhanced-feed" 
-							   [class.active-type]="model.feedCategory == feedCats.News && model.feedType == feedTypes.Paged" [class.disabled]="model.id>0">
-                                <span class="type">
-                                    Enhanced
-                                </span>                                 
-                            </a>
-                        </div>
-                    </div>
-                    <div class="clear-both"></div>
-                </div>
-                <div class="col-md-4">
-                    <div class="feed-cat-container" [class.active-cat]="model.feedCategory == feedCats.Article">
-                        <img src="assets/images/Icon-Article-b.png" class="feed-cat-img" />
-                        <h5>ARTICLE</h5>
-                        <p>Post interesting articles on topics of interest to the users. Includes images or a link to a PDF.</p>
-                        <div class="btn-holder">
-	                        <a (click)="swapForm(this.textForm, feedCats.Article)" id="feed-cat__btn-article-standard" class="btn btn-primary col-md-6 waves-effect waves-light select-type-feed select-standard-feed" 
-							   [class.active-type]="model.feedCategory == feedCats.Article && (model.feedType == feedTypes.Text || model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)" [class.disabled]="model.id>0">
-                                <span class="type">
-                                    Standard
-                                </span> 
-                            </a>
-	                        <a (click)="swapForm(this.pagedForm, feedCats.Article)" id="feed-cat__btn-article-paged" class="btn btn-primary col-md-6 btn-3 waves-effect waves-light select-type-feed select-enhanced-feed" 
-							   [class.active-type]="model.feedCategory == feedCats.Article && model.feedType == feedTypes.Paged" [class.disabled]="model.id>0">
-                                <span class="type">
-                                    Enhanced
-                                </span>                                 
-                            </a>
-                        </div>
-                    </div>
-                    <div class="clear-both"></div>
                 </div>
                 <div class="clearfix"></div>
             </div>
-            <div class="col-md-12 no-pad">
-                <div class="col-md-9">
-                    <div class="feed-cat-container observation-container" [class.active-cat]="model.feedType == feedTypes.Observation">
-                        <div class="col-md-6 observation-partial">
-                            <img src="assets/images/Icon-Observation-b.png" class="feed-cat-img" />
-                            <h5>OBSERVATION</h5>
-                            <p>Observations are surveys allowing Sales Managers to report the progress of their staff to the NSC.</p>
-                            <div class="btn-holder">
-	                            <a (click)="swapForm(this.observationForm, feedCats.Learning)" id="feed-cat__btn-observation" class="btn btn-primary col-md-12 waves-effect waves-light select-type-feed select-observation-feed" 
-								   [class.active-type]="model.feedType == feedTypes.Observation" [class.disabled]="model.id>0">
-                                    <span class="type">
-                                        Featured Survey
-                                    </span>
-                                </a>
-                            </div>
+
+            <div class="col-md-6">
+                <div class="feed-cat-container" [class.active-cat]="model.feedCategory == feedCats.Campaign">
+                    <img src="assets/images/Icon-Campaign-b.png" class="feed-cat-img" />
+                    <h5>CAMPAIGN</h5>
+                    <p>
+                    Post marketing Campaigns and promotions to the feed to remind sales people to communicate them to the customer.<br /> 
+                    Create as Survey to establish the performance of Campaigns directly from the dealer network.
+                    </p>
+                    <div class="btn-holder">
+                        <a (click)="swapForm(this.textForm, feedCats.Campaign)" id="feed-cat__btn-campaign-standard" class="btn btn-primary col-md-4 btn-2 waves-effect waves-light select-type-feed select-standard-feed"
+                            [class.active-type]="model.feedCategory == feedCats.Campaign && (model.feedType == feedTypes.Text || model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)" 
+							[class.disabled]="model.id>0">
+                            <span class="type">
+                                Standard
+                            </span> 
+                        </a>
+                        <a (click)="swapForm(this.pagedForm, feedCats.Campaign)" id="feed-cat__btn-campaign-paged" class="btn btn-primary col-md-4 btn-3 waves-effect waves-light  select-type-feed select-enhanced-feed" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Paged" [class.disabled]="model.id>0">
+                            <span class="type">
+                                Enhanced
+                            </span> 
+                        </a>
+                        <a (click)="swapForm(this.surveyForm, feedCats.Campaign)" id="feed-cat__btn-campaign-survey" class="btn btn-primary col-md-4 btn-2 waves-effect waves-light select-type-feed select-survey-feed" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Survey" [class.disabled]="model.id>0">
+                            <span class="type">
+                                Survey
+                            </span>                                 
+                        </a>
+                    </div>
+                </div>
+                <div class="clear-both"></div>
+            </div>
+        </div>
+
+        <div class="col-md-12 no-pad">
+            <div class="col-md-4">
+                <div class="feed-cat-container" [class.active-cat]="model.feedCategory == feedCats.Announcement">
+                    <img src="assets/images/Icon-Announcement-b.png" class="feed-cat-img" />
+                    <h5>ANNOUNCEMENT</h5>
+                    <p>Create and post internal memos or Announcements that are of interest to the users.</p>
+                    <div class="btn-holder">
+                        <a (click)="swapForm(this.textForm, feedCats.Announcement)" id="feed-cat__btn-announcement-standard" class="btn btn-primary col-md-6 waves-effect waves-light select-type-feed select-standard-feed"
+                            [class.active-type]="model.feedCategory == feedCats.Announcement && (model.feedType == feedTypes.Text || model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)" 
+							[class.disabled]="model.id>0">
+                            <span class="type">
+                                Standard
+                            </span> 
+                        </a>
+	                    <a (click)="swapForm(this.pagedForm, feedCats.Announcement)" id="feed-cat__btn-announcement-paged" class="btn btn-primary col-md-6 btn-3 waves-effect waves-light select-type-feed select-enhanced-feed" 
+							[class.active-type]="model.feedCategory == feedCats.Announcement && model.feedType == feedTypes.Paged" [class.disabled]="model.id>0">
+                            <span class="type">
+                                Enhanced
+                            </span> 
+                        </a>
+                    </div>
+                </div>
+                <div class="clear-both"></div>
+            </div>
+            <div class="col-md-4">
+                <div class="feed-cat-container" [class.active-cat]="model.feedCategory == feedCats.News">
+                    <img src="assets/images/Icon-News-b.png" class="feed-cat-img" />
+                    <h5>NEWS</h5>
+                    <p>Keep the dealer network updated with the latest news from the organisation or the automotive industry at large.</p>
+                    <div class="btn-holder">
+	                    <a (click)="swapForm(this.textForm, feedCats.News)" id="feed-cat__btn-news-standard" class="btn btn-primary col-md-6 waves-effect waves-light select-type-feed select-standard-feed" 
+							[class.active-type]="model.feedCategory == feedCats.News && (model.feedType == feedTypes.Text || model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)" [class.disabled]="model.id>0">
+                            <span class="type">
+                                Standard
+                            </span> 
+                        </a>
+	                    <a (click)="swapForm(this.pagedForm, feedCats.News)" id="feed-cat__btn-news-paged" class="btn btn-primary col-md-6 btn-3 waves-effect waves-light select-type-feed select-enhanced-feed" 
+							[class.active-type]="model.feedCategory == feedCats.News && model.feedType == feedTypes.Paged" [class.disabled]="model.id>0">
+                            <span class="type">
+                                Enhanced
+                            </span>                                 
+                        </a>
+                    </div>
+                </div>
+                <div class="clear-both"></div>
+            </div>
+            <div class="col-md-4">
+                <div class="feed-cat-container" [class.active-cat]="model.feedCategory == feedCats.Article">
+                    <img src="assets/images/Icon-Article-b.png" class="feed-cat-img" />
+                    <h5>ARTICLE</h5>
+                    <p>Post interesting articles on topics of interest to the users. Includes images or a link to a PDF.</p>
+                    <div class="btn-holder">
+	                    <a (click)="swapForm(this.textForm, feedCats.Article)" id="feed-cat__btn-article-standard" class="btn btn-primary col-md-6 waves-effect waves-light select-type-feed select-standard-feed" 
+							[class.active-type]="model.feedCategory == feedCats.Article && (model.feedType == feedTypes.Text || model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)" [class.disabled]="model.id>0">
+                            <span class="type">
+                                Standard
+                            </span> 
+                        </a>
+	                    <a (click)="swapForm(this.pagedForm, feedCats.Article)" id="feed-cat__btn-article-paged" class="btn btn-primary col-md-6 btn-3 waves-effect waves-light select-type-feed select-enhanced-feed" 
+							[class.active-type]="model.feedCategory == feedCats.Article && model.feedType == feedTypes.Paged" [class.disabled]="model.id>0">
+                            <span class="type">
+                                Enhanced
+                            </span>                                 
+                        </a>
+                    </div>
+                </div>
+                <div class="clear-both"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="col-md-12 no-pad">
+            <div class="col-md-9">
+                <div class="feed-cat-container observation-container" [class.active-cat]="model.feedType == feedTypes.Observation">
+                    <div class="col-md-6 observation-partial">
+                        <img src="assets/images/Icon-Observation-b.png" class="feed-cat-img" />
+                        <h5>OBSERVATION</h5>
+                        <p>Observations are surveys allowing Sales Managers to report the progress of their staff to the NSC.</p>
+                        <div class="btn-holder">
+	                        <a (click)="swapForm(this.observationForm, feedCats.Learning)" id="feed-cat__btn-observation" class="btn btn-primary col-md-12 waves-effect waves-light select-type-feed select-observation-feed" 
+								[class.active-type]="model.feedType == feedTypes.Observation" [class.disabled]="model.id>0">
+                                <span class="type">
+                                    Featured Survey
+                                </span>
+                            </a>
                         </div>
-                        <div class="col-md-6 observation-partial observation-explanation">
-                            <p>
-                                <b>What Observations are:</b><br />
-                                Observations are a way to receive feedback on how your market's sales force is performing.
-                            </p>
-                            <p>
-                                <b>How it works:</b><br />
-                                Fill in the observation form in English with one or more questions you would like feedback on. <br />
-                                Then press "copy to market". The NSC will receive your questions and translate them into the local language before publishing them to the sales managers feed.<br />
-                                View the results in your Analytics dashboard.
-                            </p>
-                            <p>
-                                <b>The Benefits:</b><br />
-                                Monitor the effectiveness of training and communications on the sales force with accurate and real-time data.<br />
-                                Use the data to develop additional training or communications as required.
-                            </p>
-                        </div>
-                        <div class="clearfix"></div>
+                    </div>
+                    <div class="col-md-6 observation-partial observation-explanation">
+                        <p>
+                            <b>What Observations are:</b><br />
+                            Observations are a way to receive feedback on how your market's sales force is performing.
+                        </p>
+                        <p>
+                            <b>How it works:</b><br />
+                            Fill in the observation form in English with one or more questions you would like feedback on. <br />
+                            Then press "copy to market". The NSC will receive your questions and translate them into the local language before publishing them to the sales managers feed.<br />
+                            View the results in your Analytics dashboard.
+                        </p>
+                        <p>
+                            <b>The Benefits:</b><br />
+                            Monitor the effectiveness of training and communications on the sales force with accurate and real-time data.<br />
+                            Use the data to develop additional training or communications as required.
+                        </p>
                     </div>
                     <div class="clearfix"></div>
                 </div>
+                <div class="clearfix"></div>
             </div>
         </div>
     </div> 
