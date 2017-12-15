@@ -12,7 +12,10 @@ import { FormGroup } from "@angular/forms";
 				    [cpCancelButton]="true"
 				    [cpOutputFormat]="hex"
 				    [cpOKButton]="true"
-				    [cpAlphaChannel]="disabled"
+				    [cpAlphaChannel]="'disabled'"
+					[cpPositionOffset]="positionOffset"
+					[cpPosition]="position"
+					[cpPositionRelativeToArrow]="true"
 				    (colorPickerSelect)="setColour($event)"
 					id="color-picker-{{elementId}}">{{form.controls[formControlId].value}}</span>
 			<span *ngIf="disabled">{{form.controls[formControlId].value}}</span>
@@ -32,6 +35,8 @@ export class ColourPickerInputComponent implements OnInit, AfterViewInit {
     @Input() validationMessage: string = '';
 	@Input() formSubmitted: boolean = false;
 	@Input() disabled: boolean = false;
+	@Input() position: string = 'right';
+	@Input() positionOffset: string = '0%';
 	ngOnInit() {
         if (this.elementId == '')
             this.elementId = this.formControlId;

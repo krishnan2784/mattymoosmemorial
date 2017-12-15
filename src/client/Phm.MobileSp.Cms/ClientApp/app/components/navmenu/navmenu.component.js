@@ -31,28 +31,43 @@ var NavMenuComponent = (function () {
             else {
                 _this.currentMenuOptions = navMenu[0];
                 _this.backText = navMenu[1];
+                _this.setActiveMenu();
             }
         });
     }
     NavMenuComponent.prototype.ngOnInit = function () {
     };
-    NavMenuComponent.prototype.resetNavMenu = function () {
+    NavMenuComponent.prototype.resetNavMenu = function (fullReset) {
+        if (fullReset === void 0) { fullReset = false; }
         this.currentMenuOptions = this.baseMenuOptions;
-        this.setActiveMenu();
         this.backText = '';
         this.shareService.updateAppTheme('');
+        if (fullReset) {
+            this.currentMenuOptions.filter(function (x) { return x.activeLink; }).forEach(function (x) { return x.activeLink = false; });
+            this.currentMenuOptions[0].activeLink = true;
+        }
+        else
+            this.setActiveMenu();
     };
-    NavMenuComponent.prototype.setActiveMenu = function () {
+    NavMenuComponent.prototype.setActiveMenu = function (index) {
+        if (index === void 0) { index = null; }
+        if (!this.currentMenuOptions || this.currentMenuOptions.length === 0)
+            return;
         this.currentMenuOptions.filter(function (x) { return x.activeLink; }).forEach(function (x) { return x.activeLink = false; });
         var urlArray = this.router.url.split('/');
         var _loop_1 = function (i) {
             var currentUrl = '/' + urlArray[i];
-            this_1.currentMenuOptions.filter(function (x) { return x.routerLink === currentUrl; })[0].activeLink = true;
+            if (this_1.currentMenuOptions.filter(function (x) { return x.routerLink === currentUrl; })[0])
+                this_1.currentMenuOptions.filter(function (x) { return x.routerLink === currentUrl; })[0].activeLink = true;
         };
         var this_1 = this;
         for (var i = 1; i <= urlArray.length - 1; i += 2) {
             _loop_1(i);
         }
+        if (this.currentMenuOptions.filter(function (x) { return x.activeLink; }).length > 0)
+            return;
+        index = index === null ? 0 : index;
+        this.currentMenuOptions[index].activeLink = true;
     };
     return NavMenuComponent;
 }());

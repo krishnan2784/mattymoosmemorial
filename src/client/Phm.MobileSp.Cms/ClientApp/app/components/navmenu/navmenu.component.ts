@@ -25,26 +25,43 @@ export class NavMenuComponent implements OnInit{
 			} else {
 				this.currentMenuOptions = navMenu[0];
 				this.backText = navMenu[1];
+				this.setActiveMenu();
 			}
 		});
     }
 
     ngOnInit() {
-    }
-	resetNavMenu() {
-		this.currentMenuOptions = this.baseMenuOptions;
-		this.setActiveMenu();
-		this.backText = '';
-	    this.shareService.updateAppTheme('');
 	}
 
-	setActiveMenu() {
+	resetNavMenu(fullReset = false) {
+		this.currentMenuOptions = this.baseMenuOptions;
+		this.backText = '';
+		this.shareService.updateAppTheme('');
+		if (fullReset) {
+			this.currentMenuOptions.filter(x => x.activeLink).forEach(x => x.activeLink = false);
+			this.currentMenuOptions[0].activeLink = true;
+		} else
+			this.setActiveMenu();
+	}
+
+	setActiveMenu(index = null) {
+		if (!this.currentMenuOptions || this.currentMenuOptions.length === 0)
+			return;
+
 		this.currentMenuOptions.filter(x => x.activeLink).forEach(x => x.activeLink = false);
+
 		let urlArray = this.router.url.split('/');
 
 		for (let i = 1; i <= urlArray.length - 1; i += 2) {
 			let currentUrl = '/' + urlArray[i];
-			this.currentMenuOptions.filter(x => x.routerLink === currentUrl)[0].activeLink = true;
+			if (this.currentMenuOptions.filter(x => x.routerLink === currentUrl)[0])
+				this.currentMenuOptions.filter(x => x.routerLink === currentUrl)[0].activeLink = true;
 		}
+
+		if (this.currentMenuOptions.filter(x => x.activeLink).length > 0)
+			return;
+
+		index = index === null ? 0 : index;
+		this.currentMenuOptions[index].activeLink = true;
 	}
 }
