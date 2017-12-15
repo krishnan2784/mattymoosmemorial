@@ -30,7 +30,7 @@
 
                 <div class="stat-body">
                     <div class="loader" *ngIf="submissionRateData == null"></div>
-                    <div *ngIf="submissionRateData != null">
+                    <div *ngIf="submissionRateData != null" class="gauge-container">
                         <gaugegraph [percent]="submissionRateData"></gaugegraph>
                         <h5 *ngIf="summaryData">
                             <b>{{summaryData.submitted}} <span>submitted / </span></b>
@@ -59,12 +59,15 @@
         <div class="clearfix"></div>
     </div>
 
-    <div *ngFor="let questionResults of this.listData; let i=index" class="col-md-6 stat-container animate-bottom">
-        <p class="container-header">Question {{i + 1}}</p>
-        <div class="question-result">
-            <dynamicchartformats [data]="questionResults"></dynamicchartformats>
-        </div>
-    </div>
+	<ng-container *ngFor="let questionResults of this.listData; let i=index; let odd=odd">
+		<div class="col-md-6 stat-container animate-bottom">
+			<p class="container-header">Question {{i + 1}}</p>
+			<div class="question-result">
+				<dynamicchartformats [data]="questionResults"></dynamicchartformats>
+			</div>
+		</div>
+		<div class="clearfix" *ngIf='odd'></div>
+	</ng-container>
     <div class="clearfix"></div>
 
 </div>

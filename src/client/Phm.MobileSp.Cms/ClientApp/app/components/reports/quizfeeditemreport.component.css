@@ -47,6 +47,7 @@
 
 .stat-container {
     padding: 0;
+	overflow: hidden;
 }
 
 .stat-block {

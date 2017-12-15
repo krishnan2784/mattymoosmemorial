@@ -1,6 +1,6 @@
 .dcfContent {
   background-color: white;
-  width: 460px;
+  width: 100%;
   position: relative;
 }
 .detailBar {
@@ -73,9 +73,9 @@
           margin-top: -21px;
         }
         .graph56 {
-          width: 160px;
           height: 5px;
           position: absolute;
+		  padding: 0;
           right: 0;
           top: calc(50% - 3px);
           background-color: #f5f5f5;
