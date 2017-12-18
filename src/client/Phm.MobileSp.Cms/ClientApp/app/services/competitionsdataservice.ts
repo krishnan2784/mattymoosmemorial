@@ -3,11 +3,9 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/publishReplay';
-import { RequestHelper } from "./helpers/requesthelper";
 import {ICompetitionsDataService} from "../interfaces/services/ICompetitionsDataService";
 import {Competition} from "../models/competitionclasses";
 import {ApiResponse} from "../models/apiresponse";
-import * as Apiresponse from "../models/apiresponse";
 import { CopiedElementTypeEnum } from "../enums";
 import { MarketContentDataService } from "./marketcontentdataservice ";
 import { IMarketContentService } from "../interfaces/services/IMarketContentService";
@@ -16,7 +14,7 @@ import { IMarketContentService } from "../interfaces/services/IMarketContentServ
 export class CompetitionsDataService extends MarketContentDataService implements ICompetitionsDataService, IMarketContentService {
 
 	constructor(public http: Http) {
-		super(http, CopiedElementTypeEnum.Feed, 'Competition');
+		super(http, CopiedElementTypeEnum.Competition, 'Competition');
     }
 
 	public getCompetitions(): Observable<Competition[]> {

@@ -28,7 +28,7 @@ var marketcontentdataservice_1 = require("./marketcontentdataservice ");
 var CompetitionsDataService = (function (_super) {
     __extends(CompetitionsDataService, _super);
     function CompetitionsDataService(http) {
-        var _this = _super.call(this, http, enums_1.CopiedElementTypeEnum.Feed, 'Competition') || this;
+        var _this = _super.call(this, http, enums_1.CopiedElementTypeEnum.Competition, 'Competition') || this;
         _this.http = http;
         return _this;
     }
