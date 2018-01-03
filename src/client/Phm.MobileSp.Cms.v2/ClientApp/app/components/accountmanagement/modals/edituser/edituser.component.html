@@ -1,0 +1,79 @@
+<h2 md-dialog-title>{{title}}</h2>
+<form [formGroup]="form" novalidate (ngSubmit)="saveUser(form.value, form.valid)" *ngIf="model">
+
+<md-dialog-content>
+    <input type="hidden" formControlName="id">
+  <md-form-field>
+    <input mdInput type="email" formControlName="email" placeholder="Email">
+    <small class="active-warning" [class.hidden]="form.controls.email.valid || !submitted">
+      Please enter a valid email address.
+    </small>
+  </md-form-field>
+
+  <md-form-field>
+    <input mdInput type="text" formControlName="firstName" placeholder="First name">
+    <small class="active-warning" [class.hidden]="form.controls.firstName.valid || !submitted">
+      First name is required.
+    </small>
+  </md-form-field>
+
+  <md-form-field>
+    <input mdInput type="text" formControlName="lastName" placeholder="Last name">
+    <small class="active-warning" [class.hidden]="form.controls.lastName.valid || !submitted">
+      Last name is required.
+    </small>
+  </md-form-field>
+
+    <md-select formControlName="secGroup" [(ngModel)]="model.secGroup" placeholder="Role">
+      <md-option *ngFor="let r of roles" [value]="r">{{r.name}}</md-option>
+    </md-select>
+    <small class="active-warning" [class.hidden]="form.controls.secGroup.valid || !submitted">
+      Role is required.
+    </small>
+
+  <md-form-field>
+    <input mdInput type="text" formControlName="dealershipName" placeholder="Dealership name" [mdAutocomplete]="dealershipNames">
+    <small class="active-warning" [class.hidden]="form.controls.dealershipName.valid || !submitted">
+      Dealership is required.
+    </small>
+  </md-form-field>
+
+  <md-form-field>
+    <input mdInput type="text" formControlName="dealershipCode" placeholder="Dealership code" [mdAutocomplete]="dealershipCodes">
+    <small class="active-warning" [class.hidden]="form.controls.dealershipCode.valid || !submitted">
+      Dealership code is required.
+    </small>
+  </md-form-field>
+
+  <md-form-field>
+    <input mdInput type="text" formControlName="regionName" placeholder="Region" [mdAutocomplete]="regions">
+    <small class="active-warning" [class.hidden]="form.controls.regionName.valid || !submitted">
+      Region is required.
+    </small>
+  </md-form-field>
+
+  <md-form-field>
+    <input mdInput type="text" formControlName="zoneName" placeholder="Zone" [mdAutocomplete]="zones">
+    <small class="active-warning" [class.hidden]="form.controls.zoneName.valid || !submitted">
+      A zone is required.
+    </small>
+  </md-form-field>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-button md-dialog-close>Cancel</button>
+  <button md-raised-button type="submit" [disabled]="loading">Save</button>
+</md-dialog-actions>
+</form>
+
+<datalist id="dealershipNames">
+  <option *ngFor="let x of dealershipNames" value="{{x}}">
+</datalist>
+<datalist id="dealershipCodes">
+  <option *ngFor="let x of dealershipCodes" value="{{x}}">
+</datalist>
+<datalist id="zones">
+  <option *ngFor="let x of zones" value="{{x}}">
+</datalist>
+<datalist id="regions">
+  <option *ngFor="let x of regions" value="{{x}}">
+</datalist>

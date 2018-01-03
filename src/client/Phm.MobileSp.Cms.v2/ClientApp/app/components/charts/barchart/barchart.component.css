@@ -1,0 +1,21 @@
+﻿.bar {
+    fill: #9F378E;
+}
+
+.base-bar {
+    fill: #DFDFDF;
+}
+
+.bar:hover {
+    fill: brown;
+}
+
+.axis-title {
+    fill: none;
+    stroke: black;
+    stroke-width: 0.5px;
+}
+
+.x-legend {
+    text-align: center;
+}

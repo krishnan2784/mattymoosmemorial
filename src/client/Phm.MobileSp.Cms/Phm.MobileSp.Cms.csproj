@@ -14,7 +14,7 @@
     <OutputTypeEx>exe</OutputTypeEx>
     <StartupObject />
     <UserSecretsId>110a4d00-ce4c-4253-b287-798b16cc806c</UserSecretsId>
-    <TypeScriptToolsVersion>2.3</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>2.5</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AzureStaging|AnyCPU' ">
     <IntermediateOutputPath>obj\AzureStaging</IntermediateOutputPath>

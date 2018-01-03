@@ -1,0 +1,23 @@
+.lbExecutivesTable {
+  position: relative; }
+  .lbExecutivesTable .busy {
+    background-color: rgba(255, 255, 255, 0.9);
+    height: 100%;
+    width: 100%;
+    position: absolute; }
+  .lbExecutivesTable .rank {
+    text-align: center; }
+  .lbExecutivesTable .reputation {
+    text-align: right; }
+  .lbExecutivesTable i {
+    float: left;
+    margin-top: -2px;
+    margin-right: 15px; }
+  .lbExecutivesTable td {
+    padding: 7px 5px; }
+
+a {
+  cursor: pointer; }
+table{
+  width:100%;
+}

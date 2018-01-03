@@ -1,0 +1,97 @@
+<div class="loader" *ngIf="!filteredUserAccounts"></div>
+
+<div *ngIf="filteredUserAccounts">
+    <a *ngIf="userPermissions.canCreate" (click)="editUser()" class="btn-floating btn-large waves-effect waves-light btn-top-right" data-toggle="modal" data-backdrop="static" data-target="#edit-user" id="btn-add-user">
+        <i class="material-icons">person_add</i>
+    </a>
+    <div class="animate-bottom user-index-container">
+        <div class="col-md-8">
+            <div class="col-md-12" *ngIf="filteredUserAccounts.length === 0">
+                <div class="col-md-11 col-md-offset-1">
+                    <em>No users to display.</em>
+                </div>
+            </div>
+            <div class='user-index animate-bottom' *ngIf="filteredUserAccounts.length > 0">
+                <div class="col-md-12 index-user-header">
+                    <div class="col-md-1 user-img">
+                    </div>
+                    <div class="col-md-11 no-pad">
+                        <div class="col-md-10 no-pad">
+                            <div class="col-md-3 user-detail-col">
+                                First Name
+                            </div>
+                            <div class="col-md-3 user-detail-col">
+                                Last Name
+                            </div>
+                            <div class="col-md-3 user-detail-col">
+                                Email
+                            </div>
+                            <div class="col-md-3 user-detail-col">
+                                Dealership
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>                    
+                </div>
+                    <div *ngFor="let user of filteredUserAccounts | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}; let i = index" class="col-md-12 index-user-item">
+                        <div class="col-md-1 user-img">
+                            <i class="material-icons table-avatar">person</i>
+                        </div>
+                        <div class="col-md-11 no-pad">
+                            <div class="col-md-10 no-pad user-details">
+                                <div class="col-md-3 user-detail-col">
+                                    {{user.firstName}}
+                                    <p class="sub-data">
+                                        {{user.regionName == null ? '' : user.regionName}}
+                                    </p>
+                                </div>
+                                <div class="col-md-3 user-detail-col">
+                                    {{user.lastName}}
+                                </div>
+                                <div class="col-md-3 user-detail-col">
+                                    {{user.email}}
+                                    <p class="sub-data">
+                                        {{user.zoneName == null ? '' : user.zoneName}}
+                                    </p>
+                                </div>
+                                <div class="col-md-3 user-detail-col">
+                                    {{user.dealershipName == null ? 'Not Specified' : user.dealershipName + ' (' + user.dealershipCode + ')'}}
+                                </div>
+                            </div>
+                            <div class="col-md-2 user-index-controls">
+                                <div class="user-control">
+                                    <a *ngIf="userPermissions.canEdit" class="action-btn" data-toggle="modal" data-backdrop="static" data-target="#edit-user" (click)="editUser(user)" id="btn-edit-user-{{i}}">
+                                        <i class="material-icons">edit</i>
+                                        <p>Edit</p>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <pagination-controls (pageChange)="page = $event" id="1"
+                                         maxSize="20"
+                                         directionLinks="true"
+                                         autoHide="true">
+                    </pagination-controls>
+                </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="search-filter hidden">
+                <input *ngIf="config.filtering" placeholder="Search..."
+                       [ngTableFiltering]="config.filtering"
+                       class="form-control"
+                       (tableChanged)="onChangeTable(config)" />
+            </div>
+            <userfilter [renderTextSearch]="true" [renderRegionFilter]="true" [renderZoneFilter]="true" (criteriaChanged)="filterUpdate($event)" [refreshFilters]="refreshFilters"></userfilter>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+</div>
+<base-modal [modalData]="modalData" [modalId]="'edit-user'" [modalHeader]="modalData ? modalData.inputs.title : ''" [modalDescription]="''" (modalClosed)="updateUser($event)"></base-modal>

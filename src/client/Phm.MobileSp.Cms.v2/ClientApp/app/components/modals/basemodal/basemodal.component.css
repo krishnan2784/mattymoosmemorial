@@ -1,0 +1,28 @@
+﻿.modal{
+    background-color:transparent;
+    box-shadow:none;
+}
+
+button, button span {
+    cursor: pointer;
+}
+
+.modal-header {
+    background-color: #0FDAD7;
+    padding: 10px 15px 8px;
+}
+
+.modal-content {
+    border-radius:0;
+}
+
+.modal .modal-footer .btn {
+    margin-left:10px;
+    float: right;
+}
+.modal-text h5 {
+    font-weight: 600;
+}
+.modal-text {
+    text-align: center;
+}

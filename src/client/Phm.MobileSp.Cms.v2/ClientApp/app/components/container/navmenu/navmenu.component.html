@@ -1,0 +1,71 @@
+<div class="nav-container">
+  <div class='navbar-header'>
+    <a class='navbar-brand' [routerLink]="['/home']">
+      <img src="/images/MobileSP-LOGO-Landscape.png" class="header-logo" />
+      <p>LearnComSP</p>
+    </a>
+    <div class="header-content">
+      <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
+        <span class='sr-only'>Toggle navigation</span>
+        <span class='icon-bar'></span>
+        <span class='icon-bar'></span>
+        <span class='icon-bar'></span>
+      </button>
+    </div>
+  </div>
+  <div class='main-nav'>
+    <div class='navbar navbar-inverse'>
+      <div class='clearfix'></div>
+      <div class='navbar-collapse collapse'>
+        <a md-icon-button [mdMenuTriggerFor]="menu" class="dropdown-button">
+          {{shareService.currentUser.email}} <i class="material-icons right">keyboard_arrow_down</i>
+        </a>
+        <md-menu #menu="mdMenu">
+          <button md-menu-item>
+            <a [mdMenuTriggerFor]="menu">{{shareService.currentUser.email}} <i class="material-icons right">keyboard_arrow_up</i></a>
+          </button>
+            <a md-menu-item href="/account/logout" class="waves-effect waves-light">
+              Log out
+            </a>
+        </md-menu>
+        <ul class='nav navbar-nav'>
+          <li [routerLinkActive]="['link-active']">
+            <a [routerLink]="['/home']" class="waves-effect waves-light">
+              Dashboard
+            </a>
+          </li>
+          <li [routerLinkActive]="['link-active']" class="waves-effect waves-light">
+            <a [routerLink]="['/feed']">
+              Content
+            </a>
+          </li>
+          <!--<li [routerLinkActive]="['link-active']" class="waves-effect waves-light">
+              <a [routerLink]="['/categorymanagement']">
+                  Category Management
+              </a>
+          </li>
+          <li [routerLinkActive]="['link-active']" class="waves-effect waves-light">
+              <a [routerLink]="['/legalcontent']">
+                  Legal Content
+              </a>
+          </li>-->
+          <li [routerLinkActive]="['link-active']" class="waves-effect waves-light" [routerLinkActiveOptions]="{exact: false}">
+            <a [routerLink]="['/reports']">
+              Reports
+            </a>
+          </li>
+          <!--<li [routerLinkActive]="['link-active']" class="waves-effect waves-light">
+              <a [routerLink]="['/media']">
+                  Media Library
+              </a>
+          </li>-->
+          <li [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{exact: false}">
+            <a [routerLink]="['/useraccountmanagement/']" class="waves-effect waves-light">
+              Accounts
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+//$fullWidth: 660px;
+$height : 50px;
+$textHeight : $height - 30px;
+$circleWidth : $height - $textHeight -4;
+$optionWidth: 165px;
+.navBarContents{
+    //width: $fullWidth;
+    height: $height ;
+    font-size: 14px;
+    padding-left: 35px;
+      position: relative;
+      margin-top: -10px;
+  .option {
+      float: left;
+      width: $optionWidth;
+      display: inline-block;
+    }
+  .text {
+    position: absolute;
+    padding-right: 20px;
+    margin-top : 10px;
+    cursor: pointer;
+  }
+  .selected .main-text {
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .selected .additionalText {
+    font-weight: 400;
+  }
+  .additionalText{
+    font-weight: lighter;
+  }
+  .notSelected {
+    background: #eeeef0;
+  }
+}
+.border-top{
+      border-top: 4px solid #D8DEDC;
+      display: inline-block;
+      width: 35%;
+}
+.selected .border-top{
+      border-color: #01A8DC;
+}

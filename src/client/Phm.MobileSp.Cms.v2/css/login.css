@@ -1,0 +1,87 @@
+body {
+  height: 100vh;
+}
+.login-body,
+.logout-body {
+  background-image: url('../assets/images/LoginCMSbg.png');
+  background-size: 100%;
+  height: 100vh;
+  padding-top: 15vh;
+  background-size: cover;
+}
+.login-content {
+  width: 45%;
+  display: block;
+  margin: 0 auto;
+  background-color: #F9F9F9;
+  border-width: 0;
+}
+.login-content form {
+  width: 100%;
+}
+.login-content .header {
+  text-align: center;
+}
+.cms-version {
+  position: absolute;
+  bottom: 0;
+  right: 10px;
+  color: #fff;
+}
+.login-form {
+  padding: 20px 0;
+}
+button {
+  background-color: #4F3A9F!important;
+  width: 100%;
+}
+.login-body .header {
+  height: 150px;
+  background: url('../assets/images/MobileSP-LOGO-Landscape-150x150.png') center no-repeat white;
+}
+.logout-body .header {
+  height: 300px;
+  padding-top: 250px;
+  background: url('../assets/images/MobileSP-Symbol-White-Landscape-150x150.png') center no-repeat;
+}
+.logout-body a {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.logout-body,
+.logout-body a,
+.logout-body a:hover {
+  color: #fff;
+}
+.logout-body p {
+  margin-top: 50px;
+}
+.logout-content {
+  width: 30%;
+  display: block;
+  margin: 0 auto;
+  border-width: 0;
+  text-align: center;
+}
+.logout-body {
+  text-shadow: 0px 2px 2px #969696;
+}
+.registration-message {
+  margin-bottom: 20px;
+}
+.registration-message.success {
+  margin: 50px 0;
+}
+.error {
+  color: #a94442;
+}
+.success {
+  color: #5cb85c;
+}
+.welcome-message ul,
+.welcome-message li {
+  list-style-type: disc !important;
+}
+.password-requirements {
+  padding-left: 25px;
+}

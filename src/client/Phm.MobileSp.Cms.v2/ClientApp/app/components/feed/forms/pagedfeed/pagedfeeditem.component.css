@@ -1,0 +1,57 @@
+﻿.page-menu {
+     text-align: center;
+}
+
+.page-menu-item {
+    text-decoration: none;
+    font-size: 1.6em;
+    color: #000;
+    padding: 0 5px;
+    font-weight: 200;
+    position: relative;
+    margin: 0 10px;
+    min-width: 30px;
+}
+
+.page-menu-item.active {
+    font-weight: 800;
+}
+
+
+.page-menu-item:not(.active) {
+    cursor: pointer;
+}
+
+.page-menu-item .material-icons {
+    position: absolute;
+    bottom: 3px;
+    right: 0;
+}
+
+.prev-page {
+    left: 0;
+    right: initial;
+}
+
+.remove-page-container {
+    margin: 0 50px;
+}
+
+.page-type-container {
+    border: 1px #DEE2EB solid;
+    margin: 5px 50px;
+}
+
+.page-type-selector {
+    margin-right: 100px;
+}
+
+.page-type-header {
+    background-color: #DEE2EB;
+    padding: 5px 10px;
+}
+
+.page-type-body {
+    padding:5px;
+    background-color: #fff;
+}

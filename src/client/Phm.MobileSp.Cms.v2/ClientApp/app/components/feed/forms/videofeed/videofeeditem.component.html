@@ -1,0 +1,13 @@
+<div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.Media)" class="form-tab">
+    <div [formGroup]="form">
+        <small class="active-warning" [class.hidden]="form.controls.mainVideoId.valid || !submitted">
+            Please upload a video.
+        </small>
+        <div class="input-field">
+            <input id="videoDescription" type="text" formControlName="videoDescription">
+            <label for="videoDescription" [class.active]="form.controls.videoDescription.value.length>0">A caption for your video</label>
+        </div>
+        <input type="hidden" formControlName="mainVideoId">
+
+    </div>
+</div>

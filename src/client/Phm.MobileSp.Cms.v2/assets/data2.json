@@ -1,0 +1,90 @@
+{
+  "name": "Bilevel Partition",
+  "description": "Bilevel Partition",
+  "children": [
+    {
+      "name": "region1",
+      "description": "region1",
+      "size": 4750,
+      "children": [
+        {
+          "name": "zone1",
+          "description": "zone1",
+          "size": 1790,
+          "children": [
+            {
+              "name": "dealer1",
+              "description": "dealer1",
+              "size": 1400
+            },
+            {
+              "name": "dealer2",
+              "description": "dealer2",
+              "size": 390
+            }
+          ]
+        },
+        {
+          "name": "zone2",
+          "description": "zone2",
+          "size": 2960,
+          "children": [
+            {
+              "name": "dealer3",
+              "description": "dealer3",
+              "size": 1230
+            },
+            {
+              "name": "dealer4",
+              "description": "dealer4",
+              "size": 1730
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "region2",
+      "description": "region2",
+      "size": 1830,
+      "children": [
+        {
+          "name": "zone3",
+          "description": "zone3",
+          "size": 1350,
+          "children": [
+            {
+              "name": "dealer5",
+              "description": "dealer5",
+              "size": 1350
+            }
+          ]
+        },
+        {
+          "name": "zone6",
+          "description": "zone6",
+          "size": 200,
+          "children": [
+            {
+              "name": "dealer6",
+              "description": "dealer6",
+              "size": 200
+            }
+          ]
+        },
+        {
+          "name": "zone4",
+          "description": "zone4",
+          "size": 280,
+          "children": [
+            {
+              "name": "dealer6",
+              "description": "dealer6",
+              "size": 280
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

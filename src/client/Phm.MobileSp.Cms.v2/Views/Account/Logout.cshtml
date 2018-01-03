@@ -1,0 +1,22 @@
+﻿@{ Layout = "_LayoutLogin"; }
+
+<div class="logout-body">
+    <div class="logout-content">
+        <h4 class="header">
+            You have successfully logged out of MobileSP
+        </h4>
+        <p class="content">
+            Login again <a href="/">here</a>
+        </p>
+    </div>
+</div>
+
+<script>
+    @{
+        var timeout = 60000;
+#if DEBUG
+        timeout = 1000;
+#endif
+    }
+    setTimeout(() => { window.location.href = "/Account/Login"; }, @timeout);
+</script>

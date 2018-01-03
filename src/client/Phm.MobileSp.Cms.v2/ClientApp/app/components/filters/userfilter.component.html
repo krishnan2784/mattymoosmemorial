@@ -1,0 +1,67 @@
+<div class="filter-col">
+  <div *ngIf="renderTextSearch" class="search-filter">
+    <md-form-field>
+      <input mdInput placeholder="Search" type="search" [(ngModel)]="criteria.searchString" (ngModelChange)="broadcastChanges()" />
+    </md-form-field>
+    <div class="clearfix"></div>
+  </div>
+    <div class="filter-container">
+        <div class="filter-header filter-block" *ngIf="renderPointRange || renderUserGroupFilter || renderDealershipFilter || renderZoneFilter || renderRegionFilter">
+            <p>Refine by: <a class="right" (click)="clearFilters();broadcastChanges();">Clear all</a>
+            </p>
+        </div>
+        <div class="filter-block" *ngIf="renderUserGroupFilter">
+            <p>Role <a class="right" (click)="clearUserFilters();broadcastChanges();">Clear</a>
+            </p>
+            <div class="loader" *ngIf="!this.criteria.allUserGroupFilters"></div>
+            <div *ngIf="this.criteria.allUserGroupFilters" class="animate-bottom">
+                <div *ngFor="let userGroup of this.criteria.allUserGroupFilters">
+                  <md-checkbox id="usergroup_{{userGroup.id}}" [(ngModel)]="userGroup.checked" (click)="broadcastChanges()">{{userGroup.text}}</md-checkbox>
+                </div>
+            </div>
+        </div>
+        <div class="filter-block" *ngIf="renderDealershipFilter">
+            <p>Dealership <a class="right" (click)="clearDealerFilters();broadcastChanges();">Clear</a>
+            </p>
+            <div class="filter-block">
+                <div class="loader" *ngIf="!this.criteria.allDealershipFilters"></div>
+                <div *ngIf="this.criteria.allDealershipFilters" class="animate-bottom">
+                    <div *ngFor="let dealer of this.criteria.allDealershipFilters">
+                        <md-checkbox id="dealer_{{dealer.id}}" [(ngModel)]="dealer.checked" (click)="broadcastChanges()">{{dealer.text}}</md-checkbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="filter-block" *ngIf="renderZoneFilter">
+            <p>Zone <a class="right" (click)="clearZoneFilters();broadcastChanges();">Clear</a>
+            </p>
+            <div class="filter-block">
+                <div class="loader" *ngIf="!this.criteria.allZoneFilters"></div>
+                <div *ngIf="this.criteria.allZoneFilters" class="animate-bottom">
+                    <div *ngFor="let zone of this.criteria.allZoneFilters">
+                      <md-checkbox id="zone_{{zone.id}}" [(ngModel)]="zone.checked" (click)="broadcastChanges()">{{zone.text}}</md-checkbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="filter-block" *ngIf="renderRegionFilter">
+            <p>Region <a class="right" (click)="clearRegionFilters();broadcastChanges();">Clear</a>
+            </p>
+            <div class="filter-block">
+                <div class="loader" *ngIf="!this.criteria.allRegionFilters"></div>
+                <div *ngIf="this.criteria.allRegionFilters" class="animate-bottom">
+                    <div *ngFor="let region of this.criteria.allRegionFilters">
+                      <md-checkbox id="region_{{region.id}}" [(ngModel)]="region.checked" (click)="broadcastChanges()">{{region.text}}</md-checkbox>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="filter-block" *ngIf="renderPointRange">
+            <p>Range <a class="right" (click)="resetRange();broadcastChanges();">Reset</a>
+            </p>
+            <input type="text" id="sliderElement" name="sliderElement" value="" />
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>

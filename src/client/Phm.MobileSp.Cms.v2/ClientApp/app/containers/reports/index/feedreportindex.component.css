@@ -1,0 +1,99 @@
+﻿.index-feed-item {
+    padding: 0 10px 10px;
+    background-color: #fff;
+    margin-bottom: 10px;
+}
+
+
+.feed-index .feed-cat-img {
+    height: 48px;
+    margin: 20px 0 0;
+}
+
+.feed-index-controls {
+    margin-top: 30px;
+}
+
+.feed-index-controls i, .feed-index-controls p {
+    color: #010101;
+}
+
+.feed-control {
+    text-align: center;
+}
+
+.feed-control a:hover, .feed-control div:hover {    
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.feed-control p, .feed-control p:hover, .feed-control p:active,
+.feed-control:hover, .feed-control:active{
+    text-decoration: none;
+}
+
+.feed-item-title, .feed-item-markets {
+    margin-bottom: 5px;
+}
+
+.feed-item-title {
+    font-weight: 600;
+}
+
+.feed-item-dates {
+    
+}
+
+.feed-item-markets {
+    height: 20px;
+}
+
+.feed-item-dates {
+
+}
+.date-posted {
+    color: #0F3E12;
+}
+
+.no-pad {
+    padding: 0;
+}
+
+.feed-cat-index {
+    font-weight: 200;
+    text-decoration: none;
+    cursor: pointer;
+    color: #010101 !important;
+    font-size: 1.6em;
+}
+
+.feed-cat-index:hover, .feed-cat-index:active {
+    text-decoration: none;
+}
+
+.link-active .feed-cat-index {
+    font-weight: 600;
+}
+
+.feed-index-type-container {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+}
+
+.btn-inverted {
+    background-color: transparent;
+    color: #4f3a9f;
+    border: 1px #4f3a9f solid;
+}
+
+.report-index-view-details {
+    margin-top: 15px;
+}
+
+.feed-item-title h5, .feed-item-dates{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-height: 26.400px;
+}

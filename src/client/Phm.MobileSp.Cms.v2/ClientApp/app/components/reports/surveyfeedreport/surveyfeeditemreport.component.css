@@ -1,0 +1,33 @@
+﻿.survey-header-container{
+    padding: 0 20px;
+}
+.survey-title { 
+    background-color: #fff;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    max-height: 40px;
+}
+
+button{
+      background-color: #06a2d1;
+      color: white;
+      border: none;
+      width: 80px;
+      height: 36px;
+      border-radius: 2px;
+      position: absolute;
+      right: 0;
+      top: 0px;
+    }
+.question-result{
+    background-color: #fff;
+    margin-right: 15px;
+    margin-top: 20px;
+}
+.container-header{
+    font-weight:600;
+    font-size: 1.2em;
+}
+.stat-container {
+    padding: 15px 20px;
+}

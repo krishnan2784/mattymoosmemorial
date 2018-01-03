@@ -1,0 +1,77 @@
+<div [formGroup]="form">
+    <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.QuizQuestions) || feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.SurveyQuestions)" class="form-tab">
+        <div class="question-menu col-md-10">
+            <a [class.invisible]="currentQuestion<=0" (click)="displayQuestion(currentQuestion-1)" class="question-menu-item prev-question"><i class="material-icons">keyboard_arrow_left</i></a>
+            <a *ngFor="let question of form.controls.questions.controls; let i=index" [class.active]="currentQuestion===i" (click)="displayQuestion(i)" class="question-menu-item">{{i+1}}</a>
+            <a [class.invisible]="currentQuestion >= (form.controls.questions.controls.length-1)" (click)="displayQuestion(currentQuestion+1)" class="question-menu-item"><i class="material-icons">keyboard_arrow_right</i></a>
+
+            <a (click)="addQuestion()" class="question-menu-item" *ngIf="model.id === 0 && form.controls.questions.controls.length < 20"><i class="material-icons">add</i></a>      
+            <div class="clearfix"></div>
+        </div>
+
+        <div formArrayName="questions">
+            <div *ngFor="let question of form.controls.questions.controls; let i=index">
+                <div *ngIf="currentQuestion===i">
+                    <question [form]="form.controls.questions.controls[i]" [feedType]="feedType" [index]="i" [model]="question" [questionType]="questionTypeEnum" [submitted]="submitted"
+                              (removeAnswer)="removeAnswer($event)" (addAnswer)="addAnswer()"></question>
+                    <div *ngIf="model.id === 0" class="col-md-10 remove-question-container">
+                        <hr />
+                        <a (click)="removeQuestion(i)" [class.disabled]="form.controls.questions.controls.length <= 1" class="btn">Delete Question</a>                           
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    
+
+    <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.QuizScore)" class="form-tab">
+        <div class="rich-text-box">
+            <enhancedtextarea [form]="form" [formSubmitted]="submitted"
+                    [elementId]="'onBoardingMessage'"
+                    [formControlId]="'onBoardingMessage'"
+                    [label]="'Welcome Message'"
+                    [validationMessage]="'e.g: Welcome to the Quiz.'"
+                    [disabled]="true"></enhancedtextarea>
+            <small>This entry is not required for this feed item.</small>
+        </div>
+
+        <div class="rich-text-box">
+            <enhancedtextarea [form]="form" [formSubmitted]="submitted"
+                    [elementId]="'successMessage'"
+                    [formControlId]="'successMessage'"
+                    [label]="'Congratulate your learners with an engaging message'"
+                    [validationMessage]="'e.g: Congratulations! Your skills are improving.'"></enhancedtextarea>
+        </div>
+
+        <div class="rich-text-box">
+            <enhancedtextarea [form]="form" [formSubmitted]="submitted"
+                    [elementId]="'failMessage'"
+                    [formControlId]="'failMessage'"
+                    [label]="'Let your learners know what went wrong with a positive message.'"
+                    [validationMessage]="'e.g: oooh Unlucky! You will get it next time!.'"></enhancedtextarea>
+        </div>
+
+    </div>
+    
+    <div *ngIf="feedFormSteps.isCurrentStep(feedFormSteps.feedStepTypes.SurveyScore)" class="form-tab">
+        <div class="rich-text-box">
+            <enhancedtextarea [form]="form" [formSubmitted]="submitted"
+                    [elementId]="'surveyDescription'"
+                    [formControlId]="'surveyDescription'"
+                    [label]="'Welcome message'"
+                    [validationMessage]="'e.g: Welcome to the Survey.'"
+                    [disabled]="true"></enhancedtextarea>
+        </div>
+
+        <div class="rich-text-box">
+            <enhancedtextarea [form]="form" [formSubmitted]="submitted"
+                    [elementId]="'completionMessage'"
+                    [formControlId]="'completionMessage'"
+                    [label]="'Completion message'"
+                    [validationMessage]="'e.g: Thank you for taking part!'"
+                    [disabled]="true"></enhancedtextarea>
+        </div>
+        <small>These entries are not required for this feed item.</small>
+    </div>
+</div>

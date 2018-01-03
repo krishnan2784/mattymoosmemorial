@@ -1,0 +1,32 @@
+.navBarContents {
+  height: 50px;
+  font-size: 14px;
+  padding-left: 35px;
+  position: relative;
+  margin-top: -10px; }
+  .navBarContents .option {
+    float: left;
+    width: 165px;
+    display: inline-block; }
+  .navBarContents .text {
+    position: absolute;
+    padding-right: 20px;
+    margin-top: 10px;
+    cursor: pointer; }
+  .navBarContents .selected .main-text {
+    font-weight: 600;
+    cursor: pointer; }
+  .navBarContents .selected .additionalText {
+    font-weight: 400; }
+  .navBarContents .additionalText {
+    font-weight: lighter; }
+  .navBarContents .notSelected {
+    background: #eeeef0; }
+
+.border-top {
+  border-top: 4px solid #D8DEDC;
+  display: inline-block;
+  width: 35%; }
+
+.selected .border-top {
+  border-color: #01A8DC; }

@@ -1,0 +1,32 @@
+<h2 md-dialog-title>Copy to market</h2>
+<md-dialog-content>
+  <div class="form-group">
+    <div class="col-md-5">
+      <select class="form-control" multiple="multiple" [(ngModel)]="selectedUserMarket">
+        <option *ngFor="let userMarket of this.userMarkets" [ngValue]="userMarket">{{userMarket.name}}</option>
+      </select>
+    </div>
+    <div class="col-md-2 button-col">
+      <br><br>
+      <a (click)="copyToMarket()" class="btn">
+        <i class="material-icons">arrow_forward</i>
+      </a>
+      <br><br>
+      <a (click)="removeFromMarket()" class="btn">
+        <i class="material-icons">arrow_back</i>
+      </a>
+    </div>
+    <div class="col-md-5">
+      <select class="form-control" multiple="multiple" [(ngModel)]="selectedMarket">
+        <option *ngFor="let currentMarket of this.currentMarkets" [ngValue]="currentMarket" [attr.disabled]="currentMarket.isCopied ? 'disabled' : null">{{currentMarket.name}}</option>
+      </select>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-button md-dialog-close>Cancel</button>
+  <button md-raised-button (click)="saveChanges()" [attr.disabled]="!loading && unsavedChanges ? null : 'disabled'">Save</button>
+</md-dialog-actions>
+
+

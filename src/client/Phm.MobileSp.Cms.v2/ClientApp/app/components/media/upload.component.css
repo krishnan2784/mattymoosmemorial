@@ -1,0 +1,12 @@
+.upload-container {
+    margin:30px 0;
+}
+.preview-container img{
+    width: 500px;
+}
+.input-group-btn .btn-save{
+    margin-top: 10px;
+}
+.warning{
+    color: #f00;
+}

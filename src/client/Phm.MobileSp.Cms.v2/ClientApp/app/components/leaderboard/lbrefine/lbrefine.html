@@ -1,0 +1,30 @@
+<div class="lbRefine">
+  <div class="sectionRow">
+    <div class="strong">Refine by:</div>
+    <div class="right pointer" (click)="clearAll();broadcastChanges();">Clear all</div>
+  </div>
+  <div class="dates" *ngIf="!hideDates">
+      <phmdatepicker (dateSelected)="handleStartDate($event);broadcastChanges();" [initialDate]="date1" [cannotSelectPast]="false"></phmdatepicker>
+      <phmdatepicker (dateSelected)="handleEndDate($event);broadcastChanges();" [initialDate]="date2" [cannotSelectPast]="false" [minDay]="minDay" [minJsMonth]="minMonth" [minYear]="minYear"></phmdatepicker>
+  </div>
+  <div *ngFor="let g of groups; let a = index">
+    <div class="sectionRow groupBy">
+      <div>{{g.groupName}}</div>
+      <div class="right pointer" (click)="clearGroup(a);broadcastChanges();">Clear</div>
+    </div>
+    <div class="groups" [style.height]="g.height ? g.height : 'inherit'">
+        <div *ngFor="let i of g.items" class="item">
+          <md-checkbox [(ngModel)]="i.selected" id="chk_{{g.groupName}}_{{i.name}}" (click)="broadcastChanges()">{{i.name}}</md-checkbox>
+        </div>
+    </div>
+  </div>
+  <div *ngIf="!hideRange" class="range">
+    <div class="sectionRow">
+      <div>Range</div>
+      <div class="right pointer" (click)="broadcastChanges();">Reset</div>
+    </div>
+    <div class="lbSlider">
+        <input type="text" id="sliderElement" name="sliderElement" value="" />
+    </div>
+  </div>
+</div>

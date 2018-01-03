@@ -1,0 +1,56 @@
+<div class="qurContent">
+  <div class="title">{{quiz.title}}</div>
+  <div class="userDetails">
+    <div class="icon">
+      <i class="material-icons">account_circle</i>
+    </div>
+    <div class="user">
+      12 {{results.user.firstName}} {{results.user.lastName}}
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{results.mainUserGroup}}
+      &nbsp;&nbsp;&nbsp;{{results.dealerShipName}}
+    </div>
+    <div class="score">
+      <b>{{results.resultPercentage}}%</b><br>
+      score&nbsp;&nbsp;&nbsp;<b>{{results.totalRightAnswers}}/{{results.totalQuestions}}</b>
+    </div>
+  </div>
+  <div class="quiz">
+    <div *ngFor="let r of data; let i = index">
+      <div class="question">Question {{i+1}}</div>
+      <div class="box" style="height: 70px;">
+        <div class="top">
+          <div class="iconTop">
+            <i class="material-icons" style="color:green" *ngIf="r.isCorrect">check</i>
+            <i class="material-icons" style="color:red" *ngIf="!r.isCorrect">close</i>
+          </div>
+          <div class="innerQuestion">{{r.question}}</div>
+          <div class="expand right"
+               onclick="if (this.parentElement.parentElement.style.height == '70px') { this.parentElement.parentElement.style.height = (this.parentElement.parentElement.children[1].offsetHeight + 70) +'px'; this.children[0].classList.toggle('expandUp'); } else { this.parentElement.parentElement.style.height ='70px'; this.children[0].classList.toggle('expandUp'); }">
+            <i class="material-icons expandDown">chevron_left</i>
+          </div>
+        </div>
+        <div class="options">
+          <div class="opHeader1">
+            Correct Answer
+          </div>
+          <div class="opHeader2">
+            Submitted
+          </div>
+          <div class="opRowContainer">
+            <div class="opRow" *ngFor="let o of r.options">
+              <div class="marks">
+                <i *ngIf="o.isCorrect" class="material-icons" style="color: green">check</i>
+              </div>
+              <div class="sep"></div>
+              <div class="check">
+                <i *ngIf="o.isChecked" class="material-icons">check_box</i>
+                <i *ngIf="!o.isChecked" class="material-icons">check_box_outline_blank</i>
+              </div>
+              <div class="text"><div>{{o.answer}}</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,73 @@
+<div [formGroup]="form" *ngIf="this.model">
+    <input type="hidden" formControlName="id">
+    <input type="hidden" formControlName="quizFeedId" *ngIf="feedType===feedTypeEnum.Quiz">
+    <input type="hidden" formControlName="surveyFeedId" *ngIf="feedType===feedTypeEnum.Survey  || feedType===feedTypeEnum.Observation">
+    <input type="hidden" formControlName="masterId">
+    <input type="hidden" formControlName="order">
+    <input type="hidden" formControlName="enabled">
+    <input type="hidden" formControlName="published">
+
+    <div class="input-field col-md-10 question-question-container">
+        <textinput [form]="form" [formSubmitted]="submitted"
+                   [elementId]="'questions-' + index + '-question'"
+                   [formControlId]="'question'"
+                   [label]="'Question'"
+                   [validationMessage]="'A question is required.'"></textinput>
+        <small *ngIf="feedType===feedTypeEnum.Quiz && submitted && form.hasError('minCorrect')" class="active-warning">
+            Please select at least one correct answer.
+        </small>
+    </div>
+    
+    <div class="question-answer-container col-md-10">
+        <div class="answer-container">
+            <div class="answer-header">Question type</div>
+            <p class="answer-body">
+                <span class="question-type-sector">
+                    <md-radio-button [disabled]="form.controls.id.value > 0 ? 'disabled' : null" type="radio" class="with-gap black" id="answer-type-1" name="questionType" formControlName="questionType" [value]="questionType.Single" [checked]="form.controls['questionType'].value === questionType.Single" (click)="clearFormCheckboxes()" >Single choice</md-radio-button>
+                </span>
+                <span class="question-type-sector">
+                  <md-radio-button [attr.disabled]="form.controls.id.value > 0 ? 'disabled' : null" type="radio" class="with-gap" id="answer-type-2" name="questionType" formControlName="questionType" [value]="questionType.Multiple" [checked]="form.controls['questionType'].value === questionType.Multiple" (click)="clearFormCheckboxes()">Multiple choice</md-radio-button>
+                </span>
+            </p>
+        </div>
+
+        <div formArrayName="answers">
+            <div class="answer-container" *ngFor="let answer of form.controls.answers.controls; let i=index">
+
+                <div class="answer-header">
+                    Answer <span *ngIf="form.controls.answers.controls.length < 3">(required)</span>
+                </div>
+
+                <div [formGroupName]="i" class="answer-body">
+                    <input type="hidden" formControlName="id">
+                    <input type="hidden" formControlName="quizQuestionId" *ngIf="feedType===feedTypeEnum.Quiz">
+                    <input type="hidden" formControlName="surveyQuestionId" *ngIf="feedType===feedTypeEnum.Survey || feedType===feedTypeEnum.Observation">
+                    <input type="hidden" formControlName="masterId">
+                    <input type="hidden" formControlName="order">
+                    <input type="hidden" formControlName="enabled">
+                    <input type="hidden" formControlName="published">
+
+                    <div class="checkbox-container col-md-3" *ngIf="feedType===feedTypeEnum.Quiz">
+                      <md-checkbox [disabled]="form.controls.id.value > 0 ? 'disabled' : null" id="questions-{{index}}-answer-{{i}}-isCorrect" formControlName="isCorrect" (click)="clearFormCheckboxes(i, $event)">Correct</md-checkbox>
+                    </div>
+                    <div class="checkbox-container col-md-3" *ngIf="feedType===feedTypeEnum.Survey || feedType===feedTypeEnum.Observation">
+                        <md-checkbox id="questions-{{index}}-answer-{{i}}-isFreeText" formControlName="isFreeText" (click)="clearFormCheckboxes(i, $event)" >Free text</md-checkbox>
+                    </div>
+                    
+                    <div class="answer-answer-container input-field col-md-9">
+                        <textinput [form]="answer" [formSubmitted]="submitted" 
+                                   [elementId]="'questions-' + index + '-answer-' + i + '-answer'"
+                                   [formControlId]="'answer'"
+                                   [label]="'Enter here'"
+                                   [validationMessage]="'An answer is required.'"></textinput>
+                    </div>
+
+                    <a *ngIf="form.controls.id.value === 0" (click)="this.removeAnswer.emit(i)" [class.disabled]="form.controls.answers.controls.length < 3" class="btn">Delete Answer</a>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <a *ngIf="form.controls.id.value === 0" (click)="this.addAnswer.emit()" [class.disabled]="form.controls.answers.controls.length > 7" class="btn btn-add-answer">Add Answer</a> 
+    </div>
+    <div class="clearfix"></div>
+</div>

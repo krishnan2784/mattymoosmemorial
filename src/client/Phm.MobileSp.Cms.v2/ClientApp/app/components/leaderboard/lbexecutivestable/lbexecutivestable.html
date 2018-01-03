@@ -1,0 +1,27 @@
+<div class="lbExecutivesTable">
+  <div class="busy" *ngIf="busy">
+
+  </div>
+  <table class="highlight bordered">
+    <thead>
+    <tr>
+      <th class="rank">Rank</th>
+      <th>Name</th>
+      <th class="reputation">Points</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let d of pagedData; let i = index">
+      <td class="rank">{{d.rank}}</td>
+      <td><i class="material-icons">account_circle</i> {{d.firstName}} {{d.lastName}}<!-- / {{d.region}}:{{d.zone}}--></td>
+      <td class="reputation">{{d.points}}</td>
+        <td>
+            <a (click)="viewUserBreakdown(d.user)" *ngIf="d.points">
+                <i class="material-icons right">keyboard_arrow_right</i>
+            </a>    
+        </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

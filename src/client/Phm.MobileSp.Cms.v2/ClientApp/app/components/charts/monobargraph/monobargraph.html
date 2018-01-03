@@ -1,0 +1,23 @@
+<div class="mbg_content">
+  <div class="type_7_or_more" (mouseleave)="b7Mouse= -1" (mouseout)="b7Mouse= -1">
+    <div class="detailBar">
+      <div class="legendX"></div>{{data.legendText}}
+    </div>
+    <div class="title"></div>
+    <div class="chartPlacer">
+      <div class="bars">
+        <div [style.width]="bar7H + '%'" class="bar7" *ngFor="let d of data.data ; let i = index">
+          <div class="innerBar7"></div>
+          <div class="b7gauge" [style.height]="ani > 0 ? (d.percent * heightRatio) + '%' : '0px'" (mouseover)="b7Mouse=i"></div>
+          <div class="b7Letters">{{d.label}}</div>
+          <div *ngIf="b7Mouse == i" class="details7" [style.bottom]="d.percent +'%'">
+            <div class="detWrapper">
+              <div class="detPerc">{{d.percent}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footerText">{{data.footerText}}</div>
+  </div>
+</div>
