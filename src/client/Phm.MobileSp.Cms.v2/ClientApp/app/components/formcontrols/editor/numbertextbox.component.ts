@@ -5,12 +5,12 @@ import { FormGroup } from "@angular/forms";
   selector: 'numbertextinput',
   template: `
     <div [formGroup]="form" *ngIf="form">
-        <md-form-field>
+        <mat-form-field>
             <input mdInput id="{{elementId}}" type="number" formControlName="{{formControlId}}" placeholder="{{label}}">
             <small class="active-warning" [class.hidden]="form.controls[formControlId].valid || !formSubmitted">
                 {{validationMessage}}
             </small>
-        </md-form-field>
+        </mat-form-field>
     </div>
 `
 })

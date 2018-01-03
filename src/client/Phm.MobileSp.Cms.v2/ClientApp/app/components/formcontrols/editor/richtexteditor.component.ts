@@ -12,7 +12,7 @@ declare var $: any;
         <textarea id="{{elementId}}" [attr.disabled]="disabled ? disabled : null">
             {{value}}
         </textarea>
-          <md-hint align="end" *ngIf="maxLength>0 && editing">{{currentChars}} / {{maxLength}}</md-hint>
+          <mat-hint align="end" *ngIf="maxLength>0 && editing">{{currentChars}} / {{maxLength}}</mat-hint>
         <small class="active-warning" [class.hidden]="form.controls[formControlId].valid || !formSubmitted">
             {{validationMessage}}
         </small>

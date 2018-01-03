@@ -3,7 +3,7 @@
         <div class="loader" *ngIf="!this.feedItems"></div>
                 
         <div *ngIf="this.feedItems">
-            <a md-fab class="btn-top-right" (click)="editFeedItem()" *ngIf="currentMarket && !currentMarket.isLive">
+            <a mat-fab class="btn-top-right" (click)="editFeedItem()" *ngIf="currentMarket && !currentMarket.isLive">
                 <i class="material-icons">add</i>
             </a>
             <div class="col-xs-12" *ngIf="this.feedItems.length === 0">

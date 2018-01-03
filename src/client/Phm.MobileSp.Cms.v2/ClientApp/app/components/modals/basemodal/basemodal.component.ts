@@ -25,7 +25,6 @@ export class BaseModalComponent {
 
     @ViewChild('modalContent', { read: ViewContainerRef }) dynamicComponentContainer: ViewContainerRef;
     @Input() set modalData(data: { modalContent: any, inputs: any }) {
-      console.log(data);
         if (!data) {
             return;
         }

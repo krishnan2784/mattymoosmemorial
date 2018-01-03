@@ -1,8 +1,8 @@
 <div class="filter-col">
   <div *ngIf="renderTextSearch" class="search-filter">
-    <md-form-field>
+    <mat-form-field>
       <input mdInput placeholder="Search" type="search" [(ngModel)]="criteria.searchString" (ngModelChange)="broadcastChanges()" />
-    </md-form-field>
+    </mat-form-field>
     <div class="clearfix"></div>
   </div>
     <div class="filter-container">
@@ -16,7 +16,7 @@
             <div class="loader" *ngIf="!this.criteria.allUserGroupFilters"></div>
             <div *ngIf="this.criteria.allUserGroupFilters" class="animate-bottom">
                 <div *ngFor="let userGroup of this.criteria.allUserGroupFilters">
-                  <md-checkbox id="usergroup_{{userGroup.id}}" [(ngModel)]="userGroup.checked" (click)="broadcastChanges()">{{userGroup.text}}</md-checkbox>
+                  <mat-checkbox id="usergroup_{{userGroup.id}}" [(ngModel)]="userGroup.checked" (click)="broadcastChanges()">{{userGroup.text}}</mat-checkbox>
                 </div>
             </div>
         </div>
@@ -27,7 +27,7 @@
                 <div class="loader" *ngIf="!this.criteria.allDealershipFilters"></div>
                 <div *ngIf="this.criteria.allDealershipFilters" class="animate-bottom">
                     <div *ngFor="let dealer of this.criteria.allDealershipFilters">
-                        <md-checkbox id="dealer_{{dealer.id}}" [(ngModel)]="dealer.checked" (click)="broadcastChanges()">{{dealer.text}}</md-checkbox>
+                        <mat-checkbox id="dealer_{{dealer.id}}" [(ngModel)]="dealer.checked" (click)="broadcastChanges()">{{dealer.text}}</mat-checkbox>
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                 <div class="loader" *ngIf="!this.criteria.allZoneFilters"></div>
                 <div *ngIf="this.criteria.allZoneFilters" class="animate-bottom">
                     <div *ngFor="let zone of this.criteria.allZoneFilters">
-                      <md-checkbox id="zone_{{zone.id}}" [(ngModel)]="zone.checked" (click)="broadcastChanges()">{{zone.text}}</md-checkbox>
+                      <mat-checkbox id="zone_{{zone.id}}" [(ngModel)]="zone.checked" (click)="broadcastChanges()">{{zone.text}}</mat-checkbox>
                     </div>
                 </div>
             </div>
@@ -51,7 +51,7 @@
                 <div class="loader" *ngIf="!this.criteria.allRegionFilters"></div>
                 <div *ngIf="this.criteria.allRegionFilters" class="animate-bottom">
                     <div *ngFor="let region of this.criteria.allRegionFilters">
-                      <md-checkbox id="region_{{region.id}}" [(ngModel)]="region.checked" (click)="broadcastChanges()">{{region.text}}</md-checkbox>
+                      <mat-checkbox id="region_{{region.id}}" [(ngModel)]="region.checked" (click)="broadcastChanges()">{{region.text}}</mat-checkbox>
                     </div>
                 </div>
 

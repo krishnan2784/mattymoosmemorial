@@ -3,7 +3,6 @@ import { RouterModule, PreloadAllModules } from '@angular/router';
 import { CommonModule, APP_BASE_HREF } from '@angular/common';
 import { HttpModule, Http } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Ng2BootstrapModule } from 'ngx-bootstrap';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 // i18n support
@@ -63,7 +62,6 @@ import {UploadMediaComponent} from "./components/media/upload.component";
 import {TransferHttpModule} from "../modules/transfer-http/transfer-http.module";
 import {NotFoundComponent} from "./containers/_templateBackup/not-found/not-found.component";
 import {LinkService} from "./shared/services/link.service";
-import {ConnectionResolver} from "./shared/route.resolver";
 import {FeedDataService} from "./shared/services/feeddataservice";
 import {MarketDataService} from "./shared/services/marketdataservice";
 import {ShareService} from "./shared/services/helpers/shareservice";
@@ -76,6 +74,7 @@ import {FeedItemDelete} from "./components/feed/modals/deletefeeditem/deletefeed
 import {FeedItemPublish} from "./components/feed/modals/publishfeeditem/publishfeeditem.component";
 import {UserDelete} from "./components/accountmanagement/modals/deleteuser/deleteuser.component";
 import {AlertService} from "./shared/services/helpers/alertservice";
+import { BaseModalComponent } from './components/modals/basemodal/basemodal.component';
 
 //export function createTranslateLoader(http: Http, baseHref) {
 //    // Temporary Azure hack
@@ -155,6 +154,7 @@ import {AlertService} from "./shared/services/helpers/alertservice";
       TextInputComponent,
       NumberTextInputComponent,
       TagInputComponent,
+      BaseModalComponent,
       UploadMediaComponent
     ],
     imports: [
@@ -162,7 +162,6 @@ import {AlertService} from "./shared/services/helpers/alertservice";
       HttpModule,
       FormsModule,
       ReactiveFormsModule,
-      Ng2BootstrapModule.forRoot(), // You could also split this up if you don't want the Entire Module imported
       TransferHttpModule, // Our Http TransferData method
         // i18n support
       //  TranslateModule.forRoot({
@@ -243,7 +242,6 @@ import {AlertService} from "./shared/services/helpers/alertservice";
     ],
     providers: [
         LinkService,
-        ConnectionResolver,
         //TranslateModule,
         FeedDataService,
         MarketDataService,

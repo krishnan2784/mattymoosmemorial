@@ -14,7 +14,7 @@
     </div>
     <div class="groups" [style.height]="g.height ? g.height : 'inherit'">
         <div *ngFor="let i of g.items" class="item">
-          <md-checkbox [(ngModel)]="i.selected" id="chk_{{g.groupName}}_{{i.name}}" (click)="broadcastChanges()">{{i.name}}</md-checkbox>
+          <mat-checkbox [(ngModel)]="i.selected" id="chk_{{g.groupName}}_{{i.name}}" (click)="broadcastChanges()">{{i.name}}</mat-checkbox>
         </div>
     </div>
   </div>

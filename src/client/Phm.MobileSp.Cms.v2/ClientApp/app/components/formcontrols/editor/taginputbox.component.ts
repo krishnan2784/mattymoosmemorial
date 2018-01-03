@@ -7,15 +7,15 @@ declare var $: any;
   template: `
     <div [formGroup]="form" *ngIf="form">
           <input type="hidden" formControlName="{{formControlId}}">
-        <md-form-field>
+        <mat-form-field>
             <div class="tag-contrainer">
                 <input mdInput type="text" id="{{elementId}}" placeholder="{{label}}" data-role="tagsinput" value="{{form.controls[this.formControlId].value}}">
             </div>
-            <md-hint align="end" *ngIf="maxLength>0">{{form.controls[formControlId].value.length}} / {{maxLength}}</md-hint>
+            <mat-hint align="end" *ngIf="maxLength>0">{{form.controls[formControlId].value.length}} / {{maxLength}}</mat-hint>
             <small class="active-warning" [class.hidden]="form.controls[formControlId].valid || !formSubmitted">
                 {{validationMessage}}
             </small>
-        </md-form-field>
+        </mat-form-field>
     </div>
 `,
   styles: [require('./taginputbox.component.css')]

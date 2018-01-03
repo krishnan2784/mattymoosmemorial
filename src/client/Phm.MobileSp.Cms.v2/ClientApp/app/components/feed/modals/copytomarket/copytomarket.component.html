@@ -1,5 +1,5 @@
-<h2 md-dialog-title>Copy to market</h2>
-<md-dialog-content>
+<h2 mat-dialog-title>Copy to market</h2>
+<mat-dialog-content>
   <div class="form-group">
     <div class="col-md-5">
       <select class="form-control" multiple="multiple" [(ngModel)]="selectedUserMarket">
@@ -23,10 +23,10 @@
     </div>
     <div class="clearfix"></div>
   </div>
-</md-dialog-content>
-<md-dialog-actions>
-  <button md-button md-dialog-close>Cancel</button>
-  <button md-raised-button (click)="saveChanges()" [attr.disabled]="!loading && unsavedChanges ? null : 'disabled'">Save</button>
-</md-dialog-actions>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button (click)="saveChanges()" [attr.disabled]="!loading && unsavedChanges ? null : 'disabled'">Save</button>
+</mat-dialog-actions>
 
 

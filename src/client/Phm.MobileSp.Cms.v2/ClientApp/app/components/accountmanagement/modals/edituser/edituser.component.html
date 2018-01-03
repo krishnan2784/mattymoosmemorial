@@ -1,68 +1,68 @@
-<h2 md-dialog-title>{{title}}</h2>
+<h2 mat-dialog-title>{{title}}</h2>
 <form [formGroup]="form" novalidate (ngSubmit)="saveUser(form.value, form.valid)" *ngIf="model">
 
-<md-dialog-content>
+<mat-dialog-content>
     <input type="hidden" formControlName="id">
-  <md-form-field>
+  <mat-form-field>
     <input mdInput type="email" formControlName="email" placeholder="Email">
     <small class="active-warning" [class.hidden]="form.controls.email.valid || !submitted">
       Please enter a valid email address.
     </small>
-  </md-form-field>
+  </mat-form-field>
 
-  <md-form-field>
+  <mat-form-field>
     <input mdInput type="text" formControlName="firstName" placeholder="First name">
     <small class="active-warning" [class.hidden]="form.controls.firstName.valid || !submitted">
       First name is required.
     </small>
-  </md-form-field>
+  </mat-form-field>
 
-  <md-form-field>
+  <mat-form-field>
     <input mdInput type="text" formControlName="lastName" placeholder="Last name">
     <small class="active-warning" [class.hidden]="form.controls.lastName.valid || !submitted">
       Last name is required.
     </small>
-  </md-form-field>
+  </mat-form-field>
 
-    <md-select formControlName="secGroup" [(ngModel)]="model.secGroup" placeholder="Role">
-      <md-option *ngFor="let r of roles" [value]="r">{{r.name}}</md-option>
-    </md-select>
+    <mat-select formControlName="secGroup" [(ngModel)]="model.secGroup" placeholder="Role">
+      <mat-option *ngFor="let r of roles" [value]="r">{{r.name}}</mat-option>
+    </mat-select>
     <small class="active-warning" [class.hidden]="form.controls.secGroup.valid || !submitted">
       Role is required.
     </small>
 
-  <md-form-field>
-    <input mdInput type="text" formControlName="dealershipName" placeholder="Dealership name" [mdAutocomplete]="dealershipNames">
+  <mat-form-field>
+    <input mdInput type="text" formControlName="dealershipName" placeholder="Dealership name" [matAutocomplete]="dealershipNames">
     <small class="active-warning" [class.hidden]="form.controls.dealershipName.valid || !submitted">
       Dealership is required.
     </small>
-  </md-form-field>
+  </mat-form-field>
 
-  <md-form-field>
-    <input mdInput type="text" formControlName="dealershipCode" placeholder="Dealership code" [mdAutocomplete]="dealershipCodes">
+  <mat-form-field>
+    <input mdInput type="text" formControlName="dealershipCode" placeholder="Dealership code" [matAutocomplete]="dealershipCodes">
     <small class="active-warning" [class.hidden]="form.controls.dealershipCode.valid || !submitted">
       Dealership code is required.
     </small>
-  </md-form-field>
+  </mat-form-field>
 
-  <md-form-field>
-    <input mdInput type="text" formControlName="regionName" placeholder="Region" [mdAutocomplete]="regions">
+  <mat-form-field>
+    <input mdInput type="text" formControlName="regionName" placeholder="Region" [matAutocomplete]="regions">
     <small class="active-warning" [class.hidden]="form.controls.regionName.valid || !submitted">
       Region is required.
     </small>
-  </md-form-field>
+  </mat-form-field>
 
-  <md-form-field>
-    <input mdInput type="text" formControlName="zoneName" placeholder="Zone" [mdAutocomplete]="zones">
+  <mat-form-field>
+    <input mdInput type="text" formControlName="zoneName" placeholder="Zone" [matAutocomplete]="zones">
     <small class="active-warning" [class.hidden]="form.controls.zoneName.valid || !submitted">
       A zone is required.
     </small>
-  </md-form-field>
-</md-dialog-content>
-<md-dialog-actions>
-  <button md-button md-dialog-close>Cancel</button>
-  <button md-raised-button type="submit" [disabled]="loading">Save</button>
-</md-dialog-actions>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button type="submit" [disabled]="loading">Save</button>
+</mat-dialog-actions>
 </form>
 
 <datalist id="dealershipNames">

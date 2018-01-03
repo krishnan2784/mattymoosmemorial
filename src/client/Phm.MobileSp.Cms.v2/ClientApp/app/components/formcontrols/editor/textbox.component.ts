@@ -6,13 +6,13 @@ declare var $: any;
   selector: 'textinput',
   template: `
     <div [formGroup]="form" *ngIf="form">
-        <md-form-field>
+        <mat-form-field>
             <input mdInput id="{{elementId}}" type="text" placeholder="{{label}}" formControlName="{{formControlId}}" [attr.maxLength]="maxLength > 0 ? maxLength : null" [attr.data-length]="maxLength > 0 ? maxLength : null">
-            <md-hint align="end" *ngIf="maxLength>0">{{form.controls[formControlId].value.length}} / {{maxLength}}</md-hint>
+            <mat-hint align="end" *ngIf="maxLength>0">{{form.controls[formControlId].value.length}} / {{maxLength}}</mat-hint>
             <small class="active-warning" [class.hidden]="form.controls[formControlId].valid || !formSubmitted">
                 {{validationMessage}}
             </small>
-        </md-form-field>
+        </mat-form-field>
     </div>
 `
 })

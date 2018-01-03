@@ -18,7 +18,7 @@
         </div>-->
     </div>
     <span class="input-group-btn">
-        <button md-button class="btn-save" (click)="uploadFile()" [class.disabled]="uploading || !files || files.length==0">Upload</button>
+        <button mat-button class="btn-save" (click)="uploadFile()" [class.disabled]="uploading || !files || files.length==0">Upload</button>
     </span>
     <div *ngIf="showPreview" class="preview-container">
         <div *ngIf="imagePreviewUrl || videoPreviewUrl" >

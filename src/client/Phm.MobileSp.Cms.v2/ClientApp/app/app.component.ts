@@ -13,13 +13,15 @@ import {MarketDataService} from "./shared/services/marketdataservice";
 import {ShareService} from "./shared/services/helpers/shareservice";
 import {UserDataService} from "./shared/services/userdataservice";
 import {MediaDataService} from "./shared/services/mediaservice";
+import {AlertService} from "./shared/services/helpers/alertservice";
 
 @Component({
     selector: 'app',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    providers: [FeedDataService, MarketDataService, ShareService, UserDataService, MediaDataService]
+    providers: [AlertService, FeedDataService, MarketDataService,
+      ShareService, UserDataService, MediaDataService]
 })
 export class AppComponent implements OnInit, OnDestroy {
 

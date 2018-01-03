@@ -14,8 +14,8 @@
     <input type="hidden" formControlName="mainIconId">
 
 <div class="feed-item-form-buttons">
-    <a md-button (click)="goBack()">Cancel</a>
-    <button md-raised-button type="submit" [disabled]="loading">Save</button>
+    <a mat-button (click)="goBack()">Cancel</a>
+    <button mat-raised-button type="submit" [disabled]="loading">Save</button>
 </div>
 
 <div class="feed-form-navigation col-md-8">
@@ -38,7 +38,7 @@
                             Submit Surveys to get user feedback.
                         </p>
                         <div class="btn-holder">
-                            <a md-button (click)="swapForm(this.textForm, feedCats.Learning)" class="col-md-3 btn-3 select-type-feed select-standard-feed"
+                            <a mat-button (click)="swapForm(this.textForm, feedCats.Learning)" class="col-md-3 btn-3 select-type-feed select-standard-feed"
                                [class.active-type]="model.feedCategory == feedCats.Learning && (model.feedType == feedTypes.Text || model.feedType == feedTypes.Image || model.feedType == feedTypes.Video)" [class.disabled]="model.id>0">
                                 <span class="type">
                                     Standard
@@ -79,12 +79,12 @@
                                     Standard
                                 </span> 
                             </a>
-                            <a (click)="swapForm(this.pagedForm, feedCats.Campaign)"md-button class="col-md-4 btn-3  select-type-feed select-enhanced-feed" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Paged" [class.disabled]="model.id>0">
+                            <a (click)="swapForm(this.pagedForm, feedCats.Campaign)" mat-button class="col-md-4 btn-3  select-type-feed select-enhanced-feed" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Paged" [class.disabled]="model.id>0">
                                 <span class="type">
                                     Enhanced
                                 </span> 
                             </a>
-                            <a (click)="swapForm(this.surveyForm, feedCats.Campaign)"md-button class="col-md-4 btn-2 select-type-feed select-survey-feed" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Survey" [class.disabled]="model.id>0">
+                            <a (click)="swapForm(this.surveyForm, feedCats.Campaign)" mat-button class="col-md-4 btn-2 select-type-feed select-survey-feed" [class.active-type]="model.feedCategory == feedCats.Campaign && model.feedType == feedTypes.Survey" [class.disabled]="model.id>0">
                                 <span class="type">
                                     Survey
                                 </span>                                 
@@ -258,7 +258,7 @@
                              [class.hidden]="model.feedType == feedTypes.Observation"></numbertextinput>
 
           <div class="input-field">
-            <md-slide-toggle formControlName="allowFavourite" type="checkbox" [checked]="model.allowFavourite">Allow Favourite</md-slide-toggle>
+            <mat-slide-toggle formControlName="allowFavourite" type="checkbox" [checked]="model.allowFavourite">Allow Favourite</mat-slide-toggle>
           </div>
 
             <numbertextinput [form]="form"

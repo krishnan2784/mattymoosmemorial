@@ -1,7 +1,7 @@
 <div class="survey-header-container">
     <div class="col-md-8 survey-title" [innerHTML]="model.title"></div>
     <div class="col-md-4" *ngIf="this.summaryData && summaryData.surveyFeedId > 0">
-        <button md-raised-button (click)="handleReport()" class="right">Report</button>
+        <button mat-raised-button (click)="handleReport()" class="right">Report</button>
     </div>
     <div class="clearfix"></div>
 </div>

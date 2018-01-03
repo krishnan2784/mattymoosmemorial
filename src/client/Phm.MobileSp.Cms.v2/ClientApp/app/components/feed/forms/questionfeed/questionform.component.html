@@ -23,10 +23,10 @@
             <div class="answer-header">Question type</div>
             <p class="answer-body">
                 <span class="question-type-sector">
-                    <md-radio-button [disabled]="form.controls.id.value > 0 ? 'disabled' : null" type="radio" class="with-gap black" id="answer-type-1" name="questionType" formControlName="questionType" [value]="questionType.Single" [checked]="form.controls['questionType'].value === questionType.Single" (click)="clearFormCheckboxes()" >Single choice</md-radio-button>
+                    <mat-radio-button [disabled]="form.controls.id.value > 0 ? 'disabled' : null" type="radio" class="with-gap black" id="answer-type-1" name="questionType" formControlName="questionType" [value]="questionType.Single" [checked]="form.controls['questionType'].value === questionType.Single" (click)="clearFormCheckboxes()" >Single choice</mat-radio-button>
                 </span>
                 <span class="question-type-sector">
-                  <md-radio-button [attr.disabled]="form.controls.id.value > 0 ? 'disabled' : null" type="radio" class="with-gap" id="answer-type-2" name="questionType" formControlName="questionType" [value]="questionType.Multiple" [checked]="form.controls['questionType'].value === questionType.Multiple" (click)="clearFormCheckboxes()">Multiple choice</md-radio-button>
+                  <mat-radio-button [attr.disabled]="form.controls.id.value > 0 ? 'disabled' : null" type="radio" class="with-gap" id="answer-type-2" name="questionType" formControlName="questionType" [value]="questionType.Multiple" [checked]="form.controls['questionType'].value === questionType.Multiple" (click)="clearFormCheckboxes()">Multiple choice</mat-radio-button>
                 </span>
             </p>
         </div>
@@ -48,10 +48,10 @@
                     <input type="hidden" formControlName="published">
 
                     <div class="checkbox-container col-md-3" *ngIf="feedType===feedTypeEnum.Quiz">
-                      <md-checkbox [disabled]="form.controls.id.value > 0 ? 'disabled' : null" id="questions-{{index}}-answer-{{i}}-isCorrect" formControlName="isCorrect" (click)="clearFormCheckboxes(i, $event)">Correct</md-checkbox>
+                      <mat-checkbox [disabled]="form.controls.id.value > 0 ? 'disabled' : null" id="questions-{{index}}-answer-{{i}}-isCorrect" formControlName="isCorrect" (click)="clearFormCheckboxes(i, $event)">Correct</mat-checkbox>
                     </div>
                     <div class="checkbox-container col-md-3" *ngIf="feedType===feedTypeEnum.Survey || feedType===feedTypeEnum.Observation">
-                        <md-checkbox id="questions-{{index}}-answer-{{i}}-isFreeText" formControlName="isFreeText" (click)="clearFormCheckboxes(i, $event)" >Free text</md-checkbox>
+                        <mat-checkbox id="questions-{{index}}-answer-{{i}}-isFreeText" formControlName="isFreeText" (click)="clearFormCheckboxes(i, $event)" >Free text</mat-checkbox>
                     </div>
                     
                     <div class="answer-answer-container input-field col-md-9">

@@ -3,7 +3,7 @@
     <div class="topAreaHeader">
       <div class="ta1 ta">Bilevel partition</div>
       <div class="ta2 ta">Top 10</div>
-      <button md-raised-button (click)="handleReport()">Export</button>
+      <button mat-raised-button (click)="handleReport()">Export</button>
     </div>
     <div class="graphArea">
       <div class="borderDetail"></div>
@@ -45,9 +45,9 @@
       <div class="tableTops">
         <div class="borderDetail"></div>
         <div class="search">
-          <md-form-field>
+          <mat-form-field>
             <input mdInput type="text" [(ngModel)]="searchString" (keyup)="handleSearchText()" placeholder="Search">
-          </md-form-field>
+          </mat-form-field>
         </div>
         <div class="right pag" *ngIf="salesExecList.length > 0">
           <ul class="pagination">
