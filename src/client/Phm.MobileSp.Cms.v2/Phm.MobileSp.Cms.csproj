@@ -67,8 +67,29 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Update="ClientApp\app\classes\feedformstepsclasses.js">
-      <DependentUpon>feedformstepsclasses.ts</DependentUpon>
+    <None Update="ClientAppV1\app\components\common\editor\calltoaction.component.js">
+      <DependentUpon>calltoaction.component.ts</DependentUpon>
+    </None>
+    <None Update="ClientAppV1\app\components\common\editor\daterange.component.js">
+      <DependentUpon>daterange.component.ts</DependentUpon>
+    </None>
+    <None Update="ClientAppV1\app\components\common\editor\selectlist.component.js">
+      <DependentUpon>selectlist.component.ts</DependentUpon>
+    </None>
+    <None Update="ClientAppV1\app\components\common\editor\textarea.component.js">
+      <DependentUpon>textarea.component.ts</DependentUpon>
+    </None>
+    <None Update="ClientAppV1\app\components\feed\modelforms\pagedfeed\bodytextpageform.component.css">
+      <DependentUpon>bodytextpageform.component.html</DependentUpon>
+    </None>
+    <None Update="ClientAppV1\app\components\feed\modelforms\questionform.component.css">
+      <DependentUpon>questionform.component.html</DependentUpon>
+    </None>
+    <None Update="ClientAppV1\app\components\feed\modelforms\questionform.component.ts">
+      <DependentUpon>questionform.component.html</DependentUpon>
+    </None>
+    <None Update="ClientAppV1\app\components\reports\observationfeeditemreport.component.ts">
+      <DependentUpon>observationfeeditemreport.component.html</DependentUpon>
     </None>
     <None Update="ClientApp\app\components\formcontrols\editor\textarea.component.js">
       <DependentUpon>textarea.component.ts</DependentUpon>
@@ -85,8 +106,14 @@
     <None Update="ClientApp\app\components\reports\observationfeedreport\observationfeeditemreport.component.ts">
       <DependentUpon>observationfeeditemreport.component.html</DependentUpon>
     </None>
-    <None Update="ClientApp\app\models\reportclasses.js">
-      <DependentUpon>reportclasses.ts</DependentUpon>
+    <None Update="ClientApp\app\contracts\services\IRewardSchemesDataService.js">
+      <DependentUpon>IRewardSchemesDataService.ts</DependentUpon>
+    </None>
+    <None Update="ClientApp\app\contracts\services\IRewardSchemesDataService.js.map">
+      <DependentUpon>IRewardSchemesDataService.js</DependentUpon>
+    </None>
+    <None Update="ClientApp\app\contracts\services\IUserFeaturePermissionsDataService.js">
+      <DependentUpon>IUserFeaturePermissionsDataService.ts</DependentUpon>
     </None>
   </ItemGroup>
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

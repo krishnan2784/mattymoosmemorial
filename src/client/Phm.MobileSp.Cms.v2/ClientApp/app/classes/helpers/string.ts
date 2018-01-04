@@ -5,7 +5,7 @@
 
     public static searchString(searchString: string, searchableString: string) : boolean {
         searchString = this.getSearchString(searchString);
-        return searchableString.toLowerCase().search(searchString) < 0
+      return searchableString.toLowerCase().search(searchString) < 0;
     }
 
     public static searchArray(searchString : string, array: any[], fields: string[]) : any[] {
@@ -18,6 +18,26 @@
             }
         }
         return array;
+    }
+
+    public static sortArray(array: any[], fields: string[]): any[] {
+      array.sort(function (a, b) {
+        for (let i = 0; i < fields.length; i++) {
+          if (a[fields[i]] == b[fields[i]])
+            continue;
+          if (Number.isInteger(a[fields[i]])) {
+            if (a[fields[i]] < b[fields[i]]) return -1;
+            if (a[fields[i]] > b[fields[i]]) return 1;
+          } else {
+            var aLower = a[fields[i]].toLowerCase(),
+              bLower = b[fields[i]].toLowerCase();
+            if (aLower > bLower) return -1;
+            if (aLower < bLower) return 1;
+          }
+        }
+        return 0;
+      });
+      return array;
     }
 
     public static getSearchableChildObject(o, s): object {

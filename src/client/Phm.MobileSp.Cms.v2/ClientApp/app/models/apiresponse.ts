@@ -1,4 +1,4 @@
-import { ResponseHelper } from "../shared/services/helpers/responsehelper";
+import {ResponseHelper} from "../shared/services/helpers/responsehelper";
 
 export class ApiResponse {
     success: boolean;

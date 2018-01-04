@@ -20,7 +20,7 @@ export abstract class BaseChart {
     }
 }
 export class BarChartData extends BaseChart {
-    chartData: [{ name: string, colour: string, data: [{ x: string, y: number }] }];
+    chartData: [{ name: string, colour: string, data: [{ x: number, y: number }] }];
     xLegend: string;
     showXAxis: boolean;
     yLegend: string;
@@ -33,28 +33,27 @@ export class BarChartData extends BaseChart {
         this.showYAxis = options['showYAxis'];
         this.xLegend = options['xLegend'] || '';
         this.yLegend = options['yLegend'] || 'Number of learners';
-        this.chartData = options['chartData'] ||
-        [{
+        this.chartData = options['chartData'] || [{ 
             name: 'Number of learners',
             colour: '#9F378E',
             data: [
                 {
-                    x: '1',
+                    x: 1,
                     y: 5
                 }, {
-                    x: '2',
+                    x: 2,
                     y: 20
                 }, {
-                    x: '3',
+                    x: 3,
                     y: 10
                 }, {
-                    x: '4',
+                    x: 4,
                     y: 40
                 }, {
-                    x: '5',
+                    x: 5,
                     y: 5
                 }, {
-                    x: '6',
+                    x: 6,
                     y: 60
                 }
             ]

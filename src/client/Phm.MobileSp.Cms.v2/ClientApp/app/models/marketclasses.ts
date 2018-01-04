@@ -1,6 +1,5 @@
-import { BaseModel } from "./baseclasses";
-
-export class Market extends BaseModel {
+import {BaseModel} from "./baseclasses";
+export class Market extends BaseModel {
     brandId: number;
     code: string;
     defaultLanguageId: number;

@@ -14,6 +14,16 @@ import {ShareService} from "./shared/services/helpers/shareservice";
 import {UserDataService} from "./shared/services/userdataservice";
 import {MediaDataService} from "./shared/services/mediaservice";
 import {AlertService} from "./shared/services/helpers/alertservice";
+import {BrandingService} from "./shared/services/brandingservice";
+import {EntityPermissionDataService} from "./shared/services/entitypermissiondataservice";
+import {SecurityFeatureDataService} from "./shared/services/securityfeaturedataservice";
+import {UserGroupPermissionDataService} from "./shared/services/usergrouppermissiondataservice";
+import {CompetitionsDataService} from "./shared/services/competitionsdataservice";
+import {TermsAndConditionsDataService} from "./shared/services/termsandconditionsdataservice";
+import {RewardSchemesDataService} from "./shared/services/rewardschemedataservice";
+import {CompetitionSubsetsDataService} from "./shared/services/competitionsubsetdataservice";
+import {UserFeaturePermissionsDataService} from "./shared/services/userfeaturepermissionsdataservice";
+import {PermissionService} from "./shared/services/helpers/permissionservice";
 
 @Component({
     selector: 'app',
@@ -21,7 +31,12 @@ import {AlertService} from "./shared/services/helpers/alertservice";
     styleUrls: ['./app.component.scss'],
     encapsulation: ViewEncapsulation.None,
     providers: [AlertService, FeedDataService, MarketDataService,
-      ShareService, UserDataService, MediaDataService]
+      ShareService, UserDataService,
+      MediaDataService, BrandingService,
+      EntityPermissionDataService, SecurityFeatureDataService,
+      UserGroupPermissionDataService, CompetitionsDataService, TermsAndConditionsDataService,
+      RewardSchemesDataService, CompetitionSubsetsDataService, UserFeaturePermissionsDataService,
+      PermissionService]
 })
 export class AppComponent implements OnInit, OnDestroy {
 

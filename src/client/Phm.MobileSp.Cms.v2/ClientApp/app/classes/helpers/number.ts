@@ -8,5 +8,5 @@
             while (s.length < size)
                 s = s + character;
         return s;
-    }
+	}
 }

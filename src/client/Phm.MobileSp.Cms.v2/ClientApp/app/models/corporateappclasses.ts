@@ -1,8 +1,8 @@
-import * as Enums from "../../enums";
-import { BaseModel } from "./baseclasses";
+import {AppTypeEnum} from "../../enums";
+import {BaseModel} from "./baseclasses";
 
 export class CorporateApp extends BaseModel {
-    public appType: Enums.AppTypeEnum;
+    public appType: AppTypeEnum;
     public linkUrl: string;
     constructor(options: {} = {}) {
         super(options);

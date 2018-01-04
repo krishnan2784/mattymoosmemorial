@@ -1,10 +1,10 @@
 import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import * as Enums from "../../enums";
+import { FeedTypeEnum } from '../../enums';
 
 export class FeedFormSteps implements OnInit {
     private currentStep: FeedFormStep=null;
-    private formType: Enums.FeedTypeEnum = Enums.FeedTypeEnum.Text;
+    private formType: FeedTypeEnum = FeedTypeEnum.Text;
 
     public steps: Observable<FeedFormStep[]>;
     public visibleSteps: FeedFormStep[] = [];
@@ -23,13 +23,13 @@ export class FeedFormSteps implements OnInit {
             var steps: FeedFormStep[] = [];
             steps.push(new FeedFormStep(FeedFormStepType.Category, 0, "Category"));
             steps.push(new FeedFormStep(FeedFormStepType.Main, 1, "Main"));
-            if (this.formType === Enums.FeedTypeEnum.Quiz) {
+            if (this.formType === FeedTypeEnum.Quiz) {
                 steps.push(new FeedFormStep(FeedFormStepType.QuizQuestions, 2, "Quiz Questions"));
                 steps.push(new FeedFormStep(FeedFormStepType.QuizScore, 3, "Quiz Results"));
-            } else if (this.formType === Enums.FeedTypeEnum.Survey || this.formType === Enums.FeedTypeEnum.Observation) {
+            } else if (this.formType === FeedTypeEnum.Survey || this.formType === FeedTypeEnum.Observation) {
                 steps.push(new FeedFormStep(FeedFormStepType.SurveyQuestions, 2, "Survey Questions"));
                 steps.push(new FeedFormStep(FeedFormStepType.SurveyScore, 3, "Survey Results"));
-            } else if (this.formType === Enums.FeedTypeEnum.Paged) {
+            } else if (this.formType === FeedTypeEnum.Paged) {
                 steps.push(new FeedFormStep(FeedFormStepType.Pages, 2, "Pages"));
                 steps.push(new FeedFormStep(FeedFormStepType.Links, 3, "Links", "if required"));
             } else {
@@ -47,7 +47,7 @@ export class FeedFormSteps implements OnInit {
         });
     }
 
-    public setFormType(newFormType: Enums.FeedTypeEnum) {
+    public setFormType(newFormType: FeedTypeEnum) {
         this.formType = newFormType;
         this.setupSteps(this.currentStepIndex());
     }

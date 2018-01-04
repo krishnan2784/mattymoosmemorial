@@ -1,5 +1,5 @@
-﻿import { BaseModel } from "./baseclasses";
-import { User } from "./userclasses";
+import {BaseModel} from "./baseclasses";
+import {User} from "./userclasses";
 
 export class FeedItemSummary {
     public quizFeedId: number;
@@ -33,8 +33,7 @@ export class FeedItemSummaryEx extends BaseModel
     public resultPercentage: number;
     public startedAt: Date;
     public totalQuestions: number;
-    public totalRightAnswers: number;
-    public totalWrongAnswers: number;
+    public totalRightQuestions: number;
     public user: User;
 
     constructor(options: {} = {})
@@ -50,8 +49,7 @@ export class FeedItemSummaryEx extends BaseModel
         this.resultPercentage = options['resultPercentage'] || 0;
         this.startedAt = options['startedAt'];
         this.totalQuestions = options['totalQuestions'] || 0;
-        this.totalRightAnswers = options['totalRightAnswers'] || 0;
-        this.totalWrongAnswers = options['totalWrongAnswers'] || 0;
+		this.totalRightQuestions = options['totalRightQuestions'] || 0;
         this.user = options['user'];
     }
 }
@@ -82,8 +80,9 @@ export class SurveyItemSummary extends FeedItemSummary {
         super(options);
         this.surveyFeedResults = options["surveyQuestionSummaries"];
         this.surveyFeedId = options["surveyFeedId"] || 0;
+	    this.submitted = options["submitted"] || 0;
         this.totalRecipents = options["totalRecipents"] || 0;
-        this.submitted = options["submitted"] || 0;
+	    this.totalRecipents = this.totalRecipents > this.submitted ? this.totalRecipents : this.submitted;
     }
 }
 

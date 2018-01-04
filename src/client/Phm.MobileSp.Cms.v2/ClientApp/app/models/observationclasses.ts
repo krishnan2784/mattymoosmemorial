@@ -1,4 +1,4 @@
-import { User } from "./userclasses";
+import {User} from "./userclasses";
 
 export class UserObservation {
     public user: User;

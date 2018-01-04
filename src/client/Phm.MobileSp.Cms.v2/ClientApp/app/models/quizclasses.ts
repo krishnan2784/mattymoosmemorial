@@ -1,11 +1,11 @@
-import * as Enums from "../../enums";
-import { BaseModel } from "./baseclasses";
+import {QuizQuestionTypeEnum} from "../../enums";
+import {BaseModel} from "./baseclasses";
 
 export class QuizQuestion extends BaseModel {
     public answers: QuizQuestionAnswer[];
     public order: number;
     public question: string;
-    public questionType: Enums.QuizQuestionTypeEnum;
+    public questionType: QuizQuestionTypeEnum;
     public quizFeedId: number;
 
     constructor(options: {} = {}) {
@@ -13,7 +13,7 @@ export class QuizQuestion extends BaseModel {
         this.answers = options['answers'];
         this.order = options['order'] || 0;
         this.question = options['question']  || '';
-        this.questionType = options['questionType'] || Enums.QuizQuestionTypeEnum.Single;
+        this.questionType = options['questionType'] || QuizQuestionTypeEnum.Single;
         this.quizFeedId = options['quizFeedId'] || 0;
         if (!this.answers) {
             this.answers = [];

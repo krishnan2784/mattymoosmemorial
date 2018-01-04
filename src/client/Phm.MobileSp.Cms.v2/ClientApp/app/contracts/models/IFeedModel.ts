@@ -1,6 +1,7 @@
-import * as Enums from "../../../enums";
-import { CorporateApp } from "../../models/corporateappclasses";
+﻿import Enums = require("../../enums");
+import Corporateappclasses = require("../../models/corporateappclasses");
 import { MediaInfo } from "../../models/mediainfoclasses";
+import CorporateApp = Corporateappclasses.CorporateApp;
 
 export interface IFeedItem {
     id: number;
@@ -26,5 +27,6 @@ export interface IFeedItem {
     shortDescription: string;
     webUrlLink: string;
     callToActionText: string;
-    callToActionUrl: string;
+	callToActionUrl: string;
+	competitionId: number;
 }

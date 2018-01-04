@@ -5,12 +5,10 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/publishReplay';
 import { ResponseHelper } from "./responsehelper";
 import {ApiResponse} from "../../../models/apiresponse";
-import {CopiedElementTypeEnum} from "../../../../enums";
-import {ORIGIN_URL} from "../../constants/baseurl.constants";
 import {AlertService} from "./alertservice";
 
 export class RequestHelper {
-  constructor(public http: Http, public baseUrl: string, public alertService: AlertService) {}
+  constructor(public http: Http, public alertService: AlertService) {}
 
     public getRequestBase(url: string, params: { key: string, value: any }[] = []): Observable<any> {
         return Observable.create(observer => {
@@ -62,41 +60,7 @@ export class RequestHelper {
             );
         });
     }
-
-    public copyToMarket(url: string, id: number, marketIds: number[]): Observable<ApiResponse> {
-        if (!marketIds || marketIds.length === 0)
-            return null;
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let marketQueryString = '';
-        for(let m of  marketIds) {
-            marketQueryString += '&marketIds=' + m;
-        }
-        return Observable.create(observer => {
-            this.http.post(url + '?id=' + id + marketQueryString, headers).subscribe(
-                (result) => {
-                    let response = ResponseHelper.getResponse(result);
-                  this.alertService.displaySuccessFailAlert(response.message, response.success);
-                    observer.next(response);
-                    observer.complete();
-                }
-            );
-        });
-    }
-
-    protected publishToLive(contentType: CopiedElementTypeEnum, contentId: number, url: string = `${this.baseUrl}/Market/PublishContentToLive`) {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        return Observable.create(observer => {
-            this.http.post(url + '?contentType=' + contentType + '&contentId=' + contentId, headers).subscribe(
-                (result) => {
-                  let response = ResponseHelper.getResponse(result);
-                  this.alertService.displaySuccessFailAlert(response.message, response.success);
-                  observer.next(response);
-                  observer.complete();
-                }
-            );
-        });
-    }
-
+  
     public static getResponse(response: any): ApiResponse {
         response = new ApiResponse(response.json());
         return response;

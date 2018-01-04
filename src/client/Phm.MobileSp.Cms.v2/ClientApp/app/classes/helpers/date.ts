@@ -1,4 +1,4 @@
-﻿import { NumberEx } from "./number";
+import {NumberEx} from "./number";
 
 export class DateEx {
     public static formatDate(date, format="yyyy-MM-dd") {

@@ -1,11 +1,11 @@
-import * as Enums from "../../enums";
-import { BaseModel } from "./baseclasses";
+import {BaseModel} from "./baseclasses";
+import {MediaTypes} from "../../enums";
 
 export class MediaInfo extends BaseModel {
     public extension: string;
     public marketId: number;
     public mediaId: string;
-    public mediaType: Enums.MediaTypes;
+    public mediaType: MediaTypes;
     public mediaVersion: number;
     public name: string;
     public path: string;
@@ -15,7 +15,8 @@ export class MediaInfo extends BaseModel {
 
     constructor(options: {} = {}) {
         super(options);
-        this.extension = options['extension'] || '';
+        this.id = options['id'];
+		    this.extension = options['extension'] || '';
         this.marketId = options['marketId'];
         this.mediaId = options['mediaId'];
         this.mediaType = options['mediaType'];

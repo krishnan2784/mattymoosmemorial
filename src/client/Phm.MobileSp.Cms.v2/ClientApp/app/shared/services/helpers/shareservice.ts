@@ -1,80 +1,104 @@
 import { Observable } from 'rxjs/Observable';
 import { Injectable, EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
+
 import { UserDataService } from "../userdataservice";
-import {User, UserMarket } from "../../../models/userclasses";
+import {UserMarket, User} from "../../../models/userclasses";
 import {IFeedItem} from "../../../contracts/models/IFeedModel";
 import {NavItem} from "../../../components/container/tabbednavmenu/tabnavmenu.component";
-
+import { NavMenuOption } from '../../../models/navmenuclasses';
+import {EntityPermissionDataService} from "../entitypermissiondataservice";
 
 @Injectable()
 export class ShareService {
-    public currentUser: User = new User();
+  public currentUser: User = new User();
 
-    constructor(public userDataService: UserDataService) {
-        userDataService.getCurrentUser().subscribe(response => {
-            this.currentUser = response;
-        });
-    }
+  constructor(public userDataService: UserDataService, public entityPermissionDataService: EntityPermissionDataService) {
+    userDataService.getCurrentUser().subscribe(response => {
+      this.currentUser = response;
+    });
+  }
 
-    public currentMarket: UserMarket = new UserMarket;
-    public currentMarketId: number = this.currentMarket.id;
+  public currentMarket: UserMarket = new UserMarket;
+  public currentMarketId: number = this.currentMarket.id;
 
-    private pageTitleUpdate = new Subject<string>();
-    pageTitleUpdated = this.pageTitleUpdate.asObservable();
+  private pageTitleUpdate = new Subject<string>();
+  pageTitleUpdated = this.pageTitleUpdate.asObservable();
 
-    public updatePageTitle(pageTitle: string) {
-        this.pageTitleUpdate.next(pageTitle);
-    }
+  public updatePageTitle(pageTitle: string) {
+    this.pageTitleUpdate.next(pageTitle);
+  }
 
-    private backButtonUpdate = new Subject<string>();
-    backButtonUpdated = this.backButtonUpdate.asObservable();
+  private appThemeUpdate = new Subject<string>();
+  appThemeUpdated = this.appThemeUpdate.asObservable();
 
-    public updateBackButton(backText: string) {
-        this.backButtonUpdate.next(backText);
-    }
+  public updateAppTheme(appTheme: string) {
+    this.appThemeUpdate.next(appTheme);
+  }
 
-    private marketDropdownVisibilitypeUpdate = new Subject<boolean>();
-    marketDropdownVisibilitypeUpdated = this.marketDropdownVisibilitypeUpdate.asObservable();
+  private backButtonUpdate = new Subject<string>();
+  backButtonUpdated = this.backButtonUpdate.asObservable();
 
-    public updateMarketDropdownVisibility(isMarketDropdownVisible: boolean) {
-        this.marketDropdownVisibilitypeUpdate.next(isMarketDropdownVisible);
-    }
+  public updateBackButton(backText: string) {
+    this.backButtonUpdate.next(backText);
+  }
 
-    private marketDropdownEnabledUpdate = new Subject<boolean>();
-    marketDropdownEnabledUpdated = this.marketDropdownEnabledUpdate.asObservable();
+  private marketDropdownVisibilitypeUpdate = new Subject<boolean>();
+  marketDropdownVisibilitypeUpdated = this.marketDropdownVisibilitypeUpdate.asObservable();
 
-    public updateMarketDropdownEnabledState(isMarketDropdownEnabled: boolean) {
-        this.marketDropdownEnabledUpdate.next(isMarketDropdownEnabled);
-    }
+  public updateMarketDropdownVisibility(isMarketDropdownVisible: boolean) {
+    this.marketDropdownVisibilitypeUpdate.next(isMarketDropdownVisible);
+  }
 
-    private marketUpdate = new Subject<UserMarket>();
-    marketUpdated = this.marketUpdate.asObservable();
+  private marketDropdownEnabledUpdate = new Subject<boolean>();
+  marketDropdownEnabledUpdated = this.marketDropdownEnabledUpdate.asObservable();
 
-    public updateMarket(market: UserMarket) {
-        if (this.currentMarket && this.currentMarket.id === market.id)
-            return;
-        this.currentMarket = market;
-        this.marketUpdate.next(market);
-    }
+  public updateMarketDropdownEnabledState(isMarketDropdownEnabled: boolean) {
+    this.marketDropdownEnabledUpdate.next(isMarketDropdownEnabled);
+  }
 
-    private feedItemUpdate = new Subject<IFeedItem>();
-    feedItemUpdated = this.feedItemUpdate.asObservable();
+  private marketUpdate = new Subject<UserMarket>();
+  marketUpdated = this.marketUpdate.asObservable();
 
-    public updateFeedItem(feedItem: IFeedItem) {
-        this.feedItemUpdate.next(feedItem);
-    }
+  public updateMarket(market: UserMarket) {
+    if (this.currentMarket && this.currentMarket.id === market.id)
+      return;
+    this.currentMarket = market;
+    this.marketUpdate.next(market);
+  }
 
-    public goBackEvent: EventEmitter<any> = new EventEmitter<any>();
+  private feedItemUpdate = new Subject<IFeedItem>();
+  feedItemUpdated = this.feedItemUpdate.asObservable();
 
-    public goBack() {
-        this.goBackEvent.emit();
-    }
+  public updateFeedItem(feedItem: IFeedItem) {
+    this.feedItemUpdate.next(feedItem);
+  }
 
-    private tabNavUpdate = new Subject<NavItem[]>();
-    navTabsUpdated = this.tabNavUpdate.asObservable();
+  public goBackEvent: EventEmitter<any> = new EventEmitter<any>();
 
-    public updateNavTabs(navItems: NavItem[]) {
-        this.tabNavUpdate.next(navItems);
-    }    
+  public goBack() {
+    this.goBackEvent.emit();
+  }
+
+  private tabNavUpdate = new Subject<NavItem[]>();
+  navTabsUpdated = this.tabNavUpdate.asObservable();
+
+  public updateNavTabs(navItems: NavItem[]) {
+    this.tabNavUpdate.next(navItems);
+  }
+
+
+  private mainNavUpdate = new Subject<[NavMenuOption[], string, boolean]>();
+  mainNavUpdated = this.mainNavUpdate.asObservable();
+
+  public updateMainNavMenu(navItems: NavMenuOption[], backText: string = null, overwriteBase: boolean = false) {
+    this.mainNavUpdate.next([navItems, backText, overwriteBase]);
+  }
+
+  private permissionsUpdate = new Subject<boolean>();
+  permissionsUpdated = this.permissionsUpdate.asObservable();
+
+  public emitPermissionsUpdateNotification() {
+    this.permissionsUpdate.next(true);
+  }
 }
