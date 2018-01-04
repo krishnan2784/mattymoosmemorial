@@ -230,12 +230,8 @@ namespace Phm.MobileSp.Cms
 
         app.UseMvc(routes =>
         {
-          routes.MapRoute("logout", "account/logout",
-            new { controller = "Base", action = "Logout" });
-
           routes.MapRoute("logout-page", "logout",
-            new { controller = "Account", action = "Logout" });
-
+            new { controller = "CurrentUser", action = "Logout" });
 
           routes.MapRoute("register", "register",
             new { controller = "Registration", action = "Index" });
@@ -247,8 +243,8 @@ namespace Phm.MobileSp.Cms
           routes.MapSpaFallbackRoute(
             "spa-fallback",
             new { controller = "Home", action = "Index" });
-
         });
+      
 
         if (env.IsDevelopment() || env?.EnvironmentName == "Debug" || env?.EnvironmentName == "Local")
         {

@@ -1,12 +1,12 @@
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 using Phm.MobileSp.Cms.Models.ViewModels;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
 
-namespace Phm.MobileSp.Cms.Controllers
+namespace Phm.MobileSp.Cms.Server.Controllers
 {
     public class RegistrationController : Controller
     {

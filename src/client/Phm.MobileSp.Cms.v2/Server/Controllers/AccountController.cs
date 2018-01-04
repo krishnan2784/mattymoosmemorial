@@ -6,7 +6,6 @@ using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
-using Phm.MobileSp.Cms.Controllers;
 using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Helpers;
 using Phm.MobileSp.Cms.Helpers.Attributes;
@@ -62,18 +61,18 @@ namespace Phm.MobileSp.Cms.Server.Controllers
 
             if (!user.ValidUser)
             {
-                TempData["ErrorMessage"] = response.Item2;
-                return View(loginDetails);
+              TempData["ErrorMessage"] = response.Item2;
+              return View(loginDetails);
             }
 
             var claims = new List<Claim>
             {
-                new Claim("sessionguid", user.SessionGuid),
-                new Claim("userid", user.UserDetails.Id.ToString()),
-                new Claim("currentmarketid", user.UserDetails.DefaultMarketId.ToString()),
-                new Claim("name", user.UserDetails.Email)
+              new Claim("sessionguid", user.SessionGuid),
+              new Claim("userid", user.UserDetails.Id.ToString()),
+              new Claim("currentmarketid", user.UserDetails.DefaultMarketId.ToString()),
+              new Claim("name", user.UserDetails.Email),
+              new Claim("secentityid", user.UserDetails.SecEntityId.ToString())
             };
-
             try
             {
                 var id = new ClaimsIdentity(claims, "password");

@@ -301,3 +301,4 @@ src/lib/MobileSP_CMS.Core/bin/
 src/lib/MobileSP_CMS.Infrastructure/obj/
 src/client/Phm.MobileSp.Cms/wwwroot/
 src/client/Phm.MobileSp.Cms/ClientApp/*.js,src/client/Phm.MobileSp.Cms/ClientApp/*..js.map
+src/client/Phm.MobileSp.Cms.v2/wwwroot/

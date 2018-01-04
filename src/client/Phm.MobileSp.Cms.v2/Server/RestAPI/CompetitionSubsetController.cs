@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,8 +6,9 @@ using Microsoft.Extensions.Caching.Memory;
 using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Helpers.Attributes;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
+using Phm.MobileSp.Cms.Server.Controllers;
 
-namespace Phm.MobileSp.Cms.Controllers.API
+namespace Phm.MobileSp.Cms.Server.RestAPI
 {
 	[Authorize]
     [Route("api/[controller]")]

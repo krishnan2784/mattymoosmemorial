@@ -7,10 +7,11 @@ using Microsoft.Extensions.Caching.Memory;
 using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Helpers.Attributes;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
+using Phm.MobileSp.Cms.Server.Controllers;
 
-namespace Phm.MobileSp.Cms.Controllers.API
+namespace Phm.MobileSp.Cms.Server.RestAPI
 {
-	[Authorize]
+	  [Authorize]
     [Route("api/[controller]")]
     [AiHandleError]
     public class BrandingController : BaseController
@@ -20,13 +21,13 @@ namespace Phm.MobileSp.Cms.Controllers.API
         public BrandingController(IMemoryCache memoryCache, IBrandingConfigurationsRepository brandingConfigRepo) 
             : base(memoryCache)
         {
-			_brandingConfigRepo = brandingConfigRepo;
+			    _brandingConfigRepo = brandingConfigRepo;
         }
         
         [HttpGet("[action]")]
         [JsonResponseWrapper]
         [ResponseCache(CacheProfileName = "NoCache")]
-		public async Task<JsonResult> Get()
+		    public async Task<JsonResult> Get()
         {
             var response = await _brandingConfigRepo.GetBrandingConfigurationsAsync(CurrentMarketId);
             return Json(new BaseResponse<dynamic>(response));

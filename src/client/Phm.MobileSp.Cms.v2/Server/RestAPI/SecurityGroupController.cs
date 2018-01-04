@@ -1,17 +1,13 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
-using MLearningCoreService;
-using Newtonsoft.Json;
 using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Helpers.Attributes;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
-using System;
-using Phm.MobileSp.Cms.Core.Models.Interfaces;
+using Phm.MobileSp.Cms.Server.Controllers;
 
-namespace Phm.MobileSp.Cms.Controllers.API
+namespace Phm.MobileSp.Cms.Server.RestAPI
 {
     [Authorize]
     [Route("api/[controller]")]
@@ -26,13 +22,13 @@ namespace Phm.MobileSp.Cms.Controllers.API
 	        _secGroupUsersRepository = secGroupUsersRepository;
         }
 
-	    [HttpGet("[action]")]
-	    [JsonResponseWrapper]
-	    public async Task<JsonResult> GetSecGroupUsers(int id)
-	    {
-		    ;
-		    var response = await _secGroupUsersRepository.GetSecGroupsUsersAsync(id);
-		    return Json(new BaseResponse<dynamic>(response));
-		}		
+	      [HttpGet("[action]")]
+	      [JsonResponseWrapper]
+	      public async Task<JsonResult> GetSecGroupUsers(int id)
+	      {
+		      ;
+		      var response = await _secGroupUsersRepository.GetSecGroupsUsersAsync(id);
+		      return Json(new BaseResponse<dynamic>(response));
+		    }		
     }
 }

@@ -1,15 +1,16 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using ImageSharp;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Helpers.Attributes;
 using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
-using ImageSharp;
+using Phm.MobileSp.Cms.Server.Controllers;
 
-namespace Phm.MobileSp.Cms.Controllers.API
+namespace Phm.MobileSp.Cms.Server.RestAPI
 {
     [AiHandleError]
     public class MediaController : BaseController

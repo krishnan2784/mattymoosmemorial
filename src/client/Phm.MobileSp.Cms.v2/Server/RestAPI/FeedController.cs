@@ -3,19 +3,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
-using MLearningCoreService;
-using Newtonsoft.Json;
-using Phm.MobileSp.Cms.Core.Models;
-using Phm.MobileSp.Cms.Helpers.Attributes;
-using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
-using System;
+using Phm.MobileSp.Cms.Controllers;
 using Phm.MobileSp.Cms.Core.Enumerations;
-using Phm.MobileSp.Cms.Core.Models.Interfaces;
+using Phm.MobileSp.Cms.Core.Models;
 using Phm.MobileSp.Cms.Helpers;
-using Phm.MobileSp.Cms.Helpers.CustomModelBinding;
+using Phm.MobileSp.Cms.Helpers.Attributes;
 using Phm.MobileSp.Cms.Helpers.CustomModelBinding.FeedItems;
+using Phm.MobileSp.Cms.Infrastructure.Repositories.Interfaces;
 
-namespace Phm.MobileSp.Cms.Controllers.API
+namespace Phm.MobileSp.Cms.Server.RestAPI
 {
     [Authorize]
     [Route("api/[controller]")]
