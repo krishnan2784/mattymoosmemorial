@@ -1,0 +1,34 @@
+.form-tab {
+	min-height: 500px;
+}
+.no-pad {
+	padding-left: 0;
+	padding-right: 0;
+}
+.reward-scheme-title {
+	margin-bottom: 10px;
+}
+.condition-builder {
+	padding-left: 0;
+}
+.condition {
+	margin-bottom: 5px;
+}
+.reward-scheme-header {
+	font-weight: 600;
+}
+.condition-btn {
+	cursor: pointer;
+}
+.btn-add {
+	color: #38B2A7;
+}
+.btn-remove {
+	color: #F01F25;
+}
+.condition-btn-container {
+	 padding-top: 35px;
+}
+.input-field {
+	margin-top: 0;
+}

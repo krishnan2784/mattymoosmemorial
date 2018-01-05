@@ -1,0 +1,60 @@
+<div *ngIf="!selectedModel">
+    <div>
+        <div class="loader" *ngIf="!rewardSchemes"></div>
+                
+        <div *ngIf="rewardSchemes">
+            <a (click)="editRewardScheme()" class="btn-floating btn-large waves-effect waves-light btn-top-right" *ngIf="currentMarket && !currentMarket.isLive" id="reward-scheme-index-item__btn-create">
+                <i class="material-icons">add</i>
+            </a>
+            <div class="col-xs-12" *ngIf="rewardSchemes.length === 0">
+                <div class="col-xs-11 col-xs-offset-1">
+                    <em>No items to display.</em>
+                </div>
+            </div>
+		        <div *ngIf="rewardSchemes.length > 0" class='reward-scheme-index no-pad animate-bottom'>
+			        <div *ngFor="let rewardScheme of rewardSchemes | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}; let i = index" class="col-xs-12 index-reward-scheme-item">
+				        <img src="assets/images/icons/Competition-icon-b_2x.png" class="reward-scheme-img" />
+				        <div class="col-xs-7 no-pad">
+					        <div class="col-xs-12 reward-scheme-item-title">
+						        <p [innerHTML]="rewardScheme.title"></p>
+					        </div>
+					        <div class="col-xs-12">
+						        <div *ngIf="rewardScheme.CreatedAt" class="date-posted reward-scheme-item-date">
+							        Date posted: {{ reward-scheme.CreatedAt | date:'short' }}
+						        </div>
+					        </div>
+				        </div>
+				        <div class="col-xs-4 no-pad reward-scheme-index-controls">
+					        <div class="reward-scheme-control">
+						        <div>
+							        <a (click)="editRewardScheme(rewardScheme)" id="reward-scheme-index-item__btn-edit-{{i}}">
+								        <i class="material-icons">edit</i>
+								        <p>Edit</p>
+							        </a>
+						        </div>
+					        </div>
+					        <div class="reward-scheme-control">
+						        <div>
+							        <a (click)="deleteRewardScheme(rewardScheme)" id="reward-scheme-index-item__btn-delete-{{i}}">
+								        <i class="material-icons">delete</i>
+								        <p>Delete</p>
+							        </a>
+						        </div>
+					        </div>
+					        <div class="clearfix"></div>
+				        </div>
+			        </div>
+			        <div class="clearfix"></div>
+
+			        <pagination-controls (pageChange)="page = $event" id="1"
+			                             maxSize="20"
+			                             directionLinks="true"
+			                             autoHide="true">
+			        </pagination-controls>
+		        </div>
+	        <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+<reward-scheme-form *ngIf="selectedModel" [model]="selectedModel" (rewardSchemeUpdated)="rewardSchemeUpdated($event)"></reward-scheme-form>

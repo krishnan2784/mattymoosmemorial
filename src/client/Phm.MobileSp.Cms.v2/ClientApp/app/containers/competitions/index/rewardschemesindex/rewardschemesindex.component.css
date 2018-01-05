@@ -1,0 +1,102 @@
+﻿.reward-scheme-index {
+	background-color: #fff;
+	padding-bottom: 10px;
+}
+
+.index-reward-scheme-item {
+	padding-bottom: 5px;
+}
+
+.index-reward-scheme-item:nth-child(even) {
+	 background-color: #F5F9F8;
+}
+
+.reward-scheme-index .reward-scheme-img {
+    height: 30px;
+    margin: 15px 0 0;
+	float: left;
+}
+
+.reward-scheme-index-controls {
+    margin-top: 10px;
+	float: right;
+}
+
+.reward-scheme-index-controls i, .reward-scheme-index-controls p {
+    color: #010101;
+}
+
+.reward-scheme-control {
+    text-align: center;
+	float: right;
+	padding: 0 15px;
+}
+
+.reward-scheme-control a:hover, .reward-scheme-control div:hover {    
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.reward-scheme-control p, .reward-scheme-control p:hover, .reward-scheme-control p:active,
+.reward-scheme-control:hover, .reward-scheme-control:active{
+    text-decoration: none;
+}
+
+.reward-scheme-item-title, .reward-scheme-item-markets {
+    margin-bottom: 5px;
+}
+
+.reward-scheme-item-title p {
+	font-weight: 600;
+	font-size: 1.2em;
+	margin: 15px 0 0;
+}
+
+.reward-scheme-item-title {
+    font-weight: 600;
+}
+
+.reward-scheme-item-markets {
+    height: 20px;
+}
+
+.date-posted {
+	font-size: 0.8em;
+    color: #1d9d19;
+    font-weight: 600;
+}
+
+.no-pad {
+    padding: 0;
+}
+
+.reward-scheme-cat-index {
+    font-weight: 200;
+    text-decoration: none;
+    cursor: pointer;
+    color: #010101 !important;
+    font-size: 1.6em;
+}
+
+.reward-scheme-cat-index:hover, .reward-scheme-cat-index:active {
+    text-decoration: none;
+}
+
+.link-active .reward-scheme-cat-index {
+    font-weight: 600;
+}
+
+.reward-scheme-index-type-container {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+}
+.reward-scheme-item-title p, .reward-scheme-item-dates, .reward-scheme-item-date{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-height: 26.400px;
+}
+.reward-scheme-item-date{
+    padding-left: 15px;
+}

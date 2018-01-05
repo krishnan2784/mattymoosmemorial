@@ -1,0 +1,20 @@
+
+@media (min-width: 960px) {
+	.form-buttons {
+		position: absolute;
+		top: 50px;
+		right: 100px;
+	}
+
+}
+
+@media (max-width: 959px) {
+	.form-buttons {
+		text-align: right;
+		margin-bottom: 20px;
+	}
+}
+
+.btn-save {
+	margin-left: 30px;
+}

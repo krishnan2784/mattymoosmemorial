@@ -1,0 +1,59 @@
+.navBarContents {
+  height: 50px;
+  font-size: 14px;
+  padding-left: 35px;
+  position: relative;
+  margin-top: -12px; }
+  .navBarContents .option {
+    width: 165px;
+    display: inline-block; }
+  .navBarContents .text {
+    padding-right: 20px;
+    margin-top: 5px;
+    cursor: pointer; }
+  .navBarContents .selected .main-text {
+    font-weight: 600; }
+  .navBarContents .main-text {
+    cursor: pointer; }
+  .navBarContents .selected .additionalText {
+    font-weight: 400; }
+  .navBarContents .additionalText {
+    font-weight: lighter; }
+  .navBarContents .notSelected {
+    background: #eeeef0; }
+
+.border-top {
+  border-top: 4px solid #D8DEDC;
+  display: inline-block;
+  width: 35%; }
+
+.selected .border-top {
+  border-color: #01A8DC; }
+
+.form-navbar {
+  height: 50px;
+  padding: 0 15px;
+  vertical-align: middle;
+  margin-bottom: 40px;
+  position: absolute;
+  top: 100px;
+  left: 3px;
+  background-color: #fff;
+  width: 100%;
+  border-top: 1px solid #D8DEDC;
+  border-bottom: 2px solid #D8DEDC;
+  white-space: nowrap;
+  overflow-y: hidden;
+  overflow-x: auto; }
+
+.form-navbar a {
+  text-decoration: none; }
+
+.form-navbar span {
+  cursor: pointer;
+  display: inline-block;
+  text-align: center; }
+
+.bottom-pad {
+  height: 50px;
+  width: 100%; }

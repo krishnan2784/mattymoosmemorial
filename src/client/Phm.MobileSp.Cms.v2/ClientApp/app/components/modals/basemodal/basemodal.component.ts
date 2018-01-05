@@ -1,15 +1,15 @@
 import { Component, Input, Output, ViewContainerRef, ViewChild, ReflectiveInjector, ComponentFactoryResolver, EventEmitter } from '@angular/core';
-import {FeedItemCopyToMarket} from "../../feed/modals/copytomarket/copytomarket.component";
 import {EditUser} from "../../accountmanagement/modals/edituser/edituser.component";
+import {CopyToMarketContent} from "../copytomarket/content/copytomarketcontent.component";
 
 
 declare var $: any;
 
 @Component({
     selector: 'base-modal',
-    entryComponents: [FeedItemCopyToMarket, EditUser], 
-    templateUrl: './basemodal.component.html',
-    styleUrls: ['./basemodal.component.css']
+	entryComponents: [EditUser, CopyToMarketContent], 
+    template: require('./basemodal.component.html'),
+    styles: [require('./basemodal.component.css')],
 })
 export class BaseModalComponent {
     modelContent = null;

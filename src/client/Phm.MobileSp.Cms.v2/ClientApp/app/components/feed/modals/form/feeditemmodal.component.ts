@@ -1,6 +1,7 @@
 import {Component, Input, ViewContainerRef, ViewChild, ReflectiveInjector, ComponentFactoryResolver } from '@angular/core';
 import {FeedItemForm} from "../../forms/feeditemform.component";
 
+
 @Component({
     selector: 'feed-form-component',
     entryComponents: [FeedItemForm], 

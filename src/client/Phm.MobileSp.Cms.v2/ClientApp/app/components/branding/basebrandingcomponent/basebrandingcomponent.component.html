@@ -1,0 +1,38 @@
+<div [formGroup]="form" *ngIf="model && form" class="branding-element">
+	<div [formGroupName]="index">
+		<input type="hidden" formControlName="id">
+		<input type="hidden" formControlName="order">
+		<input type="hidden" formControlName="groupName">
+		<input type="hidden" formControlName="primaryImageId">
+		<input type="hidden" formControlName="secondaryImageId">
+		
+		<p [attr.for]="index + '_value'">{{model.description}}</p>
+
+		<colourpicker *ngIf="model.brandingElementType == brandingElementType.Colour"
+		              [disabled]="disabled"
+		              [form]="form.controls[index]" [formSubmitted]="submitted"
+		              [elementId]="index + '_value'"
+		              [formControlId]="'value'"
+		              [position]="'top'"></colourpicker>
+		<fontpicker *ngIf="model.brandingElementType == brandingElementType.Font"
+		            [disabled]="disabled"
+		            [form]="form.controls[index]" [formSubmitted]="submitted"
+		            [elementId]="index + '_value'"
+		            [formControlId]="'value'"></fontpicker>
+		<brandingoptionpicker *ngIf="model.brandingElementType == brandingElementType.CustomSelection"
+		                      [disabled]="disabled"
+		                      [form]="form.controls[index]" [formSubmitted]="submitted"
+		                      [elementId]="index + '_value'"
+		                      [formControlId]="'value'"
+		                      [options]="elementBrandingOptions"></brandingoptionpicker>
+		<upload *ngIf="model.brandingElementType == brandingElementType.Icon"
+		        [disabled]="disabled"
+		        [form]="form.controls[index]"
+		        [formControlId]="'value'"
+				[savePreviewUrl]="true"
+		        [imagePreviewUrl]="model.value"
+		        [uploaderType]="uploaderTypes.Image"
+		        (mediaUploading)="loading=$event"></upload>
+		<div class="clearfix"></div>
+	</div>
+</div>

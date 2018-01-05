@@ -91,8 +91,8 @@
     <None Update="ClientAppV1\app\components\reports\observationfeeditemreport.component.ts">
       <DependentUpon>observationfeeditemreport.component.html</DependentUpon>
     </None>
-    <None Update="ClientApp\app\components\formcontrols\editor\textarea.component.js">
-      <DependentUpon>textarea.component.ts</DependentUpon>
+    <None Update="ClientApp\app\components\common\editor\daterange\daterange.component.js">
+      <DependentUpon>daterange.component.ts</DependentUpon>
     </None>
     <None Update="ClientApp\app\components\feed\forms\pagedfeed\bodytextpageform.component.css">
       <DependentUpon>bodytextpageform.component.html</DependentUpon>

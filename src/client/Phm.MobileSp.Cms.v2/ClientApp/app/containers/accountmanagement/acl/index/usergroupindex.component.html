@@ -1,0 +1,65 @@
+<div *ngIf="!selectedSecEntityId">
+	<div class="loader" *ngIf="loading"></div>
+	<div *ngIf="!loading">
+		<div class="col-md-8">
+			<h5>Manage Permissions</h5>
+			<div class="deco-bar-container">
+				<div class="deco-bar"></div>
+			</div>
+			<div class="info-container permission-info">
+				Manage the permissions settings for the user groups by clicking on the groups below and a individual user belonging to the user group.
+			</div>
+			<div *ngFor="let marketUserGroup of marketUserGroups">
+				<div class="market-groups">
+					<div *ngFor="let securityGroup of marketUserGroup.securityGroupUsers" class="market-user-group-container">
+						<div class="market-user-group">
+							<p class="group-header">{{securityGroup.securityGroup.name}}</p>
+							<p>Market:</p>
+							<div><i class="material-icons">flag</i><p class="market-name">{{marketUserGroup.market.name}}</p></div>
+							<p *ngIf="securityGroup.users.length > 0">Users: {{securityGroup.users.length}}</p>
+						</div>		
+						<div class="options">
+							<button class="btn" (click)="editUserGroup(securityGroup.securityGroup, false)">Group Permissions</button><br/>
+							<button class="btn" (click)="editUserGroup(securityGroup.securityGroup, true)">Users Permissions</button>
+						</div>
+					</div>					
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="col-md-4">
+			<h5>Legend</h5>
+			<div class="deco-bar-container">
+				<div class="deco-bar"></div>
+			</div>
+			<div class="info-container">
+				<p>
+					<b>OWNER - Only PHM Admin:</b><br />
+					Gives the user READER, MOBILE and WRITER permissions. Also allows a user to read and write ACLs.
+				</p>
+				<p>
+					<b>WRITER - NSC:</b><br />
+					Allows a user to create, overwrite, and delete objects. Also allows them to overwrite some ACL permissions.
+				</p>
+				<p>
+					<b>MOBILE WRITER - DEALER PRINCIPALS and SALES MANAGERS:</b><br />
+					Allows a user to create and overwrite objects to the front-end app only
+				</p>
+				<p>
+					<b>READER - SALES EXECUTIVE:</b><br />
+					Allows a user to read contents on the front-end app, excluding ACLs.
+				</p>
+				<p>
+					Recarding Object Descriptions:<br/><br/>
+					POST means CREATE<br />
+					PUT/PATCH means UPDATE<br />
+					GET<br />
+					DELETE
+				</p>
+			</div>
+		</div>
+		<div class="clearfix"></div>	
+	</div>
+</div>
+<editusergrouppermissions *ngIf="selectedSecEntityId" [allSecurityFeatures]="allSecurityFeatures" [secEntityId]="selectedSecEntityId"
+						  [currentStep]="currentStep" (permissionsUpdated)="permissionsUpdated()"></editusergrouppermissions>

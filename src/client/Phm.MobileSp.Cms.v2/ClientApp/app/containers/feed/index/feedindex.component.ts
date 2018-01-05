@@ -1,17 +1,18 @@
 import { Component, OnInit, OnDestroy, EventEmitter, ViewContainerRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { BaseComponent} from "../../base.component";
-import { UserMarket } from "../../../models/userclasses";
-import { BaseFeed } from "../../../models/feedclasses";
-import {IFeedItem} from "../../../contracts/models/IFeedModel";
-import {FeedTypeEnum, FeedCategoryEnum, CopiedElementTypeEnum } from "../../../../enums";
-import {FeedDataService} from "../../../shared/services/feeddataservice";
-import {ShareService} from "../../../shared/services/helpers/shareservice";
-import {DefaultTabNavs} from "../../../components/container/tabbednavmenu/tabnavmenu.component";
-import {FeedItemCopyToMarket} from "../../../components/feed/modals/copytomarket/copytomarket.component";
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import {FeedItemDelete} from "../../../components/feed/modals/deletefeeditem/deletefeeditem.component";
-import {FeedItemPublish} from "../../../components/feed/modals/publishfeeditem/publishfeeditem.component";
+import { IFeedItem } from '../../../contracts/models/IFeedModel';
+import { IndexComponent } from '../../index.component';
+import { DefaultTabNavs } from '../../../components/container/tabbednavmenu/tabnavmenu.component';
+import { FeedCategoryEnum, FeedTypeEnum, CopiedElementTypeEnum } from '../../../../enums';
+import { UserMarket } from '../../../models/userclasses';
+import { PermissionService } from '../../../shared/services/helpers/permissionservice';
+import { FeedDataService } from '../../../shared/services/feeddataservice';
+import { MatDialog } from '@angular/material';
+import { ShareService } from '../../../shared/services/helpers/shareservice';
+import { FeedItemDelete } from '../../../components/feed/modals/deletefeeditem/deletefeeditem.component';
+import { FeedItemPublish } from '../../../components/feed/modals/publishfeeditem/publishfeeditem.component';
+import { BaseFeed } from '../../../models/feedclasses';
+
 
 declare var $: any;
 
@@ -20,32 +21,40 @@ declare var $: any;
     template: require('./feedindex.component.html'),
     styles: [require('./feedindex.component.css')]
 })
-export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestroy {
-    selectedModel = null;
+export class FeedIndexComponent extends IndexComponent implements OnInit, OnDestroy {
+	selectedModel = null;
+	selectedCopyToMarketModel = null;
+    modalData = null;
 
     public feedItems: IFeedItem[];
     feedTypes: typeof FeedTypeEnum = FeedTypeEnum;
-    feedCats: typeof FeedCategoryEnum = FeedCategoryEnum;
+	feedCats: typeof FeedCategoryEnum = FeedCategoryEnum;
+	contentTypeEnum: typeof CopiedElementTypeEnum = CopiedElementTypeEnum;
     public catId : number;
     public filteredFeed: boolean;
     public id_sub: any;
     public currentMarket: UserMarket;
-    public getFeedItemsSub;
+	public getFeedItemsSub;
 
-    constructor(private route: ActivatedRoute, private router: Router,
-      public feedDataService: FeedDataService, sharedService: ShareService,
-      public confirmBox: MatDialog) {
-        super(sharedService, '', true, '', DefaultTabNavs.feedIndexTabs);
+	canPublish: boolean = true;
+
+	constructor(private route: ActivatedRoute, private router: Router,
+    public feedDataService: FeedDataService, sharedService: ShareService,
+    public confirmBox: MatDialog,	permissionService: PermissionService) {
+
+		super(sharedService, permissionService, '', true, '',
+			DefaultTabNavs.feedIndexTabs, '/feed');
+
         this.setupSubscriptions();
-    }
+	}
 
     setupSubscriptions() {
         this.sharedService.marketUpdated.subscribe((market) => {
             this.updateMarket();
         });
-        this.sharedService.feedItemUpdated.subscribe((feedItem) => {
-            this.updateFeedItem(feedItem);
-        });
+        //this.sharedService.feedItemUpdated.subscribe((feedItem) => {
+        //    this.updateFeedItem(feedItem);
+        //});
     }
 
     updateMarket() {
@@ -56,7 +65,7 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
         this.getData();
     }
 
-    ngOnInit() {
+	ngOnInit() {
         this.id_sub = this.route.params.subscribe(
             (params: any) => {
                 this.catId = +params["feedCat"];
@@ -82,14 +91,14 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
         }
     }
 
-    getData() {
+	getData() {
         if (this.getFeedItemsSub)
             this.getFeedItemsSub.unsubscribe();
         this.sharedService.updateMarketDropdownEnabledState(false);
 
         if (!this.filteredFeed) {
             this.getFeedItemsSub = this.feedDataService.getFeeditems().subscribe((result) => {
-                this.feedItems = this.sortFeed(result);
+				this.feedItems = this.sortFeed(result);
                 this.sharedService.updateMarketDropdownEnabledState(true);
             });
         } else {
@@ -140,7 +149,8 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
         this.selectedModel = feedItem;
     }
 
-    feedItemUpdated() {
+	feedItemUpdated() {
+		this.feedItems = null;
         this.setPageTitle();
         this.updateMarketDropdownVisibility(true);
         this.updateTabNavItems(DefaultTabNavs.feedIndexTabs);
@@ -148,33 +158,50 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
         this.getData();
     }
 
-    copyFeedItemToMarket(feedItem: IFeedItem) {
-        let data = { model: feedItem, contentType: CopiedElementTypeEnum.Feed, marketContentService: this.feedDataService };
-        this.confirmBox.open(FeedItemCopyToMarket, {
-          data: data
-        });
+	copyFeedItemToMarket(feedItem: IFeedItem) {
+		this.selectedCopyToMarketModel = feedItem;
     }
 
-    deleteFeeditem(feedItem: IFeedItem) {
-      let dialogRef = this.confirmBox.open(FeedItemDelete, {
-        width: '250px',
-        data: { feedItem:feedItem}
-      });
+  deleteFeeditem(feedItem: IFeedItem) {
+    let dialogRef = this.confirmBox.open(FeedItemDelete, {
+      width: '250px',
+      data: { feedItem: feedItem }
+    });
 
-      dialogRef.afterClosed().subscribe(result => {
-        if (result)
-          this.updateFeedItem(feedItem, true);
-      });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result)
+        this.updateFeedItem(feedItem, true);
+    });
+        //this.confirmBox.confirm()
+        //    .size('sm')
+        //    .showClose(false)
+        //    .title('Delete')
+        //    .body("Are you sure to delete " + feedItem.title + '?')
+        //    .okBtn('Confirm')
+        //    .cancelBtn('Cancel')
+        //    .open()
+        //    .catch((err: any) => console.log('ERROR: ' + err))
+        //    .then((dialog: any) => { return dialog.result })
+        //    .then((result: any) => {
+        //        this.feedDataService.deleteFeeditem(feedItem.id).subscribe((result) => {
+        //            if (result)
+        //                this.updateFeedItem(feedItem, true);
+        //        });
+        //    })
+        //    .catch((err: any) => { });
     }
 
 
-    publishFeedItemTolive(feedItem: IFeedItem) {
+	publishFeedItemTolive(feedItem: IFeedItem) {
+		if (!this.canPublish)
+			return;
         var confirmText;
         if (feedItem.published && feedItem.publishedLiveAt) {
             confirmText = feedItem.title + " has already been published. Are you sure to overwrite it?";
         } else {
             confirmText = "Are you sure to publish " + feedItem.title + "?";
         }
+        this.canPublish = false;
 
         let dialogRef = this.confirmBox.open(FeedItemPublish, {
           width: '250px',
@@ -187,7 +214,32 @@ export class FeedIndexComponent extends BaseComponent implements OnInit, OnDestr
               if (result)
                 this.updateFeedItem(result, false);
             });
+          this.canPublish = true;
         });
+
+   //     this.confirmBox.confirm()
+   //         .size('sm')
+   //         .showClose(false)
+   //         .title('Publish')
+   //         .body(confirmText)
+   //         .okBtn('Confirm')
+   //         .cancelBtn('Cancel')
+   //         .open()
+   //         .catch((err: any) => console.log('ERROR: ' + err))
+   //         .then((dialog: any) => { return dialog.result })
+			//.then((result: any) => {
+		 //       this.canPublish = false;
+   //             this.feedDataService.publishContentToLive(feedItem.id).subscribe((result) => {
+   //                 if (result) {
+   //                     this.feedDataService.getFeeditem(feedItem.id).subscribe((result) => {
+   //                         if (result)
+   //                             this.updateFeedItem(result, false);
+   //                     });
+			//		}
+	  //              this.canPublish = true;
+   //             });
+   //         })
+			//.catch((err: any) => { this.canPublish = true; });
     }
     
 }
