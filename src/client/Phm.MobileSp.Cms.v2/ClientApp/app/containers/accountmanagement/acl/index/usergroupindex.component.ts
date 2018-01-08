@@ -1,19 +1,18 @@
 import { Component, OnInit, OnDestroy, EventEmitter, ViewContainerRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import {BaseComponent} from "../../../base.component";
-import {ShareService} from "../../../../services/helpers/shareservice";
-import {DefaultTabNavs} from "../../../navmenu/tabnavmenu.component";
-import {UserGroupPermissionDataService} from "../../../../services/usergrouppermissiondataservice";
-import {UserDataService} from "../../../../services/userdataservice";
-import {UserMarket} from "../../../../models/userclasses";
-import { SecGroup, SecFeature} from "../../../../models/securityclasses";
-import {UserGroupPermissionIndexViewModel, MarketUserGroup, SecurityGroupUsers } from "../../../../models/viewmodels/usergrouppermissionindexviewmodel";
-import { SecurityFeatureDataService } from "../../../../services/securityfeaturedataservice";
 import {StringEx} from "../../../../classes/helpers/string";
+import {BaseComponent} from "../../../base.component";
+import {UserMarket} from "../../../../models/userclasses";
+import {MarketUserGroup, SecurityGroupUsers } from "../../../../models/viewmodels/usergrouppermissionindexviewmodel";
+import {SecFeature} from "../../../../models/securityclasses";
+import {UserGroupPermissionDataService} from "../../../../shared/services/usergrouppermissiondataservice";
+import {UserDataService} from "../../../../shared/services/userdataservice";
+import {SecurityFeatureDataService} from "../../../../shared/services/securityfeaturedataservice";
+import {ShareService} from "../../../../shared/services/helpers/shareservice";
+import {DefaultTabNavs} from "../../../../components/navigation/tabbednavmenu/tabnavmenu.component";
 
 
 declare var $: any;
-declare var Materialize: any;
 
 @Component({
 	selector: 'usergroupindex',
