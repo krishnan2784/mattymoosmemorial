@@ -1,10 +1,9 @@
 import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
-import {ShareService} from "../../../../services/helpers/shareservice";
-import { SecFeature, SecFeaturePermission } from "../../../../models/securityclasses";
-import {EntityPermissionDataService} from "../../../../services/entitypermissiondataservice";
-import { FormGroup } from "@angular/forms";
-import {UserFeaturePermissionsDataService} from "../../../../services/userfeaturepermissionsdataservice";
+import {SecFeature, SecFeaturePermission } from "../../../../models/securityclasses";
 import {User} from "../../../../models/userclasses";
+import {EntityPermissionDataService} from "../../../../shared/services/entitypermissiondataservice";
+import {UserFeaturePermissionsDataService} from "../../../../shared/services/userfeaturepermissionsdataservice";
+import {ShareService} from "../../../../shared/services/helpers/shareservice";
 
 
 @Component({

@@ -2,33 +2,47 @@
     {{title}}
 </h5>
 <p [class.warning]="!correctType">
-    <span *ngIf="uploaderType==uploaderTypes.Any || uploaderType==uploaderTypes.Image">Images must be jpeg or png format. </span>
-    <span *ngIf="uploaderType==uploaderTypes.Any || uploaderType==uploaderTypes.Video">Videos must be mp4. </span>     
+	<span *ngIf="uploaderType==uploaderTypes.Any || uploaderType==uploaderTypes.Image">Images must be jpeg or png format. </span>
+	<span *ngIf="uploaderType==uploaderTypes.Any || uploaderType==uploaderTypes.Video">Videos must be mp4. </span>     
+</p>
+<small *ngIf="validationMessage" class="active-warning" [class.hidden]="form.controls[formControlId].valid || !formSubmitted">
+	{{validationMessage}}
+</small>
+<p [class.warning]="dimensionWarning" *ngIf="maxWidth > 0 || maxHeight > 0" class="warning">
+	<span>Please upload an image with a resolution of <span *ngIf="!enforceExactDimensions">at least </span>{{maxWidth}} x {{maxHeight}}px.</span>     
 </p>
 <div class="upload-container">
-    <div class="file-field input-field">
-        <div class="btn">
-            <span>File</span>
-            <input type="file" (change)="filesSelectHandler($event)" [disabled]="uploading" accept="video/mp4,image/png,image/jpg,image/jpeg" *ngIf="uploaderType==uploaderTypes.Any">
-            <input type="file" (change)="filesSelectHandler($event)" [disabled]="uploading" accept="image/png,image/jpg,image/jpeg" *ngIf="uploaderType==uploaderTypes.Image">
-            <input type="file" (change)="filesSelectHandler($event)" [disabled]="uploading" accept="video/mp4" *ngIf="uploaderType==uploaderTypes.Video">
-        </div>
-        <!--<div class="file-path-wrapper">
-            <input class="file-path validate" type="text">
-        </div>-->
+  <div class="file-field input-field">
+    <div class="btn" [class.disabled]="disabled" id="{{btnPickerId}}">
+      <span>File</span>
+      <input type="file" (change)="filesSelectHandler($event)" [disabled]="uploading || disabled" 
+             accept="{{acceptString}}" id="{{inputMediaPathId}}" 
+             [attr.multiple]="canUploadMultipleFiles ? true : null">
     </div>
+    <!--<div class="file-path-wrapper">
+      <input class="file-path validate" [(ngModel)]="filePath" type="text" [attr.disabled]="disabled ? disabled : null">
+    </div>-->
+  </div>
     <span class="input-group-btn">
-        <button mat-button class="btn-save" (click)="uploadFile()" [class.disabled]="uploading || !files || files.length==0">Upload</button>
+        <button mat-button class="btn-save" (click)="uploadFile()" *ngIf="!disabled" [class.disabled]="uploading || !files || files.length==0" id="{{btnSaveId}}">Upload</button>
     </span>
     <div *ngIf="showPreview" class="preview-container">
         <div *ngIf="imagePreviewUrl || videoPreviewUrl" >
-            <h5 class="col-md-4">{{previewText}}</h5>
-            <img *ngIf="imagePreviewUrl" src="{{imagePreviewUrl}}" class="col-md-8 preview-image" />
-            <video *ngIf="videoPreviewUrl" controls class="col-md-8 preview-image"><source src="{{videoPreviewUrl}}" type="video/mp4"></video>
-            <div class="clearfix"></div>
+	        <h5 class="col-md-4">{{previewText}}</h5>
+	        <div class="col-md-8">
+				<img *ngIf="imagePreviewUrl" src="{{imagePreviewUrl}}" class="preview-image" />
+				<video *ngIf="videoPreviewUrl" controls class="preview-image"><source src="{{videoPreviewUrl}}" type="video/mp4"></video>		        
+	        </div>
+	        <div class="clearfix"></div>
+	        <span *ngIf="canClear" class="input-group-btn">
+		        <button mat-button class="btn btn-primary btn-clear" (click)="clearUpload()" [class.disabled]="uploading" id="{{btnClearId}}">Clear</button>
+	        </span>
             <hr />
         </div>
         <div *ngIf="uploading" class="loader"></div>
     </div>
     <div class="clearfix"></div>
+</div>
+<div [formGroup]="form" *ngIf="form">
+	<input type="hidden" formControlName="{{formControlId}}">
 </div>

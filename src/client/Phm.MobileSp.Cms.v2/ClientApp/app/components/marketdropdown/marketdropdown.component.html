@@ -1,5 +1,5 @@
 <div *ngIf="userMarkets && userMarkets.length>1 && currentMarket">
-  <mat-select [(ngModel)]="currentMarket" name="currentMarket"  (ngModelChange)="updateCurrentMarket($event)" [disabled]="!enabled">
-    <mat-option *ngFor="let market of userMarkets" [value]="market">{{market.name}}</mat-option>
-  </mat-select>
+    <select class="form-control" [(ngModel)]="currentMarket" (ngModelChange)="updateCurrentMarket($event)" [disabled]="!enabled" id="market-dropdown">
+        <option *ngFor="let market of userMarkets" [ngValue]="market">{{market.name}}</option>
+    </select>
 </div>

@@ -1,9 +1,0 @@
-<div [formGroup]="form" *ngIf="this.model">
-    <input type="hidden" formControlName="mediaInfoId">
-        <upload (mediaUploaded)="attachMedia($event)" (mediaUploading)="mediaUploading.emit($event)"
-                [title]="'Upload an image or video'" [selectedMedia]="model.mediaInfo" [previewText]="'Media Preview'"></upload>
-        <small class="active-warning" [class.hidden]="form.controls.mediaInfoId.valid || !submitted">
-            Please upload an image or video.
-        </small>
-        <div class="clearfix"></div>
-</div>

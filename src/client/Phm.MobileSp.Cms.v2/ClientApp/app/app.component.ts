@@ -50,6 +50,7 @@ export class AppComponent implements OnInit, OnDestroy {
     public pageTitle: string;
     public marketDropdownIsVisible: boolean;
     public backButtonText: string;
+    public appTheme: string = '';
 
     constructor(
         private router: Router,
@@ -71,17 +72,22 @@ export class AppComponent implements OnInit, OnDestroy {
         //console.log(`The Request object only really exists on the Server, but on the Browser we can at least see Cookies`);
         //console.log(this.request);
 
-        sharedService.pageTitleUpdated.subscribe((pageTitle) => {
-          this.setPageTitle(pageTitle);
-        });
 
-        sharedService.backButtonUpdated.subscribe((backText) => {
-          this.setBackText(backText);
-        });
+      sharedService.appThemeUpdated.subscribe((appTheme) => {
+        this.setAppTheme(appTheme);
+      });
 
-        sharedService.marketDropdownVisibilitypeUpdated.subscribe((isVisible) => {
-          this.setMarketDropdownVisibility(isVisible);
-        });
+      sharedService.pageTitleUpdated.subscribe((pageTitle) => {
+        this.setPageTitle(pageTitle);
+      });
+
+      sharedService.backButtonUpdated.subscribe((backText) => {
+        this.setBackText(backText);
+      });
+
+      sharedService.marketDropdownVisibilitypeUpdated.subscribe((isVisible) => {
+        this.setMarketDropdownVisibility(isVisible);
+      });
     }
 
     ngOnInit() {
@@ -142,6 +148,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
     setMarketDropdownVisibility(value) {
       this.marketDropdownIsVisible = value;
+    }
+
+    setAppTheme(value) {
+      this.appTheme = value;
     }
 
     goBack() {

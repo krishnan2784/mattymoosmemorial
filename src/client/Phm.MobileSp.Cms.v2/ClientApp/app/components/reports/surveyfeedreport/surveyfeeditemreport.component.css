@@ -30,4 +30,23 @@ button{
 }
 .stat-container {
     padding: 15px 20px;
+	overflow: hidden;
+}
+
+.stat-body {
+	height: 220px;
+	padding: 10px;
+	text-align: center;
+	overflow: hidden;
+	width: 100%;
+}
+
+.gauge-container {
+	width: 300px;
+	height: 200px;
+	display: inline-block;
+}
+
+.total-learners p {
+	margin: 0;
 }

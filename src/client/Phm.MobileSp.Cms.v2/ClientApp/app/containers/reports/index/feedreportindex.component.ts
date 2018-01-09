@@ -1,16 +1,21 @@
 import { Component, OnInit, OnDestroy, EventEmitter, ViewEncapsulation } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import {BaseComponent} from "../../base.component";
-import {IFeedItem} from "../../../contracts/models/IFeedModel";
-import {FeedTypeEnum, FeedCategoryEnum } from "../../../../enums";
-import {UserMarket} from "../../../models/userclasses";
-import {FeedDataService} from "../../../shared/services/feeddataservice";
-import {ShareService} from "../../../shared/services/helpers/shareservice";
-import {DefaultTabNavs} from "../../../components/container/tabbednavmenu/tabnavmenu.component";
-import {QuizFeedItemReport} from "../../../components/reports/quizfeedreport/quizfeeditemreport.component";
-import {SurveyFeedItemReport} from "../../../components/reports/surveyfeedreport/surveyfeeditemreport.component";
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { FeedDataService } from "../../../services/feeddataservice";
+import { IFeedItem} from "../../../interfaces/models/IFeedModel";
+import Enums = require("../../../enums");
+import FeedTypeEnum = Enums.FeedTypeEnum;
+import FeedCategoryEnum = Enums.FeedCategoryEnum;
+import { BaseComponent} from "../../base.component";
+import { ShareService } from "../../../services/helpers/shareservice";
+import Userclasses = require("../../../models/userclasses");
+import UserMarket = Userclasses.UserMarket;
+import QuizFeeditemreportcomponent = require("../quizfeeditemreport.component");
+import QuizFeedItemReport = QuizFeeditemreportcomponent.QuizFeedItemReport;
+import { DefaultTabNavs } from "../../navmenu/tabnavmenu.component";
+import { SurveyFeedItemReport } from "../surveyfeeditemreport.component";
 
 declare var $: any;
+declare var Materialize: any;
 
 @Component({
     selector: 'feedreportindex',
@@ -20,7 +25,7 @@ declare var $: any;
 })
 export class FeedReportIndexComponent extends BaseComponent implements OnInit, OnDestroy {
     public feedItems: IFeedItem[];
-    feedTypes: typeof FeedTypeEnum = FeedTypeEnum;
+    feedTypes: typeof Enums.FeedTypeEnum = FeedTypeEnum;
     feedCats: typeof FeedCategoryEnum = FeedCategoryEnum;
     public feedTypeId : number;
     public id_sub: any;
@@ -107,7 +112,7 @@ export class FeedReportIndexComponent extends BaseComponent implements OnInit, O
         
         this.updateMarketDropdownVisibility(false);
         this.updateTabNavItems();
-        this.updateBackText(FeedTypeEnum[feedItem.feedType] + ' Reports');
+        this.updateBackText(Enums.FeedTypeEnum[feedItem.feedType] + ' Reports');
         this.updatePageTitle('');
 
         report.prototype.onBackEvent = new EventEmitter();

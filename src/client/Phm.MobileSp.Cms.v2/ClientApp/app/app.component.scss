@@ -12,6 +12,7 @@ $navbar-default-color: $light-orange;
    Note: This Component has ViewEncapsulation.None so the styles will bleed out
 
 */
+
 .container-fluid {
     min-height: calc(100vh - 125px);
     padding: 0;
@@ -92,4 +93,107 @@ html, a, p, span, div, input, td, li, h1, h2, h3, h4, h5 {
 
 .back-button a:hover {
     text-decoration: none;
+}
+.container-fluid {
+  min-height: calc(100vh - 125px);
+  padding: 0;
+}
+
+.header-bar {
+  height: 100px;
+  background-color: #fff;
+  margin: 0 -15px 0 -12px;
+  position: relative;
+}
+
+.header-bar .header-bar-content {
+  position: absolute;
+  bottom: -10px;
+  width: 100%;
+}
+
+.header-bar .header-bar-content .page-title {
+  margin-top: 0;
+  color: #4F3A9F;
+  margin: 0 0 30px 30px;
+  font-weight: 300;
+}
+
+.marketdropdown {
+  display: inline-flex;
+  margin: -10px;
+}
+
+.router-content {
+  padding: 0 15px;
+  margin-top: 27px;
+  margin-bottom: 50px;
+}
+
+.body-content {
+  overflow: hidden;
+  background-color: #eee;
+}
+
+.content-col {
+  margin-bottom: -99999px;
+  padding-bottom: 99999px;
+}
+
+.nav-col {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+@media(min-width: 768px) {
+  .nav-col {
+    background-color: #405362;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.349019);
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-col {
+    margin: 0 30px -99999px;
+  }
+
+  .container-fluid {
+    padding-right: 0;
+  }
+}
+
+html, a, p, span, div, input, td, li, h1, h2, h3, h4, h5 {
+  font-family: 'Roboto', sans-serif !important;
+}
+
+.back-button {
+  height: 15px;
+  margin-bottom: 15px;
+  color: #1E1E1E;
+}
+
+.back-button i {
+  margin-top: -3px;
+}
+
+.back-button a {
+  vertical-align: top;
+  cursor: pointer;
+  color: #1E1E1E;
+}
+
+.back-button a:hover {
+  text-decoration: none;
+}
+
+.light-theme .page-title {
+  color: #3E3E3E !important;
+}
+
+.light-theme .nav-col {
+  background-color: #E7EDEB !important;
+}
+
+.light-theme .content-col {
+  background-color: #B5BBB9;
 }

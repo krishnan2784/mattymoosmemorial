@@ -1,19 +1,18 @@
 import { Component, Injector } from '@angular/core';
-import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms'
-import {BasePartialItemFormComponent} from "../basepartialfeeditem.component";
-import {IFeedItemPartialForm} from "../../../../contracts/components/IFeedItemComponents";
-import {FeedTypeEnum} from "../../../../../enums";
-
+import { FormGroup, FormControl, FormArray, Validators, AbstractControl } from '@angular/forms'
+import * as IFeedItemComponents from "../../../interfaces/components/IFeedItemComponents";
+import Enums = require("../../../enums");
+import { BasePartialItemFormComponent } from "./basepartialfeeditem.component";
 
 @Component({
     selector: 'questionfeeditem',
     template: require('./basequestionfeeditem.component.html'),
-    styles: [require('../feeditemform.component.css'), require('./basequestionfeeditem.component.css')]
+    styles: [require('./feeditemform.component.css'), require('./basequestionfeeditem.component.css')]
 })
-export class BaseQuestionFeedItemFormComponent extends BasePartialItemFormComponent implements IFeedItemPartialForm {
+export class BaseQuestionFeedItemFormComponent extends BasePartialItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
     public currentQuestion: number = 0;
 
-    constructor(injector: Injector, feedModelType, feedType: FeedTypeEnum, public questionTypeEnum: any) {
+    constructor(injector: Injector, feedModelType, feedType: Enums.FeedTypeEnum, public questionTypeEnum: any) {
         super(injector, feedModelType, feedType);
     }
 

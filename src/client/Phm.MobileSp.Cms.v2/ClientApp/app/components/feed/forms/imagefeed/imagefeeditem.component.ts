@@ -1,21 +1,21 @@
 import { Component, Injector } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms'
-import {BasePartialItemFormComponent} from "../basepartialfeeditem.component";
-import {IFeedItemPartialForm} from "../../../../contracts/components/IFeedItemComponents";
-import {ImageFeed} from "../../../../models/feedclasses";
-import {MediaDataService} from "../../../../shared/services/mediaservice";
-import {FeedTypeEnum} from "../../../../../enums";
-
+import {  FormControl, Validators } from '@angular/forms'
+import * as IFeedItemComponents from "../../../interfaces/components/IFeedItemComponents";
+import Enums = require("../../../enums");
+import FeedTypeEnum = Enums.FeedTypeEnum;
+import Feedclasses = require("../../../models/feedclasses");
+import { BasePartialItemFormComponent } from "./basepartialfeeditem.component";
+import { MediaDataService } from "../../../services/mediaservice";
 
 @Component({
     selector: 'imagefeeditem', 
     template: require('./imagefeeditem.component.html')
 })
-export class ImageFeedItemFormComponent extends BasePartialItemFormComponent implements IFeedItemPartialForm {
-    model: ImageFeed;
+export class ImageFeedItemFormComponent extends BasePartialItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
+    model: Feedclasses.ImageFeed;
 
     constructor(injector: Injector, public mediaDataService: MediaDataService) {
-        super(injector, ImageFeed, FeedTypeEnum.Image);
+        super(injector, Feedclasses.ImageFeed, FeedTypeEnum.Image);
     } 
 
     addFormControls() {

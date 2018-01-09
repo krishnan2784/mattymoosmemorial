@@ -1,12 +1,9 @@
 .ggContent {
-  //width: 100%;
-  //height: 100%;
-  width: 334px;
-  height: 200px;
+  width: 80%;
+  height: 80%;
   position: relative;
   background-color: transparent; 
-  margin-left: 15%;
-  margin-top: -45px;
+  margin-left: 10%;
   .circles {
     width: calc(100% - 60px);
     background-color: white;
@@ -56,7 +53,7 @@
     //display: none;
     width: 40px;
     position: absolute;
-    height: 280px;
+    height: 122%;
     top: 30px;
     left: calc(50% - 20px);
     z-index: 3000;

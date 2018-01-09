@@ -1,21 +1,21 @@
 import { Component, Injector } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms'
-import {BasePartialItemFormComponent} from "../basepartialfeeditem.component";
-import {IFeedItemPartialForm} from "../../../../contracts/components/IFeedItemComponents";
-import {VideoFeed} from "../../../../models/feedclasses";
-import {MediaDataService} from "../../../../shared/services/mediaservice";
-import {FeedTypeEnum} from "../../../../../enums";
-
+import * as IFeedItemComponents from "../../../interfaces/components/IFeedItemComponents";
+import Enums = require("../../../enums");
+import FeedTypeEnum = Enums.FeedTypeEnum;
+import Feedclasses = require("../../../models/feedclasses");
+import { BasePartialItemFormComponent } from "./basepartialfeeditem.component";
+import { MediaDataService } from "../../../services/mediaservice";
 
 @Component({
     selector: 'videofeeditem', 
     template: require('./videofeeditem.component.html')
 })
-export class VideoFeedItemFormComponent extends BasePartialItemFormComponent implements IFeedItemPartialForm {
-    model: VideoFeed;
+export class VideoFeedItemFormComponent extends BasePartialItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
+    model: Feedclasses.VideoFeed;
 
     constructor(injector: Injector, public mediaDataService: MediaDataService) {
-        super(injector, VideoFeed, FeedTypeEnum.Video);
+        super(injector, Feedclasses.VideoFeed, FeedTypeEnum.Video);
 
     } 
 

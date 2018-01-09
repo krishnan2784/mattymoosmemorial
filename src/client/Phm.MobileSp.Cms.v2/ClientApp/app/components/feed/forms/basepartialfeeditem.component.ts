@@ -1,27 +1,27 @@
-import { Component, Injector, OnInit, OnDestroy, Input, EventEmitter, Output } from '@angular/core';
+import { Component, Injector, OnInit, OnDestroy, OnChanges, SimpleChange, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import {IFeedItemPartialForm} from "../../../contracts/components/IFeedItemComponents";
-import {FeedFormSteps} from "../../../classes/feedformstepsclasses";
-import {IFeedItem} from "../../../contracts/models/IFeedModel";
-import {FeedTypeEnum} from "../../../../enums";
-
+import * as IFeedItemComponents from "../../../interfaces/components/IFeedItemComponents";
+import Enums = require("../../../enums");
+import Feedformstepsclasses = require("../../../classes/feedformstepsclasses");
+import FeedFormSteps = Feedformstepsclasses.FeedFormSteps;
+import FeedModel = require("../../../interfaces/models/IFeedModel");
 
 @Component({
 })
-export class BasePartialItemFormComponent implements IFeedItemPartialForm, OnInit, OnDestroy {
+export class BasePartialItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm, OnInit, OnDestroy {
     @Input()
     public form: FormGroup;
     @Input()
     public feedFormSteps: FeedFormSteps;
     @Input()
-    public model: IFeedItem;
+    public model: FeedModel.IFeedItem;
     @Input()
     public submitted: boolean; 
 
     @Output()
     public mediaUploading: EventEmitter<any> = new EventEmitter();
 
-    constructor(private injector: Injector, public feedModelType, public feedType: FeedTypeEnum) {
+    constructor(private injector: Injector, public feedModelType, public feedType: Enums.FeedTypeEnum) {
     } 
     
     ngOnInit(): void {

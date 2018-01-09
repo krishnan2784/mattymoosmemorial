@@ -4,20 +4,31 @@ import { CommonModule, APP_BASE_HREF } from '@angular/common';
 import { HttpModule, Http } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ColorPickerModule } from 'ngx-color-picker';
 
-// i18n support
-//import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-//import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { NotFoundComponent } from './containers/not-found/not-found.component';
+import { TermsAndConditionsIndexComponent } from './containers/competitions/index/termsandconditionsindex/termsandconditionsindex.component';
 import {AppComponent} from "./app.component";
 import {BaseComponent} from "./containers/base.component";
-import {NavBarComponent} from "./components/navbar/navbar.component";
-import {TabNavMenuComponent} from "./components/container/tabbednavmenu/tabnavmenu.component";
-import {FooterComponent} from "./components/container/footer/footer.component";
+import {NavMenuComponent} from "./components/navigation/navmenu/navmenu.component";
+import {FormNavBarComponent} from "./components/common/form/formnavbar/formnavbar.component";
+import {FormButtons} from "./components/common/form/formbuttons/formbuttons.component";
+import {TabNavMenuComponent} from "./components/navigation/tabbednavmenu/tabnavmenu.component";
+import {FooterComponent} from "./components/footer/footer.component";
 import {MarketDropdown} from "./components/marketdropdown/marketdropdown.component";
-import {DatepickerComponent} from "./components/formcontrols/datepicker/datepicker.component";
+import {DatepickerComponent} from "./components/common/datepicker/datepicker.component";
+import {CounterComponent} from "./containers/_templateBackup/counter/counter.component";
 import {HomeComponent} from "./containers/home/home.component";
 import {UserAccountManagementComponent} from "./containers/accountmanagement/index/useraccountmanagement.component";
 import {FeedIndexComponent} from "./containers/feed/index/feedindex.component";
+import {BrandingContainerComponent} from "./containers/branding/brandingcontainer.component";
+import {BrandingContentSectionComponent} from
+  "./components/branding/brandingcontentsection/brandingcontentsection.component";
+import {BaseBrandingComponent} from "./components/branding/basebrandingcomponent/basebrandingcomponent.component";
+import {UserGroupPermissionsIndexComponent} from "./containers/accountmanagement/acl/index/usergroupindex.component";
+import {CompetitionIndexComponent} from "./containers/competitions/index/competitionsindex/competitionsindex.component";
+import {RewardSchemeIndexComponent} from
+  "./containers/competitions/index/rewardschemesindex/rewardschemesindex.component";
 import {FeedItemForm} from "./components/feed/forms/feeditemform.component";
 import {TextFeedItemFormComponent} from "./components/feed/forms/textfeed/textfeeditem.component";
 import {ImageFeedItemFormComponent} from "./components/feed/forms/imagefeed/imagefeeditem.component";
@@ -27,10 +38,14 @@ import {SurveyFeedItemFormComponent} from "./components/feed/forms/questionfeed/
 import {ObservationFeedItemFormComponent} from
   "./components/feed/forms/questionfeed/observationfeed/observationfeeditem.component";
 import {QuestionFormComponent} from "./components/feed/forms/questionfeed/questionform.component";
-import {PagedFeedItemFormComponent} from "./components/feed/forms/pagedfeed/pagedfeeditem.component";
-import {BodyTextPageFormComponent} from "./components/feed/forms/pagedfeed/bodytextpageform.component";
-import {MediaPageFormComponent} from "./components/feed/forms/pagedfeed/mediapageform.component";
-import {TabbedTextPageFormComponent} from "./components/feed/forms/pagedfeed/tabbedtextpageform.component";
+import {PagedFeedItemFormComponent} from "./components/feed/forms/pagedfeed/pagedfeeditem/pagedfeeditem.component";
+import {BodyTextPageFormComponent} from
+  "./components/feed/forms/pagedfeed/pageforms/bodytextpageform/bodytextpageform.component";
+import {MediaPageFormComponent} from
+  "./components/feed/forms/pagedfeed/pageforms/mediapageform/mediapageform.component";
+import {TabbedTextPageFormComponent} from
+  "./components/feed/forms/pagedfeed/pageforms/tabbedtextpageform/tabbedtextpageform.component";
+import {BaseModalComponent} from "./components/modals/basemodal/basemodal.component";
 import {FeedReportIndexComponent} from "./containers/reports/index/feedreportindex.component";
 import {FeedItemReportContainerComponent} from "./components/reports/basefeeditemreport/basefeeditemreport.component";
 import {QuizFeedItemReport} from "./components/reports/quizfeedreport/quizfeeditemreport.component";
@@ -38,43 +53,68 @@ import {SurveyFeedItemReport} from "./components/reports/surveyfeedreport/survey
 import {QuizUserResultsComponent} from "./components/reports/quizuserresults/quizuserresults.component";
 import {ObservationFeedItemReport} from
   "./components/reports/observationfeedreport/observationfeeditemreport.component";
-import {LearnerStatComponent} from "./components/leaderboard/learnerstat/learnerstat.component";
 import {LeaderboardContainer} from "./containers/reports/leaderboard/leaderboardcontainer.component";
-import {LeaderboardComponent} from "./components/leaderboard/leaderboard/leaderboard.component";
-import {LbExecutivesTableComponent} from "./components/leaderboard/lbexecutivestable/lbexecutivestable.component";
-import {LbrefineComponent} from "./components/leaderboard/lbrefine/lbrefine.component";
-import {PartitionComponent} from "./components/leaderboard/partition/partition.component";
+import {CompetitionForm} from "./components/competitions/forms/competitionform/competitionform.component";
+import {RewardSchemeForm} from "./components/competitions/forms/rewardschemeform/rewardschemeform.component";
+import {TermsAndConditionForm} from
+  "./components/competitions/forms/termsandconditionsform/termsandconditionsform.component";
 import {EditUser} from "./components/accountmanagement/modals/edituser/edituser.component";
+import {EditEntityPermissionsListComponent} from
+  "./components/accountmanagement/acl/editentitypermissionslist/editentitypermissionslist.component";
+import {EditUserGroupComponent} from
+  "./components/accountmanagement/acl/editusergrouppermissions/editusergrouppermissions.component";
+import {EditUserPermissionsComponent} from
+  "./components/accountmanagement/acl/edituserpermissions/edituserpermissions.component";
 import {BarChart} from "./components/charts/barchart/barchart.component";
 import {GaugeChart} from "./components/charts/gaugechart/gaugechart.component";
 import {DonutChart} from "./components/charts/donutchart/donutchart.component";
 import {DynamicChartFormatsComponent} from "./components/reports/dynamicchartformats/dynamicchartformats.component";
 import {MonobarGraphComponent} from "./components/charts/monobargraph/monobargraph.component";
 import {GaugeGraphComponent} from "./components/charts/gaugegraph/gaugegraph.component";
-import {FeedItemCopyToMarket} from "./components/feed/modals/copytomarket/copytomarket.component";
-import {UserFilter} from "./components/filters/userfilter.component";
-import {RichTextEditorComponent} from "./components/formcontrols/editor/richtexteditor.component";
-import {TextAreaComponent} from "./components/formcontrols/editor/textarea.component";
-import {TextInputComponent} from "./components/formcontrols/editor/textbox.component";
-import {NumberTextInputComponent} from "./components/formcontrols/editor/numbertextbox.component";
-import {TagInputComponent} from "./components/formcontrols/editor/taginputbox.component";
+import {CopyToMarketContent} from "./components/modals/copytomarket/content/copytomarketcontent.component";
+import {CopyToMarket} from "./components/modals/copytomarket/copytomarket.component";
+import {UserFilter} from "./components/common/filters/userfilter/userfilter.component";
+import {RichTextEditorComponent} from "./components/common/editor/richtexteditor/richtexteditor.component";
+import {TextAreaComponent} from "./components/common/editor/textarea/textarea.component";
+import {TextInputComponent} from "./components/common/editor/textbox/textbox.component";
+import {NumberTextInputComponent} from "./components/common/editor/numbertextbox/numbertextbox.component";
+import {SelectListComponent} from "./components/common/editor/selectlist/selectlist.component";
+import {DateRangeComponent} from "./components/common/editor/daterange/daterange.component";
+import {CallToActionComponent} from "./components/common/editor/calltoaction/calltoaction.component";
+import {TagInputComponent} from "./components/common/editor/taginputbox/taginputbox.component";
+import {ColourPickerInputComponent} from "./components/common/editor/colourpicker/colourpicker.component";
+import {FontPickerComponent} from "./components/common/editor/fontpicker/fontpicker.component";
+import {BrandingOptionPickerComponent} from "./components/branding/brandingoptionpicker/brandingoptionpicker.component";
 import {UploadMediaComponent} from "./components/media/upload.component";
+import {OrderBy} from "./classes/orderBy";
+import {GenericFilterComponent} from "./components/common/filters/generic/genericfilter.component";
 import {TransferHttpModule} from "../modules/transfer-http/transfer-http.module";
-import {NotFoundComponent} from "./containers/_templateBackup/not-found/not-found.component";
 import {LinkService} from "./shared/services/link.service";
 import {FeedDataService} from "./shared/services/feeddataservice";
 import {MarketDataService} from "./shared/services/marketdataservice";
 import {ShareService} from "./shared/services/helpers/shareservice";
 import {UserDataService} from "./shared/services/userdataservice";
 import {MediaDataService} from "./shared/services/mediaservice";
-import {NavMenuComponent} from "./components/container/navmenu/navmenu.component";
-import {ORIGIN_URL} from "./shared/constants/baseurl.constants";
-import { MatDialogModule, MatInputModule, MatCheckboxModule, MatSlideToggleModule, MatRadioModule, MatButtonModule, MatSnackBarModule, MatMenuModule, MatSelectModule, MatAutocompleteModule, MatTableModule } from '@angular/material';
+import {PermissionService} from "./shared/services/helpers/permissionservice";
+import {AlertService} from "./shared/services/helpers/alertservice";
+import {FeedItemCopyToMarket} from "./components/feed/modals/copytomarket/copytomarket.component";
 import {FeedItemDelete} from "./components/feed/modals/deletefeeditem/deletefeeditem.component";
 import {FeedItemPublish} from "./components/feed/modals/publishfeeditem/publishfeeditem.component";
 import {UserDelete} from "./components/accountmanagement/modals/deleteuser/deleteuser.component";
-import {AlertService} from "./shared/services/helpers/alertservice";
-import { BaseModalComponent } from './components/modals/basemodal/basemodal.component';
+import { MatRadioModule, MatButtonModule, MatDialogModule, MatInputModule, MatSnackBarModule,
+  MatCheckboxModule, MatRadioModule, MatSlideToggleModule, MatMenuModule, MatSelectModule,
+  MatAutocompleteModule, MatTableModule, } from '@angular/material';
+import {LearnerStatComponent} from "./components/reports/leaderboards/learnerstat/learnerstat.component";
+import {LeaderboardComponent} from "./components/reports/leaderboards/leaderboard/leaderboard.component";
+import {LbExecutivesTableComponent} from
+  "./components/reports/leaderboards/lbexecutivestable/lbexecutivestable.component";
+import {LbrefineComponent} from "./components/reports/leaderboards/lbrefine/lbrefine.component";
+import {PartitionComponent} from "./components/reports/leaderboards/partition/partition.component";
+
+// i18n support
+//import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+//import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
 
 //export function createTranslateLoader(http: Http, baseHref) {
 //    // Temporary Azure hack
@@ -86,83 +126,108 @@ import { BaseModalComponent } from './components/modals/basemodal/basemodal.comp
 //}
 
 @NgModule({
-    declarations: [
-        AppComponent,
-      BaseComponent,
-      NavMenuComponent,
-      NavBarComponent,
-      TabNavMenuComponent,
-      FooterComponent,
-      MarketDropdown,
-      DatepickerComponent,
-      NotFoundComponent,
+  declarations: [
+    AppComponent,
+    BaseComponent,
+    NavMenuComponent,
+    FormNavBarComponent,
+    FormButtons,
+    TabNavMenuComponent,
+    FooterComponent,
+    MarketDropdown,
+    DatepickerComponent,
 
-      // main naviation items
-      HomeComponent,
-      UserAccountManagementComponent,
-      FeedIndexComponent,
+    // main naviation items
+    CounterComponent,
+    HomeComponent,
+    UserAccountManagementComponent,
+    FeedIndexComponent,
+    BrandingContainerComponent,
+    BrandingContentSectionComponent,
+    BaseBrandingComponent,
+    UserGroupPermissionsIndexComponent,
+    CompetitionIndexComponent,
+    RewardSchemeIndexComponent,
+    TermsAndConditionsIndexComponent,
 
-      // feed item forms
-      FeedItemForm,
-      TextFeedItemFormComponent,
-      ImageFeedItemFormComponent,
-      VideoFeedItemFormComponent,
-      QuizFeedItemFormComponent,
-      SurveyFeedItemFormComponent,
-      ObservationFeedItemFormComponent,
-      QuestionFormComponent,
-      PagedFeedItemFormComponent,
-      BodyTextPageFormComponent,
-      MediaPageFormComponent,
-      TabbedTextPageFormComponent,
+    // feed item forms
+    FeedItemForm,
+    TextFeedItemFormComponent,
+    ImageFeedItemFormComponent,
+    VideoFeedItemFormComponent,
+    QuizFeedItemFormComponent,
+    SurveyFeedItemFormComponent,
+    ObservationFeedItemFormComponent,
+    QuestionFormComponent,
+    PagedFeedItemFormComponent,
+    BodyTextPageFormComponent,
+    MediaPageFormComponent,
+    TabbedTextPageFormComponent,
+    BaseModalComponent,
 
-      // reporting
-      FeedReportIndexComponent,
-      FeedItemReportContainerComponent,
-      QuizFeedItemReport,
-      SurveyFeedItemReport,
-      QuizUserResultsComponent,
-      ObservationFeedItemReport,
-      LearnerStatComponent,
+    // reporting
+    FeedReportIndexComponent,
+    FeedItemReportContainerComponent,
+    QuizFeedItemReport,
+    SurveyFeedItemReport,
+    QuizUserResultsComponent,
+    ObservationFeedItemReport,
+    LearnerStatComponent,
 
-      //leaderbaord
-      LeaderboardContainer,
-      LeaderboardComponent,
-      LbExecutivesTableComponent,
-      LbrefineComponent,
-      PartitionComponent,
-      
-      // charts
-      BarChart,
-      GaugeChart,
-      DonutChart,
-      DynamicChartFormatsComponent,
-      MonobarGraphComponent,
-      GaugeGraphComponent,
+    //leaderbaord
+    LeaderboardContainer,
+    LeaderboardComponent,
+    LbExecutivesTableComponent,
+    LbrefineComponent,
+    PartitionComponent,
 
-      //modals
-      FeedItemCopyToMarket,
-      FeedItemDelete,
-      FeedItemPublish,
-      UserDelete,
-      EditUser,
+    // competitions
+    CompetitionForm,
+    RewardSchemeForm,
+    TermsAndConditionForm,
 
-      //shared
-      UserFilter,
-      RichTextEditorComponent,
-      TextAreaComponent,
-      TextInputComponent,
-      NumberTextInputComponent,
-      TagInputComponent,
-      BaseModalComponent,
-      UploadMediaComponent
+    // user management
+    EditUser,
+    EditEntityPermissionsListComponent,
+    EditUserGroupComponent,
+    EditUserPermissionsComponent,
+
+    // charts
+    BarChart,
+    GaugeChart,
+    DonutChart,
+    DynamicChartFormatsComponent,
+    MonobarGraphComponent,
+    GaugeGraphComponent,
+
+    //modals
+    CopyToMarketContent,
+    CopyToMarket,
+
+    //shared
+    UserFilter,
+    RichTextEditorComponent,
+    TextAreaComponent,
+    TextInputComponent,
+    NumberTextInputComponent,
+    SelectListComponent,
+    DateRangeComponent,
+    CallToActionComponent,
+    TagInputComponent,
+    ColourPickerInputComponent,
+    FontPickerComponent,
+    BrandingOptionPickerComponent,
+    UploadMediaComponent,
+    OrderBy,
+    GenericFilterComponent
     ],
     imports: [
       CommonModule,
       HttpModule,
       FormsModule,
       ReactiveFormsModule,
-      TransferHttpModule, // Our Http TransferData method
+      TransferHttpModule,
+      // Our Http TransferData method
         // i18n support
       //  TranslateModule.forRoot({
       //      loader: {
@@ -191,6 +256,7 @@ import { BaseModalComponent } from './components/modals/basemodal/basemodal.comp
       MatSelectModule,
       MatAutocompleteModule,
       MatTableModule,
+      ColorPickerModule,
 
         // App Routing
         RouterModule.forRoot([
@@ -211,15 +277,22 @@ import { BaseModalComponent } from './components/modals/basemodal/basemodal.comp
                 ]
               }
             },
-            { path: 'useraccountmanagement', component: UserAccountManagementComponent },
-            { path: 'feed/:feedCat', component: FeedIndexComponent },
-            { path: 'feed', component: FeedIndexComponent },
-            { path: 'feeditem', component: FeedItemForm },
-            { path: 'feeditem/:id', component: FeedItemForm },
-            { path: 'feeditem/:feedCat', component: FeedItemForm },
-            { path: 'reports/leaderboard', component: LeaderboardContainer },
-            { path: 'reports', component: FeedReportIndexComponent },
-            { path: 'reports/:feedType', component: FeedReportIndexComponent },
+          { path: 'home', component: HomeComponent },
+          { path: 'counter', component: CounterComponent },
+          { path: 'useraccountmanagement', component: UserAccountManagementComponent },
+          { path: 'useraccountmanagement/userpermissionmanagement', component: UserGroupPermissionsIndexComponent },
+          { path: 'feed/:feedCat', component: FeedIndexComponent },
+          { path: 'feed', component: FeedIndexComponent },
+          { path: 'feeditem', component: FeedItemForm },
+          { path: 'feeditem/:id', component: FeedItemForm },
+          { path: 'feeditem/:feedCat', component: FeedItemForm },
+          { path: 'reports/leaderboard', component: LeaderboardContainer },
+          { path: 'reports', component: FeedReportIndexComponent },
+          { path: 'reports/:feedType', component: FeedReportIndexComponent },
+          { path: 'branding', component: BrandingContainerComponent },
+          { path: 'competitions', component: CompetitionIndexComponent },
+          { path: 'competitions/rewardschemes', component: RewardSchemeIndexComponent },
+          { path: 'competitions/termsandconditions', component: TermsAndConditionsIndexComponent },
             {
               path: '**', component: NotFoundComponent,
               data: {
@@ -247,7 +320,8 @@ import { BaseModalComponent } from './components/modals/basemodal/basemodal.comp
         MarketDataService,
         ShareService,
         UserDataService,
-        MediaDataService,
+      MediaDataService,
+        PermissionService,
         AlertService
     ],
     entryComponents: [

@@ -12,8 +12,6 @@ import {ShareService} from "../../../../shared/services/helpers/shareservice";
 import {DefaultTabNavs} from "../../../../components/navigation/tabbednavmenu/tabnavmenu.component";
 
 
-declare var $: any;
-
 @Component({
 	selector: 'usergroupindex',
 	template: require('./usergroupindex.component.html'),

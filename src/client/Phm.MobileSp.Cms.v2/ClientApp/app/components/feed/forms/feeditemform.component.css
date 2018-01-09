@@ -1,5 +1,4 @@
-.feed-item-form-container {
-    padding-top: 20px;
+﻿.feed-item-form-container {
     margin-bottom: 50px;
     min-height: 750px;
 }
@@ -18,6 +17,7 @@
 .feed-cat-container p {
     text-align: center;
     padding: 20px;
+
 }
 
 .active-cat {
@@ -49,7 +49,7 @@
 
 
 .btn-holder {
-    height:120px;
+    height:70px;
     width: 100%;
     position: absolute;
     bottom: 0;
@@ -57,7 +57,7 @@
 
 @media (min-width: 1500px) {
   .btn-holder a{
-      padding: 0 0 0 100px;
+      padding: 0 0 0 60px;
   }
 }
 
@@ -66,10 +66,8 @@
 }
 
 .btn-holder .type{
-  position: relative;
-  top: 30%;
-  cursor: pointer;
-  text-decoration: none;
+    position: relative;
+    top: 30%;
 }
 
 .select-type-feed {
@@ -86,43 +84,8 @@
 }
 
 .feed-item-form-container {
-    padding: 20px;
+    padding: 0 20px 20px;
 }
-
-.feed-item-form-buttons {
-    float: right;
-    padding: 20px 0;
-}
-
-.feed-form-navigation {
-    height: 50px;
-    padding: 0 15px;
-    vertical-align: middle;
-    margin-bottom: 40px;
-    position:absolute;
-    top: 100px;
-    left:3px;
-    background-color: #fff;
-    width: 100%;
-    border-top: 1px solid #D8DEDC;
-    border-bottom:2px solid #D8DEDC;
-
-}
-
-.btn-save {
-    margin-left: 30px;
-}
-
-.feed-form-navigation a {
-    text-decoration: none;
-}
-.feed-form-navigation span {
-    cursor: pointer;
-    display: inline-block;
-    width: 25%;
-    text-align: center;
-}
-
 .active-form-tab {
     background-color: #4F3A9F;
     color: #f9f9f9;
@@ -190,9 +153,64 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.observation-explanation{
+	overflow-y:auto;
+}
 .observation-explanation p{
     text-align:left;
 }
 .observation-container{
     padding-bottom: 0;
+}
+
+.right-col label{
+	padding-top: 10px;
+}
+.allow-favourite {
+	margin: -10px 0 40px !important;
+}
+.competition-label {
+	height: 40px;
+}
+.competition-img {
+	margin: 0 0 20px 10px;
+}
+
+@media (min-width: 1500px) {
+	.select-type-feed {
+		background: no-repeat transparent 10px 10px !important;
+	}
+	.select-standard-feed {
+		background-image: url('~/assets/images/icons/StandardPost-B.png') !important;
+		background-position: 15px 20px !important;
+	}
+	.select-standard-feed.active-type {
+		background-image: url('~/assets/images/icons/StandardPost-W.png') !important;
+	}
+	.select-enhanced-feed {
+		background-image: url('~/assets/images/icons/EnhancedPost-B.png') !important;
+	}
+	.select-enhanced-feed.active-type {
+		background-image: url('~/assets/images/icons/EnhancedPost-W.png') !important;
+	}
+	.select-quiz-feed {
+		background-image: url('~/assets/images/icons/QuizPost-B.png') !important;
+	}
+	.select-quiz-feed.active-type {
+		background-image: url('~/assets/images/icons/QuizPost-W.png') !important;
+	}
+	.select-survey-feed {
+		background-image: url('~/assets/images/icons/SurveyPost-B.png') !important;
+	}
+	.select-survey-feed.active-type {
+		background-image: url('~/assets/images/icons/SurveyPost-W.png') !important;
+	}
+	.select-observation-feed {
+		padding: 0 50% !important;
+		background-image: url('~/assets/images/icons/FeaturedSurveyPost-B.png') !important;
+		background-position: 30% 20px !important;
+	}
+	.select-observation-feed.active-type {
+		background-image: url('~/assets/images/icons/FeaturedSurveyPost-W.png') !important;
+	}    
 }

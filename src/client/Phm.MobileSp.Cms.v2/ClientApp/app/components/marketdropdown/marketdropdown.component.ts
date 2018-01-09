@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Injectable, OnInit, AfterViewInit } from '@angular/core';
-import { UserMarket } from "../../models/userclasses";
+import {UserMarket} from "../../models/userclasses";
 import {MarketDataService} from "../../shared/services/marketdataservice";
 import {UserDataService} from "../../shared/services/userdataservice";
 import {ShareService} from "../../shared/services/helpers/shareservice";
+
 
 @Injectable()
 @Component({

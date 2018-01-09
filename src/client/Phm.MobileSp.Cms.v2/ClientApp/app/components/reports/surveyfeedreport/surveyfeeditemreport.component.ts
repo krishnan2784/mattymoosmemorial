@@ -1,18 +1,37 @@
-import { Component, OnInit, Output, EventEmitter, Injector, AfterViewInit, OnDestroy } from '@angular/core';
-import * as Enums from "../../../../enums";
+import { Component, OnInit, ElementRef, Input, Output, ViewChild, EventEmitter, Injector, AfterViewInit, OnDestroy } from '@angular/core';
+import Baseclasses = require("../../models/baseclasses");
+import BaseModel = Baseclasses.BaseModel;
+import Basecomponent = require("../base.component");
+import BaseComponent = Basecomponent.BaseComponent;
+import Datashareservice = require("../../services/helpers/shareservice");
+import ShareService = Datashareservice.ShareService;
+import FeedModel = require("../../interfaces/models/IFeedModel");
+import IFeedItem = FeedModel.IFeedItem;
+import Enums = require("../../enums");
+import FeedTypeEnum = Enums.FeedTypeEnum;
+import { FeedDataService } from "../../services/feeddataservice";
+import Chartclasses = require("../../models/chartclasses");
+import BarChartData = Chartclasses.BarChartData;
+import Barchartcomponent = require("../charts/barchart.component");
+import GaugeChartData = Chartclasses.GaugeChartData;
+import DonutChartData = Chartclasses.DonutChartData;
+import Reportclasses = require("../../models/reportclasses");
+import SurveyItemSummary = Reportclasses.SurveyItemSummary;
+import Date1 = require("../../classes/helpers/date");
+import DateEx = Date1.DateEx;
+import Userfiltercomponent = require("../common/filters/userfilter.component");
+import { SurveyFeed } from "../../models/feedclasses";
+import UserFilters = Userfiltercomponent.UserFilters;
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
-import {SurveyFeed} from "../../../models/feedclasses";
-import {SurveyItemSummary, ObservationItemSummary } from "../../../models/reportclasses";
-import {ShareService} from "../../../shared/services/helpers/shareservice";
-import {FeedDataService} from "../../../shared/services/feeddataservice";
-import {DateEx} from "../../../classes/helpers/date";
+import { ObservationItemSummary } from "../../models/reportclasses";
 
+declare var Materialize: any;
 declare var noUiSlider: any;
 
 @Component({
     selector: 'surveyfeeditemreport',
     template: require('./surveyfeeditemreport.component.html'),
-    styles: [require('../quizfeedreport/quizfeeditemreport.component.css'), require('./surveyfeeditemreport.component.css')]
+    styles: [require('./quizfeeditemreport.component.css'), require('./surveyfeeditemreport.component.css')]
 })
 export class SurveyFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     @Output()
@@ -28,13 +47,14 @@ export class SurveyFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     
     public submissionRateData;
     public averageTimeData;
+	public backSub;
 
     constructor(private sharedService: ShareService, public feedDataService: FeedDataService,
         private injector: Injector) { 
         this.model = this.injector.get('model');
         this.pageTitle = this.injector.get('pageTitle');
         this.feedTypeString = Enums.FeedTypeEnum[this.model.feedType];
-        this.sharedService.goBackEvent.subscribe(() => {
+	    this.backSub = this.sharedService.goBackEvent.subscribe(() => {
             this.onBackEvent.emit();
         });
     }
@@ -46,12 +66,15 @@ export class SurveyFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     ngAfterViewInit() {
     }
 
-    ngOnDestroy() {
+	ngOnDestroy() {
+		if (this.backSub)
+			this.backSub.unsubscribe();
     }
 
     private getData() {
         this.feedDataService.getSurveyFeedSummaries(this.model.id).subscribe(result => {
             if (result.content) {
+	            console.log(result.content);
                 this.summaryData = new ObservationItemSummary(result.content);
                 this.updateGaugeData();
                 this.updateBarData();
@@ -161,7 +184,8 @@ export class SurveyFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
 
     public goBack() {
         this.pageTitle = null;
-        this.model = null;
+		this.model = null;
+	    this.backSub.unsubscribe();
         this.averageTimeData = null;
         this.onBackEvent.emit();
     }

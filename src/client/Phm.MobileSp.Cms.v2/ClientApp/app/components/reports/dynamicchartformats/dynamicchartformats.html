@@ -17,11 +17,12 @@
     <div class="chartPlacer">
       <div *ngFor="let d of data.data; let i = index" class="row56Wrapper">
         <div class="row56">
-          <div class="perc56" [style.color]="colors[i]">{{d.percent}}%</div>
-          <div class="label56">{{getChar(97 + i)}}) {{d.label}}</div>
-          <div class="graph56">
-            <div [style.width]="ani > 0 ? d.percent + '%' : '0px'" [style.backgroundColor]="colors[i]" class="percenBar56"></div>
-          </div>
+          <div class="col-xs-1" [style.color]="colors[i]">{{d.percent}}%</div>
+          <div class="col-xs-7">{{getChar(97 + i)}}) {{d.label}}</div>
+			<div class="graph56 col-xs-4">
+				<div [style.width]="ani > 0 ? d.percent + '%' : '0px'" [style.backgroundColor]="colors[i]" class="percenBar56"></div>
+			</div>
+			<div class="clearfix"></div>
         </div>
       </div>
     </div>

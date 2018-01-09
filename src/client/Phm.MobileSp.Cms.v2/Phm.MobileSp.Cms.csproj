@@ -26,7 +26,7 @@
     <Content Remove="ClientApp\**" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ClientApp\app\components\leaderboard\partition\data2.json">
+    <Content Include="ClientApp\app\components\reports\leaderboards\partition\data2.json">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
@@ -67,38 +67,8 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Update="ClientAppV1\app\components\common\editor\calltoaction.component.js">
-      <DependentUpon>calltoaction.component.ts</DependentUpon>
-    </None>
-    <None Update="ClientAppV1\app\components\common\editor\daterange.component.js">
-      <DependentUpon>daterange.component.ts</DependentUpon>
-    </None>
-    <None Update="ClientAppV1\app\components\common\editor\selectlist.component.js">
-      <DependentUpon>selectlist.component.ts</DependentUpon>
-    </None>
-    <None Update="ClientAppV1\app\components\common\editor\textarea.component.js">
-      <DependentUpon>textarea.component.ts</DependentUpon>
-    </None>
-    <None Update="ClientAppV1\app\components\feed\modelforms\pagedfeed\bodytextpageform.component.css">
-      <DependentUpon>bodytextpageform.component.html</DependentUpon>
-    </None>
-    <None Update="ClientAppV1\app\components\feed\modelforms\questionform.component.css">
-      <DependentUpon>questionform.component.html</DependentUpon>
-    </None>
-    <None Update="ClientAppV1\app\components\feed\modelforms\questionform.component.ts">
-      <DependentUpon>questionform.component.html</DependentUpon>
-    </None>
-    <None Update="ClientAppV1\app\components\reports\observationfeeditemreport.component.ts">
-      <DependentUpon>observationfeeditemreport.component.html</DependentUpon>
-    </None>
     <None Update="ClientApp\app\components\common\editor\daterange\daterange.component.js">
       <DependentUpon>daterange.component.ts</DependentUpon>
-    </None>
-    <None Update="ClientApp\app\components\feed\forms\pagedfeed\bodytextpageform.component.css">
-      <DependentUpon>bodytextpageform.component.html</DependentUpon>
-    </None>
-    <None Update="ClientApp\app\components\feed\forms\questionfeed\questionform.component.css">
-      <DependentUpon>questionform.component.html</DependentUpon>
     </None>
     <None Update="ClientApp\app\components\feed\forms\questionfeed\questionform.component.ts">
       <DependentUpon>questionform.component.html</DependentUpon>
@@ -115,6 +85,9 @@
     <None Update="ClientApp\app\contracts\services\IUserFeaturePermissionsDataService.js">
       <DependentUpon>IUserFeaturePermissionsDataService.ts</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ClientAppV1\app\components\" />
   </ItemGroup>
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
     <!-- Ensure Node.js is installed -->

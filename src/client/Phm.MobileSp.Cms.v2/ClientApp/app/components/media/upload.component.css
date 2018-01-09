@@ -1,12 +1,13 @@
 .upload-container {
     margin:30px 0;
 }
-.preview-container img{
-    width: 500px;
+.preview-container img, .preview-container video{
+    max-width: 100%;
+	float: right
 }
 .input-group-btn .btn-save{
     margin-top: 10px;
 }
 .warning{
-    color: #f00;
+    color: #c00;
 }

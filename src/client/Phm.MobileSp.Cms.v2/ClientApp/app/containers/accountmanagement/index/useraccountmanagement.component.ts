@@ -1,12 +1,15 @@
 import { Component, OnInit, EventEmitter, ViewContainerRef } from '@angular/core';
-import {BaseComponent} from "../../base.component";
-import {UserFilters} from "../../../components/filters/userfilter.component";
-import {ShareService} from "../../../shared/services/helpers/shareservice";
+import { Http } from '@angular/http';
+import { BaseComponent } from "../../base.component";
+import { MatDialog } from "@angular/material";
+import {UserFilters} from "../../../components/common/filters/userfilter/userfilter.component";
+import { CommonOperationPermissions, PermissionService } from '../../../shared/services/helpers/permissionservice';
+import { ShareService } from '../../../shared/services/helpers/shareservice';
 import {UserDataService} from "../../../shared/services/userdataservice";
+import {DefaultTabNavs} from "../../../components/navigation/tabbednavmenu/tabnavmenu.component";
 import {StringEx} from "../../../classes/helpers/string";
 import {UserTemplate} from "../../../models/userclasses";
 import {EditUser} from "../../../components/accountmanagement/modals/edituser/edituser.component";
-import {MatDialog} from "@angular/material";
 import {UserDelete} from "../../../components/accountmanagement/modals/deleteuser/deleteuser.component";
 
 
@@ -38,8 +41,9 @@ export class UserAccountManagementComponent extends BaseComponent {
     public maxSize: number = 5;
     public numPages: number = 1;
     public length: number = 0;
-    
-    public config: any = {
+	public userPermissions: CommonOperationPermissions;
+
+	public config: any = {
         paging: true,
         sorting: { columns: this.columns },
         filtering: {
@@ -50,10 +54,13 @@ export class UserAccountManagementComponent extends BaseComponent {
         className: ['table-bordered','table-hover']
     };
 
-    constructor(public sharedService: ShareService, public userDataService: UserDataService, public confirmBox: MatDialog) {
-        super(sharedService, 'Account Management', true);
+	constructor(public sharedService: ShareService, public userDataService: UserDataService, public permissionService: PermissionService,
+   public confirmBox: MatDialog) {
+		super(sharedService, 'Account Management', true, '', DefaultTabNavs.accountManagementTabs);
         this.setupSubscriptions();
-        this.getData();
+		this.getData();
+		this.userPermissions = permissionService.getCrudPermissions('/UserTemplate');
+
     }
 
     getData() {
@@ -169,20 +176,17 @@ export class UserAccountManagementComponent extends BaseComponent {
 
       dialogRef.afterClosed().subscribe(result => {
         if (result)
-          this.updateUser(user, true);
+          this.updateUser(user);
       });
     }
 
-    public updateUser(user: UserTemplate, remove = false) {
+    public updateUser(user: UserTemplate) {
         if (user != null) {
             if (this.allUserAccounts != null) {
                 let originalUser = this.allUserAccounts.find(x => x.id === user.id);
                 let index = this.allUserAccounts.indexOf(originalUser);
                 if (index > -1)
-                  if (!remove)
                     this.allUserAccounts.splice(index, 1, user);
-                  else
-                    this.allUserAccounts.splice(index, 1);
                 else
                     this.allUserAccounts.unshift(user);
             }

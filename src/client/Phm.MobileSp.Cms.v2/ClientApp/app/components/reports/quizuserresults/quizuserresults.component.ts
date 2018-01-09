@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-
+import { ResponseHelper } from "../../../services/helpers/responsehelper";
 @Component({
   selector: 'quizuserresults',
   template: require('./quizuserresults.html'),
@@ -10,7 +10,7 @@ export class QuizUserResultsComponent implements OnInit {
   @Input() results: any;
   data = [];
   ngOnInit() {
-    this.formatDataSet();
+	  this.formatDataSet();
   }
   formatDataSet() {
     let q = this.quiz.questions;

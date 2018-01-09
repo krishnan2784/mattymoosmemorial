@@ -1,6 +1,5 @@
 import { Component, Input, ViewChild, AfterViewInit, ElementRef, OnInit } from '@angular/core';
 import * as D3 from 'd3';
-
 @Component({
   selector: 'dynamicchartformats',
   template: require('./dynamicchartformats.html'),

@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { FeedDataService } from "../../../services/feeddataservice";
+import { Observable } from 'rxjs/Observable';
 import { BaseComponent} from "../../base.component";
+import { ShareService } from "../../../services/helpers/shareservice";
 import { UserMarket } from "../../../models/userclasses";
-import {FeedDataService} from "../../../shared/services/feeddataservice";
-import {ShareService} from "../../../shared/services/helpers/shareservice";
-import {MarketDataService} from "../../../shared/services/marketdataservice";
-import {DefaultTabNavs} from "../../../components/container/tabbednavmenu/tabnavmenu.component";
-
+import { DefaultTabNavs } from "../../navmenu/tabnavmenu.component";
+import { MarketDataService } from "../../../services/marketdataservice";
 
 declare var $: any;
 
@@ -22,7 +23,9 @@ export class LeaderboardContainer extends BaseComponent implements OnDestroy {
     refineGroups = [];
     public reportData = null;
     public selectedUser = null;
-    backSub = null;
+	backSub = null;
+	date1;
+	date2;
 
     constructor(public feedDataService: FeedDataService, sharedService: ShareService, public marketDataService: MarketDataService) {
         super(sharedService, 'Reports', true, '', DefaultTabNavs.reportsTabs);
@@ -31,8 +34,10 @@ export class LeaderboardContainer extends BaseComponent implements OnDestroy {
     }
 
     ngOnDestroy() {
-        this.removeTooltip();
-    }
+		this.removeTooltip();
+		if (this.backSub)
+			this.backSub.unsubscribe();
+	}
 
     setupPageVariables() {
         this.updatePageTitle('Reports');
@@ -60,14 +65,14 @@ export class LeaderboardContainer extends BaseComponent implements OnDestroy {
     }
 
     getData() {
-        this.feedDataService.getLeaderBoard().subscribe(result => {
+        this.feedDataService.getLeaderBoard(this.date1, this.date2).subscribe(result => {
             this.leaderBoard = result;
             this.loading = false;
         });
         this.marketDataService.getMarketUserFilters().subscribe((result) => {
             if (result && (result.regions.length > 0 || result.zones.length > 0)) {
-                this.refineGroups = [];
-                if (result.regions.length > 0) {
+				this.refineGroups = [];
+				if (result.regions.length > 0) {
                     let regions = [];
                     result.regions.forEach((group) => {
                         regions.push({ id: group.replace(" ", ""), name: group });
@@ -79,9 +84,9 @@ export class LeaderboardContainer extends BaseComponent implements OnDestroy {
                         items: regions
                     });
                 }
-                if (result.areas.length > 0) {
+                if (result.zones.length > 0) {
                     let zones = [];
-                    result.areas.forEach((zone) => {
+					result.zones.forEach((zone) => {
                         zones.push({ id: zone.replace(" ", ""), name: zone });
                     });
                     this.refineGroups.push({
@@ -116,10 +121,13 @@ export class LeaderboardContainer extends BaseComponent implements OnDestroy {
         this.updateTabNavItems();
         this.backSub = this.sharedService.goBackEvent.subscribe(() => {
             this.handleBack();
-        });
-        this.selectedUser = event;
+		});
+
+	    this.date1 = event.date1;
+		this.date2 = event.date2;
+        this.selectedUser = event.user;
         this.removeTooltip();
-        this.feedDataService.getUserPointsHistory(event.currentUser.id).subscribe(result => {  
+        this.feedDataService.getUserPointsHistory(event.user.currentUser.id, this.date1, this.date2).subscribe(result => {  
             if (result && result.length > 0) {
                 this.reportData = result;
             }
@@ -128,7 +136,7 @@ export class LeaderboardContainer extends BaseComponent implements OnDestroy {
 
     handleBack(){
         this.setupPageVariables();
-        this.backSub = null;
+		this.backSub.unsubscribe();
         this.selectedUser = null;
         this.reportData = null;
     }
