@@ -1,28 +1,26 @@
 import { Component, Injector, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms'
-import * as IFeedItemComponents from "../../../../interfaces/components/IFeedItemComponents";
-import Enums = require("../../../../enums");
-import Basepartialfeeditemcomponent = require("../basepartialfeeditem.component");
-import BasePartialItemFormComponent = Basepartialfeeditemcomponent.BasePartialItemFormComponent;
-import FeedTypeEnum = Enums.FeedTypeEnum;
-import Feedclasses = require("../../../../models/feedclasses");
-import PagedFeed = Feedclasses.PagedFeed;
-import Pagedfeedclasses = require("../../../../models/pagedfeedclasses");
-import BaseFeedPage = Pagedfeedclasses.BaseFeedPage;
-import Mediainfoclasses = require("../../../../models/mediainfoclasses");
-import MediaInfo = Mediainfoclasses.MediaInfo;
-import Validators1 = require("../../../../classes/validators");
-import {StringEx} from "../../../../classes/helpers/string";
+import {BasePartialItemFormComponent} from "../../basepartialfeeditem.component";
+import {IFeedItemPartialForm} from "../../../../../contracts/components/IFeedItemComponents";
+import {PagedFeed} from "../../../../../models/feedclasses";
+import {BasePageFeedTypeEnum, FeedTypeEnum } from "../../../../../../enums";
+import {
+  BaseFeedPage, TextFeedPage, MediaFeedPage,
+  MediaTextFeedPage, TabbedTextFeedPage, MediaTabbedTextFeedPage
+} from "../../../../../models/pagedfeedclasses";
+import {MediaInfo} from "../../../../../models/mediainfoclasses";
+import {minLengthArray} from "../../../../../classes/validators";
+
 
 @Component({
     selector: 'pagedfeeditem',
     template: require('./pagedfeeditem.component.html'),
-    styles: [require('../feeditemform.component.css'), require('./pagedfeeditem.component.css')]
+    styles: [require('../../feeditemform.component.css'), require('./pagedfeeditem.component.css')]
 })
-export class PagedFeedItemFormComponent extends BasePartialItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
+export class PagedFeedItemFormComponent extends BasePartialItemFormComponent implements IFeedItemPartialForm {
     public currentPage: number = 0;
-    public model: Feedclasses.PagedFeed;
-    pageTypeEnum: typeof Enums.BasePageFeedTypeEnum = Enums.BasePageFeedTypeEnum;
+    public model: PagedFeed;
+    pageTypeEnum: typeof BasePageFeedTypeEnum = BasePageFeedTypeEnum;
 
     constructor(injector: Injector) {
         super(injector, PagedFeed, FeedTypeEnum.Paged);
@@ -41,7 +39,7 @@ export class PagedFeedItemFormComponent extends BasePartialItemFormComponent imp
 		var formArray = new FormArray([], <any>Validators.minLength(2));
         this.model.baseFeedPages.forEach((x, i) => formArray.push(this.initPage(x)));
         this.form.addControl('baseFeedPages', formArray);
-        this.form.controls['baseFeedPages'].setValidators([Validators.required, Validators1.minLengthArray(2), Validators.maxLength(5)]);
+        this.form.controls['baseFeedPages'].setValidators([Validators.required, minLengthArray(2), Validators.maxLength(5)]);
     };
 
     removeFormControls() {
@@ -62,8 +60,8 @@ export class PagedFeedItemFormComponent extends BasePartialItemFormComponent imp
 
     addPage() {
         const control = <FormArray>this.form.controls['baseFeedPages'];
-		control.push(this.initPage(new Pagedfeedclasses.TextFeedPage({ pagedFeedId: this.model.id, pageNumber: control.length })));
-		this.model.baseFeedPages.push(new Pagedfeedclasses.TextFeedPage({ pagedFeedId: this.model.id, pageNumber: control.length }));
+		control.push(this.initPage(new TextFeedPage({ pagedFeedId: this.model.id, pageNumber: control.length })));
+		this.model.baseFeedPages.push(new TextFeedPage({ pagedFeedId: this.model.id, pageNumber: control.length }));
         this.displayPage(control.length - 1);
     }
 
@@ -101,39 +99,39 @@ export class PagedFeedItemFormComponent extends BasePartialItemFormComponent imp
         this.form.updateValueAndValidity();
     }
 
-    pageHasProperty(modelType: Enums.BasePageFeedTypeEnum, propertyName: string): boolean {
+    pageHasProperty(modelType: BasePageFeedTypeEnum, propertyName: string): boolean {
         switch (propertyName) {
             case 'bodyText':
-                return modelType === Enums.BasePageFeedTypeEnum.Text ||
-                    modelType === Enums.BasePageFeedTypeEnum.MediaText;
+                return modelType === BasePageFeedTypeEnum.Text ||
+                    modelType === BasePageFeedTypeEnum.MediaText;
             case 'mediaInfoId':
-                return modelType === Enums.BasePageFeedTypeEnum.Media ||
-                    modelType === Enums.BasePageFeedTypeEnum.MediaText ||
-                    modelType === Enums.BasePageFeedTypeEnum.MediaTabbedText;
+                return modelType === BasePageFeedTypeEnum.Media ||
+                    modelType === BasePageFeedTypeEnum.MediaText ||
+                    modelType === BasePageFeedTypeEnum.MediaTabbedText;
             case 'tabs':
-                return modelType === Enums.BasePageFeedTypeEnum.TabbedText ||
-                    modelType === Enums.BasePageFeedTypeEnum.MediaTabbedText;
+                return modelType === BasePageFeedTypeEnum.TabbedText ||
+                    modelType === BasePageFeedTypeEnum.MediaTabbedText;
         }
         return false;
     }
     
-    changePageType(modelType: Enums.BasePageFeedTypeEnum) {
+    changePageType(modelType: BasePageFeedTypeEnum) {
         var m;
         switch (modelType) {
             case this.pageTypeEnum.Text:
-                m = new Pagedfeedclasses.TextFeedPage(this.currPage().value);
+                m = new TextFeedPage(this.currPage().value);
                 break;
             case this.pageTypeEnum.Media:
-                m = new Pagedfeedclasses.MediaFeedPage(this.currPage().value);
+                m = new MediaFeedPage(this.currPage().value);
                 break;
             case this.pageTypeEnum.MediaText:
-                m = new Pagedfeedclasses.MediaTextFeedPage(this.currPage().value);
+                m = new MediaTextFeedPage(this.currPage().value);
                 break;
             case this.pageTypeEnum.TabbedText:
-                m = new Pagedfeedclasses.TabbedTextFeedPage(this.currPage().value);
+                m = new TabbedTextFeedPage(this.currPage().value);
                 break;
             case this.pageTypeEnum.MediaTabbedText:
-                m = new Pagedfeedclasses.MediaTabbedTextFeedPage(this.currPage().value);
+                m = new MediaTabbedTextFeedPage(this.currPage().value);
                 break;
         }
         m.id = 0;

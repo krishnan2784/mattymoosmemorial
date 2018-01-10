@@ -1,13 +1,12 @@
-﻿import Enums = require("../../enums");
-import Corporateappclasses = require("../../models/corporateappclasses");
-import { MediaInfo } from "../../models/mediainfoclasses";
-import CorporateApp = Corporateappclasses.CorporateApp;
+import {FeedTypeEnum, FeedCategoryEnum } from "../../../enums";
+import {MediaInfo} from "../../models/mediainfoclasses";
+import {CorporateApp} from "../../models/corporateappclasses";
 
 export interface IFeedItem {
     id: number;
     title: string;
-    feedType: Enums.FeedTypeEnum;
-    feedCategory: Enums.FeedCategoryEnum;
+    feedType: FeedTypeEnum;
+    feedCategory: FeedCategoryEnum;
     points: number;
     mainIcon: MediaInfo;
     mainIconId: number;

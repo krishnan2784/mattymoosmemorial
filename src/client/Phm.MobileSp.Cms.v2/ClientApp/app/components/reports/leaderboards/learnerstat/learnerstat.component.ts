@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit, ViewChild, AfterViewInit, ElementRef} from '@angular/core';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
-import { DateEx } from "../../../classes/helpers/date";
+import { DateEx } from '../../../../classes/helpers/date';
 
 import * as D3 from 'd3';
 

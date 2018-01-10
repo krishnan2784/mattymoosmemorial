@@ -1,12 +1,10 @@
-import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { FeedDataService } from "../../../services/feeddataservice";
-import { Observable } from 'rxjs/Observable';
-import { BaseComponent} from "../../base.component";
-import { ShareService } from "../../../services/helpers/shareservice";
-import { UserMarket } from "../../../models/userclasses";
-import { DefaultTabNavs } from "../../navmenu/tabnavmenu.component";
-import { MarketDataService } from "../../../services/marketdataservice";
+import { Component, OnDestroy } from '@angular/core';
+import {BaseComponent} from "../../base.component";
+import {UserMarket} from "../../../models/userclasses";
+import {FeedDataService} from "../../../shared/services/feeddataservice";
+import {ShareService} from "../../../shared/services/helpers/shareservice";
+import {MarketDataService} from "../../../shared/services/marketdataservice";
+import { DefaultTabNavs } from "../../../components/navigation/tabbednavmenu/tabnavmenu.component";
 
 declare var $: any;
 

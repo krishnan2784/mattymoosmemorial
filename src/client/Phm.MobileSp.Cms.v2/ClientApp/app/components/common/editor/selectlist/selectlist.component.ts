@@ -7,10 +7,9 @@ declare var $: any;
   template: `
     <div [formGroup]="form" *ngIf="form">
 	        <label *ngIf="label" [attr.for]="elementId">{{label}}</label>
-	        <select id="{{elementId}}" formControlName="{{formControlId}}" materialize="material_select" [(ngModel)]="selectedValue" class="browser-default" [attr.disabled]="disabled ? 'disabled' : null">
-
-		        <option *ngFor="let v of values" [ngValue]="v.value">{{v.name}}</option>
-	        </select>
+	        <mat-select id="{{elementId}}" formControlName="{{formControlId}}" [(ngModel)]="selectedValue" [attr.disabled]="disabled ? 'disabled' : null">
+		        <mat-option *ngFor="let v of values" [value]="v.value">{{v.name}}</mat-option>
+	        </mat-select>
 	        <small *ngIf="validationMessage" class="active-warning" [class.hidden]="form.controls[formControlId].valid || !formSubmitted">
 		        {{validationMessage}}
 	        </small>

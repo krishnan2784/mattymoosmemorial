@@ -9,9 +9,10 @@ import {IMarketContentService} from "../../contracts/services/IMarketContentServ
 import {CopiedElementTypeEnum} from "../../../enums";
 import {ApiResponse} from "../../models/apiresponse";
 import {AlertService} from "./helpers/alertservice";
+import {IDeleteModelDataService} from "../../contracts/services/IDeleteModelDataService";
 
 @Injectable()
-export class MarketContentDataService extends RequestHelper implements IMarketContentService {
+export class MarketContentDataService extends RequestHelper implements IMarketContentService, IDeleteModelDataService {
 	contentType: CopiedElementTypeEnum;
 	baseUrl: string;
 
@@ -68,5 +69,9 @@ export class MarketContentDataService extends RequestHelper implements IMarketCo
 				}
 			);
 		});
-	}
+  }
+
+  public deleteItem(id: number): Observable<boolean> {
+    return this.postRequestBase(this.baseUrl + '/Delete?id=' + id, null);
+  }
 }

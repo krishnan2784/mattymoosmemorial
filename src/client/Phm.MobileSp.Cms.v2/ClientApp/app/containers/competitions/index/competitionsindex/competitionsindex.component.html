@@ -14,7 +14,7 @@
 	        <div *ngIf="filteredCompetitions.length > 0">
 		        <div class='competition-index col-xs-8 no-pad animate-bottom'>
 			        <div *ngFor="let competition of filteredCompetitions | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}; let i = index" class="col-xs-12 index-competition-item">
-				        <img src="assets/images/icons/Competition-icon-b_2x.png" class="competition-img" />
+				        <img src="/images/icons/Competition-icon-b_2x.png" class="competition-img" />
 				        <div class="col-xs-7 no-pad">
 					        <div class="col-xs-12 competition-item-title">
 						        <p [innerHTML]="competition.title"></p>

@@ -1,6 +1,7 @@
 import { Component, Input, Output, OnInit, AfterViewInit } from '@angular/core';
 import { FormGroup } from "@angular/forms";
-import {BrandingConfigurationOption} from "../../../../models/brandingclasses";
+import {BrandingConfigurationOption} from "../../../models/brandingclasses";
+
 
 @Component({
 	selector: 'brandingoptionpicker',
@@ -9,10 +10,11 @@ import {BrandingConfigurationOption} from "../../../../models/brandingclasses";
 	<input type="hidden" formControlName="{{formControlId}}">
 	    <h5 [attr.for]="elementId">{{label}}</h5>
 		<div class="option-container">
-			<span *ngFor="let o of options" class="option-selector">
-				<input type="radio" class="with-gap" id="option-{{o.id}}" [value]="o.value" [checked]="form.controls[formControlId].value == o.value" (click)="setOption(o.value)" />
-				<label [attr.for]="'option-' + o.id">{{o.displayName}}</label>
-			</span>
+		  <span  *ngFor="let o of options" class="option-selector">
+		    <mat-radio-button type="radio" class="with-gap" id="option-{{o.id}}" [value]="o.value" [checked]="form.controls[formControlId].value == o.value" (click)="setOption(o.value)">
+          {{o.displayName}}
+        </mat-radio-button>
+		  </span>
 		</div>
 <div class="clearfix"></div>
     </div>

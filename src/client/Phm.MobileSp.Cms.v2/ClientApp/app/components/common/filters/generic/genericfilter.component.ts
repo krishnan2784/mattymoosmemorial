@@ -1,8 +1,6 @@
 import { Component, Input, Output, EventEmitter, AfterViewInit, OnDestroy, OnChanges, SimpleChange } from '@angular/core';
-import {ShareService} from "../../../../services/helpers/shareservice";
+import {ShareService} from "../../../../shared/services/helpers/shareservice";
 
-
-declare var Materialize: any;
 declare var $: any;
 
 @Component({

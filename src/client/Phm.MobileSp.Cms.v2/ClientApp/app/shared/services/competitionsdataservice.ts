@@ -27,8 +27,4 @@ export class CompetitionsDataService extends MarketContentDataService implements
 		return this.postRequestFull('/api/Competition', competition);
 	}
 
-	public deleteCompetition(id: number): Observable<boolean> {
-		return this.postRequestBase('/api/Competition/Delete?id=' + id, null);
-	}
-
 }

@@ -1,15 +1,15 @@
 import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
-import {ShareService} from "../../../../services/helpers/shareservice";
-import { SecFeature, SecFeaturePermission } from "../../../../models/securityclasses";
-import {EntityPermissionDataService} from "../../../../services/entitypermissiondataservice";
-import { FormGroup } from "@angular/forms";
-import {UserFeaturePermissionsDataService} from "../../../../services/userfeaturepermissionsdataservice";
-import {UserGroupPermissionDataService} from "../../../../services/usergrouppermissiondataservice";
+import {SecFeature, SecFeaturePermission } from "../../../../models/securityclasses";
 import {User} from "../../../../models/userclasses";
-import {PermissionService} from "../../../../services/helpers/permissionservice";
+import {EntityPermissionDataService} from "../../../../shared/services/entitypermissiondataservice";
+import {UserFeaturePermissionsDataService} from "../../../../shared/services/userfeaturepermissionsdataservice";
+import {UserGroupPermissionDataService} from "../../../../shared/services/usergrouppermissiondataservice";
+import {ShareService} from "../../../../shared/services/helpers/shareservice";
+import {PermissionService} from "../../../../shared/services/helpers/permissionservice";
+import { FormGroup } from '@angular/forms';
 
 
-@Component({
+@Component({
 	selector: 'editusergrouppermissions',
 	template: require('./editusergrouppermissions.component.html'),
 	styles: [require('./editusergrouppermissions.component.css')]

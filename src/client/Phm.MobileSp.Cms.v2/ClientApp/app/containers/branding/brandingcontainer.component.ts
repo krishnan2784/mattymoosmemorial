@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {BrandingService} from "../../../services/brandingservice";
-import {ShareService} from "../../../services/helpers/shareservice";
-import {NavMenuOption} from "../../../models/navmenuclasses";
-import {BrandingElement, BaseBrandingConfiguration, MarketBrandingConfiguration, BrandingConfigurationOption } from "../../../models/brandingclasses";
-import { BaseComponent } from "../../base.component";
 import { Subscription } from "rxjs/Subscription";
+import {BaseComponent} from "../base.component";
+import {BaseBrandingConfiguration, BrandingElement, BrandingConfigurationOption, MarketBrandingConfiguration } from "../../models/brandingclasses";
+import {BrandingService} from "../../shared/services/brandingservice";
+import {ShareService} from "../../shared/services/helpers/shareservice";
+import {NavMenuOption} from "../../models/navmenuclasses";
 
-@
-Component({
+
+@Component({
 	selector: 'branding-container',
 	template: require('./brandingcontainer.component.html'),
 	styles: [require('./brandingcontainer.component.css')]

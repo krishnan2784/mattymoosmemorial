@@ -1,9 +1,9 @@
-﻿import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs/Observable';
 import {Competition} from "../../models/competitionclasses";
 import {ApiResponse} from "../../models/apiresponse";
+import { IDeleteModelDataService } from './IDeleteModelDataService';
 
-export interface ICompetitionsDataService {
+export interface ICompetitionsDataService extends IDeleteModelDataService {
 	getCompetitions(): Observable<Competition[]>;
 	updateCompetition(competition: Competition): Observable<ApiResponse>;
-	deleteCompetition(id: number): Observable<boolean>;
 }

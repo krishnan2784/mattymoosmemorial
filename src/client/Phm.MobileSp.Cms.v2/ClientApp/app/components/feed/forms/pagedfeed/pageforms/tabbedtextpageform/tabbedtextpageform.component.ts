@@ -1,11 +1,8 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms'
-import PagedFeedClasses = require("../../../../models/pagedfeedclasses");
-import Mediainfoclasses = require("../../../../models/mediainfoclasses");
-import MediaInfo = Mediainfoclasses.MediaInfo;
-import MediaTabbedTextFeedPage = PagedFeedClasses.MediaTabbedTextFeedPage;
-import TabText = PagedFeedClasses.TabText;
-import {StringEx} from "../../../../classes/helpers/string";
+import {MediaTabbedTextFeedPage, TabText } from "../../../../../../models/pagedfeedclasses";
+import {StringEx} from "../../../../../../classes/helpers/string";
+
 
 @Component({
     selector: 'tabbed-text-page-form',

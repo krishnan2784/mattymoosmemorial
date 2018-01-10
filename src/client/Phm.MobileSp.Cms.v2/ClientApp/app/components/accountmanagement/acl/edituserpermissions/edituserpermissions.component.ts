@@ -4,6 +4,7 @@ import {User} from "../../../../models/userclasses";
 import {EntityPermissionDataService} from "../../../../shared/services/entitypermissiondataservice";
 import {UserFeaturePermissionsDataService} from "../../../../shared/services/userfeaturepermissionsdataservice";
 import {ShareService} from "../../../../shared/services/helpers/shareservice";
+import { FormGroup } from '@angular/forms';
 
 
 @Component({

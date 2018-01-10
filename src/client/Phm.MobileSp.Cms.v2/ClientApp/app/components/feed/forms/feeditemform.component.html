@@ -26,7 +26,7 @@
     <div class="col-md-12 no-pad">
       <div class="col-md-6">
         <div class="feed-cat-container" [class.active-cat]="model.feedCategory == feedCats.Learning && model.feedType != feedTypes.Observation">
-          <img src="assets/images/Icon-Learning-b.png" class="feed-cat-img" />
+          <img src="/images/Icon-Learning-b.png" class="feed-cat-img" />
           <h5>LEARNING</h5>
           <p>
             Post small, fun learning content with optional Quizzes to test engagement.<br />
@@ -65,7 +65,7 @@
 
       <div class="col-md-6">
         <div class="feed-cat-container" [class.active-cat]="model.feedCategory == feedCats.Campaign">
-          <img src="assets/images/Icon-Campaign-b.png" class="feed-cat-img" />
+          <img src="/images/Icon-Campaign-b.png" class="feed-cat-img" />
           <h5>CAMPAIGN</h5>
           <p>
             Post marketing Campaigns and promotions to the feed to remind sales people to communicate them to the customer.<br />
@@ -98,7 +98,7 @@
     <div class="col-md-12 no-pad">
       <div class="col-md-4">
         <div class="feed-cat-container" [class.active-cat]="model.feedCategory == feedCats.Announcement">
-          <img src="assets/images/Icon-Announcement-b.png" class="feed-cat-img" />
+          <img src="/images/Icon-Announcement-b.png" class="feed-cat-img" />
           <h5>ANNOUNCEMENT</h5>
           <p>Create and post internal memos or Announcements that are of interest to the users.</p>
           <div class="btn-holder">
@@ -121,7 +121,7 @@
       </div>
       <div class="col-md-4">
         <div class="feed-cat-container" [class.active-cat]="model.feedCategory == feedCats.News">
-          <img src="assets/images/Icon-News-b.png" class="feed-cat-img" />
+          <img src="/images/Icon-News-b.png" class="feed-cat-img" />
           <h5>NEWS</h5>
           <p>Keep the dealer network updated with the latest news from the organisation or the automotive industry at large.</p>
           <div class="btn-holder">
@@ -143,7 +143,7 @@
       </div>
       <div class="col-md-4">
         <div class="feed-cat-container" [class.active-cat]="model.feedCategory == feedCats.Article">
-          <img src="assets/images/Icon-Article-b.png" class="feed-cat-img" />
+          <img src="/images/Icon-Article-b.png" class="feed-cat-img" />
           <h5>ARTICLE</h5>
           <p>Post interesting articles on topics of interest to the users. Includes images or a link to a PDF.</p>
           <div class="btn-holder">
@@ -169,7 +169,7 @@
       <div class="col-md-9">
         <div class="feed-cat-container observation-container" [class.active-cat]="model.feedType == feedTypes.Observation">
           <div class="col-md-6 observation-partial">
-            <img src="assets/images/Icon-Observation-b.png" class="feed-cat-img" />
+            <img src="/images/Icon-Observation-b.png" class="feed-cat-img" />
             <h5>OBSERVATION</h5>
             <p>Observations are surveys allowing Sales Managers to report the progress of their staff to the NSC.</p>
             <div class="btn-holder">
@@ -279,7 +279,7 @@
       <div *ngIf="model.feedType != feedTypes.Observation">
         <div class="competition-label">
           <label>Add to competition </label>
-          <img src="assets/images/icons/Competition-icon-colour_1x.png" class="competition-img" />
+          <img src="/images/icons/Competition-icon-colour_1x.png" class="competition-img" />
         </div>
         <selectlist [form]="form"
                     [values]="competitions"
@@ -293,12 +293,12 @@
 
       <div>
         <label>Start Date</label>
-        <datepicker (dateSelected)="handleStartDate($event);" [initialDate]="model.startDate" [cannotSelectPast]="true" [minDay]="1" [minJsMonth]="2" [minYear]="2017" [elementId]="'startDate'"></datepicker>
+        <phmdatepicker (dateSelected)="handleStartDate($event);" [initialDate]="model.startDate" [cannotSelectPast]="true" [minDay]="1" [minJsMonth]="2" [minYear]="2017" [elementId]="'startDate'"></phmdatepicker>
       </div>
 
       <div>
         <label>End Date</label>
-        <datepicker (dateSelected)="handleEndDate($event);" [initialDate]="model.endDate" [cannotSelectPast]="true" [minDay]="minDay" [minJsMonth]="minMonth" [minYear]="minYear" [elementId]="'endDate'"></datepicker>
+        <phmdatepicker (dateSelected)="handleEndDate($event);" [initialDate]="model.endDate" [cannotSelectPast]="true" [minDay]="minDay" [minJsMonth]="minMonth" [minYear]="minYear" [elementId]="'endDate'"></phmdatepicker>
       </div>
 
       <input type="hidden" formControlName="startDate">

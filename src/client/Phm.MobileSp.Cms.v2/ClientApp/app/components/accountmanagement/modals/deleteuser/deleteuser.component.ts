@@ -16,14 +16,14 @@ export class UserDelete {
   }
 
   closeDialog(deleteItem: boolean = false) {
-    if (deleteItem)
-      this.userDataService.deleteUser(this.user.id).subscribe((result) => {
-        if (result)
-          this.dialogRef.close(true);
-        else
-          this.dialogRef.close(false);
-      });
-    else
+    //if (deleteItem)
+    //  this.userDataService.deleteUser(this.user.id).subscribe((result) => {
+    //    if (result)
+    //      this.dialogRef.close(true);
+    //    else
+    //      this.dialogRef.close(false);
+    //  });
+    //else
       this.dialogRef.close(false);
   }
 }

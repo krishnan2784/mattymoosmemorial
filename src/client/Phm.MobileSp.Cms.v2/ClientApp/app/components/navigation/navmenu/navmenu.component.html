@@ -1,7 +1,7 @@
 <div class="nav-container">
     <div class='navbar-header'>
 	    <a *ngIf="currentMenuOptions == baseMenuOptions" class='navbar-brand' [routerLink]="['/home']" id="btn-home">
-		    <img src="assets/images/MobileSP-LOGO-Landscape.png" class="header-logo" />
+		    <img src="/images/MobileSP-LOGO-Landscape.png" class="header-logo" />
 		    <p>LearnComSP</p>
 	    </a>
 	    <a *ngIf="currentMenuOptions && currentMenuOptions.length > 0 && currentMenuOptions != baseMenuOptions" class='navbar-brand' [routerLink]="['/home']" (click)="resetNavMenu(true)" id="btn-reset-nav">

@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy, EventEmitter, ViewContainerRef } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import {StringEx} from "../../../../classes/helpers/string";
 import {BaseComponent} from "../../../base.component";
 import {UserMarket} from "../../../../models/userclasses";

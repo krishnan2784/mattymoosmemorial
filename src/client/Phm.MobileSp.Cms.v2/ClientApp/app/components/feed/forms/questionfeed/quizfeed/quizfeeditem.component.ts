@@ -1,24 +1,23 @@
 import { Component, Injector } from '@angular/core';
-import {  FormControl, FormArray, Validators } from '@angular/forms'
-import * as IFeedItemComponents from "../../../interfaces/components/IFeedItemComponents";
-import Enums = require("../../../enums");
-import FeedTypeEnum = Enums.FeedTypeEnum;
-import Feedclasses = require("../../../models/feedclasses");
-import QuizClasses = require("../../../models/quizclasses");
-import Basequestionfeeditemcomponent = require("./basequestionfeeditem.component");
-import BaseQuestionFeedItemFormComponent = Basequestionfeeditemcomponent.BaseQuestionFeedItemFormComponent;
-import { minCorrectAnswers } from "../../../classes/validators";
+import { FormControl, FormArray, Validators } from '@angular/forms';
+import {BaseQuestionFeedItemFormComponent} from "../basequestionfeeditem.component";
+import {IFeedItemPartialForm} from "../../../../../contracts/components/IFeedItemComponents";
+import {QuizFeed} from "../../../../../models/feedclasses";
+import {QuizQuestionTypeEnum, FeedTypeEnum } from "../../../../../../enums";
+import {minCorrectAnswers} from "../../../../../classes/validators";
+import {QuizQuestion, QuizQuestionAnswer } from "../../../../../models/quizclasses";
+
 
 @Component({
     selector: 'quizfeeditem',
-    template: require('./basequestionfeeditem.component.html'),
-    styles: [require('./basequestionfeeditem.component.css')]
+    template: require('../basequestionfeeditem.component.html'),
+    styles: [require('../basequestionfeeditem.component.css')]
 })
-export class QuizFeedItemFormComponent extends BaseQuestionFeedItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
-    model: Feedclasses.QuizFeed;
-    questionType: typeof Enums.QuizQuestionTypeEnum = Enums.QuizQuestionTypeEnum;
+export class QuizFeedItemFormComponent extends BaseQuestionFeedItemFormComponent implements IFeedItemPartialForm {
+    model: QuizFeed;
+    questionType: typeof QuizQuestionTypeEnum = QuizQuestionTypeEnum;
     constructor(injector: Injector) {
-        super(injector, Feedclasses.QuizFeed, FeedTypeEnum.Quiz, Enums.QuizQuestionTypeEnum);
+        super(injector, QuizFeed, FeedTypeEnum.Quiz, QuizQuestionTypeEnum);
     }
 
     addFormControls() {
@@ -39,8 +38,8 @@ export class QuizFeedItemFormComponent extends BaseQuestionFeedItemFormComponent
         this.form.controls['mainIconId'].setValidators(Validators.required);
     };
 
-    initQuestion(question: QuizClasses.QuizQuestion = new QuizClasses.QuizQuestion()) {
-        question = new QuizClasses.QuizQuestion(question);
+    initQuestion(question: QuizQuestion = new QuizQuestion()) {
+        question = new QuizQuestion(question);
         var fg = this.baseQuestionForm(question);
         fg.addControl('quizFeedId', new FormControl(question.quizFeedId, []));
         fg.setValidators(minCorrectAnswers(1));
@@ -48,8 +47,8 @@ export class QuizFeedItemFormComponent extends BaseQuestionFeedItemFormComponent
         return fg;
     }
 
-    initAnswer(answer: QuizClasses.QuizQuestionAnswer = new QuizClasses.QuizQuestionAnswer()) {
-        answer = new QuizClasses.QuizQuestionAnswer(answer);
+    initAnswer(answer: QuizQuestionAnswer = new QuizQuestionAnswer()) {
+        answer = new QuizQuestionAnswer(answer);
         var fg = this.baseAnswerForm(answer);
         fg.addControl('quizQuestionId', new FormControl(answer.quizQuestionId, []));
         fg.addControl('isCorrect', new FormControl(answer.isCorrect, []));

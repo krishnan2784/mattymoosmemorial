@@ -1,8 +1,7 @@
-import { Component, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { ShareService } from "../services/helpers/shareservice";
-import { NavItem } from "./navmenu/tabnavmenu.component";
-import {CommonOperationPermissions} from "../services/helpers/permissionservice";
+import { Component, OnDestroy } from '@angular/core';
+import {ShareService} from "../shared/services/helpers/shareservice";
+import {NavItem} from "../components/navigation/tabbednavmenu/tabnavmenu.component";
+
 
 @Component({
     template: ''

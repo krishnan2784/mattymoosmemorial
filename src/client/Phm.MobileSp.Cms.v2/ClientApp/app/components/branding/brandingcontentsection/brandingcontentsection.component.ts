@@ -1,7 +1,8 @@
 import { Component, Input, OnInit, OnDestroy, OnChanges, SimpleChange } from '@angular/core';
 import {BrandingElement, BrandingConfigurationOption } from "../../../models/brandingclasses";
 import { FormControl, FormGroup, FormBuilder, FormArray } from "@angular/forms";
-import {BrandingService} from "../../../services/brandingservice";
+import {BrandingService} from "../../../shared/services/brandingservice";
+
 
 @Component({
     selector: 'branding-section',

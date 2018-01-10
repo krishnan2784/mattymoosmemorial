@@ -13,7 +13,7 @@
             </div>
 		        <div *ngIf="termsAndConditions.length > 0" class='terms-and-conditions-index no-pad animate-bottom'>
 			        <div *ngFor="let termsAndCondition of termsAndConditions | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}; let i = index" class="col-xs-12 index-terms-and-conditions-item">
-						<img src="assets/images/icons/Competition-icon-b_2x.png" class="terms-and-conditions-img" />
+						<img src="/images/icons/Competition-icon-b_2x.png" class="terms-and-conditions-img" />
 				        <div class="col-xs-7 no-pad">
 					        <div class="col-xs-12 terms-and-conditions-item-title">
 						        <p [innerHTML]="termsAndCondition.title"></p>

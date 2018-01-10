@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms'
-import Enums = require("../../../enums");
-import FeedTypeEnum = Enums.FeedTypeEnum;
+import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
+import {FeedTypeEnum} from "../../../../../enums";
+
 
 @Component({
     selector: 'question',

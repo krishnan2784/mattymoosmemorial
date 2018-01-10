@@ -1,11 +1,7 @@
-import { Component, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { ShareService } from "../services/helpers/shareservice";
-import { NavItem } from "./navmenu/tabnavmenu.component";
-import {CommonOperationPermissions, PermissionService } from "../services/helpers/permissionservice";
-import {BaseComponent} from "./base.component";
+import { Component } from '@angular/core';
+import {BaseComponent} from "./base.component";import {CommonOperationPermissions, PermissionService } from "../shared/services/helpers/permissionservice";import {ShareService} from "../shared/services/helpers/shareservice";import {NavItem} from "../components/navigation/tabbednavmenu/tabnavmenu.component";
 
-@Component({
+@Component({
     template: ''
 })
 export class IndexComponent extends BaseComponent {

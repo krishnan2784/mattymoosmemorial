@@ -1,17 +1,12 @@
 import { Component, Output, EventEmitter, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { PositionXBoosterRewardScheme, PositionXBoosterItem } from "../../../../models/competitionclasses";
-import { CompetitionsDataService } from "../../../../services/competitionsdataservice";
-import {FormEx} from "../../../../classes/helpers/form";
-import {ShareService} from "../../../../services/helpers/shareservice";
-import {UploaderType} from "../../../../enums";
-import {TermsAndConditionsDataService} from
-	"../../../../services/termsandconditionsdataservice";
-import {RewardSchemesDataService} from "../../../../services/rewardschemedataservice";
+import { FormEx } from "../../../../classes/helpers/form";
+import {ShareService} from "../../../../shared/services/helpers/shareservice";
+import {RewardSchemesDataService} from "../../../../shared/services/rewardschemedataservice";
+import {AlertService} from "../../../../shared/services/helpers/alertservice";
 
 
-declare var $: any;
-declare var Materialize: any;
 @Component({
 	selector: 'reward-scheme-form',
 	template: require('./rewardschemeform.component.html'),
@@ -34,12 +29,11 @@ export class RewardSchemeForm implements OnInit {
 	termsAndConditions: { name: string, value: any }[] = [];
 
 	constructor(public _fb: FormBuilder, public sharedService: ShareService,
-		public rewardSchemesDataService: RewardSchemesDataService) {
+    public rewardSchemesDataService: RewardSchemesDataService, public alertService: AlertService) {
 
 	}
 
 	ngOnInit() {
-		console.log(this.model);
 		this.setupSteps();
 		this.getData();
 		this.initialiseForm();
@@ -94,9 +88,9 @@ export class RewardSchemeForm implements OnInit {
 	save(rewarScheme: PositionXBoosterRewardScheme, isValid: boolean) {
 		this.submitted = true;
 		if (!this.form.valid) {
-			console.log(FormEx.getFormValidationErrors(this.form));
-			$('.toast').remove();
-			return Materialize.toast('Please check that you have filled in all the required fields.', 6000, 'red');
+      console.log(FormEx.getFormValidationErrors(this.form));
+		  this.alertService.displaySuccessFailAlert('Please check that you have filled in all the required fields.', false);
+		  return;
 		}
 		this.loading = true;
 		this.rewardSchemesDataService.updateRewardScheme(rewarScheme).subscribe(result => {

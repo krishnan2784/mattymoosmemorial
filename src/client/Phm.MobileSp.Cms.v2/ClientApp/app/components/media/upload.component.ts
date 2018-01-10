@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Injectable, OnInit, OnChanges, Input, Output, SimpleChange } from '@angular/core';
 import {MediaInfo} from "../../models/mediainfoclasses";
-import {UploaderType, UploaderType, MediaTypes, MediaTypes } from "../../../enums";
 import {MediaDataService} from "../../shared/services/mediaservice";
 import { FormGroup } from '@angular/forms';
-import {AlertService} from "../../shared/services/helpers/alertservice";
+import { AlertService } from "../../shared/services/helpers/alertservice";
+import {UploaderType,  MediaTypes } from "../../../enums";
 
 
 @Injectable()

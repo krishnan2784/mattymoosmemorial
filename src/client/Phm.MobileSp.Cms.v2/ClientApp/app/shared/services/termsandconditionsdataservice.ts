@@ -24,7 +24,7 @@ export class TermsAndConditionsDataService extends RequestHelper implements ITer
 		return this.postRequestFull('/api/TermsAndConditions', termsAndConditions);
 	}
 
-	public deleteTermsAndCondition(id: number): Observable<boolean> {
+	public deleteItem(id: number): Observable<boolean> {
 		return this.postRequestBase('/api/TermsAndConditions/Delete?id=' + id, null);
 	}
 

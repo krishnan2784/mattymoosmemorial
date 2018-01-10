@@ -1,23 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Injector, OnDestroy } from '@angular/core';
-import Datashareservice = require("../../services/helpers/shareservice");
-import ShareService = Datashareservice.ShareService;
-import FeedModel = require("../../interfaces/models/IFeedModel");
-import IFeedItem = FeedModel.IFeedItem;
-import Enums = require("../../enums");
-import { FeedDataService } from "../../services/feeddataservice";
-import Chartclasses = require("../../models/chartclasses");
-import DonutChartData = Chartclasses.DonutChartData;
-import Reportclasses = require("../../models/reportclasses");
-import FeedItemSummary = Reportclasses.FeedItemSummary;
-import FeedItemSummaryEx = Reportclasses.FeedItemSummaryEx;
-import Date1 = require("../../classes/helpers/date");
-import DateEx = Date1.DateEx;
-import Userfiltercomponent = require("../common/filters/userfilter.component");
-import { StringEx } from "../../classes/helpers/string";
-import UserFilters = Userfiltercomponent.UserFilters;
-
-declare var Materialize: any;
-declare var noUiSlider: any;
+import { Component, OnInit, Output, EventEmitter, Injector, OnDestroy } from '@angular/core';import {IFeedItem} from "../../../contracts/models/IFeedModel";import {FeedTypeEnum} from "../../../../enums";import {FeedItemSummary, FeedItemSummaryEx } from "../../../models/reportclasses";import {DonutChartData} from "../../../models/chartclasses";import {UserFilters} from "../../common/filters/userfilter/userfilter.component";import {ShareService} from "../../../shared/services/helpers/shareservice";import {FeedDataService} from "../../../shared/services/feeddataservice";import {StringEx} from "../../../classes/helpers/string";import {DateEx} from "../../../classes/helpers/date";import {AlertService} from "../../../shared/services/helpers/alertservice";
 
 @Component({
     selector: 'quizfeeditemreport',
@@ -31,7 +12,7 @@ export class QuizFeedItemReport implements OnInit, OnDestroy {
     public model: IFeedItem;
     public pageTitle: string;
     public feedTypeString: string;
-    public feedTypes = Enums.FeedTypeEnum;
+    public feedTypes = FeedTypeEnum;
 
     public summaryData: FeedItemSummary;
     public listData: FeedItemSummaryEx[];
@@ -47,10 +28,10 @@ export class QuizFeedItemReport implements OnInit, OnDestroy {
     public selectedQuizResult: FeedItemSummaryEx;
 
     constructor(private sharedService: ShareService, public feedDataService: FeedDataService,
-        private injector: Injector) { 
+        private injector: Injector, public alertService: AlertService) { 
         this.model = this.injector.get('model');
         this.pageTitle = this.injector.get('pageTitle');
-        this.feedTypeString = Enums.FeedTypeEnum[this.model.feedType];
+        this.feedTypeString = FeedTypeEnum[this.model.feedType];
 		this.backSub = this.sharedService.goBackEvent.subscribe(() => {
             this.onBackEvent.emit();
         });
@@ -78,8 +59,8 @@ export class QuizFeedItemReport implements OnInit, OnDestroy {
                 } else
                     this.summaryData = new FeedItemSummary();
             } else {
-                Materialize.toast(result.message, 5000, 'red');
-                this.goBack();
+              this.alertService.displaySuccessFailAlert(result.message, false);
+              this.goBack();
             }
         });
     }
@@ -188,7 +169,7 @@ export class QuizFeedItemReport implements OnInit, OnDestroy {
         this.sharedService.updateBackButton('Learners stats');
         this.backSub = this.sharedService.goBackEvent.subscribe(() => {
             this.backSub.unsubscribe();
-            this.sharedService.updateBackButton(Enums.FeedTypeEnum[this.model.feedType] + ' Reports');
+            this.sharedService.updateBackButton(FeedTypeEnum[this.model.feedType] + ' Reports');
             this.selectedQuizResult = null;
 
             this.backSub = this.sharedService.goBackEvent.subscribe(() => {

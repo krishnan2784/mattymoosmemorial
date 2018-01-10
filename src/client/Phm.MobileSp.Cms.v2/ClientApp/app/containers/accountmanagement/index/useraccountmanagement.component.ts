@@ -1,5 +1,4 @@
-import { Component, OnInit, EventEmitter, ViewContainerRef } from '@angular/core';
-import { Http } from '@angular/http';
+import { Component } from '@angular/core';
 import { BaseComponent } from "../../base.component";
 import { MatDialog } from "@angular/material";
 import {UserFilters} from "../../../components/common/filters/userfilter/userfilter.component";

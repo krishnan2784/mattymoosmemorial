@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import Enums = require("../../enums");
-import { ShareService } from "../../services/helpers/shareservice";
-import { User } from "../../models/userclasses";
-import {NavMenuOption} from "../../models/navmenuclasses";
-import {PermissionService} from "../../services/helpers/permissionservice";
+import {NavMenuOption} from "../../../models/navmenuclasses";
+import {ShareService} from "../../../shared/services/helpers/shareservice";
+import {PermissionService} from "../../../shared/services/helpers/permissionservice";
+
 
 @Component({
     selector: 'nav-menu',

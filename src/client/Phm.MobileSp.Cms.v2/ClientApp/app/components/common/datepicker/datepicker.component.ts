@@ -3,7 +3,7 @@ import { DateEx } from "../../../classes/helpers/date";
 
 declare var $: any;
 @Component({
-  selector: 'datepicker',
+  selector: 'phmdatepicker',
       template: require('./datepicker.html'),
       styles: [require('./datepicker.css')]
 })

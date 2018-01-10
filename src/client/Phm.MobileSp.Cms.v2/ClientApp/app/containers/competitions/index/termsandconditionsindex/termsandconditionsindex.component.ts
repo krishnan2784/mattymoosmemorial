@@ -1,14 +1,13 @@
 import { Component, OnInit, OnDestroy, ViewContainerRef } from '@angular/core';
-
-
-import { Overlay } from 'angular2-modal';
-import { Modal } from 'angular2-modal/plugins/bootstrap';
 import {BaseComponent} from "../../../base.component";
+import {TermsAndCondition} from "../../../../models/competitionclasses";
 import {UserMarket} from "../../../../models/userclasses";
-import {ShareService} from "../../../../services/helpers/shareservice";
-import {DefaultTabNavs} from "../../../navmenu/tabnavmenu.component";
-import { TermsAndCondition } from "../../../../models/competitionclasses";
-import {TermsAndConditionsDataService} from "../../../../services/termsandconditionsdataservice";
+import {TermsAndConditionsDataService} from "../../../../shared/services/termsandconditionsdataservice";
+import {ShareService} from "../../../../shared/services/helpers/shareservice";
+import {DefaultTabNavs} from "../../../../components/navigation/tabbednavmenu/tabnavmenu.component";
+import { MatDialog } from '@angular/material';
+import {DeleteModel} from "../../../../components/modals/deletemodel/deletemodel.component";
+
 
 @Component({
 	selector: 'termsandconditionsindex',
@@ -24,9 +23,8 @@ export class TermsAndConditionsIndexComponent extends BaseComponent implements O
 	public currentMarket: UserMarket;
 
 	constructor(public termsAndConditionsDataService: TermsAndConditionsDataService, sharedService: ShareService,
-		overlay: Overlay, vcRef: ViewContainerRef, public confirmBox: Modal) {
+	  public confirmBox: MatDialog) {
 		super(sharedService, 'Terms and Conditions', true, '', DefaultTabNavs.competitionsTabs);
-		overlay.defaultViewContainer = vcRef;
 		this.setupSubscriptions();
 	}
 
@@ -90,32 +88,29 @@ export class TermsAndConditionsIndexComponent extends BaseComponent implements O
     }
 
     termsAndConditionsUpdated(updated) {
-		this.updatePageTitle("Terms and Conditions");
-        this.updateMarketDropdownVisibility(true);
-		this.updateTabNavItems(DefaultTabNavs.competitionsTabs);
-		this.selectedModel = null;
-		if (updated)
-			this.getData();
+      this.updatePageTitle("Terms and Conditions");
+      this.updateMarketDropdownVisibility(true);
+		  this.updateTabNavItems(DefaultTabNavs.competitionsTabs);
+		  this.selectedModel = null;
+		  if (updated)
+			  this.getData();
     }
 	
     deleteTermsAndConditions(termsAndConditions) {
-        this.confirmBox.confirm()
-            .size('sm')
-            .showClose(false)
-            .title('Delete')
-			.body("Are you sure to delete " + termsAndConditions.title + '?')
-            .okBtn('Confirm')
-            .cancelBtn('Cancel')
-            .open()
-            .catch((err: any) => console.log('ERROR: ' + err))
-            .then((dialog: any) => { return dialog.result })
-            .then((result: any) => {
-				this.termsAndConditionsDataService.deleteTermsAndCondition(termsAndConditions.id).subscribe((result) => {
-                    if (result)
-						this.updateTermsAndConditions(termsAndConditions, true);
-                });
-            })
-            .catch((err: any) => { });
+      let dialogRef = this.confirmBox.open(DeleteModel, {
+        width: '250px',
+        data:
+        {
+          id: termsAndConditions.id,
+          name: termsAndConditions.name,
+          service: this.termsAndConditionsDataService
+        }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result)
+          this.updateTermsAndConditions(termsAndConditions, true);
+      });
 	}
 	
 }

@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnChanges } from '@angular/core';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
-import {StringEx} from "../../../classes/helpers/string";
-import {DateEx} from "../../../classes/helpers/date";
+import { StringEx } from '../../../../classes/helpers/string';
+import {DateEx} from "../../../../classes/helpers/date";
 
 
 @Component({

@@ -8,6 +8,8 @@ import {MarketDataService} from "../../../../shared/services/marketdataservice";
 import {UserDataService} from "../../../../shared/services/userdataservice";
 import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
+// deprecated. use copytomarket (under components > modals)
+
 @Component({
     selector: 'feeditem-copytomarket',
     template: require('./copytomarket.component.html'),
@@ -106,7 +108,7 @@ export class FeedItemCopyToMarket implements OnInit {
     saveChanges() {
         this.loading = true;
         var marketIds = this.currentMarkets.map((x) => { return x.id; });
-        this.marketContentService.copyItemToMarket(this.model.id, marketIds).subscribe((result) => {
+        this.marketContentService.copyContentToMarket(this.model.id, marketIds).subscribe((result) => {
             if (result.success) {
               this.dialogRef.close();
             }

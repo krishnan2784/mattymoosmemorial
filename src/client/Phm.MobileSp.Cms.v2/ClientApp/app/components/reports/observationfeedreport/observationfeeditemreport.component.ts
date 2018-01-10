@@ -1,20 +1,17 @@
 import { Component, OnInit, Output, EventEmitter, Injector, AfterViewInit, OnDestroy } from '@angular/core';
-import Datashareservice = require("../../services/helpers/shareservice");
-import ShareService = Datashareservice.ShareService;
-import Enums = require("../../enums");
-import {FeedDataService} from "../../services/feeddataservice";
-import Reportclasses = require("../../models/reportclasses");
-import SurveyItemSummary = Reportclasses.SurveyItemSummary;
-import Date1 = require("../../classes/helpers/date");
-import DateEx = Date1.DateEx;
-import { SurveyFeed } from "../../models/feedclasses";
 import { Angular2Csv } from "angular2-csv/Angular2-csv";
-import { ObservationItemSummary } from "../../models/reportclasses";
+import {SurveyFeed} from "../../../models/feedclasses";
+import {FeedTypeEnum} from "../../../../enums";
+import {SurveyItemSummary, ObservationItemSummary } from "../../../models/reportclasses";
+import {ShareService} from "../../../shared/services/helpers/shareservice";
+import {FeedDataService} from "../../../shared/services/feeddataservice";
+import {DateEx} from "../../../classes/helpers/date";
+
 
 @Component({
     selector: 'observationfeeditemreport',
     template: require('./observationfeeditemreport.component.html'),
-    styles: [require('./quizfeeditemreport.component.css'), require('./observationfeeditemreport.component.css')]
+    styles: [require('../quizfeedreport/quizfeeditemreport.component.css'), require('./observationfeeditemreport.component.css')]
 })
 export class ObservationFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     @Output()
@@ -23,7 +20,7 @@ export class ObservationFeedItemReport implements OnInit, AfterViewInit, OnDestr
     public model: SurveyFeed;
     public pageTitle: string;
     public feedTypeString: string;
-    public feedTypes = Enums.FeedTypeEnum;
+    public feedTypes = FeedTypeEnum;
 
     public summaryData: SurveyItemSummary;
     public listData = [];
@@ -36,7 +33,7 @@ export class ObservationFeedItemReport implements OnInit, AfterViewInit, OnDestr
         private injector: Injector) { 
         this.model = this.injector.get('model');
         this.pageTitle = this.injector.get('pageTitle');
-        this.feedTypeString = Enums.FeedTypeEnum[this.model.feedType];
+        this.feedTypeString = FeedTypeEnum[this.model.feedType];
 	    this.backSub = this.sharedService.goBackEvent.subscribe(() => {
             this.onBackEvent.emit();
         });

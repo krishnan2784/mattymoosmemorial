@@ -1,15 +1,12 @@
 import { Component, OnInit, OnDestroy, ViewContainerRef } from '@angular/core';
-
-
-import { Overlay } from 'angular2-modal';
-import { Modal } from 'angular2-modal/plugins/bootstrap';
 import {BaseComponent} from "../../../base.component";
 import {UserMarket} from "../../../../models/userclasses";
-import {RewardSchemesDataService} from "../../../../services/rewardschemedataservice";
-import {ShareService} from "../../../../services/helpers/shareservice";
-import {DefaultTabNavs} from "../../../navmenu/tabnavmenu.component";
-import {StringEx} from "../../../../classes/helpers/string";
 import {BaseRewardScheme} from "../../../../models/competitionclasses";
+import {RewardSchemesDataService} from "../../../../shared/services/rewardschemedataservice";
+import {ShareService} from "../../../../shared/services/helpers/shareservice";
+import {DefaultTabNavs} from "../../../../components/navigation/tabbednavmenu/tabnavmenu.component";
+import { MatDialog } from '@angular/material';
+import {DeleteModel} from "../../../../components/modals/deletemodel/deletemodel.component";
 
 @Component({
 	selector: 'rewardschemesindex',
@@ -25,9 +22,8 @@ export class RewardSchemeIndexComponent extends BaseComponent implements OnInit,
 	public currentMarket: UserMarket;
 
 	constructor(public rewardSchemesDataService: RewardSchemesDataService, sharedService: ShareService,
-		overlay: Overlay, vcRef: ViewContainerRef, public confirmBox: Modal) {
+	  public confirmBox: MatDialog) {
 		super(sharedService, 'Reward Schemes', true, '', DefaultTabNavs.competitionsTabs);
-		overlay.defaultViewContainer = vcRef;
 		this.setupSubscriptions();
 	}
 
@@ -99,24 +95,21 @@ export class RewardSchemeIndexComponent extends BaseComponent implements OnInit,
 			this.getData();
     }
 	
-    deleteRewardScheme(rewardScheme) {
-        this.confirmBox.confirm()
-            .size('sm')
-            .showClose(false)
-            .title('Delete')
-			.body("Are you sure to delete " + rewardScheme.title + '?')
-            .okBtn('Confirm')
-            .cancelBtn('Cancel')
-            .open()
-            .catch((err: any) => console.log('ERROR: ' + err))
-            .then((dialog: any) => { return dialog.result })
-            .then((result: any) => {
-				this.rewardSchemesDataService.deleteRewardScheme(rewardScheme.id).subscribe((result) => {
-                    if (result)
-						this.updateRewardScheme(rewardScheme, true);
-                });
-            })
-            .catch((err: any) => { });
+  deleteRewardScheme(rewardScheme) {
+    let dialogRef = this.confirmBox.open(DeleteModel, {
+      width: '250px',
+      data:
+      {
+        id: rewardScheme.id,
+        name: rewardScheme.name,
+        service: this.rewardSchemesDataService
+      }
+    });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result)
+          this.updateRewardScheme(rewardScheme, true);
+      });
 	}
 	
 }

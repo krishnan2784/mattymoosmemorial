@@ -11,14 +11,14 @@ declare var $: any;
     <input type="hidden" formControlName="{{date2FormControlId}}">
 		<div class="col-md-6">
 	        <label>{{date1Label}}</label>
-	        <datepicker (dateSelected)="handleStartDate($event);" [initialDate]="form.controls[this.date1FormControlId].value" 
-			[cannotSelectPast]="true" [minDay]="1" [minJsMonth]="2" [minYear]="2017" [elementId]="date1ElementId"></datepicker>
+	        <phmdatepicker (dateSelected)="handleStartDate($event);" [initialDate]="form.controls[this.date1FormControlId].value" 
+			[cannotSelectPast]="true" [minDay]="1" [minJsMonth]="2" [minYear]="2017" [elementId]="date1ElementId"></phmdatepicker>
         </div>
 
 		<div class="col-md-6">
 	        <label>{{date2Label}}</label>
-	        <datepicker (dateSelected)="handleEndDate($event);" [initialDate]="form.controls[this.date2FormControlId].value" 
-			[cannotSelectPast]="true" [minDay]="minDay" [minJsMonth]="minMonth" [minYear]="minYear" [elementId]="date2ElementId"></datepicker>
+	        <phmdatepicker (dateSelected)="handleEndDate($event);" [initialDate]="form.controls[this.date2FormControlId].value" 
+			[cannotSelectPast]="true" [minDay]="minDay" [minJsMonth]="minMonth" [minYear]="minYear" [elementId]="date2ElementId"></phmdatepicker>
         </div>
 <div class="clearfix"></div>
 </div>

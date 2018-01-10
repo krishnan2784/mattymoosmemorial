@@ -27,8 +27,7 @@ export class UserAccount {
         region?: string,
         zone?: string,
         market?: string,
-        createdDate?: Date
-    } = {}) {
+        createdDate?: Date} = {}) {
 
         this.id = options.id || 0;
         this.firstName = options.firstName || '';
@@ -58,9 +57,7 @@ export class UserMarket {
 	    masterId?: string,
         isDefault?: boolean,
         isMaster?: boolean,
-        isLive?: boolean
-
-    } = {}) {
+        isLive?: boolean} = {}) {
 
         this.id = options.id || null;
 		this.masterId = options.masterId || '';

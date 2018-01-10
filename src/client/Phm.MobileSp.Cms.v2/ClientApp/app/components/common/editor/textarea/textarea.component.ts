@@ -1,6 +1,5 @@
 import { Component, Input, Output, OnInit, AfterViewInit, OnDestroy, EventEmitter } from '@angular/core';
 import { FormGroup } from "@angular/forms";
-declare var tinymce: any;
 declare var $: any;
 
 @Component({
@@ -48,6 +47,5 @@ export class TextAreaComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // tinymce.remove(this.editor);
   }
 }

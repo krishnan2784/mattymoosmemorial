@@ -1,10 +1,5 @@
-﻿import {Component, Input, ViewContainerRef, ViewChild, ReflectiveInjector, ComponentFactoryResolver } from '@angular/core';
-import Feeditemreportcomponent = require("./quizfeeditemreport.component");
-import { SurveyFeedItemReport } from "./surveyfeeditemreport.component";
-import { ObservationFeedItemReport } from "./observationfeeditemreport.component";
-import QuizFeedItemReport = Feeditemreportcomponent.QuizFeedItemReport;
-
-@Component({
+import { Component, Input, ViewContainerRef, ViewChild, ReflectiveInjector, ComponentFactoryResolver } from '@angular/core';import {QuizFeedItemReport} from "../quizfeedreport/quizfeeditemreport.component";import {SurveyFeedItemReport} from "../surveyfeedreport/surveyfeeditemreport.component";import {ObservationFeedItemReport} from "../observationfeedreport/observationfeeditemreport.component";
+@Component({
     selector: 'feed-report-component',
     entryComponents: [QuizFeedItemReport, SurveyFeedItemReport, ObservationFeedItemReport],
     template: require('./basefeeditemreport.component.html'),

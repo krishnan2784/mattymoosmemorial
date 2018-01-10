@@ -1,37 +1,16 @@
 import { Component, OnInit, ElementRef, Input, Output, ViewChild, EventEmitter, Injector, AfterViewInit, OnDestroy } from '@angular/core';
-import Baseclasses = require("../../models/baseclasses");
-import BaseModel = Baseclasses.BaseModel;
-import Basecomponent = require("../base.component");
-import BaseComponent = Basecomponent.BaseComponent;
-import Datashareservice = require("../../services/helpers/shareservice");
-import ShareService = Datashareservice.ShareService;
-import FeedModel = require("../../interfaces/models/IFeedModel");
-import IFeedItem = FeedModel.IFeedItem;
-import Enums = require("../../enums");
-import FeedTypeEnum = Enums.FeedTypeEnum;
-import { FeedDataService } from "../../services/feeddataservice";
-import Chartclasses = require("../../models/chartclasses");
-import BarChartData = Chartclasses.BarChartData;
-import Barchartcomponent = require("../charts/barchart.component");
-import GaugeChartData = Chartclasses.GaugeChartData;
-import DonutChartData = Chartclasses.DonutChartData;
-import Reportclasses = require("../../models/reportclasses");
-import SurveyItemSummary = Reportclasses.SurveyItemSummary;
-import Date1 = require("../../classes/helpers/date");
-import DateEx = Date1.DateEx;
-import Userfiltercomponent = require("../common/filters/userfilter.component");
-import { SurveyFeed } from "../../models/feedclasses";
-import UserFilters = Userfiltercomponent.UserFilters;
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
-import { ObservationItemSummary } from "../../models/reportclasses";
-
-declare var Materialize: any;
-declare var noUiSlider: any;
+import {SurveyFeed} from "../../../models/feedclasses";
+import {SurveyItemSummary, ObservationItemSummary } from "../../../models/reportclasses";
+import {ShareService} from "../../../shared/services/helpers/shareservice";
+import {FeedDataService} from "../../../shared/services/feeddataservice";
+import {DateEx} from "../../../classes/helpers/date";
+import {FeedTypeEnum} from "../../../../enums";
 
 @Component({
     selector: 'surveyfeeditemreport',
     template: require('./surveyfeeditemreport.component.html'),
-    styles: [require('./quizfeeditemreport.component.css'), require('./surveyfeeditemreport.component.css')]
+    styles: [require('../quizfeedreport/quizfeeditemreport.component.css'), require('./surveyfeeditemreport.component.css')]
 })
 export class SurveyFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     @Output()
@@ -40,7 +19,7 @@ export class SurveyFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
     public model: SurveyFeed;
     public pageTitle: string;
     public feedTypeString: string;
-    public feedTypes = Enums.FeedTypeEnum;
+    public feedTypes = FeedTypeEnum;
 
     public summaryData: SurveyItemSummary;
     public listData = [];
@@ -50,10 +29,10 @@ export class SurveyFeedItemReport implements OnInit, AfterViewInit, OnDestroy {
 	public backSub;
 
     constructor(private sharedService: ShareService, public feedDataService: FeedDataService,
-        private injector: Injector) { 
+      private injector: Injector) { 
         this.model = this.injector.get('model');
         this.pageTitle = this.injector.get('pageTitle');
-        this.feedTypeString = Enums.FeedTypeEnum[this.model.feedType];
+        this.feedTypeString = FeedTypeEnum[this.model.feedType];
 	    this.backSub = this.sharedService.goBackEvent.subscribe(() => {
             this.onBackEvent.emit();
         });

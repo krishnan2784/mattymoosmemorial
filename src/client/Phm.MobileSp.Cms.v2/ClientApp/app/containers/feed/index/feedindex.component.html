@@ -15,8 +15,8 @@
             <div class='feed-index col-xs-12 animate-bottom' *ngIf="this.feedItems.length > 0">
                 <div *ngFor="let feedItem of this.feedItems | paginate: {itemsPerPage: 20, currentPage:page, id: '1'}; let i = index" class="col-xs-12 index-feed-item">
                     <div class="col-xs-1">
-                        <img src="assets/images/Icon-{{feedCats[feedItem.feedCategory]}}-b.png" class="feed-cat-img" *ngIf="feedItem.feedType!=feedTypes.Observation" />
-                        <img src="assets/images/Icon-Observation-b.png" class="feed-cat-img" *ngIf="feedItem.feedType==feedTypes.Observation" />
+                        <img src="/images/Icon-{{feedCats[feedItem.feedCategory]}}-b.png" class="feed-cat-img" *ngIf="feedItem.feedType!=feedTypes.Observation" />
+                        <img src="/images/Icon-Observation-b.png" class="feed-cat-img" *ngIf="feedItem.feedType==feedTypes.Observation" />
                     </div>
                     <div class="col-xs-11 no-pad">
                         <div class="col-xs-8 no-pad">

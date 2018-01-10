@@ -17,7 +17,7 @@ import { Observable } from 'rxjs/Observable';import {IFeedItem} from "../models
 
     getFeedItemResultList(feedItemId: number, lowerBoundary: number, higherBoundary: number, userGroupId: number);
 
-    getSurveyFeedSummaries(feedItemId: number): Observable<any>
+    getSurveyFeedSummaries(feedItemId: number): Observable<any>;
 
-    getObservationFeedSummaries(feedItemId: number): Observable<any>
+    getObservationFeedSummaries(feedItemId: number): Observable<any>;
 }

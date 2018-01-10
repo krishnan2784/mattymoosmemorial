@@ -1,17 +1,14 @@
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import {Competition} from "../../../../models/competitionclasses";
-import { CompetitionsDataService } from "../../../../services/competitionsdataservice";
+import { Competition } from "../../../../models/competitionclasses";
 import {FormEx} from "../../../../classes/helpers/form";
-import {ShareService} from "../../../../services/helpers/shareservice";
-import {UploaderType} from "../../../../enums";
-import {TermsAndConditionsDataService} from
-	"../../../../services/termsandconditionsdataservice";
-import {RewardSchemesDataService} from "../../../../services/rewardschemedataservice";
+import {UploaderType} from "../../../../../enums";
+import {ShareService} from "../../../../shared/services/helpers/shareservice";
+import {CompetitionsDataService} from "../../../../shared/services/competitionsdataservice";
+import {TermsAndConditionsDataService} from "../../../../shared/services/termsandconditionsdataservice";
+import {RewardSchemesDataService} from "../../../../shared/services/rewardschemedataservice";
+import { AlertService } from '../../../../shared/services/helpers/alertservice';
 
-
-declare var $: any;
-declare var Materialize: any;
 @Component({
 	selector: 'competition-form',
 	template: require('./competitionform.component.html'),
@@ -35,12 +32,11 @@ export class CompetitionForm implements OnInit {
 
 	constructor(public _fb: FormBuilder, public sharedService: ShareService,
 		public competitionService: CompetitionsDataService, public termsAndConditionsDataService: TermsAndConditionsDataService,
-		public rewardSchemesDataService: RewardSchemesDataService) {
+		public rewardSchemesDataService: RewardSchemesDataService, public alertService:AlertService) {
 
 	}
 
 	ngOnInit() {
-		console.log(this.model);
 		this.setupSteps();
 		this.getData();
 		this.initialiseForm();
@@ -96,9 +92,9 @@ export class CompetitionForm implements OnInit {
 	save(competition: Competition, isValid: boolean) {
 		this.submitted = true;
 		if (!this.form.valid) {
-			console.log(FormEx.getFormValidationErrors(this.form));
-			$('.toast').remove();
-			return Materialize.toast('Please check that you have filled in all the required fields.', 6000, 'red');
+      console.log(FormEx.getFormValidationErrors(this.form));
+		  this.alertService.displaySuccessFailAlert('Please check that you have filled in all the required fields.', false);
+		  return;
 		}
 		this.loading = true;
 		this.competitionService.updateCompetition(competition).subscribe(result => {
@@ -106,7 +102,6 @@ export class CompetitionForm implements OnInit {
 				this.competitionUpdated.emit(result.content);
 			} else
 				this.loading = false;
-
 		});
 	}
 

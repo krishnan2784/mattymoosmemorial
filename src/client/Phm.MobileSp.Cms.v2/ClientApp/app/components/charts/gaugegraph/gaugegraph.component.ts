@@ -1,4 +1,5 @@
-import {Component, Input, OnInit, OnChanges} from '@angular/core';
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
+
 @Component({
   selector: 'gaugegraph',
     template: require('./gaugegraph.html'),

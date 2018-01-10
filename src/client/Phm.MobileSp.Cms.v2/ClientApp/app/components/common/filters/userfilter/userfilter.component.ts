@@ -1,10 +1,8 @@
 import { Component, Input, Output, EventEmitter, AfterViewInit, OnDestroy, OnChanges, SimpleChange } from '@angular/core';
-import Shareservice = require("../../../services/helpers/shareservice");
-import { MarketDataService } from "../../../services/marketdataservice";
-import { UserDataService } from "../../../services/userdataservice";
-import ShareService = Shareservice.ShareService;
+import { ShareService } from '../../../../shared/services/helpers/shareservice';
+import {MarketDataService} from "../../../../shared/services/marketdataservice";
+import {UserDataService} from "../../../../shared/services/userdataservice";
 
-declare var Materialize: any;
 declare var $: any;
 
 @Component({

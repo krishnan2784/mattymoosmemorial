@@ -1,26 +1,24 @@
 import { Component, Injector } from '@angular/core';
-import { FormControl, FormArray, Validators, FormGroup } from '@angular/forms'
-import * as IFeedItemComponents from "../../../interfaces/components/IFeedItemComponents";
-import Enums = require("../../../enums");
-import FeedTypeEnum = Enums.FeedTypeEnum;
-import Feedclasses = require("../../../models/feedclasses");
-import SurveyClasses = require("../../../models/surveyclasses");
-import Basequestionfeeditemcomponent = require("./basequestionfeeditem.component");
-import BaseQuestionFeedItemFormComponent = Basequestionfeeditemcomponent.BaseQuestionFeedItemFormComponent;
-import Observationclasses = require("../../../models/observationclasses");
-import UserObservation = Observationclasses.UserObservation;
-import { minValue } from "../../../classes/validators";
+import { FormControl, FormArray, Validators, FormGroup } from '@angular/forms';
+import {BaseQuestionFeedItemFormComponent} from "../basequestionfeeditem.component";
+import {IFeedItemPartialForm} from "../../../../../contracts/components/IFeedItemComponents";
+import {ObservationFeed} from "../../../../../models/feedclasses";
+import {FeedTypeEnum, SurveyQuestionTypeEnum } from "../../../../../../enums";
+import {minValue} from "../../../../../classes/validators";
+import {UserObservation} from "../../../../../models/observationclasses";
+import {SurveyQuestion, SurveyQuestionAnswer } from "../../../../../models/surveyclasses";
+
 
 @Component({
     selector: 'observationfeeditem',
-    template: require('./basequestionfeeditem.component.html'),
-    styles: [require('./basequestionfeeditem.component.css')]
+    template: require('../basequestionfeeditem.component.html'),
+    styles: [require('../basequestionfeeditem.component.css')]
 })
-export class ObservationFeedItemFormComponent extends BaseQuestionFeedItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
-    model: Feedclasses.ObservationFeed;
+export class ObservationFeedItemFormComponent extends BaseQuestionFeedItemFormComponent implements IFeedItemPartialForm {
+    model: ObservationFeed;
 
     constructor(injector: Injector) {
-        super(injector, Feedclasses.ObservationFeed, FeedTypeEnum.Observation, Enums.SurveyQuestionTypeEnum);
+        super(injector, ObservationFeed, FeedTypeEnum.Observation, SurveyQuestionTypeEnum);
         if (this.model) {
             this.model.points = null;
             this.form.controls['points'].patchValue(this.model.points, { onlySelf: true });
@@ -64,15 +62,15 @@ export class ObservationFeedItemFormComponent extends BaseQuestionFeedItemFormCo
         return fg;
     }
 
-    initQuestion(question: SurveyClasses.SurveyQuestion = new SurveyClasses.SurveyQuestion()) {
-        question = new SurveyClasses.SurveyQuestion(question);
+    initQuestion(question: SurveyQuestion = new SurveyQuestion()) {
+        question = new SurveyQuestion(question);
         var fg = this.baseQuestionForm(question);
         fg.addControl('surveyFeedId', new FormControl(question.surveyFeedId, []));
         return fg;
     }
     
-    initAnswer(answer: SurveyClasses.SurveyQuestionAnswer = new SurveyClasses.SurveyQuestionAnswer()) {
-        answer = new SurveyClasses.SurveyQuestionAnswer(answer);
+    initAnswer(answer: SurveyQuestionAnswer = new SurveyQuestionAnswer()) {
+        answer = new SurveyQuestionAnswer(answer);
         var fg = this.baseAnswerForm(answer);
         fg.addControl('surveyQuestionId', new FormControl(answer.surveyQuestionId, []));
         fg.addControl('isFreeText', new FormControl(answer.isFreeText, []));

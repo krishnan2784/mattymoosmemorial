@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import {IUser} from "../../../models/User";
 import {UserService} from "../../../shared/_templateBackup/user.service";
+import {User} from "../../../models/userclasses";
 
 
 @Component({
@@ -8,7 +8,7 @@ import {UserService} from "../../../shared/_templateBackup/user.service";
     templateUrl: './user-detail.component.html'
 })
 export class UserDetailComponent {
-    @Input() user: IUser;
+    @Input() user: User;
 
     constructor(private userService: UserService) { }
 

@@ -1,10 +1,8 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, SimpleChange, OnChanges } from '@angular/core';
-import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms'
-import Pagedfeedclasses = require("../../../../models/pagedfeedclasses");
-import MediaTextFeedPage = Pagedfeedclasses.MediaTextFeedPage;
-import Mediainfoclasses = require("../../../../models/mediainfoclasses");
-import MediaInfo = Mediainfoclasses.MediaInfo;
-import {MediaDataService} from "../../../../services/mediaservice";
+import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
+import {MediaDataService} from "../../../../../../shared/services/mediaservice";
+import {MediaInfo} from "../../../../../../models/mediainfoclasses";
+
 
 @Component({
     selector: 'media-page-form',

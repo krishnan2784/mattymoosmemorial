@@ -83,8 +83,7 @@
         </div>
         <div class="col-md-4">
             <div class="search-filter hidden">
-                <input *ngIf="config.filtering" placeholder="Search..."
-                       [ngTableFiltering]="config.filtering"
+                <input *ngIf="config.filtering" matInput placeholder="Search..."
                        class="form-control"
                        (tableChanged)="onChangeTable(config)" />
             </div>

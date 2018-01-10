@@ -2,7 +2,7 @@
 
     <div [class.hidden]="selectedQuizResult">
         <div class="report-title">
-            <img src="assets/images/Icon-Quiz-b.png" class="feed-cat-img" />
+            <img src="/images/Icon-Quiz-b.png" class="feed-cat-img" />
 
             <span class="item-title" [innerHTML]="model.title"></span>
         </div>
@@ -126,7 +126,7 @@
                                     {{ quizResult.dealerShipName }}
                                 </div>
                                 <div class="col-xs-1 border-bottom">
-                                    <img src="assets/images/Icon-Leaderboard-b.png" class="leaderboard-icon" *ngIf="quizResult.resultPercentage===100" />
+                                    <img src="/images/Icon-Leaderboard-b.png" class="leaderboard-icon" *ngIf="quizResult.resultPercentage===100" />
                                     <span *ngIf="quizResult.resultPercentage!==100">{{ quizResult.resultPercentage }}%</span>
                                 </div>
                                 <div class="col-xs-1">

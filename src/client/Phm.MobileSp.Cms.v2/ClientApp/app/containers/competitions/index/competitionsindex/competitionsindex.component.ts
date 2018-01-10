@@ -1,16 +1,17 @@
 import { Component, OnInit, OnDestroy, ViewContainerRef } from '@angular/core';
-import { Overlay } from 'angular2-modal';
-import { Modal } from 'angular2-modal/plugins/bootstrap';
-import { CompetitionsDataService } from "../../../../services/competitionsdataservice";
 import { BaseComponent } from "../../../base.component";
-import { GenericFilterSet, DefaultFilterSets, DateRangeFilter, RangeFilter, GenericFilter, StringFilter } from "../../../common/filters/generic/genericfilter.component";
 import { UserMarket } from "../../../../models/userclasses";
-import { RewardSchemesDataService } from "../../../../services/rewardschemedataservice";
-import { ShareService } from "../../../../services/helpers/shareservice";
-import { DefaultTabNavs } from "../../../navmenu/tabnavmenu.component";
 import { StringEx } from "../../../../classes/helpers/string";
 import { Competition } from "../../../../models/competitionclasses";
-import {CopiedElementTypeEnum} from "../../../../enums";
+import {GenericFilterSet, DefaultFilterSets, GenericFilter, StringFilter, DateRangeFilter, RangeFilter } from "../../../../components/common/filters/generic/genericfilter.component";
+import {CopiedElementTypeEnum} from "../../../../../enums";
+import {CompetitionsDataService} from "../../../../shared/services/competitionsdataservice";
+import {ShareService} from "../../../../shared/services/helpers/shareservice";
+import {DefaultTabNavs} from "../../../../components/navigation/tabbednavmenu/tabnavmenu.component";
+import {MatDialog} from "@angular/material";
+import {CompetitionPublish} from
+  "../../../../components/competitions/modals/publishcompetition/publishcompetition.component";
+import {DeleteModel} from "../../../../components/modals/deletemodel/deletemodel.component";
 
 @Component({
 	selector: 'competitionsindex',
@@ -32,10 +33,10 @@ export class CompetitionIndexComponent extends BaseComponent implements OnInit, 
 	public currentMarket: UserMarket;
 	contentTypeEnum: typeof CopiedElementTypeEnum = CopiedElementTypeEnum;
 
-	constructor(public competitionDataService: CompetitionsDataService, sharedService: ShareService,
-		overlay: Overlay, vcRef: ViewContainerRef, public confirmBox: Modal) {
-		super(sharedService, 'Competitions Management', true, '', DefaultTabNavs.competitionsTabs);
-		overlay.defaultViewContainer = vcRef;
+  constructor(public competitionDataService: CompetitionsDataService, sharedService: ShareService,
+    public confirmBox: MatDialog) {
+    super(sharedService, 'Competitions Management', true, '', DefaultTabNavs.competitionsTabs);
+
 	}
 
 	ngOnInit() {
@@ -133,43 +134,30 @@ export class CompetitionIndexComponent extends BaseComponent implements OnInit, 
 		} else {
 			confirmText = "Are you sure to publish " + competition.title + "?";
 		}
-		this.confirmBox.confirm()
-			.size('sm')
-			.showClose(false)
-			.title('Publish')
-			.body(confirmText)
-			.okBtn('Confirm')
-			.cancelBtn('Cancel')
-			.open()
-			.catch((err: any) => console.log('ERROR: ' + err))
-			.then((dialog: any) => { return dialog.result })
-			.then((result: any) => {
-				this.competitionDataService.publishContentToLive(competition.id).subscribe((result) => {
-					if (result) {
-					}
-				});
-			})
-			.catch((err: any) => { });
+    let dialogRef = this.confirmBox.open(CompetitionPublish, {
+	    width: '250px',
+	    data: {
+	      model: competition,
+	      bodyText: confirmText
+	    }
+	  });
 	}
 	
-    deleteCompetition(competition) {
-        this.confirmBox.confirm()
-            .size('sm')
-            .showClose(false)
-            .title('Delete')
-			.body("Are you sure to delete " + competition.title + '?')
-            .okBtn('Confirm')
-            .cancelBtn('Cancel')
-            .open()
-            .catch((err: any) => console.log('ERROR: ' + err))
-            .then((dialog: any) => { return dialog.result })
-            .then((result: any) => {
-				this.competitionDataService.deleteCompetition(competition.id).subscribe((result) => {
-                    if (result)
-						this.updateCompetition(competition, true);
-                });
-            })
-            .catch((err: any) => { });
+  deleteCompetition(competition) {
+    let dialogRef = this.confirmBox.open(DeleteModel, {
+        width: '250px',
+        data:
+        {
+          id: competition.id,
+          name: competition.name,
+          service: this.competitionDataService
+        }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result)
+          this.updateCompetition(competition, true);
+      });
 	}
 
 	filterList(filters: GenericFilter[]) {

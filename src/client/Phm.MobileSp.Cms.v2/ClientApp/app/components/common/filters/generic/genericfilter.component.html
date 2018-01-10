@@ -31,16 +31,16 @@
 						<p>
 							Start Date <a class="right" (click)="clearFilter(i, ii, filter);broadcastChanges();" id="btn-reset-{{i}}-{{ii}}">Clear</a>
 						</p>
-						<datepicker (dateSelected)="handleStartDate(i,ii,$event);broadcastChanges();"
+						<phmdatepicker (dateSelected)="handleStartDate(i,ii,$event);broadcastChanges();"
 									[initialDate]="filter.date1"
-									[cannotSelectPast]="false"></datepicker>
+									[cannotSelectPast]="false"></phmdatepicker>
 						<p>End Date</p>
-						<datepicker (dateSelected)="handleEndDate(i,ii,$event);broadcastChanges();"
+						<phmdatepicker (dateSelected)="handleEndDate(i,ii,$event);broadcastChanges();"
 									[initialDate]="filter.date2"
 									[cannotSelectPast]="false"
 									[minDay]="filter.minDay"
 									[minJsMonth]="filter.minMonth"
-									[minYear]="filter.minYear"></datepicker>
+									[minYear]="filter.minYear"></phmdatepicker>
 					</div>
 
 					<div *ngIf="filter.filterType === filterTypes.Range" class="range-filter-group">

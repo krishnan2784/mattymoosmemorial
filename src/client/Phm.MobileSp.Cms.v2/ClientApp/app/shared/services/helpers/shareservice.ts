@@ -1,13 +1,11 @@
-import { Observable } from 'rxjs/Observable';
 import { Injectable, EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-
 import { UserDataService } from "../userdataservice";
 import {UserMarket, User} from "../../../models/userclasses";
 import {IFeedItem} from "../../../contracts/models/IFeedModel";
-import {NavItem} from "../../../components/container/tabbednavmenu/tabnavmenu.component";
 import { NavMenuOption } from '../../../models/navmenuclasses';
 import {EntityPermissionDataService} from "../entitypermissiondataservice";
+import {NavItem} from "../../../components/navigation/tabbednavmenu/tabnavmenu.component";
 
 @Injectable()
 export class ShareService {

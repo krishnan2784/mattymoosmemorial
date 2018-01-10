@@ -2,12 +2,10 @@ import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TermsAndCondition } from "../../../../models/competitionclasses";
 import {FormEx} from "../../../../classes/helpers/form";
-import {ShareService} from "../../../../services/helpers/shareservice";
-import {TermsAndConditionsDataService} from "../../../../services/termsandconditionsdataservice";
+import {ShareService} from "../../../../shared/services/helpers/shareservice";
+import {TermsAndConditionsDataService} from "../../../../shared/services/termsandconditionsdataservice";
+import {AlertService} from "../../../../shared/services/helpers/alertservice";
 
-
-declare var $: any;
-declare var Materialize: any;
 @Component({
 	selector: 'terms-and-conditions-form',
 	template: require('./termsandconditionsform.component.html'),
@@ -27,7 +25,7 @@ export class TermsAndConditionForm implements OnInit {
 	loading: boolean = false;
 
 	constructor(public _fb: FormBuilder, public sharedService: ShareService,
-		public termsAndConditionsDataService: TermsAndConditionsDataService) {
+    public termsAndConditionsDataService: TermsAndConditionsDataService, public alertService: AlertService) {
 
 	}
 
@@ -63,8 +61,8 @@ export class TermsAndConditionForm implements OnInit {
 		this.submitted = true;
 		if (!this.form.valid) {
 			console.log(FormEx.getFormValidationErrors(this.form));
-			$('.toast').remove();
-			return Materialize.toast('Please check that you have filled in all the required fields.', 6000, 'red');
+      this.alertService.displaySuccessFailAlert('Please check that you have filled in all the required fields.', false);
+		  return;
 		}
 		this.loading = true;
 		this.termsAndConditionsDataService.updateTermsAndCondition(termsAndConditions).subscribe(result => {

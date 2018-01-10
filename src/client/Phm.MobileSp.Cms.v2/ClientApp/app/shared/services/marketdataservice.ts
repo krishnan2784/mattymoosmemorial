@@ -1,5 +1,5 @@
-import { Component, Input, Injectable, NgZone } from '@angular/core';
-import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
+import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
 import {RequestHelper} from "./helpers/requesthelper";
 import {IMarketDataService} from "../../contracts/services/IMarketDataService";
 import {ResponseHelper} from "./helpers/responsehelper";

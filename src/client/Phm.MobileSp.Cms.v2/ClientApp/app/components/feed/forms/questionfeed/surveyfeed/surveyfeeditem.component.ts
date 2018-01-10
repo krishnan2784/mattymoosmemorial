@@ -1,22 +1,21 @@
 import { Component, Injector } from '@angular/core';
-import { FormControl, FormArray, Validators } from '@angular/forms'
-import * as IFeedItemComponents from "../../../interfaces/components/IFeedItemComponents";
-import Enums = require("../../../enums");
-import FeedTypeEnum = Enums.FeedTypeEnum;
-import Feedclasses = require("../../../models/feedclasses");
-import SurveyClasses = require("../../../models/surveyclasses");
-import Basequestionfeeditemcomponent = require("./basequestionfeeditem.component");
-import BaseQuestionFeedItemFormComponent = Basequestionfeeditemcomponent.BaseQuestionFeedItemFormComponent;
+import { FormControl, FormArray, Validators } from '@angular/forms';
+import {BaseQuestionFeedItemFormComponent} from "../basequestionfeeditem.component";
+import {IFeedItemPartialForm} from "../../../../../contracts/components/IFeedItemComponents";
+import {SurveyFeed} from "../../../../../models/feedclasses";
+import {FeedTypeEnum, SurveyQuestionTypeEnum } from "../../../../../../enums";
+import {SurveyQuestion, SurveyQuestionAnswer } from "../../../../../models/surveyclasses";
+
 
 @Component({
     selector: 'surveyfeeditem',
-    template: require('./basequestionfeeditem.component.html'),
-    styles: [require('./basequestionfeeditem.component.css')]
+    template: require('../basequestionfeeditem.component.html'),
+    styles: [require('../basequestionfeeditem.component.css')]
 })
-export class SurveyFeedItemFormComponent extends BaseQuestionFeedItemFormComponent implements IFeedItemComponents.IFeedItemPartialForm {
-    model: Feedclasses.SurveyFeed;
+export class SurveyFeedItemFormComponent extends BaseQuestionFeedItemFormComponent implements IFeedItemPartialForm {
+    model: SurveyFeed;
     constructor(injector: Injector) {
-        super(injector, Feedclasses.SurveyFeed, FeedTypeEnum.Survey, Enums.SurveyQuestionTypeEnum);
+        super(injector, SurveyFeed, FeedTypeEnum.Survey, SurveyQuestionTypeEnum);
     }
 
     //constructor(injector: Injector, feedModelType: any = Feedclasses.SurveyFeed, updateUrl: string = '/api/Feed/UpdateSurveyFeedItem',
@@ -41,15 +40,15 @@ export class SurveyFeedItemFormComponent extends BaseQuestionFeedItemFormCompone
         
     };
 
-    initQuestion(question: SurveyClasses.SurveyQuestion = new SurveyClasses.SurveyQuestion()) {
-        question = new SurveyClasses.SurveyQuestion(question);
+    initQuestion(question: SurveyQuestion = new SurveyQuestion()) {
+        question = new SurveyQuestion(question);
         var fg = this.baseQuestionForm(question);
         fg.addControl('surveyFeedId', new FormControl(question.surveyFeedId, []));
         return fg;
     }
     
-    initAnswer(answer: SurveyClasses.SurveyQuestionAnswer = new SurveyClasses.SurveyQuestionAnswer()) {
-        answer = new SurveyClasses.SurveyQuestionAnswer(answer);
+    initAnswer(answer: SurveyQuestionAnswer = new SurveyQuestionAnswer()) {
+        answer = new SurveyQuestionAnswer(answer);
         var fg = this.baseAnswerForm(answer);
         fg.addControl('surveyQuestionId', new FormControl(answer.surveyQuestionId, []));
         fg.addControl('isFreeText', new FormControl(answer.isFreeText, []));

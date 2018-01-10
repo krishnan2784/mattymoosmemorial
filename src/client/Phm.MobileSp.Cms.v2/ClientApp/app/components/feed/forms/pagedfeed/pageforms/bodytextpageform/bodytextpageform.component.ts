@@ -1,9 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms'
-import Enums = require("../../../../enums");
-import FeedTypeEnum = Enums.FeedTypeEnum;
-import Pagedfeedclasses = require("../../../../models/pagedfeedclasses");
-import TextFeedPage = Pagedfeedclasses.TextFeedPage;
 
 @Component({
     selector: 'bodytext-page-form',

@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy, EventEmitter, ViewContainerRef } from '@a
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { IFeedItem } from '../../../contracts/models/IFeedModel';
 import { IndexComponent } from '../../index.component';
-import { DefaultTabNavs } from '../../../components/container/tabbednavmenu/tabnavmenu.component';
 import { FeedCategoryEnum, FeedTypeEnum, CopiedElementTypeEnum } from '../../../../enums';
 import { UserMarket } from '../../../models/userclasses';
 import { PermissionService } from '../../../shared/services/helpers/permissionservice';
@@ -12,6 +11,7 @@ import { ShareService } from '../../../shared/services/helpers/shareservice';
 import { FeedItemDelete } from '../../../components/feed/modals/deletefeeditem/deletefeeditem.component';
 import { FeedItemPublish } from '../../../components/feed/modals/publishfeeditem/publishfeeditem.component';
 import { BaseFeed } from '../../../models/feedclasses';
+import {DefaultTabNavs} from "../../../components/navigation/tabbednavmenu/tabnavmenu.component";
 
 
 declare var $: any;
@@ -159,8 +159,8 @@ export class FeedIndexComponent extends IndexComponent implements OnInit, OnDest
     }
 
 	copyFeedItemToMarket(feedItem: IFeedItem) {
-		this.selectedCopyToMarketModel = feedItem;
-    }
+		  this.selectedCopyToMarketModel = feedItem;
+	}
 
   deleteFeeditem(feedItem: IFeedItem) {
     let dialogRef = this.confirmBox.open(FeedItemDelete, {

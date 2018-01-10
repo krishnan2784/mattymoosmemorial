@@ -1,8 +1,9 @@
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import {BrandingElement, BrandingConfigurationOption } from "../../../../models/brandingclasses";
+import { FormGroup } from '@angular/forms';
+import {BrandingElement, BrandingConfigurationOption } from "../../../models/brandingclasses";
 import {BrandingElementType, UploaderType } from "../../../../enums";
-import {StringEx} from "../../../../classes/helpers/string";
+import {StringEx} from "../../../classes/helpers/string";
+
 
 @Component({
     selector: 'base-branding-component',

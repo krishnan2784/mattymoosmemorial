@@ -18,6 +18,6 @@ export class TemplateNavMenuComponent {
     }
 
     collapseMenu() {
-        this.collapse = "collapse"
+      this.collapse = "collapse";
     }
 }

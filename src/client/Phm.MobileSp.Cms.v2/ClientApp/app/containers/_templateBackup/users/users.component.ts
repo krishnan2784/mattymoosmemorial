@@ -3,8 +3,8 @@ import {
     // animation imports
     trigger, state, style, transition, animate, Inject
 } from '@angular/core';
-import {IUser} from "../../../models/User";
 import {UserService} from "../../../shared/_templateBackup/user.service";
+import {User} from "../../../models/userclasses";
 
 
 @Component({
@@ -28,8 +28,8 @@ import {UserService} from "../../../shared/_templateBackup/user.service";
 })
 export class UsersComponent implements OnInit {
 
-    users: IUser[];
-    selectedUser: IUser;
+    users: User[];
+    selectedUser: User;
 
     // Use "constructor"s only for dependency injection
     constructor(private userService: UserService) { }
@@ -40,11 +40,11 @@ export class UsersComponent implements OnInit {
         this.userService.getUsers().subscribe(result => {
             console.log('Get user result: ', result);
             console.log('TransferHttp [GET] /api/users/allresult', result);
-            this.users = result as IUser[];
+            this.users = result as User[];
         });
     }
 
-    onSelect(user: IUser): void {
+    onSelect(user: User): void {
         this.selectedUser = user;
     }
 

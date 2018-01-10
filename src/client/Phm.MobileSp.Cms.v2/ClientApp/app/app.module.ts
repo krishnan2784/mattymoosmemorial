@@ -102,7 +102,7 @@ import {FeedItemDelete} from "./components/feed/modals/deletefeeditem/deletefeed
 import {FeedItemPublish} from "./components/feed/modals/publishfeeditem/publishfeeditem.component";
 import {UserDelete} from "./components/accountmanagement/modals/deleteuser/deleteuser.component";
 import { MatRadioModule, MatButtonModule, MatDialogModule, MatInputModule, MatSnackBarModule,
-  MatCheckboxModule, MatRadioModule, MatSlideToggleModule, MatMenuModule, MatSelectModule,
+  MatCheckboxModule, MatSlideToggleModule, MatMenuModule, MatSelectModule,
   MatAutocompleteModule, MatTableModule, } from '@angular/material';
 import {LearnerStatComponent} from "./components/reports/leaderboards/learnerstat/learnerstat.component";
 import {LeaderboardComponent} from "./components/reports/leaderboards/leaderboard/leaderboard.component";
@@ -110,6 +110,8 @@ import {LbExecutivesTableComponent} from
   "./components/reports/leaderboards/lbexecutivestable/lbexecutivestable.component";
 import {LbrefineComponent} from "./components/reports/leaderboards/lbrefine/lbrefine.component";
 import {PartitionComponent} from "./components/reports/leaderboards/partition/partition.component";
+import {DeleteModel} from "./components/modals/deletemodel/deletemodel.component";
+import {CompetitionPublish} from "./components/competitions/modals/publishcompetition/publishcompetition.component";
 
 // i18n support
 //import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -136,6 +138,7 @@ import {PartitionComponent} from "./components/reports/leaderboards/partition/pa
     FooterComponent,
     MarketDropdown,
     DatepickerComponent,
+    NotFoundComponent,
 
     // main naviation items
     CounterComponent,
@@ -203,6 +206,11 @@ import {PartitionComponent} from "./components/reports/leaderboards/partition/pa
     //modals
     CopyToMarketContent,
     CopyToMarket,
+    FeedItemDelete,
+    FeedItemPublish,
+    UserDelete,
+    DeleteModel,
+    CompetitionPublish,
 
     //shared
     UserFilter,
@@ -325,11 +333,12 @@ import {PartitionComponent} from "./components/reports/leaderboards/partition/pa
         AlertService
     ],
     entryComponents: [
-      FeedItemCopyToMarket,
       FeedItemDelete,
       FeedItemPublish,
       UserDelete,
-      EditUser
+      EditUser,
+      DeleteModel,
+      CompetitionPublish
     ]
 })
 export class AppModuleShared {
