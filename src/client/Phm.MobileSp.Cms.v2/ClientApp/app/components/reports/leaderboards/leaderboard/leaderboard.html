@@ -1,9 +1,9 @@
 <div class="leadershipBoard">
   <div class="topArea">
     <div class="topAreaHeader">
-      <div class="ta1 ta">Bilevel partition</div>
+      <div class="ta1 ta">Analytics area</div>
       <div class="ta2 ta">Top 10</div>
-      <button mat-raised-button (click)="handleReport()">Export</button>
+      <button (click)="handleReport()">Export</button>
     </div>
     <div class="graphArea">
       <div class="borderDetail"></div>
@@ -39,14 +39,14 @@
       </div>
     </div>
     <div class="refine">
-      <lbrefine [groups]="refineGroups" [hideDates]="false" [hideRange]="true" (criteriaChanged)="handleRefine($event)"></lbrefine>
+      <lbrefine [groups]="refineGroups" [hideDates]="false" [hideRange]="true" (criteriaChanged)="handleRefine($event)" [date1]="curDate1" [date2]="curDate2"></lbrefine>
     </div>
     <div class="all">
       <div class="tableTops">
         <div class="borderDetail"></div>
         <div class="search">
           <mat-form-field>
-            <input mdInput type="text" [(ngModel)]="searchString" (keyup)="handleSearchText()" placeholder="Search">
+            <input matInput type="text" [(ngModel)]="searchString" (keyup)="handleSearchText()" placeholder="Search for...">
           </mat-form-field>
         </div>
         <div class="right pag" *ngIf="salesExecList.length > 0">

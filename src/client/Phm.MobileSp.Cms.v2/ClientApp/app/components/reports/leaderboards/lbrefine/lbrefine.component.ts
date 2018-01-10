@@ -5,7 +5,7 @@ declare var $: any;
 @Component({
     selector: 'lbrefine',
     template: require('./lbrefine.html'),
-    styles: [require('./lbrefine.scss'), require('./ion.rangeSlider.custom.css')],
+    styles: [require('./lbrefine.css'), require('./ion.rangeSlider.custom.css')],
   encapsulation: ViewEncapsulation.None
 })
 export class LbrefineComponent implements AfterViewInit {
@@ -13,8 +13,8 @@ export class LbrefineComponent implements AfterViewInit {
   @Input() hideDates: boolean;
   @Input() hideRange: boolean;
   @Output() criteriaChanged: EventEmitter<any> = new EventEmitter();
-  date1;
-  date2;
+  @Input()date1;
+  @Input()date2;
   rangeFrom = 0;
   rangeTo = 100;
   minDay;
