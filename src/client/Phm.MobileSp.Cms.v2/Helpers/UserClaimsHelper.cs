@@ -1,10 +1,7 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Security.Claims;
-using System.Security.Principal;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Authentication;
-using Phm.MobileSp.Cms.Core.Models;
 
 namespace Phm.MobileSp.Cms.Helpers
 {
@@ -20,10 +17,10 @@ namespace Phm.MobileSp.Cms.Helpers
 		    if (existingClaim != null)
 			    identity.RemoveClaim(existingClaim);
 
-			// add new claim
-			identity.AddClaim(new Claim(key, value));
-		    await context.Authentication.SignOutAsync("MobileSPAuthCookie");
-		    await context.Authentication.SignInAsync("MobileSPAuthCookie", context.User);
+			  // add new claim
+			  identity.AddClaim(new Claim(key, value));
+        await Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignOutAsync(context, "MobileSPAuthCookie");
+	      await Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignInAsync(context, "MobileSPAuthCookie", context.User);
 		}
 
 		public static T GetClaimValue<T>(this HttpContext context, string key)

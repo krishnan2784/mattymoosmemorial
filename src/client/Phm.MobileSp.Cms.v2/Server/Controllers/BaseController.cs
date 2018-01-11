@@ -28,7 +28,7 @@ namespace Phm.MobileSp.Cms.Server.Controllers
         public int CurrentMarketId
         {
             get => HttpContext.GetClaimValue<int>("currentmarketid");
-	        set => HttpContext.AddUpdateClaim("currentmarketid", value.ToString());
+            set => HttpContext.AddUpdateClaim("currentmarketid", value.ToString());
         }
 
         public int UserId => HttpContext.GetClaimValue<int>("userid");

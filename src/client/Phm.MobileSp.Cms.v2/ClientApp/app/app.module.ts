@@ -311,7 +311,8 @@ import {CompetitionPublish} from "./components/competitions/modals/publishcompet
                   { rel: 'alternate', hreflang: 'es', href: 'http://es.example.com/bootstrap-demo' }
                 ]
               }
-            }], {
+          }],
+          {
           // Router options
           useHash: false,
           preloadingStrategy: PreloadAllModules,

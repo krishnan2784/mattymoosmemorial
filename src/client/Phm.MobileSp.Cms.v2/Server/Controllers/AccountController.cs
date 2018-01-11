@@ -93,12 +93,5 @@ namespace Phm.MobileSp.Cms.Server.Controllers
 
             return LocalRedirect(returnUrl);
         }
-
-        [AiHandleError]
-        [HttpGet]
-        public IActionResult Logout()
-        {
-            return View();
-        }
     }
 }

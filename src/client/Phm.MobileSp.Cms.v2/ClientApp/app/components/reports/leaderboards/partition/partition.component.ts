@@ -110,7 +110,7 @@ export class PartitionComponent implements OnInit {
     }
 
     var root_ = null;
-    d3.json("", function (error, root) {
+    d3.json("./assets/data2.json", function (error, root) {
       root = dataRoot;
       if (error) return console.warn(error);
       // Compute the initial layout on the entire tree to sum sizes.
