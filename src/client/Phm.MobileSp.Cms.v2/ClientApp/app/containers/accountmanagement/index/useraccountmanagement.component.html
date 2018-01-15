@@ -1,7 +1,7 @@
 <div class="loader" *ngIf="!filteredUserAccounts"></div>
 
 <div *ngIf="filteredUserAccounts">
-    <a *ngIf="userPermissions.canCreate" (click)="editUser()" class="btn-floating btn-large waves-effect waves-light btn-top-right" data-toggle="modal" data-backdrop="static" data-target="#edit-user" id="btn-add-user">
+    <a *ngIf="userPermissions.canCreate" mat-fab (click)="editUser()" color="" class="btn-top-right" data-toggle="modal" data-backdrop="static" data-target="#edit-user" id="btn-add-user">
         <i class="material-icons">person_add</i>
     </a>
     <div class="animate-bottom user-index-container">

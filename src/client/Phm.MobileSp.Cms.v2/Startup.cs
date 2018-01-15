@@ -217,6 +217,11 @@ namespace Phm.MobileSp.Cms
       });
       app.UseStaticFiles(new StaticFileOptions()
       {
+        FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"node_modules", @"@angular", @"material", @"prebuilt-themes")),
+        RequestPath = new PathString("/css")
+      });
+      app.UseStaticFiles(new StaticFileOptions()
+      {
         FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"scripts")),
         RequestPath = new PathString("/js")
       });
@@ -226,7 +231,6 @@ namespace Phm.MobileSp.Cms
 
       try
       {
-
 
         app.UseMvc(routes =>
         {
@@ -244,7 +248,6 @@ namespace Phm.MobileSp.Cms
             "spa-fallback",
             new { controller = "Home", action = "Index" });
         });
-      
 
         if (env.IsDevelopment() || env?.EnvironmentName == "Debug" || env?.EnvironmentName == "Local")
         {
@@ -276,6 +279,8 @@ namespace Phm.MobileSp.Cms
         {
           app.UseExceptionHandler("/Home/Error");
         }
+
+
       }
       catch (Exception ex)
       {

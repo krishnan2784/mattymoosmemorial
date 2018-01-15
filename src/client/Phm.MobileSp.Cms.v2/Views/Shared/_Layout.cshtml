@@ -5,9 +5,9 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>MobileSP</title>
-        <base href="/" />
+      <base href="/" />
+        <link href="/css/deeppurple-amber.css" rel="stylesheet">
         <link rel="stylesheet" href="~/dist/vendor.css" asp-append-version="true" />
-        <link rel="stylesheet" href="/css/materialize.min.css" asp-append-version="true" />
         <link rel="stylesheet" href="/css/site.css" asp-append-version="true" />
         <link rel="stylesheet" href="/css/c3.min.css" asp-append-version="true" />
         <link rel="stylesheet" href="/css/ion.rangeSlider.css" asp-append-version="true" />
@@ -20,18 +20,10 @@
 @RenderBody()
 
 @RenderSection("scripts", required: false)
-    <script type="text/javascript" src="/js/materialize.min.js"></script>
     <script type="text/javascript" src="/js/d3.min.js"></script>
     <script type="text/javascript" src="/js/c3.min.js"></script>
     <script type="text/javascript" src="/js/ion.rangeSlider.js"></script>
     <script type="text/javascript" src="/js/tinymce/tinymce.min.js"></script>
 <script type="text/javascript" src="/js/bootstrap-tagsinput.js"></script>
-<script>
-    $(document).on('click', '#toast-container .toast', function() {
-        $(this).fadeOut(function(){
-            $(this).remove();
-        });
-    });
-</script>
 </body>
 </html>

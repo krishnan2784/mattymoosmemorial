@@ -60,7 +60,7 @@ export class DynamicChartFormatsComponent implements AfterViewInit, OnInit  {
       .attr("transform", `translate(${this.width / 4},${this.height / 4})`);
   }
   private buildPie(): void {
-    let pie = D3.layout.pie();
+    let pie = D3.pie();
     let values = this.pieData.map(data => data.value);
     let arcSelection = this.svg.selectAll(".arc")
       .data(pie(values))
@@ -69,9 +69,9 @@ export class DynamicChartFormatsComponent implements AfterViewInit, OnInit  {
       .attr("class", "arc");
     this.populatePie(arcSelection);
   }
-  private populatePie(arcSelection: D3.Selection<D3.layout.pie.Arc<number>>): void {
+  private populatePie(arcSelection: D3.Selection<D3.pie.Arc<number>>): void {
     let outerRadius = this.radius - 10;
-    let arc = D3.svg.arc<D3.layout.pie.Arc<number>>()
+    let arc = D3.arc<D3.pie.arc<number>>()
       .outerRadius(outerRadius);
     arcSelection.append("path")
       .attr("d", arc)

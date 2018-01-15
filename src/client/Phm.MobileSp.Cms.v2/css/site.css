@@ -70,8 +70,9 @@ textarea:not([readonly]).materialize-textarea:focus {
 .dropdown:hover .dropbtn {
   background-color: #3e8e41;
 }
+.mat-button-wrapper:hover {text-decoration:none;}
 div,
-span,
+span:not(.mat-button-wrapper),
 ul,
 li,
 h1,

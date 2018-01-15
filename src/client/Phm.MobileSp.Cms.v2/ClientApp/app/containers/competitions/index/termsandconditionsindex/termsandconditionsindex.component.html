@@ -3,7 +3,7 @@
         <div class="loader" *ngIf="!termsAndConditions"></div>
                 
         <div *ngIf="termsAndConditions">
-            <a (click)="editTermsAndConditions()" class="btn-floating btn-large waves-effect waves-light btn-top-right" *ngIf="currentMarket && !currentMarket.isLive" id="terms-and-conditions-index-item__btn-create">
+            <a (click)="editTermsAndConditions()" mat-fab color="" class="btn-top-right" *ngIf="currentMarket && !currentMarket.isLive" id="terms-and-conditions-index-item__btn-create">
                 <i class="material-icons">add</i>
             </a>
             <div class="col-xs-12" *ngIf="termsAndConditions.length === 0">

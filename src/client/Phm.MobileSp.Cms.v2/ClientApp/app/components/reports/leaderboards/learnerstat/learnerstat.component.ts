@@ -213,7 +213,7 @@ export class LearnerStatComponent implements OnInit, AfterViewInit {
       }
   }
   private buildPie(): void {
-    let pie = D3.layout.pie();
+    let pie = D3.pie();
     let values = this.pieData.map(data => data.value);
     let arcSelection = this.svg.selectAll(".arc")
       .data(pie(values))
@@ -222,11 +222,11 @@ export class LearnerStatComponent implements OnInit, AfterViewInit {
       .attr("class", "arc");
     this.populatePie(arcSelection);
   }
-  private populatePie(arcSelection: D3.Selection<D3.layout.pie.Arc<number>>): void {
+  private populatePie(arcSelection: D3.Selection<D3.pie.Arc<number>>): void {
     let innerRadius = this.radius - 50;
     let outerRadius = this.radius - 10;
-    let pieColor = D3.scale.category10();
-    let arc = D3.svg.arc<D3.layout.pie.Arc<number>>()
+    let pieColor = D3.schemeCategory10();
+    let arc = D3.arc<D3.pie.arc<number>>()
       .outerRadius(outerRadius);
     arcSelection.append("path")
       .attr("d", arc)

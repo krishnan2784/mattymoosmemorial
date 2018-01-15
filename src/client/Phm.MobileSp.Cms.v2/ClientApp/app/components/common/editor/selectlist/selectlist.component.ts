@@ -31,8 +31,8 @@ export class SelectListComponent implements OnInit {
 	ngOnInit() {
 		//if (!this.selectedValue)
 		//	this.selectedValue = this.values && this.values.length > 0 ? this.values[0] : {};
-		$(document).ready(() => {
-			$('#' + this.elementId).material_select();
-		});
+		//$(document).ready(() => {
+		//	$('#' + this.elementId).material_select();
+		//});
 	}
 }

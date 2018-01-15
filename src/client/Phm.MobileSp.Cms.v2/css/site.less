@@ -1,4 +1,4 @@
-﻿@darkGrey: #405362;
+@darkGrey: #405362;
 @lightGrey: #eee;
 @lightBlue: #D5EDF7;
 @purple: #4F3A9F;
@@ -81,12 +81,12 @@ textarea:not([readonly]).materialize-textarea:focus {
 .dropdown:hover .dropbtn {
     background-color: #3e8e41;
 }
-
-div, span, ul, li, h1, h2, h3, h4, h5, p {
-    -webkit-user-select: none !important;
-    -moz-user-select: none !important;
-    -ms-user-select: none !important;
-    cursor: default;
+.mat-button-wrapper:hover {text-decoration:none;}
+div, span:not(.mat-button-wrapper), ul, li, h1, h2, h3, h4, h5, p {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  cursor: default;
 }
 .material-icons, a {
     -webkit-user-select: none !important;
@@ -110,7 +110,7 @@ div, span, ul, li, h1, h2, h3, h4, h5, p {
 }
 
 .btn-top-right {
-    position: absolute;
+    position: absolute!important;
     right: 100px;
     top: 73px;
     background-color: #F9F9F9;
