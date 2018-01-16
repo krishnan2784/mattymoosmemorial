@@ -12,6 +12,7 @@ import { FeedItemDelete } from '../../../components/feed/modals/deletefeeditem/d
 import { FeedItemPublish } from '../../../components/feed/modals/publishfeeditem/publishfeeditem.component';
 import { BaseFeed } from '../../../models/feedclasses';
 import {DefaultTabNavs} from "../../../components/navigation/tabbednavmenu/tabnavmenu.component";
+import {CopyToMarket} from "../../../components/modals/copytomarket/copytomarket.component";
 
 
 declare var $: any;
@@ -23,7 +24,6 @@ declare var $: any;
 })
 export class FeedIndexComponent extends IndexComponent implements OnInit, OnDestroy {
 	selectedModel = null;
-	selectedCopyToMarketModel = null;
     modalData = null;
 
     public feedItems: IFeedItem[];
@@ -159,7 +159,21 @@ export class FeedIndexComponent extends IndexComponent implements OnInit, OnDest
     }
 
 	copyFeedItemToMarket(feedItem: IFeedItem) {
-		  this.selectedCopyToMarketModel = feedItem;
+    let dialogRef = this.confirmBox.open(CopyToMarket, {
+	    width: '600px',
+      data: {
+        model:feedItem, contentType: CopiedElementTypeEnum.Feed, marketContentService: this.feedDataService,
+        modalId: 'feeditem-copytomarket', modalHeader: 'Copy ' + feedItem.title
+      }
+	  });
+
+	  dialogRef.afterClosed().subscribe(result => {
+	    if (result)
+	      this.feedDataService.getFeeditem(feedItem.id).subscribe((result) => {
+	        if (result)
+	          this.updateFeedItem(result, false);
+	      });
+	  });
 	}
 
   deleteFeeditem(feedItem: IFeedItem) {

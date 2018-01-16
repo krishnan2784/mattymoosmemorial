@@ -22,8 +22,8 @@ li .glyphicon {
     font-weight: 700;
 }
 
-li:not(.link-active) a:hover,
-li:not(.link-active) a:focus,
+ul:not(.nav-dropdown-content) > li:not(.link-active) a:hover,
+ul:not(.nav-dropdown-content) > li:not(.link-active) a:focus,
 .navbar ul > li.link-active > a,
 .navbar ul > li.link-active > a:hover,
 .navbar ul > li.link-active > a:focus{

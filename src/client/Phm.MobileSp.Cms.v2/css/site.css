@@ -247,3 +247,7 @@ a:hover, a:focus {
 a:hover, a:active, button:hover, button:active {
   outline: none!important;
 }
+.mat-select{
+  border:none!important;
+  box-shadow: none!important;
+}

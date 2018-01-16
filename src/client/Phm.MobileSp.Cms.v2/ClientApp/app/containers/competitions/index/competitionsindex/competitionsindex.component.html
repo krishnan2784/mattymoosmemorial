@@ -44,7 +44,7 @@
 					        </div>
 					        <div class="competition-control">
 						        <div  *ngIf="currentMarket && !currentMarket.isLive && currentMarket.isMaster">
-							        <a (click)="copyCompetitionToMarket(competition)" data-toggle="modal" data-target="#competition-copytomarket" id="competition-index-item__btn-copy-to-market-{{i}}">
+							        <a (click)="copyCompetitionToMarket(competition)" id="competition-index-item__btn-copy-to-market-{{i}}">
 								        <i class="material-icons">content_copy</i>
 								        <p>Copy</p>
 							        </a>
@@ -78,6 +78,3 @@
 </div>
 
 <competition-form *ngIf="selectedModel" [model]="selectedModel" (competitionUpdated)="competitionUpdated($event)"></competition-form>
-<copytomarket [model]="selectedCopyToMarketModel" [contentType]="contentTypeEnum.Competition" [marketContentService]="competitionDataService" 
-              [modalId]="'competition-copytomarket'" [modalHeader]="'Copy to market'" [modalDescription]="''"
-              (updateItem)="selectedCopyToMarketModel = null"></copytomarket>

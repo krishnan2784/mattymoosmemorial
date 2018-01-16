@@ -12,6 +12,7 @@ import {MatDialog} from "@angular/material";
 import {CompetitionPublish} from
   "../../../../components/competitions/modals/publishcompetition/publishcompetition.component";
 import {DeleteModel} from "../../../../components/modals/deletemodel/deletemodel.component";
+import { CopyToMarket } from '../../../../components/modals/copytomarket/copytomarket.component';
 
 @Component({
 	selector: 'competitionsindex',
@@ -20,7 +21,6 @@ import {DeleteModel} from "../../../../components/modals/deletemodel/deletemodel
 })
 export class CompetitionIndexComponent extends BaseComponent implements OnInit, OnDestroy {
 	selectedModel: Competition = null;
-	selectedCopyToMarketModel: Competition = null;
 	public getCompetitionsItemsSub;
 
 	public allCompetitions: Competition[];
@@ -123,9 +123,23 @@ export class CompetitionIndexComponent extends BaseComponent implements OnInit, 
 			this.getData();
 	}
 
-	copyCompetitionToMarket(comp: Competition) {
-		this.selectedCopyToMarketModel = comp;
-	}
+  copyCompetitionToMarket(comp: Competition) {
+    let dialogRef = this.confirmBox.open(CopyToMarket, {
+      width: '600px',
+      data: {
+        model: comp, contentType: CopiedElementTypeEnum.Feed, marketContentService: this.competitionDataService,
+        modalId: 'competition-copytomarket', modalHeader: 'Copy ' + comp.title
+      }
+    });
+
+    //dialogRef.afterClosed().subscribe(result => {
+      //if (result)
+        //this.competitionDataService.getCompetitions(comp.id).subscribe((result) => {
+        //  if (result)
+        //    this.updateCompetition(result, false);
+        //});
+    //});
+  }
 
 	publishCompetitionTolive(competition: Competition) {
 		var confirmText;

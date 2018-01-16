@@ -71,7 +71,6 @@ import {DonutChart} from "./components/charts/donutchart/donutchart.component";
 import {DynamicChartFormatsComponent} from "./components/reports/dynamicchartformats/dynamicchartformats.component";
 import {MonobarGraphComponent} from "./components/charts/monobargraph/monobargraph.component";
 import {GaugeGraphComponent} from "./components/charts/gaugegraph/gaugegraph.component";
-import {CopyToMarketContent} from "./components/modals/copytomarket/content/copytomarketcontent.component";
 import {CopyToMarket} from "./components/modals/copytomarket/copytomarket.component";
 import {UserFilter} from "./components/common/filters/userfilter/userfilter.component";
 import {RichTextEditorComponent} from "./components/common/editor/richtexteditor/richtexteditor.component";
@@ -112,6 +111,15 @@ import {LbrefineComponent} from "./components/reports/leaderboards/lbrefine/lbre
 import {PartitionComponent} from "./components/reports/leaderboards/partition/partition.component";
 import {DeleteModel} from "./components/modals/deletemodel/deletemodel.component";
 import {CompetitionPublish} from "./components/competitions/modals/publishcompetition/publishcompetition.component";
+import {BrandingService} from "./shared/services/brandingservice";
+import {EntityPermissionDataService} from "./shared/services/entitypermissiondataservice";
+import {SecurityFeatureDataService} from "./shared/services/securityfeaturedataservice";
+import {UserGroupPermissionDataService} from "./shared/services/usergrouppermissiondataservice";
+import {CompetitionsDataService} from "./shared/services/competitionsdataservice";
+import {TermsAndConditionsDataService} from "./shared/services/termsandconditionsdataservice";
+import {RewardSchemesDataService} from "./shared/services/rewardschemedataservice";
+import {CompetitionSubsetsDataService} from "./shared/services/competitionsubsetdataservice";
+import {UserFeaturePermissionsDataService} from "./shared/services/userfeaturepermissionsdataservice";
 
 // i18n support
 //import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -204,7 +212,6 @@ import {CompetitionPublish} from "./components/competitions/modals/publishcompet
     GaugeGraphComponent,
 
     //modals
-    CopyToMarketContent,
     CopyToMarket,
     FeedItemDelete,
     FeedItemPublish,
@@ -331,9 +338,14 @@ import {CompetitionPublish} from "./components/competitions/modals/publishcompet
         UserDataService,
       MediaDataService,
         PermissionService,
-        AlertService
+      AlertService,
+      BrandingService,
+      EntityPermissionDataService, SecurityFeatureDataService,
+      UserGroupPermissionDataService, CompetitionsDataService, TermsAndConditionsDataService,
+      RewardSchemesDataService, CompetitionSubsetsDataService, UserFeaturePermissionsDataService
     ],
     entryComponents: [
+      CopyToMarket,
       FeedItemDelete,
       FeedItemPublish,
       UserDelete,

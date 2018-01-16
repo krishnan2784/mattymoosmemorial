@@ -77,7 +77,6 @@ export class UploadMediaComponent implements OnInit, OnChanges {
 			  this.btnPickerId = this.elementId + '-' + 'btn-picker';
 			  this.inputMediaPathId = this.elementId + '-' + 'media-input';
       }
-      console.log(this.uploading, this.files);
     }
 	ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
 		if (changes['selectedMedia']) {

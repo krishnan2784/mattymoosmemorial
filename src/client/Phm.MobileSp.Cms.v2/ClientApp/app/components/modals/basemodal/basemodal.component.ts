@@ -1,13 +1,12 @@
 import { Component, Input, Output, ViewContainerRef, ViewChild, ReflectiveInjector, ComponentFactoryResolver, EventEmitter } from '@angular/core';
 import {EditUser} from "../../accountmanagement/modals/edituser/edituser.component";
-import {CopyToMarketContent} from "../copytomarket/content/copytomarketcontent.component";
 
 
 declare var $: any;
 
 @Component({
     selector: 'base-modal',
-	entryComponents: [EditUser, CopyToMarketContent], 
+	entryComponents: [EditUser], 
     template: require('./basemodal.component.html'),
     styles: [require('./basemodal.component.css')],
 })

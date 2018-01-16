@@ -1,1 +1,20 @@
-﻿
+select {
+    height: 60vh;
+    min-height: 200px;
+}
+
+option:not([disabled]), a { cursor: pointer;}
+
+option[disabled] {
+    background-color: rgba(200, 200, 200, 0.2);
+}
+
+.button-col .btn {
+     padding: 0 15px;
+    background-color: #EDEDED;
+    color: #000;
+}
+
+.button-col {
+    text-align: center;
+}
