@@ -10,12 +10,12 @@
             <div *ngIf="backButtonText" class="back-button">
               <a (click)="goBack()" id="header__btn-back"><i class="material-icons">reply</i> {{backButtonText}}</a>
             </div>
-            <div class="col-xs-8">
+            <div class="col-xs-7">
               <h4 *ngIf="pageTitle!=''" class="page-title">
                 {{pageTitle}}
               </h4>
             </div>
-            <div class="col-xs-4">
+            <div class="col-xs-3">
               <marketdropdown *ngIf="this.marketDropdownIsVisible" class="marketdropdown"></marketdropdown>
             </div>
             <div class="clearfix"></div>

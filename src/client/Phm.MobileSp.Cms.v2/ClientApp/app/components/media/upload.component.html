@@ -13,18 +13,19 @@
 </p>
 <div class="upload-container">
   <div class="file-field input-field">
-    <div class="btn" [class.disabled]="disabled" id="{{btnPickerId}}">
-      <span>File</span>
-      <input type="file" (change)="filesSelectHandler($event)" [disabled]="uploading || disabled" 
-             accept="{{acceptString}}" id="{{inputMediaPathId}}" 
-             [attr.multiple]="canUploadMultipleFiles ? true : null">
+    <div [class.disabled]="disabled">
+      <input class="hide" type="file" (change)="filesSelectHandler($event)" [disabled]="uploading || disabled" 
+             accept="{{acceptString}}" id="{{btnPickerId}}" 
+             [attr.multiple]="canUploadMultipleFiles ? true : null" />
+      <label for="{{btnPickerId}}" mat-button class="mat-raised-button">Choose File</label>
+      <label>{{filePath}}</label>
     </div>
     <!--<div class="file-path-wrapper">
       <input class="file-path validate" [(ngModel)]="filePath" type="text" [attr.disabled]="disabled ? disabled : null">
     </div>-->
   </div>
     <span class="input-group-btn">
-        <a mat-button class="btn-save" (click)="uploadFile()" *ngIf="!disabled" [attr.disabled]="uploading || !files || files.length==0" id="{{btnSaveId}}">Upload</a>
+        <button mat-raised-button type="button" class="btn-save" (click)="uploadFile()" *ngIf="!disabled" [disabled]="uploading || !files || files.length === 0 ? 'disabled' : null" id="{{btnSaveId}}">Upload</button>
     </span>
     <div *ngIf="showPreview" class="preview-container">
         <div *ngIf="imagePreviewUrl || videoPreviewUrl" >
@@ -35,7 +36,7 @@
 	        </div>
 	        <div class="clearfix"></div>
 	        <span *ngIf="canClear" class="input-group-btn">
-		        <button mat-button class="btn btn-primary btn-clear" (click)="clearUpload()" [class.disabled]="uploading" id="{{btnClearId}}">Clear</button>
+		        <button mat-raised-button type="button" (click)="clearUpload()" [disabled]="uploading ? 'disabled' : null" id="{{btnClearId}}">Clear</button>
 	        </span>
             <hr />
         </div>

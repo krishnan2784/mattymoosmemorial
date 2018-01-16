@@ -57,27 +57,27 @@ export class UploadMediaComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {       
-        if (this.selectedMedia)
-			this.setPreviewImage(this.selectedMedia.azureUrl);
-		else if (this.form && !this.savePreviewUrl && this.form.controls[this.formControlId] && this.form.controls[this.formControlId].value > 0) {
-			this.mediaService.getMediaInfo(this.form.controls[this.formControlId].value).subscribe(x => {
-				if (x) {
-					this.selectedMedia = x;
-					this.setPreviewImage(this.selectedMedia.azureUrl);
-				}
-	        });
-		}
-	    if (this.uploaderType === UploaderType.Image)
-			this.acceptString = 'image/png,image/jpg,image/jpeg';
-		else if (this.uploaderType === UploaderType.Video)
-			this.acceptString = 'video/mp4';
+      if (this.selectedMedia)
+        this.setPreviewImage(this.selectedMedia.azureUrl);
+		  else if (this.form && !this.savePreviewUrl && this.form.controls[this.formControlId] && this.form.controls[this.formControlId].value > 0) {
+			  this.mediaService.getMediaInfo(this.form.controls[this.formControlId].value).subscribe(x => {
+				  if (x) {
+					  this.selectedMedia = x;
+					  this.setPreviewImage(this.selectedMedia.azureUrl);
+				  }});
+		  }
+      if (this.uploaderType === UploaderType.Image)
+        this.acceptString = 'image/png,image/jpg,image/jpeg';
+      else if (this.uploaderType === UploaderType.Video)
+        this.acceptString = 'video/mp4';
 
-		if (this.elementId) {
-			this.btnSaveId = this.elementId + '-' + 'btn-save';
-			this.btnClearId = this.elementId + '-' + 'btn-clear';
-			this.btnPickerId = this.elementId + '-' + 'btn-picker';
-			this.inputMediaPathId = this.elementId + '-' + 'media-input';
-		}
+		  if (this.elementId) {
+			  this.btnSaveId = this.elementId + '-' + 'btn-save';
+			  this.btnClearId = this.elementId + '-' + 'btn-clear';
+			  this.btnPickerId = this.elementId + '-' + 'btn-picker';
+			  this.inputMediaPathId = this.elementId + '-' + 'media-input';
+      }
+      console.log(this.uploading, this.files);
     }
 	ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
 		if (changes['selectedMedia']) {
@@ -174,9 +174,10 @@ export class UploadMediaComponent implements OnInit, OnChanges {
 			this.files = [];
         if (this.fileIsValid(file, width, height)) {
             this.files.push(file);
+            this.filePath = file.name;
         } else {
-			this.correctType = false;
-			this.filePath = '';
+			      this.correctType = false;
+			      this.filePath = '';
         }
     }
 

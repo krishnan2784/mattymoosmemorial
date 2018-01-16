@@ -70,7 +70,7 @@ textarea:not([readonly]).materialize-textarea:focus {
 .dropdown:hover .dropbtn {
   background-color: #3e8e41;
 }
-.mat-button-wrapper:hover {text-decoration:none;}
+.mat-button:hover, .mat-button-wrapper:hover {text-decoration:none;}
 div,
 span:not(.mat-button-wrapper),
 ul,
@@ -243,4 +243,7 @@ a:hover, a:focus {
 .mat-input-container, .mat-input-container, .mat-select {
   width: 100% !important;
   display: block;
+}
+a:hover, a:active, button:hover, button:active {
+  outline: none!important;
 }

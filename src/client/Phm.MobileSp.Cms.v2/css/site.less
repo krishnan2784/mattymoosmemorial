@@ -81,7 +81,10 @@ textarea:not([readonly]).materialize-textarea:focus {
 .dropdown:hover .dropbtn {
     background-color: #3e8e41;
 }
-.mat-button-wrapper:hover {text-decoration:none;}
+.mat-button:hover, .mat-button-wrapper:hover {
+  text-decoration: none;
+}
+
 div, span:not(.mat-button-wrapper), ul, li, h1, h2, h3, h4, h5, p {
   -webkit-user-select: none !important;
   -moz-user-select: none !important;
@@ -247,4 +250,7 @@ div, span:not(.mat-button-wrapper), ul, li, h1, h2, h3, h4, h5, p {
 .form-tab {
     background-color: #fff;
     padding: 20px;
+}
+a:hover, a:active, button:hover, button:active {
+  outline: none !important;
 }
