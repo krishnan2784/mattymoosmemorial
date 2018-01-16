@@ -7,7 +7,8 @@ declare var $: any;
     template: `
     <div [formGroup]="form" *ngIf="form">
         <mat-form-field>
-              <textarea matInput *ngIf="formControlId" id="{{elementId}}" formControlName="{{formControlId}}" placeholder="{{label}}"
+          <mat-label>{{label}}</mat-label>
+              <textarea matInput matTextareaAutosize *ngIf="formControlId" id="{{elementId}}" formControlName="{{formControlId}}" placeholder="{{placeholder}}"
               [attr.maxLength]="maxLength > 0 ? maxLength : null"
               [attr.data-length]="maxLength > 0 ? maxLength : null" [attr.disabled]="disabled ? disabled : null"></textarea>
 
@@ -30,7 +31,7 @@ export class TextAreaComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() validationMessage: string = '';
     @Input() formSubmitted: boolean = false;
 	@Output() onEditorKeyup = new EventEmitter<any>();
-  @Input() placeholder: string = ''; // currently being ignored as we use the label as a placeholder
+  @Input() placeholder: string = '';
     editor;
     activeClass: string = '';
     ngOnInit() {

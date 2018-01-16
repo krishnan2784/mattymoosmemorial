@@ -8,18 +8,18 @@ declare var $: any;
     selector: 'taginputbox',
     template: `
     <div [formGroup]="form" *ngIf="form">
-      <mat-form-field>
+      <div class="form-field">
         <input type="hidden" formControlName="{{formControlId}}">
         <div class="tag-contrainer">
-          <input matInput type="text" id="{{elementId}}" placeholder="{{label}}" data-role="tagsinput" value="{{form.controls[this.formControlId].value}}">
+          <input type="text" id="{{elementId}}" placeholder="{{label}}" data-role="tagsinput" value="{{form.controls[this.formControlId].value}}">
         </div>
         <small class="active-warning" [class.hidden]="form.controls[formControlId].valid || !formSubmitted">
           {{validationMessage}}
         </small>
-        <small *ngIf="displayMaxWarn" class="active-warning">
+        <mat-hint *ngIf="displayMaxWarn" class="active-warning">
           You can not enter more than {{maxLength}} tags.
-        </small>
-      </mat-form-field>
+        </mat-hint>
+      </div>
     </div>
 `,
   styles: [require('./taginputbox.component.css')]

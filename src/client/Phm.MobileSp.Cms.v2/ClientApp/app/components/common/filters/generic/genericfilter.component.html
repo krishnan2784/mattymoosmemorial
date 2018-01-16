@@ -8,7 +8,7 @@
 			<div class="filter" *ngFor="let filter of group.filters; let ii = index">
 
 				<div *ngIf="filter.filterType === filterTypes.Text" class="search-filter">
-					<input placeholder="Search" type="search" [(ngModel)]="filter.value" (ngModelChange)="broadcastChanges()" id="search-input" />
+					<input placeholder="Search" matInput type="search" [(ngModel)]="filter.value" (ngModelChange)="broadcastChanges()" id="search-input" />
 					<div class="clearfix"></div>
 				</div>
 

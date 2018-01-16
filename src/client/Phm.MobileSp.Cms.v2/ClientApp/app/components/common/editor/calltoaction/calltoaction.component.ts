@@ -44,7 +44,7 @@ cursor:pointer;
 		        </small>
 	        </div>
 	        <div class="col-md-3">
-		        <a class="button btn" *ngIf="form.controls[urlFormControlId].value && form.controls[urlFormControlId].value.length>5" 
+		        <a mat-raised-button class="button" *ngIf="form.controls[urlFormControlId].value && form.controls[urlFormControlId].value.length>5" 
 		           href="{{form.controls[urlFormControlId].value.indexOf('http') === 0 ? form.controls[urlFormControlId].value : 'http://' + form.controls[urlFormControlId].value}}" target="_blank">
 			        <span [innerHtml]="form.controls[buttonLabelFormControlId].value && form.controls[buttonLabelFormControlId].value.length > 0 ? form.controls[buttonLabelFormControlId].value : 'Test URL'"></span>
 		        </a>

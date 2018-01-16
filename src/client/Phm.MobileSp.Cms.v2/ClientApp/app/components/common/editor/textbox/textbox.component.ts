@@ -6,7 +6,8 @@ import { FormGroup } from "@angular/forms";
   template: `
 <div [formGroup]="form" *ngIf="form">
       <mat-form-field>
-        <input matInput id="{{elementId}}" type="text" placeholder="{{label}}" formControlName="{{formControlId}}" [attr.maxLength]="maxLength > 0 ? maxLength : null" [attr.data-length]="maxLength > 0 ? maxLength : null">
+        <mat-label>{{label}}</mat-label>
+        <input matInput id="{{elementId}}" type="text" placeholder="{{placeholder}}" formControlName="{{formControlId}}" [attr.maxLength]="maxLength > 0 ? maxLength : null" [attr.data-length]="maxLength > 0 ? maxLength : null">
         <mat-hint align="end" *ngIf="maxLength>0">{{form.controls[formControlId].value.length}} / {{maxLength}}</mat-hint>
         <small *ngIf="validationMessage" class="active-warning" [class.hidden]="form.controls[formControlId].valid || !formSubmitted">
           {{validationMessage}}
@@ -23,7 +24,7 @@ export class TextInputComponent implements OnInit, AfterViewInit {
     @Input() validationMessage: string = '';
     @Input() formSubmitted: boolean = false;
 	  @Input() maxLength: number = 0;
-	  @Input() placeholder: string = ''; // currently being ignored as we use the label as a placeholder
+	  @Input() placeholder: string = ''; 
     activeClass: string = '';
     ngOnInit() {
         if (this.elementId == '')

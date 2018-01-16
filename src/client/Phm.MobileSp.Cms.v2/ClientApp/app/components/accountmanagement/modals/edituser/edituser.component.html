@@ -4,56 +4,58 @@
 <mat-dialog-content>
     <input type="hidden" formControlName="id">
   <mat-form-field>
-    <input mdInput type="email" formControlName="email" placeholder="Email">
+    <input matInput type="email" formControlName="email" placeholder="Email">
     <small class="active-warning" [class.hidden]="form.controls.email.valid || !submitted">
       Please enter a valid email address.
     </small>
   </mat-form-field>
 
   <mat-form-field>
-    <input mdInput type="text" formControlName="firstName" placeholder="First name">
+    <input matInput type="text" formControlName="firstName" placeholder="First name">
     <small class="active-warning" [class.hidden]="form.controls.firstName.valid || !submitted">
       First name is required.
     </small>
   </mat-form-field>
 
   <mat-form-field>
-    <input mdInput type="text" formControlName="lastName" placeholder="Last name">
+    <input matInput type="text" formControlName="lastName" placeholder="Last name">
     <small class="active-warning" [class.hidden]="form.controls.lastName.valid || !submitted">
       Last name is required.
     </small>
   </mat-form-field>
 
+  <mat-form-field>
     <mat-select formControlName="secGroup" [(ngModel)]="model.secGroup" placeholder="Role">
       <mat-option *ngFor="let r of roles" [value]="r">{{r.name}}</mat-option>
     </mat-select>
     <small class="active-warning" [class.hidden]="form.controls.secGroup.valid || !submitted">
       Role is required.
     </small>
+  </mat-form-field>
 
   <mat-form-field>
-    <input mdInput type="text" formControlName="dealershipName" placeholder="Dealership name" [matAutocomplete]="dealershipNames">
+    <input matInput type="text" formControlName="dealershipName" placeholder="Dealership name" [matAutocomplete]="dealershipNames">
     <small class="active-warning" [class.hidden]="form.controls.dealershipName.valid || !submitted">
       Dealership is required.
     </small>
   </mat-form-field>
 
   <mat-form-field>
-    <input mdInput type="text" formControlName="dealershipCode" placeholder="Dealership code" [matAutocomplete]="dealershipCodes">
+    <input matInput type="text" formControlName="dealershipCode" placeholder="Dealership code" [matAutocomplete]="dealershipCodes">
     <small class="active-warning" [class.hidden]="form.controls.dealershipCode.valid || !submitted">
       Dealership code is required.
     </small>
   </mat-form-field>
 
   <mat-form-field>
-    <input mdInput type="text" formControlName="regionName" placeholder="Region" [matAutocomplete]="regions">
+    <input matInput type="text" formControlName="regionName" placeholder="Region" [matAutocomplete]="regions">
     <small class="active-warning" [class.hidden]="form.controls.regionName.valid || !submitted">
       Region is required.
     </small>
   </mat-form-field>
 
   <mat-form-field>
-    <input mdInput type="text" formControlName="zoneName" placeholder="Zone" [matAutocomplete]="zones">
+    <input matInput type="text" formControlName="zoneName" placeholder="Zone" [matAutocomplete]="zones">
     <small class="active-warning" [class.hidden]="form.controls.zoneName.valid || !submitted">
       A zone is required.
     </small>
@@ -65,15 +67,23 @@
 </mat-dialog-actions>
 </form>
 
-<datalist id="dealershipNames">
-  <option *ngFor="let x of dealershipNames" value="{{x}}">
-</datalist>
-<datalist id="dealershipCodes">
-  <option *ngFor="let x of dealershipCodes" value="{{x}}">
-</datalist>
-<datalist id="zones">
-  <option *ngFor="let x of zones" value="{{x}}">
-</datalist>
-<datalist id="regions">
-  <option *ngFor="let x of regions" value="{{x}}">
-</datalist>
+<mat-autocomplete #dealershipNames="matAutocomplete">
+  <mat-option *ngFor="let x of dealershipNames" [value]="x">
+    {{ x }}
+  </mat-option>
+</mat-autocomplete>
+<mat-autocomplete #dealershipCodes="matAutocomplete">
+  <mat-option *ngFor="let x of dealershipCodes" [value]="x">
+    {{ x }}
+  </mat-option>
+</mat-autocomplete>
+<mat-autocomplete #zones="matAutocomplete">
+  <mat-option *ngFor="let x of zones" [value]="x">
+    {{ x }}
+  </mat-option>
+</mat-autocomplete>
+<mat-autocomplete #regions="matAutocomplete">
+  <mat-option *ngFor="let x of regions" [value]="x">
+    {{ x }}
+  </mat-option>
+</mat-autocomplete>

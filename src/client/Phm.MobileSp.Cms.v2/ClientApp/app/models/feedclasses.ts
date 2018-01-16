@@ -43,10 +43,10 @@ export class BaseFeed extends BaseModel implements IFeedItem {
         this.mainIcon = options['mainIcon'];
         this.mainIconId = options['mainIconId'];
         this.marketId = options['marketId'];
-        this.allowFavourite = options['allowFavourite'] || true;
+        this.allowFavourite = options['allowFavourite'] === null ? true : options['allowFavourite'];
         this.corporateApp = options['corporateApp'];
         this.legalInformation = options['legalInformation'];
-        this.makeTitleWidgetLink = options['makeTitleWidgetLink'] || false;
+        this.makeTitleWidgetLink = options['makeTitleWidgetLink'] === null ? false : options['makeTitleWidgetLink'];
         this.permissions = options['permissions'] || 0;
         this.readingTime = options['readingTime'] || 0;
         this.startDate = options['startDate'];

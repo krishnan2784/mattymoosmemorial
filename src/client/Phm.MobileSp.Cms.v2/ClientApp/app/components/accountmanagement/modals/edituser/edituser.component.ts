@@ -21,10 +21,10 @@ export class EditUser {
     roles: {id: number, name:string}[];
     public form: FormGroup;
 
-    public regions : string[] = [ 'Region 1', 'Region 2' , 'Region 3'];
-    public zones: string[] =['Zone 1', 'Zone 2', 'Zone 3'];
-    public dealershipNames: string[] = ['Dealership 1', 'Dealership 2', 'Dealership 3'];
-    public dealershipCodes: string[] = ['0001', '0002', '0003'];
+    public regions: string[] = [];
+    public zones: string[]=[];
+    public dealershipNames:string[]=[];
+    public dealershipCodes: string[] = [];
     submitted: boolean = false;
     loading: boolean = false;
 
@@ -59,11 +59,23 @@ export class EditUser {
       this.marketDataService.getMarketUserFilters().subscribe((result) => {
         console.log(result);
 
-          if (result) {
-                this.dealershipNames = result.dealershipNames;
-                this.dealershipCodes = result.dealershipCodes;
-                this.zones = result.zones;
-                this.regions = result.regions;
+        if (result) {
+          this.dealershipNames = [];
+          result.dealershipNames.forEach(x => {
+            this.dealershipNames.push(x);
+          });
+          this.dealershipCodes = [];
+          result.dealershipCodes.forEach(x => {
+            this.dealershipCodes.push(x);
+          });
+          this.zones = [];
+          result.zones.forEach(x => {
+            this.zones.push(x);
+          });
+          this.regions = [];
+          result.regions.forEach(x => {
+            this.regions.push(x);
+          });
             }
         });
     }

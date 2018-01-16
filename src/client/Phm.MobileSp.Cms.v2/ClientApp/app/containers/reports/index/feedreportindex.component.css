@@ -1,4 +1,4 @@
-﻿.index-feed-item {
+.index-feed-item {
     padding: 0 10px 10px;
     background-color: #fff;
     margin-bottom: 10px;
@@ -40,17 +40,10 @@
     font-weight: 600;
 }
 
-.feed-item-dates {
-    
-}
-
 .feed-item-markets {
     height: 20px;
 }
 
-.feed-item-dates {
-
-}
 .date-posted {
     color: #0F3E12;
 }
@@ -82,9 +75,14 @@
 }
 
 .btn-inverted {
-    background-color: transparent;
-    color: #4f3a9f;
-    border: 1px #4f3a9f solid;
+  background-color: transparent;
+  color: #4f3a9f;
+  border: 1px #4f3a9f solid;
+}
+
+.btn-inverted:hover {
+  background-color: #4f3a9f;
+  color: #000;
 }
 
 .report-index-view-details {

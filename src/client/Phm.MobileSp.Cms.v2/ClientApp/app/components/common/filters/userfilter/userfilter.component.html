@@ -1,6 +1,6 @@
 <div class="filter-col">
     <div *ngIf="renderTextSearch" class="search-filter">
-        <input placeholder="Search" type="search" [(ngModel)]="criteria.searchString" (ngModelChange)="broadcastChanges()" id="search-input"/>
+        <input placeholder="Search" matInput type="search" [(ngModel)]="criteria.searchString" (ngModelChange)="broadcastChanges()" id="search-input"/>
         <div class="clearfix"></div>
     </div>
     <div class="filter-container">

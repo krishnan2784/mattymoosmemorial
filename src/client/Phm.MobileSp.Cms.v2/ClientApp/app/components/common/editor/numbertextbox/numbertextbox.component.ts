@@ -6,9 +6,10 @@ import { FormGroup } from "@angular/forms";
   template: `
     <div [formGroup]="form" *ngIf="form">
         <mat-form-field>
+          <mat-label>{{label}}</mat-label>
             <input matInput id="{{elementId}}" type="{{allowFractions ? 'text' : 'number'}}"
 				    formControlName="{{formControlId}}" (keydown)="handleInput($event)" (keyup)="checkPoint()" 
-                   placeholder="{{label}}">
+                   placeholder="{{placeholder}}">
             <small class="active-warning" [class.hidden]="form.controls[formControlId].valid || !formSubmitted">
                 {{validationMessage}}
             </small>
@@ -25,7 +26,7 @@ export class NumberTextInputComponent implements OnInit {
     @Input() formSubmitted: boolean = false;
 	@Input() allowFractions: boolean = false;
 	@Input() decimalPlaces :number = 2;
-  @Input() placeholder: string = ''; // currently being ignored as we use the label as a placeholder
+  @Input() placeholder: string = '';
     hasPoint: boolean = false;
     activeClass: string = '';
     ngOnInit() {
