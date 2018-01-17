@@ -51,7 +51,7 @@ export class RequestHelper {
         return Observable.create(observer => {
             this.http.post(url, body, { headers: headers }).subscribe(
                 (result) => {
-                    let response = ResponseHelper.getResponse(result);
+                  let response = ResponseHelper.getResponse(result);
                     this.alertService.displaySuccessFailAlert(response.message, response.success);
                     observer.next(response);
                     observer.complete();

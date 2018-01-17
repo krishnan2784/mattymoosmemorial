@@ -22,8 +22,8 @@
 						<div class="loader" *ngIf="filter.values.length === 0"></div>
 						<div *ngIf="filter.values.length > 0" class="animate-bottom">
 							<div *ngFor="let cbk of filter.values; let iii = index">
-								<input type="checkbox" id="cbk_{{i}}_{{ii}}_{{iii}}" [(ngModel)]="cbk.checked" (click)="broadcastChanges()"><label [attr.for]="'cbk_' + i + '_' + ii + '_' + iii">{{cbk.name}}</label>
-							</div>
+							  <mat-checkbox type="checkbox" id="cbk_{{i}}_{{ii}}_{{iii}}" [(ngModel)]="cbk.checked" (click)="broadcastChanges()">{{cbk.name}}</mat-checkbox>
+              </div>
 						</div>
 					</div>
 

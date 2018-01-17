@@ -63,7 +63,7 @@
                             </div>
                             <div class="col-md-2 user-index-controls">
                                 <div class="user-control">
-                                    <a *ngIf="userPermissions.canEdit" class="action-btn" data-toggle="modal" data-backdrop="static" data-target="#edit-user" (click)="editUser(user)" id="btn-edit-user-{{i}}">
+                                    <a *ngIf="userPermissions.canEdit" class="action-btn" (click)="editUser(user)" id="btn-edit-user-{{i}}">
                                         <i class="material-icons">edit</i>
                                         <p>Edit</p>
                                     </a>
@@ -82,15 +82,15 @@
 
         </div>
         <div class="col-md-4">
-            <div class="search-filter hidden">
-                <input *ngIf="config.filtering" matInput placeholder="Search..."
-                       class="form-control"
-                       (tableChanged)="onChangeTable(config)" />
-            </div>
-            <userfilter [renderTextSearch]="true" [renderRegionFilter]="true" [renderZoneFilter]="true" (criteriaChanged)="filterUpdate($event)" [refreshFilters]="refreshFilters"></userfilter>
+          <div class="search-filter hidden">
+            <input *ngIf="config.filtering" matInput placeholder="Search..."
+                   class="form-control"
+                   (tableChanged)="onChangeTable(config)" />
+          </div>
+          <genericfilter [filterSet]="userFilters" (criteriaChanged)="filterUpdate($event)"></genericfilter>
+          <!--<userfilter [renderTextSearch]="true" [renderRegionFilter]="true" [renderZoneFilter]="true" (criteriaChanged)="filterUpdate($event)" [refreshFilters]="refreshFilters"></userfilter>-->
         </div>
         <div class="clearfix"></div>
     </div>
 
 </div>
-<base-modal [modalData]="modalData" [modalId]="'edit-user'" [modalHeader]="modalData ? modalData.inputs.title : ''" [modalDescription]="''" (modalClosed)="updateUser($event)"></base-modal>

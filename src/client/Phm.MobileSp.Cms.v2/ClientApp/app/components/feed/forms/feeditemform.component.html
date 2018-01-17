@@ -265,7 +265,7 @@
                        [class.hidden]="model.feedType == feedTypes.Observation"></numbertextinput>
 
       <div class="input-field" [class.allow-favourite]="model.feedType != feedTypes.Observation">
-        <mat-slide-toggle formControlName="allowFavourite" type="checkbox" [checked]="model.allowFavourite" id="allowFavourite">Allow to be favourite</mat-slide-toggle>
+        <mat-slide-toggle formControlName="allowFavourite" type="checkbox" [checked]="model.allowFavourite !== false" color="primary" id="allowFavourite">Allow to be favourite</mat-slide-toggle>
       </div>
 
       <numbertextinput [form]="form"

@@ -225,7 +225,7 @@ export class LearnerStatComponent implements OnInit, AfterViewInit {
   private populatePie(arcSelection: D3.Selection<D3.pie.Arc<number>>): void {
     let innerRadius = this.radius - 50;
     let outerRadius = this.radius - 10;
-    let pieColor = D3.schemeCategory10();
+    let pieColor = D3.scaleOrdinal(D3.schemeCategory10);
     let arc = D3.arc<D3.pie.arc<number>>()
       .outerRadius(outerRadius);
     arcSelection.append("path")

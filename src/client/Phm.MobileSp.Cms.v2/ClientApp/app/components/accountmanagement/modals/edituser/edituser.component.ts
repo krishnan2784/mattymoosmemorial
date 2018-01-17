@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import {UserTemplate} from "../../../../models/userclasses";
 import {UserDataService} from "../../../../shared/services/userdataservice";
 import {MarketDataService} from "../../../../shared/services/marketdataservice";
@@ -8,7 +8,6 @@ import {validEmailAddress, validUserRole } from "../../../../classes/validators"
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import {AlertService} from "../../../../shared/services/helpers/alertservice";
 
-declare var $: any;
 @Component({
     selector: 'edituser',
     template: require('./edituser.component.html'),
@@ -18,25 +17,29 @@ export class EditUser {
 
     title: string;
     model: UserTemplate;
-    roles: {id: number, name:string}[];
-    public form: FormGroup;
+    roles: { id: number, name: string }[];
+    regions: Array<string>;
+    zones: Array<string>;
+    dealershipNames: Array<string>;
+    dealershipCodes: Array<string>;
 
-    public regions: string[] = [];
-    public zones: string[]=[];
-    public dealershipNames:string[]=[];
-    public dealershipCodes: string[] = [];
+    public form: FormGroup;
     submitted: boolean = false;
     loading: boolean = false;
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any,
       public dialogRef: MatDialogRef<EditUser>, private userDataService: UserDataService,
-      private fb: FormBuilder, public marketDataService: MarketDataService,
+      public fb: FormBuilder, public marketDataService: MarketDataService,
       public alertService: AlertService) {
+      console.log(data);
         this.model = data.model;
         this.roles = data.roles;
         this.title = data.title;
+        this.dealershipNames = data.dealershipNames as Array<string>;
+        this.dealershipCodes = data.dealershipCodes as Array<string>;
+        this.zones = data.zones as Array<string>;
+        this.regions = data.regions as Array<string>;
         this.initialiseForm();
-        this.getAutoCompleteData();
     } 
   
     initialiseForm() {
@@ -53,31 +56,6 @@ export class EditUser {
         });
         if (this.roles && this.roles.length > 0 && this.model && this.model.secGroup && this.model.secGroup.id > 0)
             this.model.secGroup = this.roles.find(x => x.id == this.model.secGroup.id);
-    }
-
-    getAutoCompleteData() {
-      this.marketDataService.getMarketUserFilters().subscribe((result) => {
-        console.log(result);
-
-        if (result) {
-          this.dealershipNames = [];
-          result.dealershipNames.forEach(x => {
-            this.dealershipNames.push(x);
-          });
-          this.dealershipCodes = [];
-          result.dealershipCodes.forEach(x => {
-            this.dealershipCodes.push(x);
-          });
-          this.zones = [];
-          result.zones.forEach(x => {
-            this.zones.push(x);
-          });
-          this.regions = [];
-          result.regions.forEach(x => {
-            this.regions.push(x);
-          });
-            }
-        });
     }
 
     saveUser(user: UserTemplate, isValid: boolean) {

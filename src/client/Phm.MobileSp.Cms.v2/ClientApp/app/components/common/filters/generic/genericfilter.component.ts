@@ -55,9 +55,9 @@ export class GenericFilterComponent implements AfterViewInit {
 			case FilterType.Checkbox:
 				var cr = filter as CheckboxFilter;
 				if (cr && cr.values) {
-					cr.values = cr.values.filter(x => x.checked);
-					if (cr.values.length > 0)
-						return cr;
+          var c = new CheckboxFilter(cr.filterName, cr.values.filter(x => x.checked));
+					if (c.values.length > 0)
+						return c;
 				}
 				break;
 			case FilterType.DateRange:
@@ -253,7 +253,13 @@ export class CheckboxFilter extends GenericFilter {
 	constructor(filterName: string, values: FilterCheckbox[]=[]) {
 		super(filterName, FilterType.Checkbox);
 		this.values = values;
-	}
+  }
+  setValues(values: Array<any>) {
+    this.values = [];
+    values.forEach(x => {
+      this.values.push(new FilterCheckbox(x));
+    });
+  }
 }
 
 export class FilterCheckbox {
@@ -308,13 +314,22 @@ export enum FilterType {
 } 
 
 export class DefaultFilterSets {
-	public static competitionFilters: GenericFilterSet = new GenericFilterSet('competitionFilterSet', [
-		new GenericFilterGroup(false, [
-			new StringFilter('search')
-		], ''),
-		new GenericFilterGroup(true, [
-			new DateRangeFilter('Date'),
-			new RangeFilter('Number of Participants', 0, 100)
-		])
-	]);
+  public static competitionFilters: GenericFilterSet = new GenericFilterSet('competitionFilterSet', [
+    new GenericFilterGroup(false, [
+      new StringFilter('search')
+    ], ''),
+    new GenericFilterGroup(true, [
+      new DateRangeFilter('Date'),
+      new RangeFilter('Number of Participants', 0, 100)
+    ])
+  ]);
+  public static userFilters: GenericFilterSet = new GenericFilterSet('userFilterSet', [
+    new GenericFilterGroup(false, [
+      new StringFilter('search')
+    ], ''),
+    new GenericFilterGroup(true, [
+      new CheckboxFilter('Zone'),
+      new CheckboxFilter('Region')
+    ])
+  ]);
 }

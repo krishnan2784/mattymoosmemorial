@@ -96,7 +96,6 @@ import {UserDataService} from "./shared/services/userdataservice";
 import {MediaDataService} from "./shared/services/mediaservice";
 import {PermissionService} from "./shared/services/helpers/permissionservice";
 import {AlertService} from "./shared/services/helpers/alertservice";
-import {FeedItemCopyToMarket} from "./components/feed/modals/copytomarket/copytomarket.component";
 import {FeedItemDelete} from "./components/feed/modals/deletefeeditem/deletefeeditem.component";
 import {FeedItemPublish} from "./components/feed/modals/publishfeeditem/publishfeeditem.component";
 import {UserDelete} from "./components/accountmanagement/modals/deleteuser/deleteuser.component";

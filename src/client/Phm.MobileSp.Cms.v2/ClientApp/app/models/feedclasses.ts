@@ -43,10 +43,11 @@ export class BaseFeed extends BaseModel implements IFeedItem {
         this.mainIcon = options['mainIcon'];
         this.mainIconId = options['mainIconId'];
         this.marketId = options['marketId'];
-        this.allowFavourite = options['allowFavourite'] === null ? true : options['allowFavourite'];
+        this.allowFavourite = options['allowFavourite'];
+        this.allowFavourite = this.allowFavourite !== false;
         this.corporateApp = options['corporateApp'];
         this.legalInformation = options['legalInformation'];
-        this.makeTitleWidgetLink = options['makeTitleWidgetLink'] === null ? false : options['makeTitleWidgetLink'];
+        this.makeTitleWidgetLink = options['makeTitleWidgetLink'] || false;
         this.permissions = options['permissions'] || 0;
         this.readingTime = options['readingTime'] || 0;
         this.startDate = options['startDate'];
@@ -55,8 +56,8 @@ export class BaseFeed extends BaseModel implements IFeedItem {
         this.webUrlLink = options['webUrlLink'] || '';
         this.callToActionText = options['callToActionText'] || '';
         this.callToActionUrl = options['callToActionUrl'] || '';
-		this.tagText = options['tagText'] || '';
-		this.competitionId = options['competitionId'] || null;
+		    this.tagText = options['tagText'] || '';
+		    this.competitionId = options['competitionId'] || null;
         this.formatFeedItemDates();
     }
 

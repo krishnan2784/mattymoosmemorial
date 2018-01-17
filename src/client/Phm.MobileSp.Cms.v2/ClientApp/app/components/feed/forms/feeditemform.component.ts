@@ -165,7 +165,7 @@ export class FeedItemForm implements IFeedItemForm {
         this.getIconModel();
       this.swapForm(this.getFeedType(this.model.feedType), this.model.feedCategory);
     } else {
-      this.model = new BaseFeed();
+      this.model = new BaseFeed({ allowFavourite : true});
       this.updateForm();
       this.setupFormSteps();
     }

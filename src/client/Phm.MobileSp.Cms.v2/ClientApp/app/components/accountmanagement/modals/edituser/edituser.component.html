@@ -67,23 +67,15 @@
 </mat-dialog-actions>
 </form>
 
-<mat-autocomplete #dealershipNames="matAutocomplete">
-  <mat-option *ngFor="let x of dealershipNames" [value]="x">
-    {{ x }}
-  </mat-option>
+<mat-autocomplete *ngIf="dealershipNames && dealershipNames.length>0" #dealershipNames="matAutocomplete">
+  <mat-option *ngFor="let r of dealershipNames" [value]="r">{{r}}</mat-option>
 </mat-autocomplete>
-<mat-autocomplete #dealershipCodes="matAutocomplete">
-  <mat-option *ngFor="let x of dealershipCodes" [value]="x">
-    {{ x }}
-  </mat-option>
+<mat-autocomplete *ngIf="dealershipCodes && dealershipCodes.length>0" #dealershipCodes="matAutocomplete">
+  <mat-option *ngFor="let r of dealershipCodes" [value]="r">{{r}}</mat-option>
 </mat-autocomplete>
-<mat-autocomplete #zones="matAutocomplete">
-  <mat-option *ngFor="let x of zones" [value]="x">
-    {{ x }}
-  </mat-option>
+<mat-autocomplete *ngIf="zones && zones.length>0" #zones="matAutocomplete">
+  <mat-option *ngFor="let r of zones" [value]="r">{{r}}</mat-option>
 </mat-autocomplete>
-<mat-autocomplete #regions="matAutocomplete">
-  <mat-option *ngFor="let x of regions" [value]="x">
-    {{ x }}
-  </mat-option>
+<mat-autocomplete *ngIf="regions && regions.length>0" #regions="matAutocomplete">
+  <mat-option *ngFor="let r of regions" [value]="r">{{r}}</mat-option>
 </mat-autocomplete>

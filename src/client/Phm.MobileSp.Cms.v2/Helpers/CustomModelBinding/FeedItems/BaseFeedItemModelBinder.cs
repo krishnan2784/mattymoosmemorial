@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +28,8 @@ namespace Phm.MobileSp.Cms.Helpers.CustomModelBinding.FeedItems
                 bodyStr = reader.ReadToEnd();
             }
 
+          try
+          {
             var feedItemModel = JsonConvert.DeserializeObject<BaseFeed>(bodyStr);
             var feedType = feedItemModel.FeedType.ToString();
 
@@ -37,9 +40,12 @@ namespace Phm.MobileSp.Cms.Helpers.CustomModelBinding.FeedItems
 
             bindingContext.Model = model;
             bindingContext.Result = ModelBindingResult.Success(model);
-
-            return Task.CompletedTask;
-          
+          }
+          catch (Exception e)
+          {
+            
+          }
+          return Task.CompletedTask;
         }
     }
 }

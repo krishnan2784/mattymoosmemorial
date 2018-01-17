@@ -10,6 +10,8 @@ import {StringEx} from "../../../classes/helpers/string";
 import {UserTemplate} from "../../../models/userclasses";
 import {EditUser} from "../../../components/accountmanagement/modals/edituser/edituser.component";
 import {UserDelete} from "../../../components/accountmanagement/modals/deleteuser/deleteuser.component";
+import {MarketDataService} from "../../../shared/services/marketdataservice";
+import {GenericFilterSet, DefaultFilterSets, CheckboxFilter, GenericFilter, StringFilter } from "../../../components/common/filters/generic/genericfilter.component";
 
 
 @Component({
@@ -24,6 +26,12 @@ export class UserAccountManagementComponent extends BaseComponent {
     private filteredUserAccounts: Array<any>;
     refreshFilters: boolean = false;
     roles: { id: number, name: string }[];
+    regions: Array<string>;
+    zones: Array<string>;
+    dealershipNames: Array<string>;
+    dealershipCodes: Array<string>;
+
+    userFilters: GenericFilterSet = DefaultFilterSets.userFilters;
 
     public rows: Array<any> = [];
     public columns: Array<any> = [
@@ -54,13 +62,16 @@ export class UserAccountManagementComponent extends BaseComponent {
     };
 
 	constructor(public sharedService: ShareService, public userDataService: UserDataService, public permissionService: PermissionService,
-   public confirmBox: MatDialog) {
+    public confirmBox: MatDialog, public marketDataService: MarketDataService) {
 		super(sharedService, 'Account Management', true, '', DefaultTabNavs.accountManagementTabs);
         this.setupSubscriptions();
-		this.getData();
-		this.userPermissions = permissionService.getCrudPermissions('/UserTemplate');
+        this.getData();
 
+        this.userPermissions = permissionService.getCrudPermissions('/UserTemplate');
     }
+
+  public ngOnInit(): void {
+  }
 
     getData() {
         this.userDataService.getUsers().subscribe((result) => {
@@ -82,11 +93,40 @@ export class UserAccountManagementComponent extends BaseComponent {
                 });
             }
         });
+      this.getFilterData();
     }
 
 
-    public ngOnInit(): void {
-    }
+  getFilterData() {
+    this.marketDataService.getMarketUserFilters().subscribe((result) => {
+      if (result) {
+        this.dealershipNames = new Array();
+        result.dealershipNames.forEach((x) => {
+          this.dealershipNames.push(x);
+        });
+        this.dealershipCodes = new Array();
+        result.dealershipCodes.forEach((x) => {
+          this.dealershipCodes.push(x);
+        });
+        this.zones = new Array();
+        result.zones.forEach((x) => {
+          this.zones.push(x);
+        });
+        this.regions = new Array();
+        result.regions.forEach((x) => {
+          this.regions.push(x);
+        });
+        this.updateFilters('Zone', result.zones);
+        this.updateFilters('Region', result.regions);
+      }
+    });
+  }
+
+  updateFilters(name:string, values:string[]) {
+    var cf =
+      this.userFilters.filterGroups[1].filters.filter(x => x.filterName === name)[0] as CheckboxFilter;
+    cf.setValues(values);
+  }
 
     setupSubscriptions() {
         this.sharedService.marketUpdated.subscribe((market) => {
@@ -130,11 +170,7 @@ export class UserAccountManagementComponent extends BaseComponent {
             return 0;
         });
     }
-
-    public changeFilter(data: any, config: any): any {
-        return StringEx.searchArray(this.config.filtering.filterString.toLowerCase(), data, ['firstName', 'lastName', 'email', 'regionName', 'zoneName', 'dealershipName', 'dealershipCode']);
-    }
-
+  
     public onChangeTable(config: any, page: any = { page: this.page, itemsPerPage: this.itemsPerPage }): any {
         if (config.filtering) {
             Object.assign(this.config.filtering, config.filtering);
@@ -144,8 +180,7 @@ export class UserAccountManagementComponent extends BaseComponent {
             Object.assign(this.config.sorting, config.sorting);
         }
 
-        let filteredData = this.changeFilter(this.filteredUserAccounts, this.config);
-        let sortedData = this.changeSort(filteredData, this.config);
+        let sortedData = this.changeSort(this.filteredUserAccounts, this.config);
 
         this.rows = page && config.paging ? this.changePage(page, sortedData) : sortedData;
         this.length = sortedData.length;
@@ -153,7 +188,15 @@ export class UserAccountManagementComponent extends BaseComponent {
 
     public editUser(user: UserTemplate = new UserTemplate()) {
         user = new UserTemplate(user);
-        let data = { model: user, title: user.id === 0 ? 'Create User' : 'Edit User', roles: this.roles };
+        let data = {
+          model: user,
+          title: user.id === 0 ? 'Create User' : 'Edit User',
+          roles: this.roles,
+          dealershipNames: this.dealershipNames,
+          dealershipCodes: this.dealershipCodes,
+          zones: this.zones,
+          regions: this.regions
+        };
 
         let dialogRef = this.confirmBox.open(EditUser, {
           width: '500px',
@@ -196,16 +239,27 @@ export class UserAccountManagementComponent extends BaseComponent {
         }
     }
 
-    filterUpdate(criteria: UserFilters) {
-        this.filterCriteria = criteria;
-        var data = Object.assign([], this.allUserAccounts);
-        if (this.filterCriteria.zoneFilters.length > 0)
-            data = data.filter(x => this.filterCriteria.zoneFilters.filter(y => y.text === x.zoneName).length > 0);
-        if (this.filterCriteria.regionFilters.length > 0)
-            data = data.filter(x => this.filterCriteria.regionFilters.filter(y => y.text === x.regionName).length > 0);
+    filterUpdate(filters: GenericFilter[]) {
+      var data = Object.assign([], this.allUserAccounts);
+      if (filters.length > 0) {
 
-        this.filteredUserAccounts = data;
-        this.config.filtering.filterString = criteria.searchString;
-        this.onChangeTable(this.config);
+        var sFilter = filters.filter(x => x.filterName === 'search')[0] as StringFilter;
+        if (sFilter) {
+          data = StringEx.searchArray(sFilter.value.toLowerCase(), data, ['firstName', 'lastName', 'email', 'regionName', 'zoneName', 'dealershipName', 'dealershipCode']);
+        }
+
+        var zFilter = filters.filter(x => x.filterName === 'Zone')[0] as CheckboxFilter;
+        if (zFilter) {
+          data = data.filter(x => zFilter.values.filter(y => y.name === x.zoneName).length > 0);
+        }
+
+        var rFilter = filters.filter(x => x.filterName === 'Region')[0] as CheckboxFilter;
+        if (rFilter) {
+          data = data.filter(x => rFilter.values.filter(y => y.name === x.regionName).length > 0);
+        }
+      }
+
+      this.filteredUserAccounts = data;
+      this.onChangeTable(this.config);
     }
 }

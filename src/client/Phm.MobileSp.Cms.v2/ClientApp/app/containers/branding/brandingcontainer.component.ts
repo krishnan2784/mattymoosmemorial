@@ -23,7 +23,7 @@ export class BrandingContainerComponent extends BaseComponent implements OnInit,
 	cs = this.changeSection.bind(this);
 	marketSub: Subscription;
 	constructor(public brandingService: BrandingService, public shareService: ShareService) {
-		super(shareService, '', true);
+		super(shareService, 'Customise my app', true);
 	}
 
 	ngOnInit() {
@@ -86,7 +86,7 @@ export class BrandingContainerComponent extends BaseComponent implements OnInit,
 							onClickParams: this.brandSectionNames[i]
 						}));
 				}
-				this.shareService.updateMainNavMenu(menu, "Customise my app");
+				this.shareService.updateMainNavMenu(menu);
 				this.updateAppTheme('light-theme');
 				this.changeSection(this.brandSectionNames[0]);
 			}
