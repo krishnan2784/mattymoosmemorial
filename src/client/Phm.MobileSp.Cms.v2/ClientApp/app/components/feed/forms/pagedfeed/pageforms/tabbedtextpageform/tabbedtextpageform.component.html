@@ -33,7 +33,7 @@
                     </div>
                     <div class="col-md-10 remove-tab-container">
                         <hr/>
-                        <a (click)="removeTab(i)" [class.disabled]="form.controls.tabs.controls.length <= 1" class="btn">Delete Tab</a>
+                        <button type="button" mat-button (click)="removeTab(i)" [disabled]="form.controls.tabs.controls.length <= 1" class="btn">Delete Tab</button>
                     </div>
                 </div>
             </div>

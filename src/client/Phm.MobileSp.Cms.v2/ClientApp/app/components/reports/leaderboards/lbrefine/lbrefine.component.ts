@@ -33,28 +33,30 @@ export class LbrefineComponent implements AfterViewInit {
       });
   }
   broadcastChanges(par?) {
-    if (par) {
-      this.rangeFrom = par.from;
-      this.rangeTo = par.to;
-    }
-    let s = {
-        selectedDate1 : this.date1,
-        selectedDate2 : this.date2,
-        selections : {},
-        range : {
-            from: this.rangeFrom,
-            to: this.rangeTo
+    setTimeout(() => {
+      if (par) {
+        this.rangeFrom = par.from;
+        this.rangeTo = par.to;
+      }
+      let s = {
+        selectedDate1: this.date1,
+        selectedDate2: this.date2,
+        selections: {},
+        range: {
+          from: this.rangeFrom,
+          to: this.rangeTo
         }
-    }
-    this.groups.forEach((item1) => {
-      s.selections[item1.groupId] = [];
-      item1.items.forEach((item2, index1) => {
-        if ( item2.selected) {
-          s.selections[item1.groupId].push(item2.id)
-        }
+      }
+      this.groups.forEach((item1) => {
+        s.selections[item1.groupId] = [];
+        item1.items.forEach((item2, index1) => {
+          if (item2.selected) {
+            s.selections[item1.groupId].push(item2.id)
+          }
+        });
       });
-    });
-    this.criteriaChanged.emit(s);
+      this.criteriaChanged.emit(s);
+    }, 50);
   }
 
   clearGroup(g) {

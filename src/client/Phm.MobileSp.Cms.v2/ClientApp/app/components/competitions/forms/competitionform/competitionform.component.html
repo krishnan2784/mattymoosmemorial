@@ -37,8 +37,7 @@
 			
 			
 			<div class="checkbox-container">
-				<input type="checkbox" class="filled-in" id="makeImageLink" formControlName="makeImageLink" />
-				<label for="makeImageLink">Make Image Link</label>
+        <mat-checkbox type="checkbox" color="primary" class="filled-in" id="makeImageLink" formControlName="makeImageLink">Make Image Link</mat-checkbox>
 			</div>
 			
 			<calltoaction
@@ -106,10 +105,9 @@
 			        [maxWidth]="1280" [maxHeight]="640" [enforceExactDimensions]="true"
 			        [uploadUrl]="'/Media/UploadItemIcon'"></upload>
 
-			<div class="checkbox-container">
-				<input type="checkbox" class="filled-in" id="makeActiveImageLink" formControlName="makeActiveImageLink" />
-				<label for="makeActiveImageLink">Make Image Link</label>
-			</div>
+      <div class="checkbox-container">
+        <mat-checkbox type="checkbox" color="primary" class="filled-in" id="makeActiveImageLink" formControlName="makeActiveImageLink">Make Image Link</mat-checkbox>
+      </div>
 		</div>
 		<div class="col-md-6">
 			<upload (mediaUploading)="loading=$event" 
@@ -124,10 +122,9 @@
 			        [maxWidth]="1280" [maxHeight]="640" [enforceExactDimensions]="true"
 			        [uploadUrl]="'/Media/UploadItemIcon'"></upload>
 
-			<div class="checkbox-container">
-				<input type="checkbox" class="filled-in" id="makeCompletedImageLink" formControlName="makeCompletedImageLink" />
-				<label for="makeCompletedImageLink">Make Image Link</label>
-			</div>
+      <div class="checkbox-container">
+        <mat-checkbox type="checkbox" color="primary" class="filled-in" id="makeCompletedImageLink" formControlName="makeCompletedImageLink">Make Image Link</mat-checkbox>
+      </div>
 		</div>
 		<div class="clearfix"></div>
 	</div>

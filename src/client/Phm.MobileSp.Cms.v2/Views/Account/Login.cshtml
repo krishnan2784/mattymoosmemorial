@@ -1,4 +1,4 @@
-﻿@using Phm.MobileSp.Cms.Core.Models
+@using Phm.MobileSp.Cms.Core.Models
 @model  Phm.MobileSp.Cms.Core.Models.LoginDetails
 
 @{ Layout = "_LayoutLogin"; }
@@ -33,8 +33,8 @@
                         <div class="clearfix"></div>
                         <div class="form-group">
                             <div class="col-md-offset-4 col-md-7">
-                                @Html.CheckBoxFor(m => m.RememberMe, Model.RememberMe)
-                                <label for="RememberMe">Remember Password</label>
+                              <input type="checkbox" name="RememberMe" class="filled-in" id="RememberMe" @{if (Model.RememberMe) { <text>checked="checked"</text> } } />
+                              <label for="RememberMe">Remember Password</label>
                             </div>
                         </div>
 

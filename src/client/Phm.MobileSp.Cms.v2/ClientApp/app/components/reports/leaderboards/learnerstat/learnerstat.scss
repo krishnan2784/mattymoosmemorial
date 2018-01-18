@@ -1,13 +1,15 @@
 .learnerStatContents {
   min-width: 950px;
   position: relative;
+
   .dbHeader {
     font-weight: bold;
     height: 20px;
     margin-bottom: 10px;
     margin-top: 10px;
-    .dateRange{
-      margin-top : -20px;
+
+    .dateRange {
+      margin-top: -20px;
       font-weight: normal;
       //height: 20px;
       .rangeTxt {
@@ -15,13 +17,15 @@
         width: 60px;
         text-align: center;
       }
-      input, datepicker{
+
+      input, phmdatepicker {
         width: 150px;
         float: left;
         margin-top: -12px;
       }
     }
   }
+
   .detailBar {
     height: 5px;
     background-color: #21b7a2;
@@ -30,6 +34,7 @@
     top: 0px;
     left: 0px;
   }
+
   .chart {
     background-color: white;
     width: 100%;
@@ -37,10 +42,12 @@
     position: relative;
     overflow: hidden;
   }
+
   .headerFull {
     background-color: white;
     height: 70px;
     padding: 10px;
+
     button {
       background-color: #06a2d1;
       color: white;
@@ -50,21 +57,26 @@
       border-radius: 2px;
       margin-top: -16px;
     }
+
     .icon {
       float: left;
       margin-right: 10px;
+
       i {
         font-size: 30px;
       }
     }
+
     .user {
       margin-top: 10px;
       float: left;
     }
   }
+
   .dashboard {
     margin-top: 20px;
   }
+
   .chartActivity {
     .graphWrapper {
       height: 225px;
@@ -72,6 +84,7 @@
       padding: 10px;
       position: relative;
       margin-top: 30px;
+
       .axisY {
         height: 225px;
         width: 60px;
@@ -85,6 +98,7 @@
           width: 90%;
           position: absolute;
         }
+
         .activityLabel {
           -ms-transform: rotate(-90deg);
           -webkit-transform: rotate(-90deg);
@@ -93,21 +107,24 @@
           top: 115px;
         }
       }
+
       .bars {
         height: 225px;
         width: calc(100% - 80px);
         //background-color: yellow;
         position: absolute;
-        right:10px;
+        right: 10px;
         top: 30px;
         border-left: 1px solid lightgray;
         border-bottom: 1px solid lightgray;
+
         .dataBar {
           position: absolute;
           float: left;
           bottom: 0px;
           //border: 1px solid red;
         }
+
         .lines {
           width: 100%;
           background-color: lightgray;
@@ -116,13 +133,15 @@
           height: 1px;
         }
       }
-      .dates{
+
+      .dates {
         height: 50px;
         width: calc(100% - 57px);
         position: absolute;
         top: 256px;
         left: 65px;
-        .dateRow{
+
+        .dateRow {
           float: left;
           //border: 1px solid green;
           width: 100%;
@@ -131,6 +150,7 @@
           font-size: 11px;
           position: relative;
         }
+
         .dateDiv {
           -ms-transform: rotate(-30deg);
           -webkit-transform: rotate(-30deg);
@@ -138,16 +158,19 @@
           width: 60px;
           text-align: center;
         }
+
         .dateDivFirst {
           position: absolute;
           left: -45px;
           top: 17px;
         }
+
         .dateDivLast {
           position: absolute;
           right: 18px;
           top: 17px;
         }
+
         .datalabel {
           position: absolute;
           left: calc(50% - 60px);
@@ -156,24 +179,28 @@
         }
       }
     }
+
     .legends {
       margin-top: 86px;
       padding: 10px;
       height: 44px;
       margin-left: 82px;
+
       .legRow {
         width: 20%;
         float: left;
+
         .legColor {
           width: 15px;
           height: 5px;
-          float:left;
+          float: left;
           margin-right: 10px;
           margin-top: 8px;
         }
       }
     }
   }
+
   .points {
     .chart {
       .chartPlacer {
@@ -186,17 +213,20 @@
         font-size: 5px;
       }
     }
+
     .leg2 {
       width: 400px;
       min-height: 60px;
       position: relative;
       margin-top: -150px;
       margin-left: calc(100% - 480px);
+
       .legRow2 {
         width: 50%;
         float: left;
         padding: 10px;
       }
+
       .legColorRound {
         width: 20px;
         height: 20px;

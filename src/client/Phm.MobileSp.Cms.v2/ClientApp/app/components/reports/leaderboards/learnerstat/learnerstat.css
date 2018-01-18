@@ -13,7 +13,7 @@
         float: left;
         width: 60px;
         text-align: center; }
-      .learnerStatContents .dbHeader .dateRange input, .learnerStatContents .dbHeader .dateRange datepicker {
+      .learnerStatContents .dbHeader .dateRange input, .learnerStatContents .dbHeader .dateRange phmdatepicker {
         width: 150px;
         float: left;
         margin-top: -12px; }

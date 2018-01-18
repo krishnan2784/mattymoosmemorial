@@ -78,9 +78,11 @@
                 <div class="clearfix"></div>
             </div>
             <div>
-                <div class="col-md-3 right search-filter">
-                    <input placeholder="Search" type="search" [(ngModel)]="searchString" (ngModelChange)="filterResultList()" id="search-input"/>
-                </div>
+              <div class="col-md-3 right search-filter">
+                <mat-form-field>
+                  <input matInput placeholder="Search" type="search" [(ngModel)]="searchString" (ngModelChange)="filterResultList()" id="search-input"/>
+                </mat-form-field>
+              </div>
                 <div class="clearfix"></div>
             </div>
             <div>

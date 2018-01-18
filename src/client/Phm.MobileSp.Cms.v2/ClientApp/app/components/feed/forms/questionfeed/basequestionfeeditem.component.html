@@ -16,7 +16,7 @@
                               (removeAnswer)="removeAnswer($event)" (addAnswer)="addAnswer()"></question>
                     <div *ngIf="model.id === 0" class="col-md-10 remove-question-container">
                         <hr />
-                        <a (click)="removeQuestion(i)" [class.disabled]="form.controls.questions.controls.length <= 1" class="btn">Delete Question</a>                           
+                        <button type="button" mat-button (click)="removeQuestion(i)" [disabled]="form.controls.questions.controls.length <= 1" class="btn">Delete Question</button>                           
                     </div>
                 </div>
             </div>
@@ -31,8 +31,7 @@
                     [elementId]="'onBoardingMessage'"
                     [formControlId]="'onBoardingMessage'"
                     [label]="'Welcome Message'"
-                    [validationMessage]="'e.g: Welcome to the Quiz.'"
-                    [disabled]="true"></enhancedtextarea>
+                    [validationMessage]="'e.g: Welcome to the Quiz.'"></enhancedtextarea>
             <small>This entry is not required for this feed item.</small>
         </div>
 
@@ -60,8 +59,7 @@
                     [elementId]="'surveyDescription'"
                     [formControlId]="'surveyDescription'"
                     [label]="'Welcome message'"
-                    [validationMessage]="'e.g: Welcome to the Survey.'"
-                    [disabled]="true"></enhancedtextarea>
+                    [validationMessage]="'e.g: Welcome to the Survey.'"></enhancedtextarea>
         </div>
 
         <div class="rich-text-box">
@@ -69,8 +67,7 @@
                     [elementId]="'completionMessage'"
                     [formControlId]="'completionMessage'"
                     [label]="'Completion message'"
-                    [validationMessage]="'e.g: Thank you for taking part!'"
-                    [disabled]="true"></enhancedtextarea>
+                    [validationMessage]="'e.g: Thank you for taking part!'"></enhancedtextarea>
         </div>
         <small>These entries are not required for this feed item.</small>
     </div>

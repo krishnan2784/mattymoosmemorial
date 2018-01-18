@@ -22,12 +22,18 @@
         <div class="answer-container">
             <div class="answer-header">Question type</div>
           <p class="answer-body">
-            <span class="question-type-sector">
-              <mat-radio-button [attr.disabled]="form.controls.id.value > 0 ? 'disabled' : null" type="radio" class="with-gap black" id="answer-type-1" name="questionType" formControlName="questionType" [value]="questionType.Single" [checked]="form.controls['questionType'].value === questionType.Single" (click)="clearFormCheckboxes()" >Single choice</mat-radio-button>
-            </span>
-            <span class="question-type-sector">
-              <mat-radio-button [attr.disabled]="form.controls.id.value > 0 ? 'disabled' : null" type="radio" class="with-gap" id="answer-type-2" name="questionType" formControlName="questionType" [value]="questionType.Multiple" [checked]="form.controls['questionType'].value === questionType.Multiple" (click)="clearFormCheckboxes()">Multiple choice</mat-radio-button>
-            </span>
+            <mat-radio-group formControlName="questionType">
+              <span class="question-type-sector">
+                <mat-radio-button [attr.disabled]="form.controls.id.value > 0 ? 'disabled' : null" type="radio" id="answer-type-1" color="primary"
+                                   value="questionType.Single" [checked]="form.controls['questionType'].value === questionType.Single"
+                                  (click)="clearFormCheckboxes()">Single choice</mat-radio-button>
+              </span>
+              <span class="question-type-sector">
+                <mat-radio-button [attr.disabled]="form.controls.id.value > 0 ? 'disabled' : null" type="radio" id="answer-type-2" color="primary"
+                                  value="questionType.Multiple" [checked]="form.controls['questionType'].value === questionType.Multiple"
+                                  (click)="clearFormCheckboxes()">Multiple choice</mat-radio-button>
+              </span>
+            </mat-radio-group>
           </p>
         </div>
 
@@ -48,11 +54,11 @@
                     <input type="hidden" formControlName="published">
 
                     <div class="checkbox-container col-md-3" *ngIf="feedType===feedTypeEnum.Quiz">
-                      <mat-checkbox [attr.disabled]="form.controls.id.value > 0 ? 'disabled' : null"
+                      <mat-checkbox [attr.disabled]="form.controls.id.value > 0 ? 'disabled' : null" color="primary"
                                    type="checkbox" id="questions-{{index}}-answer-{{i}}-isCorrect" formControlName="isCorrect" (click)="clearFormCheckboxes(i, $event)">Correct</mat-checkbox>
                     </div>
                     <div class="checkbox-container col-md-3" *ngIf="feedType===feedTypeEnum.Survey || feedType===feedTypeEnum.Observation">
-                      <mat-checkbox type="checkbox" id="questions-{{index}}-answer-{{i}}-isFreeText" formControlName="isFreeText" (click)="clearFormCheckboxes(i, $event)">Free text</mat-checkbox>
+                      <mat-checkbox type="checkbox" id="questions-{{index}}-answer-{{i}}-isFreeText" color="primary" formControlName="isFreeText" (click)="clearFormCheckboxes(i, $event)">Free text</mat-checkbox>
                     </div>
 
                   <div class="answer-answer-container input-field col-md-9">
@@ -63,12 +69,12 @@
                                    [validationMessage]="'An answer is required.'"></textinput>
                     </div>
 
-                    <a *ngIf="form.controls.id.value === 0" (click)="this.removeAnswer.emit(i)" [class.disabled]="form.controls.answers.controls.length < 3" class="btn">Delete Answer</a>
+                    <button type="button" mat-button *ngIf="form.controls.id.value === 0" (click)="this.removeAnswer.emit(i)" [disabled]="form.controls.answers.controls.length < 3">Delete Answer</button>
                     <div class="clearfix"></div>
                 </div>
             </div>
         </div>
-        <a *ngIf="form.controls.id.value === 0" (click)="this.addAnswer.emit()" [class.disabled]="form.controls.answers.controls.length > 7" class="btn btn-add-answer">Add Answer</a> 
+        <button type="button" mat-button *ngIf="form.controls.id.value === 0" (click)="this.addAnswer.emit()" [disabled]="form.controls.answers.controls.length > 7">Add Answer</button> 
     </div>
     <div class="clearfix"></div>
 </div>

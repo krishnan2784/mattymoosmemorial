@@ -23,33 +23,29 @@
 						<input type="hidden" formControlName="createdAt">
                         <input type="hidden" formControlName="updatedAt">
                         <input type="hidden" formControlName="pageNumber">
-                        <input type="hidden" formControlName="basePageFeedType">
                         <input type="hidden" formControlName="pagedFeedId">
                         <input type="hidden" formControlName="title">
                         <div class="page-type-container">
                             <div class="page-type-header">Page type</div>
-                            <p class="page-type-body">
-                                <span class="page-type-selector">
-                                    <input type="radio" class="with-gap" id="page-type-1" name="basePageFeedType-{{i}}" [value]="pageTypeEnum.Text" [checked]="currPage().controls['basePageFeedType'].value === pageTypeEnum.Text" (click)="changePageType(pageTypeEnum.Text)" />
-                                    <label for="page-type-1">Text</label>
-                                </span>
-                                <span class="page-type-selector">
-                                    <input type="radio" class="with-gap" id="page-type-2" name="basePageFeedType-{{i}}" [value]="pageTypeEnum.Media" [checked]="currPage().controls['basePageFeedType'].value == pageTypeEnum.Media" (click)="changePageType(pageTypeEnum.Media)" />
-                                    <label for="page-type-2">Media</label>
-                                </span>
-                                <span class="page-type-selector">
-                                    <input type="radio" class="with-gap" id="page-type-3" name="basePageFeedType-{{i}}" [value]="pageTypeEnum.MediaText" [checked]="currPage().controls['basePageFeedType'].value == pageTypeEnum.MediaText" (click)="changePageType(pageTypeEnum.MediaText)" />
-                                    <label for="page-type-3">Media & Text</label>
-                                </span>
-                                <span class="page-type-selector">
-                                    <input type="radio" class="with-gap" id="page-type-4" name="basePageFeedType-{{i}}" [value]="pageTypeEnum.TabbedText" [checked]="currPage().controls['basePageFeedType'].value == pageTypeEnum.TabbedText" (click)="changePageType(pageTypeEnum.TabbedText)" />
-                                    <label for="page-type-4">Tabbed Text</label>
-                                </span>
-                                <span class="page-type-selector">
-                                    <input type="radio" class="with-gap" id="page-type-5" name="basePageFeedType-{{i}}" [value]="pageTypeEnum.MediaTabbedText" [checked]="currPage().controls['basePageFeedType'].value == pageTypeEnum.MediaTabbedText" (click)="changePageType(pageTypeEnum.MediaTabbedText)" />
-                                    <label for="page-type-5">Tabbed Text & Media</label>
-                                </span>
-                            </p>
+                          <p class="page-type-body">
+                            <mat-radio-group formControlName="basePageFeedType">
+                              <span class="page-type-selector">
+                                <mat-radio-button color="primary" id="page-type-1" name="basePageFeedType-{{i}}" [value]="pageTypeEnum.Text" [checked]="currPage().controls['basePageFeedType'].value === pageTypeEnum.Text" (click)="changePageType(pageTypeEnum.Text)">Text</mat-radio-button>
+                              </span>
+                              <span class="page-type-selector">
+                                <mat-radio-button color="primary" id="page-type-2" name="basePageFeedType-{{i}}" [value]="pageTypeEnum.Media" [checked]="currPage().controls['basePageFeedType'].value == pageTypeEnum.Media" (click)="changePageType(pageTypeEnum.Media)">Media</mat-radio-button>
+                              </span>
+                              <span class="page-type-selector">
+                                <mat-radio-button color="primary" id="page-type-3" name="basePageFeedType-{{i}}" [value]="pageTypeEnum.MediaText" [checked]="currPage().controls['basePageFeedType'].value == pageTypeEnum.MediaText" (click)="changePageType(pageTypeEnum.MediaText)">Media & Text</mat-radio-button>
+                              </span>
+                              <span class="page-type-selector">
+                                <mat-radio-button color="primary" id="page-type-4" name="basePageFeedType-{{i}}" [value]="pageTypeEnum.TabbedText" [checked]="currPage().controls['basePageFeedType'].value == pageTypeEnum.TabbedText" (click)="changePageType(pageTypeEnum.TabbedText)">Tabbed Text</mat-radio-button>
+                              </span>
+                              <span class="page-type-selector">
+                                <mat-radio-button color="primary" id="page-type-5" name="basePageFeedType-{{i}}" [value]="pageTypeEnum.MediaTabbedText" [checked]="currPage().controls['basePageFeedType'].value == pageTypeEnum.MediaTabbedText" (click)="changePageType(pageTypeEnum.MediaTabbedText)">Tabbed Text & Media</mat-radio-button>
+                              </span>
+                            </mat-radio-group>
+                          </p>
                         </div>
                         <div class="col-md-10 col-lg-offset-1">
                             <bodytext-page-form *ngIf="pageHasProperty(form.controls.baseFeedPages.controls[i].controls.basePageFeedType.value, 'bodyText');"
@@ -70,7 +66,7 @@
 
                     <div class="col-md-10 remove-page-container">
                         <hr />
-                        <a (click)="removePage(i)" [class.disabled]="form.controls.baseFeedPages.controls.length <= 1" class="btn">Delete Page</a>
+                        <button type="button" mat-button (click)="removePage(i)" [disabled]="form.controls.baseFeedPages.controls.length <= 1" class="btn">Delete Page</button>
                     </div>
                 </div>
                 <div class="clearfix"></div>

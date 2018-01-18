@@ -13,8 +13,8 @@
       <div class="right pointer" (click)="clearGroup(a);broadcastChanges();" id="btn-reset-{{a}}">Clear</div>
     </div>
     <div class="groups" [style.height]="g.height ? g.height : 'inherit'">
-        <div *ngFor="let i of g.items; let b = index" class="item" (click)="i.selected = ! i.selected; broadcastChanges()">
-          <mat-checkbox [(ngModel)]="i.selected" id="filter-input-{{a}}-{{b}}">
+        <div *ngFor="let i of g.items; let b = index" class="item">
+          <mat-checkbox [(ngModel)]="i.selected" id="filter-input-{{a}}-{{b}}" (click)="broadcastChanges()">
             {{i.name}}
           </mat-checkbox>
         </div>

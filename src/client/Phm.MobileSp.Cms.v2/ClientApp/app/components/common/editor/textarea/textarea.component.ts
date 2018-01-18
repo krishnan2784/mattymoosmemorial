@@ -10,7 +10,7 @@ declare var $: any;
           <mat-label>{{label}}</mat-label>
               <textarea matInput matTextareaAutosize *ngIf="formControlId" id="{{elementId}}" formControlName="{{formControlId}}" placeholder="{{placeholder}}"
               [attr.maxLength]="maxLength > 0 ? maxLength : null"
-              [attr.data-length]="maxLength > 0 ? maxLength : null" [attr.disabled]="disabled ? disabled : null"></textarea>
+              [attr.data-length]="maxLength > 0 ? maxLength : null" [disabled]="disabled ? disabled : null"></textarea>
 
               <mat-hint align="end" *ngIf="maxLength>0">{{form.controls[formControlId].value.length}} / {{maxLength}}</mat-hint>
               <small class="active-warning" [class.hidden]="form.controls[formControlId].valid || !formSubmitted">

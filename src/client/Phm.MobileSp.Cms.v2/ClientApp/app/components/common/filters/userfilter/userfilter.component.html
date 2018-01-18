@@ -13,8 +13,8 @@
             </p>
             <div class="loader" *ngIf="!this.criteria.allUserGroupFilters"></div>
             <div *ngIf="this.criteria.allUserGroupFilters" class="animate-bottom">
-                <div *ngFor="let userGroup of this.criteria.allUserGroupFilters">
-                    <input type="checkbox" id="usergroup_{{userGroup.id}}" [(ngModel)]="userGroup.checked" (click)="broadcastChanges()"><label [attr.for]="'usergroup_'+userGroup.id">{{userGroup.text}}</label>
+              <div *ngFor="let userGroup of this.criteria.allUserGroupFilters">
+                <mat-checkbox id="usergroup_{{userGroup.id}}" [(ngModel)]="userGroup.checked"  (click)="broadcastChanges()">{{userGroup.text}}</mat-checkbox>
                 </div>
             </div>
         </div>
@@ -24,9 +24,9 @@
             <div class="filter-block">
                 <div class="loader" *ngIf="!this.criteria.allDealershipFilters"></div>
                 <div *ngIf="this.criteria.allDealershipFilters" class="animate-bottom">
-                    <div *ngFor="let dealer of this.criteria.allDealershipFilters">
-                        <input type="checkbox" id="dealer_{{dealer.id}}" [(ngModel)]="dealer.checked" (click)="broadcastChanges()"><label [attr.for]="'dealer_'+dealer.id">{{dealer.text}}</label>
-                    </div>
+                  <div *ngFor="let dealer of this.criteria.allDealershipFilters">
+                    <mat-checkbox id="dealer_{{dealer.id}}" [(ngModel)]="dealer.checked" (click)="broadcastChanges()">{{dealer.text}}</mat-checkbox>
+                  </div>
                 </div>
             </div>
         </div>
@@ -36,9 +36,9 @@
             <div class="filter-block">
                 <div class="loader" *ngIf="!this.criteria.allZoneFilters"></div>
                 <div *ngIf="this.criteria.allZoneFilters" class="animate-bottom">
-                    <div *ngFor="let zone of this.criteria.allZoneFilters">
-                        <input type="checkbox" id="zone_{{zone.id}}" [(ngModel)]="zone.checked" (click)="broadcastChanges()"><label [attr.for]="'zone_'+zone.id">{{zone.text}}</label>
-                    </div>
+                  <div *ngFor="let zone of this.criteria.allZoneFilters">
+                    <mat-checkbox id="zone_{{zone.id}}" [(ngModel)]="zone.checked" (click)="broadcastChanges()">{{zone.text}}</mat-checkbox>
+                  </div>
                 </div>
             </div>
         </div>
@@ -48,9 +48,9 @@
             <div class="filter-block">
                 <div class="loader" *ngIf="!this.criteria.allRegionFilters"></div>
                 <div *ngIf="this.criteria.allRegionFilters" class="animate-bottom">
-                    <div *ngFor="let region of this.criteria.allRegionFilters">
-                        <input type="checkbox" id="region_{{region.id}}" [(ngModel)]="region.checked" (click)="broadcastChanges()"><label [attr.for]="'region_'+region.id">{{region.text}}</label>
-                    </div>
+                  <div *ngFor="let region of this.criteria.allRegionFilters">
+                    <mat-checkbox id="region_{{region.id}}" [(ngModel)]="region.checked" (click)="broadcastChanges()">{{region.text}}</mat-checkbox>
+                  </div>
                 </div>
 
             </div>

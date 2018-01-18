@@ -24,7 +24,7 @@ export class QuizFeedItemFormComponent extends BaseQuestionFeedItemFormComponent
         var formArray = new FormArray([], Validators.minLength(1));
         this.model.questions.forEach(x=> formArray.push(this.initQuestion(x)));
         this.form.addControl('questions', formArray);
-        this.form.addControl('onBoardingMessage', new FormControl(this.model.onBoardingMessage, []));
+        this.form.addControl('onBoardingMessage', new FormControl({ value: this.model.onBoardingMessage, disabled: true}, []));
         this.form.addControl('successMessage', new FormControl(this.model.successMessage, [Validators.required]));
         this.form.addControl('failMessage', new FormControl(this.model.failMessage, [Validators.required]));  
         this.form.controls['mainIconId'].setValidators(null);
