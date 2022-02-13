@@ -22,7 +22,7 @@ Matt had been suffering from an illness that ultimately took him from us. Howeve
 
 ![Team Drinks](/images/teamdrinks.jpg?)
 
-![Matt after the red wine](/images/mattafterdrinks.jpg)
+![Matt after the red wine](/images/MattAfterDrinks.jpg)
 
 
 
