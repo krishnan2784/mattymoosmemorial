@@ -18,11 +18,11 @@ Matt had been suffering from an illness that ultimately took him from us. Howeve
 
 ![More Red Wine](/images/moreredwine.jpg?)
 
-![Shock Horror a G&T](/images/moreredwine.jpg?)
+![Shock Horror a G&T](/images/gnt.jpg?)
 
 ![Team Drinks](/images/teamdrinks.jpg?)
 
-![Matt after the red wine](/images/MattAfterDrinks.jpg)
+![Matt after the red wine](/images/mattafterdrinks.jpg)
 
 
 
