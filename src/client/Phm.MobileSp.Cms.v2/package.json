@@ -89,7 +89,7 @@
     "@types/node": "~6.0.60",
     "chai": "^3.5.0",
     "codelyzer": "^4.0.1",
-    "gulp": "^3.0.0",
+    "gulp": "^3.9.1",
     "gulp-changed": "^2.0.0",
     "gulp-clean": "^0.3.0",
     "gulp-less": "^3.4.0",
